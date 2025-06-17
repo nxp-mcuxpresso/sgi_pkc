@@ -1,0 +1,297 @@
+/*--------------------------------------------------------------------------*/
+/* Copyright 2025 NXP                                                       */
+/*                                                                          */
+/* NXP Proprietary. This software is owned or controlled by NXP and may     */
+/* only be used strictly in accordance with the applicable license terms.   */
+/* By expressly accepting such terms or by downloading, installing,         */
+/* activating and/or otherwise using the software, you are agreeing that    */
+/* you have read, and that you agree to comply with and are bound by, such  */
+/* license terms. If you do not agree to be bound by the applicable license */
+/* terms, then you may not retain, install, activate or otherwise use the   */
+/* software.                                                                */
+/*--------------------------------------------------------------------------*/
+
+#ifndef MCUXCLHASHMODES_MODECONSTANTS_H
+#define MCUXCLHASHMODES_MODECONSTANTS_H
+
+/**
+ * This file contains the macros which are needed to define a new HashModes descriptor
+ * of the type mcuxClHash_AlgorithmDescriptor_t. To add a new one, please follow these steps:
+ *
+ *  1. Copy the prepared dummy code in the comment below and replace XXX by a
+ *     meaningful and unique string for the descriptor. Also use the correct feature flag for the mode.
+ *
+ *  2. Define the macros with the correct content. For the memory functions, see mcuxClHashModes_MemoryComputation.h.
+ *
+ *  3. Use #MCUXCLHASHMODES_MAKE_ALGORITHM_DESCRIPTOR( MCUXCLHASHMODES_DESCRIPTOR_XXX, ALGORITHM_DETAILS )
+ *     in a source file to define the mode descriptor.
+ *
+ *  4. Now you can get the memory demand of the modes with the macros in mcuxClHashModes_ModesMemoryMacros.h.
+ *
+ *  @note Please use #MCUXCLHASHMODES_SKELETON_NULL_POINTER to add null pointers as skeletons.
+ *        Note that you don't have to define the tokens of the skeleton functions, they are computed automatically.
+ */
+
+/*
+
+#ifdef MCUXCL_FEATURE_HASH_XY
+
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_NAME
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_FINISH
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_LENGTHMASK
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_BLOCKSIZE
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_HASHSIZE
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_STATESIZE
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_COUNTERSIZE
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_OID
+
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_MEMORY_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_MEMORY_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_MEMORY_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_ACTIVE             1
+
+#else
+#define MCUXCLHASHMODES_DESCRIPTOR_XXX_ACTIVE             0
+#endif
+*/
+
+/*
+ * C_SHA1 Descriptor
+ */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA1_ACTIVE             0
+
+/*
+ * SHA-2 SGI Normal Mode Descriptors
+ */
+
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha224
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2     /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha224.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_PROCESS               mcuxClHashModes_Sgi_process_Sha2     /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha224.processSkeleton = mcuxClHashModes_Sgi_process_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_FINISH                mcuxClHashModes_Sgi_finish_Sha2      /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha224.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_OID                   mcuxClHash_oidSha2_224
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224_ACTIVE                1
+
+
+
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha256
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha256.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_PROCESS               mcuxClHashModes_Sgi_process_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha256.processSkeleton = mcuxClHashModes_Sgi_process_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_FINISH                mcuxClHashModes_Sgi_finish_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha256.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_OID                   mcuxClHash_oidSha2_256
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256_ACTIVE             1
+
+
+
+
+
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha384
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha384.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_PROCESS               mcuxClHashModes_Sgi_process_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha384.processSkeleton = mcuxClHashModes_Sgi_process_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_FINISH                mcuxClHashModes_Sgi_finish_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha384.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_OID                   mcuxClHash_oidSha2_384
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384_ACTIVE             1
+
+
+
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha512
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha512.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_PROCESS               mcuxClHashModes_Sgi_process_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha512.processSkeleton = mcuxClHashModes_Sgi_process_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_FINISH                mcuxClHashModes_Sgi_finish_Sha2 /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha512.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2 */
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_OID                   mcuxClHash_oidSha2_512
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_SGI_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_ACTIVE             1
+
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_224_ACTIVE             0
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512_256_ACTIVE             0
+
+
+/*
+ * SHA-2 SGI Non-Blocking Mode Descriptors
+ */
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha224_Dma_NonBlocking
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha224_Dma_NonBlocking.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_PROCESS               mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha224_Dma_NonBlocking.processSkeleton = mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_FINISH                mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha224_Dma_NonBlocking.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_224
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_OID                   mcuxClHash_oidSha2_224
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_224_ACTIVE             1
+
+
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha256_Dma_NonBlocking
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha256_Dma_NonBlocking.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_PROCESS               mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha256_Dma_NonBlocking.processSkeleton = mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_FINISH                mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha256_Dma_NonBlocking.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_256
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_OID                   mcuxClHash_oidSha2_256
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_256_ACTIVE             1
+
+
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha384_Dma_NonBlocking
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha384_Dma_NonBlocking.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_PROCESS               mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha384_Dma_NonBlocking.processSkeleton = mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_FINISH                mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha384_Dma_NonBlocking.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_384
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_OID                   mcuxClHash_oidSha2_384
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_384_ACTIVE             1
+
+
+
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_NAME                  mcuxClHash_AlgorithmDescriptor_Sgi_Sha512_Dma_NonBlocking
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_ONESHOT               mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha512_Dma_NonBlocking.oneShotSkeleton = mcuxClHashModes_Sgi_oneShot_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_PROCESS               mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha512_Dma_NonBlocking.processSkeleton = mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_FINISH                mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking /* mcuxClHash_AlgorithmDescriptor_Sgi_Sha512_Dma_NonBlocking.finishSkeleton = mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking */
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_LENGTHMASK            MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA2
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_BLOCKSIZE             MCUXCLHASH_BLOCK_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_HASHSIZE              MCUXCLHASH_OUTPUT_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_STATESIZE             MCUXCLHASH_STATE_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_COUNTERSIZE           MCUXCLHASH_COUNTER_SIZE_SHA_512
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_OID                   mcuxClHash_oidSha2_512
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_MEMORY_ONESHOT        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_MEMORY_PROCESS        MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_MEMORY_FINISH         MCUXCLHASHMODES_COMPUTE_MEMORY_NONBLOCKING_SHA2_FINISH
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_ACTIVE             1
+
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_224_ACTIVE             0
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_NONBLOCKING_SHA_512_256_ACTIVE             0
+
+
+/*
+ * SHA-2 C Mode Descriptors
+ */
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA_224_ACTIVE             0
+
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA_256_ACTIVE             0
+
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA_384_ACTIVE             0
+
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA_512_ACTIVE             0
+
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA_512_224_ACTIVE             0
+
+
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA_512_256_ACTIVE             0
+
+
+#endif /* MCUXCLHASHMODES_MODECONSTANTS_H */

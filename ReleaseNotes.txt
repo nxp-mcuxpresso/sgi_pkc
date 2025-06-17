@@ -1,0 +1,37 @@
+DCI_SDK (0.2.1) Release Notes
+
+- Release: DCI_SDK EAR
+- Version: DCI_SDK_V0.2.1
+- Date:    2025-04-11
+- Link to Nexus RepositoryManager: https://nl-nxrm.sw.nxp.com/service/rest/repository/browse/cccs-releases-raw/
+- Compiler: IAR C/C++ Compiler V9.60.2.399 for ARM
+- Code size: delivery/mcxa_release/static_library/mcxa/libclns.a
+TEXT RO RW ZI TOTAL_CONSUMPTION
+104732 23896 0 0 128628
+
+--- Test Targets: 
+   - MCX A276 sample
+   - CCCS FPGA v2 using A20 cosim v2 bitfile
+
+--- New Features
+   - Fixed Copyright Headers (The only change in the DCI_SDK_V0.2.1) 
+   - The support of Diffie-Hellman Key Agreement over Finite Fields (FFDH).
+   - The fixes of Coverity/MISRA/MSG violations
+   - The hardenings (The Security Counter based Flow Protection)
+
+--- Features:
+   - Components included: mcuxClAead, mcuxClAeadModes, mcuxClAes, mcuxClBuffer, mcuxClCipher, mcuxClCipherModes, mcuxClCore, mcuxClCrc,
+                          mcuxClDma, mcuxClEcc, mcuxClExample, mcuxClFfdh, mcuxClGlikey, mcuxClHash, mcuxClHashModes, mcuxClHmac, mcuxClKey,
+                          mcuxClMac, mcuxClMacModes, mcuxClMath, mcuxClMemory, mcuxClPadding, mcuxClPkc, mcuxClPrng, mcuxClRandom,
+                          mcuxClRandomModes, mcuxClResource, mcuxClRsa, mcuxClSession, mcuxClSgi, mcuxClSignature, mcuxClTrng,
+                          mcuxCsslCPreProcessor, mcuxCsslDataIntegrity, mcuxCsslFlowProtection, mcuxCsslMemory, mcuxCsslParamIntegrity, 
+                          mcuxCsslPrng, mcuxCsslSecureCounter
+
+--- Known Issues/Limitations:
+   - To use any Asymmetric Cryptographic Operations the RAM_INTERLEAVE flag in SYSCON must be enabled before invoking any CLib Asymmetric Cryptographic Functionality.
+   - The PRNG after Power-On Cycle/System Reset has seeded with 0 hence will output the deterministic behaviour. Will be fixed in future release
+   - Not all Coverity/MISRA/MSG violations fixed. The work in progress and will be finished in future release.
+   - Not all Hardenings yet finished. Will be finished in future release.
+   - Limited testing (all examples passed)
+     - ECC and RSA Key Generation test with RNG patching are failing.
+     - Test framework warnings

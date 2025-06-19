@@ -1245,22 +1245,22 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.examples_cipher_modes)
         SOURCES examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Multipart_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingISO_example.c
-                examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c
+                # examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_example.c
-                examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c
+                # examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Oneshot_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingISO_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingZero_example.c
-                examples/mcuxClCipherModes/mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c
+                # examples/mcuxClCipherModes/mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ctr_Aes128_Multipart_example.c
-                examples/mcuxClCipherModes/mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c
+                # examples/mcuxClCipherModes/mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ctr_Aes128_Oneshot_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Multipart_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingISO_example.c
-                examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c
-                examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c
+                # examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c
+                # examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_example.c
-                examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c
+                # examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Oneshot_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingISO_example.c
                 examples/mcuxClCipherModes/mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingPKCS7_example.c
@@ -1340,9 +1340,9 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.examples_hash_modes)
     mcux_add_source(
         SOURCES examples/mcuxClHashModes/mcuxClHashModes_sha224_oneshot_example.c
                 examples/mcuxClHashModes/mcuxClHashModes_sha256_longMsgOneshot_example.c
-                examples/mcuxClHashModes/mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c
+                # examples/mcuxClHashModes/mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c
                 examples/mcuxClHashModes/mcuxClHashModes_sha256_oneshot_example.c
-                examples/mcuxClHashModes/mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c
+                # examples/mcuxClHashModes/mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c
                 examples/mcuxClHashModes/mcuxClHashModes_sha256_streaming_example.c
                 examples/mcuxClHashModes/mcuxClHashModes_sha384_oneshot_example.c
                 examples/mcuxClHashModes/mcuxClHashModes_sha512_oneshot_example.c
@@ -1383,10 +1383,10 @@ endif()
 
 if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.examples_mac_modes)
     mcux_add_source(
-        SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c
+        # SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c
         SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes128_Compute_example.c
         SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes128_Compute_PreloadedKey_example.c
-        SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c
+        # SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c
         SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes128_Multipart_example.c
         SOURCES examples/mcuxClMacModes/mcuxClMacModes_Cmac_Aes256_Compute_example.c
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/

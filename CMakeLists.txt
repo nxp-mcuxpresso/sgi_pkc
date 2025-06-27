@@ -735,6 +735,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.memory)
                 src/comps/mcuxCsslMemory/src/mcuxCsslMemory_Internal_XOR.c
                 src/comps/mcuxCsslMemory/src/mcuxCsslMemory_Set.c
                 src/comps/mcuxCsslMemory/inc/mcuxCsslMemory.h
+                src/comps/mcuxCsslMemory/inc/mcuxCsslMemory_Clear.h 
                 src/comps/mcuxCsslMemory/inc/mcuxCsslMemory_Compare.h
                 src/comps/mcuxCsslMemory/inc/mcuxCsslMemory_Constants.h
                 src/comps/mcuxCsslMemory/inc/mcuxCsslMemory_Copy.h

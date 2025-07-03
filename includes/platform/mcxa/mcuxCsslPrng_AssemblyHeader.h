@@ -12,5 +12,5 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxCsslPrng_AssemblyHeader.h.h
+ * @file  mcuxCsslPrng_AssemblyHeader.h
  */

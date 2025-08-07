@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa2xx/mcuxClResource_MemoryConsumption.h Source File</title>
+<title>MCUX CLNS: platform/mcxa2xx/mcuxClFfdh_MemoryConsumption.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -103,11 +103,11 @@ $(document).ready(function(){initNavTree('a00722_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClResource_MemoryConsumption.h</div></div>
+  <div class="headertitle"><div class="title">mcuxClFfdh_MemoryConsumption.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00722.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2022 NXP                                                       */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2025 NXP                                                       */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* NXP Confidential and Proprietary. This software is owned or controlled   */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/* by NXP and may only be used strictly in accordance with the applicable   */</span></div>
@@ -119,19 +119,39 @@ $(document).ready(function(){initNavTree('a00722_source.html',''); initResizable
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">/* otherwise use the software.                                              */</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#ifndef MCUXCLRESOURCE_MEMORYCONSUMPTION_H_</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#define MCUXCLRESOURCE_MEMORYCONSUMPTION_H_</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a00722.html#a065b8b93c0ca1f9090a57bb30f6a093e">   24</a></span><span class="preprocessor">#define MCUXCLRESOURCE_CONTEXT_SIZE  120u</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLRESOURCE_MEMORYCONSUMPTION_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef MCUXCLFFDH_MEMORYCONSUMPTION_H_</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define MCUXCLFFDH_MEMORYCONSUMPTION_H_</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a00368.html">mcuxClCore_Macros.h</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a01053.html#ga3e83d743e3d3f40ad87dea376dea8509">   37</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_2048 (356u )  </span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a01053.html#ga56561b54f3574e3db5631fb06c2a3c7b">   38</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_3072 (356u )  </span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a01053.html#gae65d2c3ef81ccbecac3011cad068960a">   39</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_4096 (356u )  </span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a01053.html#gae0f4cca54ba96a75f8eff3e07c0f18d1">   40</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_6144 (356u )  </span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a01053.html#ga1e1f28ab9c57f14de4def958ead2aae1">   41</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_8192 (1384u )  </span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="comment">/* MCUXCLFFDH_WACPU */</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a01054.html#gae12ec5b9e75ad7f58e01459b56c933e6">   57</a></span><span class="preprocessor">#define MCUXCLFFDH_PKC_WORDSIZE  8u</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a01054.html#ga5d5caf1e1f06650f73b517eae3128099">   62</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 (2448u )  </span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a01054.html#ga2829efb30e6330694a2148c6675e094c">   63</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 (3600u )  </span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a01054.html#ga601b88078391610dbba0a3f25ed5f1c8">   64</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 (4752u )  </span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a01054.html#ga582c385c4f459f10dc282c6d7a84390f">   65</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 (7056u )  </span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a01054.html#ga469bca95a7be11074c4cd93e77cff342">   66</a></span><span class="preprocessor">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 (7328u )  </span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="comment">/* MCUXCLFFDH_WAPKC */</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="comment">/* mcuxClFfdh_MemoryConsumption */</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLFFDH_MEMORYCONSUMPTION_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">mcuxClCore_Macros.h</a></div><div class="ttdoc">Definition of macros.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_df6b4bbc09c50bc440275ea53d8f711d.html">platform</a></li><li class="navelem"><a class="el" href="dir_b51d24f5ecbd0309a056d54abb075548.html">mcxa2xx</a></li><li class="navelem"><a class="el" href="a00722.html">mcuxClResource_MemoryConsumption.h</a></li>
+    <li class="navelem"><a class="el" href="dir_df6b4bbc09c50bc440275ea53d8f711d.html">platform</a></li><li class="navelem"><a class="el" href="dir_b51d24f5ecbd0309a056d54abb075548.html">mcxa2xx</a></li><li class="navelem"><a class="el" href="a00722.html">mcuxClFfdh_MemoryConsumption.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

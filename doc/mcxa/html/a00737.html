@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClEcc_WeierECC_PointEncDescriptor</title>
+<title>MCUX CLNS: platform/mcxa2xx/mcuxClMacModes_MemoryConsumption.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -104,94 +104,71 @@ $(document).ready(function(){initNavTree('a00737.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">mcuxClEcc_WeierECC_PointEncDescriptor<div class="ingroups"><a class="el" href="a00726.html">mcuxClEcc</a> &raquo; <a class="el" href="a00735.html">mcuxClEcc_Descriptors</a></div></div></div>
+<a href="#define-members">Macros</a>  </div>
+  <div class="headertitle"><div class="title">mcuxClMacModes_MemoryConsumption.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definitions of Weierstrass point encoding variant descriptors.  
+<p>Defines the memory consumption for the mcuxClMacModes component All work area sizes in bytes are a multiple of CPU wordsize.  
 <a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a00368_source.html">mcuxClCore_Macros.h</a>&gt;</code><br />
+<code>#include &lt;mcuxClCipherModes_MemoryConsumption.h&gt;</code><br />
+</div>
+<p><a href="a00737_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:gaf6ee1d910b8ebf332b139319bc32db09"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00734.html#ga00d97a82d25d15c17d4c082e773eb070">mcuxClEcc_WeierECC_PointEncDescriptor_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00737.html#gaf6ee1d910b8ebf332b139319bc32db09">mcuxClEcc_WeierECC_PointEncDescriptor_SEC</a></td></tr>
-<tr class="memdesc:gaf6ee1d910b8ebf332b139319bc32db09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point encoding variant descriptor to be used for Weierstrass curve points as specified in SEC 1: Elliptic Curve Cryptography.  <br /></td></tr>
-<tr class="separator:gaf6ee1d910b8ebf332b139319bc32db09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9407605f863d9c0b11127f405871a137"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="a00734.html#ga8d75897bd07aa891fe0c630f73504ce1">mcuxClEcc_WeierECC_PointEncType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00737.html#ga9407605f863d9c0b11127f405871a137">mcuxClEcc_WeierECC_PointEncType_SEC</a></td></tr>
-<tr class="memdesc:ga9407605f863d9c0b11127f405871a137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point encoding type to be used for Weierstrass curve points as specified in SEC 1: Elliptic Curve Cryptography.  <br /></td></tr>
-<tr class="separator:ga9407605f863d9c0b11127f405871a137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gadda00ba9831fbe307d2e351ffd68e881"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_MAX_CPU_WA_BUFFER_SIZE</b></td></tr>
+<tr class="separator:gadda00ba9831fbe307d2e351ffd68e881"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b01f0c494353c88edd45e9db5ed645c"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_MAX_CPU_WA_BUFFER_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga1b01f0c494353c88edd45e9db5ed645c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga714b7602c4434bdb9de3d0490fe86933"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE</b></td></tr>
+<tr class="separator:ga714b7602c4434bdb9de3d0490fe86933"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga185deb298f4e4ec0c52d1d8268f5eaaa"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga185deb298f4e4ec0c52d1d8268f5eaaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76f5246882165b0c2686ef7b829cd792"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_INIT_CPU_WA_BUFFER_SIZE</b></td></tr>
+<tr class="separator:ga76f5246882165b0c2686ef7b829cd792"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5bbb8825cf62bc8d9cece88079a6c230"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_INIT_CPU_WA_BUFFER_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga5bbb8825cf62bc8d9cece88079a6c230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74efbfc67317a7e98173ff1e168c0a1d"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_PROCESS_CPU_WA_BUFFER_SIZE</b></td></tr>
+<tr class="separator:ga74efbfc67317a7e98173ff1e168c0a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2afda137b04670ff1433367446720e76"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_PROCESS_CPU_WA_BUFFER_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga2afda137b04670ff1433367446720e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga636a9af407adc4d88ae50cc58e9893fb"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_PROCESS_NONBLOCKING_CPU_WA_BUFFER_SIZE</b></td></tr>
+<tr class="separator:ga636a9af407adc4d88ae50cc58e9893fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03b8d91e217d697f6ba15c291bed1722"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_PROCESS_NONBLOCKING_CPU_WA_BUFFER_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga03b8d91e217d697f6ba15c291bed1722"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf4b9285d00220f9797d3912c06fb5ced"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_FINISH_CPU_WA_BUFFER_SIZE</b></td></tr>
+<tr class="separator:gaf4b9285d00220f9797d3912c06fb5ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga801ae8228e57d64f40752f67878d2fb8"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_FINISH_CPU_WA_BUFFER_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga801ae8228e57d64f40752f67878d2fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaecd5a4a9d2cb95f881e289793ba56c41"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_CONTEXT_SIZE</b></td></tr>
+<tr class="separator:gaecd5a4a9d2cb95f881e289793ba56c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga924f3e3033b2d83dabdccd56915221fa"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLMAC_CONTEXT_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga924f3e3033b2d83dabdccd56915221fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Definitions of Weierstrass point encoding variant descriptors. </p>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="gaf6ee1d910b8ebf332b139319bc32db09" name="gaf6ee1d910b8ebf332b139319bc32db09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf6ee1d910b8ebf332b139319bc32db09">&#9670;&#160;</a></span>mcuxClEcc_WeierECC_PointEncDescriptor_SEC</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00734.html#ga00d97a82d25d15c17d4c082e773eb070">mcuxClEcc_WeierECC_PointEncDescriptor_t</a> mcuxClEcc_WeierECC_PointEncDescriptor_SEC</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Point encoding variant descriptor to be used for Weierstrass curve points as specified in SEC 1: Elliptic Curve Cryptography. </p>
-
-</div>
-</div>
-<a id="ga9407605f863d9c0b11127f405871a137" name="ga9407605f863d9c0b11127f405871a137"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9407605f863d9c0b11127f405871a137">&#9670;&#160;</a></span>mcuxClEcc_WeierECC_PointEncType_SEC</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00734.html#ga8d75897bd07aa891fe0c630f73504ce1">mcuxClEcc_WeierECC_PointEncType_t</a> mcuxClEcc_WeierECC_PointEncType_SEC</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Point encoding type to be used for Weierstrass curve points as specified in SEC 1: Elliptic Curve Cryptography. </p>
-<p>SEC encoding which encodes</p><ul>
-<li>the neutral point as 0x00</li>
-<li>a point (x,y) either as<ul>
-<li>0x04 || x || y if no point-compression is used</li>
-<li>(0x02 | LSBit(y)) || x if point-compression is used. NOTES:</li>
-</ul>
-</li>
-</ul>
-<p>If the encoded point starts with 0x00, nothing is written to the output buffer, but <a class="el" href="a00919.html#gaad0d3ea3572cc175fe1608bca3ddac35" title="The result of the point operation is the neutral point.">MCUXCLECC_STATUS_NEUTRAL_POINT</a> is returned from the decoding function.</p><ul>
-<li>If the encoded point starts with 0x02 or 0x03 the compressed point gets decompressed.</li>
-<li>If the encoding is invalid, i.e. the leading bytes is not in {0x00,0x02,0x03,0x04}, <a class="el" href="a00919.html#ga7eec856d4a1438ff6e603ee42aaa9aae" title="Parameters are invalid.">MCUXCLECC_STATUS_INVALID_PARAMS</a> is returned from the decoding function.</li>
-<li>If the encoded point is not on the curve, <a class="el" href="a00919.html#ga7eec856d4a1438ff6e603ee42aaa9aae" title="Parameters are invalid.">MCUXCLECC_STATUS_INVALID_PARAMS</a> is returned from the decoding function. </li>
-</ul>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01040.html#a5">mcuxClEcc_WeierECC_DecodePoint_brainpoolP384r1_example.c</a>, and <a class="el" href="a01041.html#a5">mcuxClEcc_WeierECC_DecodePoint_secp224r1_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Defines the memory consumption for the mcuxClMacModes component All work area sizes in bytes are a multiple of CPU wordsize. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_df6b4bbc09c50bc440275ea53d8f711d.html">platform</a></li><li class="navelem"><a class="el" href="dir_b51d24f5ecbd0309a056d54abb075548.html">mcxa2xx</a></li><li class="navelem"><a class="el" href="a00737.html">mcuxClMacModes_MemoryConsumption.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

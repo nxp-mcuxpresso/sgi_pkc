@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa2xx/mcuxClSignature_MemoryConsumption.h File Reference</title>
+<title>MCUX CLNS: platform/mcxa2xx/mcuxClKey_MemoryConsumption.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -105,29 +105,62 @@ $(document).ready(function(){initNavTree('a00734.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a>  </div>
-  <div class="headertitle"><div class="title">mcuxClSignature_MemoryConsumption.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClKey_MemoryConsumption.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines the memory consumption for the mcuxClSignature component.  
+<p>Defines the memory consumption for the mcuxClKey component All work area sizes in bytes are a multiple of CPU wordsize.  
 <a href="#details">More...</a></p>
 
 <p><a href="a00734_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a111b7f5ea57534f44f93247e00e9f35c"><td class="memItemLeft" align="right" valign="top"><a id="a111b7f5ea57534f44f93247e00e9f35c" name="a111b7f5ea57534f44f93247e00e9f35c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLSIGNATURE_MODE_SIZE</b></td></tr>
-<tr class="separator:a111b7f5ea57534f44f93247e00e9f35c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b9695046f1c43593266896742ce3e8f"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_DESCRIPTOR_SIZE</b></td></tr>
+<tr class="separator:ga2b9695046f1c43593266896742ce3e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga738fd85c6dc17cc4209d08e940d57775"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga738fd85c6dc17cc4209d08e940d57775"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa477e27c0893deffea7f8f71ddb8925"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_TYPEDESCRIPTOR_SIZE</b></td></tr>
+<tr class="separator:gafa477e27c0893deffea7f8f71ddb8925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga879c5be1d91cd1c7816fe5b5cefb6549"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_TYPEDESCRIPTOR_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga879c5be1d91cd1c7816fe5b5cefb6549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaef10bc9f41b3b52769460161840fb082"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE</b></td></tr>
+<tr class="separator:gaef10bc9f41b3b52769460161840fb082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0cc0a564e13bd274c94afa281ed495b7"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga0cc0a564e13bd274c94afa281ed495b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03ee4c93ed2232461ac60025cde43c15"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE</b></td></tr>
+<tr class="separator:ga03ee4c93ed2232461ac60025cde43c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac7c223616a275a3729198a4ff2f8a714"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:gac7c223616a275a3729198a4ff2f8a714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe2afb96b905b072a39037415ecbea5b"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_ENCODE_CPU_WA_SIZE</b></td></tr>
+<tr class="separator:gafe2afb96b905b072a39037415ecbea5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c190d1244874ee6a39a31f63679ef9a"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_ENCODE_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga5c190d1244874ee6a39a31f63679ef9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf09bef5a6a7e91e8e8f79434951c84fc"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_RECODE_CPU_WA_SIZE</b></td></tr>
+<tr class="separator:gaf09bef5a6a7e91e8e8f79434951c84fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga00ab24d2c09f7561d2fc8ab9ed8cfe4c"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLKEY_RECODE_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="separator:ga00ab24d2c09f7561d2fc8ab9ed8cfe4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines the memory consumption for the mcuxClSignature component. </p>
+<div class="textblock"><p>Defines the memory consumption for the mcuxClKey component All work area sizes in bytes are a multiple of CPU wordsize. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_df6b4bbc09c50bc440275ea53d8f711d.html">platform</a></li><li class="navelem"><a class="el" href="dir_b51d24f5ecbd0309a056d54abb075548.html">mcxa2xx</a></li><li class="navelem"><a class="el" href="a00734.html">mcuxClSignature_MemoryConsumption.h</a></li>
+    <li class="navelem"><a class="el" href="dir_df6b4bbc09c50bc440275ea53d8f711d.html">platform</a></li><li class="navelem"><a class="el" href="dir_b51d24f5ecbd0309a056d54abb075548.html">mcxa2xx</a></li><li class="navelem"><a class="el" href="a00734.html">mcuxClKey_MemoryConsumption.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

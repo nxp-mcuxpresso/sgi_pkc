@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClAead_Constants</title>
+<title>MCUX CLNS: platform/mcxa2xx/mcuxClSession_Internal_AssemblyHeader.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -105,140 +105,65 @@ $(document).ready(function(){initNavTree('a00749.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a>  </div>
-  <div class="headertitle"><div class="title">mcuxClAead_Constants<div class="ingroups"><a class="el" href="a00748.html">mcuxClAead</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClSession_Internal_AssemblyHeader.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Constants of <a class="el" href="a00748.html">mcuxClAead</a> component.  
+<p>Constant definitions for the mcuxClSession Early Exit assembly implementation.  
 <a href="#details">More...</a></p>
+
+<p><a href="a00749_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga66d71fdbfe9e95ddd5af2f23466ba44a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#ga66d71fdbfe9e95ddd5af2f23466ba44a">MCUXCLAEAD_STATUS_ERROR</a></td></tr>
-<tr class="memdesc:ga66d71fdbfe9e95ddd5af2f23466ba44a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error occured during Aead operation.  <br /></td></tr>
-<tr class="separator:ga66d71fdbfe9e95ddd5af2f23466ba44a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7355b7502195b95c401adf0a7da821ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#ga7355b7502195b95c401adf0a7da821ad">MCUXCLAEAD_STATUS_ERROR_MEMORY_ALLOCATION</a></td></tr>
-<tr class="memdesc:ga7355b7502195b95c401adf0a7da821ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory allocation error detected.  <br /></td></tr>
-<tr class="separator:ga7355b7502195b95c401adf0a7da821ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga85ef5d5dd9baa2ab5001159f6c392d13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#ga85ef5d5dd9baa2ab5001159f6c392d13">MCUXCLAEAD_STATUS_FAULT_ATTACK</a></td></tr>
-<tr class="memdesc:ga85ef5d5dd9baa2ab5001159f6c392d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aead function returned fault attack.  <br /></td></tr>
-<tr class="separator:ga85ef5d5dd9baa2ab5001159f6c392d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6c761e767eb59aef9aa93a6e05661aa5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a></td></tr>
-<tr class="memdesc:ga6c761e767eb59aef9aa93a6e05661aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aead function returned successfully.  <br /></td></tr>
-<tr class="separator:ga6c761e767eb59aef9aa93a6e05661aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2f5ed8e86d5c5293e8a456458b5fa5c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#ga2f5ed8e86d5c5293e8a456458b5fa5c5">MCUXCLAEAD_STATUS_INVALID_PARAM</a></td></tr>
-<tr class="memdesc:ga2f5ed8e86d5c5293e8a456458b5fa5c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aead function parameter invalid.  <br /></td></tr>
-<tr class="separator:ga2f5ed8e86d5c5293e8a456458b5fa5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabe8157165ba824fde3b6df4151956c99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#gabe8157165ba824fde3b6df4151956c99">MCUXCLAEAD_STATUS_INVALID_TAG</a></td></tr>
-<tr class="memdesc:gabe8157165ba824fde3b6df4151956c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aead function tag invalid.  <br /></td></tr>
-<tr class="separator:gabe8157165ba824fde3b6df4151956c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf0610ffd747c39fca82ffe1f782fd11"><td class="memItemLeft" align="right" valign="top"><a id="abf0610ffd747c39fca82ffe1f782fd11" name="abf0610ffd747c39fca82ffe1f782fd11"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLSESSION_STATUS_ASM_API_ENTERED</b></td></tr>
+<tr class="separator:abf0610ffd747c39fca82ffe1f782fd11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bcc6c10e330d8b3952956a75fe43d21"><td class="memItemLeft" align="right" valign="top"><a id="a5bcc6c10e330d8b3952956a75fe43d21" name="a5bcc6c10e330d8b3952956a75fe43d21"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MCUXCLSESSION_STATUS_ASM_EXIT_FA</b></td></tr>
+<tr class="separator:a5bcc6c10e330d8b3952956a75fe43d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6acf0ed6327e9667519dec882dcaa84f"><td class="memItemLeft" align="right" valign="top"><a id="a6acf0ed6327e9667519dec882dcaa84f" name="a6acf0ed6327e9667519dec882dcaa84f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WORDLEN</b></td></tr>
+<tr class="separator:a6acf0ed6327e9667519dec882dcaa84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ccfa15440932320f7bae6615d486548"><td class="memItemLeft" align="right" valign="top"><a id="a7ccfa15440932320f7bae6615d486548" name="a7ccfa15440932320f7bae6615d486548"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>APICALL_OFFSET</b></td></tr>
+<tr class="separator:a7ccfa15440932320f7bae6615d486548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c361559166dd60bc137674bc70ba0c3"><td class="memItemLeft" align="right" valign="top"><a id="a9c361559166dd60bc137674bc70ba0c3" name="a9c361559166dd60bc137674bc70ba0c3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>FAULTSTATUS_OFFSET</b></td></tr>
+<tr class="separator:a9c361559166dd60bc137674bc70ba0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3289db9456433dc6e4ce0faf98d865be"><td class="memItemLeft" align="right" valign="top"><a id="a3289db9456433dc6e4ce0faf98d865be" name="a3289db9456433dc6e4ce0faf98d865be"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DIBACKUP_OFFSET</b></td></tr>
+<tr class="separator:a3289db9456433dc6e4ce0faf98d865be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab054c78bfe2aa83b5d30d97c12bd4391"><td class="memItemLeft" align="right" valign="top"><a id="ab054c78bfe2aa83b5d30d97c12bd4391" name="ab054c78bfe2aa83b5d30d97c12bd4391"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>PREVIOUS_OFFSET</b></td></tr>
+<tr class="separator:ab054c78bfe2aa83b5d30d97c12bd4391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4acc0712474b486da3df5ff3a90067c"><td class="memItemLeft" align="right" valign="top"><a id="ab4acc0712474b486da3df5ff3a90067c" name="ab4acc0712474b486da3df5ff3a90067c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CPUREGISTERBACKUP_OFFSET</b></td></tr>
+<tr class="separator:ab4acc0712474b486da3df5ff3a90067c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a54587d6d883f88aa8ed1e6f430c95f"><td class="memItemLeft" align="right" valign="top"><a id="a3a54587d6d883f88aa8ed1e6f430c95f" name="a3a54587d6d883f88aa8ed1e6f430c95f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CPUREGISTERBACKUP_NUMBEROF_S_REGISTERS</b></td></tr>
+<tr class="separator:a3a54587d6d883f88aa8ed1e6f430c95f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82c882c299e156000a4f9b6b9b0ae294"><td class="memItemLeft" align="right" valign="top"><a id="a82c882c299e156000a4f9b6b9b0ae294" name="a82c882c299e156000a4f9b6b9b0ae294"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CPUREGISTERBACKUP_S</b>(s_index)</td></tr>
+<tr class="separator:a82c882c299e156000a4f9b6b9b0ae294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af20ad35f4a71125b144524faf84f6478"><td class="memItemLeft" align="right" valign="top"><a id="af20ad35f4a71125b144524faf84f6478" name="af20ad35f4a71125b144524faf84f6478"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CPUREGISTERBACKUP_RA</b></td></tr>
+<tr class="separator:af20ad35f4a71125b144524faf84f6478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceb4a6cf3cd718109e73ef0fa0013a99"><td class="memItemLeft" align="right" valign="top"><a id="aceb4a6cf3cd718109e73ef0fa0013a99" name="aceb4a6cf3cd718109e73ef0fa0013a99"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CPUREGISTERBACKUP_SP</b></td></tr>
+<tr class="separator:aceb4a6cf3cd718109e73ef0fa0013a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab237bcd9186eabf131308d576e44d43b"><td class="memItemLeft" align="right" valign="top"><a id="ab237bcd9186eabf131308d576e44d43b" name="ab237bcd9186eabf131308d576e44d43b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CPUREGISTERBACKUP_UPCSSTATE</b></td></tr>
+<tr class="separator:ab237bcd9186eabf131308d576e44d43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Constants of <a class="el" href="a00748.html">mcuxClAead</a> component. </p>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ga66d71fdbfe9e95ddd5af2f23466ba44a" name="ga66d71fdbfe9e95ddd5af2f23466ba44a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga66d71fdbfe9e95ddd5af2f23466ba44a">&#9670;&#160;</a></span>MCUXCLAEAD_STATUS_ERROR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLAEAD_STATUS_ERROR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Error occured during Aead operation. </p>
-
-</div>
-</div>
-<a id="ga7355b7502195b95c401adf0a7da821ad" name="ga7355b7502195b95c401adf0a7da821ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7355b7502195b95c401adf0a7da821ad">&#9670;&#160;</a></span>MCUXCLAEAD_STATUS_ERROR_MEMORY_ALLOCATION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLAEAD_STATUS_ERROR_MEMORY_ALLOCATION</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Memory allocation error detected. </p>
-
-</div>
-</div>
-<a id="ga85ef5d5dd9baa2ab5001159f6c392d13" name="ga85ef5d5dd9baa2ab5001159f6c392d13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga85ef5d5dd9baa2ab5001159f6c392d13">&#9670;&#160;</a></span>MCUXCLAEAD_STATUS_FAULT_ATTACK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLAEAD_STATUS_FAULT_ATTACK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Aead function returned fault attack. </p>
-
-</div>
-</div>
-<a id="ga6c761e767eb59aef9aa93a6e05661aa5" name="ga6c761e767eb59aef9aa93a6e05661aa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6c761e767eb59aef9aa93a6e05661aa5">&#9670;&#160;</a></span>MCUXCLAEAD_STATUS_OK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLAEAD_STATUS_OK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Aead function returned successfully. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01074.html#a12">mcuxClAeadModes_Ccm_Aes128_Multipart_example.c</a>, <a class="el" href="a01071.html#a12">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist1_example.c</a>, <a class="el" href="a01072.html#a12">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist2_example.c</a>, <a class="el" href="a01073.html#a14">mcuxClAeadModes_Ccm_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a01069.html#a12">mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</a>, <a class="el" href="a01070.html#a12">mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example.c</a>, and <a class="el" href="a01068.html#a12">mcuxClAeadModes_Gcm_Aes128_Oneshot_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="ga2f5ed8e86d5c5293e8a456458b5fa5c5" name="ga2f5ed8e86d5c5293e8a456458b5fa5c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2f5ed8e86d5c5293e8a456458b5fa5c5">&#9670;&#160;</a></span>MCUXCLAEAD_STATUS_INVALID_PARAM</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLAEAD_STATUS_INVALID_PARAM</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Aead function parameter invalid. </p>
-
-</div>
-</div>
-<a id="gabe8157165ba824fde3b6df4151956c99" name="gabe8157165ba824fde3b6df4151956c99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabe8157165ba824fde3b6df4151956c99">&#9670;&#160;</a></span>MCUXCLAEAD_STATUS_INVALID_TAG</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLAEAD_STATUS_INVALID_TAG</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Aead function tag invalid. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Constant definitions for the mcuxClSession Early Exit assembly implementation. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_df6b4bbc09c50bc440275ea53d8f711d.html">platform</a></li><li class="navelem"><a class="el" href="dir_b51d24f5ecbd0309a056d54abb075548.html">mcxa2xx</a></li><li class="navelem"><a class="el" href="a00749.html">mcuxClSession_Internal_AssemblyHeader.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

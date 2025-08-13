@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -18,6 +18,6 @@
 #define MCUXCLECC_INTERNAL_POINTCOMPARISON_FUP_H_
 #include <internal/mcuxClPkc_FupMacros.h>
 
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_PointComparisonHom[10];
+extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_PointComparisonHom[16];
 
 #endif /* MCUXCLECC_INTERNAL_POINTCOMPARISON_FUP*/ 

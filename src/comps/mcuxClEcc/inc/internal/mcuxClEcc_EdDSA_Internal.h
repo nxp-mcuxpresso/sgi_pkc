@@ -150,6 +150,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateKeyPair(
     mcuxClKey_Handle_t pubKey
 );
 
+
 MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
 /**
  * @brief This function implements the EdDSA signature generation for Ed25519 and Ed448 as specified in rfc8032 (see Sections 5.1.6 and 5.2.6 of https://datatracker.ietf.org/doc/html/rfc8032).
@@ -239,46 +240,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_EdDSA_VerifySign
     );
 
 /**
- * @brief This function implements the protocol descriptor generation for Ed25519ctx, Ed25519ph, Ed448 and Ed448ph
- *
- * @param[in]  pSession             Handle for the current CL session
- * @param[in]  pDomainParams        Pointer to domain parameters of the used curve
- * @param[in]  pProtocolDescriptor  Protocol descriptor specifying the EdDSA variant
- * @param[in]  phflag               Option whether pre-hashing is enabled
- * @param[in]  pContext             User input context for the hash prefix
- * @param[in]  contextLen           Length of the context
- *
- * @return A code-flow protected error code (see @ref MCUXCLECC_STATUS_)
- * @retval #MCUXCLECC_STATUS_OK                EdDSA protocol descriptor generated successfully
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_GenerateProtocolDescriptor)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_GenerateProtocolDescriptor(
-                                                    mcuxClSession_Handle_t pSession,
-                                                    const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
-                                                    mcuxClEcc_EdDSA_SignatureProtocolDescriptor_t *pProtocolDescriptor,
-                                                    uint32_t phflag,
-                                                    mcuxCl_InputBuffer_t pContext,
-                                                    uint32_t contextLen
-                                                    );
-
-                                                    /**
  * @brief This function prepares the environemnt for EdDSA algorithm execution
  *
  * @param[in]  pSession             Handle for the current CL session
  * @param[in]  pDomainParams        Pointer to domain parameters of the used curve
  * @param[in]  noOfBuffers          Number of buffer to be initalized
- *
- * @retval #MCUXCLECC_STATUS_OK      EdDSA setup environment completed successfully
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_SetupEnvironment)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_SetupEnvironment(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_SetupEnvironment(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
     uint8_t noOfBuffers
     );
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_CalcHashModN)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_CalcHashModN(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcHashModN(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
     const uint8_t *pHashPrefix,
@@ -290,7 +266,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_CalcHashModN(
     );
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_CalcSecretScalar)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_CalcSecretScalar(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcSecretScalar(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
     const mcuxClEcc_EdDSA_SignatureProtocolDescriptor_t *mode,
@@ -311,7 +287,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateHashPrefix(
     );
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_PreHashMessage)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_PreHashMessage(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PreHashMessage(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
     mcuxClEcc_CpuWa_t * const pCpuWorkarea,
@@ -335,7 +311,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_EncodePoint(
  * Declaration of input key pair handle sanity checking function
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_KeyPairSanityCheck)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_KeyPairSanityCheck(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_KeyPairSanityCheck(
     mcuxClSession_Handle_t pSession,
     mcuxClKey_Handle_t privKey,
     mcuxClKey_Handle_t pubKey

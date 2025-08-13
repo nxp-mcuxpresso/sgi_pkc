@@ -78,6 +78,7 @@ static mcuxClResource_Context_t * resourceCtxHandle = (mcuxClResource_Context_t 
    mcuxClResource_handle_interrupt needs to be called afterwards to wrap-up the CLib operation. */
 static void handleDmaInterrupt_channel0(void)
 {
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SFR_ACCESS()
   /* Clear DMA interrupt request status, W1C. Needed for DONE interrupts. */
   DMA0->CH[0].CH_INT = 1U;
 
@@ -89,25 +90,26 @@ static void handleDmaInterrupt_channel0(void)
   chCsr &= ~((uint32_t)DMA_CH_CSR_EEI_MASK);
   /* 3. Write to CH_CSR */
   DMA0->CH[0].CH_CSR = chCsr;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SFR_ACCESS()
 
-  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0);
+  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0U);
 }
 
 /* Initialize (install, enable) the interrupts */
 static void interruptInit(void)
 {
   /* Enable interrupts for the input channel */
-  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0U));
 
   /* Enable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0U));
 }
 
 /* Uninitialize (disable) the interrupts */
 static void interruptUninit(void)
 {
   /* Disable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0U));
 }
 
 /**************************************************************************/
@@ -154,13 +156,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_exam
 
   /* Initialize the key */
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) keyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_status, ki_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ key,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) keyData,
+    /* uint8_t * pKeyData:                   */ keyData,
     /* uint32_t keyDataLength:               */ sizeof(keyData))
   );
 
@@ -189,7 +193,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_exam
     /* mcuxClSession_Handle_t session:          */ session,
     /* mcuxClSession_Channels_t dmaChannels,    */ dmaChannels,
     /* mcuxClSession_Callback_t pUserCallback,  */ user_callback,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* void * pUserData                        */ NULL)
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
   );
 
   /* Initialize resource context and add it to the session */
@@ -209,7 +215,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_exam
   /**************************************************************************/
 
   ALIGNED uint8_t ctxBuf[MCUXCLMAC_CONTEXT_SIZE];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClMac_Context_t * ctx = (mcuxClMac_Context_t *) ctxBuf;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   uint8_t macData[sizeof(cmacReference)];
 
@@ -230,7 +238,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_exam
   /* Multipart CMAC process */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mp1_status, mp1_token, mcuxClMac_process(
     /* mcuxClSession_Handle_t session:       */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClMac_init")
     /* mcuxClMac_Context_t * const pContext: */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:             */ dataBuf,
     /* uint32_t inLength:                   */ 5u     /* small amount of data, does not trigger a non-blocking operation */
   ));
@@ -272,7 +282,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_exam
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mp2_status, mp2_token, mcuxClMac_process(
     /* mcuxClSession_Handle_t session:       */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClMac_init")
     /* mcuxClMac_Context_t * const pContext: */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:             */ dataBuf,  /* Only part of input data was processed */
     /* uint32_t inLength:                   */ sizeof(data) - 5u  /* multiple blocks of data, triggers a non-blocking operation */
   ));
@@ -315,7 +327,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_exam
   MCUXCLBUFFER_INIT_DMA(macDataBuf, session, macData, sizeof(macData));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mf_status, mf_token, mcuxClMac_finish(
     /* mcuxClSession_Handle_t session:       */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClMac_init")
     /* mcuxClMac_Context_t * const pContext: */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_Buffer_t pMac:                 */ macDataBuf,
     /* uint32_t * const pMacLength:         */ &macSize)
   );
@@ -332,7 +346,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_exam
 
   if(!mcuxClExample_Session_Clean(session))
   {
-      return MCUXCLEXAMPLE_STATUS_ERROR;
+    return MCUXCLEXAMPLE_STATUS_ERROR;
   }
 
   /* Disable the interrupts */

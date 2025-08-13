@@ -24,44 +24,12 @@
 #include <internal/mcuxClCipher_Internal.h>
 #include <internal/mcuxClCipherModes_Common.h>
 #include <internal/mcuxClCipherModes_Sgi_Helper.h>
+#include <internal/mcuxClCipherModes_Sgi_Aes_Iv.h>
 #include <mcuxClDma_Types.h>
 #include <internal/mcuxClDma_Drv.h>
 #include <internal/mcuxClDma_Utils_Sgi.h>
 #include <internal/mcuxClMemory_Copy_Internal.h>
 
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_Ctr_NonBlocking, mcuxClCipherModes_EngineFunc_AesSgi_t)
-static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_NonBlocking(mcuxClSession_Handle_t session, mcuxClCipherModes_WorkArea_t* pWa, mcuxCl_InputBuffer_t pIn, mcuxCl_Buffer_t pOut,
-                                                          uint32_t inLength, uint32_t* pIvOut, uint32_t* const pOutLength);
-
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode, mcuxClCipherModes_completeAutoModeFunc_t)
-static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode(mcuxClSession_Handle_t session, mcuxClCipherModes_WorkArea_t* pWa);
-
-/**
- * @brief The descriptor for the AES CTR mode with DMA access (non-blocking).
- */
-MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
-const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_CTR_Sgi_NonBlocking =
-MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
-{
-  .encryptEngine                                 = mcuxClCipherModes_Ctr_NonBlocking,
-  .protectionToken_encryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ctr_NonBlocking),
-  .decryptEngine                                 = mcuxClCipherModes_Ctr_NonBlocking,
-  .protectionToken_decryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ctr_NonBlocking),
-  .completeAutoModeEngine                        = mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode,
-  .protectionToken_completeAutoModeEngine        = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode),
-  .setupIVEncrypt                                = mcuxClCipherModes_IV_AutoMode_Ctr,
-  .protectionToken_setupIVEncrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV_AutoMode_Ctr),
-  .setupIVDecrypt                                = mcuxClCipherModes_IV_AutoMode_Ctr,
-  .protectionToken_setupIVDecrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV_AutoMode_Ctr),
-  .checkIvLength                                 = mcuxClCipherModes_checkIvLen,
-  .protectionToken_checkIvLength                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_checkIvLen),
-  .addPadding                                    = mcuxClPadding_addPadding_Stream,
-  .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_Stream),
-  .removePadding                                 = mcuxClPadding_removePadding_Stream,
-  .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_Stream),
-  .granularityEnc                                = 1u,
-  .granularityDec                                = 1u
-};
 
 /**
  * @brief This function is called by the DMA interrupt after the automode for AES CTR mode is finished.
@@ -84,8 +52,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ctr_NonBlocking_Compl
 
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
      Workaround: After final result was read, wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait()); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
+  mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
   mcuxClSgi_Drv_resetAutoMode();
 
   /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1u and store it in DATIN2. Then, use DATIN2 when processing the remaining input in normal mode. */
@@ -160,8 +127,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
     /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
        Workaround: Reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait()); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
+    mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
     mcuxClSgi_Drv_resetAutoMode();
 
     /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1u and store it in DATIN2. Then, use DATIN2 when processing in normal mode. */
@@ -177,8 +143,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     else
     {
       /* Copy full block of input to SGI */
-      mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN1_OFFSET, MCUXCLBUFFER_GET(pIn));
-      mcuxClDma_Utils_startTransferOneBlock(inputChannel);
+      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
+      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN1_OFFSET, MCUXCLBUFFER_GET(pIn)));
+      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
+      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
       MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
@@ -198,10 +166,11 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_incrementData(MCUXCLSGI_DRV_DATIN2_OFFSET, MCUXCLAES_BLOCK_SIZE));
 
     /* Copy output block from SGI */
-    mcuxClDma_Utils_configureSgiOutputChannel(session, MCUXCLSGI_DRV_DATOUT_OFFSET, pPaddingPtr);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
-    mcuxClDma_Utils_startTransferOneBlock(outputChannel);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiOutputChannel(session, MCUXCLSGI_DRV_DATOUT_OFFSET, pPaddingPtr));
+    mcuxClSgi_Drv_wait();
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(outputChannel));
 
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, outputChannel));
@@ -239,22 +208,28 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     /* For multiple blocks, use SGI AUTO mode with handshakes */
 
     /* Configure the DMA channels */
-    mcuxClDma_Utils_configureSgiTransferWithHandshakes(session,
-                                                      MCUXCLSGI_DRV_DATIN1_OFFSET,
-                                                      MCUXCLBUFFER_GET(pIn),
-                                                      pOutPtr);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiTransferWithHandshakes(
+      session,
+      MCUXCLSGI_DRV_DATIN1_OFFSET,
+      MCUXCLBUFFER_GET(pIn),
+      pOutPtr));
 
-    mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(session,
-                                                     remainingBlocks,
-                                                     remainingBlocks /* for CTR, all blocks can be read with the DMA handshake signals */
-                                                     );
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
+      session,
+      remainingBlocks,
+      remainingBlocks /* for CTR, all blocks can be read with the DMA handshake signals */));
 
     /* Enable interrupts for the completion of the input channel, and for errors.
        As the output channel finishes first, there is not need to additionally enable DONE interrupts for it.
     */
-    mcuxClDma_Drv_enableErrorInterrupts(inputChannel);
-    mcuxClDma_Drv_enableErrorInterrupts(outputChannel);
-    mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(inputChannel));
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(outputChannel));
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel));
 
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableDmaHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_enableDmaHandshakes());
@@ -268,3 +243,30 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ctr_NonBlocking, status);
 }
+
+/**
+ * @brief The descriptor for the AES CTR mode with DMA access (non-blocking).
+ */
+ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
+ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_CTR_Sgi_NonBlocking =
+ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
+ {
+   .encryptEngine                                 = mcuxClCipherModes_Ctr_NonBlocking,
+   .protectionToken_encryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ctr_NonBlocking),
+   .decryptEngine                                 = mcuxClCipherModes_Ctr_NonBlocking,
+   .protectionToken_decryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ctr_NonBlocking),
+   .completeAutoModeEngine                        = mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode,
+   .protectionToken_completeAutoModeEngine        = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode),
+   .setupIVEncrypt                                = mcuxClCipherModes_IV_AutoMode_Ctr,
+   .protectionToken_setupIVEncrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV_AutoMode_Ctr),
+   .setupIVDecrypt                                = mcuxClCipherModes_IV_AutoMode_Ctr,
+   .protectionToken_setupIVDecrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV_AutoMode_Ctr),
+   .checkIvLength                                 = mcuxClCipherModes_checkIvLen,
+   .protectionToken_checkIvLength                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_checkIvLen),
+   .addPadding                                    = mcuxClPadding_addPadding_Stream,
+   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_Stream),
+   .removePadding                                 = mcuxClPadding_removePadding_Stream,
+   .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_Stream),
+   .granularityEnc                                = 1u,
+   .granularityDec                                = 1u
+ };

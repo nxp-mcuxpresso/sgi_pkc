@@ -70,7 +70,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_KeyGeneration_example)
 
   /* Allocate space for and initialize RSA private key handle */
   uint32_t privKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t privKey = (mcuxClKey_Handle_t) &privKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   ALIGNED uint8_t pPrivKeyData[MCUXCLRSA_KEYGENERATION_PLAIN_KEY_DATA_2048_SIZE];
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_priv_status, ki_priv_token, mcuxClKey_init(
@@ -90,7 +92,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_KeyGeneration_example)
 
   /* Allocate space for and initialize RSA public key handle */
   uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t pubKey = (mcuxClKey_Handle_t) &pubKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   ALIGNED uint8_t pPubKeyData[MCUXCLRSA_KEYGENERATION_PUBLIC_KEY_DATA_SIZE(RSA_KEY_BYTE_LENGTH, RSA_PUBLIC_EXP_BYTE_LENGTH)];
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_pub_status, ki_pub_token, mcuxClKey_init(
@@ -116,14 +120,18 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_KeyGeneration_example)
   /******************************************************************************/
 
   /* Fill mode descriptor with the relevant data for the RSA key generation */
-  uint8_t keyGenModeBytes[MCUXCLRSA_KEYGEN_MODE_SIZE];
+  ALIGNED uint8_t keyGenModeBytes[MCUXCLRSA_KEYGEN_MODE_SIZE];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_GenerationDescriptor_t *pKeyGeneration_RSA_Mode = (mcuxClKey_GenerationDescriptor_t *) keyGenModeBytes;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClRsa_KeyGeneration_ModeConstructor(
     /* mcuxClKey_GenerationDescriptor_t * pKeyGenMode: */ pKeyGeneration_RSA_Mode,
     /* const uint8_t * pE:                            */ pubExp,
     /* uint32_t eLength:                              */ sizeof(pubExp)
     );
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   /******************************************************************************/
   /* Key pair generation                                                        */

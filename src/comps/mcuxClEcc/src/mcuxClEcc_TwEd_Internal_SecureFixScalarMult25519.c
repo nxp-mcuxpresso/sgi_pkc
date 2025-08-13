@@ -28,7 +28,7 @@
 
 #include <internal/mcuxClSession_Internal.h>
 
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_TwEd_SecureFixScalarMult25519, mcuxClEcc_ScalarMultFunction_t)
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_TwEd_SecureFixScalarMult25519, mcuxClEcc_ScalarMultFunction_t)
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_SecureFixScalarMult25519(
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

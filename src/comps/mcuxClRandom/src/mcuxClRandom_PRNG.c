@@ -24,6 +24,7 @@
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 #include <internal/mcuxClBuffer_Internal.h>
 #include <internal/mcuxClRandom_Internal_Functions.h>
+#include <internal/mcuxClCrc_Internal_Functions.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandom_ncPatch)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_ncPatch(
@@ -52,17 +53,30 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_ncInit(
 {
     MCUXCLSESSION_ENTRY(pSession, mcuxClRandom_ncInit, diRefValue, MCUXCLRANDOM_STATUS_FAULT_ATTACK);
 
-    MCUX_CSSL_DI_RECORD(sumOfRandomNcInitParams, (uint32_t)pSession);
+    MCUX_CSSL_DI_RECORD(sumOfRandomNcInitParams, pSession);
 
     /* Reset the PRNG patch function to un-patch the PRNG */
     pSession->randomCfg.prngPatchFunction = NULL;
     pSession->randomCfg.pCustomPrngState = NULL;
 
-    MCUX_CSSL_DI_EXPUNGE(sumOfRandomNcInitParams, (uint32_t)pSession);
+    MCUX_CSSL_DI_EXPUNGE(sumOfRandomNcInitParams, pSession);
 
     MCUXCLSESSION_EXIT(pSession, mcuxClRandom_ncInit, diRefValue, MCUXCLRANDOM_STATUS_OK, MCUXCLRANDOM_STATUS_FAULT_ATTACK);
 }
 
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandom_ncReseed)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_ncReseed(
+    mcuxClSession_Handle_t pSession
+)
+{
+    MCUXCLSESSION_ENTRY(pSession, mcuxClRandom_ncReseed, diRefValue, MCUXCLRANDOM_STATUS_FAULT_ATTACK);
+
+    /* Call internal reseed function */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_reseed(pSession));
+
+    MCUXCLSESSION_EXIT(pSession, mcuxClRandom_ncReseed, diRefValue, MCUXCLRANDOM_STATUS_OK, MCUXCLRANDOM_STATUS_FAULT_ATTACK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_reseed));
+}
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandom_ncGenerate_Internal)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandom_ncGenerate_Internal(
@@ -76,7 +90,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandom_ncGenerate_Internal(
     if(NULL != pSession->randomCfg.prngPatchFunction)
     {
         MCUXCLBUFFER_INIT(pBufOut, NULL, pOut, outLength);
-        mcuxClRandom_Status_t result_customAlg =  (mcuxClRandom_Status_t)pSession->randomCfg.prngPatchFunction(
+        mcuxClRandom_Status_t result_customAlg = pSession->randomCfg.prngPatchFunction(
                     pSession->randomCfg.pCustomPrngState,
                     pBufOut,
                     outLength);
@@ -105,7 +119,7 @@ uint32_t mcuxClRandom_ncGenerateWord_Internal(mcuxClSession_Handle_t pSession)
         return rngWord;
     }
 
-    return (uint32_t)mcuxClPrng_generate_word();
+    return MCUX_CSSL_FP_RESULT(mcuxClPrng_generate_word());
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandom_ncGenerate)
@@ -121,7 +135,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_ncGenerate(
 
     if(NULL != pSession->randomCfg.prngPatchFunction)
     {
-        mcuxClRandom_Status_t result_customAlg = (mcuxClRandom_Status_t)pSession->randomCfg.prngPatchFunction(
+        mcuxClRandom_Status_t result_customAlg = pSession->randomCfg.prngPatchFunction(
                     pSession->randomCfg.pCustomPrngState,
                     pOut,
                     outLength);

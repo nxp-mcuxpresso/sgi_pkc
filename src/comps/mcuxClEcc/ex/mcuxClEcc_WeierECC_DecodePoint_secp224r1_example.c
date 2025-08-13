@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -87,7 +87,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_WeierECC_DecodePoint_secp224r1_example)
                                       buffCompressedPoint,
                                       buffDecodedPoint,
                                       mcuxClEcc_WeierECC_PointEncType_SEC,
-                                      (mcuxClEcc_Weier_DomainParams_t *) &mcuxClEcc_Weier_DomainParams_secp224r1)
+                                      MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER()
+                                      (mcuxClEcc_Weier_DomainParams_t *) &mcuxClEcc_Weier_DomainParams_secp224r1
+                                      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER())
     );
 
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_DecodePoint) != decodePoint_token) || (MCUXCLECC_STATUS_OK != decodePoint_status))

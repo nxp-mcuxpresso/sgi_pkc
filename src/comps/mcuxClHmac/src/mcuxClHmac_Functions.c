@@ -44,14 +44,6 @@ static mcuxClHmac_Algorithm_t mcuxClHmac_castToHmacAlgorithm(void* pAlgorithm)
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 }
 
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHmac_castUint32ToHmacContext)
-static mcuxClHmac_Context_Sw_t* mcuxClHmac_castUint32ToHmacContext(uint32_t* pContext)
-{
-  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-  return (mcuxClHmac_Context_Sw_t* ) pContext;
-  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-}
-
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHmac_castMacContextToHmacContext)
 static mcuxClHmac_Context_Sw_t* mcuxClHmac_castMacContextToHmacContext(mcuxClMac_Context_t* pContext)
 {
@@ -79,7 +71,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClHmac_compute(
     MCUX_CSSL_DI_RECORD(pMac, pMac);
 
     mcuxClHmac_Algorithm_t pAlgo = mcuxClHmac_castToHmacAlgorithm(mode->common.pAlgorithm);
-    mcuxClHmac_Context_Sw_t *pContext = mcuxClHmac_castUint32ToHmacContext(mcuxClSession_allocateWords_cpuWa(session, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLHMAC_INTERNAL_CONTEXT_SIZE)));
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(mcuxClHmac_Context_Sw_t*, pContext, mcuxClSession_allocateWords_cpuWa(session, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLHMAC_INTERNAL_CONTEXT_SIZE)));
 
     pContext->common.pMode = mode;
     pContext->key = (mcuxClKey_Descriptor_t *) key;

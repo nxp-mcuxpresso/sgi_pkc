@@ -25,19 +25,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_cleanupOnExit(mcuxClSession_
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_cleanupOnExit);
 
     /* Free CPU WA in Session - SREQI_DRBG_10 */
-    // TODO: CLNS-17712
-    // MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_cleanup_freedWorkareas));
-    // MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSession_cleanup_freedWorkareas(session));
-    (void)mcuxClSession_cleanup_freedWorkareas(session);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSession_cleanup_freedWorkareas(session));
 
     /* Clean up HW memory - SREQI_DRBG_10 */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_cleanUpHW));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_cleanUpHW());
 
     /* Release HW */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_releaseHW));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_releaseHW(session));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_cleanupOnExit);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_cleanupOnExit,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_cleanup_freedWorkareas),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_cleanUpHW),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_releaseHW));
 }
 

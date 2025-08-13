@@ -12,6 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClCore_Platform.h>
+#include <internal/mcuxClHash_Internal.h>
 
 /**********************************************************/
 /* Hash Algorithm OIDs                                    */

@@ -40,8 +40,10 @@ extern "C" {
 /** Datout update handling */
 #define MCUXCLSGI_DRV_CTRL_DATOUT_RES_END_UP     (MCUXCLSGI_SFR_CTRL_DATOUT_RES_END_UP)
 
-#define MCUXCLSGI_DRV_CTRL_END_UP   (MCUXCLSGI_SFR_CTRL_END_UP)
-#define MCUXCLSGI_DRV_CTRL_NO_UP    (MCUXCLSGI_SFR_CTRL_NO_UP)
+#define MCUXCLSGI_DRV_CTRL_END_UP         (MCUXCLSGI_SFR_CTRL_END_UP)
+#define MCUXCLSGI_DRV_CTRL_START_UP       (MCUXCLSGI_SFR_CTRL_START_UP)
+#define MCUXCLSGI_DRV_CTRL_NO_UP          (MCUXCLSGI_SFR_CTRL_NO_UP)
+#define MCUXCLSGI_DRV_CTRL_TRIGGER_UP     (MCUXCLSGI_SFR_CTRL_TRIGGER_UP)
 
 #define MCUXCLSGI_DRV_CTRL_INVALID  (MCUXCLSGI_SFR_CTRL_INVALID)
 #define MCUXCLSGI_DRV_CTRL_GFMUL    (MCUXCLSGI_SFR_CTRL_GFMUL)
@@ -229,7 +231,7 @@ static inline uint32_t mcuxClSgi_Drv_addressToOffset(uint32_t* sfrAddress)
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_isWriteOnlyKeyOffset)
 static inline bool mcuxClSgi_Drv_isWriteOnlyKeyOffset(uint32_t offset)
 {
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(offset, MCUXCLSGI_SFR_KEY0_OFFSET / 4U, MCUXCLSGI_SFR_KEY7_OFFSET / 4U, true);
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(offset, MCUXCLSGI_SFR_KEY0_OFFSET, MCUXCLSGI_SFR_KEY7_OFFSET, true);
   return mcuxClSgi_Sfr_isWriteOnlyKey(MCUXCLSGI_SFR_KEY_OFFSET_TO_INDEX(offset));
 }
 
@@ -268,10 +270,14 @@ static inline uint32_t * mcuxClSgi_Drv_getAddr(uint32_t offset)
 /**
  * @brief Waits until SGI operation finished
  *
- * @return void
+ * This function does not need FP, the SGI will either throw an error
+ * or block read/write accesses until it is not busy anymore.
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_wait)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_wait(void);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_wait)
+static inline void mcuxClSgi_Drv_wait(void)
+{
+  while(MCUXCLSGI_SFR_STATUS_BUSY(mcuxClSgi_Sfr_readStatus())) { /*nothing*/ }
+}
 
 /**
  * @brief Initializes SGI
@@ -281,8 +287,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_wait(void);
  * - CTRL2 to the given mode
  *
  * @param[in]  mode   Ctrl2 Configuration
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_init)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_init(uint32_t mode);
@@ -307,8 +311,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_close(mcuxClSession_Handle_t ses
  *    enable, command (Ecb, Cbc, Ctr 32/64/96/128, Cmac), counter_incr.
  *
  * @param[in]  autoModeConfig  Configuration of the AUTO mode control
- *
- * @return void
  */
 #define MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_ECB      (MCUXCLSGI_SFR_AUTO_MODE_EN | MCUXCLSGI_SFR_AUTO_MODE_ECB) ///< Configures AUTO mode in ECB
 #define MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_CTR_32   (MCUXCLSGI_SFR_AUTO_MODE_EN | MCUXCLSGI_SFR_AUTO_MODE_CTR | MCUXCLSGI_SFR_AUTO_MODE_INCR_32_BIT) ///< Configures AUTO mode in CTR for a 32-bit counter
@@ -328,8 +330,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_configureAutoMode(uint32_t autoM
  * This can be used to finish a key wrap/unwrap operation.
  *
  * @pre The SGI busy must be de-asserted before resetting this register.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_resetAutoMode)
 void mcuxClSgi_Drv_resetAutoMode(void);
@@ -339,8 +339,6 @@ void mcuxClSgi_Drv_resetAutoMode(void);
  *
  * Stops a Cipher (ECB/CBC/CTR) or CMAC operation, when SGI is configured to AUTO mode,
  * and disables AUTO mode.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_stopAndDisableAutoMode)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_stopAndDisableAutoMode(void);
@@ -352,8 +350,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_stopAndDisableAutoMode(void);
  * This will enable the DMA handshakes for SGI input and output signals, notifying
  * the DMA channels once the SGI is ready to accept new input data and ready to
  * provide new output data.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_enableDmaHandshakes)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableDmaHandshakes(void);
@@ -362,8 +358,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableDmaHandshakes(void);
  * @brief Disable Input and OUtput DMA Handshake for AUTO mode
  *
  * Updates the AUTO mode DMA CTRL register to disable all handshakes.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableDmaHandshakes)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableDmaHandshakes(void);
@@ -374,8 +368,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableDmaHandshakes(void);
  * Updates the AUTO mode DMA CTRL register to enable Input FIFO.
  * This will enable the DMA handshake for SGI input signals, notifying
  * the DMA input channel once the SGI is ready to accept new input data.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_enableInputDmaHandshake)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableInputDmaHandshake(void);
@@ -384,8 +376,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableInputDmaHandshake(void);
  * @brief Disable Input DMA Handshake for AUTO mode
  *
  * Updates the AUTO mode DMA CTRL register to disable Input FIFO.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableInputDmaHandshake)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableInputDmaHandshake(void);
@@ -400,8 +390,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableInputDmaHandshake(void);
  * by configuring the CTRL register
  *
  * @param[in]  operation   Configuration of operation to be executed
- *
- * @return void
  */
 #define MCUXCLSGI_DRV_START_SHA2   (MCUXCLSGI_SFR_CTRL_SHA2 | MCUXCLSGI_SFR_CTRL_DATOUT_RES_END_UP)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_start)
@@ -411,8 +399,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_start(uint32_t operation);
  * @brief Stops a SHA-2 operation in AUTO mode
  *
  * Stops a SHA-2 operation, when SGI is configured to AUTO mode
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_stopSha2)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_stopSha2(void);
@@ -437,8 +423,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getCtrl2(void);
  * @brief Sets control value (CTRL)
  *
  * @param[in]  control   Configuration, which CTRL shall be set to
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_setCtrl)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_setCtrl(uint32_t control);
@@ -447,8 +431,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_setCtrl(uint32_t control);
  * @brief Sets control value (CTRL2)
  *
  * @param[in]  control   Configuration, which CTRL2 shall be set to
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_setCtrl2)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_setCtrl2(uint32_t control);
@@ -459,8 +441,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_setCtrl2(uint32_t control);
  * Configures SHA-2 operation, setting SHA2_CTRL value to control.
  *
  * @param[in]  control   Configuration, which SHA2_CTRL shall be set to
- *
- * @return void
  */
 #define MCUXCLSGI_DRV_STATE_SIZE_SHA2_224 (32u)
 #define MCUXCLSGI_DRV_STATE_SIZE_SHA2_256 (32u)
@@ -581,8 +561,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_configureSha2(uint32_t control);
  * Updates control value (SHA2_CTRL) to disable using a standard IV for SGI operation.
  * After initializing SGI with AUTO_INIT option, this function can be called to load further blocks, without
  * re-initialization of the SGI.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableIvAutoInit)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableIvAutoInit(void);
@@ -591,20 +569,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableIvAutoInit(void);
  * Functions related to security features
  *****************************************************/
 
+ #if 0
 /**
  * @brief Flush SGI
  *
  * Flushes SGI SFRs and register banks based on configuration (all, key, datain)
  *
  * @param[in]  option   Configuration, which registers shall be flushed
- *
- * @return void
  */
 #define MCUXCLSGI_DRV_FLUSH_ALL  (MCUXCLSGI_SFR_CTRL2_FLUSH)
 #define MCUXCLSGI_DRV_FLUSH_KEY  (MCUXCLSGI_SFR_CTRL2_FLUSHKEY)
 #define MCUXCLSGI_DRV_FLUSH_DATA (MCUXCLSGI_SFR_CTRL2_FLUSHDATA)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_enableFlush)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableFlush(uint32_t option);
+#endif /* 0 */
 
 /** Enables masking - next load/store of data/key will use masking
  * Returns previous control value */
@@ -613,13 +591,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableFlush(uint32_t option);
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClmcuxClSgi_Drv_enableMaskingSgi_Drv_wait)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_enableMasking(uint32_t type, uint32_t mask);
 
-/** Set dummy cycles */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_setDummyCycles)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_setDummyCycles(uint32_t dummyCycles);
-
-/** Read dummy cycles */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_readDummyCycles)
-MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_readDummyCycles(void);
 
 /**
  * @brief Enable and init counter for SHA-2
@@ -627,8 +598,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_readDummyCycles(void);
  * Enables counter for SHA-2 and initializes counter value
  *
  * @param[in]  cntVal   Counter init value
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_enableHashCounter)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableHashCounter(uint32_t cntVal);
@@ -653,26 +622,23 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_checkHashCounter(mcuxClSession_H
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_getCount)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getCount(void);
 
+
+/**
+ * @brief Waits for the SGI and does a SHA error check.
+ *
+ *  Waits until the SGI operation is finished and checks if SGI SHA ERROR flag is set.
+ *  Returns via early exit in fault attack case.
+ *  Note: SHA_ERROR is reset after every successful SHA operation,
+ *        therefore SHA_ERROR needs to be checked after every SHA operation.
+ *
+ * @param[in]    session          Handle for the current CL session
+ */
+ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_Sha2_wait)
+ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_Sha2_wait(mcuxClSession_Handle_t session);
+
 /*****************************************************
  * Functions related to input output handling
  *****************************************************/
-
-/**
- * @brief Fetch key word into the key register
- *
- * Fetch one word of the key to the key register. Index specifies
- * register number within the KEY register banks, where the word
- * is written to.
- *
- * @param[in]  registerIndex  Index to the key register. Must be within
- *                            valid SGI KEY register banks
- *                            (0: KEY0A, 1: KEY0B, ..., 4: KEY1A, 5: KEY1B, ...).
- * @param[in]  key            Key word to be written to the KEY register.
- *
- * @return void
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_loadKeyWord)
-void mcuxClSgi_Drv_loadKeyWord(uint32_t registerIndex, uint32_t key);
 
 /**
  * @brief Increments by 1 (with carry) value in datin
@@ -686,8 +652,6 @@ void mcuxClSgi_Drv_loadKeyWord(uint32_t registerIndex, uint32_t key);
  *
  * @param[in]  offset   Offset with respect to the SGI base address.
  * @param[in]  length   Size of data on which increment shall be applied
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_incrementData)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_incrementData(uint32_t offset, uint32_t length);
@@ -721,8 +685,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_enableXorWrite(void);
  * @brief Disables XOR on write
  *
  * Disables XORWR feature of register banks.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableXorWrite)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableXorWrite(void);
@@ -737,11 +699,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableXorWrite(void);
  * @param[in]  offset   Offset with respect to SGI base address.
  *                      Must be the offset of a valid SGI register.
  * @param[in]  data     Data to be written to DATIN
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_loadWord)
-void mcuxClSgi_Drv_loadWord(uint32_t offset, uint32_t data);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadWord(uint32_t offset, uint32_t data);
 
 /**
  * @brief Write data into SHA FIFO in AUTO mode
@@ -749,8 +709,6 @@ void mcuxClSgi_Drv_loadWord(uint32_t offset, uint32_t data);
  * Write one word to the SHA FIFO.
  *
  * @param[in]  data   Data to be written to FIFO
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_loadFifo)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadFifo(uint32_t data);
@@ -773,8 +731,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_enableOutputToKey(uint32_t k
  *
  * Disables to store the output of a crypto operation in a key
  * register bank. Output will be stored in DATOUT.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableOutputToKey)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableOutputToKey(void);
@@ -788,8 +744,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableOutputToKey(void);
  *
  * @note: It must be checked, with mcuxClSgi_Drv_wait that the
  *        writing of output data completed, before fetching it from DATOUT.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_triggerOutput)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_triggerOutput(void);
@@ -806,6 +760,30 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_triggerOutput(void);
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_storeWord)
 uint32_t mcuxClSgi_Drv_storeWord(uint32_t offset);
+
+#ifdef SGI_HAS_PRNG_SW_READ
+/**
+ * @brief Get PRNG value from SGI_PRNG_SW_READ
+ *
+ * Get PRNG_SW_READ register value
+ *
+  * @return 32-bit PRNG value
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_getPrngWord)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getPrngWord(void);
+
+/**
+ * @brief Reseed the PRNG value in SGI_PRNG_SW_SEED
+ *
+ * Seed value to SGI_PRNG_SW_SEED
+ *
+ * @param[in]  seed   The value which will be seeded
+ *
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_reseedPrng)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_reseedPrng(uint32_t seed);
+
+#endif /* SGI_HAS_PRNG_SW_READ */
 
 /**
  * @brief Get current value of SFR seed
@@ -841,6 +819,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSgi_Status_t) mcuxClSgi_Drv_readStatusError(mc
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_readAccessError)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSgi_Status_t) mcuxClSgi_Drv_readAccessError(mcuxClSession_Handle_t session);
 
+#ifdef SGI_HAS_FLUSHWR /* SGI has the flush on write functionality available */
 /**
  * @brief Enables the flush-on-write feature
  *
@@ -854,11 +833,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_enableFlushWr(void);
 
 /**
  * @brief Disables the flush-on-write feature
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableFlushWr)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableFlushWr(void);
+#endif /* SGI_HAS_FLUSHWR */
 
 /**
  * @brief Flushes consecutive register banks with random data
@@ -868,8 +846,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableFlushWr(void);
  * @param offset         Offset of the register bank that should be flushed.
  *                       Can be any of MCUXCLSGI_DRV_KEY*_OFFSET or MCUXCLSGI_DRV_DAT*_OFFSET.
  * @param numberOfWords  Number of 32-bit SFR words to clear.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_flushRegisterBanks)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_flushRegisterBanks(
@@ -884,8 +860,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_flushRegisterBanks(
  * After calling this function, data loaded to DATIN will be interpreted as IV.
  *
  * @note: Alternatively option MCUXCLSGI_DRV_CONFIG_SHA2_LOAD_IV can be chosen, when configuring SHA-2.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_enableHashReload)
 void mcuxClSgi_Drv_enableHashReload(void);
@@ -896,8 +870,6 @@ void mcuxClSgi_Drv_enableHashReload(void);
  * Updates control value (SHA2_CTRL) to disable reloading the partial digest to the SGI.
  * After loading an IV, this function can be called to indicate that input data will be loaded in the sequel.
  * Data loaded to DATIN after calling this function is interpreted as input data to hashing.
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableHashReload)
 void mcuxClSgi_Drv_disableHashReload(void);
@@ -908,8 +880,6 @@ uint32_t mcuxClSgi_Drv_getMaskValue(void);
 
 /**
  * @brief Disable masking data/key
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableMasking)
 void mcuxClSgi_Drv_disableMasking(void);

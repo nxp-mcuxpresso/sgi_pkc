@@ -102,9 +102,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_PointDecFct_S
         /* Setup environment                                                  */
         /**********************************************************************/
 
-        MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned")
-        mcuxClEcc_CpuWa_t *pCpuWorkarea = (mcuxClEcc_CpuWa_t *) mcuxClSession_getEndOfUsedBuffer_Internal(pSession);
-        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
+        mcuxClEcc_CpuWa_t *pCpuWorkarea = mcuxClEcc_castToEccCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_WeierECC_SetupEnvironment(pSession,
                                         pEccWeierDomainParams,
                                         ECC_DECODEPOINT_NO_OF_BUFFERS));
@@ -198,7 +196,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_PointDecFct_S
 
         MCUXCLPKC_FP_REQUEST_INITIALIZE(pSession, mcuxClEcc_WeierECC_PointDecFct_SEC);
         const uint32_t pkcWaSizeInCpuWords = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(2u * byteLenP);
-        uint8_t *pPkcWa = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeInCpuWords);
+        MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWa, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeInCpuWords));
 
         /* Copy out decompressed point (x, y) as x || y (strip the first byte of the encoding) */
         MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pEncodedPoint);
@@ -218,6 +216,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_PointDecFct_S
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PointDecFct_SEC,
                                   MCUXCLECC_STATUS_OK,
                                   MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
+                                  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write),
                                   MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);

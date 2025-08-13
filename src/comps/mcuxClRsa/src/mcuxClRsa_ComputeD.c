@@ -78,7 +78,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
                                + MCUXCLRSA_PKC_WORDSIZE /* Rnd */
                                + 2u * (BlindedKeyAlignLen + MCUXCLRSA_PKC_WORDSIZE); /* T0 and T1. PSub1, QSub1, PSub1_b and QSub1_b will reuse it */
 
-    uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, bufferSizeTotal / (sizeof(uint32_t)));
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, bufferSizeTotal / (sizeof(uint32_t))));
 
     uint8_t *pLcm_b = pPkcWorkarea;
     uint8_t *pPhi_b = pLcm_b + 2u*blindedPrimePQAlignLen + MCUXCLRSA_PKC_WORDSIZE;
@@ -93,7 +94,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     /* Setup UPTR table */
     const uint32_t cpuWaSizeWord = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLRSA_INTERNAL_COMPD_UPTRT_SIZE * (sizeof(uint16_t)));
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-    uint16_t * pOperands = (uint16_t *) mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_P]         = MCUXCLPKC_PTR2OFFSET(pP->pKeyEntryData);
@@ -112,9 +114,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_CONSTANT]  = 1u;
 
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("pRnd is 32-bit aligned.")
-    uint32_t *pR32 = (uint32_t *)pRnd;
+    uint32_t *pR32 = (uint32_t *) pRnd;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
-    pR32[0] = mcuxClPrng_generate_word() | 0x1u;
+    MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
+    pR32[0] = random32 | 0x1u;
     pR32[1] = 0u;
 
     /* Backup Ps1 length and UPTRT to recover in the end */
@@ -216,6 +219,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
 
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_ComputeD,
             ((MCUXCLPKC_FLAG_CARRY != MCUXCLPKC_WAITFORFINISH_GETCARRY()) ? MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID : MCUXCLRSA_STATUS_KEYGENERATION_OK),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
             2u*MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros),
             MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,

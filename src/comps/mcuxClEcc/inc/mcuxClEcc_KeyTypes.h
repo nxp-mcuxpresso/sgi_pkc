@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -80,7 +80,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp19
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp192k1.
- * 
+ *
  * \implements{REQ_788278}
  *
  */
@@ -96,7 +96,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp19
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp192k1.
- * 
+ *
  * \implements{REQ_788278}
  *
  */
@@ -117,7 +117,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp22
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp224k1.
- * 
+ *
  * \implements{REQ_788278}
  *
  */
@@ -133,7 +133,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp22
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp224k1.
- * 
+ *
  * \implements{REQ_788278}
  *
  */
@@ -154,7 +154,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp25
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp256k1.
- * 
+ *
  * \implements{REQ_788278}
  *
  */
@@ -170,7 +170,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp25
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp256k1.
- * 
+ *
  * \implements{REQ_788278}
  *
  */
@@ -190,7 +190,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp19
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp192r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -206,7 +206,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp19
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp192r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -227,7 +227,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp22
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp224r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -243,7 +243,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp22
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp224r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -264,7 +264,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp25
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp256r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -280,7 +280,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp25
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp256r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -301,7 +301,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp38
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp384r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -317,7 +317,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp38
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp384r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -338,7 +338,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp52
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve secp521r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -354,7 +354,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp52
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve secp521r1.
- * 
+ *
  * \implements{REQ_788278,REQ_788276}
  *
  */
@@ -375,7 +375,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve NIST P-192.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -391,7 +391,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve NIST P-256.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -412,7 +412,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve NIST P-224.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -428,7 +428,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve NIST P-224.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -449,7 +449,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve NIST P-256.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -465,7 +465,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve NIST P-256.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -486,7 +486,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve NIST P-384.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -502,7 +502,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve NIST P-384.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -523,7 +523,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve NIST P-521.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -539,7 +539,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve NIST P-521.
- * 
+ *
  * \implements{REQ_788274}
  *
  */
@@ -560,7 +560,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP160r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -576,7 +576,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP160r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -597,7 +597,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP192r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -613,7 +613,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP192r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -634,7 +634,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP224r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -650,7 +650,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP224r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -671,7 +671,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP256r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -687,7 +687,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP256r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -708,7 +708,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP320r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -724,7 +724,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP320r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -745,7 +745,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP384r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -761,7 +761,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP384r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -782,7 +782,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP512r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -798,7 +798,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP512r1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -819,7 +819,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP160t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -835,7 +835,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP160t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -856,7 +856,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP192t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -872,7 +872,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP192t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -893,7 +893,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP224t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -909,7 +909,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP224t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -930,7 +930,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP256t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -946,7 +946,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP256t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -967,7 +967,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP320t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -983,7 +983,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP320t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -1004,7 +1004,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP384t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -1020,7 +1020,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP384t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -1041,7 +1041,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for public ECC Weierstrass keys for Weierstrass curve brainpoolP512t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -1057,7 +1057,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainp
 
 /**
  * @brief Key type pointer for private ECC keys for Weierstrass curve brainpoolP512t1.
- * 
+ *
  * \implements{REQ_788277}
  *
  */
@@ -1117,7 +1117,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ecc_MontDH_Curv
 
 /**
  * @brief Private key type pointer for ECC MontDH Curve25519.
- * 
+ *
  * \implements{REQ_788280}
  *
  */
@@ -1128,9 +1128,9 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Public key type pointer for ECC MontDH Curve25519.
- * 
+ *
  * \implements{REQ_788280}
- * 
+ *
  */
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_Ecc_MontDH_Curve25519_PublicKey = &mcuxClKey_TypeDescriptor_Ecc_MontDH_Curve25519_PublicKey;
@@ -1155,7 +1155,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ecc_MontDH_Curv
 
 /**
  * @brief Private key type pointer for ECC MontDH Curve448.
- * 
+ *
  * \implements{REQ_788280}
  *
  */
@@ -1165,7 +1165,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * @brief Public key type pointer for ECC MontDH Curve448.
- * 
+ *
  * \implements{REQ_788280}
  *
  */
@@ -1204,7 +1204,7 @@ extern const mcuxClKey_GenerationDescriptor_t mcuxClKey_GenerationDescriptor_ECD
 
 /**
  * @brief ECDSA Key generation algorithm
- * 
+ *
  * \implements{REQ_788266}
 }
  */
@@ -1224,7 +1224,7 @@ extern const mcuxClKey_GenerationDescriptor_t mcuxClKey_GenerationDescriptor_EdD
  * @brief EdDSA Key generation algorithm
  *
  * This key generation algorithm shall be used for EdDSA private and public key pair generation.
- * 
+ *
  * \implements{REQ_788267}
  */
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
@@ -1237,15 +1237,17 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
  *
  * This key generation algorithm descriptor shall be used for an MontDH private and public key pair generation.
  */
+MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 extern const mcuxClKey_GenerationDescriptor_t mcuxClKey_GenerationDescriptor_MontDH;
+MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
 /**
  * @brief MontDH Key generation algorithm
  *
  * This key generation algorithm shall be used for MontDH private and public key pair generation.
- * 
+ *
  * \implements{REQ_788280}
- * 
+ *
  */
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static mcuxClKey_Generation_t mcuxClKey_Generation_MontDH =
@@ -1273,7 +1275,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
 
 /**
  * @brief ECDH Key agreement algorithm
- * 
+ *
  * \implements{REQ_788280}
  */
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
@@ -1288,7 +1290,7 @@ extern const mcuxClKey_AgreementDescriptor_t mcuxClKey_AgreementDescriptor_MontD
 
 /**
  * @brief MontDH Key agreement algorithm
- * 
+ *
  * \implements{REQ_788280}
  */
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
@@ -1301,6 +1303,46 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
  * @}
  */ /* mcuxClEcc_KeyAgreementDescriptors */
 
+/**
+ * @defgroup mcuxClEcc_KeyValidationDescriptors mcuxClEcc_KeyValidationDescriptors
+ * @brief Definitions of ECC related key validation descriptors
+ * @ingroup mcuxClEcc_Descriptors
+ * @{
+ */
+
+/**
+ * @brief Key validation descriptor for a public key used for ECC on a Weierstrass curve
+ */
+extern const mcuxClKey_ValidationDescriptor_t mcuxClKey_ValidationDesc_WeierECC_PublicKey;
+
+/**
+ * @brief Key validation type for a public key used for ECC on a Weierstrass curve
+ *
+ * \implements{REQ_788283}
+ */
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
+static mcuxClKey_Validation_t mcuxClKey_Validation_WeierECC_PublicKey =
+  &mcuxClKey_ValidationDesc_WeierECC_PublicKey;
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+
+/**
+ * @brief Key validation descriptor for a private key used for ECC on a Weierstrass curve
+ */
+extern const mcuxClKey_ValidationDescriptor_t mcuxClKey_ValidationDesc_WeierECC_PrivateKey;
+
+/**
+ * @brief Key validation type for a private key used for ECC on a Weierstrass curve
+ *
+ * \implements{REQ_788284}
+ */
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
+static mcuxClKey_Validation_t mcuxClKey_Validation_WeierECC_PrivateKey =
+  &mcuxClKey_ValidationDesc_WeierECC_PrivateKey;
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+
+/**
+ * @}
+ */ /* mcuxClEcc_KeyValidationDescriptors */
 
 /**
  * @}

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -53,6 +53,8 @@ volatile uint8_t mcuxClEcc_WeierECC_GenerateDomainParams_WaCPU_SIZE[SIZEOF_ECCCP
 volatile uint8_t mcuxClEcc_WeierECC_DecodePoint_WaCPU_SIZE[SIZEOF_ECCCPUWA_T + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(uint16_t) * (ECC_DECODEPOINT_NO_OF_BUFFERS + ECC_DECODEPOINT_NO_OF_VIRTUALS))];
 
 
+volatile uint8_t mcuxClEcc_WeierECC_PrivateKeyValidation_WaCPU_SIZE[SIZEOF_ECCCPUWA_T + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(uint16_t) * (ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS + ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_VIRTUALS))];
+volatile uint8_t mcuxClEcc_WeierECC_PublicKeyValidation_WaCPU_SIZE[SIZEOF_ECCCPUWA_T + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(uint16_t) * (ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_BUFFERS + ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_VIRTUALS))];
 
 volatile uint8_t mcuxClEcc_PKC_wordsize[MCUXCLPKC_WORDSIZE];
 
@@ -72,6 +74,7 @@ volatile uint8_t mcuxClEcc_GenerateKeyPair_WaPKC_Size_256   [(ECC_GENERATEKEYPAI
 volatile uint8_t mcuxClEcc_GenerateKeyPair_WaPKC_Size_384   [(ECC_GENERATEKEYPAIR_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(48) + MCUXCLPKC_WORDSIZE)];
 volatile uint8_t mcuxClEcc_GenerateKeyPair_WaPKC_Size_512   [(ECC_GENERATEKEYPAIR_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(64) + MCUXCLPKC_WORDSIZE)];
 volatile uint8_t mcuxClEcc_GenerateKeyPair_WaPKC_Size_640   [(ECC_GENERATEKEYPAIR_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(80) + MCUXCLPKC_WORDSIZE)];
+
 
 volatile uint8_t mcuxClEcc_GenerateSignature_WaPKC_Size_128   [(ECC_GENERATESIGNATURE_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(16) + MCUXCLPKC_WORDSIZE)];
 volatile uint8_t mcuxClEcc_GenerateSignature_WaPKC_Size_256   [(ECC_GENERATESIGNATURE_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(32) + MCUXCLPKC_WORDSIZE)];
@@ -107,6 +110,17 @@ volatile uint8_t mcuxClEcc_WeierECC_DecodePoint_WaPKC_Size_512 [(ECC_DECODEPOINT
 volatile uint8_t mcuxClEcc_WeierECC_DecodePoint_WaPKC_Size_640 [(ECC_DECODEPOINT_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(80) + MCUXCLPKC_WORDSIZE)];
 
 
+volatile uint8_t mcuxClEcc_WeierECC_PrivateKeyValidation_WaPKC_Size_128 [(ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(16) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PrivateKeyValidation_WaPKC_Size_256 [(ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(32) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PrivateKeyValidation_WaPKC_Size_384 [(ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(48) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PrivateKeyValidation_WaPKC_Size_512 [(ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(64) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PrivateKeyValidation_WaPKC_Size_640 [(ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(80) + MCUXCLPKC_WORDSIZE)];
+
+volatile uint8_t mcuxClEcc_WeierECC_PublicKeyValidation_WaPKC_Size_128 [(ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(16) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PublicKeyValidation_WaPKC_Size_256 [(ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(32) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PublicKeyValidation_WaPKC_Size_384 [(ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(48) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PublicKeyValidation_WaPKC_Size_512 [(ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(64) + MCUXCLPKC_WORDSIZE)];
+volatile uint8_t mcuxClEcc_WeierECC_PublicKeyValidation_WaPKC_Size_640 [(ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_BUFFERS) * (MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(80) + MCUXCLPKC_WORDSIZE)];
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_OBJ_SIZES()
 

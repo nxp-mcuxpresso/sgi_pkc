@@ -29,12 +29,12 @@ extern "C" {
 #endif
 
 /**
- * @brief Request a DMA channel as NON_INTERRUPTABLE
+ * @brief Request a DMA channel as NON_INTERRUPTABLE, install the callback function.
  *
- * @param session Session that requests the channel
- * @param channel Channel to be requested
- * @param callbackFunction Callback function to be written into the session job context
- * @param protectionToken_callbackFunction Protection token of the callback function
+ * @param session                           Session that requests the channel
+ * @param channel                           Channel to be requested
+ * @param callbackFunction                  Callback function to be written into the session job context
+ * @param protectionToken_callbackFunction  Protection token of the callback function
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClDma_request)
 static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_request(
@@ -96,42 +96,6 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_release(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_requestInputAndOutput)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_requestInputAndOutput(
   mcuxClSession_Handle_t session,
-  mcuxClSession_HwInterruptHandler_t callbackFunction,
-  uint32_t protectionToken_callbackFunction
-);
-
-/**
- * @brief Function to request DMA input and output channels and to write the workarea into the session job context
- *
- * This function replaces calls to @ref mcuxClDma_requestInputAndOutput for non-blocking DMA modes
- *
- * @param session Session that requests the channels
- * @param pWa Pointer to the workarea to be written into the session job context
- * @param callbackFunction Callback function to be written into the session job context
- * @param protectionToken_callbackFunction Protection token of the callback function
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_requestDmaInputAndOutputWithWorkarea)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_requestDmaInputAndOutputWithWorkarea(
-  mcuxClSession_Handle_t session,
-  void *pWa,
-  mcuxClSession_HwInterruptHandler_t callbackFunction,
-  uint32_t protectionToken_callbackFunction
-);
-
-/**
- * @brief Function to request DMA input channel and to write the workarea into the session job context
- *
- * This function replaces calls to @ref mcuxClDma_request for non-blocking DMA modes.
- *
- * @param session Session that requests the channels
- * @param pWa Pointer to the workarea to be written into the session job context
- * @param callbackFunction Callback function to be written into the session job context
- * @param protectionToken_callbackFunction Protection token of the callback function
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_requestDmaInputWithWorkarea)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_requestDmaInputWithWorkarea(
-  mcuxClSession_Handle_t session,
-  void *pWa,
   mcuxClSession_HwInterruptHandler_t callbackFunction,
   uint32_t protectionToken_callbackFunction
 );

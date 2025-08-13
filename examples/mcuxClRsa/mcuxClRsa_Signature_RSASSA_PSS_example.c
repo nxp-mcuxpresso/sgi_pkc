@@ -29,6 +29,7 @@
 #include <mcuxClCore_Macros.h>
 #include <mcuxClExample_Session_Helper.h>
 #include <mcuxClExample_RNG_Helper.h>
+#include <mcuxClToolchain.h>
 
 /**********************************************************/
 /* Example test vectors                                   */
@@ -133,34 +134,36 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_Signature_RSASSA_PSS_example)
   /* Preparation: setup RSA key                                             */
   /**************************************************************************/
 
-  /* Allocation of key data buffers, which contain RSA key parameters */
-  // TODO CLNS-9057: improve key usage in the example, the structure could be created directly by the user
-  uint8_t pubKeyBytes[MCUXCLRSA_KEYSTRUCT_PLAIN_SIZE];
-  uint8_t privKeyBytes[MCUXCLRSA_KEYSTRUCT_PLAIN_SIZE];
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER()
+  mcuxClRsa_KeyData_Plain_t privKeyStruct = {
+                              .modulus.pKeyEntryData = (uint8_t*)modulus,
+                              .modulus.keyEntryLength = RSA_KEY_BYTE_LENGTH,
+                              .exponent.pKeyEntryData = (uint8_t*)privExp,
+                              .exponent.keyEntryLength = sizeof(privExp)
+  };
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()
 
-  mcuxClRsa_KeyData_Plain_t *pPubKeyStruct = (mcuxClRsa_KeyData_Plain_t *) pubKeyBytes;
-  mcuxClRsa_KeyData_Plain_t *pPrivKeyStruct = (mcuxClRsa_KeyData_Plain_t *) privKeyBytes;
-
-  pPubKeyStruct->modulus.pKeyEntryData = (uint8_t*)modulus;
-  pPubKeyStruct->modulus.keyEntryLength = RSA_KEY_BYTE_LENGTH;
-  pPubKeyStruct->exponent.pKeyEntryData = (uint8_t*)pubExp;
-  pPubKeyStruct->exponent.keyEntryLength = sizeof(pubExp);
-
-  pPrivKeyStruct->modulus.pKeyEntryData = (uint8_t*)modulus;
-  pPrivKeyStruct->modulus.keyEntryLength = RSA_KEY_BYTE_LENGTH;
-  pPrivKeyStruct->exponent.pKeyEntryData = (uint8_t*)privExp;
-  pPrivKeyStruct->exponent.keyEntryLength = sizeof(privExp);
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER()
+  mcuxClRsa_KeyData_Plain_t pubKeyStruct = {
+                              .modulus.pKeyEntryData = (uint8_t*)modulus,
+                              .modulus.keyEntryLength = RSA_KEY_BYTE_LENGTH,
+                              .exponent.pKeyEntryData = (uint8_t*)pubExp,
+                              .exponent.keyEntryLength = sizeof(pubExp)
+  };
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()
 
   /* Initialize RSA private key */
   uint32_t privKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t privKey = (mcuxClKey_Handle_t) &privKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_priv_status, ki_priv_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session         */ session,
     /* mcuxClKey_Handle_t key                 */ privKey,
     /* mcuxClKey_Type_t type                  */ mcuxClKey_Type_Rsa_PrivatePlain_2048,
-    /* uint8_t * pKeyData                    */ privKeyBytes,
-    /* uint32_t keyDataLength                */ sizeof(privKeyBytes)
+    /* uint8_t * pKeyData                    */ (uint8_t *) &privKeyStruct,
+    /* uint32_t keyDataLength                */ sizeof(privKeyStruct)
   ));
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_init) != ki_priv_token) || (MCUXCLKEY_STATUS_OK != ki_priv_status))
@@ -172,14 +175,16 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_Signature_RSASSA_PSS_example)
 
   /* Initialize RSA public key */
   uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t pubKey = (mcuxClKey_Handle_t) &pubKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_pub_status, ki_pub_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session         */ session,
     /* mcuxClKey_Handle_t key                 */ pubKey,
     /* mcuxClKey_Type_t type                  */ mcuxClKey_Type_Rsa_Public_2048,
-    /* uint8_t * pKeyData                    */ pubKeyBytes,
-    /* uint32_t keyDataLength                */ sizeof(pubKeyBytes)
+    /* uint8_t * pKeyData                    */ (uint8_t *) &pubKeyStruct,
+    /* uint32_t keyDataLength                */ sizeof(pubKeyStruct)
   ));
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_init) != ki_pub_token) || (MCUXCLKEY_STATUS_OK != ki_pub_status))
@@ -195,12 +200,17 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_Signature_RSASSA_PSS_example)
 
   /* Fill mode descriptor with the relevant data for the selected padding and hash algorithms */
   // TODO CLNS-9057: define one buffer size which covers both the mode & protocol descriptor, and remove the protocol descriptor parameter here
-  uint8_t signatureModeBytes[MCUXCLSIGNATURE_MODE_SIZE];
+  ALIGNED uint8_t signatureModeBytes[MCUXCLSIGNATURE_MODE_SIZE];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClSignature_ModeDescriptor_t *pSignatureMode = (mcuxClSignature_ModeDescriptor_t *) signatureModeBytes;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
-  uint8_t rsaProtocolDescriptorBytes[MCUXCLRSA_SIGNATURE_PROTOCOLDESCRIPTOR_SIZE];
+  ALIGNED uint8_t rsaProtocolDescriptorBytes[MCUXCLRSA_SIGNATURE_PROTOCOLDESCRIPTOR_SIZE];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClRsa_SignatureProtocolDescriptor_t *pRsaProtocolDescriptor = (mcuxClRsa_SignatureProtocolDescriptor_t *) rsaProtocolDescriptorBytes;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
     /* mcuxClSignature_ModeDescriptor_t * pSignatureMode: */ pSignatureMode,
     /* mcuxClRsa_SignatureProtocolDescriptor_t * pProtocolDescriptor: */ pRsaProtocolDescriptor,
@@ -208,7 +218,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_Signature_RSASSA_PSS_example)
     /* uint32_t saltLength: */ RSA_PSS_SALT_LENGTH,
     /* uint32_t options: */ 0u
     );
-
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   /**************************************************************************/
   /* Hash computation                                                       */
   /**************************************************************************/
@@ -246,7 +256,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_Signature_RSASSA_PSS_example)
     /* mcuxClSession_Handle_t session:   */ session,
     /* mcuxClKey_Handle_t key:           */ privKey,
     /* mcuxClSignature_Mode_t mode:      */ pSignatureMode,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("hashBuf initialized by mcuxClHash_compute")
     /* mcuxCl_InputBuffer_t pIn:         */ (mcuxCl_InputBuffer_t)hashBuf,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* uint32_t inSize:                 */ sizeof(hash),
     /* mcuxCl_Buffer_t pSignature:       */ signatureBuf,
     /* uint32_t * const pSignatureSize: */ &signatureSize

@@ -28,8 +28,21 @@
 
 #include <internal/mcuxClEcc_EdDSA_Internal.h>
 
+/**
+ * @brief This function implements the protocol descriptor generation for Ed25519ctx, Ed25519ph, Ed448 and Ed448ph
+ *
+ * @param[in]  pSession             Handle for the current CL session
+ * @param[in]  pDomainParams        Pointer to domain parameters of the used curve
+ * @param[in]  pProtocolDescriptor  Protocol descriptor specifying the EdDSA variant
+ * @param[in]  phflag               Option whether pre-hashing is enabled
+ * @param[in]  pContext             User input context for the hash prefix
+ * @param[in]  contextLen           Length of the context
+ *
+ * @return A code-flow protected error code (see @ref MCUXCLECC_STATUS_)
+ * @retval #MCUXCLECC_STATUS_OK                EdDSA protocol descriptor generated successfully
+ */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_GenerateProtocolDescriptor)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_GenerateProtocolDescriptor(
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateProtocolDescriptor(
     mcuxClSession_Handle_t pSession,
     const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
     mcuxClEcc_EdDSA_SignatureProtocolDescriptor_t *pProtocolDescriptor,
@@ -54,7 +67,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_GenerateProtocol
     pProtocolDescriptor->pHashPrefix = pHashPrefix;
     pProtocolDescriptor->hashPrefixLen = MCUXCLECC_EDDSA_SIZE_HASH_PREFIX(pDomainParams->domPrefixLen, contextLen);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_GenerateProtocolDescriptor, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_GenerateProtocolDescriptor,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_GenerateHashPrefix) );
 }
 
@@ -77,13 +90,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     mcuxClEcc_EdDSA_SignatureProtocolDescriptor_t *pProtocolDescriptor = (mcuxClEcc_EdDSA_SignatureProtocolDescriptor_t *) ((uint8_t*)pSignatureMode + sizeof(mcuxClSignature_ModeDescriptor_t));
 
     /* Fill signature protocol parameters for EdDSA with the hash prefix */
-    MCUX_CSSL_FP_FUNCTION_CALL(retVal_GenProtocolDescr, mcuxClEcc_EdDSA_GenerateProtocolDescriptor(pSession, pDomainParams, pProtocolDescriptor, phflag, pContext, contextLen));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_EdDSA_GenerateProtocolDescriptor(pSession, pDomainParams, pProtocolDescriptor, phflag, pContext, contextLen));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
-
-    if (MCUXCLECC_STATUS_OK != retVal_GenProtocolDescr)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
 
     /* Fill signature mode parameters for EdDSA */
     pSignatureMode->pSignFct = mcuxClEcc_EdDSA_GenerateSignature;

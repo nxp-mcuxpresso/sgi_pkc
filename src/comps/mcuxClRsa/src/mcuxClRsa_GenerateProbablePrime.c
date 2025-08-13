@@ -75,21 +75,23 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     */
 
     const uint32_t pkcWaSizeWord = (3u * MCUXCLRSA_PKC_WORDSIZE) / (sizeof(uint32_t));
-    uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord);
-    uint8_t *pNumToCompare = pPkcWorkarea;
-    uint8_t *pA0 = pPkcWorkarea + MCUXCLRSA_PKC_WORDSIZE;
-    uint8_t *pConst3 = pA0 + MCUXCLRSA_PKC_WORDSIZE;
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
+    uint32_t *pNumToCompare = pPkcWorkarea;
+    uint32_t *pA0 = pPkcWorkarea + (MCUXCLRSA_PKC_WORDSIZE/sizeof(uint32_t));
+    uint32_t *pConst3 = pA0 + (MCUXCLRSA_PKC_WORDSIZE/sizeof(uint32_t));
 
     /* Setup UPTR table */
     const uint32_t cpuWaSizeWord =  MCUXCLRSA_INTERNAL_GENERATEPROBABLEPRIME_WACPU_SIZE_WO_TESTPRIME_AND_MILLERRABIN(keyBitLength/8u/2u) / (sizeof(uint32_t));
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-    uint16_t * pOperands = (uint16_t *) mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
-    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_NUMTOCOMPARE] = MCUXCLPKC_PTR2OFFSET(pNumToCompare);
-    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_A0] = MCUXCLPKC_PTR2OFFSET(pA0);
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_NUMTOCOMPARE] = MCUXCLPKC_PTR2OFFSET((const uint8_t*)pNumToCompare);
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_A0] = MCUXCLPKC_PTR2OFFSET((const uint8_t*)pA0);
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_CANDIDATE_LSWORD] = MCUXCLPKC_PTR2OFFSET(pPrimeCandidate->pKeyEntryData);
-    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_WORD_CONST3] = MCUXCLPKC_PTR2OFFSET(pConst3);
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_WORD_CONST3] = MCUXCLPKC_PTR2OFFSET((const uint8_t*)pConst3);
 
     const uint32_t iNumToCmp_iA0 = ((uint32_t)MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_NUMTOCOMPARE << 8u) | MCUXCLRSA_INTERNAL_UPTRTINDEX_GENPRIME_A0;
 
@@ -111,11 +113,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     pConst3[0] = 3u;
 
     /* Balance DI for call to mcuxClMemory_copy_int */
-    MCUX_CSSL_DI_RECORD(memCopyNumToCompare, (pNumToCompare + MCUXCLRSA_PKC_WORDSIZE));
+    MCUX_CSSL_DI_RECORD(memCopyNumToCompare, ((uint8_t*)pNumToCompare + MCUXCLRSA_PKC_WORDSIZE));
     MCUX_CSSL_DI_RECORD(memCopyNumToCompare, numToCompare);
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(
-      pNumToCompare + MCUXCLRSA_PKC_WORDSIZE - sizeof(numToCompare),
+      (uint8_t*)pNumToCompare + MCUXCLRSA_PKC_WORDSIZE - sizeof(numToCompare),
       numToCompare,
       sizeof(numToCompare)
     ));
@@ -125,7 +127,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     MCUX_CSSL_DI_RECORD(memCopyA0, a0);
     MCUX_CSSL_DI_RECORD(memCopyA0, sizeof(a0));
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pA0, a0, sizeof(a0)));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t*)pA0, a0, sizeof(a0)));
 
     MCUXCLBUFFER_INIT(pBufKeyEntryData, NULL, pPrimeCandidate->pKeyEntryData, pPrimeCandidate->keyEntryLength);
     MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, (uint32_t)pBufKeyEntryData);

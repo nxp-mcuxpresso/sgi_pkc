@@ -18,7 +18,7 @@
 #if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
     #define MCUX_FUP_ATTRIBUTE __attribute__((aligned(4))) __attribute__((section("MCUX_OBFUSCATED_FUP_SEGMENT")))
     #define UNUSED_PARAM __attribute__((unused))
-    /*  
+    /*
         Use of UNALIGNED on ARMCLANG
 
         The __unaligned keyword is a type qualifier that tells the compiler to treat the pointer or variable as an unaligned pointer or variable.
@@ -34,18 +34,20 @@
     #define UNALIGNED __unaligned
     #define MCUX_CSSL_UNUSED(p) ((void) (p))
     /* Macro for alligning buffers to cpu word */
-    #define ALIGNED __attribute__((aligned(4))) 
-    #define NORETURN __attribute__((__noreturn__)) 
+    #define ALIGNED __attribute__((aligned(4)))
+    #define ALIGNED_N(x) __attribute__((aligned(x)))
+    #define NORETURN __attribute__((__noreturn__))
 
 /* using the gcc toolchain file for both gcc and armgcc */
 #elif defined ( __GNUC__ )
     #define MCUX_FUP_ATTRIBUTE __attribute__((aligned(4)))
     #define UNUSED_PARAM __attribute__((unused))
-    #ifndef UNALIGNED
-        #define UNALIGNED
+    #ifndef __x86_64
+    #define UNALIGNED
     #endif
     /* Macro for alligning buffers to cpu word */
-    #define ALIGNED __attribute__((aligned(4))) 
+    #define ALIGNED __attribute__((aligned(4)))
+    #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
 
 /* for armcc compiler */
@@ -54,7 +56,8 @@
     #define UNUSED_PARAM __attribute__((unused))
     #define UNALIGNED __packed
     /* Macro for alligning buffers to cpu word */
-    #define ALIGNED __attribute__((aligned(4))) 
+    #define ALIGNED __attribute__((aligned(4)))
+    #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
 
 /* for ghs compiler */
@@ -63,7 +66,8 @@
     #define UNUSED_PARAM __attribute__((unused))
     #define UNALIGNED
     /* Macro for alligning buffers to cpu word */
-    #define ALIGNED __attribute__((aligned(4))) 
+    #define ALIGNED __attribute__((aligned(4)))
+    #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
 
 /* for iar compiler */
@@ -72,7 +76,8 @@
     #define UNUSED_PARAM __attribute__((unused))
     #define UNALIGNED __packed
     /* Macro for alligning buffers to cpu word */
-    #define ALIGNED __attribute__((aligned(4))) 
+    #define ALIGNED __attribute__((aligned(4)))
+    #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
 
 /* for llvm */
@@ -81,8 +86,9 @@
     #define UNUSED_PARAM __attribute__((unused))
     #define UNALIGNED
     /* Macro for alligning buffers to cpu word */
-    #define ALIGNED __attribute__((aligned(4))) 
-    #define NORETURN __attribute__((__noreturn__))    
+    #define ALIGNED __attribute__((aligned(4)))
+    #define ALIGNED_N(x) __attribute__((aligned(x)))
+    #define NORETURN __attribute__((__noreturn__))
 
 #endif
 

@@ -56,12 +56,13 @@ extern "C" {
  * @param       size     The total transfer size
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_getTCDOffsetAndSizeFromAlignment)
-void mcuxClDma_Utils_getTCDOffsetAndSizeFromAlignment(
+MCUX_CSSL_FP_PROTECTED_TYPE(MCUX_CSSL_FP_PROTECTED_TYPE(void)) mcuxClDma_Utils_getTCDOffsetAndSizeFromAlignment(
   const uint8_t *pAddr,
   uint16_t *pOffset,
   uint16_t *pSize,
   uint32_t size);
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_COPY
 /**
  * @brief Configures the given DMA channel for data transfer of arbitrary size.
  *
@@ -82,12 +83,12 @@ void mcuxClDma_Utils_getTCDOffsetAndSizeFromAlignment(
  * @param       length   Amount of bytes to copy from source to destination.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_configureDataTransfer)
-void mcuxClDma_Utils_configureDataTransfer(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_configureDataTransfer(
   mcuxClSession_Channel_t channel,
   const uint8_t *pSrc,
   uint8_t *pDst,
   uint32_t length);
-
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_COPY */
 
 /**
  * @}

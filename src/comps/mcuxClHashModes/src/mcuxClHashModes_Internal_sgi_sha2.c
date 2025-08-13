@@ -26,6 +26,7 @@
 #include <internal/mcuxClBuffer_Internal.h>
 #include <internal/mcuxClHashModes_Internal_Resource_Common.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
+#include <internal/mcuxClHashModes_Internal_sgi_sha2_common.h>
 
 /**********************************************************
  * Helper functions
@@ -48,8 +49,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHashModes_Sgi_oneShot_Sha2);
 
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(algorithm->hashSize, MCUXCLHASH_OUTPUT_SIZE_SHA_224, MCUXCLHASH_OUTPUT_SIZE_SHA_512, MCUXCLHASH_STATUS_INVALID_PARAMS)
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_storeHashResult_recordDI));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_storeHashResult_recordDI(pOut, algorithm->hashSize));
+    MCUX_CSSL_DI_RECORD(storeHashResultBalancing, pOut);
+    MCUX_CSSL_DI_RECORD(storeHashResultBalancing, algorithm->hashSize);
 
     /**************************************************************************************
      * Step 1: Initialize SGI to perform Hash operation of dedicated algorithm
@@ -69,7 +70,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
 
     /* Configure respective SHA-2 in normal mode using standard IV */
     MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(NULL, MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, NULL, MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV));
 
     /* Enable counter, to count number of blocks processed by SGI */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableHashCounter));
@@ -95,15 +96,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
     MCUX_CSSL_DI_RECORD(fullBlocksLoopIterations, numberOfFullBlocks);
     while (counterFullBlocks < numberOfFullBlocks)
     {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadHashBlock_buffer_recordDI));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_loadHashBlock_buffer_recordDI(pIn, offset, algorithm->blockSize));
-        /* Wait until SGI is ready to take input */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+        /* Wait until SGI is ready to take input and check for SGI SHA error */
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
         /* Load input data to DATIN and KEY register banks */
-        MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadExternalDataBlock);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiLoadExternalDataBlock(session, pIn, offset));
+        MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadInternalDataBlock);
+
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_UNALIGNED_ACCESS()
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiLoadInternalDataBlock((const uint32_t *) (pIn + offset)));
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_UNALIGNED_ACCESS()
 
         /* Start SGI SHA2 processing */
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
@@ -114,9 +116,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
         /* Check whether the number of processed blocks reached the max value allowed in SGI->COUNT */
         if(MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE_IN_LOOP == counterFullBlocks)
         {
-            /* Wait until SGI has finished */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+            /* Wait until SGI has finished and check for SGI SHA error */
+            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
             /* Check whether number of processed blocks is correct */
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_checkHashCounter));
@@ -132,9 +134,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
         /* Disable IV load after the first block has been processed */
         if(MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP == firstSgiOp)
         {
-            /* Wait until SGI has finished */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+            /* Wait until SGI has finished and check for SGI SHA error */
+            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
             /* Disable SGI initialization with standard IV */
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableIvAutoInit));
@@ -150,7 +152,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
      **************************************************************************************/
 
     /* Buffer in CPU WA to store the last block of data in the finalization phase */
-    uint32_t *shaBlock = mcuxClSession_allocateWords_cpuWa(session, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(algorithm->blockSize));
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, shaBlock, mcuxClSession_allocateWords_cpuWa(session, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(algorithm->blockSize)));
     uint8_t *shaBlockBytes = (uint8_t *)shaBlock;
 
     size_t sizeRemainingBlock = inSize & (algorithm->blockSize - 1u);
@@ -179,9 +182,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int(&shaBlockBytes[sizeRemainingBlock], 0x00u, numberOfZeroBytes));
 
-        /* Wait until SGI is ready to take input */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+        /* Wait until SGI is ready to take input and check for SGI SHA error */
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
         /* Load input data to DATIN and KEY register banks */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadInternalDataBlock);
@@ -193,9 +196,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
 
         if(MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP == firstSgiOp)
         {
-            /* Wait until SGI has finished */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+            /* Wait until SGI has finished and check for SGI SHA error */
+            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
             /* Disable SGI initialization with standard IV */
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableIvAutoInit));
@@ -222,9 +225,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
     shaBlockBytes[--sizeRemainingBlock] = (uint8_t)((inSize >> 21u) & 0xFFu);
     shaBlockBytes[sizeRemainingBlock - 1u] = (uint8_t)(inSize >> 29u);
 
-    /* Wait until SGI is ready to take input */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+    /* Wait until SGI is ready to take input and check for SGI SHA error */
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
     /* Load input data to DATIN and KEY register banks */
     MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadInternalDataBlock);
@@ -238,9 +241,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
      * Step 4: Copy result to output buffers
      **************************************************************************************/
 
-    /* Wait until SGI has finished */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+    /* Wait until SGI has finished check for SGI SHA error */
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
     /* Check whether number of processed blocks is correct */
     expectedSgiCounter = expectedSgiCounter % MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE_IN_LOOP;
@@ -321,7 +324,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
     {
         /* Configure respective SHA-2 in normal mode using standard IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(NULL, MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, NULL, MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV));
 
         firstSgiOp = MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP;
     }
@@ -329,7 +332,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
     {
         /* Configure respective SHA-2 in normal mode using pState as IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(pState, MCUXCLSGI_UTILS_NORMAL_MODE_LOAD_IV));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, pState, MCUXCLSGI_UTILS_NORMAL_MODE_LOAD_IV));
     }
 
     /* Enable counter, to count number of blocks processed by SGI in this call */
@@ -381,9 +384,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
         /* If whole unprocessed buffer filled, process block and update context data*/
         if(context->unprocessedLength == algoBlockSize)
         {
-            /* Wait until SGI is ready to take input */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+            /* Wait until SGI is ready to take input and check for SGI SHA error */
+            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
             /* Update necessary context data, prepare for block processing */
             MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadInternalDataBlock);
@@ -396,9 +399,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
 
             if(MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP == firstSgiOp)
             {
-                /* Wait until SGI has finished */
-                MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-                MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+                /* Wait until SGI has finished check for SGI SHA error */
+                MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+                MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
                 /* Disable SGI initialization with standard IV */
                 MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableIvAutoInit));
@@ -415,17 +418,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
     while(algoBlockSize <= inSize) /* Also process the last full block */
     {
         MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(offset, 0U, dataToCopyLength + algoBlockSize * WholeBlocksLoopIterations, MCUXCLHASH_STATUS_FAULT_ATTACK);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadHashBlock_buffer_recordDI));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_loadHashBlock_buffer_recordDI(pIn, offset, algorithm->blockSize));
-        /* Wait until SGI is ready to take input */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+
+        /* Wait until SGI is ready to take input and check for SGI SHA error */
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
         /* Update necessary context data, prepare for block processing */
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Offset cannot overflow")
 
-        MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadExternalDataBlock);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiLoadExternalDataBlock(session, pIn, offset));
+        MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadInternalDataBlock);
+
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_UNALIGNED_ACCESS()
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiLoadInternalDataBlock((const uint32_t *) (pIn + offset)));
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_UNALIGNED_ACCESS()
 
         offset += algoBlockSize;
         inSize -= algoBlockSize;
@@ -439,9 +444,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
         /* Check whether the number of processed blocks reached the max value allowed in SGI->COUNT */
         if(MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE_IN_LOOP == counterBlocks)
         {
-            /* Wait until SGI has finished */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+            /* Wait until SGI has finished check for SGI SHA error */
+            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
             /* Check whether number of processed blocks is correct */
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_checkHashCounter));
@@ -458,9 +463,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
 
         if(MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP == firstSgiOp)
         {
-            /* Wait until SGI has finished */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+            /* Wait until SGI has finished check for SGI SHA error */
+            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
             /* Disable SGI initialization with standard IV */
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableIvAutoInit));
@@ -474,9 +479,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_process_Sha
     /* If at least 1 block processed, update state in context */
     if (toProcessAtLeastOneBlock > 0u)
     {
-        /* Wait until SGI has finished */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+        /* Wait until SGI has finished and check for SGI SHA error */
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
+
         /* Extract state from SGI and put it into context */
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_storePartialHash));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_storePartialHash(pState, context->algo->stateSize));
@@ -549,9 +555,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
     const mcuxClHashModes_Internal_AlgorithmDescriptor_t *algorithmDetails = (const mcuxClHashModes_Internal_AlgorithmDescriptor_t *) context->algo->pAlgorithmDetails;
 
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(algorithm->hashSize, MCUXCLHASH_OUTPUT_SIZE_SHA_224, MCUXCLHASH_OUTPUT_SIZE_SHA_512, MCUXCLHASH_STATUS_INVALID_PARAMS)
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_storeHashResult_recordDI));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_storeHashResult_recordDI(pOut, algorithm->hashSize));
-
+    MCUX_CSSL_DI_RECORD(storeHashResultBalancing, pOut);
+    MCUX_CSSL_DI_RECORD(storeHashResultBalancing, algorithm->hashSize);
+    
     /* Error hanlded inside HwRequest */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHashModes_HwRequest));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClHashModes_HwRequest(session, NULL, 0U, MCUXCLHASHMODES_REQ_SGI));
@@ -566,7 +572,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
     {
         /* Configure respective SHA-2 in normal mode using standard IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(NULL, MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, NULL, MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV));
 
         firstSgiOp = MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP;
     }
@@ -574,7 +580,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
     {
         /* Configure respective SHA-2 in normal mode using pState as IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(pState, MCUXCLSGI_UTILS_NORMAL_MODE_LOAD_IV));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, pState, MCUXCLSGI_UTILS_NORMAL_MODE_LOAD_IV));
     }
     /* Enable counter, to count number of blocks processed by SGI in this call*/
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableHashCounter));
@@ -612,9 +618,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int(pUnprocessedBytes + context->unprocessedLength, 0x00u, remainingBlockLength));
 
-        /* Wait until SGI is ready to take input */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+        /* Wait until SGI is ready to take input and check for SGI SHA error */
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
         /* Load input data to DATIN and KEY register banks */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadInternalDataBlock);
@@ -629,9 +635,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
 
         if(MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP == firstSgiOp)
         {
-            /* Wait until SGI has finished */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+            /* Wait until SGI has finished check for SGI SHA error */
+            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
             /* Disable SGI initialization with standard IV */
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableIvAutoInit));
@@ -654,9 +660,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     }
 
-    /* Wait until SGI is ready to take input */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+    /* Wait until SGI is ready to take input and check for SGI SHA error */
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
     /* Load input data to DATIN and KEY register banks */
     MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiLoadInternalDataBlock);
@@ -670,9 +676,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
 
     *pOutSize = context->algo->hashSize;
 
-    /* Wait until SGI has finished */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+    /* Wait until SGI has finished and check for SGI SHA error */
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
     /* Check whether number of processed blocks is correct */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_checkHashCounter));
@@ -706,57 +712,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2(mcuxClSession_
  **********************************************************/
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
-static const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha224 =
-{
-    .sgiUtilsInitHash                           = mcuxClSgi_Utils_initSha224,
-    .protectionToken_sgiUtilsInitHash           = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha224),
-    .sgiLoadInternalDataBlock                   = mcuxClSgi_Utils_load512BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock),
-    .sgiLoadExternalDataBlock                   = mcuxClSgi_Utils_load512BitBlock_buffer,
-    .protectionToken_sgiLoadExternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock_buffer),
-};
-
 MCUXCLHASHMODES_MAKE_ALGORITHM_DESCRIPTOR(MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_224, &mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha224);
-
-
-static const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha256 =
-{
-    .sgiUtilsInitHash                           = mcuxClSgi_Utils_initSha256,
-    .protectionToken_sgiUtilsInitHash           = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha256),
-    .sgiLoadInternalDataBlock                   = mcuxClSgi_Utils_load512BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock),
-    .sgiLoadExternalDataBlock                   = mcuxClSgi_Utils_load512BitBlock_buffer,
-    .protectionToken_sgiLoadExternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock_buffer),
-};
 
 MCUXCLHASHMODES_MAKE_ALGORITHM_DESCRIPTOR(MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_256, &mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha256);
 
-
-static const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha384 =
-{
-    .sgiUtilsInitHash                           = mcuxClSgi_Utils_initSha384,
-    .protectionToken_sgiUtilsInitHash           = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha384),
-    .sgiLoadInternalDataBlock                   = mcuxClSgi_Utils_load1024BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load1024BitBlock),
-    .sgiLoadExternalDataBlock                   = mcuxClSgi_Utils_load1024BitBlock_buffer,
-    .protectionToken_sgiLoadExternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load1024BitBlock_buffer),
-};
-
 MCUXCLHASHMODES_MAKE_ALGORITHM_DESCRIPTOR(MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_384, &mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha384);
 
-
-static const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha512 =
-{
-    .sgiUtilsInitHash                           = mcuxClSgi_Utils_initSha512,
-    .protectionToken_sgiUtilsInitHash           = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha512),
-    .sgiLoadInternalDataBlock                   = mcuxClSgi_Utils_load1024BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load1024BitBlock),
-    .sgiLoadExternalDataBlock                   = mcuxClSgi_Utils_load1024BitBlock_buffer,
-    .protectionToken_sgiLoadExternalDataBlock   = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load1024BitBlock_buffer),
-};
-
 MCUXCLHASHMODES_MAKE_ALGORITHM_DESCRIPTOR(MCUXCLHASHMODES_DESCRIPTOR_SGI_SHA_512, &mcuxClHashModes_Internal_AlgorithmDescriptor_Sgi_Sha512);
-
 
 
 

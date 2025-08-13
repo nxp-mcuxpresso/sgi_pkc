@@ -20,8 +20,7 @@
 #ifndef MCUXCSSLMEMORY_CLEAR_H_
 #define MCUXCSSLMEMORY_CLEAR_H_
 
-#include <stdint.h>
-#include <stddef.h>
+#include <mcuxCsslMemory_Types.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
 #include <mcuxCsslParamIntegrity.h>
@@ -49,6 +48,7 @@
  * Parameter integrity protection: the function returns immediately in case of an incorrect parameter checksum.
  * Code flow protection: the function call is protected.
  * Buffer overflow protection: no data is written to @p pDst beyond @p dstLength bytes.
+ * If @p length > @p dstLength we return MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER.
  *
  * @param[in]  chk       The parameter checksum, generated with #MCUX_CSSL_PI_PROTECT.
  * @param[in]  pDst      The destination pointer to buffer to be cleared. Must not be NULL.

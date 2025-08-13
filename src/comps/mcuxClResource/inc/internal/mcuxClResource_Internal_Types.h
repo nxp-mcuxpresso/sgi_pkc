@@ -56,13 +56,12 @@ static inline mcuxClResource_Interrupt_t mcuxClResource_inline_irq_dma(mcuxClSes
 #if DMA_CH_TOTAL > 0
     if ((uint32_t) DMA_CH_TOTAL > (uint32_t)ch)
     {
-        int32_t irq2 = GET_DMA_CHX_IRQ_NUMBER(((int32_t) ch));
+        uint32_t irq2 = GET_DMA_CHX_IRQ_NUMBER(((uint32_t) ch));
         irq = (mcuxClResource_Interrupt_t) irq2;
     }
 #endif
     return irq;
 }
-
 
 /**********************************************************/
 /* Hardware ID definitions                                */

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -56,7 +56,7 @@
  * @attention The PKC calculation might be still on-going, call #MCUXCLPKC_WAITFORFINISH before CPU accesses to the result.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_InterleaveScalar)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_InterleaveScalar(uint16_t iScalar, uint32_t scalarBitLength, uint32_t numberOfInterleavings)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveScalar(uint16_t iScalar, uint32_t scalarBitLength, uint32_t numberOfInterleavings)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_InterleaveScalar);
 
@@ -69,7 +69,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_InterleaveScalar(uint1
     uint32_t bitLenHalfScalar = scalarBitLength - (scalarBitLength >> 1);  /* ceil(bitLen / 2) */
     uint32_t byteLenHalfScalar_PKCWord = ((bitLenHalfScalar + (MCUXCLPKC_WORDSIZE * 8u) - 1u) / (MCUXCLPKC_WORDSIZE * 8u)) * MCUXCLPKC_WORDSIZE;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-  
+
     uint32_t offsets_V1_V0 = /* ECC_V0 */ (uint32_t) pOperands[iScalar]
                              /* ECC_V1 */ + (((uint32_t) pOperands[ECC_T0] + byteLenHalfScalar_PKCWord) << 16);
 
@@ -94,7 +94,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_InterleaveScalar(uint1
     MCUXCLPKC_DISABLEGF2();
     MCUXCLPKC_PS1_SETLENGTH_REG(ps1LenRegBackup);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_InterleaveScalar, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_InterleaveScalar,
         numberOfInterleavings * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
     );
 }

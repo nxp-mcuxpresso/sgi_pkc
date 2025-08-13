@@ -95,7 +95,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example)
 
     /* Allocate space for and initialize private key handle for an Ed25519 private key */
     uint32_t privKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t privKey = (mcuxClKey_Handle_t) &privKeyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     ALIGNED uint8_t pPrivKeyData[MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA];
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(privkeyinit_result, privkeyinit_token, mcuxClKey_init(
@@ -114,7 +116,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example)
 
     /* Allocate space for and initialize public key handle for an Ed25519 public key */
     uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t pubKey = (mcuxClKey_Handle_t) &pubKeyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     ALIGNED uint8_t pPubKeyData[MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY];
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(pubkeyinit_result, pubkeyinit_token, mcuxClKey_init(
@@ -134,7 +138,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example)
     ALIGNED uint8_t privKeyInputDescriptor[MCUXCLECC_EDDSA_GENERATEKEYPAIR_DESCRIPTOR_SIZE];
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(initmode_result, initmode_token, mcuxClEcc_EdDSA_InitPrivKeyInputMode(
     /* mcuxClSession_Handle_t pSession                   */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Buffer is correctly aligned")
     /* mcuxClKey_GenerationDescriptor_t *generationMode  */ (mcuxClKey_GenerationDescriptor_t *) &privKeyInputDescriptor,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
     /* const uint8_t *pPrivKey                          */ pPrivKeyInput));
 
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_InitPrivKeyInputMode) != initmode_token) || (MCUXCLECC_STATUS_OK != initmode_result))
@@ -142,7 +148,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example)
       return MCUXCLEXAMPLE_STATUS_ERROR;
     }
     MCUX_CSSL_FP_FUNCTION_CALL_END();
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Buffer is correctly aligned")
     mcuxClKey_Generation_t mcuxClKey_Generation_EdDSA = (mcuxClKey_Generation_t) &privKeyInputDescriptor;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
 
     /**************************************************************************/
     /* Key pair generation for EdDSA on Ed25519                               */

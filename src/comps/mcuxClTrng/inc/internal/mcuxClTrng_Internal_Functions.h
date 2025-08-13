@@ -63,7 +63,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
     );
 
 /**
- * @brief Function to init TRNG before use
+ * @brief Function to init TRNG before use. 
+ * @deprecated This function is deprecated, kept only for backward compatibility.
  *
  * @param[in]   pSession            Handle for the current CL session.
  */
@@ -71,7 +72,8 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClTrng_Init)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_Init(mcuxClSession_Handle_t pSession);
 
 /**
- * @brief Function to check that TRNG is properly configured
+ * @brief Function to check that TRNG is properly configured.
+ * @deprecated This function is deprecated, kept only for backward compatibility.
  *
  * @return Status of the operation:
  * @retval #MCUXCLTRNG_STATUS_OK             The check operation was successful

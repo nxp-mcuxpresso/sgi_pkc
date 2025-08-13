@@ -19,6 +19,7 @@
 #ifndef MCUXCSSLDATAINTEGRITY_ASSEMBLYMACROS_H_
 #define MCUXCSSLDATAINTEGRITY_ASSEMBLYMACROS_H_
 
+#include <mcuxCsslSecureCounter_AssemblyMacros.h>
 
 /**
  * \addtogroup mcuxCsslIMPL MCUX CSSL -- Implementations
@@ -33,7 +34,7 @@
  * \brief DI SFR base address for SCM hardware
  * \ingroup mcuxCsslDataIntegrity_Asm
  */
-#define MCUX_CSSL_DI_ASM_BASE()
+#define MCUX_CSSL_DI_ASM_BASE  MCUX_CSSL_SC_SCM_ASM_BASE
 
 /**
  * \def MCUX_CSSL_DI_ASM_INIT_BASE
@@ -44,7 +45,7 @@
  *
  * \param baseReg    Register that will be assigned the base address.
  */
-#define MCUX_CSSL_DI_ASM_INIT_BASE()
+#define MCUX_CSSL_DI_ASM_INIT_BASE  MCUX_CSSL_SC_ASM_INIT_BASE
 
 /**
  * \def MCUX_CSSL_DI_ASM_INIT_BASE_COND
@@ -59,7 +60,7 @@
  * \param baseReg    Register that will be assigned the base address.
  * \param addressOtherHw  a constant, which is an address of another hardware SFR
  */
-#define MCUX_CSSL_DI_ASM_INIT_BASE_COND()
+#define MCUX_CSSL_DI_ASM_INIT_BASE_COND  MCUX_CSSL_SC_ASM_INIT_BASE_COND
 
 /**
  * \def MCUX_CSSL_DI_ASM_VALUE
@@ -70,7 +71,7 @@
  * \param baseReg    Register that contains the base address for DI, previously initialized with MCUX_CSSL_DI_ASM_INIT_BASE.
  * \param valueReg   Register to store the DI value.
  */
-#define MCUX_CSSL_DI_ASM_VALUE()
+#define MCUX_CSSL_DI_ASM_VALUE     MCUX_CSSL_SC_ASM_VALUE
 
 /**
  * \def MCUX_CSSL_DI_ASM_REF_VALUE
@@ -81,7 +82,7 @@
  * \param baseReg    Register that contains the base address for DI, previously initialized with MCUX_CSSL_DI_ASM_INIT_BASE.
  * \param valueReg   Register to store the reference DI value.
  */
-#define MCUX_CSSL_DI_ASM_REF_VALUE()
+#define MCUX_CSSL_DI_ASM_REF_VALUE     MCUX_CSSL_SC_ASM_REF_VALUE
 
 /**
  * \def MCUX_CSSL_DI_ASM_WRITE_REF
@@ -92,7 +93,7 @@
  * \param baseReg    Register that contains the base address for DI, previously initialized with MCUX_CSSL_DI_ASM_INIT_BASE.
  * \param valueReg   Register that contains the reference DI value.
  */
-#define MCUX_CSSL_DI_ASM_WRITE_REF()
+#define MCUX_CSSL_DI_ASM_WRITE_REF     MCUX_CSSL_SC_ASM_WRITE_REF
 
 /**
  * \def MCUX_CSSL_DI_ASM_RECORD
@@ -103,7 +104,7 @@
  * \param baseReg    Register that contains the base address for DI, previously initialized with MCUX_CSSL_DI_ASM_INIT_BASE.
  * \param valueReg   Register that contains the value which needs to be recorded.
  */
-#define MCUX_CSSL_DI_ASM_RECORD()
+#define MCUX_CSSL_DI_ASM_RECORD     MCUX_CSSL_SC_ASM_ADD
 
 /**
  * \def MCUX_CSSL_DI_RECORD_IMPL
@@ -114,7 +115,6 @@
  * \param baseReg    Register that contains the base address for DI, previously initialized with MCUX_CSSL_DI_ASM_INIT_BASE.
  * \param valueReg   Register that contains the expected value that was recorded.
  */
-#define MCUX_CSSL_DI_ASM_EXPUNGE()
-
+#define MCUX_CSSL_DI_ASM_EXPUNGE    MCUX_CSSL_SC_ASM_SUB
 
 #endif /* MCUXCSSLDATAINTEGRITY_ASSEMBLYMACROS_H_ */

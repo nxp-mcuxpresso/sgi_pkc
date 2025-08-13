@@ -164,15 +164,23 @@
 /* mcuxClEcc_ECDSA_VerifySignature                         */
 /**********************************************************/
 
-#define MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_INIT  \
+#define MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_INIT_IMPORT1  \
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa), \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment), \
-        MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFER, \
-        MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFEROFFSET
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_VerifySignature_Import)
+
+#define MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_INIT_IMPORT2  \
+        MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_INIT_IMPORT1, \
+        MCUXCLPKC_FP_CALLED_CALC_OP1_ADD_CONST, \
+        MCUXCLPKC_FP_CALLED_CALC_MC1_MS, \
+        MCUXCLPKC_FP_CALLED_CALC_OP1_ADD_CONST, \
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_VerifySignature_Import)
 
 #define MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_PREPARE_AND_CHECK \
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_SignatureRangeCheck), \
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_PrepareMessageDigest),  \
+        MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_INIT_IMPORT2, \
+        MCUXCLPKC_FP_CALLED_CALC_OP1_ADD_CONST,  \
         MCUXCLPKC_FP_CALLED_CALC_MC1_MS, \
+        MCUXCLPKC_FP_CALLED_CALC_OP1_CMP, \
         MCUXCLPKC_FP_CALLED_CALC_MC1_MR, \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModInv), \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup), \
@@ -183,10 +191,10 @@
             pDomainParams->common.pScalarMultFunctions->plainFixScalarMultFctFPId), \
         MCUXCLPKC_FP_CALLED_CALC_OP1_NEG
 
-#define MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P2 \
+#define MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P2(key) \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int), \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int), \
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load), \
+        MCUXCLKEY_LOAD_FP_CALLED(key), \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_PointCheckAffineNR), \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup), \
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_RepeatPointDouble), \

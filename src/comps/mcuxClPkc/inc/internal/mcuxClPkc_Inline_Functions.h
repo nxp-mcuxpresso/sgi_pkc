@@ -28,8 +28,8 @@
 #include <mcuxCsslFlowProtection.h>
 
 #include <internal/mcuxClPkc_Internal_Types.h>
-#include <internal/mcuxClPkc_Macros.h>
 #include <internal/mcuxClPkc_SfrAccess.h>
+#include <internal/mcuxClPkc_BasicDefs.h>
 
 
 /**********************************************************/

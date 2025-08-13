@@ -21,6 +21,7 @@
 #define MCUXCLECC_WEIER_INTERNAL_H_
 
 
+#include <mcuxClToolchain.h>
 #include <mcuxClCore_Platform.h>
 #include <mcuxClMemory.h>
 #include <mcuxClKey_Types.h>
@@ -33,6 +34,7 @@
 
 #include <internal/mcuxClEcc_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal_PkcWaLayout.h>
+#include <internal/mcuxClEcc_FeatureConfig.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -103,8 +105,10 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_PointCheckAffineNR)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_PointCheckAffineNR(mcuxClSession_Handle_t pSession);
 
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_JACOBIAN_POINT_CHECK)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_PointCheckJacMR)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_PointCheckJacMR(mcuxClSession_Handle_t pSession);
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_JACOBIAN_POINT_CHECK) */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_SecureConvertPoint_JacToAffine)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_SecureConvertPoint_JacToAffine(void);
@@ -142,9 +146,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_PlainFixScalarMult(
     uint32_t options                                ///<  [in]  options             Parameter to pass options
 );
 
+
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_SECPOINTMULT)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_SecurePointMult)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePointMult(uint8_t iScalar,
-                                                                       uint32_t scalarBitLength);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePointMult(uint8_t iScalar, uint32_t scalarBitLength);
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_SECPOINTMULT) */
 
 /**********************************************************/
 /* Internal function declaration - key generation         */
@@ -156,6 +162,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_BooleanToArithmeticMasking(voi
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Int_CoreKeyGen)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_t pSession,
                                                                       uint32_t nByteLength);
+
 
 
 

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -63,7 +63,7 @@
  * @attention The PKC calculation might be still on-going, call #MCUXCLPKC_WAITFORFINISH before CPU accesses to the result.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_RecodeAndReorderScalar)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_RecodeAndReorderScalar(mcuxClSession_Handle_t pSession UNUSED_PARAM,
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_RecodeAndReorderScalar(mcuxClSession_Handle_t pSession UNUSED_PARAM,
                                                                         uint8_t scalarIndex,
                                                                         uint8_t f,
                                                                         uint32_t scalarBitLength)
@@ -106,7 +106,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_RecodeAndReorderScalar
      */
     MCUXCLPKC_WAITFORREADY();
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_RecodeAndReorderScalar, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_RecodeAndReorderScalar,
         MCUXCLPKC_FP_CALLED_CALC_OP1_ROTR,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_InterleaveScalar));
 }

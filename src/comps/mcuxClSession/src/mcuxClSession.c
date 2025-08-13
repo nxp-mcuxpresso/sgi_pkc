@@ -24,17 +24,29 @@
 #include <internal/mcuxClPkc_Internal.h>
 #include <internal/mcuxClPkc_Macros.h>
 #include <mcuxClResource.h>
+#include <internal/mcuxClResource_Internal_Types.h>
+#include <internal/mcuxClTrng_SfrAccess.h>
+#include <internal/mcuxClSgi_Drv.h>
 #include <mcuxCsslDataIntegrity.h>
 #include <internal/mcuxClMemory_Clear_Internal.h>
 #include <internal/mcuxClMemory_ClearSecure_Internal.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
+#include <internal/mcuxClSession_FeatureConfig.h>
 
+/* Set the PKC RAM for static analysis in case mcuxClPkc is not included */
+#ifdef MCUXCLPKC_RAM_SIZE
+#define MCUXCLSESSION_PKC_RAM_SIZE        MCUXCLPKC_RAM_SIZE
+#else
+#define MCUXCLSESSION_PKC_RAM_SIZE        0x00002000u         ///< PKC workarea size = 8 KByte
+#endif
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_allocateWords_cpuWa)
-uint32_t* mcuxClSession_allocateWords_cpuWa(
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t*) mcuxClSession_allocateWords_cpuWa(
     mcuxClSession_Handle_t pSession,
     uint32_t wordsToAllocate)
 {
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSession_allocateWords_cpuWa);
+
     uint32_t * pCpuBuffer = NULL;
     const uint32_t usedWords = pSession->cpuWa.used;
 
@@ -57,19 +69,21 @@ uint32_t* mcuxClSession_allocateWords_cpuWa(
         MCUXCLSESSION_ERROR(pSession, MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION);
     }
 
-    return pCpuBuffer;
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSession_allocateWords_cpuWa, pCpuBuffer);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_allocateWords_pkcWa)
-uint32_t* mcuxClSession_allocateWords_pkcWa(
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t*) mcuxClSession_allocateWords_pkcWa(
     mcuxClSession_Handle_t pSession,
     uint32_t wordsToAllocate)
 {
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSession_allocateWords_pkcWa);
+
     uint32_t * pPkcBuffer = NULL;
     const uint32_t usedWords = pSession->pkcWa.used;
 
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(usedWords, 0u, MCUXCLPKC_RAM_SIZE, NULL)
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(wordsToAllocate, 0u, MCUXCLPKC_RAM_SIZE - usedWords, NULL)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(usedWords, 0u, MCUXCLSESSION_PKC_RAM_SIZE, NULL)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(wordsToAllocate, 0u, MCUXCLSESSION_PKC_RAM_SIZE - usedWords, NULL)
     const uint32_t expectedUsed = usedWords + wordsToAllocate;
 
     if (expectedUsed <= pSession->pkcWa.size)
@@ -87,7 +101,7 @@ uint32_t* mcuxClSession_allocateWords_pkcWa(
         MCUXCLSESSION_ERROR(pSession, MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION);
     }
 
-    return pPkcBuffer;
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSession_allocateWords_pkcWa, pPkcBuffer);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_freeWords_cpuWa)
@@ -175,7 +189,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_init(
     pSession->randomCfg.prngPatchFunction = NULL;
     pSession->randomCfg.pCustomPrngState = NULL;
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_init, MCUXCLSESSION_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_init, MCUXCLSESSION_STATUS_OK, MCUXCLSESSION_STATUS_FAULT_ATTACK);
+
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_setResource)
@@ -217,7 +232,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
     /* Reset dirty to used, in case not all memory has been freed (and gets used again). */
     pSession->cpuWa.dirty = pSession->cpuWa.used;
 
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.dirty, 0u, MCUXCLPKC_RAM_SIZE >> 2u, MCUXCLSESSION_STATUS_ERROR)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.dirty, 0u, MCUXCLSESSION_PKC_RAM_SIZE >> 2u, MCUXCLSESSION_STATUS_ERROR)
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
       mcuxClMemory_clear_secure_int((uint8_t*)pSession->pkcWa.buffer, (sizeof(uint32_t)) * pSession->pkcWa.dirty)
@@ -236,6 +251,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
     );
 }
 
+#ifdef MCUXCLSESSION_FEATURE_INTERNAL_CLEANUP_FREED_WA
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_cleanup_freedWorkareas)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_cleanup_freedWorkareas(
   mcuxClSession_Handle_t pSession
@@ -260,7 +276,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_cleanup_freedWorkareas(
     /* Reset dirty to used, as the range from used to dirty was cleared before */
     pSession->cpuWa.dirty = pSession->cpuWa.used;
 
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.dirty, 0u, MCUXCLPKC_RAM_SIZE >> 2u, MCUXCLSESSION_STATUS_ERROR)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.dirty, 0u, MCUXCLSESSION_PKC_RAM_SIZE >> 2u, MCUXCLSESSION_STATUS_ERROR)
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.used, 0u, pSession->pkcWa.dirty, MCUXCLSESSION_STATUS_ERROR)
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_secure_int(
@@ -276,6 +292,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_cleanup_freedWorkareas(
       2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
     );
 }
+#endif /* MCUXCLSESSION_FEATURE_INTERNAL_CLEANUP_FREED_WA */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_destroy)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_destroy(
@@ -316,4 +333,166 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_setRandom(
     session->randomCfg.ctx = randomCtx;
     session->randomCfg.mode = randomMode;
     MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_setRandom, MCUXCLSESSION_STATUS_OK);
+}
+
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_cleanupOnError)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError(
+  mcuxClSession_Handle_t pSession
+)
+{
+    MCUXCLSESSION_ENTRY(pSession, mcuxClSession_cleanupOnError, diRefValue, MCUXCLSESSION_STATUS_FAULT_ATTACK);
+
+    /* Wipe the used CPU work-area and release allocated memory */
+    MCUX_CSSL_DI_RECORD(cleanupOnError_clearCpuWa, pSession->cpuWa.buffer);
+    MCUX_CSSL_DI_RECORD(cleanupOnError_clearCpuWa, (sizeof(uint32_t)) * pSession->cpuWa.dirty);
+
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+      mcuxClMemory_clear_secure_int((uint8_t*)pSession->cpuWa.buffer, (sizeof(uint32_t)) * pSession->cpuWa.dirty)
+    );
+    pSession->cpuWa.used = 0U;
+    pSession->cpuWa.dirty = 0U;
+
+    /* Get the resource context */
+    mcuxClResource_Context_t *pResourceCtx = pSession->pResourceCtx;
+
+    /* For FP balancing, when HWID_SGI and HWID_PKC is used */
+    MCUX_CSSL_FP_COUNTER_STMT(
+        uint32_t isHwSgiUsed = 0U;
+        mcuxClResource_hwAllocation_t* hw_sgi = &pResourceCtx->hwTable[MCUXCLRESOURCE_HWID_SGI];
+        if(MCUXCLRESOURCE_HWSTATUS_AVAILABLE != hw_sgi->status)
+        {
+            isHwSgiUsed++;
+        }
+    )
+
+    MCUX_CSSL_FP_COUNTER_STMT(
+        uint32_t isHwPkcUsed = 0U;
+        mcuxClResource_hwAllocation_t* hw_pkc = &pResourceCtx->hwTable[MCUXCLRESOURCE_HWID_PKC];
+        if(MCUXCLRESOURCE_HWSTATUS_AVAILABLE != hw_pkc->status)
+        {
+            isHwPkcUsed++;
+        }
+    )
+
+    /* Loop through all entities in hwTable, identify the allocated/used hardware */
+    /* Note: Only SGI, PKC and TRNG are used. (and only SGI and PKC are set through resource request). */
+    for(uint32_t hardwareID = 0U; hardwareID < MCUXCLRESOURCE_HWID_TOTAL; hardwareID++)
+    {
+      mcuxClResource_hwAllocation_t* hw = &pResourceCtx->hwTable[hardwareID];
+      mcuxClResource_HwStatus_t status = hw->status;
+
+      /* Check if the hardware is used and clear it */
+      if(MCUXCLRESOURCE_HWSTATUS_AVAILABLE != status)
+      {
+        switch(hardwareID)
+        {
+            case MCUXCLRESOURCE_HWID_SGI:
+            {
+                /* Stop SGI AUTO mode */
+                MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
+
+                /* Wait until SGI is finished */
+                mcuxClSgi_Drv_wait();
+
+                /* Reset SGI AUTO mode */
+                mcuxClSgi_Drv_resetAutoMode();
+
+                /* Flush keys in slot-0 and slot-1 (length of 128*2 bits = 8 words) */
+                MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_flushRegisterBanks(MCUXCLSGI_DRV_KEY0_OFFSET, 8U));
+
+                /* Closes SGI and checks for errors */
+                MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_close(pSession));
+
+                /* Release hardware */
+                pResourceCtx->hwTable[MCUXCLRESOURCE_HWID_SGI].status = MCUXCLRESOURCE_HWSTATUS_AVAILABLE;
+                pResourceCtx->hwTable[MCUXCLRESOURCE_HWID_SGI].session = NULL;
+                break;
+            }
+
+            case MCUXCLRESOURCE_HWID_PKC:
+            {
+                /* Clears SFR Mask */
+                /* Note: PKC SFR masking is currently not supported on MCU */
+                MCUXCLPKC_CLEARSFRMASK();
+
+                /* Ensure PKC kernel clock is enabled by setting PKC_CTRL[STOP]=0. */
+                MCUXCLPKC_SFR_BITCLEAR(CTRL, STOP);
+
+                /* Poll value of PKC_CTRL[STOP] until it has taken over internally the value (i.e., reads as 0).
+                * This ensures kernel clock has been properly enabled by the system (important if PKC-CTRL and the
+                * PKC kernel block run at different clock speeds). */
+                while(0U != (MCUXCLPKC_SFR_BITREAD(CTRL, STOP)))
+                {}
+
+                /* Interrupt ongoing operation via PKC_CTRL[RESET]=1. */
+                MCUXCLPKC_SFR_BITSET(CTRL, RESET);
+
+                /* Poll value of PKC_CTRL[RESET] until it has taken over internally the value (i.e., reads as 1).
+                 * This ensures all pending memory requests have been completed and the PKC kernel
+                 * has entered reset state (important if PKC-CTRL and PKC kernel block run at different clock speeds). */
+                while(0U == (MCUXCLPKC_SFR_BITREAD(CTRL, RESET)))
+                {}
+
+                /* Perform soft reset via PKC_SOFT_RST[SOFT_RST]=1 */
+                MCUXCLPKC_SFR_BITSET(SOFT_RST, SOFT_RST);
+
+                /* Clear any pending access errors via PKC_ACCESS_ERR_CLR[ERR_CLR]=1 */
+                MCUXCLPKC_SFR_BITSET(ACCESS_ERR_CLR, ERR_CLR);
+
+                /* Wipe the used PKC work-area */
+                MCUX_CSSL_DI_RECORD(cleanupOnError_clearPkcWa, pSession->pkcWa.buffer);
+                MCUX_CSSL_DI_RECORD(cleanupOnError_clearPkcWa, (sizeof(uint32_t)) * pSession->pkcWa.dirty);
+
+                MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+                    mcuxClMemory_clear_secure_int((uint8_t*)pSession->pkcWa.buffer, (sizeof(uint32_t)) * pSession->pkcWa.dirty)
+                );
+                pSession->pkcWa.used = 0U;
+                pSession->pkcWa.dirty = 0U;
+
+                /* Release hardware */
+                pResourceCtx->hwTable[MCUXCLRESOURCE_HWID_PKC].status = MCUXCLRESOURCE_HWSTATUS_AVAILABLE;
+                pResourceCtx->hwTable[MCUXCLRESOURCE_HWID_PKC].session = NULL;
+                break;
+            }
+
+            case MCUXCLRESOURCE_HWID_TRNG0:
+            case MCUXCLRESOURCE_HWID_TRNG1:
+            {
+                /* Reset TRNG.MCTL.ERR */
+                MCUXCLTRNG_SFR_BITSET(MCTL, ERR);
+                break;
+            }
+
+            default:
+            {
+                /* intentionally empty */
+                break;
+            }
+        }
+      }
+    }
+
+/* Consolidate expected FP function calls based on the enabled modes. */
+/* This is done outside the SESSION_EXIT to avoid violations (of #if def inside macro) */
+    MCUX_CSSL_FP_EXPECT(
+        MCUX_CSSL_FP_CONDITIONAL( (0U < isHwSgiUsed),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
+        )
+    );
+
+    MCUX_CSSL_FP_EXPECT(
+        MCUX_CSSL_FP_CONDITIONAL( (0U < isHwPkcUsed),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
+        )
+    );
+
+    MCUXCLSESSION_EXIT(pSession,
+        mcuxClSession_cleanupOnError,
+        diRefValue,
+        MCUXCLSESSION_STATUS_OK,
+        MCUXCLSESSION_STATUS_FAULT_ATTACK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
+    );
 }

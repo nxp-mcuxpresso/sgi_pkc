@@ -14,12 +14,42 @@
 /** @file  mcuxClPrng_SCM.c
  *  @brief Implementation of the non-cryptographic PRNG functions using SCM. */
 
-#include <mcuxCsslAnalysis.h>
-#include <internal/mcuxClSession_Internal_EntryExit.h>
-#include <internal/mcuxClPrng_Internal.h>
 #include <mcuxClBuffer.h>
-#include <internal/mcuxClBuffer_Internal.h>
+#include <mcuxCsslAnalysis.h>
 #include <mcuxCsslDataIntegrity.h>
+
+#include <internal/mcuxClBuffer_Internal.h>
+#include <internal/mcuxClPrng_Internal.h>
+#include <internal/mcuxClSession_Internal_EntryExit.h>
+
+#include <internal/mcuxClTrng_Internal.h>
+
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClPrng_reseed)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_reseed(mcuxClSession_Handle_t pSession)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPrng_reseed);
+
+    /* Allocate memory for the seed */
+    uint32_t prngSeed[1] = {0U};
+
+    /* Record DI for mcuxClTrng_getEntropyInput */
+    MCUX_CSSL_DI_RECORD(trngOutputSize, sizeof(uint32_t));
+
+    /* Call TRNG initialization function to ensure it's properly configured for upcoming TRNG accesses */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_Init(pSession));
+
+    /* Generate entropy input using the TRNG */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+        mcuxClTrng_getEntropyInput(pSession, prngSeed, sizeof(uint32_t))
+    );
+
+    /* Set the Sfr seed */
+    mcuxClSgi_Sfr_writeSfrSeed(prngSeed[0]);
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPrng_reseed,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_Init),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_getEntropyInput) );
+}
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClPrng_generate_word)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClPrng_generate_word(void)

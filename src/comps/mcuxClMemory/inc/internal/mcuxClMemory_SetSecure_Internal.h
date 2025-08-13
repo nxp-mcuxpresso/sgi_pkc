@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -35,7 +35,8 @@
 #include <mcuxClToolchain.h>
 #include <mcuxCsslAnalysis.h>
 #include <mcuxCsslFlowProtection.h>
-#include <internal/mcuxClMemory_Set_Internal.h>
+#include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
+#include <internal/mcuxCsslMemory_Internal_SecureSet.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,8 +71,8 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_set_secure_int
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_set_secure_int);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int(pDst, val, length));
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_set_secure_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_SecSet(pDst, val, length));
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_set_secure_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_SecSet));
 }
 
 

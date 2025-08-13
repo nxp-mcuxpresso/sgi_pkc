@@ -11,7 +11,6 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-
 /**
  * \file  mcuxCsslSecureCounter_None.h
  * \brief Implementation that disables the CSSL secure counter mechanism.

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -86,7 +86,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example)
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(cp_status, cp_token, mcuxClRandomModes_createPatchMode(
                                         mcuxClRandomModes_Mode_Custom,
                                         (mcuxClRandomModes_CustomGenerateAlgorithm_t)RNG_Patch_function,
+                                        MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
                                         NULL,
+                                        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
                                         256U
                                    ));
 
@@ -116,7 +118,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example)
     /* Generate several random byte strings                                   */
     /**************************************************************************/
     /* Buffers to store the generated random values in. */
-    ALIGNED uint8_t drbg_data1[3u];
+    ALIGNED uint8_t drbg_data1[3u] = {0};
     MCUXCLBUFFER_INIT(drbgBuf1, NULL, &drbg_data1[0], 3u);
     ALIGNED uint8_t drbg_data2[sizeof(randomData) + 16u];
     MCUXCLBUFFER_INIT(drbgBuf2, NULL, &drbg_data2[0], sizeof(randomData) + 16u);
@@ -134,16 +136,20 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     /* Check if the generated data meets expectation */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClRandom_generate")
     if(!mcuxClCore_assertEqual(drbg_data1, randomData, sizeof(drbg_data1)))
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     {
         return MCUXCLEXAMPLE_STATUS_ERROR;
     }
 
     /* Generate random values of larger amount than the size of prepared random data array. */
+    
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(rg2_status, generate2_token, mcuxClRandom_generate(
                                         session,
                                         drbgBuf2,
                                         sizeof(drbg_data2)));
+    
 
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_generate) != generate2_token) || (MCUXCLRANDOM_STATUS_OK != rg2_status))
     {
@@ -152,6 +158,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     /* Check if the generated data meets expectation */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClRandom_generate")
     if(!mcuxClCore_assertEqual(drbg_data2, randomData, sizeof(randomData)))
     {
         return MCUXCLEXAMPLE_STATUS_ERROR;
@@ -160,6 +167,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example)
     {
         return MCUXCLEXAMPLE_STATUS_ERROR;
     }
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
 
     /**************************************************************************/
     /* Cleanup                                                                */

@@ -39,7 +39,9 @@
     do{  \
         uint32_t temp1 = ((uint32_t) (temp1_)); \
         uint32_t offset = ((uint32_t) (offset_)); \
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("i_ cannot not be larger than MCUXCLECC_TWED_PPTABLE_SIZE"); \
         offset = ((i_) + (inShufShr2_)); /* offset = i + (inShuf >> 2) */ \
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW(); \
         offset ^= (randomN_); /* offset ^= inShuf */ \
         temp1 = ((offset) & (mask_)); /* scratch = offset & bitmask */ \
         temp1 <<= (entrySizeLog2_); /* scratch *= tableEntrySize */ \
@@ -48,8 +50,10 @@
         offset &= (mask_); /* offset &= bitmask */ \
         offset <<= (entrySizeLog2_); /* offset *= tableEntrySize */ \
         offset += ((uint32_t) (pDestination)); /* address = rdst + offset */ \
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("legitimate pointer cast for shuffling"); \
         (temp1_) = ((uint8_t *) (temp1)); \
         (offset_) = ((uint8_t *) (offset)); \
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER(); \
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION() \
     } while (false) \
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
@@ -57,8 +61,10 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 #define MCUXCLECC_PREPARE_FOR_FIRST_SHUFFLE(temp1_, inShufShr2_, randomN_, indexMask_, maskedIndex_, tableEntryIndexBitSize, scalarDigitOffset)  \
     do {\
         /* Rotate scalar words so selected bits are LSBs */ \
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("scalarDigitOffset parameter is mod 32 (see calling function mcuxClEcc_TwEd_FixScalarMult)"); \
         ROTATE_RIGHT(maskedIndex_, maskedIndex_, scalarDigitOffset); \
         ROTATE_RIGHT(indexMask_, indexMask_, scalarDigitOffset); \
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW(); \
         /* Randomize not selected bits */ \
         (temp1_) = ((randomN_) << (tableEntryIndexBitSize)); /* temp1 = randomN << nBits */ \
         (randomN_) >>= 2; /* randomN >>= 2 */ \
@@ -197,7 +203,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
         );
         MCUX_CSSL_DI_EXPUNGE(securePointSelection, i);
     }
-    
+
     /* Prepare inShuf and inShuf >> 2 for second xor shuffle */
     MCUXCLECC_PREPARE_FOR_SECOND_SHUFFLE(inShufShr2_, maskedIndex_, outShuf_, randomN_);
 
@@ -217,7 +223,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
 
     /* Calculate address of selected point */
     MCUXCLECC_CALCULATE_DESTINATION(address_, maskedIndex_, mask_, pShufBuffer2, tableEntrySizeLog2);
-    
+
     MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, pTargetTableEntry);
     MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, address_);
     MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, tableEntrySize);
@@ -225,5 +231,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pTargetTableEntry, address_, tableEntrySize));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_SecurePtrTableEntrySelect,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word));    
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word));
 }

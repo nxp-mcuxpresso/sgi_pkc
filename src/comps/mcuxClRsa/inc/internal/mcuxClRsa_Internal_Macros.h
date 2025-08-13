@@ -36,7 +36,7 @@ extern "C" {
 #define MCUXCLRSA_PSS_PADDING1_LEN (8u)
     ///< Define for the PSS padding1 length.
 
-#define MCUXCLRSA_HASH_MIN_SIZE MCUXCLHASH_OUTPUT_SIZE_SHA_1
+#define MCUXCLRSA_HASH_MIN_SIZE MCUXCLHASH_STATE_SIZE_MIN
     ///< Defines the minimum size of the hash algorithms
 
 #define MCUXCLRSA_HASH_MAX_SIZE MCUXCLHASH_OUTPUT_SIZE_SHA_512

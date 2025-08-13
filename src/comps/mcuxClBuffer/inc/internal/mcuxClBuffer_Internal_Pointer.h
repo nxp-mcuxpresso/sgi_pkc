@@ -32,7 +32,7 @@
 #include <internal/mcuxClMemory_Copy_Reversed_Internal.h>
 #include <internal/mcuxClMemory_CopySecure_Internal.h>
 #include <internal/mcuxClMemory_CopySecure_Reversed_Internal.h>
-
+#include <internal/mcuxClBuffer_FeatureConfig.h>
 
 
 #ifdef __cplusplus
@@ -123,6 +123,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure(mcuxCl_InputBuffer_t 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read_secure_reverse)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure_reverse(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
 
+#ifdef MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC
 /**
  * @brief Write to a SFR register from an input buffer.
  *
@@ -142,6 +143,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure_reverse(mcuxCl_InputB
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read_withoutDestIncrement)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
+#endif /* MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC */
 
 /**
  * @brief Perform a write to the buffer

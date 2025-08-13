@@ -51,4 +51,10 @@
     MCUXCLCORE_MAX(MCUXCLHASHMODES_COMPUTE_MEMORY_PROCESS(DESCRIPTOR), MCUXCLHASHMODES_COMPUTE_MEMORY_FINISH(DESCRIPTOR)) \
   )
 
+/** @brief Returns the context memory size consumption of for a given descriptor. Given two descriptors as
+ *         parameters, it returns the maximum context size of these two.
+ */
+#define MCUXCLHASHMODES_COMPUTE_MEMORY_CONTEXT(...) \
+  MCUXCLHASHMODES_COMPUTE_MEMORY_CONTEXT_IMPL(__VA_ARGS__)
+
 #endif /* MCUXCLHASHMODES_MODESMEMORYMACROS_H */

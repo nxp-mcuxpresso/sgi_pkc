@@ -109,7 +109,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_DecodeScalar(
  *  - the decoded and randomized x-coordinate u is contained in buffer MONT_X0 in MR.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_MontDH_DecodeCoordinate)
-static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_DecodeCoordinate(
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_DecodeCoordinate(
     mcuxClSession_Handle_t pSession UNUSED_PARAM,
     mcuxClEcc_MontDH_DomainParams_t *pDomainParameters,
     const uint8_t *pCoordinateEnc)
@@ -118,11 +118,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_DecodeCo
 
     /* Generate a random Z in range [1, (p+1)/2] */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus));
-    MCUX_CSSL_FP_FUNCTION_CALL(ret_GetRandom1, mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, MONT_Z0));
-    if (MCUXCLECC_STATUS_OK != ret_GetRandom1)
-    {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_DecodeCoordinate, ret_GetRandom1);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, MONT_Z0));
 
     /* Import encoded x-coordinate uEnc. */
     uint32_t byteLenP = (uint32_t) pDomainParameters->common.byteLenP;
@@ -143,7 +139,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_DecodeCo
                         mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX_LEN);
     MCUX_CSSL_DI_EXPUNGE(shiftAmount, (uint32_t)pOperands[MONT_V0]);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_DecodeCoordinate, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_MontDH_DecodeCoordinate,
                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc),
                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros));
 }
@@ -165,7 +161,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_DecodeCo
  *
  * Return values:
  *  - MCUXCLECC_STATUS_OK: if the function executed successfully;
- *  - MCUXCLECC_STATUS_NEUTRAL_POINT: if the resulting point is zero.
+ *  - MCUXCLECC_STATUS_NEUTRAL_POINT: if the resulting point is zero;
+ *  - MCUXCLECC_INTSTATUS_SCALAR_ZERO: if the scalar is zero.
  *
  * Prerequisite:
  *  - the encoded secret scalar kEnc is contained in buffer ECC_S3.
@@ -194,17 +191,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
         mcuxClEcc_GenerateMultiplicativeBlinding(pSession, pDomainParameters->common.byteLenN));
     if (MCUXCLECC_STATUS_OK != retGenMulBlind)
     {
-        /* GenerateMultiplicativeBlinding is returning only OK, NEURTRAL_POINT or RNG_ERROR */
+        /* GenerateMultiplicativeBlinding is returning only OK, SCALAR_ZERO or RNG_ERROR */
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_X, retGenMulBlind);
 
     }
 
     /* Generate a random Z-coordinate Z0, and decode and randomize the x-coordinate uEnc to obtain X0 = u * Z0 in MR. */
-    MCUX_CSSL_FP_FUNCTION_CALL(retDecodeCoordinate, mcuxClEcc_MontDH_DecodeCoordinate(pSession, pDomainParameters, pCoordinateUEnc));
-    if (MCUXCLECC_STATUS_OK != retDecodeCoordinate)
-    {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_X, retDecodeCoordinate);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_MontDH_DecodeCoordinate(pSession, pDomainParameters, pCoordinateUEnc));
 
     /* Securely calculate, R' = sigma * (u, 1), stored result in buffers (X0, Z0). */
     MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
@@ -277,10 +270,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
     /* Generate additive random blinding rnd of size lenP bytes in buffer ECC_T2. rnd is assumed to be generated directly in MR */
     MCUXCLBUFFER_INIT(buffT2, NULL, pT2, pByteLen);
     MCUX_CSSL_FP_FUNCTION_CALL(ret_PRNG_GetRandom_rnd, mcuxClRandom_ncGenerate(pSession, buffT2, pByteLen));
-    if (MCUXCLRANDOM_STATUS_OK != ret_PRNG_GetRandom_rnd)
-    {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_X, ret_PRNG_GetRandom_rnd);
-    }
+    MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_PRNG_GetRandom_rnd);
 
     /* Calculate X0 = X * Z^(-1) in NR. */
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_MontDhX_CalcAffineX,

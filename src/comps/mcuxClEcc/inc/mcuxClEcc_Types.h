@@ -188,10 +188,17 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 /**
  * \brief ECDSA Signature mode descriptor
  *
+#ifdef MCUXCL_FEATURE_SIGNATURE_VERIFY_PARAMETER_PROTECTION
+ * This mode requires that mcuxClSignature_verify is called with additional protection on pIn and inSize parameters.
+ * mode, pIn and inSize parameters must be protected using mcuxClSignature_verify_recordParam function before executing mcuxClSignature_verify.
+#endif
+ *
+#ifdef MCUXCL_FEATURE_SESSION_SECURITYOPTIONS_CRC
  * When the MCUXCLSESSION_SECURITYOPTIONS_SAVE_CRC_FOR_EXTERNAL_VERIFICATION_ENABLE security option is active,
  * the mcuxClSignature_verify function saves the CRC32 of the R value of the computed signature in the session for extra verification.
  * The CRC on user side can be computed with the function mcuxClCrc_computeCRC32 and with the function
  * mcuxClSession_getCrcForExternalVerification, the user can obtain the reference CRC for the verification.
+#endif
  */
 extern const mcuxClSignature_ModeDescriptor_t mcuxClSignature_ModeDescriptor_ECDSA;
 
@@ -218,83 +225,356 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
  * @{
  */
 
-/* secp160k1 domain parameters */
+/**
+ * \brief secp160k1 domain parameters
+ *
+ * Domain parameters for the secp160k1 elliptic curve.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp160k1;
 
-/* secp192k1 domain parameters */
+/**
+ * \brief secp192k1 domain parameters
+ *
+ * Domain parameters for the secp192k1 elliptic curve.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp192k1;
 
-/* sec224k1 domain parameters */
+/**
+ * \brief secp224k1 domain parameters
+ *
+ * Domain parameters for the secp224k1 elliptic curve.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp224k1;
 
-/* secp256k1 domain parameters */
+/**
+ * \brief secp256k1 domain parameters
+ *
+ * Domain parameters for the secp256k1 elliptic curve.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp256k1;
 
-/* secp192r1 (nistp192r1, ansix9p192r1) domain parameters */
+/**
+ * \brief secp192r1 (nistp192r1, ansix9p192r1) domain parameters
+ *
+ * Domain parameters for the secp192r1 elliptic curve, also known as NIST P-192
+ * and ANSI X9.62 prime192r1.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+  * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+  * User may generate accelerated version using custom domain parameter generation
+  * procedure with mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+  */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp192r1;
 #define mcuxClEcc_Weier_DomainParams_NIST_P192 mcuxClEcc_Weier_DomainParams_secp192r1
 #define mcuxClEcc_Weier_DomainParams_ansix9p192r1 mcuxClEcc_Weier_DomainParams_secp192r1
 
-/* secp224r1 (nistp224r1, ansix9p224r1) domain parameters */
+/**
+ * \brief secp224r1 (nistp224r1, ansix9p224r1) domain parameters
+ *
+ * Domain parameters for the secp224r1 elliptic curve, also known as NIST P-224
+ * and ANSI X9.62 prime224r1.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+  * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+  * User may generate accelerated version using custom domain parameter generation
+  * procedure with mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp224r1;
 #define mcuxClEcc_Weier_DomainParams_NIST_P224 mcuxClEcc_Weier_DomainParams_secp224r1
 #define mcuxClEcc_Weier_DomainParams_ansix9p224r1 mcuxClEcc_Weier_DomainParams_secp224r1
 
-/* secp256r1 (nistp256r1, ansix9p256r1) domain parameters */
+/**
+ * \brief secp256r1 (nistp256r1, ansix9p256r1) domain parameters
+ *
+ * Domain parameters for the secp256r1 elliptic curve, also known as NIST P-256
+ * and ANSI X9.62 prime256r1.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+  * Calculations using those domain parameters are accelerated using precomputed points.
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp256r1;
 #define mcuxClEcc_Weier_DomainParams_NIST_P256 mcuxClEcc_Weier_DomainParams_secp256r1
 #define mcuxClEcc_Weier_DomainParams_ansix9p256r1 mcuxClEcc_Weier_DomainParams_secp256r1
 
-/* secp384r1 (nistp384r1, ansix9p384r1) domain parameters */
+/**
+ * \brief secp384r1 (nistp384r1, ansix9p384r1) domain parameters
+ *
+ * Domain parameters for the secp384r1 elliptic curve, also known as NIST P-384
+ * and ANSI X9.62 prime384r1.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+  * Calculations using those domain parameters are accelerated using precomputed points.
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp384r1;
 #define mcuxClEcc_Weier_DomainParams_NIST_P384 mcuxClEcc_Weier_DomainParams_secp384r1
 #define mcuxClEcc_Weier_DomainParams_ansix9p384r1 mcuxClEcc_Weier_DomainParams_secp384r1
 
-/* secp521r1 (nistp521r1, ansix9p521r1) domain parameters */
+/**
+ * \brief secp521r1 (nistp521r1, ansix9p521r1) domain parameters
+ *
+ * Domain parameters for the secp521r1 elliptic curve, also known as NIST P-521
+ * and ANSI X9.62 prime521r1.
+ *
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+  * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+  * User may generate accelerated version using custom domain parameter generation
+  * procedure with mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp521r1;
 #define mcuxClEcc_Weier_DomainParams_NIST_P521 mcuxClEcc_Weier_DomainParams_secp521r1
 #define mcuxClEcc_Weier_DomainParams_ansix9p521r1 mcuxClEcc_Weier_DomainParams_secp521r1
 
-/* brainpoolP160r1 domain parameters */
+/**
+ * \brief brainpoolP160r1 domain parameters
+ *
+ * Domain parameters for the brainpoolP160r1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP160r1;
 
-/* brainpoolP192r1 domain parameters */
+/**
+ * \brief brainpoolP192r1 domain parameters
+ *
+ * Domain parameters for the brainpoolP192r1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP192r1;
 
-/* brainpoolP224r1 domain parameters */
+/**
+ * \brief brainpoolP224r1 domain parameters
+ *
+ * Domain parameters for the brainpoolP224r1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP224r1;
 
-/* brainpoolP256r1 domain parameters */
+/**
+ * \brief brainpoolP256r1 domain parameters
+ *
+ * Domain parameters for the brainpoolP256r1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP256r1;
 
-/* brainpoolP320r1 domain parameters */
+/**
+ * \brief brainpoolP320r1 domain parameters
+ *
+ * Domain parameters for the brainpoolP320r1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP320r1;
 
-/* brainpoolP384r1 domain parameters */
+/**
+ * \brief brainpoolP384r1 domain parameters
+ *
+ * Domain parameters for the brainpoolP384r1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP384r1;
 
-/* brainpoolP512r1 domain parameters */
+/**
+ * \brief brainpoolP512r1 domain parameters
+ *
+ * Domain parameters for the brainpoolP512r1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512r1;
 
-/* brainpoolP160t1 domain parameters */
+/**
+ * \brief brainpoolP160t1 domain parameters
+ *
+ * Domain parameters for the brainpoolP160t1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP160t1;
 
-/* brainpoolP192t1 domain parameters */
+/**
+ * \brief brainpoolP192t1 domain parameters
+ *
+ * Domain parameters for the brainpoolP192t1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP192t1;
 
-/* brainpoolP224t1 domain parameters */
+/**
+ * \brief brainpoolP224t1 domain parameters
+ *
+ * Domain parameters for the brainpoolP224t1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP224t1;
 
-/* brainpoolP256t1 domain parameters */
+/**
+ * \brief brainpoolP256t1 domain parameters
+ *
+ * Domain parameters for the brainpoolP256t1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP256t1;
 
-/* brainpoolP320t1 domain parameters */
+/**
+ * \brief brainpoolP320t1 domain parameters
+ *
+ * Domain parameters for the brainpoolP320t1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP320t1;
 
-/* brainpoolP384t1 domain parameters */
+/**
+ * \brief brainpoolP384t1 domain parameters
+ *
+ * Domain parameters for the brainpoolP384t1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP384t1;
 
-/* brainpoolP512t1 domain parameters */
+/**
+ * \brief brainpoolP512t1 domain parameters
+ *
+ * Domain parameters for the brainpoolP512t1 elliptic curve.
+ *
+ #ifdef MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS
+ * Calculations using those domain parameters are NOT accelerated using precomputed points.
+#ifdef MCUXCL_FEATURE_ECC_WEIERECC_GENERATECUSTOMDOMAINPARAMS
+ * User may generate accelerated version using custom domain parameter generation
+ * procedure calling mcuxClEcc_WeierECC_GenerateDomainParams().
+#endif
+#endif
+ */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512t1;
 
 

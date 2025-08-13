@@ -34,7 +34,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_cleanupOnExit(
         MCUX_CSSL_DI_RECORD(clearSecureDI, pMemoryToClear);
         MCUX_CSSL_DI_RECORD(clearSecureDI, wordSizeMemoryToClear * sizeof(uint32_t));
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Conversion from word size to byte size cannot wrap.")
-        (void)mcuxClMemory_clear_secure_int((uint8_t*)pMemoryToClear, wordSizeMemoryToClear * sizeof(uint32_t));
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+        mcuxClMemory_clear_secure_int((uint8_t*)pMemoryToClear, wordSizeMemoryToClear * sizeof(uint32_t))
+        );
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     }
 

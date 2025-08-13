@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -34,7 +34,8 @@
 #include <mcuxClToolchain.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslDataIntegrity.h>
-#include <mcuxClMemory_Copy_Reversed.h>
+#include <internal/mcuxCsslMemory_Internal_CopyRev_arm_asm.h>
+#include <internal/mcuxClMemory_CompareRev_Internal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,11 +47,11 @@ extern "C" {
 
 /**
  * @brief Copies a memory buffer to another location with security against fault - internal use only.
- *  
+ *
  * @param pDst        pointer to the buffer to be copied to.
  * @param pSrc        pointer to the buffer to copy.
  * @param length      size (in bytes) to be copied.
- * 
+ *
  * @pre
  *  - @p pDst and @p pSrc must not overlap.
  *  - For better performance and security, please use aligned pointers, and lengths multiple of word size.
@@ -70,9 +71,24 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_reversed_int
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_reversed_int);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed(pDst, pSrc, length, length));
-    MCUX_CSSL_DI_EXPUNGE(identifier /* Not used */, (uint32_t) pSrc + (uint32_t) pDst + length);  // Balance the SC
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_reversed_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_CopyRev_arm_asm(pDst, pSrc, length));
+    /*
+     * Compare copied data to ensure copy operation performed properly
+     * As internal copy function doesn't have session reference to trigger early exit,
+     * we will left SC unbalanced to trigger FA from upper layer
+     */
+    MCUX_CSSL_DI_RECORD(compareParams, pDst);
+    MCUX_CSSL_DI_RECORD(compareParams, pSrc);
+    MCUX_CSSL_DI_RECORD(compareParams, length);
+    MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxClMemory_compare_reversed_int(pDst, pSrc, length));
+    if(MCUXCLMEMORY_STATUS_EQUAL != clRetval)
+    {
+        MCUX_CSSL_DI_RECORD(compareParams, clRetval);
+    }
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_reversed_int,
+                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_CopyRev_arm_asm),
+                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_reversed_int));
 }
 
 #ifdef __cplusplus

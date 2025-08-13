@@ -46,8 +46,8 @@ extern "C" {
  * @param[out] pSignature                Pointer to buffer, which contains the result (signature)
  * @param[out] pSignatureSize            Will be set to the number of bytes of data that have been written to the pSignature buffer
  *
- * @return A code-flow protected error code (see @ref MCUXCLECC_STATUS_)
- * @retval #MCUXCLECC_STATUS_OK                          if signature is generated successfully;
+ * @return A code-flow protected error code (see @ref MCUXCLSIGNATURE_STATUS_)
+ * @retval #MCUXCLSIGNATURE_STATUS_OK     if signature is generated successfully;
  *
  * @attention This function uses DRBG and PRNG. Caller needs to check if DRBG and PRNG are ready.
  */
@@ -72,7 +72,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
  * mcuxClSession_getCrcForExternalVerification, the user can obtain the reference CRC for the verification.
  *
  * Data Integrity: Record(returnCode)
- * returnCode is not recorded in case of fault attack
+ * returnCode is not recorded in case of fault attack or error
  *
  * @param[in]  pSession                  Pointer to #mcuxClSession_Descriptor
  * @param[in]  key                       Key handle for the input key
@@ -83,9 +83,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
  * @param[out] signatureSize             Number of bytes of data in the pSignature buffer
  *
  *
- * @return A code-flow protected error code (see @ref MCUXCLECC_STATUS_)
- * @retval #MCUXCLECC_STATUS_OK                          if ECDSA Signature is valid;
- * @retval #MCUXCLECC_STATUS_INVALID_SIGNATURE           if ECDSA Signature is invalid;
+ * @return A code-flow protected error code (see @ref MCUXCLSIGNATURE_STATUS_)
+ * @retval #MCUXCLSIGNATURE_STATUS_OK          if ECDSA Signature is valid;
+ * @retval #MCUXCLSIGNATURE_STATUS_NOT_OK      if ECDSA Signature is invalid;
  */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ECDSA_VerifySignature, mcuxClSignature_VerifyFct_t )

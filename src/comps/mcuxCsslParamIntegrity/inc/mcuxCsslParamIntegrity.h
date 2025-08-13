@@ -50,7 +50,10 @@
 
 #define MCUXCSSLPARAMINTEGRITY_CHECK_INVALID ((mcuxCsslParamIntegrity_Checksum_t)0x9696u) ///< Return value of #mcuxCsslParamIntegrity_Validate if the parameter checksum was incorrect
 
-#define MCUX_CSSL_PI_PARAM_ADD_CASTED_ARG(x) ,((mcuxCsslParamIntegrity_Param_t)(x))
+#define MCUX_CSSL_PI_PARAM_ADD_CASTED_ARG(x) ,( \
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Typecast pointer to integer for parameter integrity evaluation") \
+    (mcuxCsslParamIntegrity_Param_t)(x) \
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER())
 
 #define MCUX_CSSL_PI_VALIDATE(chk, ...) (mcuxCsslParamIntegrity_Validate(chk, MCUX_CSSL_CPP_ARGCOUNT(__VA_ARGS__) MCUX_CSSL_CPP_MAP(MCUX_CSSL_PI_PARAM_ADD_CASTED_ARG, __VA_ARGS__)))
 

@@ -35,13 +35,9 @@
  * Input:
  *  - privKey [in]  private key handle
  *  - pubKey [in]   public key handle
- *
- * Returns:
- *  - MCUXCLECC_STATUS_OK                 if the parameter check passed
- *  - MCUXCLECC_STATUS_INVALID_PARAMS     if the parameter check failed
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_KeyPairSanityCheck)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_KeyPairSanityCheck(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_KeyPairSanityCheck(
     mcuxClSession_Handle_t pSession,
     mcuxClKey_Handle_t privKey,
     mcuxClKey_Handle_t pubKey)
@@ -58,6 +54,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_KeyPairSanityChe
     }
     else
     {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_KeyPairSanityCheck, MCUXCLECC_STATUS_OK);
+        MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_KeyPairSanityCheck);
     }
 }

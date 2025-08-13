@@ -11,7 +11,6 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-
 /**
  * @file  mcuxCsslSecureCounter.h
  * @brief Provides the API for the CSSL secure counter mechanism.

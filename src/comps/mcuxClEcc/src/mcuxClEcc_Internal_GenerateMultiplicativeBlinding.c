@@ -48,10 +48,9 @@
  *   scalarSize: size of the scalar k to be blinded.
  *
  * Returns:
- *  - MCUXCLECC_STATUS_OK            if the function executed successfully
- *  - MCUXCLECC_STATUS_NEUTRAL_POINT if the scalar is zero
- *  - MCUXCLECC_STATUS_RNG_ERROR     random number generation (PRNG) error (unexpected behavior)
- * 
+ *  - MCUXCLECC_STATUS_OK              if the function executed successfully
+ *  - MCUXCLECC_INTSTATUS_SCALAR_ZERO  if the scalar is zero
+ *
  * Prerequisites:
  *  - The decoded secret scalar k is contained in buffer ECC_S2;
  *  - ps1Len = (operandSize, operandSize).
@@ -154,11 +153,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_GenerateMultiplicative
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_GenerateMultiplicativeBlinding, mcuxClEcc_FUP_GenerateMultiplicativeBlinding_LEN);
 
-    /* Read zero flag to check if sigma is zero and return MCUXCLECC_STATUS_NEUTRAL_POINT if sigma (and respectively k mod n) is zero. */
+    /* Read zero flag to check if sigma is zero and return MCUXCLECC_INTSTATUS_SCALAR_ZERO if sigma (and respectively k mod n) is zero. */
     uint32_t zeroFlag = MCUXCLPKC_WAITFORFINISH_GETZERO();
     if (MCUXCLPKC_FLAG_ZERO == zeroFlag)
     {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_GenerateMultiplicativeBlinding, MCUXCLECC_STATUS_NEUTRAL_POINT);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_GenerateMultiplicativeBlinding, MCUXCLECC_INTSTATUS_SCALAR_ZERO);
     }
 
 

@@ -30,78 +30,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
   uint32_t byteLength);
 
 
-/*
- * Functions to handle the IV
- */
-
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_IV, mcuxClCipherModes_SetupIvFunc_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV(
-  mcuxClSession_Handle_t session,
-  mcuxClCipherModes_WorkArea_t *pWa,
-  mcuxCl_InputBuffer_t pIv
-);
-
 /**
- * @brief Function checks length of the IV for modes where inital vector is not needed.
+ * @brief Function to request DMA input and output channels and to write the workarea into the session job context.
  *
- * @param[in] ivLength          Length of the IV
- *
- * @return void
- * - returns (via early-exit) #MCUXCLCIPHER_STATUS_INVALID_INPUT  for length different than zero
-*/
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_checkIvLen_noIv, mcuxClCipherModes_CheckIvLength_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_checkIvLen_noIv(
-  mcuxClSession_Handle_t session,
-  uint32_t ivLength);
-
-/**
- * @brief Function checks length of the IV for modes where inital vector is needed.
- *
- * @param[in] ivLength          Length of the IV
- *
- * @return void
- * - returns (via early-exit) #MCUXCLCIPHER_STATUS_INVALID_INPUT  for length different than AES block
-*/
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_checkIvLen, mcuxClCipherModes_CheckIvLength_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_checkIvLen(
-  mcuxClSession_Handle_t session,
-  uint32_t ivLength);
-
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_No_IV, mcuxClCipherModes_SetupIvFunc_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_No_IV(
-  mcuxClSession_Handle_t session,
-  mcuxClCipherModes_WorkArea_t* pWa,
-  mcuxCl_InputBuffer_t pIv
-);
-
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_IV_AutoMode_Cbc_Dec, mcuxClCipherModes_SetupIvFunc_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_AutoMode_Cbc_Dec(
-  mcuxClSession_Handle_t session,
-  mcuxClCipherModes_WorkArea_t *pWa,
-  mcuxCl_InputBuffer_t pIv
-);
-
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_IV_AutoMode_Ctr, mcuxClCipherModes_SetupIvFunc_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_AutoMode_Ctr(
-  mcuxClSession_Handle_t session,
-  mcuxClCipherModes_WorkArea_t *pWa,
-  mcuxCl_InputBuffer_t pIv
-);
-
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_IV_to_DATOUT_DMA, mcuxClCipherModes_SetupIvFunc_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_to_DATOUT_DMA(
-  mcuxClSession_Handle_t session,
-  mcuxClCipherModes_WorkArea_t *pWa,
-  mcuxCl_InputBuffer_t pIv
-);
-
-
-/*
- * DMA / AUTO-mode helper functions
+ * @param[in] session                           Session that requests the channels
+ * @param[in] pWa                               Pointer to the workarea to be written into the session job context
+ * @param[in] callbackFunction                  Callback function to be written into the session job context
+ * @param[in] protectionToken_callbackFunction  Protection token of the callback function
  */
-#define MCUXCLCIPHERMODES_REQUEST_DMA_CHANNELS(session, pWa, callbackFunction, callbackFunctionToken) \
-  mcuxClDma_requestDmaInputAndOutputWithWorkarea((session), (pWa), (callbackFunction), callbackFunctionToken)
-
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext(
+  mcuxClSession_Handle_t session,
+  mcuxClCipherModes_WorkArea_t *pWa,
+  mcuxClSession_HwInterruptHandler_t callbackFunction,
+  uint32_t protectionToken_callbackFunction
+);
 
 /**
  * @brief Internal function to load the key (SFR-masked) from the AES key context and IV to the SGI.
@@ -150,5 +93,6 @@ static inline mcuxClCipherModes_Algorithm_Aes_Sgi_t mcuxClCipherModes_castToCiph
   return (mcuxClCipherModes_Algorithm_Aes_Sgi_t) pAlgorithm;
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 }
+
 
 #endif /* MCUXCLCIPHERMODES_SGI_HELPER_H_ */

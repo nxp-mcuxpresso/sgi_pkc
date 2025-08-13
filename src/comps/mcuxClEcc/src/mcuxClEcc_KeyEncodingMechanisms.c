@@ -30,6 +30,7 @@
 #include <internal/mcuxClPkc_Macros.h>
 #include <internal/mcuxClPkc_Operations.h>
 #include <internal/mcuxClEcc_EdDSA_Internal.h>
+#include <internal/mcuxClEcc_FeatureConfig.h>
 #include <internal/mcuxClKey_Functions_Internal.h>
 #include <internal/mcuxClKey_Types_Internal.h>
 #include <internal/mcuxClMemory_Copy_Reversed_Internal.h>
@@ -81,7 +82,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PrivateKeyLoad_Plain
   /* spec is not valid */
   else
   {
-    MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_PrivateKeyLoad_Plain,
@@ -137,7 +138,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PublicKeyLoad_Plain(
   /* spec is not valid */
   else
   {
-    MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_PublicKeyLoad_Plain,
@@ -195,7 +196,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyLoad_Plain(
   /* spec is not valid */
   else
   {
-    MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_PrivateKeyLoad_Plain,
@@ -208,6 +209,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyLoad_Plain(
 /* ECC key store functions                                */
 /**********************************************************/
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_PUBKEY_STORAGE)
 /**
  * @brief Key store function for WeierECC private keys in plain encoding.
  *
@@ -240,7 +242,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PrivateKeyStore_Plai
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_PrivateKeyStore_Plain,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
 }
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_PUBKEY_STORAGE) */
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_PRIVKEY_STORAGE)
 /**
  * @brief Key store function for WeierECC public keys in plain encoding.
  *
@@ -287,6 +291,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PublicKeyStore_Plain
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
 }
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_PRIVKEY_STORAGE) */
 
 /**
  * @brief Key store function for EdDSA private and auxiliary secret keys in plain encoding.
@@ -340,7 +345,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyStore_Plain(
   /* spec is not valid */
   else
   {
-      MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
+      MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
   }
 
   /* Record input data for mcuxClMemory_copy_secure_int() */

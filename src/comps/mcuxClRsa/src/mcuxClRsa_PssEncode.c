@@ -99,7 +99,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
    * M' = | M'= (padding | mHash | salt) |
    */
   const uint32_t wordSizePkcWa = MCUXCLRSA_INTERNAL_PSSENCODE_MAX_WAPKC_SIZE_WO_MGF1(emLen) / sizeof(uint32_t);
-  uint8_t *pMprim = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pMprim, mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa));
 
   /* Pointer to the buffer for the mHash in the M'*/
   uint8_t *pMHash = pMprim + padding1Length;

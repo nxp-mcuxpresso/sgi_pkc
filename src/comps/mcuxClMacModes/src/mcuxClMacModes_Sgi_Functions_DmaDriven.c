@@ -48,6 +48,31 @@
 
 #include <mcuxCsslDataIntegrity.h>
 
+
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext(
+  mcuxClSession_Handle_t session,
+  mcuxClMacModes_WorkArea_t *pWa,
+  mcuxClSession_HwInterruptHandler_t callbackFunction,
+  uint32_t protectionToken_callbackFunction
+)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_request(
+    session,
+    mcuxClSession_getDmaInputChannel(session),
+    callbackFunction,
+    protectionToken_callbackFunction
+  ));
+
+  mcuxClSession_job_setClWorkarea(session, (void*) pWa);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_request)
+  );
+}
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_handleDmaErrorDuringAutomode)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_handleDmaErrorDuringAutomode(void)
 {
@@ -62,8 +87,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_handleDmaErrorDuringAutomode(vo
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 , subsequent SGI operations will not work.
      Workaround: wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+  mcuxClSgi_Drv_wait();
   mcuxClSgi_Drv_resetAutoMode();
 
   /* Channels do not need to be canceled / stopped. Minor loop will just not be triggered again. */
@@ -93,7 +117,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClMacModes_WorkArea_t));
-  mcuxClMacModes_WorkArea_t *pWa = mcuxClMacModes_castToMacModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClMacModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   mcuxClKey_KeyChecksum_t keyChecksums;
   pWa->sgiWa.pKeyChecksums = &keyChecksums;
@@ -111,9 +136,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, &(pWa->sgiWa), MCUXCLSGI_DRV_KEY0_OFFSET));
 
   /* Request DMA channel */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_requestDmaInputWithWorkarea));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMACMODES_REQUEST_DMA_CHANNELS(session, pWa, mcuxClMacModes_ISR_completeNonBlocking_compute,
-                                  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_ISR_completeNonBlocking_compute)));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext(
+    session, pWa, mcuxClMacModes_ISR_completeNonBlocking_compute,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_ISR_completeNonBlocking_compute)));
 
   /* Configure fields in the workarea to be available after call to engine (for blocking and non-blocking case) */
   pWa->nonBlockingWa.pMode = mode;
@@ -210,11 +236,12 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
                                            pWa->nonBlockingWa.pOutputLength));
 
   /* Notify the user that the operation finished */
-  mcuxClMacModes_cleanupOnExit_dmaDriven(
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven(
     session,
     NULL,
     NULL /* TODO CLNS-16946: store keys in nonBlocking WA and flush it here */,
-    cpuWaSizeInWords);
+    cpuWaSizeInWords));
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSession_triggerUserCallback(session, MCUXCLMAC_STATUS_JOB_COMPLETED));
@@ -251,7 +278,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
   }
 
   /* Allocate workarea - only nonBlocking WA needed */
-  mcuxClMacModes_WorkArea_t *pWa = mcuxClMacModes_castToMacModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClMacModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   mcuxClMacModes_Algorithm_t pAlgo = mcuxClMacModes_castToMacModesAlgorithm(pCtx->common.pMode->common.pAlgorithm);
 
@@ -265,15 +293,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
 
   /* Load key to SGI and Store configuration data in workarea*/
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(session,
-                                                                   &(pCtx->keyContext),
-                                                                   NULL,
-                                                                   MCUXCLSGI_DRV_KEY0_OFFSET,
-                                                                   MCUXCLAES_MASKED_KEY_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(
+    session,
+    &(pCtx->keyContext),
+    NULL,
+    MCUXCLSGI_DRV_KEY0_OFFSET,
+    MCUXCLAES_MASKED_KEY_SIZE));
 
   /* Request DMA channel */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_requestDmaInputWithWorkarea));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMACMODES_REQUEST_DMA_CHANNELS(session, pWa, mcuxClMacModes_ISR_completeNonBlocking_multipart,
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext(session, pWa, mcuxClMacModes_ISR_completeNonBlocking_multipart,
                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_ISR_completeNonBlocking_multipart)));
 
   /* Configure fields in the workarea/context to be available after call to engine (for blocking and non-blocking case) */
@@ -337,8 +366,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
 
   /* Wait for DONE (just in case) and check errors, and clear DONE flag */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_checkForChannelErrors));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_checkForChannelErrors(session, inputChannel));
 
   /* SGI needs a manual stop once all data is processed (or on DMA channel error). Disable interrupts. */
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaInputHandshakes));
@@ -417,8 +446,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
      Workaround: wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait()); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
+  mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
   mcuxClSgi_Drv_resetAutoMode();
 
   /* Fill context buffer with remaining input bytes */
@@ -427,8 +455,14 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
     MCUXCLBUFFER_DERIVE_RO(pInWithOffset, pIn, inOffset);
 
-    mcuxClDma_Utils_configureDataTransfer(inputChannel, MCUXCLBUFFER_GET(pInWithOffset), &((uint8_t *)pContext->blockBuffer)[pContext->blockBufferUsed], remainingBytes);
-    mcuxClDma_Drv_startChannel(inputChannel);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureDataTransfer));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureDataTransfer(
+      inputChannel,
+      MCUXCLBUFFER_GET(pInWithOffset),
+      &((uint8_t *)pContext->blockBuffer)[pContext->blockBufferUsed],
+      remainingBytes));
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_startChannel));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_startChannel(inputChannel));
 
     /* Wait for data copy to finish and check for errors */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));

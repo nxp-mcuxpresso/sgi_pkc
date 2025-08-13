@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -62,6 +62,7 @@ extern "C" {
 #define WEIER_X3  ECC_COORD10
 #define WEIER_Y3  ECC_COORD11
 
+
 #define ECC_GENERATEKEYPAIR_NO_OF_VIRTUALS     ECC_NO_OF_VIRTUALS
 #define ECC_GENERATEKEYPAIR_NO_OF_BUFFERS      (WEIER_Y1 + 1u - ECC_GENERATEKEYPAIR_NO_OF_VIRTUALS)
 
@@ -81,6 +82,10 @@ extern "C" {
 #define ECC_DECODEPOINT_NO_OF_BUFFERS   (WEIER_YA + 1u - ECC_DECODEPOINT_NO_OF_VIRTUALS)
 
 
+#define ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_VIRTUALS  ECC_NO_OF_VIRTUALS
+#define ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS   (ECC_T0 + 1u - ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_VIRTUALS)
+#define ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_VIRTUALS   ECC_NO_OF_VIRTUALS
+#define ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_BUFFERS    (ECC_T2 + 1u - ECC_WEIERECC_PUBLICKEYVALIDATION_NO_OF_VIRTUALS)
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -89,6 +89,7 @@ static mcuxClResource_Context_t * resourceCtxHandle = (mcuxClResource_Context_t 
    mcuxClResource_handle_interrupt needs to be called afterwards to wrap-up the CLib operation. */
 static void handleDmaInterrupt_channel0(void)
 {
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SFR_ACCESS()
   /* Clear DMA interrupt request status, W1C. Needed for DONE interrupts. */
   DMA0->CH[0].CH_INT = 1U;
 
@@ -100,9 +101,10 @@ static void handleDmaInterrupt_channel0(void)
   chCsr &= ~((uint32_t)DMA_CH_CSR_EEI_MASK);
   /* 3. Write to CH_CSR */
   DMA0->CH[0].CH_CSR = chCsr;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SFR_ACCESS()
 
   /* DMA_CH0 caused the interrupt */
-  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0);
+  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0U);
 }
 
 /* This is the Interrupt handler for DMA done and error interrupts on the output channel.
@@ -110,6 +112,7 @@ static void handleDmaInterrupt_channel0(void)
    mcuxClResource_handle_interrupt needs to be called afterwards to wrap-up the CLib operation. */
 static void handleDmaInterrupt_channel1(void)
 {
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SFR_ACCESS()
   /* Clear DMA interrupt request status, W1C. Needed for DONE interrupts. */
   DMA0->CH[1].CH_INT = 1U;
 
@@ -121,31 +124,32 @@ static void handleDmaInterrupt_channel1(void)
   chCsr &= ~((uint32_t)DMA_CH_CSR_EEI_MASK);
   /* 3. Write to CH_CSR */
   DMA0->CH[1].CH_CSR = chCsr;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SFR_ACCESS()
 
   /* DMA_CH1 caused the interrupt */
-  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(1);
+  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(1U);
 }
 
 /* Initialize (install, enable) the interrupts */
 static void interruptInit(void)
 {
   /* Enable interrupts for the input channel */
-  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0U));
 
   /* Enable interrupts for the output channel */
-  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel1, GET_DMA_CHX_IRQ_NUMBER(1));
+  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel1, GET_DMA_CHX_IRQ_NUMBER(1U));
 
   /* Enable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0));
-  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(1));
+  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0U));
+  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(1U));
 }
 
 /* Uninitialize (disable) the interrupts */
 static void interruptUninit(void)
 {
   /* Disable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0));
-  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(1));
+  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0U));
+  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(1U));
 }
 
 /**************************************************************************/
@@ -188,13 +192,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
 
   /* Initialize the key */
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) &keyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_status, ki_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ key,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) keyBytes,
+    /* uint8_t * pKeyData:                   */ keyBytes,
     /* uint32_t keyDataLength:               */ sizeof(keyBytes))
   );
 
@@ -216,12 +222,16 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
   };
 
   /* Set DMA channels and user callback function */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("Pointer is not dereferenced")
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(scj_status, scj_token, mcuxClSession_configure_job(
     /* mcuxClSession_Handle_t session:          */ session,
     /* mcuxClSession_Channels_t dmaChannels,    */ dmaChannels,
     /* mcuxClSession_Callback_t pUserCallback,  */ user_callback,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* void * pUserData                        */ NULL)
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
   );
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
   /* Initialize resource context and add it to the session */
   if(!mcuxClExample_Session_InitAndSetResourceCtx(session, resourceCtxHandle))
@@ -244,17 +254,21 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
 
   MCUXCLBUFFER_INIT_DMA_RO(plainBuf, session, plain, sizeof(plain));
   MCUXCLBUFFER_INIT_DMA(encryptedDataBuf, session, encryptedData, sizeof(encryptedData));
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("Pointer is not dereferenced")
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(e_status, e_token, mcuxClCipher_encrypt(
     /* mcuxClSession_Handle_t session:         */ session,
     /* const mcuxClKey_Handle_t key:           */ key,
     /* mcuxClCipher_Mode_t mode:               */ mcuxClCipher_Mode_AES_ECB_NoPadding_NonBlocking,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxCl_InputBuffer_t pIv:               */ NULL,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
     /* uint32_t ivLength:                     */ 0u,
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
     /* uint32_t inLength:                     */ sizeof(plain),
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
     /* uint32_t * const outLength:            */ &encryptedSize) /* only relevant in case of padding being used */
   );
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipher_encrypt) != e_token) || ((MCUXCLCIPHER_STATUS_JOB_STARTED != e_status) && (MCUXCLCIPHER_STATUS_OK != e_status)))
   {
@@ -299,17 +313,23 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
   uint8_t decryptedData[sizeof(plain)];
 
   MCUXCLBUFFER_INIT_DMA(decryptedDataBuf, session, decryptedData, sizeof(decryptedData));
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("Pointer pIv is not dereferenced")
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("encryptedDataBuf initialized by MCUXCLBUFFER_INIT_DMA")
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(d_status, d_token, mcuxClCipher_decrypt(
     /* mcuxClSession_Handle_t session:        */ session,
     /* const mcuxClKey_Handle_t key:          */ key,
     /* mcuxClCipher_Mode_t mode:              */ mcuxClCipher_Mode_AES_ECB_NoPadding_NonBlocking,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxCl_InputBuffer_t pIv:              */ NULL,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
     /* uint32_t ivLength:                    */ 0u,
     /* const mcuxCl_Buffer_t pIn:             */ (mcuxCl_Buffer_t) encryptedDataBuf,
     /* uint32_t inLength:                    */ encryptedSize,
     /* mcuxCl_Buffer_t pOut:                  */ decryptedDataBuf,
     /* uint32_t * const outLength:           */ &decryptedSize) /* only relevant in case of padding being used/removed */
   );
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipher_decrypt) != d_token) || ((MCUXCLCIPHER_STATUS_JOB_STARTED != d_status) && (MCUXCLCIPHER_STATUS_OK != d_status)))
   {
@@ -363,20 +383,24 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("encryptedData initialized by mcuxClCipher_encrypt")
   if(!mcuxClCore_assertEqual(encryptedRef, encryptedData, sizeof(encryptedRef)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
 
   if(sizeof(plain) != decryptedSize)
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("decryptedData initialized by mcuxClCipher_decrypt")
   if(!mcuxClCore_assertEqual(plain, decryptedData, sizeof(plain)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
 
   return MCUXCLEXAMPLE_STATUS_OK;
 }

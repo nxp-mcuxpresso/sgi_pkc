@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -86,7 +86,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHmac_Sw_Multipart_example)
 
     /* Create and initialize mcuxClKey_Descriptor_t structure. */
     uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) &keyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(keyInit_result, keyInit_token, mcuxClKey_init(
         /* mcuxClSession_Handle_t pSession:                */  session,
@@ -108,7 +110,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHmac_Sw_Multipart_example)
     /**************************************************************************/
 
     ALIGNED uint8_t hmacModeDescBuffer[MCUXCLHMAC_HMAC_MODE_DESCRIPTOR_SIZE];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClMac_CustomMode_t mode = (mcuxClMac_CustomMode_t) hmacModeDescBuffer;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(hashCreateMode_result, hashCreateMode_token, mcuxClHmac_createHmacMode(
     /* mcuxClMac_CustomMode_t mode:       */ mode,
@@ -135,7 +139,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHmac_Sw_Multipart_example)
     MCUXCLBUFFER_INIT_RO(inputBuf2, session, hmac_input_part2, sizeof(hmac_input_part2));
 
     ALIGNED uint8_t ctxBuf[MCUXCLHMAC_CONTEXT_SIZE_SW];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClMac_Context_t * ctx = (mcuxClMac_Context_t *) ctxBuf;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mi_status, mi_token, mcuxClMac_init(
         /* mcuxClSession_Handle_t session:       */ session,
@@ -152,7 +158,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHmac_Sw_Multipart_example)
 
       MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mp1_status, mp1_token, mcuxClMac_process(
         /* mcuxClSession_Handle_t session:       */ session,
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClMac_init")
         /* mcuxClMac_Context_t * const pContext: */ ctx,
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
         /* mcuxCl_InputBuffer_t pIn:             */ inputBuf1,
         /* uint32_t inLength:                   */ sizeof(hmac_input_part1))
     );
@@ -165,7 +173,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHmac_Sw_Multipart_example)
 
       MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mp2_status, mp2_token, mcuxClMac_process(
         /* mcuxClSession_Handle_t session:       */ session,
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClMac_init")
         /* mcuxClMac_Context_t * const pContext: */ ctx,
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
         /* mcuxCl_InputBuffer_t pIn:             */ inputBuf2,
         /* uint32_t inLength:                   */ sizeof(hmac_input_part2))
     );
@@ -178,7 +188,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHmac_Sw_Multipart_example)
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mf_status, mf_token, mcuxClMac_finish(
         /* mcuxClSession_Handle_t session:       */ session,
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClMac_init")
         /* mcuxClMac_Context_t * const pContext: */ ctx,
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
         /* mcuxCl_Buffer_t pMac:                 */ resultBuf,
         /* uint32_t * const pMacLength:         */ &result_size)
     );

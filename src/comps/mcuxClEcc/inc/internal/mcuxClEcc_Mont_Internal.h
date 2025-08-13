@@ -78,7 +78,7 @@ extern const mcuxClEcc_MontDH_DomainParams_t mcuxClEcc_MontDH_DomainParams_Curve
 /**********************************************************/
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_MontDH_SetupEnvironment)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_SetupEnvironment(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_SetupEnvironment(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_MontDH_DomainParams_t *pDomainParams,
     uint8_t noOfBuffers

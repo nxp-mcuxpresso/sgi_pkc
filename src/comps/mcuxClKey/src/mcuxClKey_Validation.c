@@ -33,10 +33,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_validate(
     MCUXCLSESSION_ENTRY(session, mcuxClKey_validate, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK);
 
     MCUX_CSSL_FP_FUNCTION_CALL(result, validation->validateFct(session, key));
-    if ((MCUXCLKEY_STATUS_VALIDATION_PASSED != result) && (MCUXCLKEY_STATUS_VALIDATION_FAILED != result))
-    {
-        MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_ERROR);
-    }
 
     MCUXCLSESSION_EXIT(session, mcuxClKey_validate, diRefValue, result, MCUXCLKEY_STATUS_FAULT_ATTACK,
         validation->validateFct_FP_FuncId);

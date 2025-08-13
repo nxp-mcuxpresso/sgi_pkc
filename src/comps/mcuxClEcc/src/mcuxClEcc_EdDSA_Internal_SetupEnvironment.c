@@ -50,7 +50,7 @@
  *  - The domain parameters a and d are stored in buffers ECC_CP0 and ECC_CP1 in MR
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_SetupEnvironment)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_SetupEnvironment(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_SetupEnvironment(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
     uint8_t noOfBuffers )
@@ -67,7 +67,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_SetupEnvironment
     MCUXCLPKC_FP_CALC_MC1_MM(ECC_CP0, ECC_T0, ECC_PQSQR, ECC_P);
     MCUXCLPKC_FP_CALC_MC1_MM(ECC_CP1, ECC_T1, ECC_PQSQR, ECC_P);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_SetupEnvironment, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_SetupEnvironment,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_SetupEnvironment),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc),

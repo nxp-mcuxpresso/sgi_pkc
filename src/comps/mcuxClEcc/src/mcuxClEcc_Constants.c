@@ -25,6 +25,7 @@
 #include <internal/mcuxClEcc_TwEd_Internal.h>
 #include <mcuxClHashModes_Algorithms.h>
 #include <internal/mcuxClHashModes_Internal.h>
+#include <internal/mcuxClEcc_FeatureConfig.h>
 
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
@@ -226,6 +227,7 @@ const mcuxClEcc_MontDH_DomainParams_t mcuxClEcc_MontDH_DomainParams_Curve448 __a
 
 
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIERSTRASS_CURVES)
 /**
  * @brief Common scalar multiplication functions for Weierstrass curves
 */
@@ -240,6 +242,7 @@ const mcuxClEcc_ScalarMultFunctions_t mcuxClEcc_Weier_ScalarMultFunctions =
   .plainVarScalarMultFct = NULL,
   .plainVarScalarMultFctFPId = 0u
 };
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIERSTRASS_CURVES) */
 
 /**********************************************************/
 /* Weierstrass curve domain parameters                    */
@@ -304,6 +307,7 @@ static const uint8_t SECP192R1_GY[] __attribute__((section(".rodata.curve.mcuxCl
     0x78u, 0xDAu, 0xC8u, 0xFFu, 0x95u, 0x2Bu, 0x19u, 0x07u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t SECP192R1_PRECG[MCUXCLECC_WEIERECC_SECP192R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp192r1"))) =
 {
     /* 0x51A581D9184AC7374730D4F480D1090BB19963D8C0A1E340 [BE] */
@@ -414,6 +418,7 @@ static const uint8_t SECP224R1_R2N[] __attribute__((section(".rodata.curve.mcuxC
     0x61u, 0x79u, 0xE9u, 0xB1u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t SECP224R1_PRECG[MCUXCLECC_WEIERECC_SECP224R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp224r1"))) =
 {
     /* 0x0499AA8A5F8EBEEFEC27A4E13A0B91FB2991FAB0A00641966CAB26E3 [BE] */
@@ -440,7 +445,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp224r1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP224R1_B,
   .common.pGx = (uint8_t *) &SECP224R1_GX,
   .common.pGy = (uint8_t *) &SECP224R1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP224R1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP224R1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -457,7 +462,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp192r1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP192R1_B,
   .common.pGx = (uint8_t *) &SECP192R1_GX,
   .common.pGy = (uint8_t *) &SECP192R1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP192R1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP192R1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -544,6 +549,7 @@ static const uint8_t SECP256R1_R2N[] __attribute__((section(".rodata.curve.mcuxC
     0x20u, 0x56u, 0xD9u, 0xF3u, 0x94u, 0x2Du, 0xE1u, 0x66u
 };
 
+/* TODO: CLNS-19537 : Provide extended points based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS */
 static const uint8_t SECP256R1_PRECG[MCUXCLECC_WEIERECC_SECP256R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp256r1"))) =
 {
     /* 0x447D739BEEDB5E67FB982FD588C6766EFC35FF7DC297EAC357C84FC9D789BD85 [BE] */
@@ -570,7 +576,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp256r1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP256R1_B,
   .common.pGx = (uint8_t *) &SECP256R1_GX,
   .common.pGy = (uint8_t *) &SECP256R1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP256R1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP256R1_PRECG, /* TODO: CLNS-19537 : Switch to edtended points based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -649,6 +655,7 @@ static const uint8_t SECP384R1_R2N[] __attribute__((section(".rodata.curve.mcuxC
     0x95u, 0x68u, 0x26u, 0x28u, 0x7Au, 0x5Bu, 0xB0u, 0x3Fu, 0x21u, 0xBFu, 0x39u, 0x2Bu, 0x01u, 0xEEu, 0x84u, 0x0C
 };
 
+/* TODO: CLNS-19537 : Provide extended points based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS */
 static const uint8_t SECP384R1_PRECG[MCUXCLECC_WEIERECC_SECP384R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp384r1"))) =
 {
     /* 0xC19E0B4C800119C440F7F9E706421279B42A31AF8A3E297DDB2987894D10DDEABA065458A4F52D78A628B09AAA03BD53 [BE] */
@@ -675,7 +682,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp384r1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP384R1_B,
   .common.pGx = (uint8_t *) &SECP384R1_GX,
   .common.pGy = (uint8_t *) &SECP384R1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP384R1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP384R1_PRECG, /* TODO: CLNS-19537 : Switch to extended PP based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -802,6 +809,7 @@ static const uint8_t SECP521R1_R2N[] __attribute__((section(".rodata.curve.mcuxC
     0x3Du, 0x00u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t SECP521R1_PRECG[] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp521r1"))) =
 {
     /* 0x008e818d28f381d8b205edff69613b962e0c77d223ef25cc1c99d9a62e4f2572c1617ad0f5e9a86b7104e89700d4da713cb408f3de4465f86ac4ee31e71a286492ad [BE] */
@@ -838,7 +846,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp521r1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP521R1_B,
   .common.pGx = (uint8_t *) &SECP521R1_GX,
   .common.pGy = (uint8_t *) &SECP521R1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP521R1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP521R1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -902,6 +910,7 @@ static const uint8_t SECP160k1_GY[] __attribute__((section(".rodata.curve.mcuxCl
     0x35u, 0xF9u, 0x8Cu, 0x93u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t SECP160k1_PRECG[MCUXCLECC_WEIERECC_SECP160K1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp160k1")))  =
 {
     /* 0xaf188ba8029e41acaf9e8000aa6337e58852a9c7 [BE] */
@@ -942,7 +951,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp160k1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP160k1_B,
   .common.pGx = (uint8_t *) &SECP160k1_GX,
   .common.pGy = (uint8_t *) &SECP160k1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP160k1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP160k1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1005,6 +1014,7 @@ static const uint8_t SECP192K1_GY[] __attribute__((section(".rodata.curve.mcuxCl
     0xA7u, 0x28u, 0x56u, 0x9Cu, 0x6Du, 0x2Fu, 0x2Fu, 0x9Bu
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t SECP192K1_PRECG[MCUXCLECC_WEIERECC_SECP192K1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp192k1"))) =
 {
     /* 0x79C8D6B2F3B65531119C7C2BA6FD6C4A4A0A43C83C3803C1 [BE] */
@@ -1045,7 +1055,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp192k1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP192K1_B,
   .common.pGx = (uint8_t *) &SECP192K1_GX,
   .common.pGy = (uint8_t *) &SECP192K1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP192K1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP192K1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1132,6 +1142,7 @@ static const uint8_t SECP224K1_R2P[] __attribute__((section(".rodata.curve.mcuxC
     0x00u, 0x00u, 0x00u, 0x00u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t SECP224K1_PRECG[MCUXCLECC_WEIERECC_SECP224K1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp224k1"))) =
 {
     /* 0x79d91a4a04c6421d20e59c5b2f9e62d128375d5c322fe03a5646df86 [BE] */
@@ -1158,7 +1169,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp224k1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP224K1_B,
   .common.pGx = (uint8_t *) &SECP224K1_GX,
   .common.pGy = (uint8_t *) &SECP224K1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP224K1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP224K1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1245,6 +1256,7 @@ static const uint8_t SECP256K1_R2N[] __attribute__((section(".rodata.curve.mcuxC
     0xC5u, 0x9Bu, 0xC6u, 0x81u, 0xD5u, 0x1Cu, 0x67u, 0x9Du
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t SECP256K1_PRECG[MCUXCLECC_WEIERECC_SECP256K1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_secp256k1"))) =
 {
     /* 0x8F68B9D2F63B5F339239C1AD981F162EE88C5678723EA3351B7B444C9EC4C0DA [BE] */
@@ -1271,7 +1283,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp256k1 __at
   .common.pCurveParam2 = (uint8_t *) &SECP256K1_B,
   .common.pGx = (uint8_t *) &SECP256K1_GX,
   .common.pGy = (uint8_t *) &SECP256K1_GY,
-  .common.pPrecPoints = (uint8_t *) &SECP256K1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &SECP256K1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1351,6 +1363,7 @@ static const uint8_t brainpoolP160r1_R2P[] __attribute__((section(".rodata.curve
     0x4Cu, 0x6Bu, 0x9Bu, 0xDEu
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP160r1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP160R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP160r1"))) =
 {
     /* 0x8E63BD3939FC8E94BB518725D3B8210CB19BD5A1 [BE] */
@@ -1375,7 +1388,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP160r
   .common.pCurveParam2 = (uint8_t *) &brainpoolP160r1_B,
   .common.pGx = (uint8_t *) &brainpoolP160r1_GX,
   .common.pGy = (uint8_t *) &brainpoolP160r1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP160r1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP160r1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1454,6 +1467,7 @@ static const uint8_t brainpoolP192r1_R2N[] __attribute__((section(".rodata.curve
     0x2Bu, 0x10u, 0x72u, 0xE7u, 0x9Cu, 0x9Bu, 0x76u, 0x98u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP192r1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP192R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP192r1"))) =
 {
     /* 0x773D02971E972E92086B6F1DB5B55527B4006CD56E55384C [BE] */
@@ -1478,7 +1492,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP192r
   .common.pCurveParam2 = (uint8_t *) &brainpoolP192r1_B,
   .common.pGx = (uint8_t *) &brainpoolP192r1_GX,
   .common.pGy = (uint8_t *) &brainpoolP192r1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP192r1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP192r1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1565,6 +1579,7 @@ static const uint8_t brainpoolP224r1_R2N[] __attribute__((section(".rodata.curve
     0x17u, 0xFEu, 0x34u, 0x52u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP224r1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP224R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP224r1"))) =
 {
     /* 0xB3CDA5BC0699B4A5D7C84B0EEE591079619F1D35794ADD4818671CAC [BE] */
@@ -1591,7 +1606,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP224r
   .common.pCurveParam2 = (uint8_t *) &brainpoolP224r1_B,
   .common.pGx = (uint8_t *) &brainpoolP224r1_GX,
   .common.pGy = (uint8_t *) &brainpoolP224r1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP224r1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP224r1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1692,6 +1707,7 @@ static const uint8_t brainpoolP256r1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP256R1_SI
     0xEFu, 0xD5u, 0xE2u, 0xDAu, 0x70u, 0xE4u, 0x81u, 0x7Bu
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP256r1 __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP256r1"))) =
 {
   .common.byteLenP = MCUXCLECC_WEIERECC_BRAINPOOLP256R1_SIZE_PRIMEP,
@@ -1704,7 +1720,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP256r
   .common.pCurveParam2 = (uint8_t *) &brainpoolP256r1_B,
   .common.pGx = (uint8_t *) &brainpoolP256r1_GX,
   .common.pGy = (uint8_t *) &brainpoolP256r1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP256r1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP256r1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1815,6 +1831,7 @@ static const uint8_t brainpoolP320r1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP320R1_SI
     0x94u, 0xDCu, 0xB2u, 0xE7u, 0xE0u, 0xE9u, 0x1Du, 0x8Cu
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP320r1 __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP320r1"))) =
 {
   .common.byteLenP = MCUXCLECC_WEIERECC_BRAINPOOLP320R1_SIZE_PRIMEP,
@@ -1827,7 +1844,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP320r
   .common.pCurveParam2 = (uint8_t *) &brainpoolP320r1_B,
   .common.pGx = (uint8_t *) &brainpoolP320r1_GX,
   .common.pGy = (uint8_t *) &brainpoolP320r1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP320r1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP320r1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -1930,6 +1947,7 @@ static const uint8_t brainpoolP384r1_R2N[] __attribute__((section(".rodata.curve
     0xC2u, 0x97u, 0x4Eu, 0x61u, 0x1Au, 0x94u, 0xE8u, 0x0Cu
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP384r1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP384R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP384r1"))) =
 {
     /* 0x2369DBB6397C99F18974B5688E81AF98DF4DDACCBB1FDC04E18A5D2D02C7F72702A353BC5345A9466BF550B04D994B04 [BE] */
@@ -1960,7 +1978,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP384r
   .common.pCurveParam2 = (uint8_t *) &brainpoolP384r1_B,
   .common.pGx = (uint8_t *) &brainpoolP384r1_GX,
   .common.pGy = (uint8_t *) &brainpoolP384r1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP384r1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP384r1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2079,6 +2097,7 @@ static const uint8_t brainpoolP512r1_R2N[] __attribute__((section(".rodata.curve
     0xB0u, 0x07u, 0x84u, 0x71u, 0x6Au, 0x58u, 0x94u, 0xA7u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP512r1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP512R1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP512r1"))) =
 {
     /* 0x7B5913F766C4ED95D5262CE1B8F1B2AFC056FD658F28487079A83D9B945E84601BAE0F47ACA3B94E97502F33730A37219D189C5408AC7DA5CA448127EF66EFB5 [BE] */
@@ -2113,7 +2132,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512r
   .common.pCurveParam2 = (uint8_t *) &brainpoolP512r1_B,
   .common.pGx = (uint8_t *) &brainpoolP512r1_GX,
   .common.pGy = (uint8_t *) &brainpoolP512r1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP512r1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP512r1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2155,6 +2174,7 @@ static const uint8_t brainpoolP160t1_GY[] __attribute__((section(".rodata.curve.
     0x8Bu, 0x71u, 0xD6u, 0xADu
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP160t1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP160T1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP160t1"))) =
 {
     /* Gy = 0x5bc89492ef997c10ab58a622e09c1acb87ab38d8 [BE] */
@@ -2179,7 +2199,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP160t
   .common.pCurveParam2 = (uint8_t *) &brainpoolP160t1_B,
   .common.pGx = (uint8_t *) &brainpoolP160t1_GX,
   .common.pGy = (uint8_t *) &brainpoolP160t1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP160t1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP160t1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2220,6 +2240,7 @@ static const uint8_t brainpoolP192t1_GY[] __attribute__((section(".rodata.curve.
     0x3Au, 0x22u, 0xC2u, 0x67u, 0x56u, 0x2Cu, 0x7Eu, 0x09u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP192t1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP192T1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP192t1"))) =
 {
     /* PPx = 0xafa01a77799b50cff28985e9dcd327f63b32bf88de39650b [BE] */
@@ -2244,7 +2265,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP192t
   .common.pCurveParam2 = (uint8_t *) &brainpoolP192t1_B,
   .common.pGx = (uint8_t *) &brainpoolP192t1_GX,
   .common.pGy = (uint8_t *) &brainpoolP192t1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP192t1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP192t1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2289,6 +2310,7 @@ static const uint8_t brainpoolP224t1_GY[] __attribute__((section(".rodata.curve.
     0xF5u, 0xE9u, 0x74u, 0x03u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP224t1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP224T1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP224t1"))) =
 {
     /* 0x5d6a2b7060566fe4671e9055947e40131365a60a1f8682cc5be89ce2 [BE] */
@@ -2315,7 +2337,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP224t
   .common.pCurveParam2 = (uint8_t *) &brainpoolP224t1_B,
   .common.pGx = (uint8_t *) &brainpoolP224t1_GX,
   .common.pGy = (uint8_t *) &brainpoolP224t1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP224t1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP224t1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2360,6 +2382,7 @@ static const uint8_t brainpoolP256t1_GY[] __attribute__((section(".rodata.curve.
     0x6Du, 0xC5u, 0x39u, 0x34u, 0x82u, 0x6Cu, 0x99u, 0x2Du
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP256t1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP256T1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP256t1"))) =
 {
     /* 0x8d3285eee42ebe8808c6c385438dedd62c5095657970dfff2f8196ed9b01699d [BE] */
@@ -2386,7 +2409,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP256t
   .common.pCurveParam2 = (uint8_t *) &brainpoolP256t1_B,
   .common.pGx = (uint8_t *) &brainpoolP256t1_GX,
   .common.pGy = (uint8_t *) &brainpoolP256t1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP256t1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP256t1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2435,6 +2458,7 @@ static const uint8_t brainpoolP320t1_GY[] __attribute__((section(".rodata.curve.
     0xBFu, 0x3Eu, 0x48u, 0x27u, 0x7Au, 0x3Au, 0xBAu, 0x63u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP320t1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP320T1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP320t1"))) =
 {
     /* 0x85b929aa2600c461b96b2fcc20698e46840d860868b3b37ca7bb4ecd668739ae61fcff4aa2ff7ed1 [BE] */
@@ -2463,7 +2487,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP320t
   .common.pCurveParam2 = (uint8_t *) &brainpoolP320t1_B,
   .common.pGx = (uint8_t *) &brainpoolP320t1_GX,
   .common.pGy = (uint8_t *) &brainpoolP320t1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP320t1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP320t1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2516,6 +2540,7 @@ static const uint8_t brainpoolP384t1_GY[] __attribute__((section(".rodata.curve.
     0x51u, 0x06u, 0xD3u, 0x62u, 0x69u, 0x05u, 0xABu, 0x25u
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP384t1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP384T1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP384t1"))) =
 {
     /* 0x29a4dda85b9410db63d95d3cd39f37dad9036fd6f8474f68422425e5d858d5311c8cd512d7dafaed011c514c55c37501 [BE] */
@@ -2546,7 +2571,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP384t
   .common.pCurveParam2 = (uint8_t *) &brainpoolP384t1_B,
   .common.pGx = (uint8_t *) &brainpoolP384t1_GX,
   .common.pGy = (uint8_t *) &brainpoolP384t1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP384t1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP384t1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
@@ -2607,6 +2632,7 @@ static const uint8_t brainpoolP512t1_GY[] __attribute__((section(".rodata.curve.
     0x0Fu, 0xAFu, 0xF5u, 0x95u, 0xD5u, 0x4Bu, 0x53u, 0x5Bu
 };
 
+/* TODO: CLNS-19537 : Guard based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS as PRECG will not be provided for less common curves */
 static const uint8_t brainpoolP512t1_PRECG[MCUXCLECC_WEIERECC_BRAINPOOLP512T1_SIZE_PRIMEP * 2u] __attribute__((section(".rodata.curve.mcuxClEcc_Weier_brainpoolP512t1"))) =
 {
     /* 0xc26d7c5f9a7e9cfc3092bb291ec5b5c79a6581ef89311fb3842fc4b52cef4b3d2a9253c0a8789ef5c82f91e0a53ef5e03b91a8a1457108be53595c10c79bab1 [BE] */
@@ -2641,7 +2667,7 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512t
   .common.pCurveParam2 = (uint8_t *) &brainpoolP512t1_B,
   .common.pGx = (uint8_t *) &brainpoolP512t1_GX,
   .common.pGy = (uint8_t *) &brainpoolP512t1_GY,
-  .common.pPrecPoints = (uint8_t *) &brainpoolP512t1_PRECG,
+  .common.pPrecPoints = (uint8_t *) &brainpoolP512t1_PRECG, /* TODO: CLNS-19537 : Switch to NULL pointer based on MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS flag */
   .common.pLadderConst = NULL,
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };

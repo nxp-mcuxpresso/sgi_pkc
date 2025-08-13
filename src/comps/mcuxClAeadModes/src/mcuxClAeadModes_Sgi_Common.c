@@ -279,8 +279,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CcmGcm_finish(
     /* copy tag from SGI DATOUT, re-use padding buff */
     MCUXCLBUFFER_INIT(tagBuf, NULL, workArea->sgiWa.paddingBuff, MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_DI_RECORD(sgiStoreBuffer, ((uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET)) + ((uint32_t)tagBuf) + 16u);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock_buffer));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock_buffer(session, MCUXCLSGI_DRV_DATOUT_OFFSET, tagBuf, 0u));
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, tagBuf));
 
     // Encrypt pretag with counter0 to get tag
     uint32_t outLen = 0u;

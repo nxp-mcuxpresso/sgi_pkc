@@ -63,13 +63,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Init_Sw(
     uint32_t keySize = mcuxClKey_getSize(key);
     uint8_t *pKeyData = NULL;
     /* Store pointer to raw key data in pKeyData. */
-    mcuxClKey_load(session, key, &pKeyData, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_PTR);
+    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
+    MCUXCLKEY_LOAD_FP(session, key, &pKeyData, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_PTR);
 
     size_t alreadyFilledKeyDataSize = 0u;
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("hashBlockSize is less than PH_NCCLHASH_BLOCK_SIZE_MAX and hashBlockSize+4-1 is less than MAX of uint32_t")
     uint32_t hashBlockWordSize = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(hashBlockSize);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-    uint32_t *pPreparedHmacKey = mcuxClSession_allocateWords_cpuWa(session, hashBlockWordSize);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pPreparedHmacKey, mcuxClSession_allocateWords_cpuWa(session, hashBlockWordSize));
 
     /*********************************************************************************************************/
     /* Prepare a block-sized key from the key given in the Hmac context (pContext) and store it in work area */
@@ -83,9 +85,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Init_Sw(
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute));
         MCUX_CSSL_FP_FUNCTION_CALL(
           resultHashCompute,
+          MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("MCUXCLKEY_LOAD_FP was called with MCUXCLKEY_ENCODING_SPEC_ACTION_PTR, which means the destination pointer is updated to point to the raw key data.")
           mcuxClHash_compute(session, hashAlgo, pKeyDataBuf, keySize, pPreparedHmacKeyBuf, &hashOutputSize)
-        ); /* Return value is always MCUXCLHASH_STATUS_OK */
-        (void) resultHashCompute;
+          MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
+        );
+        MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashCompute);
 
         alreadyFilledKeyDataSize = hashAlgo->hashSize;
     }
@@ -132,8 +136,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Init_Sw(
 
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_init));
     MCUX_CSSL_FP_FUNCTION_CALL(resultHashInit, mcuxClHash_init(session, pContext->hashCtx, hashAlgo));
-    /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void) resultHashInit;
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashInit);
 
     /*****************************************************************************************************************/
     /* XOR the ipad to the block-sized key in the work area and Hash-process it (the first block of the inner hash)  */
@@ -153,10 +156,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Init_Sw(
       /* mcuxClHash_Context_t context:   */ pContext->hashCtx,
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TAINTED_EXPRESSION()
       /* mcuxCl_InputBuffer_t in:        */ pPreparedHmacKeyInBuf,
-      /* uint32_t inSize:               */ hashBlockSize)); /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void)resultHashProcess;
+      /* uint32_t inSize:               */ hashBlockSize));
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashProcess);
 
-    mcuxClHmac_cleanupOnExit(session, pPreparedHmacKey, hashBlockWordSize, hashBlockWordSize);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHmac_cleanupOnExit));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClHmac_cleanupOnExit(session, pPreparedHmacKey, hashBlockWordSize, hashBlockWordSize));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHmac_Engine_Init_Sw);
 }
@@ -178,8 +182,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Update_Sw(
       /* mcuxClHash_Context_t context:   */ pContext->hashCtx,
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TAINTED_EXPRESSION()
       /* mcuxCl_InputBuffer_t in:        */ pIn,
-      /* uint32_t inSize:               */ inLength)); /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void) resultHashProcess;
+      /* uint32_t inSize:               */ inLength));
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashProcess);
 
     MCUX_CSSL_DI_EXPUNGE(pIn, pIn);
     MCUX_CSSL_DI_EXPUNGE(inLength, inLength);
@@ -208,7 +212,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("hashSize is less than PH_NCCLHASH_BLOCK_SIZE_MAX and hashSize+4-1 is less than MAX of uint32_t")
     uint32_t hashWordSize = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(hashSize);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-    uint32_t *pInnerHash = mcuxClSession_allocateWords_cpuWa(session, hashWordSize);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pInnerHash, mcuxClSession_allocateWords_cpuWa(session, hashWordSize));
     uint32_t hashOutputSize = 0u;
 
     MCUXCLBUFFER_INIT_RW(pInnerHashOutBuf, session, (uint8_t *)pInnerHash, hashSize);
@@ -216,8 +221,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
     MCUX_CSSL_FP_FUNCTION_CALL(
       resultHashFinish,
       mcuxClHash_finish(session, pContext->hashCtx, pInnerHashOutBuf, &hashOutputSize)
-    ); /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void)resultHashFinish;
+    );
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashFinish);
 
     /**********************************************************************/
     /* Initialize a new Hash context (re-using the old context's memory)  */
@@ -225,8 +230,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
 
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_init));
     MCUX_CSSL_FP_FUNCTION_CALL(resultHashInit, mcuxClHash_init(session, pContext->hashCtx, hashAlgo));
-    /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void)resultHashInit;
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashInit);
 
     /***********************************************************************************************************************************/
     /* XOR the opad to the block-sized key that is stored in the Hmac context and Hash-process it (the first block of the outer hash)  */
@@ -247,8 +251,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
       /* mcuxClHash_Context_t context:   */ pContext->hashCtx,
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TAINTED_EXPRESSION()
       /* mcuxCl_InputBuffer_t in:        */ pKeyDataBuf,
-      /* uint32_t inSize:               */ hashBlockSize)); /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void)resultHashProcess;
+      /* uint32_t inSize:               */ hashBlockSize));
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashProcess);
 
     /********************************************************************************/
     /* Hash-process the digest from before, residing in work area (the inner hash)  */
@@ -262,8 +266,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
       /* mcuxClHash_Context_t context:   */ pContext->hashCtx,
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TAINTED_EXPRESSION()
       /* mcuxCl_InputBuffer_t in:        */ pInnerHashInBuf,
-      /* uint32_t inSize:               */ hashSize)); /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void)resultHashProcess2;
+      /* uint32_t inSize:               */ hashSize));
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashProcess2);
 
     /**********************************************************************************************************************/
     /* Finalize the outer hash by calling Hash-finalize, write the resulting digest to pOut and its length to pOutLength  */
@@ -276,8 +280,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
       /* mcuxClHash_Context_t context:   */ pContext->hashCtx,
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TAINTED_EXPRESSION()
       /* mcuxCl_Buffer_t pOut            */ pOut,
-      /* uint32_t *const pOutSize,      */ pOutLength)); /* Return value is always MCUXCLHASH_STATUS_OK */
-    (void)resultHashFinish2;
+      /* uint32_t *const pOutSize,      */ pOutLength));
+    MCUXCLSESSION_CHECK_ERROR_FAULT(session, resultHashFinish2);
 
     /* SREQI_MAC_18 - Protect the computed length */
     MCUX_CSSL_DI_RECORD(pOutLength, *pOutLength);
@@ -287,12 +291,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
 
     /* Free but don't clean cpuWa as it does not contain sensitive data. Clear context to destroy it. */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_OVERFLOWED_TRUNCATED_STATUS_CODE()
-    mcuxClHmac_cleanupOnExit(
-      session,
-      MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("pContext is 32Bit aligned, context structure does not matter for cleanup.")(uint32_t*)
-        pContext,
-      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING() MCUXCLHMAC_CONTEXT_SIZE_SW_IN_WORDS,
-      hashWordSize
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHmac_cleanupOnExit));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+      mcuxClHmac_cleanupOnExit(
+        session,
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("pContext is 32Bit aligned, context structure does not matter for cleanup.")(uint32_t*)
+          pContext,
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+        MCUXCLHMAC_CONTEXT_SIZE_SW_IN_WORDS,
+        hashWordSize
+      )
     );
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OVERFLOWED_TRUNCATED_STATUS_CODE()
 

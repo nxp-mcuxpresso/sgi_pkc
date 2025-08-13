@@ -37,9 +37,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t)  mcuxClKey_agreement(
     MCUXCLSESSION_ENTRY(session, mcuxClKey_agreement, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK);
 
     /* Call protocol specific key agreement function according to passed agreement descriptor. */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-                              agreement->pAgreementFct(session, agreement, key, otherKey,
-                              additionalInputs, numberOfInputs, pOut, pOutLength));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(agreement->pAgreementFct(
+        session,
+        agreement,
+        key,
+        otherKey,
+        additionalInputs,
+        numberOfInputs,
+        pOut,
+        pOutLength));
 
     MCUXCLSESSION_EXIT(session, mcuxClKey_agreement, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK,
         agreement->protectionTokenAgreementFct);

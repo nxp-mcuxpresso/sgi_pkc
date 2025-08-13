@@ -27,6 +27,7 @@
 #include <mcuxClEcc_Types.h>
 #include <mcuxClKey_Types.h>
 #include <internal/mcuxClKey_Types_Internal.h>
+#include <internal/mcuxClEcc_FeatureConfig.h>
 
 #include <internal/mcuxClEcc_Internal_UPTRT_access.h>
 #include <internal/mcuxClEcc_Internal_PkcWaLayout.h>
@@ -42,17 +43,20 @@ extern "C" {
 /*                                                        */
 /**********************************************************/
 
-#define MCUXCLECC_INTSTATUS_POINTCHECK_NOT_OK        ((mcuxClEcc_Status_t) 0x55AAE817u)
+#define MCUXCLECC_INTSTATUS_SCALAR_ZERO              ((mcuxClEcc_Status_t) 0x55AA2E2Bu)
+#define MCUXCLECC_INTSTATUS_POINTCHECK_NOT_OK        ((mcuxClEcc_Status_t) 0x55AA8917u)
+#define MCUXCLECC_INTSTATUS_DECODING_NOT_OK          ((mcuxClEcc_Status_t) 0x55AA89A9u)
 
 /* Rule of ECC return codes:
  * All return codes are of the format: 0x55XXYYTT
  * API         : XX = 55
  * Internal    : XX = AA
- * HammingWeight(YY) = HammingWeight(TT) = 4, according to coding guidelines
- * YY needs to be a balanced byte, and TT = ~YY
+ * Code class : YY status code class according to mcuxClCore_Macros.h
+ *                     NORMAL/NORMALMISMATCH/ABNORMAL/ATTACK
+ * HammingWeight(TT) = 4, according to coding guidelines
  *
- * General  OK  : YYTT = 5555
- * Fault Attack : YYTT = F00F
+ * General  OK  : YYTT = 2E55
+ * Fault Attack : 0x55AAF0F0
  */
 
 
@@ -167,13 +171,12 @@ struct mcuxClEcc_CommonDomainParams
 /**********************************************************/
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_InterleaveScalar)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_InterleaveScalar(uint16_t iScalar, uint32_t scalarBitLength, uint32_t numberOfInterleavings);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveScalar(uint16_t iScalar, uint32_t scalarBitLength, uint32_t numberOfInterleavings);
 
 /** Helper macro to call #mcuxClEcc_InterleaveScalar with flow protection. */
 #define MCUXCLECC_FP_INTERLEAVESCALAR(iScalar, bitLenScalar, numberOfInterleavings)  \
     do{ \
-        MCUX_CSSL_FP_FUNCTION_CALL(retValTemp, mcuxClEcc_InterleaveScalar(iScalar, bitLenScalar, numberOfInterleavings));  \
-        (void) retValTemp;  /* Checking is unnecessary, because it always returns OK. */  \
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_InterleaveScalar(iScalar, bitLenScalar, numberOfInterleavings));  \
     } while (false)
 
 
@@ -190,19 +193,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveTwoScalars(uint16_t iScala
  * @param[in] iDst              Index of PKC buffer which the random mod modulus will be written to
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_GenerateRandomModModulus)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_GenerateRandomModModulus(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_GenerateRandomModModulus(
     mcuxClSession_Handle_t pSession,
     uint8_t iModulus,
     uint8_t iDst
 );
 
-
+#if defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_GenerateMultiplicativeBlinding)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_GenerateMultiplicativeBlinding(
     mcuxClSession_Handle_t pSession,
     uint32_t scalarSize
     );
-
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING) */
 
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_BlindedFixScalarMult)
@@ -229,14 +232,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SetupEnvironment(
     uint8_t noOfBuffers
     );
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_INTEGRITYCHECK_PN)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_IntegrityCheckPN)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_IntegrityCheckPN(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_CommonDomainParams_t *pCommonDomainParams
     );
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_INTEGRITYCHECK_PN) */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_RecodeAndReorderScalar)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_RecodeAndReorderScalar(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_RecodeAndReorderScalar(
     mcuxClSession_Handle_t pSession,
     uint8_t scalarIndex,
     uint8_t f,
@@ -246,8 +251,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_RecodeAndReorderScalar
 /** Helper macro to call #mcuxClEcc_RecodeAndReorderScalar with flow protection. */
 #define MCUXCLECC_FP_RECODEANDREORDERSCALAR(scalarIndex, f, scalarBitLength)  \
     do{ \
-        MCUX_CSSL_FP_FUNCTION_CALL(retValTemp, mcuxClEcc_RecodeAndReorderScalar(pSession, scalarIndex, f, scalarBitLength));  \
-        (void) retValTemp;  /* Checking is unnecessary, because it always returns OK. */  \
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_RecodeAndReorderScalar(pSession, scalarIndex, f, scalarBitLength));  \
     } while (false)
 
 
@@ -276,6 +280,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
     uint8_t *pTargetTableEntry,
     const uint8_t *pPrecPointTableMask
 );
+
 
 /**
  * Declaration of function to cast pointer to specific workarea type

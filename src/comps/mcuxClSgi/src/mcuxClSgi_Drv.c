@@ -19,23 +19,13 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslAnalysis.h>
 
-/** Waits until SGI operation finished */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_wait)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_wait(void)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_wait);
-  while(MCUXCLSGI_SFR_STATUS_BUSY(mcuxClSgi_Sfr_readStatus())) {/*nothing*/}
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_wait);
-}
-
 /** Initializes SGI by setting CTRL to 0 and CTRL2 to the provided value. */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_init)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_init(uint32_t mode)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_init);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+  mcuxClSgi_Drv_wait();
   mcuxClSgi_Sfr_writeCtrl(0u);
   mcuxClSgi_Sfr_writeCtrl2(mode);
 #ifdef SGI_HAS_AES_AUTO_MODE
@@ -64,7 +54,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_close(mcuxClSession_Handle_t ses
   MCUX_CSSL_FP_FUNCTION_CALL(accessErrorStatus, mcuxClSgi_Drv_readAccessError(session));
   if(MCUXCLSGI_STATUS_OK != accessErrorStatus)
   {
-    MCUXCLSESSION_ERROR(session, accessErrorStatus);
+    MCUXCLSESSION_FAULT(session, MCUXCLSGI_STATUS_FAULT);
   }
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_readStatusError));
@@ -72,7 +62,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_close(mcuxClSession_Handle_t ses
 
   if(MCUXCLSGI_STATUS_OK != errorStatus)
   {
-    MCUXCLSESSION_ERROR(session, MCUXCLSGI_STATUS_ERROR);
+    MCUXCLSESSION_FAULT(session, MCUXCLSGI_STATUS_FAULT);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_close);
@@ -237,6 +227,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableIvAutoInit(void)
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_disableIvAutoInit);
 }
 
+#if 0
 /** Flush all/key/datain */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_enableFlush)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableFlush(uint32_t option)
@@ -248,11 +239,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableFlush(uint32_t option)
   /* Enable flush write mode */
   mcuxClSgi_Sfr_writeCtrl2(ctrl2 | option);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+  mcuxClSgi_Drv_wait();
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_enableFlush);
 }
+#endif /* 0 */
 
 /** Enables masking - next load/store of data/key will use masking
  * Returns previous control value */
@@ -273,28 +264,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_enableMasking(uint32_t type,
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSgi_Drv_enableMasking, ctrl2);
 }
 
-/** Set dummy cycles */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_setDummyCycles)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_setDummyCycles(uint32_t dummyCycles)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_setDummyCycles);
-  dummyCycles = MCUXCLSGI_SFR_DUMMY_CTRL_ADCTRL(dummyCycles);   /*set the dummy cycles for the AES*/
-
-  mcuxClSgi_Sfr_setDummyCtrl(dummyCycles);
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_setDummyCycles);
-}
-
-/** Read dummy cycles */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_readDummyCycles)
-MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_readDummyCycles(void)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_readDummyCycles);
-  uint32_t dummyCtrl = mcuxClSgi_Sfr_readDummyCtrl();
-
-  uint32_t dummyCycles = ((dummyCtrl & MCUXCLSGI_SFR_DUMMY_CTRL_ADCTRL_MASK) >> MCUXCLSGI_SFR_DUMMY_CTRL_ADCTRL_POS);
-
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSgi_Drv_readDummyCycles, dummyCycles);
-}
 
 /** Enable and init counter for SHA-2 */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_enableHashCounter)
@@ -333,14 +302,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getCount(void)
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_getCount);
   uint32_t count = mcuxClSgi_Sfr_readCount();
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSgi_Drv_getCount, count);
-}
-
-/** Fetch key into a key register  */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_loadKeyWord)
-void mcuxClSgi_Drv_loadKeyWord(uint32_t registerIndex, uint32_t key)
-{
-  MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_VOID(registerIndex, 0U, 7U);
-  mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY_INDEX_TO_OFFSET(registerIndex), key);
 }
 
 /* Increments by 1 (with carry) value in datin */
@@ -418,9 +379,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableXorWrite(void)
 
 /** Fetch data into a data register  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_loadWord)
-void mcuxClSgi_Drv_loadWord(uint32_t offset, uint32_t data)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadWord(uint32_t offset, uint32_t data)
 {
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_loadWord);
   mcuxClSgi_Sfr_writeWord(offset, data);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_loadWord);
 }
 
 /** Write SHA-2 input data to FIFO */
@@ -475,6 +438,26 @@ uint32_t mcuxClSgi_Drv_storeWord(uint32_t offset)
   return mcuxClSgi_Sfr_readWord(offset);
 }
 
+#ifdef SGI_HAS_PRNG_SW_READ
+/** Get PRNG word from PRNG_SW_READ  */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_getPrngWord)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getPrngWord(void)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_getPrngWord);
+  uint32_t prngWord = mcuxClSgi_Sfr_readPrngSwRead();
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSgi_Drv_getPrngWord, prngWord);
+}
+
+/** Write seed to PRNG SW SEED register */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_reseedPrng)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_reseedPrng(uint32_t seed)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_reseedPrng);
+  mcuxClSgi_Sfr_writePrngSwSeed(seed);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_reseedPrng);
+}
+#endif /* SGI_HAS_PRNG_SW_READ*/
+
 /** Get current value of Sfr Seed */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_getSfrSeed)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getSfrSeed(void)
@@ -513,6 +496,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSgi_Status_t) mcuxClSgi_Drv_readAccessError(mc
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSgi_Drv_readAccessError, MCUXCLSGI_STATUS_OK);
 }
 
+#ifdef SGI_HAS_FLUSHWR /* SGI has the flush on write functionality available */
 /** Enables flush-on-write. Returns previous control value */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_enableFlushWr)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_enableFlushWr(void)
@@ -540,6 +524,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableFlushWr(void)
   mcuxClSgi_Sfr_writeCtrl2(ctrl2 & (~MCUXCLSGI_SFR_CTRL2_FLUSHWR));
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_disableFlushWr);
 }
+#endif /* SGI_HAS_FLUSHWR */
 
 /** Flush consecutive register banks with random data */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_flushRegisterBanks)
@@ -549,20 +534,23 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_flushRegisterBanks(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_flushRegisterBanks);
 
-  uint32_t *const sgiSfrAddress = mcuxClSgi_Sfr_getAddr(offset);
-
 #ifdef SGI_HAS_FLUSHWR /* SGI has the flush on write functionality available */
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableFlushWr));
   MCUX_CSSL_FP_FUNCTION_CALL(ctrl2Backup, mcuxClSgi_Drv_enableFlushWr());
 
   for(uint32_t i = 0U; i < numberOfWords; i++)
   {
     /* Writing any value to an SFR while flush-on-write is enabled causes random data to be written instead */
-    sgiSfrAddress[i] = 0xffUL;
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("offset calculations cannot wrap")
+    mcuxClSgi_Sfr_writeWord(offset + (i*sizeof(uint32_t)), 0xFFUL);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
   }
 
   mcuxClSgi_Sfr_writeCtrl2(ctrl2Backup);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_flushRegisterBanks,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableFlushWr)
+  );
 
 #else /* Flush on write not available, write manually random words to the register banks */
 
@@ -572,14 +560,30 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_flushRegisterBanks(
   {
     /* Writing random value to SFR */
     MCUXCLPRNG_GET_WORD(rng);
-    sgiSfrAddress[i] = rng;
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("offset calculations cannot wrap")
+    mcuxClSgi_Sfr_writeWord(offset + (i*sizeof(uint32_t)), rng);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
   }
 
   MCUXCLPRNG_RESTORE();
 
-#endif /* SGI_HAS_FLUSHWR */
-
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_flushRegisterBanks);
+#endif /* SGI_HAS_FLUSHWR */
+}
+
+/** Wait for the SGI and check if SGI SHA ERROR flag is set. */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_Sha2_wait)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_Sha2_wait(mcuxClSession_Handle_t session)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_Sha2_wait);
+
+  mcuxClSgi_Drv_wait();
+
+  if(MCUXCLSGI_SFR_STATUS_SHA_ERROR(mcuxClSgi_Sfr_readStatus()))
+  {
+    MCUXCLSESSION_FAULT(session, MCUXCLSGI_STATUS_FAULT);
+  }
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_Sha2_wait);
 }
 
 #if 0  /* Disable below unused functions, but keep those disabled functions for possible future use*/

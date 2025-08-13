@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -35,6 +35,7 @@
  */
 #define MCUXCLKEY_GENERATEKEYPAIR_WEIERECC_WACPU_SIZE    408u  ///< CPU workarea size (in bytes) for #mcuxClKey_generate_keypair.
 
+
 #define MCUXCLSIGNATURE_SIGN_ECDSA_WACPU_SIZE            408u  ///< CPU workarea size (in bytes) for #mcuxClSignature_sign.
 
 #define MCUXCLSIGNATURE_VERIFY_ECDSA_WACPU_SIZE          416u  ///< CPU workarea size (in bytes) for #mcuxClSignature_verify.
@@ -46,6 +47,8 @@
 #define MCUXCLECC_WEIERECC_DECODEPOINT_WACPU_SIZE  80u  ///< CPU workarea size (in bytes) for #mcuxClEcc_WeierECC_DecodePoint.
 
 
+#define MCUXCLECC_WEIERECC_PRIVATEKEYVALIDATION_WACPU_SIZE  64u  ///< CPU workarea size (in bytes) for #mcuxClEcc_WeierECC_PrivateKeyValidation.
+#define MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WACPU_SIZE  72u  ///< CPU workarea size (in bytes) for #mcuxClEcc_WeierECC_PublicKeyValidation.
 
 /**
  * @}
@@ -104,6 +107,7 @@
 #define MCUXCLKEY_GENERATEKEYPAIR_WEIERECC_WAPKC_SIZE_384 (1344u)
 #define MCUXCLKEY_GENERATEKEYPAIR_WEIERECC_WAPKC_SIZE_512 (1728u)
 #define MCUXCLKEY_GENERATEKEYPAIR_WEIERECC_WAPKC_SIZE_640 (2112u)
+
 
 /**
  * PKC workarea size (in bytes) for #mcuxClEcc_ECDSA_GenerateSignature for arbitrary lengths of p and n.
@@ -164,6 +168,20 @@
 #define MCUXCLECC_WEIERECC_DECODEPOINT_WAPKC_SIZE_640  (1584u)
 
 
+/**
+ * PKC workarea size (in bytes) for #mcuxClEcc_WeierECC_PrivateKeyValidation for standard key sizes.
+ */
+#define MCUXCLECC_WEIERECC_PRIVATEKEYVALIDATION_WAPKC_SIZE_128  (240u)
+#define MCUXCLECC_WEIERECC_PRIVATEKEYVALIDATION_WAPKC_SIZE_256  (400u)
+#define MCUXCLECC_WEIERECC_PRIVATEKEYVALIDATION_WAPKC_SIZE_384  (560u)
+#define MCUXCLECC_WEIERECC_PRIVATEKEYVALIDATION_WAPKC_SIZE_512  (720u)
+#define MCUXCLECC_WEIERECC_PRIVATEKEYVALIDATION_WAPKC_SIZE_640  (880u)
+
+#define MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WAPKC_SIZE_128  (336u)
+#define MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WAPKC_SIZE_256  (560u)
+#define MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WAPKC_SIZE_384  (784u)
+#define MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WAPKC_SIZE_512  (1008u)
+#define MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WAPKC_SIZE_640  (1232u)
 
 /**
  * @}

@@ -48,7 +48,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve25519_example)
 
     /* Prepare input for Alice key generation */
     uint32_t alicePrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t alicePrivKeyHandler = (mcuxClKey_Handle_t) &alicePrivKeyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     ALIGNED uint8_t alicePrivKeyBuffer[MCUXCLECC_MONTDH_CURVE25519_SIZE_PRIVATEKEY]={0};
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(aliceprivkeyinit_result, aliceprivkeyinit_token, mcuxClKey_init(
@@ -64,7 +66,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve25519_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     uint32_t alicePubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t alicePubKeyHandler = (mcuxClKey_Handle_t) &alicePubKeyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     ALIGNED uint8_t alicePubKeyBuffer[MCUXCLECC_MONTDH_CURVE25519_SIZE_PUBLICKEY]={0};
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(alicepubkeyinit_result, alicepubkeyinit_token, mcuxClKey_init(
@@ -81,7 +85,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve25519_example)
 
     /* Prepare input for Bob key generation */
     uint32_t bobPrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t bobPrivKeyHandler = (mcuxClKey_Handle_t) &bobPrivKeyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     ALIGNED uint8_t bobPrivKeyBuffer[MCUXCLECC_MONTDH_CURVE25519_SIZE_PRIVATEKEY]={0};
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(bobprivkeyinit_result, bobprivkeyinit_token, mcuxClKey_init(
@@ -97,7 +103,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve25519_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     uint32_t bobPubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t bobPubKeyHandler = (mcuxClKey_Handle_t) &bobPubKeyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     ALIGNED uint8_t bobPubKeyBuffer[MCUXCLECC_MONTDH_CURVE25519_SIZE_PUBLICKEY]={0};
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(bobpubkeyinit_result, bobpubkeyinit_token, mcuxClKey_init(
@@ -144,9 +152,13 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve25519_example)
                            &mcuxClKey_AgreementDescriptor_MontDH,
                            alicePrivKeyHandler,
                            bobPubKeyHandler,
+                           MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
                            NULL,
+                           MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
                            0u,
+                           MCUX_CSSL_ANALYSIS_START_SUPPRESS_USE_UNINITIALIZED_VALUE("Buffer used as output")
                            aliceSharedSecret,
+                           MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_USE_UNINITIALIZED_VALUE()
                            &aliceSharedSecretSize));
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_agreement) != alice_keyagreement_token) || (MCUXCLKEY_STATUS_OK != alice_keyagreement_result))
     {
@@ -162,9 +174,13 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve25519_example)
                            &mcuxClKey_AgreementDescriptor_MontDH,
                            bobPrivKeyHandler,
                            alicePubKeyHandler,
+                           MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
                            NULL,
+                           MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
                            0u,
+                           MCUX_CSSL_ANALYSIS_START_SUPPRESS_USE_UNINITIALIZED_VALUE("Buffer used as output")
                            bobSharedSecret,
+                           MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_USE_UNINITIALIZED_VALUE()
                            &bobSharedSecretSize));
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_agreement) != bob_keyagreement_token) || (MCUXCLKEY_STATUS_OK != bob_keyagreement_result))
     {
@@ -175,7 +191,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve25519_example)
     /* Alice's shared secret shall be equal to Bob's shared secret */
     for(size_t i = 0u; i < MCUXCLECC_MONTDH_CURVE25519_SIZE_SHAREDSECRET; i++)
     {
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClKey_agreement")
         if(bobSharedSecret[i] != aliceSharedSecret[i])
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
         {
             return MCUXCLEXAMPLE_STATUS_ERROR;
         }

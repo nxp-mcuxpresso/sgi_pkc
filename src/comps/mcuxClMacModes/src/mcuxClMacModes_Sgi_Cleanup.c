@@ -53,20 +53,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit(
   /* Free CPU WA in Session */
   mcuxClSession_freeWords_cpuWa(session, cpuWaSizeInWords);
 
-  /* Flush the given key, if needed */
-  if((NULL != key)
-      && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))
-    )
+  /* Flush the given key, if status is not KEEPLOADED */
+  if(NULL != key)
   {
-    /* Flush the key in use if it is not preloaded.
-     * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_flush_internal));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_flush_internal(session, key, 0U /* spec */));
+    if(MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))
+    {
+      /* Flush the key in use if it is not preloaded.
+       * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
+      MCUXCLKEY_FLUSH_FP(session, key, 0U /* spec */);
+    }
   }
   else if(NULL != pContext)
   {
     /* Flush the key(s) in the context, if needed */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInContext));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInContext(session, &(pContext->keyContext)));
     // TODO CLNS-17176: for GMAC, flush H-key in context
     // MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushSubKeyInContext));
@@ -79,12 +78,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit(
 
 
   /* Uninitialize (and release) the SGI hardware */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Uninit(session));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_cleanupOnExit);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_cleanupOnExit,
+    MCUX_CSSL_FP_CONDITIONAL(((NULL != key)
+        && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))),
+      MCUXCLKEY_FLUSH_FP_CALLED(key)
+    ), /* NULL != key */
+    MCUX_CSSL_FP_CONDITIONAL(((NULL == key)
+        && (NULL != pContext)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInContext)
+    ), /* NULL != pContext */
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit)
+  );
 }
-
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_cleanupOnExit_dmaDriven)

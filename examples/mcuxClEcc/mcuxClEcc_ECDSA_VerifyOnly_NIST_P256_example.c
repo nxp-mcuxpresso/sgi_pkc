@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -72,7 +72,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example)
   MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MAX_CPUWA_SIZE, MAX_PKCWA_SIZE);
 
   uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t pubKey = (mcuxClKey_Handle_t) &pubKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_pub_status, ki_pub_token, mcuxClKey_init(
    /* mcuxClSession_Handle_t session         */ session,
@@ -94,6 +96,22 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example)
   /**************************************************************************/
   MCUXCLBUFFER_INIT_RO(buffData, NULL, data, sizeof(data));
   MCUXCLBUFFER_INIT_RO(buffSignature, NULL, signature, sizeof(signature));
+  /* Record critical parameters for additional protection */
+  MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(rp_status, rp_token, mcuxClSignature_verify_recordParam(
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION")
+    /* mcuxClSession_Handle_t session: */ session,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
+    /* mcuxClSignature_Mode_t mode:    */ mcuxClSignature_Mode_ECDSA,
+    /* mcuxCl_InputBuffer_t pIn:       */ buffData,
+    /* uint32_t inSize:               */ sizeof(data))
+  );
+
+  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSignature_verify_recordParam) != rp_token) || (MCUXCLSIGNATURE_STATUS_OK != rp_status))
+  {
+    return MCUXCLEXAMPLE_STATUS_ERROR;
+  }
+  MCUX_CSSL_FP_FUNCTION_CALL_END();
+
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(sv_status, sv_token, mcuxClSignature_verify(
    /* mcuxClSession_Handle_t session:  */ session,
    /* mcuxClKey_Handle_t key:          */ pubKey,

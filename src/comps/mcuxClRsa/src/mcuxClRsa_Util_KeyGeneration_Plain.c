@@ -57,7 +57,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_Util_KeyGeneration_Plain);
 
-  /* Protect key handles. This will be balanced when calling mcuxClKey_store. */
+  /* Protect key handles. This will be balanced when calling MCUXCLKEY_STORE_FP. */
   MCUX_CSSL_DI_RECORD(keyStore_private, privKey);
   MCUX_CSSL_DI_RECORD(keyStore_public, pubKey);
 
@@ -97,7 +97,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
 
   /* Allocate space in session for p, q and e for now */
   uint32_t pkcWaSizeWord = (2u * (pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE) + pkcByteLenKey) / (sizeof(uint32_t));
-  uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
 
   uint8_t *pPkcBufferP = pPkcWorkarea + MCUXCLRSA_PKC_WORDSIZE; /* offset for NDash */
   uint8_t *pPkcBufferQ = pPkcBufferP + pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE; /* offset for NDash */
@@ -111,7 +112,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
   /* Setup UPTR table. */
   const uint32_t cpuWaSizeWord = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLRSA_INTERNAL_KEYGENERATION_PLAIN_UPTRT_SIZE * (sizeof(uint16_t)));
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-  uint16_t * pOperands = (uint16_t *) mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
   MCUXCLPKC_SETUPTRT(pOperands);
@@ -126,7 +128,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    *  Used functions: mcuxClPkc_ImportBigEndianToPkc
    */
   MCUXCLPKC_PS1_SETLENGTH(pkcByteLenPrime, pkcByteLenPrime);
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_INCOMPATIBLE("The pointer pPublicExponent has a compatible type and the access to keyEntryLength is valid")
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenE, 0u, pPublicExponent->keyEntryLength, MCUXCLRSA_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
   uint32_t leadingZerosE = pPublicExponent->keyEntryLength - byteLenE;
   MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_DI_BALANCED(MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_E, pPublicExponent->pKeyEntryData + leadingZerosE, byteLenE, pkcByteLenPrime);
 
@@ -171,8 +175,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
      * Allocate PKC workarea for ComputeD if it has not been allocated. This workarea is also used for TestPQDistance as the temporary buffer.
      * Memory layout: | nDash (FW) | P (pkcByteLenPrime) | nDash (FW) | Q (pkcByteLenPrime) | E (pkcByteLenKey) | D (pkcByteLenKey + 2 FWs) |
      */
-    uint8_t *pPkcBufferD = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWordD);
-
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcBufferD, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWordD));
 
     MCUXCLPKC_WAITFORREADY();
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_D] = MCUXCLPKC_PTR2OFFSET(pPkcBufferD);
@@ -243,6 +247,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    *                  Rand (blindAlignLen) | P_b (blindedPrimeAlignLen) | Q_b (blindedPrimeAlignLen) | N_b (blindedModAlignLen) | RandSquare (blindSquaredAlignLen + FW) |
    */
 
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pkcByteLenKey, MCUXCLRSA_MIN_MODLEN, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pkcByteLenPrime, MCUXCLRSA_MIN_MODLEN / 2U, MCUXCLRSA_MAX_MODLEN / 2U, MCUXCLRSA_STATUS_INVALID_INPUT)
   const uint32_t blindLen = MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE;  // length in bytes of the random value used for blinding
   const uint32_t blindAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen);
   const uint32_t blindSquaredAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen * 2u);
@@ -258,7 +264,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
                                   ) / sizeof(uint32_t);
 
   /* allocate the remaining space for computing N */
-  uint8_t *pPkcWorkarea2 = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord2);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea2, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord2));
 
   pkcWaSizeWord += (pkcWaSizeWordD + pkcWaSizeWord2);
 
@@ -281,9 +288,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
 
   /* Generate random number r32 used for blinding and set LSB to 1, to ensure it is odd and non-null */
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("pPkcBufferRand is 32-bit aligned.")
-  uint32_t *pR32 = (uint32_t *)pPkcBufferRand;
+  uint32_t *pR32 = (uint32_t *) pPkcBufferRand;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
-  pR32[0] = mcuxClPrng_generate_word() | 0x1u;
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word));
+  MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
+  pR32[0] = random32 | 0x1u;
   pR32[1] = 0u;
 
   /* Compute pb = p * r32 and qb = q * r32 */
@@ -313,7 +322,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    * followed by the key data, i.e.: n, e.
    * Key entries stored in big-endian byte order (copy with reverse order).
    *
-   * Used functions: mcuxClKey_store (to export n and e).
+   * Used functions: MCUXCLKEY_STORE_FP (to export n and e).
    */
   mcuxClRsa_KeyData_Plain_t rsaPubKeySrc = {
                               .modulus.pKeyEntryData = pPkcBufferN,
@@ -321,7 +330,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
                               .exponent.pKeyEntryData = pPkcBufferE,
                               .exponent.keyEntryLength = byteLenE
   };
-  mcuxClKey_store(pSession, pubKey, (uint8_t*)&rsaPubKeySrc, 0u);  // RSA Key_store function always returns OK
+  MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(pubKey));
+  MCUXCLKEY_STORE_FP(pSession, pubKey, (uint8_t*)&rsaPubKeySrc, 0u);  // RSA Key_store function always returns OK
 
   /*
    * Write RSA plain key (d, n) to the buffer pointed by pPrivData.
@@ -329,7 +339,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    * followed by the key data, i.e.: n, d.
    * Key entries stored in big-endian byte order (copy with reverse order).
    *
-   * Used functions: mcuxClKey_store
+   * Used functions: MCUXCLKEY_STORE_FP
    */
   mcuxClRsa_KeyData_Plain_t rsaPrivKeySrc = {
                               .modulus.pKeyEntryData = pPkcBufferN,
@@ -337,7 +347,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
                               .exponent.pKeyEntryData = d.pKeyEntryData,
                               .exponent.keyEntryLength = d.keyEntryLength
   };
-  mcuxClKey_store(pSession, privKey, (uint8_t*)&rsaPrivKeySrc, 0u);  // RSA Key_store function always returns OK
+  MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(privKey));
+  MCUXCLKEY_STORE_FP(pSession, privKey, (uint8_t*)&rsaPrivKeySrc, 0u);  // RSA Key_store function always returns OK
 
   /* Create link between private and public key handles */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_linkKeyPair(pSession, privKey, pubKey));
@@ -349,12 +360,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
 
   /* If MCUXCLSESSION_SECURITYOPTIONS_VERIFY_GENERATED_KEY_MASK is set, it will verify the generated private key.
    * Otherwise it will only clear PKC workarea. */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("pPublicExponent is only dereferenced in CRT-case, so false positive here in Plain case")
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_VerifyKey(
           pSession,
           privKey,
           pubKey,
+          MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
           NULL, /* Unused for plain keys */
+          MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
           pPkcWorkarea));
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
   /* Release PKC and exit */
   MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);

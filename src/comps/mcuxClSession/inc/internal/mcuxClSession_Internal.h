@@ -43,14 +43,10 @@ extern "C" {
  * @param[in] pSession         Session handle.
  * @param[in] wordsToAllocate  The size of buffer to be allocated, in number of CPU words (uint32_t).
  *
- * @return pointer to the buffer if it is allocated successfully;
- *         NULL if the buffer cannot be allocated.
+ * @return pointer to the buffer if it is allocated successfully.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSession_allocateWords_cpuWa)
-uint32_t* mcuxClSession_allocateWords_cpuWa(
-    mcuxClSession_Handle_t pSession,
-    uint32_t wordsToAllocate
-);
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t*) mcuxClSession_allocateWords_cpuWa(mcuxClSession_Handle_t pSession, uint32_t wordsToAllocate);
 
 /**
  * @brief Function to allocate PKC buffer.
@@ -67,14 +63,10 @@ uint32_t* mcuxClSession_allocateWords_cpuWa(
  * @param[in] pSession         Session handle.
  * @param[in] wordsToAllocate  The size of buffer to be allocated, in number of CPU words (uint32_t).
  *
- * @return pointer to the buffer if it is allocated successfully;
- *         NULL if the buffer cannot be allocated.
+ * @return pointer to the buffer if it is allocated successfully.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSession_allocateWords_pkcWa)
-uint32_t* mcuxClSession_allocateWords_pkcWa(
-    mcuxClSession_Handle_t pSession,
-    uint32_t wordsToAllocate
-);
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t*) mcuxClSession_allocateWords_pkcWa(mcuxClSession_Handle_t pSession, uint32_t wordsToAllocate);
 
 /**
  * @brief Function to free CPU workarea.

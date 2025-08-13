@@ -69,7 +69,7 @@ typedef struct mcuxClHash_ContextDescriptor mcuxClHash_ContextDescriptor_t;
  * This type is used to refer to the Hash context.
  *
  */
-typedef mcuxClHash_ContextDescriptor_t * const mcuxClHash_Context_t;
+typedef mcuxClHash_ContextDescriptor_t * mcuxClHash_Context_t;
 
 /**
  * @brief Hash Status type

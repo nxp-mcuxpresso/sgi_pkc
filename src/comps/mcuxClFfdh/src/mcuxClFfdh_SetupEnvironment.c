@@ -62,7 +62,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   const uint32_t alignedByteLenCpuWa = SIZEOF_FFDHCPUWA_T + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(byteLenOperandsTable);
 
   const uint32_t wordNumCpuWa = alignedByteLenCpuWa / (sizeof(uint32_t));
-  mcuxClFfdh_CpuWa_t *pCpuWorkarea = mcuxClFfdh_castToFfdhCpuWorkArea(mcuxClSession_allocateWords_cpuWa(pSession, wordNumCpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClFfdh_CpuWa_t*, pCpuWorkarea, mcuxClSession_allocateWords_cpuWa(pSession, wordNumCpuWa));
   /* TODO: CLNS-17418 error handling */
 
   uint32_t wordNumPkcWa = (bufferSize * FFDH_NO_OF_BUFFERS) / sizeof(uint32_t);  /* PKC bufferSize is a multiple of CPU word size. */
@@ -76,7 +76,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
     wordNumPkcWa = (bufferSize * (FFDH_NO_OF_BUFFERS - 2U) + (6U * MCUXCLPKC_WORDSIZE)) / sizeof(uint32_t);  /* PKC bufferSize is a multiple of CPU word size. */
   }
 
-  uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, wordNumPkcWa);
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordNumPkcWa));
 
   /* Initialize CPU */
   pCpuWorkarea->wordNumCpuWa = wordNumCpuWa;
@@ -108,7 +108,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   /* Import prime P */
   MCUXCLPKC_WAITFORFINISH();
   uint8_t *pP = MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_P]);
-  MCUX_CSSL_DI_RECORD(sumOfMemParams, 2U * (uint32_t)pP + (uint32_t)pDomainParams->pP + expOperandSize);
+  MCUX_CSSL_DI_RECORD(sumOfMemParams, 2U * (uint32_t)pP + (uint32_t)pDomainParams->pP + byteLenP + bufferSize);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pP, (const uint8_t *)pDomainParams->pP, byteLenP));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pP + byteLenP, bufferSize - byteLenP));
 
@@ -120,6 +120,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   MCUXCLMATH_FP_QDASH(FFDH_UPTRTINDEX_T1, FFDH_UPTRTINDEX_P, FFDH_UPTRTINDEX_P, FFDH_UPTRTINDEX_T2, (uint16_t)expOperandSize);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClFfdh_SetupEnvironment,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
     MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_GenerateUPTRT),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),

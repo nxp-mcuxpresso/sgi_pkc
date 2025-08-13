@@ -19,10 +19,11 @@
 
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
+#include <mcuxCsslDataIntegrity.h>
 #include <mcuxCsslSecureCounter.h>
 #include <mcuxCsslParamIntegrity.h>
 #include <mcuxCsslMemory.h>
-#include <mcuxCsslMemory_Clear.h>
+#include <internal/mcuxCsslMemory_Internal_Set.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxCsslMemory_Clear)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Clear
@@ -33,22 +34,39 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Clear
     uint32_t length
 )
 {
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxCsslMemory_Clear,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslParamIntegrity_Validate) );
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxCsslMemory_Clear);
+
+    /* Backup DI value */
+    MCUX_CSSL_DI_INIT(diRefValue);
+    MCUX_CSSL_DI_RECORD(memorySetParam, pDst);
+    MCUX_CSSL_DI_RECORD(memorySetParam, length);
 
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_paramIntegrityValidate, MCUX_CSSL_PI_VALIDATE(chk, pDst, dstLength, length));
     if ((retCode_paramIntegrityValidate != MCUXCSSLPARAMINTEGRITY_CHECK_VALID))
     {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Clear, MCUXCSSLMEMORY_STATUS_FAULT);
+        MCUX_CSSL_DI_EXPUNGE(memorySetParam, pDst);
+        MCUX_CSSL_DI_EXPUNGE(memorySetParam, length);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Clear, MCUXCSSLMEMORY_STATUS_FAULT,
+                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslParamIntegrity_Validate));
     }
 
-    if (length > dstLength)
+    if(length > dstLength || NULL == pDst)
     {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Clear, MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER);
+        MCUX_CSSL_DI_EXPUNGE(memorySetParam, pDst);
+        MCUX_CSSL_DI_EXPUNGE(memorySetParam, length);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Clear, MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER,
+                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslParamIntegrity_Validate));
     }
 
-    MCUX_CSSL_FP_FUNCTION_CALL(retCode_memSet, mcuxCsslMemory_Set(MCUX_CSSL_PI_PROTECT(pDst, 0u, length, dstLength), pDst, 0u, length, dstLength) );
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_VOID()
+    uint8_t *p8Dst = (uint8_t *) pDst;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_VOID()
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Clear, retCode_memSet,
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Set ));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_Set(p8Dst, 0U, length));
+
+    MCUX_CSSL_DI_CHECK_EXIT(mcuxCsslMemory_Clear, diRefValue, MCUXCSSLMEMORY_STATUS_FAULT);
+
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Clear, MCUXCSSLMEMORY_STATUS_OK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslParamIntegrity_Validate),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Set));
 }

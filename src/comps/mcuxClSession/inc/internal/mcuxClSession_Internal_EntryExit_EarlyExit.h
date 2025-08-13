@@ -27,6 +27,7 @@
 #include <mcuxClToolchain.h>
 
 #include <mcuxClSession_Types.h>
+#include <internal/mcuxClSession_Internal.h>
 #include <internal/mcuxClSession_Internal_EntryExit_EarlyExit_Types.h>
 
 /**
@@ -56,7 +57,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_entry(mcuxClSe
  * Does not return but instead trigger a long jump back to the closest calling CL API function.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSession_return)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_return(uint32_t returnCode, mcuxClSession_Handle_t session) NORETURN;
+void mcuxClSession_return(uint32_t returnCode, mcuxClSession_Handle_t session) NORETURN;
 
 /**
  * \def MCUXCLSESSION_ENTRY_IMPLn
@@ -163,7 +164,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_return(uint32_t returnCode, mcux
  * \param faultStatus  Fault status value for the current API.
  */
 #define MCUXCLSESSION_FAULT_IMPL(session, faultStatus)     \
-      (void)mcuxClSession_return(faultStatus, session)
+      mcuxClSession_return(faultStatus, session)
 
 /**
  * \def MCUXCLSESSION_ERROR_IMPL
@@ -178,7 +179,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_return(uint32_t returnCode, mcux
  * \param faultStatus  Error status value for the current API.
  */
 #define MCUXCLSESSION_ERROR_IMPL(session, errorStatus)     \
-      (void)mcuxClSession_return(errorStatus, session)
+      mcuxClSession_return(errorStatus, session)
 
 /**
  * \brief Implementation of MCUXCLSESSION_CHECK_ERROR_FAULT_IMPL.
@@ -191,7 +192,7 @@ static inline void mcuxClSession_CheckErrorFault(mcuxClSession_Handle_t session,
 {
   if((MCUXCLCORE_CLS_NORMAL != MCUXCLCORE_GET_CLS(status)) && (MCUXCLCORE_CLS_NORMALMISMATCH != MCUXCLCORE_GET_CLS(status)))
   {
-    (void)mcuxClSession_return(status, session);
+    mcuxClSession_return(status, session);
   }
 }
 

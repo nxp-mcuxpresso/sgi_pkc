@@ -113,7 +113,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
 
   /* Locate paddedMessage buffer at beginning of PKC WA and update session info */
   const uint32_t pkcWaSizeWord = MCUXCLRSA_INTERNAL_PUBLIC_OUTPUT_SIZE(keyByteLength) / (sizeof(uint32_t));
-  uint8_t *pPaddedMessage = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPaddedMessage, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
   MCUX_CSSL_DI_RECORD(verifyPadMsg, pPaddedMessage);
 
   /* Initialize PKC. */

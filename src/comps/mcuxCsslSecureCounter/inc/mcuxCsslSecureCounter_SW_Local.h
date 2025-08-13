@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023 NXP                                                  */
+/* Copyright 2020-2023, 2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -11,7 +11,6 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-
 /**
  * \file  mcuxCsslSecureCounter_SW_Local.h
  * \brief SW implementation of the CSSL secure counter mechanism (using a local
@@ -20,6 +19,8 @@
 
 #ifndef MCUXCSSLSECURECOUNTER_SW_LOCAL_H_
 #define MCUXCSSLSECURECOUNTER_SW_LOCAL_H_
+
+#include <mcuxClCore_Macros.h>
 
 /**
  * \addtogroup mcuxCsslIMPL MCUX CSSL -- Implementations
@@ -150,7 +151,9 @@
  */
 #define MCUX_CSSL_SC_ADD_IMPL(value) \
   MCUX_CSSL_ANALYSIS_START_PATTERN_SC_INTEGER_OVERFLOW() \
-  MCUX_CSSL_SC_COUNTER_NAME += (MCUX_CSSL_SC_BALANCING_VALUE_TYPE_IMPL) (value) \
+  MCUXCLCORE_DONOTOPTIMIZE(MCUX_CSSL_SC_COUNTER_NAME);  \
+  MCUX_CSSL_SC_COUNTER_NAME += (MCUX_CSSL_SC_BALANCING_VALUE_TYPE_IMPL) (value); \
+  MCUXCLCORE_DONOTOPTIMIZE(MCUX_CSSL_SC_COUNTER_NAME);  \
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_SC_INTEGER_OVERFLOW()
 
 /**

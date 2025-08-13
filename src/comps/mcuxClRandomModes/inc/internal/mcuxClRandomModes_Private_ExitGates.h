@@ -21,6 +21,7 @@ extern "C" {
 #include <mcuxClSession.h>
 #include <mcuxClRandom_Types.h>
 
+
 /**
  * @brief Function to handle OK and ERROR/FAILURE exit
  *
@@ -36,6 +37,7 @@ extern "C" {
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRandomModes_cleanupOnExit)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_cleanupOnExit(mcuxClSession_Handle_t session);
+
 
 #ifdef __cplusplus
 } /* extern "C" */

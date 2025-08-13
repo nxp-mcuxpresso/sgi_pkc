@@ -33,12 +33,24 @@ extern "C" {
 #endif
 
 /**
- * @brief Function type for a padding function
+ * @brief Function type for a padding functions
  *
- * A padding function padds the last block of a message. It will copy the incomplete last
- * block of the message @p pIn into the output buffer @p pOut and apply padding to it.
- * The function will return an error in case the input block does not meet the requirements
+ * A padding function padds the last block of a message. If padding is needed, it will copy
+ * the incomplete last block of the message @p pIn into the output buffer @p pOut and
+ * apply padding to it.
+ * The function will trigger an error in case the input block does not meet the requirements
  * for the padding mode.
+ *
+ * @param      blockLength      The block length of the used block cipher.
+ * @param[in]  pIn              Pointer to the input buffer of the block that will be padded.
+ * @param      inOffset         Offset in bytes for the input buffer.
+ * @param      lastBlockLength  Number of bytes in the last block, i.e. the number of bytes
+ *                              in @p pIn that contain the last block.
+ * @param      totalInputLength Total number of plaintext bytes.
+ * @param[out] pOut             Pointer to the output buffer where the padded data
+ *                              will be written.
+ * @param[out] pOutLength       Length of the data written to @p pOut, including the padding.
+ *                              This will either be 0 or @p blockLength.
  */
 MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClPadding_addPaddingMode_t,
 typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClPadding_addPaddingMode_t)(
@@ -53,12 +65,22 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClPadding_addPaddingMode_t)(
 ));
 
 /**
- * @brief Function type for a padding removal function
+ * @brief Function type for a padding removal functions
  *
  * A padding removal function checks and removes padding in the input @p pIn, if possible,
  * and only copies the remaining bytes of the block to the output buffer @p pOut.
- * The function will return an error in case the input block does not meet the requirements
+ * The function will trigger an error in case the input block does not meet the requirements
  * for the padding mode, or NOT_OK if the padding is incorrect.
+ *
+ * @param      blockLength      The block length of the used block cipher.
+ * @param[in]  pIn              Pointer to the input buffer of the block which needs
+ *                              the padding removed.
+ * @param      lastBlockLength  Number of bytes in the last block, i.e. the number of bytes
+ *                              in @p pIn that contain the last block (including padding).
+ * @param[out] pOut             Pointer to the output buffer where the data
+ *                              will be written.
+ * @param      outOffset        Offset in bytes for the output buffer.
+ * @param[out] pOutLength       Length of the data written to @p pOut.
  */
 MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClPadding_removePaddingMode_t,
 typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClPadding_removePaddingMode_t)(

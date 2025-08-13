@@ -65,7 +65,7 @@
  * @param result The result that needs to be encoded.
  */
 #define MCUX_CSSL_FP_RESULT_VALUE(result) \
-  (((uint64_t)(result) & MCUX_CSSL_FP_RESULT_MASK) << MCUX_CSSL_FP_RESULT_OFFSET)
+  (((uint64_t)((uint32_t)(result) & MCUX_CSSL_FP_RESULT_MASK) << MCUX_CSSL_FP_RESULT_OFFSET))
 
 /**
  * @def MCUX_CSSL_FP_PROTECTION_OFFSET
@@ -132,7 +132,11 @@
  */
 #define MCUX_CSSL_FP_RESULT_IMPL2(type, return) \
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("Loss of precision intended") \
-  ((type)(((return) >> MCUX_CSSL_FP_RESULT_OFFSET) & MCUX_CSSL_FP_RESULT_MASK)) \
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES() \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Proper alignment is ensured during type cast") \
+  ((type)((uint32_t)(((return) >> MCUX_CSSL_FP_RESULT_OFFSET) & MCUX_CSSL_FP_RESULT_MASK))) \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER() \
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES() \
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
 
 /**
@@ -244,7 +248,6 @@
  *               are encoded.
  */
 #define MCUX_CSSL_FP_FUNCTION_EXIT_IMPLn(id, result, ...) \
-  __asm("" : "+r" (MCUX_CSSL_SC_COUNTER_NAME));  \
   MCUX_CSSL_SC_ADD( \
     MCUX_CSSL_FP_FUNCTION_ID_EXIT_PART(id) \
     - MCUX_CSSL_FP_EXPECTATIONS(__VA_ARGS__) \
@@ -339,7 +342,6 @@
  *               and a flow protection token are encoded.
  */
 #define MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK_IMPLn(id, pass, fail, ...) \
-  __asm("" : "+r" (MCUX_CSSL_SC_COUNTER_NAME));  \
   MCUX_CSSL_SC_ADD(MCUX_CSSL_FP_FUNCTION_ID_EXIT_PART(id) - MCUX_CSSL_FP_EXPECTATIONS(__VA_ARGS__)); \
   return (MCUX_CSSL_FP_RESULT_VALUE((MCUX_CSSL_SC_CHECK_PASSED == MCUX_CSSL_SC_CHECK(MCUX_CSSL_FP_FUNCTION_VALUE(id))) \
                                      ? pass \
@@ -451,7 +453,6 @@
  */
 #define MCUX_CSSL_FP_FUNCTION_CALL_IMPL3(type, result, call) \
   const uint64_t MCUX_CSSL_CPP_CAT(result, _protected) = (call); \
-  __asm("" : "+r" (MCUX_CSSL_SC_COUNTER_NAME));  \
   MCUX_CSSL_SC_ADD_ON_CALL( \
     MCUX_CSSL_FP_PROTECTION_TOKEN(MCUX_CSSL_CPP_CAT(result, _protected))); \
   type const result = MCUX_CSSL_FP_RESULT(type, \
@@ -499,7 +500,6 @@
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("False positive, due to macro expansion, any usage of NULL is considered as 0 by Coverity") \
   { \
   const uint64_t MCUX_CSSL_CPP_CAT(result, _protected) = (call); \
-  __asm("" : "+r" (MCUX_CSSL_SC_COUNTER_NAME));  \
   MCUX_CSSL_SC_ADD_ON_CALL( \
     MCUX_CSSL_FP_PROTECTION_TOKEN(MCUX_CSSL_CPP_CAT(result, _protected))); \
   } \
@@ -606,7 +606,6 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
  *
  */
 #define MCUX_CSSL_FP_LOOP_ITERATION_IMPLn(id, ...) \
-  __asm("" : "+r" (MCUX_CSSL_SC_COUNTER_NAME));    \
   MCUX_CSSL_SC_ADD( \
     MCUX_CSSL_FP_LOOP_VALUE(id) \
     - MCUX_CSSL_FP_EXPECTATIONS(__VA_ARGS__) \
@@ -627,7 +626,6 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
  *                 flow behavior related to this event.
  */
 #define MCUX_CSSL_FP_BRANCH_SCENARIO_IMPL(id, scenario, ...) \
-  __asm("" : "+r" (MCUX_CSSL_SC_COUNTER_NAME));  \
   MCUX_CSSL_SC_ADD( \
     (MCUX_CSSL_FP_BRANCH_VALUE(id) * (scenario)) \
     - MCUX_CSSL_FP_EXPECTATIONS(__VA_ARGS__) \
@@ -647,7 +645,6 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
  *               flow behavior related to this event.
  */
 #define MCUX_CSSL_FP_SWITCH_CASE_IMPLn(id, case, ...) \
-  __asm("" : "+r" (MCUX_CSSL_SC_COUNTER_NAME));  \
   MCUX_CSSL_SC_ADD( \
     (MCUX_CSSL_FP_SWITCH_VALUE(id) * (case)) \
     - MCUX_CSSL_FP_EXPECTATIONS(__VA_ARGS__) \

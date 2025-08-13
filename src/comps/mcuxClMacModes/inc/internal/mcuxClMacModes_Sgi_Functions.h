@@ -142,7 +142,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CopyOutDma(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMacModes_loadZeroIV)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_loadZeroIV(void);
 
-
 /*
  * Interrupt Service Routines and error handlers for non-blocking operations
  */
@@ -195,11 +194,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_ISR_completeNonBlocking_multipa
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMacModes_handleDmaErrorDuringAutomode)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_handleDmaErrorDuringAutomode(void);
 
-/*
- * DMA-driven functions
+/**
+ * @brief Function to request DMA input channel and to write the workarea into the session job context.
+ *
+ * @param session                           Session that requests the channels
+ * @param pWa                               Pointer to the workarea to be written into the session job context
+ * @param callbackFunction                  Callback function to be written into the session job context
+ * @param protectionToken_callbackFunction  Protection token of the callback function
  */
-#define MCUXCLMACMODES_REQUEST_DMA_CHANNELS(session, pWa, callbackFunction, callbackFunctionToken) \
-  mcuxClDma_requestDmaInputWithWorkarea((session), (pWa), (callbackFunction), (callbackFunctionToken))
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext(
+  mcuxClSession_Handle_t session,
+  mcuxClMacModes_WorkArea_t *pWa,
+  mcuxClSession_HwInterruptHandler_t callbackFunction,
+  uint32_t protectionToken_callbackFunction
+);
 
 /**
  * @brief This function handles the processing of the last block for CMAC(CBC-MAC) update (multipart).

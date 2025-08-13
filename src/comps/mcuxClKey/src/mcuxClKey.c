@@ -59,14 +59,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_init(
         key->type.size = keyDataLength;
     }
 
-    if(NULL != pKeyData)
+    /* There are instances where encoded key data has a bigger size than the base type, therefore check is ">".
+     * Such encodings are only supported for AES keys so far. */
+    if(((key->type.algoId & MCUXCLKEY_ALGO_ID_ALGO_MASK) == MCUXCLKEY_ALGO_ID_AES) &&
+        (NULL != pKeyData) && (key->type.size > keyDataLength))
     {
-        /* key data size validation in case of symmetric keys,
-           there are instances where encoded key has bigger size than the base type, therefore check is ">" */
-        if(((key->type.algoId & MCUXCLKEY_ALGO_ID_USAGE_MASK) == MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY) && (key->type.size > keyDataLength))
-        {
-            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClKey_init, MCUXCLKEY_STATUS_INVALID_INPUT);
-        }
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClKey_init, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClKey_init, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK);
@@ -124,27 +122,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
     mcuxClKey_setAuxData(encodedKey, (const uint8_t *)pAuxData);
     mcuxClKey_setAuxDataLength(encodedKey, auxDataLength);
 
-    /* Check if this is a variable-length external HMAC key */
-    if(0u == type->size)
+    /* key data size validation in case of symmetric keys*/
+    if(((encodedKey->type.algoId & MCUXCLKEY_ALGO_ID_USAGE_MASK) == MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY) && (encodedKey->type.size != plainKeyDataLength))
     {
-        /* Overwrite the type's size with the given one */
-        encodedKey->type.size = plainKeyDataLength;
-    }
-
-    if(NULL != pPlainKeyData)
-    {
-        /* key data size validation in case of symmetric keys*/
-        if(((encodedKey->type.algoId & MCUXCLKEY_ALGO_ID_USAGE_MASK) == MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY) && (encodedKey->type.size != plainKeyDataLength))
-        {
-            MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
-        }
+        MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
 
     /**
      *  2. Call Key_load to load the plain key
      */
 
-    /* Initialize fields for the plain encoding before calling Key_Load */
+    /* Initialize fields for the plain encoding before calling the plain key load */
     mcuxClKey_setEncodingType(encodedKey, type->plainEncoding);
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER("pKeyData can not made const inside of key component as it is possible that the data changes after init due to generation/agreement/derivation of keys.");
     mcuxClKey_setKeyData(encodedKey, (uint8_t *)pPlainKeyData);
@@ -156,29 +144,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
     uint8_t *pPlainKeyDest = NULL;
     mcuxClKey_Encoding_Spec_t spec = MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE;
 
-    /* Only AES key encoding mechanisms implemented so far */
-    if(MCUXCLKEY_ALGO_ID_AES == (type->algoId & MCUXCLKEY_ALGO_ID_ALGO_MASK))
+    /* Only AES key RFC3394 encoding mechanism implemented so far */
+    if(mcuxClAes_Encoding_Rfc3394 == encoding)
     {
-        if(mcuxClAes_Encoding_Rfc3394 == encoding)
-        {
-            /* For Rfc3394 encoding, do not load the key but just receive the pointer to it.
-             * The SGI-driven Rfc3394 wrap has to load the key after starting the SGI. */
-            spec = MCUXCLKEY_ENCODING_SPEC_ACTION_PTR;
-        }
-        else
-        {
-            pPlainKeyDest = mcuxClAes_getKeyDest_default();
-        }
-    }
-    else
-    {
-        /* key type not supported (yet) for encoding */
-        MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
+        /* For Rfc3394 encoding, do not load the key but just receive the pointer to it.
+          * The SGI-driven Rfc3394 wrap has to load the key after starting the SGI. */
+        spec = MCUXCLKEY_ENCODING_SPEC_ACTION_PTR;
     }
 
-    /* Securely load the plain key material */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(session, encodedKey, &pPlainKeyDest, NULL /* pKeyChecksums */, spec));
+    /* Securely load the plain key material using the plain key encoding associated to the type */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(encodedKey->type.plainEncoding->loadFunc(
+      session,
+      encodedKey,
+      &pPlainKeyDest,
+      NULL /* pKeyChecksums */,
+      spec));
 
     /**
      *  3. Modify the key object to the new encoding
@@ -191,8 +171,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
      *  4. Perform key storing, this will apply the encoding and store the encoded key material in the container.
      */
     uint8_t *pPlainKeySrc = pPlainKeyDest;
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_store));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_store(session, encodedKey, pPlainKeySrc, MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PLAIN));
+    MCUXCLKEY_STORE_FP(
+      session,
+      encodedKey,
+      MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("Only mcuxClAes_Encoding_Rfc3394 is supported. Plain key load functions for AES key types will assign a pointer to pPlainKeyDest for every path because MCUXCLKEY_ENCODING_SPEC_ACTION_PTR is used. Hence pPlainKeySrc was assigned during key load.")
+      pPlainKeySrc,
+      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
+      MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PLAIN);
 
     /**
      * 5. Set *pEncodedKeyDataLength to number of bytes written to pEncodedKeyData
@@ -205,7 +190,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
       *pEncodedKeyDataLength = keySize + MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE;
     }
 
-    MCUXCLSESSION_EXIT(session, mcuxClKey_encode, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_EXIT(session, mcuxClKey_encode, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK,
+      encodedKey->type.plainEncoding->protectionToken_loadFunc,
+      MCUXCLKEY_STORE_FP_CALLED(encodedKey));
 }
 
 /* Init the recodedKey object, decode/load the encodedKey, recode the key material */
@@ -253,21 +240,22 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
        * The result of this operation is the unwrapped key material in pPlainKeyDest */
       MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Customer guidance include a 32-bit aligned key data.")
 
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_keyUnwrapRfc3394_swDriven));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_keyUnwrapRfc3394_swDriven(session, encodedKey, (uint32_t *)pPlainKeyDest));
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
     }
     else
     {
-        /* key type not supported (yet) for recoding */
-        /* TODO: Call mcuxClKey_load for other encoding, e.g. protections? Similarly to Key_encode */
+        /* Unsupported encoding */
         MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
 
     /* 3. Perform key storing, this will apply the new encoding and store the encoded key material in the container */
     uint8_t *pPlainKeySrc = pPlainKeyDest;
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_store));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_store(session, recodedKey, pPlainKeySrc, MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PROTECTED));
+    MCUXCLKEY_STORE_FP(
+      session,
+      recodedKey,
+      pPlainKeySrc,
+      MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PROTECTED);
 
     /* 4. Set *pEncodedKeyDataLength to number of bytes written to pEncodedKeyData */
     /* In case of mcuxClAes_Encoding_Rfc3394 encoding, the result size is the key material size + 8 bytes (MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE). */
@@ -279,7 +267,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
       *pEncodedKeyDataLength = keySize + MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE;
     }
 
-    MCUXCLSESSION_EXIT(session, mcuxClKey_recode, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_EXIT(session, mcuxClKey_recode, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK,
+        MCUX_CSSL_FP_CONDITIONAL((mcuxClAes_Encoding_Rfc3394 == encoding),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_keyUnwrapRfc3394_swDriven)
+        ),
+        MCUXCLKEY_STORE_FP_CALLED(recodedKey)
+    );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_loadCopro)
@@ -289,22 +282,26 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
     uint32_t loadOptions // slot and other options
 )
 {
-    MCUXCLSESSION_ENTRY(session, mcuxClKey_loadCopro, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_ENTRY(session, mcuxClKey_loadCopro, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK,
+      MCUX_CSSL_FP_CONDITIONAL(
+          (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadedKeySlot(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK)),
+        MCUXCLKEY_FLUSH_FP_CALLED(key)
+      )
+    );
 
     if(MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadedKeySlot(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK))
     {
-      /* If the key was already loaded to a copro before, flush the old location before continuing
+      /* If the key was already loaded to a copro, flush the old location before continuing
        * with the new load operation. */
-       MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_flush_internal));
-       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_flush_internal(session, key, 0U /* spec */));
+       MCUXCLKEY_FLUSH_FP(session, key, 0U /* spec */);
     }
-
-    /* Get the slot to load to from the given loadOptions */
-    uint32_t slot = (loadOptions & MCUXCLKEY_LOADOPTION_SLOT_SLOT_MASK) >> MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT;
 
     /* Load the key to the respective copro, based on the key type */
     if(MCUXCLKEY_ALGO_ID_AES == (mcuxClKey_getAlgoId(key) & MCUXCLKEY_ALGO_ID_ALGO_MASK))
     {
+        /* Get the slot to load to from the given loadOptions */
+        uint32_t slot = (loadOptions & MCUXCLKEY_LOADOPTION_SLOT_SLOT_MASK) >> MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT;
+
         if(MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI != (loadOptions & MCUXCLKEY_LOADOPTION_SLOT_COPRO_MASK))
         {
           /* Not a proper SGI key load option */
@@ -314,13 +311,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
         if(MCUXCLKEY_LOADOPTION_ALREADYLOADED != (loadOptions & MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK))
         {
             /* Initialize the SGI to LE before loading the key */
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
-
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, NULL /* Workarea */, mcuxClSgi_Drv_keySlotToOffset(slot)));
-
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_close(session));
         }
 
@@ -329,7 +321,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
         {
             loadStatusDetails = MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY;
         }
-        mcuxClKey_setLoadStatus(key, MCUXCLKEY_LOADSTATUS_LOCATION_COPRO | MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED | loadStatusDetails);
+        mcuxClKey_setLoadStatus(key,
+            MCUXCLKEY_LOADSTATUS_LOCATION_COPRO | MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED | loadStatusDetails);
+
+        mcuxClKey_setLoadedKeySlot(key, slot);
     }
     else
     {
@@ -337,9 +332,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
         MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
 
-    mcuxClKey_setLoadedKeySlot(key, slot);
-
-    MCUXCLSESSION_EXIT(session, mcuxClKey_loadCopro, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_EXIT(session, mcuxClKey_loadCopro, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK,
+        MCUX_CSSL_FP_CONDITIONAL(
+          ((MCUXCLKEY_ALGO_ID_AES == (mcuxClKey_getAlgoId(key) & MCUXCLKEY_ALGO_ID_ALGO_MASK))
+              && (MCUXCLKEY_LOADOPTION_ALREADYLOADED != (loadOptions & MCUXCLKEY_LOADOPTION_ALREADYLOADED))),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
+        )
+    );
 }
 
 
@@ -365,10 +366,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_flush(
   mcuxClKey_Handle_t key
 )
 {
-  MCUXCLSESSION_ENTRY(session, mcuxClKey_flush, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK);
-  MCUX_CSSL_FP_EXPECT(
-      MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO))),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_flush_internal))
+  MCUXCLSESSION_ENTRY(session, mcuxClKey_flush, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK,
+      MCUX_CSSL_FP_CONDITIONAL(
+        (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO))),
+          MCUXCLKEY_FLUSH_FP_CALLED(key)
+      )
   );
 
   // TODO CLNS-16197: How to keep consistency with "linked" key objects?
@@ -377,9 +379,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_flush(
   if(MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (loadStatus & MCUXCLKEY_LOADSTATUS_LOCATION_MASK))
   {
     /* If the key is loaded to a HW IP, flush the key from its location and reset the loadstatus on successful flush
-     * (happens in mcuxClKey_flush_internal) */
+     * (happens in MCUXCLKEY_FLUSH_FP) */
     // TODO CLNS-16429: which size in the key object is the best to use for flushing? Key->type.size for single part keys/sym keys, but how to deal keys with multiple parts?
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_flush_internal(session, key, 0U /* spec */));
+    MCUXCLKEY_FLUSH_FP(session, key, 0U /* spec */);
   }
 
   /* Nothing to do - key is not loaded */

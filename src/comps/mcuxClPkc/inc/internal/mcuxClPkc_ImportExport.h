@@ -37,9 +37,8 @@ extern "C" {
 
 
 /**********************************************************/
-/* Import/export function declaration                     */
+/* Import/export function declarations                    */
 /**********************************************************/
-
 /**
  * @brief Function to switch the endianness of the data in a buffer
  * 
@@ -273,50 +272,6 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
     MCUXCLPKC_FP_SECUREIMPORTBIGENDIANTOPKC_DI_BALANCED(pSession, iTarget, pBufSource, length, buffLength); \
     mcuxClPkc_Status_t status = MCUXCLPKC_STATUS_OK
 
-
-/**
- * @brief Function to securely import an operand, which is provided in little-endian order
- * 
- * This function imports an integer stored as a little-endian octet string with specified length
- * and stores it as an integer in PKC workarea according PKC specification, in a secure manner.
- * 
- * @param[out]  iTarget                 index of PKC operand, where the imported integer will be stored
- * @param[in]   pSource                 address of the octet string to be imported
- * @param       length                  length of the octet string to be imported
- * @param       targetBufferLength      length of the buffer iTarget
- * 
- * @pre
- *  - @p iTarget is the index of the PKC operand, size = targetBufferLength, the bytes on top of this operand
- *    will be cleared to zero if length < targetBufferLength.
- *    The offset (UPTRT[iTarget]) shall be exactly a multiple of MCUXCLPKC_WORDSIZE.
- *  - @p length shall be equal to or smaller than targetBufferLength.
- *  - @p targetBufferLength shall be equal to the buffer size of iTarget and a multiple of MCUXCLPKC_WORDSIZE.
- * 
- * @post
- *  -  Data Integrity: Expunge(iTarget + pSource + length + targetBufferLength)
- *
- * @return void
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClPkc_SecureImportLittleEndianToPkc)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureImportLittleEndianToPkc(uint8_t iTarget, const uint8_t * pSource, uint32_t length, uint32_t targetBufferLength);
-
-/** Helper macro to call #mcuxClPkc_SecureImportLittleEndianToPkc with flow protection. */
-#define MCUXCLPKC_FP_SECUREIMPORTLITTLEENDIANTOPKC_DI_BALANCED(iTarget, pSource, length, buffLength) \
-    do{ \
-        MCUX_CSSL_DI_RECORD(mcuxClPkc_SecureImportLittleEndianToPkc /* not used*/, iTarget); \
-        MCUX_CSSL_DI_RECORD(mcuxClPkc_SecureImportLittleEndianToPkc /* not used*/, pSource); \
-        MCUX_CSSL_DI_RECORD(mcuxClPkc_SecureImportLittleEndianToPkc /* not used*/, length); \
-        MCUX_CSSL_DI_RECORD(mcuxClPkc_SecureImportLittleEndianToPkc /* not used*/, buffLength); \
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPkc_SecureImportLittleEndianToPkc(iTarget, pSource, length, buffLength)); \
-MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION() \
-    } while(false)                                                         \
-MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
-
-/** Helper macros to use the correct buffer implementation */
-#define MCUXCLPKC_FP_CALLED_SECUREIMPORTLITTLEENDIANTOPKC_BUFFER  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SecureImportLittleEndianToPkc)
-#define MCUXCLPKC_FP_SECUREIMPORTLITTLEENDIANTOPKC_BUFFER_DI_BALANCED(functionID, status, iTarget, pBufSource, length, buffLength) \
-    MCUXCLPKC_FP_SECUREIMPORTLITTLEENDIANTOPKC_DI_BALANCED(iTarget, pBufSource, length, buffLength); \
-    mcuxClPkc_Status_t status = MCUXCLPKC_STATUS_OK
 
 
 /**

@@ -90,7 +90,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
   /* Locate paddedMessage buffer at beginning of PKC WA and update session info */
   uint32_t keyByteLength = keyBitLength / 8u;
   uint32_t pkcWaUsedByte = (MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN == mcuxClKey_getAlgoId(key)) ? MCUXCLRSA_INTERNAL_PRIVATEPLAIN_INPUT_SIZE(keyByteLength) : MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(keyByteLength);
-  uint8_t *const pPkcWorakarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaUsedByte / (sizeof(uint32_t)));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorakarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaUsedByte / (sizeof(uint32_t))));
   uint8_t *pPaddedMessage = pPkcWorakarea;
 
   /* Call the padding function */
@@ -125,7 +126,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
     /* Clear PKC workarea after the input */
     MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int_afterInput, pPaddedMessage + keyByteLength);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int_afterInput, pkcWaUsedByte - keyByteLength);
-    mcuxClMemory_clear_int(pPaddedMessage + keyByteLength, pkcWaUsedByte - keyByteLength);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pPaddedMessage + keyByteLength, pkcWaUsedByte - keyByteLength));
   }
 
   /*****************************************************/
@@ -158,10 +159,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
                   MCUXCLRSA_STATUS_SIGN_OK,
                   MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
                   pRsa_Signature_ProtocolDescriptor->sign_FunId,
+                  MCUX_CSSL_FP_CONDITIONAL(pkcWaUsedByte > keyByteLength, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)),
                   MCUX_CSSL_FP_CONDITIONAL((MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN == mcuxClKey_getAlgoId(key)),
-                  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_privatePlain)),
+                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_privatePlain)),
                   MCUX_CSSL_FP_CONDITIONAL(((MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT == mcuxClKey_getAlgoId(key))
-                                    || (MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRTDFA == mcuxClKey_getAlgoId(key))),
+                    || (MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRTDFA == mcuxClKey_getAlgoId(key))),
                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_privateCRT)),
                   MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
 }

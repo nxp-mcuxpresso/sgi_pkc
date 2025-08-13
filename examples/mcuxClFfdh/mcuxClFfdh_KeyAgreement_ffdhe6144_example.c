@@ -258,7 +258,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
 
   /* Allocate space for and initialize Alice's private key handle for an ffdhe6144 private key */
   uint32_t alicePrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t alicePrivKey = (mcuxClKey_Handle_t) &alicePrivKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(aliceprivkeyinit_result, aliceprivkeyinit_token, mcuxClKey_init(
   /* mcuxClSession_Handle_t session         */ session,
@@ -275,7 +277,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
 
   /* Allocate space for and initialize Alice's public key handle for an ffdhe6144 public key */
   uint32_t alicePubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t alicePubKey = (mcuxClKey_Handle_t) &alicePubKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(alicepubkeyinit_result, alicepubkeyinit_token, mcuxClKey_init(
   /* mcuxClSession_Handle_t session         */ session,
@@ -292,7 +296,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
 
   /* Allocate space for and initialize Bob's private key handle for an ffdhe6144 private key */
   uint32_t bobPrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t bobPrivKey = (mcuxClKey_Handle_t) &bobPrivKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(bobprivkeyinit_result, bobprivkeyinit_token, mcuxClKey_init(
   /* mcuxClSession_Handle_t session         */ session,
@@ -309,7 +315,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
 
   /* Allocate space for and initialize Bob's public key handle for an ffdhe6144 public key */
   uint32_t bobPubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t bobPubKey = (mcuxClKey_Handle_t) &bobPubKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(bobpubkeyinit_result, bobpubkeyinit_token, mcuxClKey_init(
   /* mcuxClSession_Handle_t session         */ session,
@@ -339,7 +347,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
     /* mcuxClKey_Agreement_t agreement:                          */ mcuxClKey_Agreement_FFDH,
     /* mcuxClKey_Handle_t key:                                   */ alicePrivKey,
     /* mcuxClKey_Handle_t otherKey:                              */ bobPubKey,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxClKey_Agreement_AdditionalInput_t additionalInputs[]: */ NULL,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
     /* uint32_t numberOfInputs:                                 */ 0U,
     /* uint8_t * pOut:                                          */ aliceSharedSecret,
     /* uint32_t * const pOutLength:                             */ &aliceSharedSecretSize));
@@ -358,7 +368,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
     /* mcuxClKey_Agreement_t agreement:                          */ mcuxClKey_Agreement_FFDH,
     /* mcuxClKey_Handle_t key:                                   */ bobPrivKey,
     /* mcuxClKey_Handle_t otherKey:                              */ alicePubKey,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxClKey_Agreement_AdditionalInput_t additionalInputs[]: */ NULL,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
     /* uint32_t numberOfInputs:                                 */ 0U,
     /* uint8_t * pOut:                                          */ bobSharedSecret,
     /* uint32_t * const pOutLength:                             */ &bobSharedSecretSize));

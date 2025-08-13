@@ -110,7 +110,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_Sha2End (
                         uint32_t releaseOption);
 
 
-
 /**
  * @brief Finish Skeleton implementation for DMA blocking Sha2 with SGI support
  *
@@ -130,6 +129,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sgi_finish_Sha2_DmaBlocking (
                         mcuxClHash_Context_t context,
                         mcuxCl_Buffer_t pOut,
                         uint32_t *const pOutSize);
+
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -48,7 +48,7 @@
  *  - Buffer ECC_CP0 contains the ladder constant (A+2)/4 mod p in MR.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_MontDH_SetupEnvironment)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_SetupEnvironment(mcuxClSession_Handle_t pSession,
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_SetupEnvironment(mcuxClSession_Handle_t pSession,
                                                                                mcuxClEcc_MontDH_DomainParams_t *pDomainParams,
                                                                                uint8_t noOfBuffers)
 {
@@ -65,7 +65,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_SetupEnvironmen
     /* Convert ladder constant to Montgomery representation. */
     MCUXCLPKC_FP_CALC_MC1_MM(ECC_CP0, ECC_T0, ECC_PQSQR, ECC_P);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_SetupEnvironment, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_MontDH_SetupEnvironment,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_SetupEnvironment),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc),
         MCUXCLPKC_FP_CALLED_CALC_MC1_MM );

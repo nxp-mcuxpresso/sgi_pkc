@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -27,5 +27,6 @@ MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Compare_example);
 MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Copy_example);
 MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Clear_example);
 MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Set_example);
+MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_SecureSet_example);
 
 #endif /* MCUXCSSLMEMORY_EXAMPLES_H_ */

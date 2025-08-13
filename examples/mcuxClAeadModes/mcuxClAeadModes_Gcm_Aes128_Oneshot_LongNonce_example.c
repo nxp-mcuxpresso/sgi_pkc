@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -148,13 +148,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example)
   MCUXCLEXAMPLE_INITIALIZE_PRNG(session);
 
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) &keyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_status, ki_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session         */ session,
     /* mcuxClKey_Handle_t key                 */ key,
     /* const mcuxClKey_Type_t * type          */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData                    */ (uint8_t *) keyBytes,
+    /* uint8_t * pKeyData                    */ keyBytes,
     /* uint32_t keyDataLength                */ sizeof(keyBytes))
   );
 
@@ -236,15 +238,19 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example)
   /* Verification                                                           */
   /**************************************************************************/
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
   if (!mcuxClCore_assertEqual(encryptedOneshotData, encryptedReference, sizeof(encryptedReference)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
   if (!mcuxClCore_assertEqual(tagOneshotData, tagReference, sizeof(tagReference)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
 
   if (sizeof(encryptedReference) != encryptedOneShotSize)
   {

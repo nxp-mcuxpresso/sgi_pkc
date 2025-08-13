@@ -241,7 +241,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
  * Data Integrity: Expunge(keyLength)
  *
  * @param      pSession     Handle for the session
- * @param[in]  pOut         Buffer to hold the encrypted block
+ * @param[in]  pOut         Pointer to the buffer to hold the encrypted block
  * @param[in]  pXorMask     Pointer to mask value(if not NULL, stores a 128-bit block of data using masking
  *                          from the specified SGI data register bank to pOut)
  * @param[in]  keyLength    Length of the key
@@ -251,7 +251,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt(
     mcuxClSession_Handle_t pSession,
-    mcuxCl_Buffer_t  pOut,
+    uint8_t*  pOut,
     const uint32_t *pXorMask,
     uint32_t keyLength
 );

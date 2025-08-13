@@ -64,6 +64,8 @@ static inline void mcuxClSgi_Sfr_writeKeyChk(uint32_t value)
   MCUXCLSGI_SFR_WRITE(KEYCHK, value);
 }
 
+
+
 /**
  * Read the SGI SEED register
  */

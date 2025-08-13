@@ -167,7 +167,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) functionCalls(void)
   /* Another protected function call */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(functionOnly0());
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   result += result1 + result2 + result1_ + result2_;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
   /* FUNCTION_EXIT can also be used with multiple expectations. */
   MCUX_CSSL_FP_FUNCTION_EXIT(functionCalls, result,
   	MCUX_CSSL_FP_FUNCTION_CALLED(functionOnly1),

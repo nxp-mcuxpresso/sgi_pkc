@@ -22,6 +22,7 @@
 #include <mcuxClCore_Platform.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxClDma_Types.h>
+#include <internal/mcuxClDma_FeatureConfig.h>
 #include <internal/mcuxClDma_Sfr.h>
 #include <mcuxClSession.h>
 
@@ -119,6 +120,7 @@ extern "C" {
  * @{
  */
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_CHECKFORCHANNELERRORS
 /**
  * @brief Checks the given channel for errors and throws a descriptive status code
  *        on error (via early-exit).
@@ -128,14 +130,7 @@ extern "C" {
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_checkForChannelErrors)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_checkForChannelErrors(mcuxClSession_Handle_t session, mcuxClSession_Channel_t channel);
-
-/**
- * @brief Clear the error status of the DMA channel.
- *
- * @param  channel  The DMA channel
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_clearErrorFlags)
-void mcuxClDma_Drv_clearErrorFlags(mcuxClSession_Channel_t channel);
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_CHECKFORCHANNELERRORS */
 
 /**
  * @brief Enable hardware requests for a specific DMA channel.
@@ -151,8 +146,9 @@ void mcuxClDma_Drv_clearErrorFlags(mcuxClSession_Channel_t channel);
  *   can be triggered by handshake signals from another co-processor (SGI).
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_enableHardwareRequests)
-void mcuxClDma_Drv_enableHardwareRequests(mcuxClSession_Channel_t channel);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_enableHardwareRequests(mcuxClSession_Channel_t channel);
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_INTERRUPT_HANDLING
 /**
  * @brief Enable error interrupts for a specific DMA channel.
  *        An interrupt will be triggered on every error in this channel.
@@ -160,7 +156,7 @@ void mcuxClDma_Drv_enableHardwareRequests(mcuxClSession_Channel_t channel);
  * @param channel DMA channel
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_enableErrorInterrupts)
-void mcuxClDma_Drv_enableErrorInterrupts(mcuxClSession_Channel_t channel);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_enableErrorInterrupts(mcuxClSession_Channel_t channel);
 
 /**
  * @brief Disable error interrupts for a specific DMA channel.
@@ -170,7 +166,6 @@ void mcuxClDma_Drv_enableErrorInterrupts(mcuxClSession_Channel_t channel);
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_disableErrorInterrupts)
 void mcuxClDma_Drv_disableErrorInterrupts(mcuxClSession_Channel_t channel);
 
-
 /**
  * @brief Enable major loop interrupts for a specific DMA channel.
  *        An interrupt will be triggered as soon as the DMA channel is fully completed.
@@ -178,7 +173,7 @@ void mcuxClDma_Drv_disableErrorInterrupts(mcuxClSession_Channel_t channel);
  * @param channel  DMA channel
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_enableChannelDoneInterrupts)
-void mcuxClDma_Drv_enableChannelDoneInterrupts(mcuxClSession_Channel_t channel);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_enableChannelDoneInterrupts(mcuxClSession_Channel_t channel);
 
 /**
  * @brief Disable major loop interrupts for a specific DMA channel.
@@ -187,7 +182,9 @@ void mcuxClDma_Drv_enableChannelDoneInterrupts(mcuxClSession_Channel_t channel);
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_disableChannelDoneInterrupts)
 void mcuxClDma_Drv_disableChannelDoneInterrupts(mcuxClSession_Channel_t channel);
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_INTERRUPT_HANDLING */
 
+#if 0
 /**
  * @brief Clear the interrupt request status of the given channel.
  *
@@ -198,6 +195,7 @@ void mcuxClDma_Drv_disableChannelDoneInterrupts(mcuxClSession_Channel_t channel)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_clearInterruptRequestStatus)
 void mcuxClDma_Drv_clearInterruptRequestStatus(mcuxClSession_Channel_t channel);
+#endif
 
 #if 0
 /**
@@ -251,7 +249,7 @@ void mcuxClDma_Drv_writeDstAccessSize(mcuxClSession_Channel_t channel, uint16_t 
  *  - This offset will be added to the source address after every read access.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeSrcOffset)
-void mcuxClDma_Drv_writeSrcOffset(mcuxClSession_Channel_t channel, uint16_t srcOffset);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeSrcOffset(mcuxClSession_Channel_t channel, uint16_t srcOffset);
 
 /**
  * @brief Write the destination address offset of a DMA channel TCD.
@@ -267,7 +265,7 @@ void mcuxClDma_Drv_writeSrcOffset(mcuxClSession_Channel_t channel, uint16_t srcO
  *  - This offset will be added to the destination address after every write access.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeDstOffset)
-void mcuxClDma_Drv_writeDstOffset(mcuxClSession_Channel_t channel, uint16_t dstOffset);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeDstOffset(mcuxClSession_Channel_t channel, uint16_t dstOffset);
 
 /**
  * @brief Write the source address of a DMA channel TCD.
@@ -276,7 +274,7 @@ void mcuxClDma_Drv_writeDstOffset(mcuxClSession_Channel_t channel, uint16_t dstO
  * @param[in] pSrc     Source address
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeSrcAddress)
-void mcuxClDma_Drv_writeSrcAddress(mcuxClSession_Channel_t channel, const uint8_t *pSrc);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeSrcAddress(mcuxClSession_Channel_t channel, const uint8_t *pSrc);
 
 #if 0
 /**
@@ -297,7 +295,7 @@ uint8_t* mcuxClDma_Drv_readSrcAddress(mcuxClSession_Channel_t channel);
  * @param[in] pDst     Destination address
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeDstAddress)
-void mcuxClDma_Drv_writeDstAddress(mcuxClSession_Channel_t channel, uint8_t *pDst);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeDstAddress(mcuxClSession_Channel_t channel, uint8_t *pDst);
 
 #if 0
 /**
@@ -312,15 +310,16 @@ uint8_t* mcuxClDma_Drv_readDstAddress(mcuxClSession_Channel_t channel);
 #endif
 
 /**
- * @brief Start a DMA channel explicitely by software.
+ * @brief Start a DMA channel explicitly by software.
  *
  * This function asserts the START bit of the channel
  *
  * @param channel  DMA channel
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_startChannel)
-void mcuxClDma_Drv_startChannel(mcuxClSession_Channel_t channel);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_startChannel(mcuxClSession_Channel_t channel);
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_COPY
 /**
  * @brief Wait for DMA channel DONE flag.
  *
@@ -332,7 +331,9 @@ void mcuxClDma_Drv_startChannel(mcuxClSession_Channel_t channel);
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_waitForChannelDone)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_waitForChannelDone(mcuxClSession_Handle_t session, mcuxClSession_Channel_t channel);
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_COPY */
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_OUTPUT_HANDSHAKES
 /**
  * @brief Wait for DMA SGI-handshake channels DONE.
  *
@@ -359,8 +360,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_waitForHandshakeChannelsDone(mcu
  *    new SGI output is ready.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_linkWithSgiHandshakes)
-void mcuxClDma_Drv_linkWithSgiHandshakes(mcuxClSession_Handle_t session);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_linkWithSgiHandshakes(mcuxClSession_Handle_t session);
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_OUTPUT_HANDSHAKES */
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_HANDSHAKES
 /**
  * @brief Link the DMA channel's hardware requests to the SGI input handshake signals.
  *
@@ -374,9 +377,8 @@ void mcuxClDma_Drv_linkWithSgiHandshakes(mcuxClSession_Handle_t session);
  *    new SGI input can be written.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_linkWithSgiInputHandshakes)
-void mcuxClDma_Drv_linkWithSgiInputHandshakes(mcuxClSession_Handle_t session);
-
-
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_linkWithSgiInputHandshakes(mcuxClSession_Handle_t session);
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_HANDSHAKES */
 
 /**
  * @brief Write the last source address adjustment to the DMA channel TCD.
@@ -391,7 +393,7 @@ void mcuxClDma_Drv_linkWithSgiInputHandshakes(mcuxClSession_Handle_t session);
  *       i.e., once the channel is done.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeLastSrcAddrAdjustment)
-void mcuxClDma_Drv_writeLastSrcAddrAdjustment(mcuxClSession_Channel_t channel, uint32_t offset);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeLastSrcAddrAdjustment(mcuxClSession_Channel_t channel, uint32_t offset);
 
 #if 0
 /**
@@ -431,8 +433,9 @@ void mcuxClDma_Drv_writeStoreFinalDstAddr(mcuxClSession_Channel_t channel, uint3
  * @param count    Major loop count
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeMajorLoopCounts)
-void mcuxClDma_Drv_writeMajorLoopCounts(mcuxClSession_Channel_t channel, uint16_t count);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeMajorLoopCounts(mcuxClSession_Channel_t channel, uint16_t count);
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_READ_CITER
 /**
  * @brief Read the beginning major loop count of the DMA channel TCD.
  *
@@ -449,7 +452,8 @@ void mcuxClDma_Drv_writeMajorLoopCounts(mcuxClSession_Channel_t channel, uint16_
  * @return Beginning major loop count
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_readMajorBeginningLoopCount)
-uint16_t mcuxClDma_Drv_readMajorBeginningLoopCount(mcuxClSession_Channel_t channel);
+MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClDma_Drv_readMajorBeginningLoopCount(mcuxClSession_Channel_t channel);
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_READ_CITER */
 
 #if 0
 /**
@@ -482,7 +486,7 @@ void mcuxClDma_Drv_writeMajorLoopCounts_withChannelLinking(mcuxClSession_Channel
  * @param size                   Transfer size in bytes
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeTransferSize)
-void mcuxClDma_Drv_writeTransferSize(mcuxClSession_Channel_t channel, uint32_t size);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeTransferSize(mcuxClSession_Channel_t channel, uint32_t size);
 
 #if 0
 /**
@@ -509,7 +513,7 @@ void mcuxClDma_Drv_writeTransferSizeWithMinorLoopOffsets(mcuxClSession_Channel_t
  * @param offset   Last destination address adjustment
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeLastDstAddrAdjustment)
-void mcuxClDma_Drv_writeLastDstAddrAdjustment(mcuxClSession_Channel_t channel, uint32_t offset);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_writeLastDstAddrAdjustment(mcuxClSession_Channel_t channel, uint32_t offset);
 
 #if 0
 /**
@@ -524,6 +528,7 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_writeScatterGatherAddr)
 void mcuxClDma_Drv_writeScatterGatherAddr(mcuxClSession_Channel_t channel, uint32_t address);
 #endif
 
+#if 0
 /**
  * @brief Read the MP_ES SFR for which DMA channel triggered an error. The channel number is returned.
  *
@@ -534,8 +539,8 @@ void mcuxClDma_Drv_writeScatterGatherAddr(mcuxClSession_Channel_t channel, uint3
  * @retval MCUXCLSESSION_DMACHANNEL_INVALID if no channel triggered any error
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_getChannelFromErrorStatus)
-mcuxClSession_Channel_t mcuxClDma_Drv_getChannelFromErrorStatus(void);
-
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Channel_t) mcuxClDma_Drv_getChannelFromErrorStatus(void);
+#endif
 
 /**
  * @}

@@ -64,9 +64,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
 
   mcuxClAeadModes_Context_t * const pCtx = mcuxClAeadModes_castToAeadModesContext(pContext);
 
-  mcuxClAeadModes_WorkArea_t* workArea = mcuxClAeadModes_castToAeadModesWorkArea(mcuxClSession_allocateWords_cpuWa(
-    session,
-    cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   workArea->sgiWa.pKeyChecksums = &(pCtx->cipherCtx.keyContext.keyChecksums);
 
@@ -228,7 +227,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  mcuxClAeadModes_WorkArea_t *workArea = mcuxClAeadModes_castToAeadModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request SGI */
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
@@ -284,7 +284,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process_adata(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  mcuxClAeadModes_WorkArea_t *workArea = mcuxClAeadModes_castToAeadModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request SGI */
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
@@ -341,7 +342,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_finish(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  mcuxClAeadModes_WorkArea_t *workArea = mcuxClAeadModes_castToAeadModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request SGI */
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
@@ -416,7 +418,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_verify(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  mcuxClAeadModes_WorkArea_t *workArea = mcuxClAeadModes_castToAeadModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   uint8_t *pComputedTag = &workArea->cpuWa.tagBuffer[MCUXCLAEADMODES_TAGLEN_MAX];
 

@@ -42,7 +42,7 @@ static const uint8_t longHashExpected[MCUXCLHASH_OUTPUT_SIZE_SHA_256] = {
 
 #define MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED ((uint32_t) 0xDEADBEEFu)
 /* This variable is used to keep track of callbacks triggered by the non-blocking API. */
-volatile uint32_t sha2MultipartnonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
+static volatile uint32_t sha2MultipartnonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
 
 #define MCUXCLHASH_FLAG_DMA_INTERRUPT_NOT_TRIGGERED ((uint32_t) 0xDEADBEEFu)
 /* This variable is a flag to notify the caller that an interrupt happened.
@@ -70,6 +70,7 @@ static mcuxClResource_Context_t * resourceCtxHandle = (mcuxClResource_Context_t 
    mcuxClResource_handle_interrupt needs to be called afterwards to wrap-up the CLib operation. */
 static void handleDmaInterrupt_channel0(void)
 {
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SFR_ACCESS()
   /* Clear DMA interrupt request status, W1C. Needed for DONE interrupts. */
   DMA0->CH[0].CH_INT = 1U;
 
@@ -81,25 +82,26 @@ static void handleDmaInterrupt_channel0(void)
   chCsr &= ~((uint32_t)DMA_CH_CSR_EEI_MASK);
   /* 3. Write to CH_CSR */
   DMA0->CH[0].CH_CSR = chCsr;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SFR_ACCESS()
 
-  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0);
+  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0U);
 }
 
 /* Initialize (install, enable) the interrupts */
 static void interruptInit(void)
 {
   /* Enable interrupts for the input channel */
-  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0U));
 
   /* Enable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0U));
 }
 
 /* Uninitialize (disable) the interrupts */
 static void interruptUninit(void)
 {
   /* Disable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0U));
 }
 
 MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
@@ -178,7 +180,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
     /* mcuxClSession_Handle_t session:          */ session,
     /* mcuxClSession_Channels_t dmaChannels,    */ dmaChannels,
     /* mcuxClSession_Callback_t pUserCallback,  */ user_callback,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* void * pUserData                        */ NULL)
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
   );
 
   /* Initialize resource context and add it to the session */
@@ -210,7 +214,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   MCUXCLBUFFER_INIT_DMA_RO(data1Buf, session, data1, sizeof(data1));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result3, token3, mcuxClHash_process(
   /* mcuxCLSession_Handle_t session: */ session,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
   /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   /* mcuxCl_InputBuffer_t in:        */ data1Buf,
   /* uint32_t inSize:               */ sizeof(data1)
   ));
@@ -259,7 +265,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   MCUXCLBUFFER_INIT_DMA_RO(data2Buf, session, data2, sizeof(data2));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result4, token4, mcuxClHash_process(
   /* mcuxCLSession_Handle_t session: */ session,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
   /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   /* mcuxCl_InputBuffer_t in:        */ data2Buf,
   /* uint32_t inSize:               */ sizeof(data2)
   ));
@@ -308,7 +316,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   MCUXCLBUFFER_INIT_DMA_RO(data3Buf, session, data3, sizeof(data3));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result5, token5, mcuxClHash_process(
   /* mcuxCLSession_Handle_t session: */ session,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
   /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   /* mcuxCl_InputBuffer_t in:        */ data3Buf,
   /* uint32_t inSize:               */ sizeof(data3)
   ));
@@ -357,7 +367,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   MCUXCLBUFFER_INIT_DMA_RO(data4Buf, session, data4, sizeof(data4));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result6, token6, mcuxClHash_process(
   /* mcuxCLSession_Handle_t session: */ session,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
   /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   /* mcuxCl_InputBuffer_t in:        */ data4Buf,
   /* uint32_t inSize:               */ sizeof(data4)
   ));
@@ -385,7 +397,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   MCUXCLBUFFER_INIT_DMA_RO(data5Buf, session, data5, sizeof(data5));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result7, token7, mcuxClHash_process(
   /* mcuxCLSession_Handle_t session: */ session,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
   /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   /* mcuxCl_InputBuffer_t in:        */ data5Buf,
   /* uint32_t inSize:               */ sizeof(data5)
   ));
@@ -416,9 +430,11 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   MCUXCLBUFFER_INIT_DMA_RW(hashBuf, session, hash, sizeof(hash));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result8, token8, mcuxClHash_finish(
   /* mcuxCLSession_Handle_t session: */ session,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
   /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
-    /* mcuxCl_Buffer_t pOut            */ hashBuf,
-    /* uint32_t *const pOutSize,      */ &hashOutputSize
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
+  /* mcuxCl_Buffer_t pOut            */ hashBuf,
+  /* uint32_t *const pOutSize,      */ &hashOutputSize
   ));
   // mcuxClHash_finish is a flow-protected function: Check the protection token and the return value
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_finish) != token8) || (MCUXCLHASH_STATUS_OK != result8))

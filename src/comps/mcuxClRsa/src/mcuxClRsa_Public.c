@@ -84,7 +84,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   /* Setup session. */
   const uint32_t bufferSizeTotal = bufferSizeX + bufferSizeN + bufferSizeT1 + bufferSizeT2 + bufferSizeRand;
   const uint32_t pkcWaSizeWord = bufferSizeTotal / (sizeof(uint32_t));
-  uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
 
   /* Prepare buffers in PKC workarea */
   uint8_t *pX = pPkcWorkarea;
@@ -96,7 +97,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   /* Setup UPTR table. */
   const uint32_t cpuWaSizeWord = (((sizeof(uint16_t)) * MCUXCLRSA_INTERNAL_PUBLIC_UPTRT_SIZE) + (sizeof(uint32_t)) - 1u) / (sizeof(uint32_t));
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-  uint16_t *pOperands = (uint16_t *) mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_PUBLIC_X] = MCUXCLPKC_PTR2OFFSET(pX);
@@ -123,14 +125,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   /* Check that modulus is odd; otherwise return MCUXCLRSA_STATUS_INVALID_INPUT.                   */
   /************************************************************************************************/
 
-  /* Balance DI for the calls to mcuxClKey_load in this function - constant key specs */
+  /* Balance DI for the calls to MCUXCLKEY_LOAD_FP in this function - constant key specs */
   MCUX_CSSL_DI_RECORD(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_N  + MCUXCLKEY_ENCODING_SPEC_RSA_E);
 
   /* Import the modulus N */
   MCUXCLPKC_PS1_SETLENGTH(0u, operandSize);
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pN);
-  mcuxClKey_load(pSession, key, (uint8_t**)&pN, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_N );  // RSA Key_load function always returns OK
+  MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pN, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_N );  // RSA Key_load function always returns OK
 
   /* Check that the modulus is odd */
   if(0U == (pN[0u] & 0x01U))
@@ -174,6 +177,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
     mcuxClSession_freeWords_pkcWa(pSession, pkcWaSizeWord);
     mcuxClSession_freeWords_cpuWa(pSession, cpuWaSizeWord);
 
+    /* Expunge parameters added outside this branch */
+    MCUX_CSSL_DI_EXPUNGE(protectExpLength, pRsaKeyData->exponent.keyEntryLength);
+    MCUX_CSSL_DI_EXPUNGE(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_E);
+
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_public,
         MCUXCLPKC_FP_CALLED_SECUREIMPORTBIGENDIANTOPKC_BUFFER,
         MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
@@ -185,7 +192,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pPubExp);
 
-  mcuxClKey_load(pSession, key, (uint8_t**)&pPubExp, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_E);  // RSA Key_load function always returns OK
+  MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPubExp, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_E);  // RSA Key_load function always returns OK
   MCUX_CSSL_DI_RECORD(protectExpPointer, pPubExp);
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_publicExp(pSession,

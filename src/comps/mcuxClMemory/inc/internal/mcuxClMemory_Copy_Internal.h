@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2021, 2023-2024 NXP                                       */
+/* Copyright 2020-2021, 2023-2025 NXP                                       */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -34,7 +34,11 @@
 #include <mcuxClToolchain.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslDataIntegrity.h>
-#include <mcuxClMemory_Copy.h>
+#include <internal/mcuxClSgi_SfrAccess.h>
+#include <internal/mcuxClTrng_SfrAccess.h>
+#include <internal/mcuxClTrng_Internal_SA_TRNG.h>
+#include <internal/mcuxCsslMemory_Internal_Copy_arm_asm.h>
+#include <internal/mcuxClMemory_Compare_Internal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,7 +54,7 @@ extern "C" {
  * @param[out] pDst        pointer to the buffer to be copied to.
  * @param[in]  pSrc        pointer to the buffer to copy.
  * @param      length      size (in bytes) to be copied.
- * 
+ *
  * @pre
  *  - @p pDst and @p pSrc must not overlap.
  *  - For better performance and security, please use aligned pointers, and lengths multiple of word size.
@@ -70,9 +74,55 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_int
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_int);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy(pDst, pSrc, length, length));
-    MCUX_CSSL_DI_EXPUNGE(identifier /* Not used */, (uint32_t) pSrc + (uint32_t) pDst + length);  // Balance the SC
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_Copy_arm_asm(pDst, pSrc, length));
+
+    /* In case of source or destination addresses are one of the following:
+     *     - SGI SFRs: there is no guarantee that we can read back what we wrote due to
+     *                 some of them are WRITE ONLY or change its value on read or XOR read/write.
+     *     - TRNG ENT registers: Always return different values
+     * Hence we skip comparing.
+     */
+    uint32_t SGILastAddr  = (uint32_t) &((SGI_STRUCT_NAME *) SGI_SFR_BASE)->SGI_SFR_NAME(MODULE_ID);
+    uint32_t TrngEntFirstAddr = (uint32_t) &((TRNG_SFR_BASE->TRNG_SFR_NAME(ENT))[0]);
+    uint32_t TrngEntLastAddr  = (uint32_t) &((TRNG_SFR_BASE->TRNG_SFR_NAME(ENT))[MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS]);
+
+    if (
+
+        /* SGI */
+          (((((uint32_t) pSrc) < (uint32_t)SGI_SFR_BASE) || (((uint32_t) pSrc) > SGILastAddr))
+        && ((((uint32_t) pDst) < (uint32_t)SGI_SFR_BASE) || (((uint32_t) pDst) > SGILastAddr)))
+        /* TRNG: We never write to entropy, hence only pSrc check */
+        && ((((uint32_t) pSrc) < TrngEntFirstAddr) || (((uint32_t) pSrc) > TrngEntLastAddr))
+
+    )
+    {
+        /*
+        * Compare copied data to ensure copy operation performed properly
+        * As internal copy function doesn't have session reference to trigger early exit,
+        * we will left SC unbalanced to trigger FA from upper layer
+        */
+        MCUX_CSSL_DI_RECORD(compareParams, (uint32_t) pDst);
+        MCUX_CSSL_DI_RECORD(compareParams, (uint32_t) pSrc);
+        MCUX_CSSL_DI_RECORD(compareParams, length);
+        MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxCsslMemory_Compare_arm_asm(pDst, pSrc, length));
+        MCUX_CSSL_DI_EXPUNGE(robustCmpStatus, clRetval);
+        if(MCUXCSSLMEMORY_STATUS_EQUAL != clRetval)
+        {
+            MCUX_CSSL_DI_RECORD(compareParams, clRetval);
+        }
+    }
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_int,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Copy_arm_asm),
+        MCUX_CSSL_FP_CONDITIONAL(
+                                ((((((uint32_t) pSrc) < (uint32_t) SGI_SFR_BASE) || (((uint32_t) pSrc) > SGILastAddr))
+                              &&  ((((uint32_t) pDst) < (uint32_t) SGI_SFR_BASE) || (((uint32_t) pDst) > SGILastAddr)))
+                              &&  ((((uint32_t) pSrc) < TrngEntFirstAddr) || (((uint32_t) pSrc) > TrngEntLastAddr)))
+                              ,
+                                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare_arm_asm)
+                                )
+        );
+
 }
 
 /**
@@ -105,7 +155,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_withoutDstIncr
 )
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_withoutDstIncrement_int);
-    
+
     // TODO CLNS-14121: Implement mcuxClMemory_copy_withoutDstIncrement_int in asm
     const uint8_t *pData = pSrc;
 

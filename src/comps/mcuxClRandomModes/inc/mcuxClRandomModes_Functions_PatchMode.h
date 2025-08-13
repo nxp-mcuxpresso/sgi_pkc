@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2023 NXP                                                  */
+/* Copyright 2021-2023, 2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -32,7 +32,7 @@ extern "C" {
  */
 
 /* Interface definition for a custom RNG function */
-typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) (* mcuxClRandomModes_CustomGenerateAlgorithm_t)(
+typedef mcuxClRandom_Status_t (* mcuxClRandomModes_CustomGenerateAlgorithm_t)(
     mcuxClSession_Handle_t session,
     mcuxClRandom_Context_t pCustomCtx,
     mcuxCl_Buffer_t pOut,

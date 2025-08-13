@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -60,5 +60,14 @@
 #define MCUXCLCORE_CLS_ATTACK         (0x0000F000U)
 #define MCUXCLCORE_GET_CLS(returnCode)  \
   ((returnCode) & MCUXCLCORE_CLS_MASK)
+
+/**
+ * @def MCUXCLCORE_DONOTOPTIMIZE
+ * @brief Prevent compiler from moving the variable @p value.
+ * @api
+ * @param value Variable that shall not be moved around.
+ */
+ #define MCUXCLCORE_DONOTOPTIMIZE(val) \
+  __asm volatile("" : "+r" (val))
 
 #endif /* MCUXCLCORE_MACROS_H_ */

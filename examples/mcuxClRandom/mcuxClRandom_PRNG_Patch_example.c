@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -24,9 +24,6 @@
 #include <mcuxClCore_FunctionIdentifiers.h> // Code flow protection
 #include <mcuxClExample_Session_Helper.h>
 #include <mcuxClCore_Examples.h> // Defines and assertions for examples
-
-/* Initialize index to be used as custom context. */
-static uint32_t indexRandomData = 0u;
 
 static const ALIGNED uint8_t randomData[] = {0x8au,0x76u,0x90u,0xd2u,0xd9u,0x55u,0x3cu,0x93u,
                                              0x03u,0x52u,0x3au,0x3cu,0xbeu,0xe1u,0x39u,0xa4u,
@@ -72,9 +69,11 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandom_PRNG_Patch_example)
     MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLRANDOM_NCINIT_WACPU_SIZE, 0u);
 
     /* Initialize PRNG. This initializes PRNG in normal / unpatched mode */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("session->apiCall is not NULL")
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(nci_status, nci_token, mcuxClRandom_ncInit(
                                         session
                                    ));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncInit) != nci_token) || (MCUXCLRANDOM_STATUS_OK != nci_status))
     {
@@ -102,7 +101,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandom_PRNG_Patch_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     /* Check whether unpatched PRNG indeed outputs unexpected data */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
     bool outputAsExpected = mcuxClCore_assertEqual((const uint8_t *) pPrngData, (const uint8_t*) randomData, sizeof(pPrngData));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* Return error if buffers are equal */
     if(outputAsExpected)
     {
@@ -113,10 +114,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandom_PRNG_Patch_example)
     /* Put PRNG in patch mode                                                 */
     /**************************************************************************/
 
+    /* Initialize index to be used as custom context. As local variable to avoid DATA section in examples. */
+    volatile uint32_t indexRandomData = 0u;
+
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(patch_status, patch_token, mcuxClRandom_ncPatch(
                                         session,
                                         (mcuxClRandom_CustomNcGenerateAlgorithm_t) prngPatchFunction,
-                                        &indexRandomData
+                                        MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_VOLATILE()
+                                        (void *) &indexRandomData
+                                        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_VOLATILE()
     ));
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncPatch) != patch_token) || (MCUXCLRANDOM_STATUS_OK != patch_status))
     {
@@ -137,13 +143,20 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandom_PRNG_Patch_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     /* Check whether patched PRNG indeed outputs expected data */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
     outputAsExpected = mcuxClCore_assertEqual((const uint8_t *) pPrngData, (const uint8_t*) randomData, sizeof(pPrngData));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* Return error if buffers are unequal */
     if(!outputAsExpected)
     {
       return MCUXCLEXAMPLE_STATUS_ERROR;
     }
 
+    /* Check that the index used by the patch function is updated as expected. */
+    if (indexRandomData != (sizeof(pPrngData) % sizeof(randomData)))
+    {
+      return MCUXCLEXAMPLE_STATUS_ERROR;
+    }
     
     /**************************************************************************/
     /* Return to PRNG in normal mode                                          */
@@ -171,7 +184,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRandom_PRNG_Patch_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     /* Check whether unpatched PRNG indeed outputs unexpected data */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
     outputAsExpected = mcuxClCore_assertEqual((const uint8_t *) pPrngData, (const uint8_t*) randomData, sizeof(pPrngData));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* Return error if buffers are equal */
     if(outputAsExpected)
     {

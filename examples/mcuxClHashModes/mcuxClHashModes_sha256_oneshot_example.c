@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020, 2022-2024 NXP                                            */
+/* Copyright 2020, 2022-2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -88,7 +88,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_oneshot_example)
     /**************************************************************************/
     for(size_t i = 0U; i < sizeof(hash); i++)
     {
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT_RW")
         if(hashExpected[i] != hash[i])  // Expect that the resulting hash matches our expected output
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
         {
             return MCUXCLEXAMPLE_STATUS_ERROR;
         }

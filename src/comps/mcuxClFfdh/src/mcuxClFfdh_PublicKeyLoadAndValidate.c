@@ -57,11 +57,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
   /* Load public key to PKC buffer FFDH_UPTRTINDEX_T2 */
   uint8_t* pPublicKeyData = MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_T2]);
   MCUXCLPKC_WAITFORFINISH();
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in the code")
-    mcuxClKey_load(pSession, publicKey, &pPublicKeyData, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL)
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
-  );
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in the code")
+  MCUXCLKEY_LOAD_FP(pSession, publicKey, &pPublicKeyData, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL);
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
 
   /* Public Key Validation (PKV) routine according to RFC2631 section 2.1.5.
    * 1. Verify that y lies within the interval [2,p-1]. If it does not,
@@ -89,6 +87,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
 
   /* Clear garbage above pBase */
   MCUXCLPKC_WAITFORFINISH();
+  MCUX_CSSL_DI_RECORD(memoryClear, (uint32_t)&pBase[lenP] + expOperandSize - lenP);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pBase[lenP], expOperandSize - lenP));
 
   /* The primes in supported RFC7919 finite field groups are all safe primes.
@@ -97,9 +96,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
   MCUXCLPKC_FP_CALC_OP1_SHR(FFDH_UPTRTINDEX_EXP, FFDH_UPTRTINDEX_P, 1U);
   /* Clear garbage above exp buffer */
   uint8_t* pExp = MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_EXP]);
+  MCUX_CSSL_DI_RECORD(memoryClear, (uint32_t)&pExp[lenP] + expOperandSize - lenP);
   MCUXCLPKC_WAITFORFINISH();
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pExp[lenP], expOperandSize - lenP));
   /* PKV 2) Compute y^q mod p */
+  MCUX_CSSL_DI_RECORD(exponentiation, pDomainParameters->lenQ);
   MCUXCLPKC_PS1_SETLENGTH(expOperandSize, expOperandSize);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_SECMODEXP(
     pSession,
@@ -128,7 +129,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(
     mcuxClFfdh_PublicKeyLoadAndValidate,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load),
+    MCUXCLKEY_LOAD_FP_CALLED(publicKey),
     MCUXCLPKC_FP_CALLED_CALC_OP1_SUB_CONST,
     MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
     MCUXCLPKC_FP_CALLED_CALC_MC1_MM,

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023 NXP                                                  */
+/* Copyright 2020-2023, 2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -59,8 +59,8 @@ extern "C" {
  * \param      inSize         Number of bytes of data in the \p pIn buffer.
  * \param[out] pSignature     Pointer to the output buffer where the generated
  *                            signature needs to be written.
- * \param[out] pSignatureSize Will be incremented by the number of bytes of
- *                            data that have been written to the \p pSignature
+ * \param[out] pSignatureSize Will be set to the number of bytes of data
+ *                            that have been written to the \p pSignature
  *                            buffer.
  * \return status
  *
@@ -77,6 +77,35 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_sign(
   mcuxCl_Buffer_t pSignature,
   uint32_t * const pSignatureSize
 ); /* oneshot sign */
+
+/**
+ * \brief Record signature verification parameters for protection.
+ *
+ * Records signature mode, input data pIn and inSize parameters for additional protection.
+ * This function must be called immediately before the mcuxClSignature_verify function
+ * call when ECDSA mode is requested. Failure to do so will result
+ * in a protection token mismatch during the signature verification.
+ *
+ * @note This function will use the first word of CPU WA (without allocating it)
+ *       to store the calculated parameter protection value. This will then be used
+ *       by the mcuxClSignature_verify function to validate parameters.
+ *
+ * \param      pSession      Handle for the current CL session.
+ * \param      mode          Signature mode that should be used during the
+ *                           verification operation.
+ * \param[in]  pIn           Pointer to the input buffer that contains the
+ *                           data that has been signed.
+ * \param      inSize        Number of bytes of data in the \p pIn buffer.
+ *
+ * \return status
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSignature_verify_recordParam)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify_recordParam(
+  mcuxClSession_Handle_t pSession,
+  mcuxClSignature_Mode_t mode,
+  mcuxCl_InputBuffer_t pIn,
+  uint32_t inSize
+);
 
 /**
  * \brief One-shot verification function
@@ -98,14 +127,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_sign(
  * \param      mode          Signature mode that should be used during the
  *                           verification operation.
  * \param[in]  pIn           Pointer to the input buffer that contains the
- *                           data that have been signed.
+ *                           data that has been signed.
  * \param      inSize        Number of bytes of data in the \p pIn buffer.
  * \param[in]  pSignature    Pointer to the buffer that contains the signature
  *                           that needs to be verified.
  * \param      signatureSize Number of bytes of data in the \p pSignature
  *                           buffer.
- * \return status
  *
+#if defined(MCUXCL_FEATURE_SIGNATURE_VERIFY_PARAMETER_PROTECTION) && defined(MCUXCL_FEATURE_ECC_ECDSA_VERIFY)
+ * \note                     When performing ECDSA signature verification: mode, pIn and inSize parameters
+ *                           require additional protection using mcuxClSignature_verify_recordParam().
+ *                           This will initialize first word of CPU WA with integrity value required by
+ *                           mcuxClSignature_verify() to validate parameters.
+#endif
+ *
+ * \return status
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSignature_verify)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify(

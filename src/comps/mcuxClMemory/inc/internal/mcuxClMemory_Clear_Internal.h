@@ -37,7 +37,7 @@
 #include <mcuxCsslAnalysis.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslDataIntegrity.h>
-#include <mcuxCsslMemory.h>
+#include <internal/mcuxCsslMemory_Internal_Set.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,13 +70,9 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_clear_int
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_clear_int);
 
-    (void)mcuxCsslMemory_Clear(
-        MCUX_CSSL_PI_PROTECT(pDst, length, length),
-        pDst,
-        length,
-        length);// For internal usage, only OK return is expected
-    MCUX_CSSL_DI_EXPUNGE(identifier /* Not used */, (uint32_t) pDst + length);  // Unbalance the SC
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_clear_int);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_Set( pDst, 0U, length));
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_clear_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Set));
 }
 
 

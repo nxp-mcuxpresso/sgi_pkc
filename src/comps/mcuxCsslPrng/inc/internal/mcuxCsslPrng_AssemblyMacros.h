@@ -28,10 +28,17 @@
  *
  * regPrngAddr: register to be initialized to the base address to access PRNG
  */
+#if defined(__IASMARM__) || defined(__ICCARM__)
+MCUXCSSLPRNG_INIT_ADDR macro regPrngAddr
+  /* No init needed for stub*/
+  endm
+#else 
 .macro MCUXCSSLPRNG_INIT_ADDR  regPrngAddr
-.endm
+  /* No init needed for stub*/
+     .endm
+#endif /* defined (__IASMARM__) || defined(__ICCARM__) */
 
-
+#ifdef MCUXCL_FEATURE_CSSL_SC_RISCV_ASM
 /**
  * Assembly macro to conditionally initialize PRNG base address
  *
@@ -51,7 +58,7 @@
  */
 .macro MCUXCSSLPRNG_INIT_ADDR_COND  regPrngAddr, addressOtherHw
 .endm
-
+#endif /* MCUXCL_FEATURE_CSSL_SC_RISCV_ASM */
 
 /**
  * Fetch one word of PRNG from hardware SFR
@@ -59,8 +66,13 @@
  * regPrngAddr: register containing the base address to access PRNG
  * regRandom:   register to be loaded one word of PRNG
  */
+#if defined(__IASMARM__) || defined(__ICCARM__)
+MCUXCSSLPRNG_GET_PRNG macro regPrngAddr, regRandom
+  ldr regRandom, =0xDEADBEEF
+  endm
+#else
 .macro MCUXCSSLPRNG_GET_PRNG  regPrngAddr, regRandom
-.endm
-
+  ldr \regRandom, =0xDEADBEEF
+#endif
 
 #endif /* MCUXCSSLPRNG_ASSEMBLYMACROS_H_ */

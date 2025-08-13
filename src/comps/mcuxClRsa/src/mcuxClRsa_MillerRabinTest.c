@@ -190,12 +190,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
 
   /* Get pointer to the witness */
   uint8_t * pWitness = MCUXCLPKC_OFFSET2PTR(pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT]);
+  MCUXCLBUFFER_INIT(pBufWitness, NULL, pWitness, byteLenPrime);
+
+  /* Wait for MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT to be cleared before writing random b */
+  MCUXCLPKC_WAITFORFINISH();
 
   /* Set length of operands */
-  MCUXCLPKC_WAITFORREADY();
   MCUXCLPKC_PS2_SETLENGTH_REG(pkcOperandSize);  /* MCLEN on higher 16 bits is not used. */
-
-  MCUXCLBUFFER_INIT(pBufWitness, NULL, pWitness, byteLenPrime);
 
   MCUX_CSSL_FP_LOOP_DECL(mainLoopFp);
 
@@ -312,7 +313,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
     /* Increment the M-R test counter */
     ++counter;
     zeroFlag_check = MCUXCLPKC_GETZERO();
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("Any unreasonable value (including wrapping) would be detected and return FAULT_ATTACK in check below.")
     executedIterations += zeroFlag_check;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
   /******************************************************************************************************/
   /* If counter == numberTestIterations, the prime candidate pass the M-R test, it is probably prime,   */

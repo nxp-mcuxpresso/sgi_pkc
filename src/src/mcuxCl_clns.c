@@ -11,7 +11,6 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-
 // Aggregation of CLNS implementation headers for build into binary delivery
 #include <mcuxCl_clns.h>
 

@@ -65,14 +65,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
   const uint32_t wordSizePkcWa = pkcByteLenEm / (sizeof(uint32_t));
 
   /* Setup session with buffer for encoding result. */
-  uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa));
 
   /*****************************************************/
   /* Perform pkcs1v15Encode                            */
   /*****************************************************/
   MCUXCLBUFFER_INIT(pPkcWorkareaBuf, pSession, pPkcWorkarea, wopkcByteLenEm);
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_pkcs1v15Encode_sign(
+  MCUX_CSSL_FP_FUNCTION_CALL(retVal_encode_sign, mcuxClRsa_pkcs1v15Encode_sign(
     pSession,
     pInput,
     0u,
@@ -86,6 +87,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
     NULL
   ));
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
+
+  (void) retVal_encode_sign;
+
   /* pInput must be recorded by the caller */
   MCUX_CSSL_DI_EXPUNGE(verifyInput, pInput);
 

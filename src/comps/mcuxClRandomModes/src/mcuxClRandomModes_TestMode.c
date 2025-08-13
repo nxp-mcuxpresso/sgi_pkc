@@ -89,8 +89,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandomModes_updateEntro
  * \param  session[in]          Handle for the current CL session
  * \param  mode[in]             Handle for the current Random Mode
  * \param  context[in]          Handle for the current Random Context
- *
- * \return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_TestMode_initFunction, mcuxClRandom_initFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_TestMode_initFunction(
@@ -109,22 +107,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_TestMode_initFunction(
     pRngCtxGeneric->reseedSeedOffset = 0u;
 
     /* Request and init HW */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_requestHW));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_requestHW(pSession));
 
-
     /* Derive the initial DRBG state from the user-defined entropy input and nonce. Return value is not checked, but instead forwarded to API. */
-    MCUX_CSSL_FP_EXPECT(pDrbgMode->pDrbgAlgorithms->protectionTokenInstantiateAlgorithm);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pDrbgMode->pDrbgAlgorithms->instantiateAlgorithm(
                 pSession,
                 mode,
                 context,
                 (uint8_t *) mode->auxParam));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_cleanupOnExit));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_cleanupOnExit(pSession));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_TestMode_initFunction);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_TestMode_initFunction,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_requestHW),
+        pDrbgMode->pDrbgAlgorithms->protectionTokenInstantiateAlgorithm,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_cleanupOnExit));
 }
 
 
@@ -137,8 +134,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_TestMode_initFunction(
  * \param  session[in]          Handle for the current CL session
  * \param  mode[in]             Handle for the current Random Mode
  * \param  context[in]          Handle for the current Random Context
- *
- * \return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_TestMode_reseedFunction, mcuxClRandom_reseedFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_TestMode_reseedFunction(
@@ -154,21 +149,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_TestMode_reseedFunction(
     const mcuxClRandomModes_DrbgModeDescriptor_t *pDrbgMode = mcuxClRandomModes_castToDrbgModeDescriptor(mode->pDrbgMode);
 
     /* Request and init HW */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_requestHW));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_requestHW(pSession));
 
 
     /* Derive the initial DRBG state from the user-defined entropy input. Return value is not checked, but instead forwarded to API. */
-    MCUX_CSSL_FP_EXPECT(pDrbgMode->pDrbgAlgorithms->protectionTokenReseedAlgorithm);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pDrbgMode->pDrbgAlgorithms->reseedAlgorithm(
                 pSession,
                 mode,
                 context,
                 (((uint8_t *) mode->auxParam) + pRngCtxGeneric->reseedSeedOffset)));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_cleanupOnExit));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_cleanupOnExit(pSession));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_TestMode_reseedFunction);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_TestMode_reseedFunction,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_requestHW),
+        pDrbgMode->pDrbgAlgorithms->protectionTokenReseedAlgorithm,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_cleanupOnExit));
 
 }
 

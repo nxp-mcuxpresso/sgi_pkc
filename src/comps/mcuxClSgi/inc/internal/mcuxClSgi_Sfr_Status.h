@@ -20,18 +20,19 @@
 
 
 /* Macros for the SGI_STATUS SFR */
-#define MCUXCLSGI_SFR_STATUS_ERROR_NO_ERROR  (0x5u) ///< No errors reported in SGI_STATUS.ERROR bits. All other values indicate an error.
+#define MCUXCLSGI_SFR_STATUS_ERROR_NO_ERROR  (0x5U) ///< No errors reported in SGI_STATUS.ERROR bits. All other values indicate an error.
 
 #define MCUXCLSGI_SFR_STATUS_ERROR(status) ((MCUXCLSGI_SFR_STATUS_ERROR_NO_ERROR << MCUXCLSGI_SFR_BITPOS(STATUS,ERROR)) != ((status) & MCUXCLSGI_SFR_BITMSK(STATUS,ERROR)))
-#define MCUXCLSGI_SFR_STATUS_BUSY(status)  (0u != ((status) & MCUXCLSGI_SFR_BITMSK(STATUS,BUSY)))
+#define MCUXCLSGI_SFR_STATUS_SHA_ERROR(status)  (0U != ((status) & MCUXCLSGI_SFR_BITMSK(STATUS,SHA_ERROR)))
+#define MCUXCLSGI_SFR_STATUS_BUSY(status)  (0U != ((status) & MCUXCLSGI_SFR_BITMSK(STATUS,BUSY)))
 
 #ifdef SGI_HAS_KEY_WRAP_UNWRAP
-#define MCUXCLSGI_SFR_STATUS_HAS_KEY_UNWRAP_ERROR(status) (0u != ((status) & MCUXCLSGI_SFR_BITMSK(STATUS,KEY_UNWRAP_ERR)))
+#define MCUXCLSGI_SFR_STATUS_HAS_KEY_UNWRAP_ERROR(status) (0U != ((status) & MCUXCLSGI_SFR_BITMSK(STATUS,KEY_UNWRAP_ERR)))
 #endif /* SGI_HAS_KEY_WRAP_UNWRAP */
 
 #ifdef SGI_HAS_ACCESS_ERR
 /* Macros for the SGI_ACCESS_ERR SFR */
-#define MCUXCLSGI_SFR_ACCESS_ERROR(accessErr) (0u != (accessErr))
+#define MCUXCLSGI_SFR_ACCESS_ERROR(accessErr) (0U != (accessErr))
 #endif
 
 #ifdef __cplusplus

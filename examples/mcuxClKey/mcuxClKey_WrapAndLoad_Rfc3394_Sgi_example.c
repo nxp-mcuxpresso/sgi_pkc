@@ -28,7 +28,7 @@
 #include <mcuxClExample_RNG_Helper.h>
 
 
-/** Test vectors are taken from https://datatracker.ietf.org/doc/html/rfc3394 */
+// Test vectors are taken from https://datatracker.ietf.org/doc/html/rfc3394
 static const uint8_t keyData[MCUXCLAES_AES128_KEY_SIZE] = {
   0x00U, 0x11U, 0x22U, 0x33U, 0x44U, 0x55U, 0x66U, 0x77U,
   0x88U, 0x99U, 0xAAU, 0xBBU, 0xCCU, 0xDDU, 0xEEU, 0xFFU
@@ -79,13 +79,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example)
   /**************************************************************************/
 
   uint32_t keyWrappingKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t keyWrappingKey = (mcuxClKey_Handle_t) &keyWrappingKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(kiKwk_status, kiKwk_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ keyWrappingKey,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes256,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) kwk256Data,
+    /* uint8_t * pKeyData:                   */ kwk256Data,
     /* uint32_t keyDataLength:               */ sizeof(kwk256Data))
   );
 
@@ -113,7 +115,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example)
   /**************************************************************************/
 
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) &keyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   uint8_t wrappedKeyData[MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE];
   uint32_t wrappedKeyLen = 0u;
 
@@ -125,7 +129,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example)
     /* mcuxClKey_Encoding_t encoding:         */ mcuxClAes_Encoding_Rfc3394,
     /* mcuxClKey_Handle_t encodedKey:         */ key,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* const uint8_t * pPlainKeyData:        */ (uint8_t *) keyData,
+    /* const uint8_t * pPlainKeyData:        */ keyData,
     /* uint32_t plainKeyDataLength:          */ sizeof(keyData),
     /* const uint8_t * pAuxData:             */ (uint8_t*) keyWrappingKeyDesc,
     /* uint32_t auxDataLength:               */ sizeof(keyWrappingKeyDesc),
@@ -144,7 +148,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example)
   /* Verification                                                           */
   /**************************************************************************/
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClKey_encode")
   if(!mcuxClCore_assertEqual(wrappedKeyData, expectedwrappedKeyData, sizeof(expectedwrappedKeyData)))
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
@@ -153,7 +159,6 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example)
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
-
 
   /**************************************************************************/
   /* Crypto Operation                                                       */

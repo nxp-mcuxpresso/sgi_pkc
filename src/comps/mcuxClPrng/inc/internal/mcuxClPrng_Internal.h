@@ -32,12 +32,13 @@
 #include <platform_specific_headers.h>
 #include <mcuxCsslFlowProtection.h>
 
+#include <internal/mcuxClSgi_Drv.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
-#include <internal/mcuxClSgi_Drv.h>
 /*
  * In case of SGi SFRSEED based PRNG, first we must backup SGI_CTRL and SGI_CTRL2.
  * Then  We need to set SMASKSW=0 and SMASKEN=0 to get random from SFRSEED and set SMASKSTEP = 1 to update SFRSEED on read.
@@ -45,8 +46,7 @@ extern "C" {
  */
 
 #define MCUXCLPRNG_INIT() \
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait)); \
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait()); \
+  mcuxClSgi_Drv_wait(); \
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCtrl)); \
   MCUX_CSSL_FP_FUNCTION_CALL(sgictrl__, mcuxClSgi_Drv_getCtrl()); \
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCtrl2)); \
@@ -56,8 +56,7 @@ extern "C" {
 
 /* In case of SGi SFRSEED based PRNG restore SGI_CTRL and SGI_CTRL2. In other types of PRNG do nothing. */
 #define MCUXCLPRNG_RESTORE() \
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait)); \
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait()); \
+  mcuxClSgi_Drv_wait(); \
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_setCtrl)); \
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_setCtrl(sgictrl__)); \
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_setCtrl2)); \

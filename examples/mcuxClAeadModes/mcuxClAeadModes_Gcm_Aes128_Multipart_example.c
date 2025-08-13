@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -77,13 +77,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
   MCUXCLEXAMPLE_INITIALIZE_PRNG(session);
 
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) keyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_status, ki_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session         */ session,
     /* mcuxClKey_Handle_t key                 */ key,
     /* mcuxClKey_Type_t type                  */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData                    */ (uint8_t *) keyBytes,
+    /* uint8_t * pKeyData                    */ keyBytes,
     /* uint32_t keyDataLength                */ sizeof(keyBytes))
   );
 
@@ -105,7 +107,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
   MCUXCLBUFFER_INIT(tagMultipartDataBuf, session, tagMultipartData, sizeof(tagMultipartData));
 
   uint8_t ctxBuf[MCUXCLAEAD_CONTEXT_SIZE];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClAead_Context_t * ctx = (mcuxClAead_Context_t *) ctxBuf;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ei_status, ei_token, mcuxClAead_init_encrypt(
     /* mcuxClSession_Handle_t session         */ session,
@@ -133,7 +137,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(epa1_status, epa1_token, mcuxClAead_process_adata(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_encrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pAdata            */ adataBuf,
     /* uint32_t adataSize                    */ sizeof(adata)/3U)
   );
@@ -148,7 +154,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(epa2_status, epa2_token, mcuxClAead_process_adata(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_encrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pAdata            */ adataBuf,  /* Only part of input data was processed */
     /* uint32_t adataSize                    */ sizeof(adata) - sizeof(adata)/3U)
   );
@@ -162,7 +170,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep1_status, ep1_token, mcuxClAead_process(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_encrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn               */ plainBuf,
     /* uint32_t inSize                       */ sizeof(plain)/2U,
     /* mcuxCl_Buffer_t pOut                   */ encryptedMultipartDataBuf,
@@ -175,14 +185,18 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedMultipartSize += encryptedSize;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   MCUXCLBUFFER_UPDATE(plainBuf, sizeof(plain)/2U);
   MCUXCLBUFFER_DERIVE_RW(encryptedMultipartDataBuf2, encryptedMultipartDataBuf, encryptedMultipartSize);
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep2_status, ep2_token, mcuxClAead_process(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_encrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn               */ plainBuf,  /* Only part of input data was processed */
     /* uint32_t inSize                       */ sizeof(plain) - sizeof(plain)/2U,
     /* mcuxCl_Buffer_t pOut                   */ encryptedMultipartDataBuf2,
@@ -195,13 +209,17 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedMultipartSize += encryptedSize;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   MCUXCLBUFFER_DERIVE_RW(encryptedMultipartDataBuf3, encryptedMultipartDataBuf, encryptedMultipartSize);
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ef_status, ef_token, mcuxClAead_finish(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_encrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_Buffer_t pOut                   */ encryptedMultipartDataBuf3,
     /* uint32_t * const pOutSize             */ &encryptedSize,
     /* mcuxCl_Buffer_t pTag                   */ tagMultipartDataBuf)
@@ -213,7 +231,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedMultipartSize += encryptedSize;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /**************************************************************************/
   /* Multi-part Decryption                                                  */
@@ -246,7 +266,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dpa1_status, dpa1_token, mcuxClAead_process_adata(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_decrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pAdata            */ adataBuf2,
     /* uint32_t adataSize                    */ sizeof(adata)/2U)
   );
@@ -261,7 +283,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dpa2_status, dpa2_token, mcuxClAead_process_adata(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_decrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pAdata            */ adataBuf2,  /* Only part of input data was processed */
     /* uint32_t adataSize                    */ sizeof(adata) - sizeof(adata)/2U)
   );
@@ -276,8 +300,12 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp1_status, dp1_token, mcuxClAead_process(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_decrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_DERIVE_RO")
     /* mcuxCl_InputBuffer_t pIn               */ encryptedMultipartData_InBuf,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* uint32_t inSize                       */ encryptedMultipartSize/2U,
     /* mcuxCl_Buffer_t pOut                   */ decryptedMultipartDataBuf,
     /* uint32_t * const pOutSize             */ &decryptedMultipartSize)
@@ -294,9 +322,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp2_status, dp2_token, mcuxClAead_process(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_decrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_DERIVE_RO")
     /* mcuxCl_InputBuffer_t pIn               */ encryptedMultipartData_InBuf,  /* Only part of input data was processed */
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not wrap")
     /* uint32_t inSize                       */ encryptedMultipartSize - encryptedMultipartSize/2U,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     /* mcuxCl_Buffer_t pOut                   */ decryptedMultipartDataBuf2,
     /* uint32_t * const pOutSize             */ &decryptedSize)
   );
@@ -307,13 +341,17 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedMultipartSize += decryptedSize;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   MCUXCLBUFFER_DERIVE_RW(decryptedMultipartDataBuf3, decryptedMultipartDataBuf, decryptedMultipartSize);
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dv_status, dv_token, mcuxClAead_verify(
     /* mcuxClSession_Handle_t session         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClAead_init_decrypt")
     /* mcuxClAead_Context_t * const pContext  */ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pTag              */ tagMultipartDataBuf,
     /* mcuxCl_Buffer_t pOut                   */ decryptedMultipartDataBuf3,
     /* uint32_t * const pOutSize             */ &decryptedSize)
@@ -325,29 +363,35 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedMultipartSize += decryptedSize;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /**************************************************************************/
   /* Destroy the current session                                            */
   /**************************************************************************/
   if(!mcuxClExample_Session_Clean(session))
   {
-      return MCUXCLEXAMPLE_STATUS_ERROR;
+    return MCUXCLEXAMPLE_STATUS_ERROR;
   }
 
   /**************************************************************************/
   /* Verification                                                           */
   /**************************************************************************/
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
   if (!mcuxClCore_assertEqual(encryptedMultipartData, encryptedReference, sizeof(encryptedReference)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
   if (!mcuxClCore_assertEqual(tagMultipartData, tagReference, sizeof(tagReference)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
 
   if (sizeof(encryptedReference) != encryptedMultipartSize)
   {

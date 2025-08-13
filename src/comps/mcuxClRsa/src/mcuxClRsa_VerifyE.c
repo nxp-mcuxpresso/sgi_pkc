@@ -33,6 +33,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyE(mcuxClSession_Handle_t pSess
 
   /* Determine the exact length of e */
   uint32_t eLength = pE->keyEntryLength;
+
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(eLength, pE->keyEntryLength, pE->keyEntryLength, MCUXCLRSA_STATUS_INVALID_INPUT)
   while(eLength > 0u)
   {

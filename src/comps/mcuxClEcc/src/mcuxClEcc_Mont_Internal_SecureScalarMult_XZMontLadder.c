@@ -81,11 +81,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Mont_SecureScalarMult_
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(MONT_Z2, MONT_Z0, 0u);
 
     /* Generate a random in [1,p-1] in ECC_T0 and use it to randomize accumulated point coordinates MONT_X1/MONT_Z1/MONT_X2/MONT_Z2 */
-    MCUX_CSSL_FP_FUNCTION_CALL(ret_GetRandom1, mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
-    if (MCUXCLECC_STATUS_OK != ret_GetRandom1)
-    {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder, ret_GetRandom1 );
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
 
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords,
                         mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords_LEN);
@@ -114,11 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Mont_SecureScalarMult_
                                                               (MONT_Z2 - MONT_X1 + 1u)) );
 
             /* Generate a random in [1,p-1] in ECC_T0 and use it to randomize accumulated point coordinates MONT_X1/MONT_Z1/MONT_X2/MONT_Z2 */
-            MCUX_CSSL_FP_FUNCTION_CALL(ret_GetRandom2, mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
-            if (MCUXCLECC_STATUS_OK != ret_GetRandom2)
-            {
-                MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder, ret_GetRandom2);
-            }
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
 
             MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords,
                                 mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords_LEN);

@@ -42,6 +42,7 @@ extern "C" {
  */
 MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClSgi_Utils_initHash,
 typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClSgi_Utils_initHash)(
+  mcuxClSession_Handle_t session,
   const uint32_t *pIV,
   uint32_t mode
 ));
@@ -54,19 +55,6 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClSgi_Utils_initHash)(
 MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClSgi_Utils_loadInternalHashBlock,
 typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClSgi_Utils_loadInternalHashBlock)(
   const uint32_t *pData
-));
-
-/**
- * @brief Function type to load one block of external input data to the SGI
- *
- * This function loads one block of external input data, of size dedicated to chosen hash algorithm, to the SGI
- *
- */
-MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClSgi_Utils_loadExternalHashBlock,
-typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClSgi_Utils_loadExternalHashBlock)(
-  mcuxClSession_Handle_t session,
-  mcuxCl_InputBuffer_t dataBuf,
-  uint32_t offset
 ));
 
 /*****************************************************
@@ -85,13 +73,14 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClSgi_Utils_loadExternalHashBloc
  * namely running SGI in NORMAL or AUTO mode and loading an IV which is
  * provided by the user, or using the standard IV
  *
+ * @param[in]  session Session handle
  * @param[in]  pIV    Pointer to data buffer which is loaded
  *                    (in case of using the standard IV, please set to NULL)
  * @param[in]  mode   Chooses, whether to use AUTO or NORMAL mode and whether
  *                    to use the standard IV or load an IV
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_initSha224, mcuxClSgi_Utils_initHash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha224(const uint32_t *pIV, uint32_t mode);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha224(mcuxClSession_Handle_t session, const uint32_t *pIV, uint32_t mode);
 
 /**
  * @brief Initializes SHA-256 based on provided mode parameters
@@ -106,7 +95,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha224(const uint32_t *pIV
  *                    to use the standard IV or load an IV
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_initSha256, mcuxClSgi_Utils_initHash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha256(const uint32_t *pIV, uint32_t mode);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha256(mcuxClSession_Handle_t session, const uint32_t *pIV, uint32_t mode);
 
 /**
  * @brief Initializes SHA-384 based on provided mode parameters
@@ -115,13 +104,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha256(const uint32_t *pIV
  * namely running SGI in NORMAL or AUTO mode and loading an IV which is
  * provided by the user, or using the standard IV
  *
+ * @param[in]  session Session handle
  * @param[in]  pIV    Pointer to data buffer which is loaded
  *                    (in case of using the standard IV, please set to NULL)
  * @param[in]  mode   Chooses, whether to use AUTO or NORMAL mode and whether
  *                    to use the standard IV or load an IV
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_initSha384, mcuxClSgi_Utils_initHash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha384(const uint32_t *pIV, uint32_t mode);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha384(mcuxClSession_Handle_t session, const uint32_t *pIV, uint32_t mode);
 
 /**
  * @brief Initializes SHA-512 based on provided mode parameters
@@ -130,43 +120,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha384(const uint32_t *pIV
  * namely running SGI in NORMAL or AUTO mode and loading an IV which is
  * provided by the user, or using the standard IV
  *
+ * @param[in]  session Session handle
  * @param[in]  pIV    Pointer to data buffer which is loaded
  *                    (in case of using the standard IV, please set to NULL)
  * @param[in]  mode   Chooses, whether to use AUTO or NORMAL mode and whether
  *                    to use the standard IV or load an IV
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_initSha512, mcuxClSgi_Utils_initHash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha512(const uint32_t *pIV, uint32_t mode);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha512(mcuxClSession_Handle_t session, const uint32_t *pIV, uint32_t mode);
 
-/**
- * @brief Initializes SHA-512/224 based on provided mode parameters
- *
- * This function initializes SHA-512/224 based on provided user choices,
- * namely running SGI in NORMAL or AUTO mode and loading an IV which is
- * provided by the user, or using the standard IV
- *
- * @param[in]  pIV    Pointer to data buffer which is loaded
- *                    (in case of using the standard IV, please set to NULL)
- * @param[in]  mode   Chooses, whether to use AUTO or NORMAL mode and whether
- *                    to use the standard IV or load an IV
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_initSha512_224, mcuxClSgi_Utils_initHash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha512_224(const uint32_t *pIV, uint32_t mode);
 
-/**
- * @brief Initializes SHA-512/256 based on provided mode parameters
- *
- * This function initializes SHA-512/256 based on provided user choices,
- * namely running SGI in NORMAL or AUTO mode and loading an IV which is
- * provided by the user, or using the standard IV
- *
- * @param[in]  pIV    Pointer to data buffer which is loaded
- *                    (in case of using the standard IV, please set to NULL)
- * @param[in]  mode   Chooses, whether to use AUTO or NORMAL mode and whether
- *                    to use the standard IV or load an IV
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_initSha512_256, mcuxClSgi_Utils_initHash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha512_256(const uint32_t *pIV, uint32_t mode);
 
 /**
  * @brief Returns the key type sgi configuration of the key handle.
@@ -184,9 +147,6 @@ static inline uint32_t mcuxClSgi_getKeyTypeConf(const mcuxClKey_Descriptor_t* ke
     {
       case MCUXCLKEY_SIZE_128:
         keyTypeConfig = MCUXCLSGI_DRV_CTRL_AES128;
-        break;
-      case MCUXCLKEY_SIZE_192:
-        keyTypeConfig = MCUXCLSGI_DRV_CTRL_AES192;
         break;
       case MCUXCLKEY_SIZE_256:
         keyTypeConfig = MCUXCLSGI_DRV_CTRL_AES256;
@@ -265,29 +225,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load128BitBlock(uint32_t sgisf
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load_notFull128Block_buffer)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load_notFull128Block_buffer(uint32_t sgisfrDatOffset, mcuxCl_InputBuffer_t pData, uint32_t len, uint8_t *pTempBuff);
-/**
- * @brief Loads a 128-bit block of data to the SGI
- *
- * This function loads a 128-bit data block to the specified SGI
- * register bank.
- *
- * SREQI_BCIPHER_1 - Use this function for data copy from user input to SGI.
- *
- * Data Integrity: Expunge(mcuxClSgi_Drv_getAddr(sgisfrDatOffset) + dataBuf + offset + 16)
- *
- * @param[in]  sgisfrDatOffset   Offset of the target SGI SFR,
- *                               can be either of these values:
- *                                 #MCUXCLSGI_DRV_DATIN0_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN1_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN2_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN3_OFFSET
- *                                 #MCUXCLSGI_DRV_DATOUT_OFFSET
- * @param[in]  dataBuf           Data buffer which from which data is loaded
- * @param[in]  offset            Offset of data buffer from which data is loaded
- *
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load128BitBlock_buffer)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load128BitBlock_buffer(uint32_t sgisfrDatOffset, mcuxCl_InputBuffer_t dataBuf, uint32_t offset);
 
 /**
  * @brief Stores a 128-bit block of data from the SGI
@@ -318,51 +255,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_store128BitBlock(uint32_t sgis
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(sfrDatOffset, pOut)); \
   } while(false)
 
-/**
- * @brief Stores a 128-bit block of data from the SGI
- *
- * This function stores a 128-bit data block from the specified SGI
- * data register bank to a buffer.
- *
-* SREQI_BCIPHER_1 - Use this function for data copy from SGI to user output.
- *
- * Data Integrity: Expunge(mcuxClSgi_Drv_getAddr(sgisfrDatOffset) + outBuf + offset + 16u)
- *
- * @param[in]  session           Session handle
- * @param[in]  sgisfrDatOffset   Offset of the target data SGI SFR,
- *                               can be either of these values:
- *                                 #MCUXCLSGI_DRV_DATIN0_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN1_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN2_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN3_OFFSET
- *                                 #MCUXCLSGI_DRV_DATOUT_OFFSET
- * @param[in]  outBuf          Data buffer which data is stored to
- * @param[in]  offset          Offset of the data buffer to store to
- *
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_store128BitBlock_buffer)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_store128BitBlock_buffer(mcuxClSession_Handle_t session, uint32_t sgisfrDatOffset, mcuxCl_Buffer_t outBuf, uint32_t offset);
-
-/**
- * @brief Adds RECORD statements to balance DI offset introduced by mcuxClSgi_Utils_storeMasked128BitBlock_buffer
- *
- * @param[in]  sgisfrDatOffset    Offset of the target data SGI SFR,
- *                                can be either of these values:
- *                                  #MCUXCLSGI_DRV_DATIN0_OFFSET
- *                                  #MCUXCLSGI_DRV_DATIN1_OFFSET
- *                                  #MCUXCLSGI_DRV_DATIN2_OFFSET
- *                                  #MCUXCLSGI_DRV_DATIN3_OFFSET
- *                                  #MCUXCLSGI_DRV_DATOUT_OFFSET
- * @param[in]  outBuf             Data buffer which data is stored to
- * @param[in]  offset             Offset of the data buffer to store to
- * @param[in]  pXorMask           Pointer to 128 bit xor mask
- * @return void
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_storeMasked128BitBlock_buffer_recordDI)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeMasked128BitBlock_buffer_recordDI(uint32_t sgisfrDatOffset,
-                                                                                       mcuxCl_Buffer_t outBuf,
-                                                                                       uint32_t offset,
-                                                                                       const uint32_t* pXorMask);
 
 /**
  * @brief Stores a 128-bit block of data using masking from the SGI
@@ -371,7 +263,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeMasked128BitBlock_buffer_
  * data register bank to a buffer.
  *
  * Data Integrity:
- *   Use @ref mcuxClSgi_Utils_storeMasked128BitBlock_buffer_recordDI to balance the DI for this function call.
+ *   EXPUNGEs sgisfrDatOffset, pOut, offset and pXorMask.
  *
  * @param[in]  session           Session handle
  * @param[in]  sgisfrDatOffset   Offset of the target data SGI SFR,
@@ -381,16 +273,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeMasked128BitBlock_buffer_
  *                                 #MCUXCLSGI_DRV_DATIN2_OFFSET
  *                                 #MCUXCLSGI_DRV_DATIN3_OFFSET
  *                                 #MCUXCLSGI_DRV_DATOUT_OFFSET
- * @param[in]  outBuf          Data buffer which data is stored to
+ * @param[in]  pOut            Pointer to the data buffer which data is stored to
  * @param[in]  offset          Offset of the data buffer to store to
  * @param[in]  pXorMask        Pointer to 128 bit mask
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_storeMasked128BitBlock_buffer)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeMasked128BitBlock_buffer(
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_storeMasked128BitBlock)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeMasked128BitBlock(
                                                                mcuxClSession_Handle_t session,
                                                                uint32_t sgisfrDatOffset,
-                                                               mcuxCl_Buffer_t outBuf,
+                                                               uint8_t* pOut,
                                                                uint32_t offset,
                                                                const uint32_t *pXorMask);
 
@@ -423,23 +315,6 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load512BitBlock, mcuxClSgi_Utils_load
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load512BitBlock(const uint32_t *pData);
 
 /**
- * @brief Loads a 512-bit block of external data to the SGI.
- *
- * This function loads a 512-bit data block from external memory
- * to the SGI DATIN register bank and subsequent KEY register banks.
- *
- * Data Integrity:
- *   Use @ref mcuxClSgi_Utils_loadHashBlock_buffer_recordDI to balance the DI for this function call.
- *
- * @param[in]  session    Session handle
- * @param[in]  dataBuf    Data buffer which is loaded
- * @param[in]  offset     Offset of the input data buffer
- *
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load512BitBlock_buffer, mcuxClSgi_Utils_loadExternalHashBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load512BitBlock_buffer(mcuxClSession_Handle_t session, mcuxCl_InputBuffer_t dataBuf, uint32_t offset);
-
-/**
  * @brief Loads a 1024-bit block of internal data to the SGI
  *
  * This function loads a 1024-bit data block from internal memory
@@ -450,39 +325,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load512BitBlock_buffer(mcuxClS
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load1024BitBlock, mcuxClSgi_Utils_loadInternalHashBlock)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load1024BitBlock(const uint32_t *pData);
-
-/**
- * @brief Loads a 1024-bit block of external data to the SGI
- *
- * This function loads a 1024-bit data block from external memory
- * to the SGI DATIN register bank and subsequent KEY register banks.
- *
- * Data Integrity:
- *   Use @ref mcuxClSgi_Utils_loadHashBlock_buffer_recordDI to balance the DI for this function call.
- *
- * @param[in]  session    Session handle
- * @param[in]  dataBuf    Data buffer which is loaded
- * @param[in]  offset     Offset of the input data buffer
- *
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load1024BitBlock_buffer, mcuxClSgi_Utils_loadExternalHashBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load1024BitBlock_buffer(mcuxClSession_Handle_t session, mcuxCl_InputBuffer_t dataBuf, uint32_t offset);
-
-/**
- * @brief Adds RECORD statements to balance DI offset introduced by mcuxClSgi_Utils_load512BitBlock_buffer
- * and mcuxClSgi_Utils_load1024BitBlock_buffer.
- *
- * Offsets the DI impact by mcuxClSgi_Utils_load1024BitBlock_buffer or mcuxClSgi_Utils_load512BitBlock_buffer.
- * Not applicable for mcuxClSgi_Utils_load128BitBlock_buffer.
- *
- * @param[in]   dataBuf         Pointer to external input buffer
- * @param[in]   offset          Byte offset for dataBuf access
- * @param[in]   blockSize       Block size of current hash algorithm (64U for _load512BitBlock_ and 128U for _load1024BitBlock_)
- *
- * @return void
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_loadHashBlock_buffer_recordDI)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadHashBlock_buffer_recordDI(mcuxCl_InputBuffer_t dataBuf, uint32_t offset, uint32_t blockSize);
 
 /**
  * @brief Load data to FIFO
@@ -516,7 +358,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storePartialHash(uint32_t *pOu
  * Store the result of a hash operation in an output buffer.
  *
  * Data Integrity:
- *   Use @ref mcuxClSgi_Utils_storeHashResult_recordDI to balance the DI for this function call.
+ *   Expunges pOutput and length.
  *
  * @param[in]  session    Session handle
  * @param[in]  pOutput    Pointer to output buffer, where result is stored word-wise
@@ -525,21 +367,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storePartialHash(uint32_t *pOu
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_storeHashResult)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeHashResult(mcuxClSession_Handle_t session, mcuxCl_Buffer_t pOutput, uint32_t length);
-
-/**
- * @brief Adds RECORD statements to balance DI offset introduced by mcuxClSgi_Utils_storeHashResult
- *
- * Computes the number of iterations and sum of offsets used by mcuxClSgi_Utils_storeHashResult.
- * These values are then used to offset the DI impact of mcuxClBuffer_write_word calls made by
- * mcuxClSgi_Utils_storeHashResult.
- *
- * @param[in]   pOutput       Pointer to external output buffer
- * @param[in]   length        Byte size of computed hash
- *
- * @return void
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_storeHashResult_recordDI)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeHashResult_recordDI(mcuxCl_Buffer_t pOutput, uint32_t length);
 
 /**
  * @brief Configure the SGI in AUTO mode with DMA handshake(s) and start the operation.
@@ -677,7 +504,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_decrement128Bit(uint32_t srcSf
 /**
  * @brief This function performs RFC3394 key unwrapping with the SGI.
  *
- * Only 128-bit and 256-bit AES key material and KWK sizes are supported.
+ * Only 128-bit and 256-bit AES key material sizes are supported.
  *
  * @post The unwrapped key material will be stored in SGI key registers that are
  * fixed by hardware, see @ref MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP.
@@ -694,7 +521,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_keyUnwrapRfc3394(
 /**
  * @brief This function performs RFC3394 key wrapping with the SGI.
  *
- * - Only 128-bit and 256-bit AES key material and KWK sizes are supported.
+ * - Only 128-bit and 256-bit AES key material sizes are supported.
  * - The `keyMaterial` can contain either a plain key or a protected key to be wrapped.
  * - The `pSfrSeed` determines the type of key in the `keyMaterial`. For a plain key the
  *   `pSfrSeed` is NULL, and for a protected key the `pSfrSeed` holds the seed for SFR masking.

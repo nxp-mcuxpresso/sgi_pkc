@@ -35,7 +35,7 @@
 #include <mcuxCsslAnalysis.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslDataIntegrity.h>
-#include <mcuxCsslMemory.h>
+#include <internal/mcuxCsslMemory_Internal_Set.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,11 +47,11 @@ extern "C" {
 
 /**
  * @brief Sets all bytes of a memory buffer to a specified value - internal use only.
- *  
+ *
  * @param[out]  pDst       pointer to the buffer to be set.
  * @param[in]   val        byte value to be set.
  * @param       length     size (in bytes) to be set.
- * 
+ *
  * @pre
  *  - For better performance and security, please use aligned pointers, and lengths multiple of word size.
  * @post
@@ -70,14 +70,10 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_set_int
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_set_int);
 
-    // TODO CLNS-14639: use internal function instead of API function
-    (void)mcuxCsslMemory_Set(
-        MCUX_CSSL_PI_PROTECT(pDst, val, length, length),
-        pDst, val, length, length
-        ); // For internal usage, only OK return is expected
-    MCUX_CSSL_DI_EXPUNGE(identifier /* Not used */, (uint32_t) pDst + length);  // Unbalance the SC
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_set_int);
-    
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_Set( pDst, val, length));
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_set_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Set));
+
 }
 
 

@@ -23,6 +23,7 @@
 #include <mcuxCsslFlowProtection.h>
 
 #include <internal/mcuxClKey_Internal.h>
+#include <internal/mcuxClKey_FeatureConfig.h>
 #include <internal/mcuxClMemory_Copy_Internal.h>
 #include <internal/mcuxClMemory_CopySecure_Internal.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
@@ -49,7 +50,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, *ppDest);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getKeyData(key));
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getSize(key));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
       mcuxClMemory_copy_secure_int((uint8_t*)(*ppDest), mcuxClKey_getKeyData(key), mcuxClKey_getSize(key))
     );
@@ -60,7 +60,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int, *ppDest);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int, mcuxClKey_getKeyData(key));
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int, mcuxClKey_getSize(key));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
       mcuxClMemory_copy_int((uint8_t*)(*ppDest), mcuxClKey_getKeyData(key), mcuxClKey_getSize(key))
     );
@@ -76,9 +75,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
     pKeyChecksums->protectionToken_VerifyFunc = key->encoding->protectionToken_handleKeyChecksumsFunc;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_KeyLoad_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_KeyLoad_Plain,
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)
+    ),
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)
+    )
+  );
 }
 
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_KeyStore_Plain, mcuxClKey_StoreFuncPtr_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
   mcuxClSession_Handle_t session UNUSED_PARAM,
@@ -106,7 +113,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, pSrc);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getKeyData(key));
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getSize(key));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pData, pSrc, mcuxClKey_getSize(key)));
   }
   else if (MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL== (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
@@ -120,7 +126,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int, pSrc);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int, mcuxClKey_getKeyData(key));
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int, mcuxClKey_getSize(key));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pData, pSrc, mcuxClKey_getSize(key)));
   }
   else
@@ -129,9 +134,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
     MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_KeyStore_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_KeyStore_Plain,
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)
+    ),
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)
+    )
+  );
 }
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC */
 
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_FLUSH_FUNC
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_KeyFlush_Plain, mcuxClKey_FlushFuncPtr_t)
 static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyFlush_Plain(
   mcuxClSession_Handle_t session,
@@ -144,6 +158,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyFlush_Plain(
   if(MCUXCLKEY_ALGO_ID_AES == (mcuxClKey_getAlgoId(key) & MCUXCLKEY_ALGO_ID_ALGO_MASK))
   {
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_keyFlush(session, key, spec));
+
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_KeyFlush_Plain,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_keyFlush));
   }
@@ -153,7 +168,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyFlush_Plain(
     MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 }
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_FLUSH_FUNC */
 
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_HANDLECHECKSUMNONE_FUNC
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_handleKeyChecksums_none, mcuxClKey_HandleKeyChecksums_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_handleKeyChecksums_none(
   mcuxClSession_Handle_t session UNUSED_PARAM,
@@ -167,33 +184,34 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_handleKeyChecksums_none(
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_handleKeyChecksums_none);
 }
-
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_HANDLECHECKSUMNONE_FUNC */
 
 /**
  * @brief Key encoding descriptor for loading a plain key by setting the pointer in *ppDest.
  */
 const mcuxClKey_EncodingDescriptor_t mcuxClKey_EncodingDescriptor_Plain = {
   .loadFunc = &mcuxClKey_KeyLoad_Plain,
-  .storeFunc = &mcuxClKey_KeyStore_Plain,
-  .flushFunc = &mcuxClKey_KeyFlush_Plain,
-  .handleKeyChecksumsFunc = &mcuxClKey_handleKeyChecksums_none,
   .protectionToken_loadFunc = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_KeyLoad_Plain),
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC
+  .storeFunc = &mcuxClKey_KeyStore_Plain,
   .protectionToken_storeFunc = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_KeyStore_Plain),
+#else
+  .storeFunc = NULL,
+  .protectionToken_storeFunc = 0U,
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC */
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_FLUSH_FUNC
+  .flushFunc = &mcuxClKey_KeyFlush_Plain,
   .protectionToken_flushFunc = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_KeyFlush_Plain),
+#else
+  .flushFunc = NULL,
+  .protectionToken_flushFunc = 0U,
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_FLUSH_FUNC */
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_HANDLECHECKSUMNONE_FUNC
+  .handleKeyChecksumsFunc = &mcuxClKey_handleKeyChecksums_none,
   .protectionToken_handleKeyChecksumsFunc = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_handleKeyChecksums_none)
+#else
+  .handleKeyChecksumsFunc = NULL,
+  .protectionToken_handleKeyChecksumsFunc = 0U
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_HANDLECHECKSUMNONE_FUNC */
 };
 
-#if 0
-// TODO: define
-/**
- * @brief Key encoding descriptor for Key data stored as XOR masked byte array with the mask data concatenated
- */
-const mcuxClKey_EncodingDescriptor_t mcuxClKey_EncodingDescriptor_XorMasked = {NULL,
-                                                                             NULL,
-                                                                             NULL,
-                                                                             NULL,
-                                                                             0u,
-                                                                             0u,
-                                                                             0u,
-                                                                             0u};
-#endif

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -18,6 +18,8 @@
 
 #ifndef MCUXCSSLDATAINTEGRITY_H_
 #define MCUXCSSLDATAINTEGRITY_H_
+
+#include <mcuxClCore_Macros.h>
 
 /* Include the Secure Counter definitions */
 #include <mcuxCsslSecureCounter.h>
@@ -163,6 +165,6 @@
  * @param value Variable that is protected with Data Integrity.
  */
 #define MCUX_CSSL_DI_DONOTOPTIMIZE(val) \
-  __asm("" : "+r" (val))
+  MCUXCLCORE_DONOTOPTIMIZE(val)
 
 #endif /* MCUXCSSLDATAINTEGRITY_H_ */

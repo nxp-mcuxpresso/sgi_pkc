@@ -22,6 +22,8 @@
 #include <stddef.h>
 #include <platform_specific_headers.h>
 
+#include <internal/mcuxClSgi_Drv.h>
+
 
 /**
  * Macro returning one word (32-bit) of PRNG

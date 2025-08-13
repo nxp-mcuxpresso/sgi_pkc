@@ -73,35 +73,15 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     /* Derive the pointer to the public key handle and verify that the key handles are correctly initialized for the EdDSA use case */
     mcuxClKey_Handle_t pubKey = (mcuxClKey_Handle_t) mcuxClKey_getLinkedData(key);
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_KeyPairSanityCheck));
-    MCUX_CSSL_FP_FUNCTION_CALL(retKeyPairSanityCheck, mcuxClEcc_EdDSA_KeyPairSanityCheck(pSession, key, pubKey));
-    if(MCUXCLECC_STATUS_INVALID_PARAMS == retKeyPairSanityCheck)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_INVALID_PARAMS);
-    }
-    else if(MCUXCLECC_STATUS_OK != retKeyPairSanityCheck)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
-    else
-    {
-        /* Intentionally left empty */
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_EdDSA_KeyPairSanityCheck(pSession, key, pubKey));
 
     /* mcuxClEcc_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - re-interpreting the memory")
-    mcuxClEcc_CpuWa_t * const pCpuWorkarea = (mcuxClEcc_CpuWa_t *) mcuxClSession_getEndOfUsedBuffer_Internal(pSession);
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
+    mcuxClEcc_CpuWa_t *pCpuWorkarea = mcuxClEcc_castToEccCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
+
     mcuxClEcc_EdDSA_DomainParams_t * const pDomainParams = (mcuxClEcc_EdDSA_DomainParams_t *) mcuxClKey_getTypeInfo(key);
 
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_SetupEnvironment));
-    MCUX_CSSL_FP_FUNCTION_CALL(retSetupEnvironment,
-        mcuxClEcc_EdDSA_SetupEnvironment(pSession,
-                                        pDomainParams,
-                                        ECC_EDDSA_NO_OF_BUFFERS) );
-    if (MCUXCLECC_STATUS_OK != retSetupEnvironment)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_EdDSA_SetupEnvironment(pSession, pDomainParams, ECC_EDDSA_NO_OF_BUFFERS));
 
     /*
      * Step 2: Derive the hash prefix from the mode parameter and calculate the secret scalar
@@ -118,12 +98,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     const uint8_t *pMessage = NULL;
     uint32_t messageSize = 0u;
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_PreHashMessage));
-    MCUX_CSSL_FP_FUNCTION_CALL(retPreHash, mcuxClEcc_EdDSA_PreHashMessage(pSession, pDomainParams, pCpuWorkarea, mode->phflag, pIn, inSize, &pMessage, &messageSize));
-    if (MCUXCLECC_STATUS_OK != retPreHash)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
-
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_EdDSA_PreHashMessage(pSession, pDomainParams, pCpuWorkarea, mode->phflag, pIn, inSize, &pMessage, &messageSize));
 
     /* Calculate 2b-bit hash H(prefix || (h_b,\dots,h_{2b-1}) || m') and store it in the concatenated buffers ECC_S2 and ECC_T2. */
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
@@ -142,22 +117,13 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     }
     else
     {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+        MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
     }
 
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_CalcSecretScalar));
-    MCUX_CSSL_FP_FUNCTION_CALL(retCalcSecScalar,
-        mcuxClEcc_EdDSA_CalcSecretScalar(pSession,
-                                        pDomainParams,
-                                        mode,
-                                        key,
-                                        buffMessage,
-                                        messageSize,
-                                        pS2));
-    if (MCUXCLECC_STATUS_OK != retCalcSecScalar)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+      mcuxClEcc_EdDSA_CalcSecretScalar(pSession, pDomainParams, mode, key, buffMessage, messageSize, pS2)
+    );
 
     mcuxClEcc_CommonDomainParams_t *pCommonDomainParams = (mcuxClEcc_CommonDomainParams_t *) &pDomainParams->common;
     const uint32_t byteLenP = (uint32_t) pCommonDomainParams->byteLenP;
@@ -170,14 +136,10 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     /* Call the BlindedScalarMult function.
      * If the function returns OK, ECC_COORD00 and ECC_COORD01 contain the affine x- and y-coordinates of R.
-     * If the function returns NEUTRAL_POINT, ECC_COORD00 and ECC_COORD01 are set to the coordinates of the neutral point (0,1). */
+     * If the function returns SCALAR_ZERO, ECC_COORD00 and ECC_COORD01 are set to the coordinates of the neutral point (0,1). */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_BlindedFixScalarMult));
     MCUX_CSSL_FP_FUNCTION_CALL(ret_BlindedScalarMult, mcuxClEcc_BlindedFixScalarMult(pSession, pCommonDomainParams, 2u * keyLength));
-    if (MCUXCLECC_STATUS_RNG_ERROR == ret_BlindedScalarMult)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_RNG_ERROR);
-    }
-    else if (MCUXCLECC_STATUS_NEUTRAL_POINT == ret_BlindedScalarMult)
+    if (MCUXCLECC_INTSTATUS_SCALAR_ZERO == ret_BlindedScalarMult)
     {
         MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_CONST);
         MCUXCLPKC_FP_CALC_OP1_CONST(ECC_COORD00, 0u);
@@ -188,7 +150,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     }
     else if (MCUXCLECC_STATUS_OK != ret_BlindedScalarMult)
     {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+        MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
     }
     else
     {
@@ -211,18 +173,16 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     const uint8_t *pSignatureR = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_COORD02]);
     MCUXCLBUFFER_INIT_RO(buffSignatureR, NULL, pSignatureR, keyLength);
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_CalcHashModN));
-    MCUX_CSSL_FP_FUNCTION_CALL(ret_CalcHashModN, mcuxClEcc_EdDSA_CalcHashModN(pSession,
-                                                                            pDomainParams,
-                                                                            mode->pHashPrefix,
-                                                                            mode->hashPrefixLen,
-                                                                            buffSignatureR,
-                                                                            pubKey,
-                                                                            buffMessage,
-                                                                            messageSize));
-    if (MCUXCLECC_STATUS_OK != ret_CalcHashModN)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_EdDSA_CalcHashModN(
+      pSession,
+      pDomainParams,
+      mode->pHashPrefix,
+      mode->hashPrefixLen,
+      buffSignatureR,
+      pubKey,
+      buffMessage,
+      messageSize
+    ));
 
 
     /*
@@ -238,6 +198,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
      * NOTE: In the following, we will consider s and rndS as values of byte length 2*operandSize as this allows to
      *       use a plain addition for the additive blinding and makes it easier to compensate for Montgomery factors added by Montgomery multiplication.
      */
+
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(bufferSize, operandSize + MCUXCLPKC_WORDSIZE, operandSize + MCUXCLPKC_WORDSIZE, MCUXCLSIGNATURE_STATUS_INVALID_PARAMS)
 
     /* Clear a byte on top of additive blinding rndS */
     MCUXCLPKC_WAITFORFINISH();
@@ -282,14 +244,15 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     /* Securely import the secret scalar s to ECC_T3. */
     uint8_t *pScalarDest = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_T3]);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession,
-                                                              key,
-                                                              &pScalarDest,
-                                                              MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
-                                                              NULL,
-                                                              MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
-                                                              MCUXCLECC_ENCODING_SPEC_EDDSA_SUBPRIVKEY_LOAD_SECURE));
+    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
+    MCUXCLKEY_LOAD_FP(
+      pSession,
+      key,
+      &pScalarDest,
+      MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
+      NULL,
+      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
+      MCUXCLECC_ENCODING_SPEC_EDDSA_SUBPRIVKEY_LOAD_SECURE);
 
     MCUXCLPKC_PS2_SETLENGTH(0u, bufferSize);
 
@@ -348,6 +311,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_GenerateSignature, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_GenerateSignature, MCUXCLSIGNATURE_STATUS_OK);
 }
 

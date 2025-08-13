@@ -41,7 +41,7 @@
 /**
  * This function implements the scalar multiplication k*P for a secret scalar k in {0,...,n-1}
  * and a variable input point of order n on the given curve. If the scalar k is zero, the function
- * returns MCUXCLECC_STATUS_NEUTRAL_POINT. If it is not zero, the function generates a blinded
+ * returns MCUXCLECC_INTSTATUS_SCALAR_ZERO. If it is not zero, the function generates a blinded
  * multiplicative splitting of the scalar k and performs two secure scalar multiplications,
  * the first with the blinded scalar and the second with the blinding.
  *
@@ -50,10 +50,8 @@
  *  - pDomainParameters Pointer to common domain parameters
  *
  * Return values:
- *  - MCUXCLECC_STATUS_OK            if the function executed successfully
- *  - MCUXCLECC_STATUS_NEUTRAL_POINT if the scalar is zero
- *  - MCUXCLECC_STATUS_RNG_ERROR     random number generation (PRNG) error (unexpected behavior)
- *  - MCUXCLECC_STATUS_FAULT_ATTACK  fault attack (unexpected behavior) is detected
+ *  - MCUXCLECC_STATUS_OK              if the function executed successfully
+ *  - MCUXCLECC_INTSTATUS_SCALAR_ZERO  if the scalar is zero
  *
  * Prerequisites:
  *  - The secret scalar k is contained in buffer ECC_S2
@@ -95,10 +93,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
         MCUXCLPKC_WAITFORFINISH();
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate));
         MCUX_CSSL_FP_FUNCTION_CALL(ret_PRNG_randWord1, mcuxClRandom_ncGenerate(pSession, buffS0, 8u));
-        if (MCUXCLRANDOM_STATUS_OK != ret_PRNG_randWord1)
-        {
-            MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_RNG_ERROR);
-        }
+        MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_PRNG_randWord1);
     }  /* buffS0 scope. */
 
     /* Set MSBit of d0 (to ensure d0 != 0) using the PKC
@@ -129,10 +124,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
         MCUXCLPKC_WAITFORFINISH();
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate));
         MCUX_CSSL_FP_FUNCTION_CALL(ret_PRNG_GetRandom, mcuxClRandom_ncGenerate(pSession, buffS3, bufferSize));
-        if (MCUXCLRANDOM_STATUS_OK != ret_PRNG_GetRandom)
-        {
-            MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_RNG_ERROR);
-        }
+        MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_PRNG_GetRandom);
     }  /* buffS3 scope. */
 
     /* Clear PKC word on top of the secret scalar, i.e. the most significant PKC word of buffer ECC_S2,
@@ -166,7 +158,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
     /* Check if d is zero. */
     if (MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_WAITFORFINISH_GETZERO())
     {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedVarScalarMult, MCUXCLECC_STATUS_NEUTRAL_POINT);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedVarScalarMult, MCUXCLECC_INTSTATUS_SCALAR_ZERO);
     }
 
 

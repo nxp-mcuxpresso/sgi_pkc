@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -24,6 +24,7 @@
 #include <mcuxCsslAnalysis.h>
 
 #include <internal/mcuxClPkc_FupMacros.h>
+#include <internal/mcuxClEcc_FeatureConfig.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,10 +32,11 @@ extern "C" {
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
 
+
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_POINT_CONVERSION)
 /**********************************************************/
 /* FUPs for Weier Point Conversion operations             */
 /**********************************************************/
-
 /**
  * FUP program declaration mcuxClEcc_FUP_Weier_ConvertPoint_ToAffine
  */
@@ -65,6 +67,7 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_ConvertJacToAffine[mcuxClE
 #define mcuxClEcc_FUP_Weier_ConvertAffinePoint_ToJacobian_LEN 5u
 extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_ConvertAffinePoint_ToJacobian[mcuxClEcc_FUP_Weier_ConvertAffinePoint_ToJacobian_LEN];
 
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_POINT_CONVERSION) */
 
 /**********************************************************/
 /* FUPs for Weier Miscellaneous operations                */
@@ -129,6 +132,7 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_RepeatDouble[mcuxClEcc_FUP
                         mcuxClEcc_FUP_Weier_RepeatDouble_LEN1 + mcuxClEcc_FUP_Weier_RepeatDouble_LEN2)
 #define MCUXCLECC_FP_CALLED_CALCFUP_ONE_DOUBLE  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_SECUREPOINTMULT)
 
 /**
  * FUP program declaration mcuxClEcc_FUP_Weier_CoZPointAddSub
@@ -159,6 +163,8 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_SecurePointMult_Reduce_X1_
      + mcuxClEcc_FUP_Weier_SecurePointMult_PrepareZA_UpdateZ_P0_P1_LEN2  \
      + mcuxClEcc_FUP_Weier_SecurePointMult_PrepareZA_UpdateZ_P0_P1_LEN3 )
 extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_SecurePointMult_PrepareZA_UpdateZ_P0_P1[mcuxClEcc_FUP_Weier_SecurePointMult_PrepareZA_UpdateZ_P0_P1_LEN];
+
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_SECUREPOINTMULT) */
 
 
 

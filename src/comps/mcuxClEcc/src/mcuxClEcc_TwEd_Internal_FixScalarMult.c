@@ -145,11 +145,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_InitAccumu
     if(MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
     {
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus));
-        MCUX_CSSL_FP_FUNCTION_CALL(ret_GetRandom, mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, TWED_Z));
-        if (MCUXCLECC_STATUS_OK != ret_GetRandom)
-        {
-            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints, ret_GetRandom);
-        }
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, TWED_Z));
         uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_RandomizeUPTRT));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPkc_RandomizeUPTRT(&pOperands[TWED_PP_X0], (TWED_PP_T7 - TWED_PP_X0 + 1u)));
@@ -234,11 +230,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarM
         uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
 
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus));
-        MCUX_CSSL_FP_FUNCTION_CALL(ret_GetRandom1, mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
-        if (MCUXCLECC_STATUS_OK != ret_GetRandom1)
-        {
-            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded, ret_GetRandom1);
-        }
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
 
         /* Re-randomize the accumulated point's coordinates */
         MCUXCLPKC_WAITFORREADY();
@@ -302,7 +294,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarM
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
 /**
- * This function implements a (secure) scalar multiplication lambda*G for a given (secret) scalar lambda in {1,...,n-1}
+ * This function implements a (secure) scalar multiplication lambda*G for a given (secret) scalar lambda in {0,...,n-1}
  * and the base point G on a twisted Edwards curves. The result will be returned in homogeneous coordinates (Xres:Yres:Zres).
  * The scalar multiplication is implemented using a regular comb method processing 4 bits at a time.
  * To achieve regularity, the scalar is recoded into a non-zero BSD representation and the comb
@@ -318,6 +310,8 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  * as described in https://eprint.iacr.org/2008/522.pdf which represent a point (x,y) by (X:Y:Z:T) with x=X/Z, y=Y/Z and x*y=T/Z.
  * Due to the fact that with the chosen regular scalar multiplication algorithm we don't have consecutive doublings, there's no point
  * in mixing extended homogeneous with homogeneous coordinates as suggested in Section 4.3 of https://eprint.iacr.org/2008/522.pdf.
+ *
+ * The function also outputs the correct result, namely the neutral point, in case the input scalar is zero.
  *
  * Input:
  *  - pSession              Handle for the current CL session
@@ -418,13 +412,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
     mcuxClEcc_TwEd_SecureFixScalarMult_CpuWa_t *pCpuWa = NULL;
     if (MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
     {
-        uint32_t *pCpuWa64BitUnaligned = mcuxClSession_allocateWords_cpuWa(pSession, (uint32_t)((sizeof(mcuxClEcc_TwEd_SecureFixScalarMult_CpuWa_t) + sizeof(uint32_t)) / sizeof(uint32_t)));
+      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+      MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pCpuWa64BitUnaligned, mcuxClSession_allocateWords_cpuWa(pSession, (uint32_t)((sizeof(mcuxClEcc_TwEd_SecureFixScalarMult_CpuWa_t) + sizeof(uint32_t)) / sizeof(uint32_t))));
 
-        uint32_t alignmentOffset = (((uint32_t) pCpuWa64BitUnaligned) % sizeof(uint64_t)) >> 2u;
-        uint32_t *pCpuWa64BitAligned = &pCpuWa64BitUnaligned[alignmentOffset];
-        pCpuWa = mcuxClEcc_TwEd_inline_PointerToCpuWa(pCpuWa64BitAligned);
-        uint64_t *pPrecPointTable = pCpuWa->precPointTable;
-        (void)mcuxClEcc_TwEd_CreatePPTable(pPrecPointTable);
+      uint32_t alignmentOffset = (((uint32_t)pCpuWa64BitUnaligned) % sizeof(uint64_t)) >> 2u;
+      uint32_t* pCpuWa64BitAligned = &pCpuWa64BitUnaligned[alignmentOffset];
+      pCpuWa = mcuxClEcc_TwEd_inline_PointerToCpuWa(pCpuWa64BitAligned);
+      uint64_t* pPrecPointTable = pCpuWa->precPointTable;
+      (void)mcuxClEcc_TwEd_CreatePPTable(pPrecPointTable);
     }
 
     /*
@@ -459,7 +454,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
 
         /* Read next scalar word if needed. */
         uint32_t currentDigitInWordIndex  = currentDigitBitIndex % 32u;
-        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The roundedScalarBitLength must coincide with the bit length of n, and must be a multiple of 4.")
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The roundedScalarBitLength must coincide with the bit length of n rounded up to a multiple of 4.")
         if(((uint32_t)currentDigitBitIndex == (roundedScalarBitLength - 4u)) || (currentDigitInWordIndex  == (32u - MCUXCLECC_TWED_FIXSCALARMULT_DIGITSIZE)))
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
         {

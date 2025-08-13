@@ -78,6 +78,13 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordina
 /**********************************************************/
 
 /**
+ * FUP program declaration mcuxClEcc_FUP_TwEd_PointDouble
+ */
+#define mcuxClEcc_FUP_TwEd_PointDouble_LEN  16u
+
+extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_TwEd_PointDouble[mcuxClEcc_FUP_TwEd_PointDouble_LEN];
+
+/**
  * FUP program declaration mcuxClEcc_FUP_TwEd_PointValidation_AffineNR
  */
 #define mcuxClEcc_FUP_TwEd_PointValidation_AffineNR_LEN  14u

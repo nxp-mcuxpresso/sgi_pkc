@@ -174,7 +174,7 @@ mcuxClMath_SecModExp_SqrMultAws(const uint32_t *pExp, uint32_t expByteLength, ui
             * In order to avoid overflows when adding in-place multiples of the modulus over 2*32=2^6 iterations in total, 26-bit random numbers are used.
             * The upper words of buffers R2 and R2H have already been cleared.*/
             MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
-            
+
             MCUX_CSSL_FP_FUNCTION_CALL(prngGenerateWordRet1, mcuxClPrng_generate_word());
             uint32_t randModBlinding = prngGenerateWordRet1;
 

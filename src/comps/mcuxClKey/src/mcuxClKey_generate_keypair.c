@@ -34,12 +34,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_generate_keypair(
   /* Call protocol specific key pair generation function according to passed generation descriptor. */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(generation->pKeyGenFct(session, generation, privKey, pubKey));
 
-  MCUXCLSESSION_EXIT(
-    session,
-    mcuxClKey_generate_keypair,
-    diRefValue,
-    MCUXCLKEY_STATUS_OK,
-    MCUXCLKEY_STATUS_FAULT_ATTACK,
+  MCUXCLSESSION_EXIT(session, mcuxClKey_generate_keypair, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK,
     generation->protectionTokenKeyGenFct
   );
 }

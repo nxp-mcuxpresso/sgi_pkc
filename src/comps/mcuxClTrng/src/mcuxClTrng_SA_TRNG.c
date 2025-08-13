@@ -20,23 +20,25 @@
 #include <mcuxClSession.h>
 #include <mcuxClMemory.h>
 #include <mcuxCsslDataIntegrity.h>
+#include <mcuxCsslFlowProtection.h>
 #include <internal/mcuxClTrng_SfrAccess.h>
 #include <internal/mcuxClTrng_Internal.h>
 #include <internal/mcuxClTrng_Internal_SA_TRNG.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
+#include <internal/mcuxClMemory_CopyWords_Internal.h>
 
 /**
  * @brief Wait until TRNG entropy generation is ready.
  *
  * @param[in] pNoOfTrngErrors TRNG error counter
  *
- * @return Status of the operation
- * @retval #MCUXCLTRNG_STATUS_OK Entropy is ready and valid
- * @retval #MCUXCLTRNG_STATUS_FAULT_ATTACK TRNG error counter exceeded the error limit
+ * @note Data Integrity: Expunge(TRNG status bit) = Expunge(MCUXCLTRNG_SFR_BITREAD(MCTL, TSTOP_OK))
 */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClTrng_WaitForReady)
-static inline void mcuxClTrng_WaitForReady(mcuxClSession_Handle_t pSession, uint32_t *pNoOfTrngErrors)
+static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_WaitForReady(mcuxClSession_Handle_t pSession, uint32_t *pNoOfTrngErrors)
 {
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClTrng_WaitForReady);
+
     do
     {
         /* Check whether TRNG has stopped generating */
@@ -71,41 +73,29 @@ static inline void mcuxClTrng_WaitForReady(mcuxClSession_Handle_t pSession, uint
             }
         }
     } while(true);
+
+    /* Record the status bit of TRNG to DI (at this point we expect it to be "TRNG ready" in all cases, never "TRNG busy") */
+    MCUX_CSSL_DI_RECORD(trngStatus, MCUXCLTRNG_SFR_BITREAD(MCTL, TSTOP_OK));
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_WaitForReady);
 }
 
 /**
  *  @brief Initialization function for the SA_TRNG
- *
- *  This function performs all required steps to be done before SA_TRNG data can be requested via the function
- *  mcuxClTrng_getEntropyInput.
- *
- *  NOTES:
- *   - Enabling and configuration of the SA_TRNG shall be done before calling the Crypto Library.
- *     The Crypto Library requires the TRNG to be configured in dual oscillator mode. Therefore,
- *     this function simply verifies that the TRNG is configured in dual oscillator mode.
- *   - For performance it is recommended to put the TRNG in running mode immediately after configuration.
+ *  @deprecated This function is deprecated, kept only for backward compatibility.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClTrng_Init)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_Init(mcuxClSession_Handle_t pSession)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClTrng_Init);
-
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_checkConfig(pSession));
-
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_Init,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_checkConfig));
+ 
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_Init);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClTrng_checkConfig)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_checkConfig(mcuxClSession_Handle_t pSession)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClTrng_checkConfig);
-
-    /* Verify that the TRNG is configured in dual oscillator mode. */
-    if(MCUXCLTRNG_SFR_BITREAD(OSC2_CTL, TRNG_ENT_CTL) != MCUXCLTRNG_SA_TRNG_HW_DUAL_OSCILLATOR_MODE)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLTRNG_STATUS_ERROR);
-    }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_checkConfig);
 }
@@ -117,16 +107,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
     uint32_t entropyInputLength
 )
 {
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClTrng_getEntropyInput,
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_checkConfig));
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClTrng_getEntropyInput);
 
     if ((NULL == pEntropyInput) || ((entropyInputLength % sizeof(uint32_t)) != 0u))
     {
         MCUXCLSESSION_ERROR(pSession, MCUXCLTRNG_STATUS_ERROR);
     }
-
-    /* Call check configuration function to ensure the TRNG is properly configured for upcoming TRNG accesses */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_checkConfig(pSession));
 
     /* Put TRNG in running mode (clear PRGM bit) in case it has not been done before. */
     MCUXCLTRNG_SFR_BITCLEAR(MCTL, PRGM);
@@ -135,7 +121,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
     uint32_t noOfTrngErrors = 0u;
 
     /* Copy full words of entropy.
-     * NOTE: Memory_copy is not used since it copies byte-wise from SFR while only word-wise SFR access is allowed.
+     * NOTE: mcuxClMemory_copy_words_int is used since only word-wise SFR access is allowed.
      */
     uint32_t entropyInputWordLength = (entropyInputLength >> 2u);
     uint32_t *pDest = pEntropyInput;
@@ -147,26 +133,53 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
     uint32_t offset = MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS - (entropyInputWordLength % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS);
 
     /* Wait until TRNG entropy generation is ready. */
-    mcuxClTrng_WaitForReady(pSession, &noOfTrngErrors);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_WaitForReady(pSession, &noOfTrngErrors));
+    /* Expunge the status bit of TRNG from DI (recorded in mcuxClTrng_WaitForReady)  */
+    MCUX_CSSL_DI_EXPUNGE(trngStatus, 1u);
 
+    MCUX_CSSL_FP_LOOP_DECL(forLoop);
     for(uint32_t i = offset; i < (entropyInputWordLength + offset); i++)
     {
         /* When i is a multiple of the TRNG output buffer size (MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS) wait until new entropy words have been generated. */
         if((i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS) == 0u)
         {
             /* Wait until TRNG entropy generation is ready. */
-            mcuxClTrng_WaitForReady(pSession, &noOfTrngErrors);
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_WaitForReady(pSession, &noOfTrngErrors));
+            /* Expunge the status bit of TRNG from DI (recorded in mcuxClTrng_WaitForReady)  */
+            MCUX_CSSL_DI_EXPUNGE(trngStatus, 1u);
         }
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_OUT_OF_BOUNDS_ACCESS("Overrunning array due to accessing index in ENT is caused by incorrect array size specified in external header that is outside our control")
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ARRAY_OUT_OF_BOUNDS("Overrunning array due to accessing index in ENT is caused by incorrect array size specified in external header that is outside our control")
+        const volatile uint32_t *pTrngSrc = &(MCUXCLTRNG_SFR_READ(ENT)[i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS]);
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ARRAY_OUT_OF_BOUNDS()
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OUT_OF_BOUNDS_ACCESS()
+        /* Balance DI for mcuxClMemory_copy_words_int */
+        MCUX_CSSL_DI_RECORD(memCopyDIpDest, pDest);
+        MCUX_CSSL_DI_RECORD(memCopyDIpSrc, pTrngSrc);
+        MCUX_CSSL_DI_RECORD(memCopyDIpLength, sizeof(uint32_t));
         /* Copy word of entropy into destination buffer. */
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pDest can't be larger than max(uint32_t)")
-        *pDest = MCUXCLTRNG_SFR_READ(ENT)[i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS];
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_VOLATILE("Access to a HW peripheral")
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_OUT_OF_BOUNDS_ACCESS("Overrunning array due to de-referencing pTrngSrc is caused by external header that is outside our control")
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ARRAY_OUT_OF_BOUNDS("Overrunning array due to de-referencing pTrngSrc is caused by external header that is outside our control")
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int((uint8_t*)pDest, (uint8_t const *)pTrngSrc, sizeof(uint32_t)));
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ARRAY_OUT_OF_BOUNDS()
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OUT_OF_BOUNDS_ACCESS()
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_VOLATILE()
         /* Increment pDest to point to the next word. */
         pDest++;
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+
+        MCUX_CSSL_FP_LOOP_ITERATION(forLoop,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int),
+            MCUX_CSSL_FP_CONDITIONAL((i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS) == 0u,
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_WaitForReady)));
     }
 
     MCUX_CSSL_DI_EXPUNGE(trngOutputSize, entropyInputLength);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_getEntropyInput);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_getEntropyInput,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_WaitForReady),
+        /* Inside for-loop */
+        MCUX_CSSL_FP_LOOP_ITERATIONS(forLoop, entropyInputWordLength) );
 }
-

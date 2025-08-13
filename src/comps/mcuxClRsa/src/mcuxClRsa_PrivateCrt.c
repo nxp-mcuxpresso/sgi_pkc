@@ -122,7 +122,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
           MCUXCLCORE_MAX(bufferSizePrimePQb + bufferSizePrimeT0 + bufferSizePrimeT1 + bufferSizePrimeT2 + bufferSizePrimeT3 + bufferSizePrimeT4 + bufferSizePrimeTE + bufferSizePrimeR + bufferSizePrimeT5 + bufferSizeModExpTemp,
                        bufferSizeModM + bufferSizeModT1 + bufferSizeModT2 + bufferSizeModT3 + bufferSizeModT4 + bufferSizeModN);
   const uint32_t pkcWaSizeWord = bufferSizeTotal / (sizeof(uint32_t));
-  uint32_t *pPkcWorkarea = mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
 
   /* PKC buffers used for operations modulo P,Q and modulo N */
   uint32_t *pBlind = pPkcWorkarea;
@@ -148,7 +149,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
 
   /* Setup UPTR table */
   uint32_t cpuWaSizeWord = (((sizeof(uint16_t)) * MCUXCLRSA_INTERNAL_PRIVCRT_UPTRT_SIZE) + (sizeof(uint32_t)) - 1u) / (sizeof(uint32_t));
-  uint32_t * pOperands32 = mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord);
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pOperands32, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
   uint16_t * pOperands = (uint16_t *) pOperands32;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
@@ -193,7 +195,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /* Securely import and blind q                                                                  */
   /************************************************************************************************/
 
-  /* Balance DI for the calls to mcuxClKey_load in this function - constant key specs */
+  /* Balance DI for the calls to MCUXCLKEY_LOAD_FP in this function - constant key specs */
   MCUX_CSSL_DI_RECORD(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_Q + MCUXCLKEY_ENCODING_SPEC_RSA_DQ
                                + MCUXCLKEY_ENCODING_SPEC_RSA_P + MCUXCLKEY_ENCODING_SPEC_RSA_DP
                                + MCUXCLKEY_ENCODING_SPEC_RSA_QINV + MCUXCLKEY_ENCODING_SPEC_RSA_Q);
@@ -202,8 +204,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pPrimeT0);
   MCUXCLPKC_WAITFORFINISH();
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_Q));  // RSA Key_load function always returns OK
-  
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_Q);  // RSA Key_load function always returns OK
+
   /* Generate random number used for blinding and set LSB to 1, to ensure it is odd and non-null */
   pBlind[0] = mcuxClRandom_ncGenerateWord_Internal(pSession) | 0x1u;
 
@@ -242,7 +244,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /* Import the private exponent DQ */
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pPrimeR);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, (uint8_t**)&pPrimeR, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_DQ));  // RSA Key_load function always returns OK
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPrimeR, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_DQ);  // RSA Key_load function always returns OK
 
   /* Clear upper bytes that were not overwritten by the copy in Key_load */
   uint8_t *pUpper = pPrimeR + pRsaKeyData->dq.keyEntryLength;
@@ -290,8 +292,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /* Securely import p */
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pPrimeT0);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_P));  // RSA Key_load function always returns OK
-
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_P);  // RSA Key_load function always returns OK
 
   /* Generate random number used for blinding and set LSB to 1, to ensure it is odd and non-null */
   pBlind[0] = mcuxClRandom_ncGenerateWord_Internal(pSession) | 0x1u;
@@ -331,8 +332,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /* Import the private exponent DP */
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pPrimeR);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, (uint8_t**)&pPrimeR, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_DP));  // RSA Key_load function always returns OK
-  
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPrimeR, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_DP);  // RSA Key_load function always returns OK
+
   /* Clear upper bytes that were not overwritten by the copy in Key_load */
   pUpper = pPrimeR + pRsaKeyData->dp.keyEntryLength;
   lenUpper = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(pRsaKeyData->dp.keyEntryLength + 1u) - pRsaKeyData->dp.keyEntryLength;
@@ -388,7 +389,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /* Securely import qInv */
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pPrimeT0);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_QINV));  // RSA Key_load function always returns OK
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_QINV);  // RSA Key_load function always returns OK
 
   /* Generate random number R_qInv */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandom_ncGenerate_Internal(pSession, pPrimeT1, qInvAlignLen));
@@ -422,7 +423,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /* Securely import q */
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pPrimeT0);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_Q));  // RSA Key_load function always returns OK
+  MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPrimeT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_Q);  // RSA Key_load function always returns OK
 
   /* Calculate T5_b = T4_b*q in MODT4 which has a size of (primeAlignLen + blindedPrimeAlignLen = blindedMessageAlignLen) */
   /* Calculate masked message M_b = T5_b + Mq_b */
@@ -520,7 +521,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
     MCUX_CSSL_DI_RECORD(Key_load, &pPubExp);
     MCUX_CSSL_DI_RECORD(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_E);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, (uint8_t**)&pPubExp, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_E));  // RSA Key_load function always returns OK
+    MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPubExp, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_E);  // RSA Key_load function always returns OK
     MCUX_CSSL_DI_RECORD(protectExpPointer, pPubExp);
     /* SREQI_RSA_0: DI protect the byte length of the exponent. Will be balanced in the call to mcuxClMath_ModExp_SqrMultL2R() called in mcuxClRsa_publicExp() . */
     MCUX_CSSL_DI_RECORD(protectExpLength, pRsaKeyData->e.keyEntryLength);
@@ -583,7 +584,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_privateCRT,
           4u * MCUXCLPKC_FP_CALLED_CALC_OP2_CONST,
           MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate_Internal),
-          6u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load),
+          6u * MCUXCLKEY_LOAD_FP_CALLED(key),
           MCUXCLPKC_FP_CALLED_CALC_OP1_MUL,
           3u * MCUXCLPKC_FP_CALLED_CALC_MC1_PM_PATCH,
           3u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
@@ -600,7 +601,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
           MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
           MCUXCLPKC_FP_CALLED_CALC_OP2_CONST,
           MCUX_CSSL_FP_CONDITIONAL((MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT != mcuxClKey_getAlgoId(key)),
-                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load),
+                MCUXCLKEY_LOAD_FP_CALLED(key),
                 MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_publicExp),
                 MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_secure_int)
           ),

@@ -24,7 +24,6 @@
 #include <mcuxCsslFlowProtection.h>
 
 #include <mcuxClBuffer.h>
-#include <mcuxClRandom.h>
 #include <mcuxClMemory.h>
 #include <mcuxClSession.h>
 
@@ -113,7 +112,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SwitchEndianness(uint32_t *ptr, uint
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_SwitchEndianness);
 }
 
-
 /**
  * [Design]
  * This function imports an integer stored as a big-endian octet string to PKC workarea.
@@ -148,7 +146,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportBigEndianToPkc(uint8_t iTarget
         MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
 }
-
 
 /**
  * [Design]
@@ -185,7 +182,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportLittleEndianToPkc(uint8_t iTar
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
 }
 
-
 /**
  * [Design]
  * This function exports a PKC operand (with specified length) and stores it as
@@ -212,7 +208,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ExportBigEndianFromPkc(uint8_t * pTa
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
 }
 
-
 /**
  * [Design]
  * This function exports a PKC operand (with specified length) and stores it as
@@ -237,7 +232,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ExportLittleEndianFromPkc(uint8_t *p
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_ExportLittleEndianFromPkc,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int) );
 }
-
 
 /**
  * [Design]
@@ -278,42 +272,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureImportBigEndianToPkc(uint8_t i
 
 /**
  * [Design]
- * This function imports an integer stored as a little-endian octet string to PKC workarea,
- * in a secure manner.
- *
- * (1) clear the target PKC buffer by CPU if the passed length is smaller than targetBufferLength
- * (2) Securely copy the little-endian octet string of the specified length to the target buffer.
- */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClPkc_SecureImportLittleEndianToPkc)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureImportLittleEndianToPkc(uint8_t iTarget, const uint8_t * pSource, uint32_t length, uint32_t targetBufferLength)
-{
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPkc_SecureImportLittleEndianToPkc);
-    const uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
-    uint8_t *pTarget = MCUXCLPKC_OFFSET2PTR(pOperands[iTarget]);
-
-    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int /* not used*/, pTarget);
-    MCUX_CSSL_DI_EXPUNGE(mcuxClPkc_SecureImportLittleEndianToPkc /* not used*/, iTarget);
-
-    MCUXCLPKC_WAITFORFINISH();
-
-    if (targetBufferLength > length)
-    {
-        MCUX_CSSL_DI_RECORD(clearTarget, (uint32_t)pTarget);
-        MCUX_CSSL_DI_RECORD(clearTarget, targetBufferLength);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pTarget[length], targetBufferLength - length));
-    }
-    MCUX_CSSL_DI_EXPUNGE(mcuxClPkc_SecureImportLittleEndianToPkc /* not used*/, targetBufferLength);
-
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pTarget, pSource, length) );
-
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_SecureImportLittleEndianToPkc,
-        MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
-}
-
-
-/**
- * [Design]
  * This function exports a PKC operand (with specified length) and stores it as
  * a big-endian octet string in the target buffer, in a secure manner.
  *
@@ -339,7 +297,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureExportBigEndianFromPkc(uint8_t
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_SecureExportBigEndianFromPkc,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int) );
 }
-
 
 /**
  * [Design]

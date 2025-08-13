@@ -14,6 +14,7 @@
 #ifndef MCUXCLSGI_SFR_REGBANK_H_
 #define MCUXCLSGI_SFR_REGBANK_H_
 
+#include <mcuxCsslAnalysis.h>
 #include <mcuxClConfig.h> // Exported features flags header
 #include <mcuxCsslFlowProtection.h>
 #include <platform_specific_headers.h>
@@ -111,7 +112,8 @@ static inline uint32_t * mcuxClSgi_Sfr_getAddr(uint32_t sfrOffset)
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Sfr_getOffset)
 static inline uint32_t mcuxClSgi_Sfr_getOffset(uint32_t* sfrAddress)
 {
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Necessary for SFR offset calculation")
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Casting the SGI base address to a pointer happens in hardware headers.")
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(sfrAddress, SGI_SFR_BASE, (SGI_SFR_BASE + 0xffcU /* max SGI offset */), 0U)
   return (uint32_t)sfrAddress - (uint32_t)SGI_SFR_BASE;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER()
 }
@@ -121,7 +123,7 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Sfr_writeWord)
 static inline void mcuxClSgi_Sfr_writeWord(uint32_t sfrOffset, uint32_t value)
 {
   MCUX_CSSL_ANALYSIS_START_PATTERN_HW_WRITE()
-  uint32_t *const sgiSfrAddress = mcuxClSgi_Sfr_getAddr(sfrOffset);
+  volatile uint32_t *const sgiSfrAddress = mcuxClSgi_Sfr_getAddr(sfrOffset);
   MCUX_CSSL_ANALYSIS_START_PATTERN_HW_REGISTER_INDEXING()
   *sgiSfrAddress = value;
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_HW_REGISTER_INDEXING()
@@ -133,9 +135,9 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Sfr_readWord)
 static inline uint32_t mcuxClSgi_Sfr_readWord(uint32_t sfrOffset)
 {
   MCUX_CSSL_ANALYSIS_START_PATTERN_HW_WRITE()
-  uint32_t *const sgiSfrAddress = mcuxClSgi_Sfr_getAddr(sfrOffset);
+  volatile uint32_t *const sgiSfrAddress = mcuxClSgi_Sfr_getAddr(sfrOffset);
   MCUX_CSSL_ANALYSIS_START_PATTERN_HW_REGISTER_INDEXING()
-  return *sgiSfrAddress;
+  return (uint32_t)(*sgiSfrAddress);
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_HW_REGISTER_INDEXING()
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_HW_WRITE()
 }
@@ -145,7 +147,8 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Sfr_readWrappedKeyWord)
 static inline uint32_t mcuxClSgi_Sfr_readWrappedKeyWord(void)
 {
   /* Read one word of the wrapped key output - the HW updates the register content on each read. */
-  return *(mcuxClSgi_Sfr_getAddr(MCUXCLSGI_SFR_KEY_WRAP_OFFSET));
+  volatile uint32_t wrappedKeyWord = (uint32_t) *(mcuxClSgi_Sfr_getAddr(MCUXCLSGI_SFR_KEY_WRAP_OFFSET));
+  return wrappedKeyWord;
 }
 
 

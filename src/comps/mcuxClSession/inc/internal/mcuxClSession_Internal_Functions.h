@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -24,6 +24,7 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxClCrc.h>
 #include <internal/mcuxClSession_Internal.h>
+#include <internal/mcuxClSession_FeatureConfig.h>
 
 
 #include <mcuxClSession.h>
@@ -133,6 +134,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_computeAndSetCrcFo
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSession_computeAndSetCrcForExternalVerification);
 }
 
+#ifdef MCUXCLSESSION_FEATURE_INTERNAL_CLEANUP_FREED_WA
 /**
  * @brief Clean up a Crypto Library session.
  *
@@ -147,6 +149,7 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSession_cleanup_freedWorkareas)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_cleanup_freedWorkareas(
   mcuxClSession_Handle_t pSession
 );
+#endif /* MCUXCLSESSION_FEATURE_INTERNAL_CLEANUP_FREED_WA */
 
 #ifdef __cplusplus
 } /* extern "C" */

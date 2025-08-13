@@ -55,6 +55,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_generate_Internal(
 );
 
 /**
+ * @brief Non-cryptographic PRNG reseed function.
+ *
+ * This function performs the reseeding of the non-cryptographic random number generator.
+ *
+ * @param [in]     pSession  Handle for the current CL session.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClPrng_reseed)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_reseed(mcuxClSession_Handle_t pSession);
+
+/**
  * @brief Non-cryptographic PRNG data generation function.
  *
  * This function generates non-cryptographic random data

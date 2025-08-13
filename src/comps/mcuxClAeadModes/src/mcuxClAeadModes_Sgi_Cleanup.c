@@ -52,14 +52,15 @@ mcuxClAeadModes_cleanupOnExit(
      as the init phases of all current AEADs (GCM/CCM) properly clear/overwrite counter0 using DI-protected memory functions. */
 
   /* Flush the given key, if needed */
-  if((NULL != key)
-      && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))
-    )
+  if(NULL != key)
   {
-    /* Flush the key in use if it is not preloaded.
-     * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_flush_internal));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_flush_internal(session, key, 0U /* spec */));
+    if(MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))
+    {
+      /* Flush the key in use if it is not preloaded.
+      * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
+      MCUX_CSSL_FP_EXPECT(MCUXCLKEY_FLUSH_FP_CALLED(key));
+      MCUXCLKEY_FLUSH_FP(session, key, 0U /* spec */);
+    }
   }
   /* TODO CLNS-16637: We only want to flush the key in the context if no other key is given.
                       But, the key in the context is never set for Oneshot, so below access to the key

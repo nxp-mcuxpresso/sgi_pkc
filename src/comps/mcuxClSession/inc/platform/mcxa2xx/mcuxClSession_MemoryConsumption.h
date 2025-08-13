@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -19,5 +19,8 @@
 #ifndef MCUXCLSESSION_MEMORYCONSUMPTION_H_
 #define MCUXCLSESSION_MEMORYCONSUMPTION_H_
 
+
+#define MCUXCLSESSION_DESCRIPTOR_SIZE           (88u) ///< Total size (in bytes) needed for session descriptor
+#define MCUXCLSESSION_DESCRIPTOR_SIZE_IN_WORDS  (MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLSESSION_DESCRIPTOR_SIZE)) ///< Total size (in bytes) needed for session descriptor
 
 #endif /* MCUXCLSESSION_MEMORYCONSUMPTION_H_ */

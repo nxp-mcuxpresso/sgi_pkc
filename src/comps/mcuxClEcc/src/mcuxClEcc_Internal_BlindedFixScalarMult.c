@@ -38,7 +38,7 @@
 /**
  * This function implements the scalar multiplication k*G for a secret scalar k in {0,...,n-1}
  * and the base point G of order n on the given curve. If the scalar k is zero, the function
- * returns MCUXCLECC_STATUS_NEUTRAL_POINT. If it is not zero, the function generates a blinded
+ * returns MCUXCLECC_INTSTATUS_SCALAR_ZERO. If it is not zero, the function generates a blinded
  * multiplicative splitting (phi,sigma) of the scalar k with a 64 bit blinding with MSBit set to 1
  * and sigma = k*phi^(-1) mod n, and performs two secure scalar multiplications,
  * the first with the blinded scalar sigma and the second with the blinding phi.
@@ -48,10 +48,10 @@
  *  - pDomainParameters Pointer to common domain parameters
  *
  * Return values:
- *  - MCUXCLECC_STATUS_OK            if the function executed successfully
- *  - MCUXCLECC_STATUS_NEUTRAL_POINT if the scalar is zero
- *  - MCUXCLECC_STATUS_RNG_ERROR     random number generation (PRNG) error (unexpected behavior)
- *  - MCUXCLECC_STATUS_FAULT_ATTACK  fault attack (unexpected behavior) is detected
+ *  - MCUXCLECC_STATUS_OK              if the function executed successfully
+ *  - MCUXCLECC_INTSTATUS_SCALAR_ZERO  if the scalar is zero
+ *  - MCUXCLECC_STATUS_RNG_ERROR       random number generation (PRNG) error (unexpected behavior)
+ *  - MCUXCLECC_STATUS_FAULT_ATTACK    fault attack (unexpected behavior) is detected
  *
  * Prerequisites:
  *  - The secret scalar k is contained in buffer ECC_S2
@@ -83,7 +83,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedFixScalarMult(m
         mcuxClEcc_GenerateMultiplicativeBlinding(pSession, scalarLength));
     if (MCUXCLECC_STATUS_OK != ret_GenMulBlind)
     {
-        /* GenerateMultiplicativeBlinding is returning only OK, NEUTRAL_POINT or RNG_ERROR */
+        /* GenerateMultiplicativeBlinding is returning only OK or SCALAR_ZERO */
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedFixScalarMult, ret_GenMulBlind);
     }
 

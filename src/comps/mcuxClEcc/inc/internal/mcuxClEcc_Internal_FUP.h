@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -24,6 +24,7 @@
 #include <mcuxCsslAnalysis.h>
 
 #include <internal/mcuxClPkc_FupMacros.h>
+#include <internal/mcuxClEcc_FeatureConfig.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,7 +60,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 /**
  * FUP program declaration mcuxClEcc_FUP_PointComparisonHom
  */
-#define mcuxClEcc_FUP_PointComparisonHom_LEN  10u
+#define mcuxClEcc_FUP_PointComparisonHom_LEN  16u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
 extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_PointComparisonHom[mcuxClEcc_FUP_PointComparisonHom_LEN];
@@ -75,6 +76,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
 extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_SetupEnvironment_ClearBuffers[mcuxClEcc_FUP_SetupEnvironment_ClearBuffers_LEN];
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING)
 
 /**
  * FUP program declaration mcuxClEcc_FUP_SetupEnvironment_ClearBuffers
@@ -84,6 +86,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
 extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_GenerateMultiplicativeBlinding[mcuxClEcc_FUP_GenerateMultiplicativeBlinding_LEN];
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING) */
 
 
 #ifdef __cplusplus

@@ -51,6 +51,9 @@
  *  - If no errors are encountered, the prepared message digest is stored in ECC_S2.
  *
  * @attention The PKC calculation might be still on-going, call #MCUXCLPKC_WAITFORFINISH before CPU accesses to the result.
+ *
+ * @post
+ *  - Data Integrity: Expunge(pIn + inSize).
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_ECDSA_PrepareMessageDigest)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDSA_PrepareMessageDigest(
@@ -73,6 +76,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDSA_PrepareMessageDigest(
     const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
     MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_ECDSA_PrepareMessageDigest, ECC_S2, pIn, byteLenHashImport, operandSize);
 
+    MCUX_CSSL_DI_EXPUNGE(pInIntegrity, pIn);
     /* Truncate message hash if its bit length is longer than that of n. */
     if (inSize >= byteLenN)
     {
@@ -81,11 +85,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDSA_PrepareMessageDigest(
         uint8_t nMSByte = ptrN[byteLenN - 1u];
         uint32_t nMSByte_LeadZeros = (uint32_t) mcuxClMath_CountLeadingZerosWord((uint32_t) nMSByte) - (8u * ((sizeof(uint32_t)) - 1u));
 
-        /* Only keep the first bitLenN bits of hash. */
-        MCUXCLPKC_FP_CALC_OP1_SHR(ECC_S2, ECC_S2, (uint8_t) (nMSByte_LeadZeros & 0xFFu));
+        /* Only keep the first bitLenN bits of hash, ECC_T2 used as temp buffer to avoid in-place operation. */
+        MCUXCLPKC_FP_CALC_OP1_SHR(ECC_T2, ECC_S2, (uint8_t) (nMSByte_LeadZeros & 0x07u));
+        MCUXCLPKC_FP_CALC_OP1_ADD_CONST(ECC_S2, ECC_T2, 0u);
     }
+    MCUX_CSSL_DI_EXPUNGE(pInIntegrity, inSize);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_ECDSA_PrepareMessageDigest,
         MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFER,
-        MCUX_CSSL_FP_CONDITIONAL((inSize >= byteLenN), MCUXCLPKC_FP_CALLED_CALC_OP1_SHR));
+        MCUX_CSSL_FP_CONDITIONAL((inSize >= byteLenN),
+            MCUXCLPKC_FP_CALLED_CALC_OP1_SHR,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_ADD_CONST));
 }

@@ -14,13 +14,10 @@
 #include <mcuxCsslMemory.h>
 #include <mcuxCsslSecureCounter.h>
 #include <mcuxCsslFlowProtection.h>
+#include <mcuxCsslDataIntegrity.h>
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
 #include <mcuxCsslAnalysis.h>
-#include <internal/mcuxCsslMemory_Internal_Compare_asm.h>
-
-#define CLS_NORMAL      0x2E00u
-#define CLS_MISMATCH    0x8900u
-#define LSB_NOT_EQUAL   0xB8u
+#include <internal/mcuxCsslMemory_Internal_Compare_arm_asm.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxCsslMemory_Compare)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Compare
@@ -35,6 +32,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Compare
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslParamIntegrity_Validate)
     );
 
+    /* Record mcuxCsslMemory_Compare_arm_asm call */
+    MCUX_CSSL_DI_RECORD(robustCmp, (uint32_t)pLhs);
+    MCUX_CSSL_DI_RECORD(robustCmp, (uint32_t)pRhs);
+    MCUX_CSSL_DI_RECORD(robustCmp, length);
+
     MCUX_CSSL_FP_FUNCTION_CALL(result, MCUX_CSSL_PI_VALIDATE(chk, pLhs, pRhs, length));
 
     if( (result != MCUXCSSLPARAMINTEGRITY_CHECK_VALID)) {
@@ -45,36 +47,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Compare
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Compare, MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER);
     }
 
-    uint32_t nwords = 0u;
-    uint32_t retval = 0u;
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_VOID()
-    uint8_t const * cur_lhs = (uint8_t const *)pLhs;
-    uint8_t const * cur_rhs = (uint8_t const *)pRhs;
+    MCUX_CSSL_FP_FUNCTION_CALL(retval, mcuxCsslMemory_Compare_arm_asm(pLhs, pRhs, length));
+    MCUX_CSSL_DI_EXPUNGE(robustCmpStatus, retval);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_VOID()
-    uint32_t const notValid = (uint32_t)(~(MCUXCSSLPARAMINTEGRITY_CHECK_VALID));
-    uint32_t const errCode = (uint32_t)MCUXCSSLMEMORY_STATUS_NOT_EQUAL;
 
-    /* Pre-calculate end pointers */
-    uint8_t const * end_lhs = &cur_lhs[length];
-    uint8_t const * end_rhs = &cur_rhs[length];
-
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("Exception 9: re-interpreting the memory for word access")
-    MCUXCSSLMEMORY_COMPARE_ASM_COMPARISON(retval, cur_lhs, cur_rhs, nwords, length, notValid, result);
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-
-    MCUXCSSLMEMORY_COMPARE_ASM_CALC_RETVAL(retval, errCode);
-    retval &= 0x000000FFu;  /* Isolate the byte value that we are interested in */
-    retval |= MCUXCSSLMEMORY_COMPONENT_MASK | CLS_MISMATCH;  /* Defines the value to what is expected */
-    retval ^= (CLS_MISMATCH ^ CLS_NORMAL) & ((retval ^ LSB_NOT_EQUAL) << 8);  /* If equal, then change the class to match the equal case */
-
-    /* Check that the pointers reached the end */
-    if((end_lhs != cur_lhs) || (end_rhs != cur_rhs)) {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Compare, MCUXCSSLMEMORY_STATUS_FAULT);
-    }
-
-#if (0 == MCUX_CSSL_SC_USE_NONE) && !((1 == MCUX_CSSL_SC_USE_SW_LOCAL) && (0 == MCUX_CSSL_FP_USE_SECURE_COUNTER))
-    MCUX_CSSL_SC_ADD(nwords); // -> should be 0
-#endif /* (0 == MCUX_CSSL_SC_USE_NONE) && !((1 == MCUX_CSSL_SC_USE_SW_LOCAL) && (0 == MCUX_CSSL_FP_USE_SECURE_COUNTER)) */
-
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Compare, retval);
+    MCUX_CSSL_FP_FUNCTION_EXIT(
+      mcuxCsslMemory_Compare,
+      retval,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare_arm_asm)
+    );
 }
+

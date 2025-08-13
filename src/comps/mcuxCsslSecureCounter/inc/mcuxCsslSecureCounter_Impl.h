@@ -11,7 +11,6 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-
 /**
  * \file  mcuxCsslSecureCounter_Impl.h
  * \brief Selection of the implementation for the secure counter mechanism.

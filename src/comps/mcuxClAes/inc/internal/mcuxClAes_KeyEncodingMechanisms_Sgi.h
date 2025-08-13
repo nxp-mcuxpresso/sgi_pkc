@@ -84,7 +84,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyStore_rfc3394(
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAes_getKeyDest_rfc3394UnWrap)
 static inline uint8_t* mcuxClAes_getKeyDest_rfc3394UnWrap(void)
 {
-  return ((uint8_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_KEY_OFFSET_UNWRAP_DEST));
+  MCUX_CSSL_ANALYSIS_START_PATTERN_HW_WRITE()
+  volatile uint32_t* keyDestAddr = (volatile uint32_t*)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_KEY_OFFSET_UNWRAP_DEST);
+  return ((uint8_t *)keyDestAddr);
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_HW_WRITE()
 }
 
 /**

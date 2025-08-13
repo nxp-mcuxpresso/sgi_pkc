@@ -95,7 +95,9 @@
  * @param statement The statement to be conditionally included.
  */
 #define MCUX_CSSL_FP_COUNTER_STMT_IMPL(statement) \
-  statement
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SC_INTEGER_OVERFLOW() \
+  statement \
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SC_INTEGER_OVERFLOW()
 
 
 

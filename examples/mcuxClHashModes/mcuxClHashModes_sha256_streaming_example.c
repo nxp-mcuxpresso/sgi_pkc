@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -86,7 +86,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_example)
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result3, token3, mcuxClHash_process(
     /* mcuxCLSession_Handle_t session: */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
     /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t in:        */ data1Buf,
     /* uint32_t inSize:               */ sizeof(data1)
     ));
@@ -99,7 +101,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_example)
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result4, token4, mcuxClHash_process(
     /* mcuxCLSession_Handle_t session: */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
     /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t in:        */ data2Buf,
     /* uint32_t inSize:               */ sizeof(data2)
     ));
@@ -112,7 +116,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_example)
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result5, token5, mcuxClHash_process(
     /* mcuxCLSession_Handle_t session: */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
     /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t in:        */ data3Buf,
     /* uint32_t inSize:               */ sizeof(data3)
     ));
@@ -129,7 +135,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_example)
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(result6, token6, mcuxClHash_finish(
     /* mcuxCLSession_Handle_t session: */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClHash_init")
     /* mcuxClHash_Context_t context:   */ (mcuxClHash_Context_t) context,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_Buffer_t pOut            */ hashBuf,
     /* uint32_t *const pOutSize,      */ &hashOutputSize
     ));
@@ -140,7 +148,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_example)
     }
     MCUX_CSSL_FP_FUNCTION_CALL_END();
     
-  if(sizeof(hash) != hashOutputSize)
+    if(sizeof(hash) != hashOutputSize)
     {
         return MCUXCLEXAMPLE_STATUS_ERROR;
     }
@@ -169,7 +177,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_example)
     /** Destroy Session and cleanup Session **/
     if(!mcuxClExample_Session_Clean(session))
     {
-            return MCUXCLEXAMPLE_STATUS_ERROR;
+        return MCUXCLEXAMPLE_STATUS_ERROR;
     }
 
     return MCUXCLEXAMPLE_STATUS_OK;

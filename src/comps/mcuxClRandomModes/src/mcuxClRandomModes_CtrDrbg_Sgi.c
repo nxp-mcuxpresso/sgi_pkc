@@ -48,13 +48,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_requestHW(mcuxClSess
 {
  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_requestHW);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(pSession, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_requestHW);
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_requestHW,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init)
+    );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_CtrDrbg_releaseHW)
@@ -64,10 +66,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_releaseHW(mcuxClSess
 
 
     /* Uninitialize (and release) the SGI hardware */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Uninit(pSession));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_releaseHW);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_releaseHW,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_CtrDrbg_cleanUpHW)
@@ -93,10 +95,12 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     /* Load input Block into SGI_DATIN0 */
     for(uint32_t i = 0u; i < (MCUXCLAES_BLOCK_SIZE_IN_WORDS); i++)
     {
-        mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + (4u*i), pInputBlock[i]);
-        MCUX_CSSL_DI_RECORD(inputBlockLoads, 1u);
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + (4u*i), pInputBlock[i]));
+        MCUX_CSSL_DI_RECORD(inputBlockLoads, 1U);
     }
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadInput);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadInput,
+        (MCUXCLAES_BLOCK_SIZE_IN_WORDS * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_loadWord))
+    );
 }
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
@@ -109,11 +113,11 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadKey);
     /* Load key into the SGI_KEY0 */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadKey_secure));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
       mcuxClSgi_Utils_loadKey_secure(MCUXCLSGI_DRV_KEY0_OFFSET, (const uint8_t*)pKey, keyLength)
     );
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadKey);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadKey,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadKey_secure));
 }
 
 /* This function expects the block to start to encrypt in SGI DAT0 register. */
@@ -125,26 +129,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt);
 
-    //MCUX_CSSL_FP_SWITCH_DECL(switchProtector);
+    MCUX_CSSL_FP_SWITCH_DECL(switchProtector);
     MCUX_CSSL_ANALYSIS_START_PATTERN_SWITCH_STATEMENT_RETURN_TERMINATION()
     switch(keyLength)
     {
         case MCUXCLAES_AES128_KEY_SIZE:
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES128_ENCRYPT));
-            //MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES128_KEY_SIZE);
+            MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES128_KEY_SIZE);
             MCUX_CSSL_DI_RECORD(switchKeySize, MCUXCLAES_AES128_KEY_SIZE);
         break;
-        case MCUXCLAES_AES192_KEY_SIZE:
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES192_ENCRYPT));
-            //MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES192_KEY_SIZE);
-            MCUX_CSSL_DI_RECORD(switchKeySize, MCUXCLAES_AES192_KEY_SIZE);
-        break;
         case MCUXCLAES_AES256_KEY_SIZE:
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES256_ENCRYPT));
-            //MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES256_KEY_SIZE);
+            MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES256_KEY_SIZE);
             MCUX_CSSL_DI_RECORD(switchKeySize, MCUXCLAES_AES256_KEY_SIZE);
         break;
         default:
@@ -152,7 +148,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
     }
     MCUX_CSSL_ANALYSIS_STOP_PATTERN_SWITCH_STATEMENT_RETURN_TERMINATION()
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start), /* Every non-default switch case calls mcuxClSgi_Drv_start */
+        MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES128_KEY_SIZE, MCUXCLAES_AES128_KEY_SIZE == keyLength),
+        MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES192_KEY_SIZE, MCUXCLAES_AES192_KEY_SIZE == keyLength),
+        MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES256_KEY_SIZE, MCUXCLAES_AES256_KEY_SIZE == keyLength));
 }
 
 
@@ -160,25 +160,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt(
     mcuxClSession_Handle_t pSession,
-    mcuxCl_Buffer_t  pOut,
+    uint8_t*  pOut,
     const uint32_t *pXorMask,
     uint32_t keyLength
 )
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+    mcuxClSgi_Drv_wait();
 
     if(pXorMask != NULL)
     {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_storeMasked128BitBlock_buffer_recordDI));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_storeMasked128BitBlock_buffer_recordDI(MCUXCLSGI_DRV_DATOUT_OFFSET, pOut, 0u, pXorMask));
+        MCUX_CSSL_DI_RECORD(bufferReadDI, (uint32_t) mcuxClSgi_Sfr_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET));
+        MCUX_CSSL_DI_RECORD(bufferReadDI, pXorMask);
+        MCUX_CSSL_DI_RECORD(bufferReadDI, pOut);
 
         /* copy out result */
         /* Write to buffer from SGI, src pointer is calculated from sgiSfrDatIndex */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_storeMasked128BitBlock_buffer));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_storeMasked128BitBlock_buffer(pSession,
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_storeMasked128BitBlock(pSession,
                                                                                MCUXCLSGI_DRV_DATOUT_OFFSET,
                                                                                pOut,
                                                                                0u,
@@ -189,12 +188,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEnc
         /* copy out result */
         MCUX_CSSL_DI_RECORD(bufferReadDI, (uint32_t)pOut + 0u + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET) + MCUXCLAES_BLOCK_SIZE);
         /* Write to buffer from SGI, src pointer is calculated from sgiSfrDatIndex */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock_buffer));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock_buffer(pSession, MCUXCLSGI_DRV_DATOUT_OFFSET, pOut, 0u));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, pOut));
     }
 
     MCUX_CSSL_DI_EXPUNGE(switchKeySize, keyLength);
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt,
+        MCUX_CSSL_FP_CONDITIONAL(pXorMask != NULL,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_storeMasked128BitBlock)),
+        MCUX_CSSL_FP_CONDITIONAL(pXorMask == NULL,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock)));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_CtrDrbg_incV)
@@ -208,22 +210,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_incV(mcuxClSession_H
     uint32_t vBeforeIncrement[MCUXCLAES_BLOCK_SIZE_IN_WORDS] = {0};
     MCUXCLBUFFER_INIT(vBeforeIncrementBuf, NULL, (uint8_t *)&vBeforeIncrement[0], MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_DI_RECORD(bufferWriteDI, (uint32_t)vBeforeIncrementBuf + 0u + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET) + MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock_buffer));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock_buffer(pSession, MCUXCLSGI_DRV_DATIN0_OFFSET,
-                                                                     vBeforeIncrementBuf,
-                                                                     0u));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, vBeforeIncrementBuf));
 
     /* Increment SGI DATIN0 register */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_incrementData));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_incrementData(MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLAES_BLOCK_SIZE));
 
     uint32_t vAfterIncrement[MCUXCLAES_BLOCK_SIZE_IN_WORDS] = {0};
     MCUXCLBUFFER_INIT(vAfterIncrementBuf, NULL, (uint8_t *)&vAfterIncrement[0], MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_DI_RECORD(bufferWriteDI, (uint32_t)vAfterIncrementBuf + 0u + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET) + MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock_buffer));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock_buffer(pSession, MCUXCLSGI_DRV_DATIN0_OFFSET,
-                                                                     vAfterIncrementBuf,
-                                                                     0u));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, vAfterIncrementBuf));
 
     /* Check whether at the least the least significant word was updated or not */
     if(vBeforeIncrement[MCUXCLAES_BLOCK_SIZE_IN_WORDS-1u] == vAfterIncrement[MCUXCLAES_BLOCK_SIZE_IN_WORDS-1u])
@@ -231,5 +226,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_incV(mcuxClSession_H
         MCUXCLSESSION_FAULT(pSession, MCUXCLRANDOM_STATUS_FAULT_ATTACK);
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_incV);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_incV,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_incrementData),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock));
 }

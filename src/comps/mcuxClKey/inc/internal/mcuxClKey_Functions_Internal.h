@@ -24,6 +24,7 @@
 #include <mcuxClKey_Types.h>
 #include <mcuxClKey_Constants.h>
 #include <internal/mcuxClKey_Types_Internal.h>
+#include <internal/mcuxClKey_FeatureConfig.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,8 +69,6 @@ static inline uint8_t * mcuxClKey_getKeyData(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the key data pointer of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setKeyData)
 static inline void mcuxClKey_setKeyData(mcuxClKey_Handle_t key, uint8_t * pKeyData)
@@ -91,8 +90,6 @@ static inline const uint8_t * mcuxClKey_getAuxData(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the aux data pointer of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setAuxData)
 static inline void mcuxClKey_setAuxData(mcuxClKey_Handle_t key, const uint8_t * pAuxData)
@@ -114,8 +111,6 @@ static inline uint32_t mcuxClKey_getAuxDataLength(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the aux data length of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setAuxDataLength)
 static inline void mcuxClKey_setAuxDataLength(mcuxClKey_Handle_t key, uint32_t auxDataLength)
@@ -126,8 +121,6 @@ static inline void mcuxClKey_setAuxDataLength(mcuxClKey_Handle_t key, uint32_t a
 
 /**
  * @brief Sets the protection descriptor pointer of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setEncodingType)
 static inline void mcuxClKey_setEncodingType(mcuxClKey_Handle_t key, const mcuxClKey_EncodingDescriptor_t * pEncoding)
@@ -148,8 +141,6 @@ static inline void * mcuxClKey_getLinkedData(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the linked data pointer of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLinkedData)
 static inline void mcuxClKey_setLinkedData(mcuxClKey_Handle_t key, void * pLinkedData)
@@ -170,8 +161,6 @@ static inline mcuxClKey_TypeDescriptor_t mcuxClKey_getTypeDescriptor(mcuxClKey_H
 
 /**
  * @brief Sets the type structure of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setTypeDescriptor)
 static inline void mcuxClKey_setTypeDescriptor(mcuxClKey_Handle_t key, mcuxClKey_TypeDescriptor_t pType)
@@ -251,8 +240,6 @@ static inline uint8_t * mcuxClKey_getLoadedKeyData(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the pointer of the (to be) loaded key data
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadedKeyData)
 static inline void mcuxClKey_setLoadedKeyData(mcuxClKey_Handle_t key, uint32_t * pKeyDataLoadLocation)
@@ -274,8 +261,6 @@ static inline uint32_t mcuxClKey_getLoadedKeyLength(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the length of the loaded key data
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadedKeyLength)
 static inline void mcuxClKey_setLoadedKeyLength(mcuxClKey_Handle_t key, uint32_t keyLength)
@@ -297,8 +282,6 @@ static inline uint32_t mcuxClKey_getLoadedKeySlot(const mcuxClKey_Descriptor_t* 
 
 /**
  * @brief Sets the pointer of the (to be) loaded data of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadedKeySlot)
 static inline void mcuxClKey_setLoadedKeySlot(mcuxClKey_Handle_t key, uint32_t keySlot)
@@ -320,8 +303,6 @@ static inline mcuxClKey_LoadStatus_t mcuxClKey_getLoadStatus(mcuxClKey_Handle_t 
 
 /**
  * @brief Sets the load status of the key handle
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadStatus)
 static inline void mcuxClKey_setLoadStatus(mcuxClKey_Handle_t key, mcuxClKey_LoadStatus_t loadStatus)
@@ -364,8 +345,6 @@ static inline uint32_t mcuxClKey_getKeyContainerSize(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the size of the key data container of the given key
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setKeyContainerSize)
 static inline void mcuxClKey_setKeyContainerSize(mcuxClKey_Handle_t key, uint32_t keyContainerSize)
@@ -387,8 +366,6 @@ static inline uint32_t mcuxClKey_getKeyContainerUsedSize(mcuxClKey_Handle_t key)
 
 /**
  * @brief Sets the used size of the key data container of the given key
- *
- * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setKeyContainerUsedSize)
 static inline void mcuxClKey_setKeyContainerUsedSize(mcuxClKey_Handle_t key, uint32_t keyContainerUsedSize)
@@ -397,40 +374,40 @@ static inline void mcuxClKey_setKeyContainerUsedSize(mcuxClKey_Handle_t key, uin
 }
 
 /************************************************************
- * INTERNAL INLINED FUNCTIONS FOR KEY FUNCTIONALITY
+ * INTERNAL WRAPPER MACROS FOR KEY FUNCTIONALITY
  ************************************************************/
 
 /**
- * @brief Load (and decode) the key data to the destination. This is a wrapper for the
- * encoding specific loadFunc.
+ * @brief Load (and decode) the key data to the destination.
+ * This is a wrapper macro for a call with FP to the encoding specific loadFunc
+ * of type @ref mcuxClKey_LoadFuncPtr_t.
  *
  * @param[in]  session Handle of the current session
  * @param      key     Handle to the key to be loaded
  * @param[out] ppDest  Pointer-pointer to the destination key location
+ * @param[in]  pKeyChecksums  Pointer to the encoding specific key checksum(s) data. Can be NULL.
  * @param      spec    Specification of the load operation
  *
  * @post
  *  - Data integrity: see description of the component-specific loadFunc - TODO to be updated in CLNS-13431
  */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_load)
-static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_load(
-  mcuxClSession_Handle_t session,
-  mcuxClKey_Handle_t key,
-  uint8_t **ppDest,
-  mcuxClKey_KeyChecksum_t * pKeyChecksums,
-  mcuxClKey_Encoding_Spec_t spec)
+#define MCUXCLKEY_LOAD_FP(session, key, ppDest, pKeyChecksums, spec) \
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID((key)->encoding->loadFunc( \
+    session, key, ppDest, pKeyChecksums, spec))
+
+static inline uint32_t mcuxClKey_load_getFpToken(mcuxClKey_Handle_t key)
 {
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClKey_load,
-    key->encoding->protectionToken_loadFunc);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(key->encoding->loadFunc(session, key, ppDest, pKeyChecksums, spec));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_load);
+  return ((key == NULL) ? 0U : key->encoding->protectionToken_loadFunc);
 }
 
+/** This macro defines the FP balancing for @ref MCUXCLKEY_LOAD_FP. */
+#define MCUXCLKEY_LOAD_FP_CALLED(key) \
+  mcuxClKey_load_getFpToken(key)
+
 /**
- * @brief Store (and encode/protect) the key data to the container. This is a wrapper for the
- * encoding specific storeFunc.
+ * @brief Store (and encode/protect) the key data to the container.
+ * This is a wrapper macro for a call with FP to the encoding specific storeFunc
+ * of type @ref mcuxClKey_StoreFuncPtr_t.
  *
  * @param[in]  session Handle of the current session
  * @param[out] key     Handle to the key to be stored
@@ -438,24 +415,23 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_load(
  * @param      spec    Specification of the store operation
  *
  */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_store)
-static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_store(
-  mcuxClSession_Handle_t session,
-  mcuxClKey_Handle_t key,
-  const uint8_t *pSrc,
-  mcuxClKey_Encoding_Spec_t spec)
+#define MCUXCLKEY_STORE_FP(session, key, pSrc, spec) \
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID((key)->encoding->storeFunc( \
+    session, key, pSrc, spec))
+
+static inline uint32_t mcuxClKey_store_getFpToken(mcuxClKey_Handle_t key)
 {
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClKey_store,
-    key->encoding->protectionToken_storeFunc);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(key->encoding->storeFunc(session, key, pSrc, spec));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_store);
+  return ((key == NULL) ? 0U : key->encoding->protectionToken_storeFunc);
 }
 
+/** This macro defines the FP balancing for @ref MCUXCLKEY_STORE_FP. */
+#define MCUXCLKEY_STORE_FP_CALLED(key) \
+  mcuxClKey_store_getFpToken(key)
+
 /**
- * @brief Flush the key from its location. This is a wrapper for the
- * encoding specific flushFunc.
+ * @brief Flush the key from its location.
+ * This is a wrapper macro for a call with FP to the encoding specific flushFunc
+ * of type @ref mcuxClKey_FlushFuncPtr_t.
  *
  * @post On successful flush, the key handle is updated to reflect
  *       that the key is not longer loaded.
@@ -464,20 +440,18 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_store(
  * @param[in,out] key     Handle to the key to be stored
  * @param         spec    Specification of the store operation
  */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_flush_internal)
-static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_flush_internal(
-  mcuxClSession_Handle_t session,
-  mcuxClKey_Handle_t key,
-  mcuxClKey_Encoding_Spec_t spec)
+#define MCUXCLKEY_FLUSH_FP(session, key, spec) \
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID((key)->encoding->flushFunc( \
+    session, key, spec))
+
+static inline uint32_t mcuxClKey_flush_getFpToken(mcuxClKey_Handle_t key)
 {
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClKey_flush_internal,
-    key->encoding->protectionToken_flushFunc);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(key->encoding->flushFunc(session, key, spec));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_flush_internal);
+  return ((key == NULL) ? 0U : key->encoding->protectionToken_flushFunc);
 }
 
+/** This macro defines the FP balancing for @ref MCUXCLKEY_FLUSH_FP. */
+#define MCUXCLKEY_FLUSH_FP_CALLED(key) \
+  mcuxClKey_flush_getFpToken(key)
 
 /************************************************************
  * INTERNAL FUNCTION DECLARATIONS FOR KEY FUNCTIONALITY
@@ -506,6 +480,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
   mcuxClKey_Encoding_Spec_t spec
 );
 
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC
 /**
  * @brief Functions to store a key into key container with plain key data.
  *
@@ -527,7 +502,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
   const uint8_t *pSrc,
   mcuxClKey_Encoding_Spec_t spec
 );
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC */
 
+#ifdef MCUXCLKEY_FEATURE_INTERNAL_HANDLECHECKSUMNONE_FUNC
 /**
  * @brief Key checksum handling function for protection mechanisms without key checksums.
  *
@@ -542,6 +519,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_handleKeyChecksums_none(
   mcuxClKey_KeyChecksum_t * pKeyChecksums,
   uint8_t* pKey
 );
+#endif /* MCUXCLKEY_FEATURE_INTERNAL_HANDLECHECKSUMNONE_FUNC */
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -51,7 +51,9 @@
 
 #define MCUXCLEXAMPLE_INITIALIZE_PRNG(session)                                                                               \
     /* Initialize the PRNG */                                                                                               \
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("session->apiCall is not NULL")                               \
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(prngInit_result, prngInit_token, mcuxClRandom_ncInit(session));                          \
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()                                                              \
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncInit) != prngInit_token) || (MCUXCLRANDOM_STATUS_OK != prngInit_result))   \
     {                                                                                                                       \
         return MCUXCLEXAMPLE_STATUS_ERROR;                                                                                   \

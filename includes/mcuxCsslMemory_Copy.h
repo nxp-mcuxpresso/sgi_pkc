@@ -19,6 +19,11 @@
 #ifndef MCUXCSSLMEMORY_COPY_H_
 #define MCUXCSSLMEMORY_COPY_H_
 
+#include <mcuxCsslMemory_Types.h>
+#include <mcuxCsslParamIntegrity.h>
+#include <mcuxCsslFlowProtection.h>
+#include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
+
 /**
  * @defgroup mcuxCsslMemory_Copy mcuxCssl Memory Copy
  * @brief Control Flow Protected Memory Copy Function

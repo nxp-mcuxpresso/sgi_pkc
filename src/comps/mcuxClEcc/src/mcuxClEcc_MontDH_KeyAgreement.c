@@ -74,46 +74,51 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
     uint16_t keyLen = pCommonDomainParameters->byteLenP;
 
     /* mcuxClEcc_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
-    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-    mcuxClEcc_CpuWa_t *pCpuWorkarea = (mcuxClEcc_CpuWa_t *) mcuxClSession_getEndOfUsedBuffer_Internal(pSession);
-    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY()
-    MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDH_SetupEnvironment, mcuxClEcc_MontDH_SetupEnvironment(pSession,
-                                                                 pDomainParameters,
-                                                                 ECC_MONTDH_NO_OF_BUFFERS));
-    if(MCUXCLECC_STATUS_OK != retCode_MontDH_SetupEnvironment)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLKEY_STATUS_FAULT_ATTACK);
-    }
+    mcuxClEcc_CpuWa_t *pCpuWorkarea = mcuxClEcc_castToEccCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
+
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+      mcuxClEcc_MontDH_SetupEnvironment(pSession, pDomainParameters, ECC_MONTDH_NO_OF_BUFFERS)
+    );
 
     /* Securely import private key d to PKC buffer ECC_S3 */
     const uint16_t * pOperands = MCUXCLPKC_GETUPTRT();
     uint8_t *pPrivateKeyDest = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S3]);
     MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession,
-                                                               key,
-                                                               &pPrivateKeyDest,
-                                                               MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
-                                                               NULL,
-                                                               MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
-                                                               MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE));
+    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
+    MCUXCLKEY_LOAD_FP(
+      pSession,
+      key,
+      &pPrivateKeyDest,
+      MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
+      NULL,
+      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
+      MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
 
     /* Call mcuxClEcc_MontDH_X to calculate the public key q=MontDH_X(d,Gx) and store it in buffer MONT_X0. If the function returns NEUTRAL_POINT, return MCUXCLECC_STATUS_FAULT_ATTACK */
     uint8_t *pPublicKeyData = NULL;
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession,
-                                                           pOtherKey,
-                                                           &pPublicKeyData,
-                                                           MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
-                                                           NULL,
-                                                           MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
-                                                           MCUXCLKEY_ENCODING_SPEC_ACTION_PTR));
+    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(pOtherKey));
+    MCUXCLKEY_LOAD_FP(
+      pSession,
+      pOtherKey,
+      &pPublicKeyData,
+      MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
+      NULL,
+      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
+      MCUXCLKEY_ENCODING_SPEC_ACTION_PTR);
 
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDHx, mcuxClEcc_MontDH_X(pSession, pDomainParameters, (const uint8_t*)pPublicKeyData));
 
     if(MCUXCLECC_STATUS_RNG_ERROR == retCode_MontDHx)
     {
         MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_ERROR);
+    }
+    else if(MCUXCLECC_STATUS_NEUTRAL_POINT == retCode_MontDHx)
+    {
+        MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
+    }
+    else if(MCUXCLECC_INTSTATUS_SCALAR_ZERO == retCode_MontDHx)
+    {
+        MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
     else if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
     {

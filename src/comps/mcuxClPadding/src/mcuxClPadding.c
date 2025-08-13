@@ -125,7 +125,9 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPadding_addPadding_ISO9797_1_Method1);
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0u, blockLength, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("blockLength is always greater than 0 so, blockLength-1U does not wrap")
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0u, (blockLength-1U), MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
   uint32_t paddingBytes = blockLength - lastBlockLength;
 
   MCUX_CSSL_DI_RECORD(memorySet, pOut + lastBlockLength);
@@ -280,7 +282,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
-  const uint8_t randomMaskByte = (uint8_t)(mcuxClPrng_generate_word() & 0xFFu);
+  MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
+  const uint8_t randomMaskByte = (uint8_t)(random32 & 0xFFu);
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XORWithConst_secure_int(pIn, pIn, randomMaskByte, MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(blockLength)));
 
@@ -321,6 +324,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   *pOutLength = remainingBytes;
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPadding_removePadding_ISO9797_1_Method2,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XORWithConst_secure_int),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XORWithConst_secure_int),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write));
@@ -387,7 +391,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_removePadding_PKCS7(
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
-  const uint8_t randomMaskByte = (uint8_t) (mcuxClPrng_generate_word() & 0xFFu);
+  MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
+  const uint8_t randomMaskByte = (uint8_t) (random32 & 0xFFu);
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XORWithConst_secure_int(pIn, pIn, randomMaskByte, MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(blockLength)));
 
@@ -424,6 +429,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_removePadding_PKCS7(
   *pOutLength = remainingBytes;
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPadding_removePadding_PKCS7,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XORWithConst_secure_int),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XORWithConst_secure_int),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write));

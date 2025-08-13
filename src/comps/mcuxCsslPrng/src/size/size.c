@@ -11,7 +11,6 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-
 #include <mcuxClCore_Platform.h>
 #include <platform_specific_headers.h>
 #include <mcuxCsslAnalysis.h>
@@ -19,9 +18,9 @@
 MCUX_CSSL_ANALYSIS_START_PATTERN_OBJ_SIZES()
 
 #if defined(SCM)      /* S5xy */
-#define MCUXCSSLPRNG_SCM_PRNG_ADDR  ((uint32_t) SCM_BASE + offsetof(SCM_Type, SCM_PRNG_OUT))
+  #define MCUXCSSLPRNG_SCM_PRNG_ADDR  ((uint32_t) SCM_BASE + offsetof(SCM_Type, SCM_PRNG_OUT))
 #elif defined(S3SCM)  /* S401 */
-#define MCUXCSSLPRNG_SCM_PRNG_ADDR  ((uint32_t) S3SCM_BASE + offsetof(S3SCM_Type, S3SCM_PRNG_OUT))
+  #define MCUXCSSLPRNG_SCM_PRNG_ADDR  ((uint32_t) S3SCM_BASE + offsetof(S3SCM_Type, S3SCM_PRNG_OUT))
 #else
 /* Avoid below error if stub is used. */
 #endif

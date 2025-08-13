@@ -25,7 +25,9 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxClCore_FunctionIdentifiers.h>
 #include <internal/mcuxClBuffer_Internal.h>
+#include <internal/mcuxClBuffer_FeatureConfig.h>
 #include <internal/mcuxClMemory_Copy_Internal.h>
+
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_export)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClBuffer_Status_t) mcuxClBuffer_export(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
@@ -174,6 +176,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure_reverse(mcuxCl_Buffe
   );
 }
 
+#ifdef MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_withoutDestIncrement)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
 {
@@ -185,4 +188,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_withoutDstIncrement_int)
   );
 }
+#endif /* MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC */
 

@@ -33,14 +33,14 @@
  *        the CSSL secure counter mechanism.
  * \ingroup mcuxCsslDataIntegrity_CFG
  */
-    #define MCUX_CSSL_DI_USE_SECURE_COUNTER      0
+    #define MCUX_CSSL_DI_USE_SECURE_COUNTER      1
 
 /**
  * \def MCUX_CSSL_DI_USE_NONE
  * \brief If set to 1, do not use the data integrity mechanism.
  * \ingroup mcuxCsslDataIntegrity_CFG
  */
-    #define MCUX_CSSL_DI_USE_NONE    1
+    #define MCUX_CSSL_DI_USE_NONE    0
 
 /* Basic configuration sanity check */
 

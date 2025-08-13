@@ -16,7 +16,6 @@
  *         with the Sgi.
  */
 
-#include <mcuxClMemory.h>
 #include <internal/mcuxClSgi_Drv.h>
 #include <internal/mcuxClSgi_Utils.h>
 #include <mcuxClAes.h>
@@ -25,8 +24,6 @@
 #include <internal/mcuxClCrc_Internal_Functions.h>
 #include <internal/mcuxClAes_Internal_Functions.h>
 #include <internal/mcuxClAes_Internal_Constants.h>
-#include <internal/mcuxClMemory_Copy_Internal.h>
-#include <internal/mcuxClMemory_CopyWords_Internal.h>
 #include <internal/mcuxClKey_Internal.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 #include <internal/mcuxClPrng_Internal.h>
@@ -55,8 +52,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadKey_Sgi(
   {
     /* Perform key loading */
     uint8_t *pKeyDest = ((uint8_t *)mcuxClSgi_Drv_getAddr(keyOffset));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(session, key, &pKeyDest, pKeyChecksums, MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE));
+    MCUXCLKEY_LOAD_FP(session, key, &pKeyDest, pKeyChecksums, MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
+
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("The pKeyDest points to an SGI SFR, which are always 32-bit aligned")
     dstOffset = mcuxClSgi_Drv_addressToOffset((uint32_t*)pKeyDest);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
@@ -95,7 +92,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadKey_Sgi(
                       | MCUXCLSGI_DRV_CTRL_INKEYSEL(mcuxClSgi_Drv_keyOffsetToIndex(dstOffset));
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_loadKey_Sgi);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_loadKey_Sgi,
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_LOADSTATUS_NOTLOADED == keyLoadStatus),
+      MCUXCLKEY_LOAD_FP_CALLED(key))
+    );
 }
 
 // TODO CLNS-17176: Split this function according to design.
@@ -144,6 +144,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_storeMaskedKeyInCtx_Sgi(
     /* Key handle is NULL, this means this key is internal (GMAC H-Key, or CMAC subkey, ..) and freshly loaded.
      * As no key handle is available, store the key slot in the context to properly flush the key from SGI later. */
     pContext->slot = mcuxClSgi_Drv_keyOffsetToSlot(keyOffset);
+    pContext->key = NULL;
     pContext->keyLocationInfo = MCUXCLAES_KEYCONTEXT_KEYDATA_MASKED_IN_CONTEXT;
     if(NULL == pWa)
     {
@@ -166,20 +167,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_storeMaskedKeyInCtx_Sgi(
     uint32_t *pTarget = pContext->keyMasked;
 
     /* Generate SFR mask seed */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word));
     MCUX_CSSL_FP_FUNCTION_CALL(sfrSeed, mcuxClPrng_generate_word());
-
     pContext->keySeed = sfrSeed;
 
     /* Record input data for mcuxClSgi_Utils_copySfrMasked() */
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, pTarget);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, pSource);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, keySize);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copySfrMasked(pTarget, pSource, keySize, pContext->keySeed));
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_storeMaskedKeyInCtx_Sgi);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_storeMaskedKeyInCtx_Sgi,
+    MCUX_CSSL_FP_CONDITIONAL((
+      (MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY != (MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY & (keyLoadStatus)))
+        && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED & (keyLoadStatus)))),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked)
+    )
+  );
 }
 
 // TODO CLNS-17176: Split this function according to design.
@@ -201,6 +206,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedKeyFromCtx_Sgi(
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClAes_loadMaskedKeyFromCtx_Sgi);
 
   uint32_t dstOffset;
+  mcuxClKey_LoadStatus_t keyLoadStatus = MCUXCLKEY_LOADSTATUS_NOTLOADED;
 
   if(MCUXCLAES_KEYCONTEXT_KEYDATA_MASKED_IN_CONTEXT == pContext->keyLocationInfo)
   {
@@ -213,7 +219,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedKeyFromCtx_Sgi(
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, pTarget);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, pSource);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, keySize);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copySfrMasked(pTarget, pSource, keySize, seed));
 
     dstOffset = keyOffset;
@@ -223,19 +228,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedKeyFromCtx_Sgi(
   }
   else if(MCUXCLAES_KEYCONTEXT_KEYHANDLE_IN_CONTEXT == pContext->keyLocationInfo)
   {
-    mcuxClKey_LoadStatus_t keyLoadStatus = mcuxClKey_getLoadStatus(pContext->key);
-
     /* The key handle is stored in the context, check if the key needs to be loaded */
+    keyLoadStatus = mcuxClKey_getLoadStatus(pContext->key);
     if(MCUXCLKEY_LOADSTATUS_NOTLOADED == keyLoadStatus)
     {
       /* Perform key loading */
       uint8_t *pKeyDest = ((uint8_t *)mcuxClSgi_Drv_getAddr(keyOffset));
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load));
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(session,
-                                                      pContext->key,
-                                                      &pKeyDest,
-                                                      &(pContext->keyChecksums),
-                                                      MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE));
+      MCUXCLKEY_LOAD_FP(
+        session,
+        pContext->key,
+        &pKeyDest,
+        &(pContext->keyChecksums),
+        MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
 
       MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("The pKeyDest points to an SGI SFR, which are always 32-bit aligned")
       dstOffset = mcuxClSgi_Drv_addressToOffset((uint32_t*)pKeyDest);
@@ -277,7 +281,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedKeyFromCtx_Sgi(
                       | MCUXCLSGI_DRV_CTRL_INKEYSEL(mcuxClSgi_Drv_keyOffsetToIndex(dstOffset));
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi,
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLAES_KEYCONTEXT_KEYDATA_MASKED_IN_CONTEXT == pContext->keyLocationInfo),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked)),
+    MCUX_CSSL_FP_CONDITIONAL((
+      (MCUXCLAES_KEYCONTEXT_KEYHANDLE_IN_CONTEXT == pContext->keyLocationInfo)
+        && (MCUXCLKEY_LOADSTATUS_NOTLOADED == keyLoadStatus)),
+      MCUXCLKEY_LOAD_FP_CALLED(pContext->key))
+  );
 }
 
 // TODO CLNS-17176: Split this function according to design.
@@ -327,7 +338,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_flushKeyInContext(
   {
     /* Flush the key in use if it is not preloaded.
      * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_flushRegisterBanks(mcuxClSgi_Drv_keySlotToOffset(keySlot), numKeyWords));
 
     if(MCUXCLAES_KEYCONTEXT_KEYHANDLE_IN_CONTEXT == pContext->keyLocationInfo)
@@ -343,5 +353,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_flushKeyInContext(
     }
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_flushKeyInContext);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_flushKeyInContext,
+    MCUX_CSSL_FP_CONDITIONAL((
+      (MCUXCLKEY_LOADSTATUS_NOTLOADED != keyLoadStatus)
+        && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED & keyLoadStatus))),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks))
+  );
 }

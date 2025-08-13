@@ -52,8 +52,8 @@
  *  - Buffers ECC_COORD00, ECC_COORD01, ECC_COORD02 contain the homogeneous coordinates (x:y:1) in MR
  *
  * Return values:
- *  - MCUXCLECC_STATUS_OK                if the function executed successfully
- *  - MCUXCLECC_STATUS_INVALID_PARAMS    if the input point is invalid, i.e. the decoding failed
+ *  - MCUXCLECC_STATUS_OK                  if the function executed successfully
+ *  - MCUXCLECC_INTSTATUS_DECODING_NOT_OK  if the input point is invalid, i.e. the decoding failed
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_DecodePoint_Ed25519, mcuxClEcc_EdDSA_DecodePointFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_DecodePoint_Ed25519(
@@ -64,7 +64,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_DecodePoint_Ed25
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_EdDSA_DecodePoint_Ed25519);
 
     /* DI protect the byte length of the exponent.
-     * Will be balanced in the call to mcuxClMath_ModExp_SqrMultL2R() in Step 5. */
+     * Will be balanced in the call to mcuxClMath_ModExp_SqrMultL2R() in Step 4,
+     * or, in Step 2 when exiting the function. */
     MCUX_CSSL_DI_RECORD(DecodePoint_ModExp, pDomainParams->common.byteLenP);
 
     /* Step 1: Read and backup the LSBit x0 from buffer ECC_COORD00 and clear it in buffer ECC_COORD00. */
@@ -77,11 +78,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_DecodePoint_Ed25
     *pEncPointLastByte &= 0x7Fu;
 
     /* Step 2: Compute ECC_COORD00 - ECC_P. If the CARRY flag is not set, the decoding failed
-    and #MCUXCLECC_STATUS_INVALID_PARAMS is returned. */
+    and #MCUXCLECC_INTSTATUS_DECODING_NOT_OK is returned. */
     MCUXCLPKC_FP_CALC_OP1_CMP(ECC_COORD00, ECC_P);
     if (MCUXCLPKC_FLAG_CARRY != MCUXCLPKC_WAITFORFINISH_GETCARRY())
     {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_INVALID_PARAMS);                   /* Step 3 */
+        /* Balance the DI_RECORD at the beginning of the function */
+        MCUX_CSSL_DI_EXPUNGE(DecodePoint_ModExp, pDomainParams->common.byteLenP);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_DecodePoint_Ed25519, MCUXCLECC_INTSTATUS_DECODING_NOT_OK,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_CMP);                   /* Step 2 */
     }
 
     /* Step 3: Import pDomainParams->pSqrtMinusOne to buffer ECC_COORD04. */
@@ -132,7 +136,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_DecodePoint_Ed25
         if (MCUXCLPKC_FLAG_ZERO != MCUXCLPKC_WAITFORFINISH_GETZERO())
         {
             /* If x~^2 * v != +/- u, decoding fails */
-            MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_INVALID_PARAMS);
+            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_DecodePoint_Ed25519, MCUXCLECC_INTSTATUS_DECODING_NOT_OK,
+                MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,                                /* Step 2 */
+                MCUXCLPKC_FP_CALLED_IMPORTLITTLEENDIANTOPKC_BUFFER,              /* Step 3 */
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),                  /* Step 4 */
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SwitchEndianness),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModExp_SqrMultL2R),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+                MCUXCLPKC_FP_CALLED_CALC_MC1_MS,
+                MCUXCLPKC_FP_CALLED_CALC_MC1_MS);
         }
         /* Set x' = x~ */
         MCUXCLPKC_FP_CALC_MC1_MS(ECC_COORD00, ECC_T3, ECC_P, ECC_P);
@@ -145,10 +158,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_DecodePoint_Ed25
     }
     /* After this, we have x' in ECC_COORD00 in MR in range [0,p-1], y in MR in ECC_COORD01, 1 in MR in ECC_COORD02, and PKC_ZERO is set if and only if x' = 0 */
 
-    /* Step 5: If the ZERO flag of the PKC is set and x0=1, return #MCUXCLECC_STATUS_INVALID_PARAMS, decoding failed. */
+    /* Step 5: If the ZERO flag of the PKC is set and x0=1, return #MCUXCLECC_INTSTATUS_DECODING_NOT_OK, decoding failed. */
     if ((MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_WAITFORFINISH_GETZERO()) && (1u == x0))
     {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_INVALID_PARAMS);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_DecodePoint_Ed25519, MCUXCLECC_INTSTATUS_DECODING_NOT_OK,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,                                /* Step 2 */
+            MCUXCLPKC_FP_CALLED_IMPORTLITTLEENDIANTOPKC_BUFFER,              /* Step 3 */
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),                  /* Step 4 */
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SwitchEndianness),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModExp_SqrMultL2R),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),                  /* Step 5 */
+            MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(vx2IsMinusU, MCUXCLPKC_FLAG_ZERO == zeroFlag_check1),
+            MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE(vx2IsMinusU, MCUXCLPKC_FLAG_ZERO != zeroFlag_check1));
     }
 
     /* Step 6: If x0!=x' mod 2, set ECC_COORD00 = ECC_P - ECC_COORD00. Finally ECC_COORD00 contains x in MR. */

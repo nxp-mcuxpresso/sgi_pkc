@@ -91,7 +91,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateHashPrefix(
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_PreHashMessage)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_PreHashMessage(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PreHashMessage(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
     mcuxClEcc_CpuWa_t * const pCpuWorkarea,
@@ -109,7 +109,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_PreHashMessage(
         /* phflag is set, pre-hash the message */
         MCUX_CSSL_DI_RECORD(hashComputeInternalParams, pIn);
         MCUX_CSSL_DI_RECORD(hashComputeInternalParams, inSize);
-        uint8_t *pMessageTmp = (uint8_t*) mcuxClSession_allocateWords_cpuWa(pSession, (uint32_t)pDomainParams->algoHash->hashSize / sizeof(uint32_t));
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+        MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pMessageTmp, mcuxClSession_allocateWords_cpuWa(pSession, (uint32_t)pDomainParams->algoHash->hashSize / sizeof(uint32_t)));
 
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("the result does not wrap ")
         pCpuWorkarea->wordNumCpuWa += pDomainParams->algoHash->hashSize / sizeof(uint32_t);
@@ -142,6 +143,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_PreHashMessage(
         MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_PreHashMessage, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_PreHashMessage,
         MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(phflagSet, MCUXCLECC_EDDSA_PHFLAG_ONE == phflag) );
 }

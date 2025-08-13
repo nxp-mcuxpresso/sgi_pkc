@@ -32,6 +32,7 @@
 #include <mcuxClMemory_Constants.h>
 #include <mcuxClMemory_Types.h>
 #include <mcuxCsslMemory.h>
+#include <internal/mcuxCsslMemory_Internal_Compare_arm_asm.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslDataIntegrity.h>
 
@@ -44,21 +45,22 @@ extern "C" {
  **********************************************/
 
 /**
- * @brief Compares two memory buffer with security agains faults - internal use only.
- *  
+ * @brief Compares two memory buffer with security against faults - internal use only.
+ * IMPORTANT: This function should not be used with secret input parameters.
+ *
  * @param[in]  pLhs        pointer to the left buffer to be compared.
  * @param[in]  pRhs        pointer to the right buffer to be compared.
  * @param      length      size (in bytes) to be compared.
- * 
+ *
  * @pre
- *  - For better performance and security, please use aligned pointers, and lengths multiple of word size.
+ *  - For better performance, please use aligned pointers, and lengths multiple of word size.
  * @post
- * - Data Integrity: Expunge(pLhs + pRhs + length)
+ * - Data Integrity: Record(status) + Expunge(pLhs + pRhs + length)
  *
  * @return A status code encapsulated in a flow-protection type.
  * @retval #MCUXCLMEMORY_STATUS_EQUAL                 If length bytes of Lhs and Rhs are equal.
  * @retval #MCUXCLMEMORY_STATUS_NOT_EQUAL             If at least one byte differs between the two.
- * @retval #MCUXCLMEMORY_STATUS_FAULT
+ * @retval #MCUXCLMEMORY_STATUS_FAULT                 A fault attack occured.
  */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMemory_compare_int)
@@ -73,13 +75,17 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMemory_Status_t) mcuxClMemory_co
 
     mcuxClMemory_Status_t retval = MCUXCLMEMORY_STATUS_FAULT;
 
-    MCUX_CSSL_FP_FUNCTION_CALL(csslRetval,
-        mcuxCsslMemory_Compare(MCUX_CSSL_PI_PROTECT(pLhs, pRhs, length),
-        pLhs, pRhs, length));
-    /* INVALID_PARAMETER cannot be returned for internal usage of this function */
+    MCUX_CSSL_FP_FUNCTION_CALL(csslRetval, mcuxCsslMemory_Compare_arm_asm(pLhs, pRhs, length));
+
+    /* translate mcuxCsslMemory_Status_t -> mcuxClMemory_Status_t */
     retval = (mcuxClMemory_Status_t) csslRetval ^ (MCUXCSSLMEMORY_COMPONENT_MASK ^ MCUXCLMEMORY_COMPONENT_MASK);
-    MCUX_CSSL_DI_EXPUNGE(identifier /* Not used */, (uint32_t) pLhs + (uint32_t) pRhs + length);  // Balance the SC
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMemory_compare_int, retval, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare));
+
+    /* Record mcuxClMemory status and expunge mcuxCssl status, since it's internal */
+    /* TODO CLNS-17727: add expunge(status) after all calls to this function and uncomment here */
+    /* MCUX_CSSL_DI_RECORD(memoryRet, retval); */
+    MCUX_CSSL_DI_EXPUNGE(csslMemoryRet, csslRetval);
+
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMemory_compare_int, retval, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare_arm_asm));
 }
 
 

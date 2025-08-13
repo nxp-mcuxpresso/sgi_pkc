@@ -33,7 +33,7 @@
 #include <mcuxClMemory_Types.h>
 #include <mcuxClToolchain.h>
 #include <mcuxCsslFlowProtection.h>
-#include <mcuxCsslMemory.h>
+#include <internal/mcuxClMemory_Copy_Internal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,13 +69,8 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_secure_int
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_secure_int);
 
-    (void)mcuxCsslMemory_Copy(MCUX_CSSL_PI_PROTECT(pSrc, pDst, length, length),
-                             pSrc, pDst, length, length); // For internal usage, only OK return is expected
-    // Unbalance the SC
-    MCUX_CSSL_DI_EXPUNGE(copyParamsSrc /* Not used */, (uint32_t) pSrc);
-    MCUX_CSSL_DI_EXPUNGE(copyParamsDst /* Not used */, (uint32_t) pDst);
-    MCUX_CSSL_DI_EXPUNGE(copyParamsLength /* Not used */, length);
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_secure_int);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pDst, pSrc, length));
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_secure_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
 }
 
 

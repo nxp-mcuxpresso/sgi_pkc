@@ -19,7 +19,7 @@
 #ifndef MCUXCSSLMEMORY_COMPARE_H
 #define MCUXCSSLMEMORY_COMPARE_H
 
-#include <stdint.h>
+#include <mcuxCsslMemory_Types.h>
 #include <mcuxCsslParamIntegrity.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>

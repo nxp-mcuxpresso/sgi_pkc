@@ -64,7 +64,7 @@
 #define PKC_IRQ_NUMBER      PKC_IRQn
 
 #define DMA_CH0_IRQ_NUMBER            ((uint32_t)DMA_CH0_IRQn)
-#define GET_DMA_CHX_IRQ_NUMBER(x)     (DMA_CH0_IRQ_NUMBER + x)
+#define GET_DMA_CHX_IRQ_NUMBER(x)     ((DMA_CH0_IRQ_NUMBER) + (x))
 #define DMA_CH_TOTAL  8u
 
 /**
@@ -102,6 +102,7 @@
 #define SGI_HAS_WRITEONLY_KEYS       1      ///< "feature" flag for existence of SGI write-only keys
 #define SGI_HAS_KEY_WRAP_UNWRAP      1      ///< "feature" flag for existence of SGI key wrap/unwrap
 // #define SGI_HAS_FLUSHWR            1    ///< Not available on A20, because of HYBRID SGI
+// #define SGI_HAS_PRNG_SW_READ         1      ///< "feature" flag for existence of the SGI PRNG
 
 // Define base address of PKC
 #define PKC_SFR_BASE            PKC0        ///< base of PKC SFRs

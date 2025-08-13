@@ -172,8 +172,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     pOperands[WEIER_VT] = (uint16_t) nMSWord_LeadZeros;
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_VT, nMSWord_LeadZeros);
 
-    uint8_t *ptrS1 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S1]);
-    MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S1, (uint32_t) ptrS1);
+    uint32_t *ptr32S1 = MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_S1]);
+    MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S1, (uint32_t) ptr32S1);
 
     /* Set PS2 OPLEN = pkcByteLenN65. */
     MCUXCLPKC_PS2_SETLENGTH(0u, pkcByteLenN65);
@@ -181,7 +181,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     MCUXCLPKC_FP_CALC_OP2_CONST(ECC_S1, 0u);
 
     MCUXCLPKC_WAITFORFINISH();
-    ptrS1[(bitLenN65 - 1u) / 8u] = (uint8_t)((1u << ((bitLenN65 - 1u) & 7u)) & 0xFFu);
+    ptr32S1[(bitLenN65 - 1u) / 32u] = (uint32_t) 1u << ((bitLenN65 - 1u) & 31u);
 
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_CoreKeyGen_Steps2ab,
@@ -200,7 +200,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP2_CONST);
     MCUXCLPKC_FP_CALC_OP2_CONST(ECC_S1, 0u);
     MCUXCLPKC_WAITFORFINISH();
-    ptrS1[(bitLenN65 - 1u) / 8u] = (uint8_t)((1u << ((bitLenN65 - 1u) & 7u)) & 0xFFu);
+    ptr32S1[(bitLenN65 - 1u) / 32u] = (uint32_t) 1u << ((bitLenN65 - 1u) & 31u);
 
     /* S0 = r' = 2^(nBitLen+64) - r*/
     MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP2_SUB);
@@ -334,8 +334,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_keySeedLength, keySeedLength_2);
 
     /**
-     * Expunge pointers to S0, S2, and S3.
-     * Consequently, the pointers ptrS0, ptr32S0, ptrS1, ptrS2 are protected.
+     * Expunge pointers to S0, S1, and S2.
+     * Consequently, the pointers ptrS0, ptr32S0, ptr32S1, ptrS2 are protected.
      */
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_S0, (uint32_t) MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_S0]) * 3u);
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_S1, (uint32_t) MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S1]));

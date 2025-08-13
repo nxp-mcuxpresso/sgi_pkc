@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -55,10 +55,12 @@ static inline bool mcuxClExample_Session_InitAndSetResourceCtx(
                         mcuxClSession_Handle_t pSession,
                         mcuxClResource_Context_t * pResourceCtx)
 {
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ri_status, ri_token, mcuxClResource_init(
         /* mcuxClResource_Context_t * pResourceCtx:              */ pResourceCtx,
         /* mcuxClResource_MutexAcquire_Callback_t pMutexAcquire: */ NULL,
         /* mcuxClResource_MutexRelease_Callback_t pMutexRelease: */ NULL));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
     if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_init) != ri_token) || (MCUXCLRESOURCE_STATUS_OK != ri_status))
     {
         return false;
@@ -83,7 +85,9 @@ static inline bool mcuxClExample_Session_InitAndSetResourceCtx(
             /* mcuxClSession_Handle_t session:      */ pSession,                                                       \
             /* uint32_t * const cpuWaBuffer:       */ cpuWaBuffer,                                                    \
             /* uint32_t cpuWaSize:                 */ cpuWaLength,                                                    \
+            MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER()                                                \
             /* uint32_t * const pkcWaBuffer:       */ (uint32_t *) PKC_RAM_ADDR,                                      \
+            MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()                                                 \
             /* uint32_t pkcWaSize:                 */ pkcWaLength                                                     \
             ));                                                                                                       \
         /* mcuxClSession_init is a flow-protected function: Check the protection token and the return value */         \
@@ -93,7 +97,7 @@ static inline bool mcuxClExample_Session_InitAndSetResourceCtx(
         }                                                                                                             \
         MCUX_CSSL_FP_FUNCTION_CALL_END();                                                                              \
         uint32_t resCtx[MCUXCLRESOURCE_CONTEXT_SIZE/sizeof(uint32_t)];                                                 \
-        if (false == mcuxClExample_Session_InitAndSetResourceCtx(pSession, (mcuxClResource_Context_t *)resCtx))         \
+        if (!mcuxClExample_Session_InitAndSetResourceCtx(pSession, (mcuxClResource_Context_t *)resCtx))                 \
         {                                                                                                             \
             return false;                                                                                             \
         }
@@ -106,7 +110,9 @@ static inline bool mcuxClExample_Session_InitAndSetResourceCtx(
             /* mcuxClSession_Handle_t session:      */ pSession,                                                       \
             /* uint32_t * const cpuWaBuffer:       */ cpuWaBuffer,                                                    \
             /* uint32_t cpuWaSize:                 */ cpuWaLength,                                                    \
+            MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER()                                                \
             /* uint32_t * const pkcWaBuffer:       */ (uint32_t *) PKC_RAM_ADDR,                                      \
+            MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()                                                 \
             /* uint32_t pkcWaSize:                 */ pkcWaLength                                                     \
             ));                                                                                                       \
         /* mcuxClSession_init is a flow-protected function: Check the protection token and the return value */         \

@@ -22,6 +22,29 @@
 
 
 /**
+ * @brief Function to calculate the copied length ; check done here for CCM
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMemory_copy_checkLength)
+static inline MCUX_CSSL_FP_PROTECTED_TYPE(size_t) mcuxClMemory_copy_checkLength(
+    size_t length,
+    size_t bufLength
+)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_checkLength);
+
+    size_t ret = 0U;
+    if (length <= bufLength)
+    {
+        ret = length;
+    }
+    else
+    {
+        ret = bufLength;
+    }
+
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMemory_copy_checkLength, ret);
+}
+/**
  * [DESIGN]
  *
  * This function considers the following cases of alignment of source and
@@ -203,10 +226,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy (uint8_t *pDst, uint8_t cons
         }
     }
 
+    /*Check the copied length for FP balancing */
+    MCUX_CSSL_FP_COUNTER_STMT(
+        MCUX_CSSL_FP_FUNCTION_CALL(ret_length, mcuxClMemory_copy_checkLength(length, bufLength));
+    )
+
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy,
-        ((length <= bufLength) ? length : bufLength) - copiedLength,
-        MCUX_CSSL_FP_LOOP_ITERATIONS(mcuxClMemory_copy_loop,
-                                    ((length <= bufLength) ? length : bufLength)) );
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_checkLength),
+        (ret_length - copiedLength),
+        MCUX_CSSL_FP_LOOP_ITERATIONS(mcuxClMemory_copy_loop, ret_length)
+    );
 }
 
 

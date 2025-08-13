@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2023 NXP                                                       */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -13,4 +13,14 @@
 
 /**
  * @file  mcuxCsslPrng_AssemblyHeader.h
+ * @brief Constant definitions for the mcuxCsslPrng assembly implementation
  */
+
+#ifndef MCUXCSSLPRNG_ASSEMBLYHEADER_H_
+#define MCUXCSSLPRNG_ASSEMBLYHEADER_H_
+
+
+#define MCUXCSSLPRNG_PRNG_ADDR  ((1 << 16) | 1)
+
+
+#endif /* MCUXCSSLPRNG_ASSEMBLYHEADER_H_ */

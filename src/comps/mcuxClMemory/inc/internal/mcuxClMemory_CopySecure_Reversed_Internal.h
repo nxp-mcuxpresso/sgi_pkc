@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -45,11 +45,11 @@ extern "C" {
 
 /**
  * @brief Copies a memory buffer to another location with security against fault and SPA - internal use only.
- *  
+ *
  * @param[out] pDst        pointer to the buffer to be copied to.
  * @param[in]  pSrc        pointer to the buffer to copy.
  * @param      length      size (in bytes) to be copied.
- * 
+ *
  * @pre
  *  - @p pDst and @p pSrc must not overlap.
  *  - For better performance and security, please use aligned pointers, and lengths multiple of word size.
@@ -68,7 +68,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_secure_reverse
 )
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_secure_reversed_int);
-    
+
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pDst, pSrc, length));
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_secure_reversed_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
 }

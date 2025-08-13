@@ -27,7 +27,7 @@
 #include <mcuxClExample_Session_Helper.h>
 #include <mcuxClExample_RNG_Helper.h>
 
-/** Test vectors are taken from https://datatracker.ietf.org/doc/html/rfc3394 */
+// Test vectors are taken from https://datatracker.ietf.org/doc/html/rfc3394
 
 /* Already wrapped key data. This is wrapped by the transport key. */
 static const uint8_t wrappedKeyData[MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE] = {
@@ -87,13 +87,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_Rewrap_Rfc3394_Sgi_example)
   /**************************************************************************/
 
   uint32_t transportKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t transportKey = (mcuxClKey_Handle_t) &transportKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_status, ki_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ transportKey,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) transportKeyData,
+    /* uint8_t * pKeyData:                   */ transportKeyData,
     /* uint32_t keyDataLength:               */ sizeof(transportKeyData))
   );
 
@@ -121,13 +123,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_Rewrap_Rfc3394_Sgi_example)
   /**************************************************************************/
 
   uint32_t wrappedKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t wrappedKey = (mcuxClKey_Handle_t) &wrappedKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki2_status, ki2_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ wrappedKey,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) wrappedKeyData,
+    /* uint8_t * pKeyData:                   */ wrappedKeyData,
     /* uint32_t keyDataLength:               */ sizeof(wrappedKeyData))
   );
 
@@ -147,7 +151,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_Rewrap_Rfc3394_Sgi_example)
     /* mcuxClSession_Handle_t session:     */ session,
     /* mcuxClKey_Handle_t key:             */ wrappedKey,
     /* mcuxClKey_Encoding_t encoding:      */ mcuxClAes_Encoding_Rfc3394,
-    /* const uint8_t * pAuxData:          */ (uint8_t*) transportKeyDesc,
+    /* const uint8_t * pAuxData:          */ (const uint8_t*) transportKeyDesc,
     /* uint32_t auxDataLength:            */ sizeof(transportKeyDesc))
   );
 
@@ -163,13 +167,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_Rewrap_Rfc3394_Sgi_example)
   /**************************************************************************/
 
   uint32_t keyWrappingKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t keyWrappingKey = (mcuxClKey_Handle_t) &keyWrappingKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(kiKwk_status, kiKwk_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ keyWrappingKey,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes256,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) kwk256Data,
+    /* uint8_t * pKeyData:                   */ kwk256Data,
     /* uint32_t keyDataLength:               */ sizeof(kwk256Data))
   );
 
@@ -207,7 +213,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_Rewrap_Rfc3394_Sgi_example)
    */
 
   uint32_t reWrappedKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t reWrappedKey = (mcuxClKey_Handle_t) &reWrappedKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   uint8_t reWrappedKeyData[MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE];
   uint32_t reWrappedKeyLen = 0u;
 
@@ -232,7 +240,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClKey_Rewrap_Rfc3394_Sgi_example)
   /* Verification                                                           */
   /**************************************************************************/
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT")
   if(!mcuxClCore_assertEqual(reWrappedKeyData, expectedRewrappedKeyData, sizeof(expectedRewrappedKeyData)))
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }

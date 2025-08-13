@@ -1,23 +1,32 @@
-DCI_SDK (0.2.1) Release Notes
+DCI_SDK (1.0.0) Release Notes
 
-- Release: DCI_SDK EAR
-- Version: DCI_SDK_V0.2.1
-- Date:    2025-04-11
-- Link to Nexus RepositoryManager: https://nl-nxrm.sw.nxp.com/service/rest/repository/browse/cccs-releases-raw/
+- Release: DCI_SDK PRC
+- Version: DCI_SDK_V1.0.0
+- Date:    2025-08-06
 - Compiler: IAR C/C++ Compiler V9.60.2.399 for ARM
-- Code size: delivery/mcxa_release/static_library/mcxa/libclns.a
-TEXT RO RW ZI TOTAL_CONSUMPTION
-104732 23896 0 0 128628
+- Code size: 
+    -delivery/mcxa2xx_release/static_library/mcxa2xx/libclns.a
+        TEXT 	RO 	RW 	ZI 	TOTAL_CONSUMPTION
+        118456 23784 	0 	0 	142240
+
+    -delivery/mcxl2xx_release/static_library/mcxl2xx/libclns.a
+        TEXT 	RO 	RW 	ZI 	TOTAL_CONSUMPTION
+        118248 23784 	0 	0 	142032
+
 
 --- Test Targets: 
    - MCX A276 sample
-   - CCCS FPGA v2 using A20 cosim v2 bitfile
+   - CCCS FPGA v2 using A20 cosim v2 bitfile r1785
 
---- New Features
-   - Fixed Copyright Headers (The only change in the DCI_SDK_V0.2.1) 
-   - The support of Diffie-Hellman Key Agreement over Finite Fields (FFDH).
-   - The fixes of Coverity/MISRA/MSG violations
-   - The hardenings (The Security Counter based Flow Protection)
+--- New Features 
+      - The PRNG seed function provided. The PRNG must be seeded after Power-On reset before first CLib usage
+      - Coverity/MISRA violations fixes
+      - Hardened memory functions for copy and compare (Robust Copy/Compare/Set/Clear, Secure Copy/Compare/Set/XOR)
+      - Usage of HW CRC IP for CRC calculations
+      - Performance optimizations for Cipher and Hash operations
+      - Test coverage improvements
+      - TRNG configuration check during TRNG initialization removed.
+      - Zero Hash issue for ECDSA Verify fix
 
 --- Features:
    - Components included: mcuxClAead, mcuxClAeadModes, mcuxClAes, mcuxClBuffer, mcuxClCipher, mcuxClCipherModes, mcuxClCore, mcuxClCrc,
@@ -29,9 +38,9 @@ TEXT RO RW ZI TOTAL_CONSUMPTION
 
 --- Known Issues/Limitations:
    - To use any Asymmetric Cryptographic Operations the RAM_INTERLEAVE flag in SYSCON must be enabled before invoking any CLib Asymmetric Cryptographic Functionality.
-   - The PRNG after Power-On Cycle/System Reset has seeded with 0 hence will output the deterministic behaviour. Will be fixed in future release
-   - Not all Coverity/MISRA/MSG violations fixed. The work in progress and will be finished in future release.
-   - Not all Hardenings yet finished. Will be finished in future release.
-   - Limited testing (all examples passed)
-     - ECC and RSA Key Generation test with RNG patching are failing.
-     - Test framework warnings
+   - L20 variants tested on CoSim FPGA v2 only
+   - The ARMGCC build on A20 SDK variant is failing due to bug in platform header file. 
+     The HW team will be informed to fix header file and meanwhile appropriate patch for platform header file will be provided 
+     together with the release package
+   - Mac.CMAC.nxpClMac_oneshot_compute_cmac_nonblocking_source_bus_error_L4 tests failed on COSIM FPGA v2, because the DMA error interrupt is not routed correctly. 
+     It passes on A20 sample. (CLNS-19717)

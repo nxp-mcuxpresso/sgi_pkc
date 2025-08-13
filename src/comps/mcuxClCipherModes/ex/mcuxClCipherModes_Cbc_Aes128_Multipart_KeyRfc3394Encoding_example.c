@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024 NXP                                                       */
+/* Copyright 2024-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -30,8 +30,8 @@
 #include <mcuxClExample_RNG_Helper.h>
 
 
-/** Test vectors for RFC3394 encoding are taken from https://datatracker.ietf.org/doc/html/rfc3394.
- *  The plain key data is 00112233445566778899AABBCCDDEEFF */
+// Test vectors for RFC3394 encoding are taken from https://datatracker.ietf.org/doc/html/rfc3394.
+//  The plain key data is 00112233445566778899AABBCCDDEEFF
 static const uint8_t wrappedKeyData[MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE] = {
   0x64U, 0xE8U, 0xC3U, 0xF9U, 0xCEU, 0x0FU, 0x5BU, 0xA2U,
   0x63U, 0xE9U, 0x77U, 0x79U, 0x05U, 0x81U, 0x8AU, 0x2AU,
@@ -98,13 +98,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   /**************************************************************************/
 
   uint32_t kwkDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t kwk = (mcuxClKey_Handle_t) &kwkDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki1_status, ki1_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ kwk,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes256,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) kwk256Data,
+    /* uint8_t * pKeyData:                   */ kwk256Data,
     /* uint32_t keyDataLength:               */ sizeof(kwk256Data))
   );
 
@@ -132,13 +134,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   /**************************************************************************/
 
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) &keyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki2_status, ki2_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ key,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) wrappedKeyData,
+    /* uint8_t * pKeyData:                   */ wrappedKeyData,
     /* uint32_t keyDataLength:               */ sizeof(wrappedKeyData))
   );
 
@@ -181,7 +185,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
 
   /* Create a buffer for the context */
   uint32_t ctxBuf[MCUXCLCIPHER_AES_CONTEXT_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClCipher_Context_t * const ctx = (mcuxClCipher_Context_t *) ctxBuf;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUXCLBUFFER_INIT_RO(ivBuf, session, iv, sizeof(iv));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ei_status, ei_token, mcuxClCipher_init_encrypt(
@@ -203,7 +209,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   MCUXCLBUFFER_INIT(encryptedDataBuf, session, encryptedData, sizeof(encryptedData));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep1_status, ep1_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_encrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
     /* uint32_t inLength:                     */ sizeof(plain) / 2U,
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
@@ -216,13 +224,17 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   MCUXCLBUFFER_UPDATE(plainBuf, sizeof(plain)/2u);
   MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep2_status, ep2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_encrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
     /* uint32_t inLength:                     */ sizeof(plain) - sizeof(plain) / 2U,
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
@@ -235,13 +247,17 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /* Using MCUXCLBUFFER_SET instead of MCUXCLBUFFER_UPDATE is needed to properly advance the buffer to the correct offset */
   MCUXCLBUFFER_SET(encryptedDataBuf, &encryptedData[encryptedSize], sizeof(encryptedData) /* unused */);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ef_status, ef_token, mcuxClCipher_finish(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_encrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -252,7 +268,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
 
   /**************************************************************************/
@@ -282,7 +300,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   MCUXCLBUFFER_INIT(decryptedDataBuf, session, decryptedData, sizeof(decryptedData));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp1_status, dp1_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_decrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ (mcuxCl_InputBuffer_t)encryptedDataBuf,
     /* uint32_t inLength:                     */ encryptedSize / 3U,
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
@@ -295,15 +315,21 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize / 3u);
   MCUXCLBUFFER_UPDATE(decryptedDataBuf, decryptedSize);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp2_status, dp2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_decrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ (mcuxCl_InputBuffer_t)encryptedDataBuf,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not wrap")
     /* uint32_t inLength:                     */ encryptedSize - encryptedSize / 3U,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -314,13 +340,17 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /* Using MCUXCLBUFFER_SET instead of MCUXCLBUFFER_UPDATE is needed to properly advance the buffer to the correct offset */
   MCUXCLBUFFER_SET(decryptedDataBuf, &decryptedData[decryptedSize], sizeof(decryptedData) /* unused */);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(df_status, df_token, mcuxClCipher_finish(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_decrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -331,7 +361,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
 
   /**************************************************************************/

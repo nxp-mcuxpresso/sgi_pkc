@@ -16,7 +16,9 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
 #include <mcuxCsslAnalysis.h>
-#include <internal/mcuxCsslMemory_Internal_Copy_asm.h>
+#include <internal/mcuxCsslMemory_Internal_Copy_arm_asm.h>
+#include <internal/mcuxCsslMemory_Internal_Compare_arm_asm.h>
+#include <mcuxCsslDataIntegrity.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxCsslMemory_Copy)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Copy
@@ -32,9 +34,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Copy
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslParamIntegrity_Validate)
     );
 
-    MCUX_CSSL_FP_FUNCTION_CALL(result, MCUX_CSSL_PI_VALIDATE(chk, pSrc, pDst, dstLength, length));
+    MCUX_CSSL_FP_FUNCTION_CALL(crcResult, MCUX_CSSL_PI_VALIDATE(chk, pSrc, pDst, dstLength, length));
 
-    if(result != MCUXCSSLPARAMINTEGRITY_CHECK_VALID) {
+    if(crcResult != MCUXCSSLPARAMINTEGRITY_CHECK_VALID) {
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Copy, MCUXCSSLMEMORY_STATUS_FAULT);
     }
 
@@ -42,40 +44,34 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Copy
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Copy, MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER);
     }
 
+    /* Record mcuxCsslMemory_Internal_Copy_arm_asm call */
+    MCUX_CSSL_DI_RECORD(copyParams, (uint32_t)pSrc);
+    MCUX_CSSL_DI_RECORD(copyParams, (uint32_t)pDst);
+    MCUX_CSSL_DI_RECORD(copyParams, length);
+
     uint32_t retval = (uint32_t) MCUXCSSLMEMORY_STATUS_FAULT;
 
-    const uint32_t nwords = length / 4U;
-    const uint32_t success = (uint32_t)MCUXCSSLMEMORY_STATUS_OK ^ (uint32_t)MCUXCSSLMEMORY_STATUS_FAULT;
-    uint32_t word = 0U;
-    uint32_t xorword = 0U;
-    uint32_t byte = 0U;
-    uint32_t cha = nwords;
-    uint32_t chb = 0xFFFFFFFFU;
-    uint32_t datareg = 0U;
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_Copy_arm_asm(pDst, pSrc, length));
 
-#if (0 == MCUX_CSSL_SC_USE_NONE) && !((1 == MCUX_CSSL_SC_USE_SW_LOCAL) && (0 == MCUX_CSSL_FP_USE_SECURE_COUNTER))
-    MCUX_CSSL_SC_ADD(word); // -> should be 0
-    MCUX_CSSL_SC_ADD(xorword); // -> should be 0
-    MCUX_CSSL_SC_SUB(2U * nwords); // -> corresponds to `~(cha ^ chb) + word` after the below assembly has executed
-    // The following value is essentially a precalculation of the function xorchain(n) = 1 ^ 2 ^ 3 ^ 4 ^ 5 ^ ... ^ n (a chain of XOR operations), where n is substituted by nwords.
-    // If n % 4 == 0, then xorchain(n) == n.
-    // If n % 4 == 1, then xorchain(n) == 1.
-    // If n % 4 == 2, then xorchain(n) == n + 1.
-    // If n % 4 == 3, then xorchain(n) == 0.
-    // The following is just a branchless way to do the case distinction.
-    // In the loop afterwards, this value is calculated by actually cumulatively XORing the value of the variable "word" in each loop iteration, which starts at 0 and increments up to nwords.
-    MCUX_CSSL_SC_SUB(nwords - (nwords % 2U) * nwords + ((nwords % 2U) ^ ((nwords % 4U) >> 1U))); // -> precalculation of xorword
-    MCUX_CSSL_SC_SUB(length); // -> corresponds to `byte` after the below assembly has executed
-#endif
+    /*
+     * Compare copied data to ensure copy operation performed properly
+     */
+    MCUX_CSSL_DI_RECORD(compareParams, pDst);
+    MCUX_CSSL_DI_RECORD(compareParams, pSrc);
+    MCUX_CSSL_DI_RECORD(compareParams, length);
+    MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxCsslMemory_Compare_arm_asm(pDst, pSrc, length));
+    MCUX_CSSL_DI_EXPUNGE(compareParamsStatus, clRetval);
+    if(MCUXCSSLMEMORY_STATUS_EQUAL != clRetval)
+    {
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Copy, MCUXCSSLMEMORY_STATUS_FAULT);
+    }
+    else
+    {
+        retval = MCUXCSSLMEMORY_STATUS_OK;
+    }
 
-    MCUXCSSLMEMORY_COPY_ASM(word, byte, cha, chb, xorword, retval, datareg, pSrc, pDst, nwords, length, success);
-
-#if (0 == MCUX_CSSL_SC_USE_NONE) && !((1 == MCUX_CSSL_SC_USE_SW_LOCAL) && (0 == MCUX_CSSL_FP_USE_SECURE_COUNTER))
-    MCUX_CSSL_SC_ADD(~(cha ^ chb));
-    MCUX_CSSL_SC_ADD(xorword);
-    MCUX_CSSL_SC_ADD(word);
-    MCUX_CSSL_SC_ADD(byte);
-#endif
-
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Copy, retval);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Copy, retval,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Copy_arm_asm),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare_arm_asm)
+    );
 }

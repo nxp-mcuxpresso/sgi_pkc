@@ -18,6 +18,7 @@
 #include <mcuxCsslAnalysis.h>
 #include <mcuxCsslDataIntegrity.h>
 
+#include <internal/mcuxClSession_Internal_EntryExit.h>
 #include <internal/mcuxClRandom_Internal_Types.h>
 #include <internal/mcuxClRandomModes_Private_Drbg.h>
 #include <internal/mcuxClRandomModes_Private_PatchMode.h>
@@ -145,7 +146,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_PatchMode_generateFunction(
         MCUX_CSSL_DI_RECORD(memXORintParams, pOutPtr);
         MCUX_CSSL_DI_RECORD(memXORintParams, pXorMask);
         MCUX_CSSL_DI_RECORD(memXORintParams, outLength);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XOR_int));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XOR_int(pOutPtr, pOutPtr, (const uint8_t*)pXorMask, outLength));
     }
 
@@ -154,7 +154,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_PatchMode_generateFunction(
     MCUX_CSSL_DI_EXPUNGE(sumOfRandomGenerateParams, outLength);
     MCUX_CSSL_DI_EXPUNGE(sumOfRandomGenerateParams, pXorMask);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_PatchMode_generateFunction);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_PatchMode_generateFunction,
+        MCUX_CSSL_FP_CONDITIONAL(pXorMask != NULL, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XOR_int)));
 }
 
 /**

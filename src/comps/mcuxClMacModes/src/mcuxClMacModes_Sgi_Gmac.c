@@ -442,10 +442,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_generateHKey(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_generateHKey);
 
-  mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 0u, 0u);
-  mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 4u, 0u);
-  mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 8u, 0u);
-  mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 12u, 0u);
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 0U, 0U));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 4U, 0U));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 8U, 0U));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_loadWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 12U, 0U));
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableOutputToKey));
   MCUX_CSSL_FP_FUNCTION_CALL(ret, mcuxClSgi_Drv_enableOutputToKey(MCUXCLSGI_DRV_KEY2_INDEX));
@@ -460,7 +460,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_generateHKey(
     keySgiCtrl));
 
   /* Don't wait and do some other operation while SGI is creating H key */
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_generateHKey);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_generateHKey,
+    (4U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_loadWord))
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_computeJ0)
@@ -493,8 +495,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_computeJ0(
     pJ0[15] = 0x01u;
 
     /* wait for H-key to be fully generated */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+    mcuxClSgi_Drv_wait();
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableOutputToKey));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_disableOutputToKey());
   }
@@ -502,8 +503,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_computeJ0(
   {
     /* Use Ghash - H-key will be in KEY2;
      * Wait for SGI as HKEY might not yet be generated, and disable outputToKey */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+    mcuxClSgi_Drv_wait();
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableOutputToKey));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_disableOutputToKey());
 
@@ -634,7 +634,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CTR_oneBlock(
   /* Record sgi processing blocks */
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCount));
   MCUX_CSSL_FP_FUNCTION_CALL(currCount, mcuxClSgi_Drv_getCount());
-  const uint32_t sgiCount = 1u + currCount;
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SC_INTEGER_OVERFLOW()
+  const uint32_t sgiCount = 1u  + currCount;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SC_INTEGER_OVERFLOW()
   const uint32_t sgiCountOverflow = sgiCount & 0xFFFF0000u; // since SGI_COUNT is 16-bit register, save the possibly overflowed value and use it in DI_EXPUNGE at the end
   MCUX_CSSL_DI_RECORD(sgiCount, sgiCount);
 
@@ -645,23 +647,24 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CTR_oneBlock(
   MCUX_CSSL_DI_RECORD(sgiLoad, 16u);
 
   //Copy IV to SGI
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock_buffer));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock_buffer(MCUXCLSGI_DRV_DATIN0_OFFSET, pInput, inputOffset));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, pInput + inputOffset));
 
   //start calc
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(operation));
 
   //wait for finish
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_wait));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_wait());
+  mcuxClSgi_Drv_wait();
 
   /* Expunge the current value of the SGI COUNT plus the possibly overflowed value for DI protection.
      The sum is equal to the SGI COUNT in the beginning plus one. */
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCount));
   MCUX_CSSL_FP_FUNCTION_CALL(currCount2, mcuxClSgi_Drv_getCount());
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SC_INTEGER_OVERFLOW()
   uint32_t endCount = sgiCountOverflow + currCount2;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SC_INTEGER_OVERFLOW()
   MCUX_CSSL_DI_EXPUNGE(sgiCount, endCount);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_CTR_oneBlock);

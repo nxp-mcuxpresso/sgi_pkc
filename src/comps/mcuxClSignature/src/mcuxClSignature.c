@@ -40,6 +40,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_sign(
 {
   MCUXCLSESSION_ENTRY(session, mcuxClSignature_sign, diRefValue, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
 
+  *pSignatureSize = 0U;
+
   MCUX_CSSL_FP_FUNCTION_CALL(sign_status, mode->pSignFct(
     /* mcuxClSession_Handle_t           session:          */  session,
     /* mcuxClKey_Handle_t               key:              */  key,
@@ -76,6 +78,44 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_sign(
 }
 
 
+
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSignature_verify_recordParam)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify_recordParam(
+  mcuxClSession_Handle_t session,
+  mcuxClSignature_Mode_t mode,
+  mcuxCl_InputBuffer_t pIn,
+  uint32_t inSize
+)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSignature_verify_recordParam);
+
+  if(mcuxClSignature_Mode_ECDSA == mode)
+  {
+    /* Verify that the session workspace is available and has sufficient capacity.
+    * As this is helper funtion for mcuxClSignature_verify(), error on insufficient memory
+    * will be thrown by the main mcuxClSignature_verify() function. Here is only check
+    * to prevent workspace usage in case no workspace availability. */
+    if (session->cpuWa.used < session->cpuWa.size)
+    {
+      /* Calculate parameter sum as and place this in a workspace
+      * as a hint for signature verification modes.
+      * Mode implementations may leverage this if they are designed to recognize
+      * active parameter protection feature. */
+      uint32_t paramSum = (uint32_t)mode + (uint32_t)pIn + inSize;
+      uint32_t *currentCpuWord = mcuxClSession_getEndOfUsedBuffer_Internal(session);
+      *currentCpuWord = paramSum;
+    }
+
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSignature_verify_recordParam, MCUXCLSIGNATURE_STATUS_OK);
+  }
+  else
+  {
+    /* Only mcuxClSignature_Mode_ECDSA is supporting this feature */
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSignature_verify_recordParam, MCUXCLSIGNATURE_STATUS_INVALID_PARAMS);
+  }
+}
+
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSignature_verify)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify(
   mcuxClSession_Handle_t session,
@@ -101,7 +141,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify(
   MCUX_CSSL_DI_EXPUNGE(verifyRetCode, verify_status);
 
   uint32_t returnCode = MCUXCLSIGNATURE_TRANSLATE_VERIFY_RETURN_CODE(verify_status);
-   
+
   MCUXCLSESSION_EXIT(session,
       mcuxClSignature_verify,
       diRefValue,

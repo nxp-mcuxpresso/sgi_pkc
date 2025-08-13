@@ -68,15 +68,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_checkSecurityStrength);
 
   /*
-   * Check whether the public key data container has enough space.
-  */
-  const uint32_t pubKeyContainerSize = mcuxClKey_getKeyContainerSize(pubKey);
-  if(MCUXCLRSA_KEYGENERATION_PUBLIC_KEY_DATA_SIZE(byteLenKey, *pByteLenE) > pubKeyContainerSize)
-  {
-    MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
-  }
-
-  /*
    * Check if E is FIPS compliant, i.e., is odd values in the range 2^16 < e < 2^256,
    * determine the length without leading zeros.
    * If the function does not pass the verification, it does an early-exit with MCUXCLKEY_STATUS_INVALID_INPUT error.
@@ -86,7 +77,20 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   mcuxClRsa_KeyEntry_t * pPublicExponent = (mcuxClRsa_KeyEntry_t *) &pProtocolDescriptor->pubExp;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_INCOMPATIBLE("The pointer pPublicExponent->keyEntryLength dereferenced inside the mcuxClRsa_VerifyE has a compatible type and the cast was valid")
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_VerifyE(pSession, pPublicExponent, pByteLenE));
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
+
+  /*
+   * Check whether the public key data container has enough space.
+  */
+  const uint32_t pubKeyContainerSize = mcuxClKey_getKeyContainerSize(pubKey);
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pByteLenE, 3u, 32u, MCUXCLRSA_STATUS_INVALID_INPUT /* e is in the range 2^16 < e < 2^256 */)
+  if(MCUXCLRSA_KEYGENERATION_PUBLIC_KEY_DATA_SIZE(byteLenKey, *pByteLenE) > pubKeyContainerSize)
+  {
+    MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
+  }
+
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_Util_KeyGeneration_Init_Common,
                             MCUXCLRSA_KEYGEN_FP_SECSTRENGTH,
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_VerifyE));

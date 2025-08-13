@@ -66,12 +66,13 @@ extern "C" {
  * @param     srcLength           size of the source data
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_configureSgiSha2InputChannel)
-void mcuxClDma_Utils_configureSgiSha2InputChannel(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_configureSgiSha2InputChannel(
   mcuxClSession_Handle_t session,
   const uint8_t *pSrc,
   uint32_t srcLength
 );
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_SGI_COPY
 /**
  * @brief Configure the given DMA input channel to load data to an SGI data register.
  *
@@ -91,7 +92,7 @@ void mcuxClDma_Utils_configureSgiSha2InputChannel(
  * @param[in] pSrc               Pointer to the source data location.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_configureSgiInputChannel)
-void mcuxClDma_Utils_configureSgiInputChannel(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_configureSgiInputChannel(
   mcuxClSession_Handle_t session,
   uint32_t sgiSfrDataRegOffset,
   const uint8_t *pSrc
@@ -116,7 +117,7 @@ void mcuxClDma_Utils_configureSgiInputChannel(
  * @param[in] pDst               Pointer to the destination data location.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_configureSgiOutputChannel)
-void mcuxClDma_Utils_configureSgiOutputChannel(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_configureSgiOutputChannel(
   mcuxClSession_Handle_t session,
   uint32_t sgiSfrDataRegOffset,
   uint8_t *pDst
@@ -135,10 +136,12 @@ void mcuxClDma_Utils_configureSgiOutputChannel(
  *    see @ref mcuxClDma_Utils_configureSgiInputChannel and @ref mcuxClDma_Utils_configureSgiOutputChannel.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_startTransferOneBlock)
-void mcuxClDma_Utils_startTransferOneBlock(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_startTransferOneBlock(
   mcuxClSession_Channel_t channel
 );
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_SGI_COPY */
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_HANDSHAKES
 /**
  * @brief Configure the DMA input channel to automatically write multiple blocks
  *        to SGI by using DMA-SGI-handshake signals.
@@ -162,7 +165,7 @@ void mcuxClDma_Utils_startTransferOneBlock(
  *  - inputBlocks must be in [1, MCUXCLDMA_UTILS_SGI_AUTOMODE_MAX_NUMBER_OF_BLOCKS].
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_configureSgiInputWithHandshakes)
-void mcuxClDma_Utils_configureSgiInputWithHandshakes(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_configureSgiInputWithHandshakes(
   mcuxClSession_Handle_t session,
   uint32_t sgiSfrDatInOffset,
   const uint8_t *pSrc
@@ -182,11 +185,13 @@ void mcuxClDma_Utils_configureSgiInputWithHandshakes(
  *  - inputBlocks must be in [1, MCUXCLDMA_UTILS_SGI_AUTOMODE_MAX_NUMBER_OF_BLOCKS].
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks)
-void mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks(
   mcuxClSession_Handle_t session,
   uint32_t inputBlocks
 );
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_HANDSHAKES*/
 
+#ifdef MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_OUTPUT_HANDSHAKES
 /**
  * @brief Configure the DMA channels to automatically write/read multiple blocks
  *        to/from SGI by using DMA-SGI-handshake signals.
@@ -212,7 +217,7 @@ void mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks(
  * @param[in] pDst                   Pointer to the destination data location
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_configureSgiTransferWithHandshakes)
-void mcuxClDma_Utils_configureSgiTransferWithHandshakes(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_configureSgiTransferWithHandshakes(
   mcuxClSession_Handle_t session,
   uint32_t sgiSfrDatInOffset,
   const uint8_t *pSrc,
@@ -237,12 +242,12 @@ void mcuxClDma_Utils_configureSgiTransferWithHandshakes(
  *  - outputBlocks must be in [1, MCUXCLDMA_UTILS_SGI_AUTOMODE_MAX_NUMBER_OF_BLOCKS].
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks)
-void mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
   mcuxClSession_Handle_t session,
   uint32_t inputBlocks,
   uint32_t outputBlocks
 );
-
+#endif /* MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_OUTPUT_HANDSHAKES */
 
 /**
  * @}

@@ -64,9 +64,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PrivateKeyLoad_Plain(
     uint32_t keyLength = mcuxClKey_getSize(key);
 
     /* Record input data for mcuxClMemory_copy_secure_reversed_int() */
-    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_PrivateKeyBELoad, pDest);
-    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_PrivateKeyBELoad, pKeyData);
-    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_PrivateKeyBELoad, keyLength);
+    MCUX_CSSL_DI_RECORD(privateKeyBELoad, pDest);
+    MCUX_CSSL_DI_RECORD(privateKeyBELoad, pKeyData);
+    MCUX_CSSL_DI_RECORD(privateKeyBELoad, keyLength);
 
     /* Securely copy the private key to *pDest, reversing its endianness */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
@@ -110,7 +110,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoad_Plain(
     const uint32_t length = mcuxClKey_getSize(key); // get the length of a public key coordinate
 
     /* Record input data for mcuxClMemory_copy_reversed_int() */
-    MCUX_CSSL_DI_RECORD(copyPubKey, pDest);
+    MCUX_CSSL_DI_RECORD(publicKeyBELoad, pDest);
+    MCUX_CSSL_DI_RECORD(publicKeyBELoad, pPubKeySrc);
+    MCUX_CSSL_DI_RECORD(publicKeyBELoad, length);
 
     /* Copy the public key to *pDest, reversing its endianness */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));

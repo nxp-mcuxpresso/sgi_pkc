@@ -96,8 +96,7 @@ typedef const mcuxClRandom_ModeDescriptor_t * mcuxClRandom_Mode_t;
 /**
  * @brief Interface definition for custom PRNG functions to be used by PRNG patch mode
  */
-typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t
-) (* mcuxClRandom_CustomNcGenerateAlgorithm_t)(
+typedef mcuxClRandom_Status_t (* mcuxClRandom_CustomNcGenerateAlgorithm_t)(
     void *pCustomPrngState,
     mcuxCl_Buffer_t pOut,
     uint32_t outLength

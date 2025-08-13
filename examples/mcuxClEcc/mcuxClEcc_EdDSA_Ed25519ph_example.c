@@ -88,7 +88,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
 
   /* Allocate space for and initialize private key handle for an Ed25519 private key */
   uint32_t privKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t privKey = (mcuxClKey_Handle_t)&privKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   ALIGNED uint8_t pPrivateKeyData[MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA];
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(privkeyinit_result, privkeyinit_token, mcuxClKey_init(
@@ -106,7 +108,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
 
   /* Allocate space for and initialize public key handle for an Ed25519 public key */
   uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t pubKey = (mcuxClKey_Handle_t)&pubKeyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   ALIGNED uint8_t pPublicKeyData[MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY];
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(pubkeyinit_result, pubkeyinit_token, mcuxClKey_init(
@@ -126,7 +130,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
   ALIGNED uint8_t privKeyInputDescriptor[MCUXCLECC_EDDSA_GENERATEKEYPAIR_DESCRIPTOR_SIZE];
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(initmode_result, initmode_token, mcuxClEcc_EdDSA_InitPrivKeyInputMode(
   /* mcuxClSession_Handle_t pSession                   */ session,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Buffer is correctly aligned")
   /* mcuxClKey_GenerationDescriptor_t *generationMode  */ (mcuxClKey_GenerationDescriptor_t *) &privKeyInputDescriptor,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
   /* const uint8_t *pPrivKey                          */ pPrivateKey));
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_InitPrivKeyInputMode) != initmode_token) || (MCUXCLECC_STATUS_OK != initmode_result))
@@ -134,7 +140,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Buffer is correctly aligned")
   mcuxClKey_Generation_t mcuxClKey_Generation_EdDSA = (mcuxClKey_Generation_t) &privKeyInputDescriptor;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
 
   /**************************************************************************/
   /* Key pair generation for EdDSA on Ed25519                               */
@@ -158,7 +166,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
 
   /* Allocate space for the hash prefix and a mode descriptor for Ed25519ph. */
   ALIGNED uint8_t signatureModeBytes[MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_MODE_DESCRIPTOR(0u)];
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Buffer is correctly aligned")
   mcuxClSignature_ModeDescriptor_t *pSignatureMode = (mcuxClSignature_ModeDescriptor_t *) signatureModeBytes;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
 
   /* Generate Ed25519ph protocol descriptor */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(genProtocolDescr_result, protocolDescr_token, mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor(
@@ -166,7 +176,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
   /* const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams               */ &mcuxClEcc_EdDSA_DomainParams_Ed25519,
   /* mcuxClSignature_ModeDescriptor_t *pSignatureMode                  */ pSignatureMode,
   /* uint32_t phflag                                                  */ MCUXCLECC_EDDSA_PHFLAG_ONE,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
   /* mcuxCl_InputBuffer_t pContext                                     */ NULL,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
   /* uint32_t contextLen                                              */ 0u));
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor) != protocolDescr_token)
@@ -185,15 +197,19 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
   MCUXCLBUFFER_INIT_RO(buffIn, NULL, pMessage, sizeof(pMessage));
   MCUXCLBUFFER_INIT(buffSignature, NULL, signature, MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE);
 
+  MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(MISRA_C_2012_Rule_9_1, "pSignatureMode is initialized")
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ss_status, ss_token, mcuxClSignature_sign(
   /* mcuxClSession_Handle_t session:   */ session,
   /* mcuxClKey_Handle_t key:           */ privKey,
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor")
   /* mcuxClSignature_Mode_t mode:      */ pSignatureMode,
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
   /* mcuxCl_InputBuffer_t pIn:         */ buffIn,
   /* uint32_t inSize:                 */ sizeof(pMessage),
   /* mcuxCl_Buffer_t pSignature:       */ buffSignature,
   /* uint32_t * const pSignatureSize: */ &signatureSize
   ));
+  MCUX_CSSL_ANALYSIS_COVERITY_STOP_FALSE_POSITIVE(MISRA_C_2012_Rule_9_1)
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSignature_sign) != ss_token)
       || (MCUXCLSIGNATURE_STATUS_OK != ss_status)
@@ -207,6 +223,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
   /* Ed25519ph signature verification                                       */
   /**************************************************************************/
 
+  MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(MISRA_C_2012_Rule_9_1, "pSignatureMode is initialized")
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(sv_status, sv_token, mcuxClSignature_verify(
   /* mcuxClSession_Handle_t session:  */ session,
   /* mcuxClKey_Handle_t key:          */ pubKey,
@@ -216,6 +233,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_Ed25519ph_example)
   /* mcuxCl_InputBuffer_t pSignature: */ buffSignature,
   /* uint32_t signatureSize:         */ signatureSize
   ));
+  MCUX_CSSL_ANALYSIS_COVERITY_STOP_FALSE_POSITIVE(MISRA_C_2012_Rule_9_1)
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSignature_verify) != sv_token) || (MCUXCLSIGNATURE_STATUS_OK != sv_status))
   {

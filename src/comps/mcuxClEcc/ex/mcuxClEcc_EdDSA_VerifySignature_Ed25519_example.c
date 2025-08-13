@@ -83,7 +83,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_EdDSA_VerifySignature_Ed25519_example)
 
     /* Initialize public key */
     uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
     mcuxClKey_Handle_t pubKeyHandler = (mcuxClKey_Handle_t) &pubKeyDesc;
+    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(keyInit_status, keyInit_token, mcuxClKey_init(
         /* mcuxClSession_Handle_t session         */ session,

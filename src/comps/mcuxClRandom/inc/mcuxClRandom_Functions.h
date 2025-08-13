@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2022, 2024 NXP                                            */
+/* Copyright 2020-2022, 2024-2025 NXP                                       */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -147,7 +147,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_checkSecurityStr
 
 
 /**
- * @brief Function to enable the PRNG patch mode. 
+ * @brief Function to enable the PRNG patch mode.
  * In PRNG patch mode all calls to mcuxClRandom_ncGenerate are mapped to prngPatchFunction.
  * pCustomPrngState can be used to allow a stateful prngPatchFunction.
  * mcuxClRandom_ncInit does not need to be called before this.
@@ -181,6 +181,21 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRandom_ncInit)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_ncInit(
     mcuxClSession_Handle_t pSession
 ); /* LE init */
+
+/**
+ * @brief Non-cryptographic PRNG reseed function.
+ *
+ * This function performs the reseeding of the non-cryptographic random number generator.
+ * This operation fetches a fresh seed from a TRNG.
+ *
+ * @param [in]     pSession    Handle for the current CL session.
+ *
+ * @return status
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRandom_ncReseed)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_ncReseed(
+    mcuxClSession_Handle_t pSession
+); /* reseed */
 
 /**
  * @brief Non-cryptographic PRNG data generation function.

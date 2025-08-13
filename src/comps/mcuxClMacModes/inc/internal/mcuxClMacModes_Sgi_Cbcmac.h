@@ -68,32 +68,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCBCMac(
 );
 
 
-/**
- * @brief Internal function, which processes input to a CBCMAC computation.
- *        All input data will be copied with the DMA.
- *
- * @pre:: The key has been loaded to SGI.
- *
- * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
- * @param[in]  pIn       Pointer to the input to be processed.
- * @param[in]  inLength    Size of input buffer pointed to by @p pIn.
- * @param[out] pProcessedBytes  Number of bytes processed from @p pIn.
- *
- * @return mcuxClMac_Status_t  Status of the operation
- * @retval MCUXCLMAC_STATUS_FAILURE Operation failed
- * @retval MCUXCLMAC_STATUS_OK      Operation succeeded
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMacModes_updateCBCMac_nonBlocking, mcuxClMacModes_UpdateFunc_t)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCBCMac_nonBlocking(
-  mcuxClSession_Handle_t session,
-  mcuxClMacModes_WorkArea_t *workArea,
-  mcuxClMacModes_Context_t * const pContext,
-  mcuxCl_InputBuffer_t pIn,
-  uint32_t inLength,
-  uint32_t * pProcessedBytes
-);
 
 /**
  * @brief Internal function, which finalizes a CBC-Mac computation.

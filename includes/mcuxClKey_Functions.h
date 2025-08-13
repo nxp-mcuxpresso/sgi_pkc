@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -93,7 +93,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_linkKeyPair(
 );
 
 /**
- * @brief Configures they encoding mechanism for to the given key handle.
+ * @brief Configures the encoding mechanism for the given key handle.
  *
  * This function shall be used when the key material of a key handle is already
  * encoded. @ref mcuxClKey_init must be called to initialize the key handle first.
@@ -121,7 +121,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_setEncoding(
     const uint8_t * pAuxData,
     uint32_t auxDataLength
 );
-
 
 /**
  * @brief Load key into destination key slot of a coprocessor

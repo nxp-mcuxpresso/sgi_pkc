@@ -42,7 +42,7 @@ static const uint8_t longHashExpected[MCUXCLHASH_OUTPUT_SIZE_SHA_256] = {
 
 #define MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED ((uint32_t) 0xDEADBEEFu)
 /* This variable is used to keep track of callbacks triggered by the non-blocking API. */
-volatile uint32_t sha2APInonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
+static volatile uint32_t sha2APInonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
 
 #define MCUXCLHASH_FLAG_DMA_INTERRUPT_NOT_TRIGGERED ((uint32_t) 0xDEADBEEFu)
 /* This variable is a flag to notify the caller that an interrupt happened.
@@ -70,6 +70,7 @@ static mcuxClResource_Context_t * resourceCtxHandle = (mcuxClResource_Context_t 
    mcuxClResource_handle_interrupt needs to be called afterwards to wrap-up the CLib operation. */
 static void handleDmaInterrupt_channel0(void)
 {
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SFR_ACCESS()
   /* Clear DMA interrupt request status, W1C. Needed for DONE interrupts. */
   DMA0->CH[0].CH_INT = 1U;
 
@@ -81,25 +82,26 @@ static void handleDmaInterrupt_channel0(void)
   chCsr &= ~((uint32_t)DMA_CH_CSR_EEI_MASK);
   /* 3. Write to CH_CSR */
   DMA0->CH[0].CH_CSR = chCsr;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SFR_ACCESS()
 
-  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0);
+  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0U);
 }
 
 /* Initialize (install, enable) the interrupts */
 static void interruptInit(void)
 {
   /* Enable interrupts for the input channel */
-  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0U));
 
   /* Enable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0U));
 }
 
 /* Uninitialize (disable) the interrupts */
 static void interruptUninit(void)
 {
   /* Disable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0U));
 }
 
 MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example)
@@ -160,7 +162,9 @@ uint8_t longData[] = {
     /* mcuxClSession_Handle_t session:          */ session,
     /* mcuxClSession_Channels_t dmaChannels,    */ dmaChannels,
     /* mcuxClSession_Callback_t pUserCallback,  */ user_callback,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* void * pUserData                        */ NULL)
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
   );
 
   /* Initialize resource context and add it to the session */
@@ -244,7 +248,9 @@ uint8_t longData[] = {
   /**************************************************************************/
   for(size_t i = 0U; i < sizeof(hash); i++)
   {
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by MCUXCLBUFFER_INIT_DMA_RW")
     if(longHashExpected[i] != hash[i])  // Expect that the resulting hash matches our expected output
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     {
       return MCUXCLEXAMPLE_STATUS_ERROR;
     }

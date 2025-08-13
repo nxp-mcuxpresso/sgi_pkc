@@ -92,8 +92,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
                             hashAlg) );                                                                  \
         if (MCUXCLHASH_STATUS_OK != retInitHash)                                                          \
         {                                                                                                \
-            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_CalcHashModN,                                       \
-                                      MCUXCLECC_STATUS_FAULT_ATTACK);                                     \
+            MCUXCLSESSION_FAULT(pSession,                                                                 \
+                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
         }                                                                                                \
                                                                                                          \
         /* Update hash context with prefix */                                                            \
@@ -108,8 +108,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
                                 hashPrefixLen) );                                                        \
             if (MCUXCLHASH_STATUS_OK != retProcess1Hash)                                                  \
             {                                                                                            \
-                MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_CalcHashModN,                                   \
-                                        MCUXCLECC_STATUS_FAULT_ATTACK);                                   \
+                MCUXCLSESSION_FAULT(pSession,                                                             \
+                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
             }                                                                                            \
         }                                                                                                \
         /* Update hash context with Renc */                                                              \
@@ -121,8 +121,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
                               signatureRLen) );                                                          \
         if (MCUXCLHASH_STATUS_OK != retProcess2Hash)                                                      \
         {                                                                                                \
-            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_CalcHashModN,                                       \
-                                      MCUXCLECC_STATUS_FAULT_ATTACK);                                     \
+            MCUXCLSESSION_FAULT(pSession,                                                                 \
+                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
         }                                                                                                \
         /* Update hash context with Qenc */                                                              \
         {                                                                                                \
@@ -136,8 +136,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
                                   pubKeyLen) );                                                          \
             if (MCUXCLHASH_STATUS_OK != retProcess3Hash)                                                  \
             {                                                                                            \
-                MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_CalcHashModN,                                   \
-                                          MCUXCLECC_STATUS_FAULT_ATTACK);                                 \
+                MCUXCLSESSION_FAULT(pSession,                                                             \
+                                   MCUXCLECC_STATUS_FAULT_ATTACK);                                        \
             }                                                                                            \
         }                                                                                                \
         /* Update hash context with m' */                                                                \
@@ -149,8 +149,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
                               inSize) );                                                                 \
         if (MCUXCLHASH_STATUS_OK != retProcess4Hash)                                                      \
         {                                                                                                \
-            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_CalcHashModN,                                       \
-                                      MCUXCLECC_STATUS_FAULT_ATTACK);                                     \
+            MCUXCLSESSION_FAULT(pSession,                                                                 \
+                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
         }                                                                                                \
                                                                                                          \
         MCUXCLPKC_WAITFORFINISH();                                                                        \
@@ -163,8 +163,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
                               &outLength) );                                                             \
         if (pDomainParams->algoHash->hashSize != outLength)                                              \
         {                                                                                                \
-            MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_EdDSA_CalcHashModN,                                       \
-                                      MCUXCLECC_STATUS_FAULT_ATTACK);                                     \
+            MCUXCLSESSION_FAULT(pSession,                                                                 \
+                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
         }                                                                                                \
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()                               \
     } while(false)                                                                                       \

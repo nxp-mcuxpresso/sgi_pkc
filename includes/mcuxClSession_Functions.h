@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -152,6 +152,30 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_setRandom(
     mcuxClRandom_Mode_t randomMode,
     mcuxClRandom_Context_t randomCtx
 );
+
+
+
+/**
+ * @brief Clean up HW Resources after error case. (Early Exit scenario)
+ *
+ * This function will reset all used HW Resources after an error (Early Exit scenario).
+ * Additionally it will clear the CPU workspace and PKC workspace if applicable.
+ * Random context associated with the session will not be cleared and must be reinitialized
+ * before further usage.
+ *
+ * @attention This function must not be used in case of Fault Attack error case
+ *            but instead Power-On-Reset or System Reset must be performed.
+ *
+ * @param pSession Session which is used when the error occurred.
+ *
+ * @return status
+ * @retval #MCUXCLSESSION_STATUS_OK     The HW Resources cleaned up successfully
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSession_cleanupOnError)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError(
+  mcuxClSession_Handle_t pSession
+);
+
 
 
 /**

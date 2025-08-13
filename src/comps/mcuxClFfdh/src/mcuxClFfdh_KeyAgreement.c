@@ -88,7 +88,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
 
   /* mcuxClFfdh_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
   mcuxClFfdh_CpuWa_t *pCpuWorkarea = mcuxClFfdh_castToFfdhCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
-  uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, 0u);
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, 0u));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClFfdh_SetupEnvironment(pSession, pDomainParameters));
 
   const uint32_t lenP = pDomainParameters->lenP;
@@ -106,7 +106,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
    else
    {
      const uint32_t cpuExpWordCount = expOperandSize / sizeof(uint32_t);
-     pExpTemp = mcuxClSession_allocateWords_cpuWa(pSession, cpuExpWordCount);
+     MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pExpTemp2, mcuxClSession_allocateWords_cpuWa(pSession, cpuExpWordCount));
+     pExpTemp = pExpTemp2;
      MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("wordNumCpuWa is properly initialized in mcuxClFfdh_SetupEnvironment and does not overflow")
      pCpuWorkarea->wordNumCpuWa += cpuExpWordCount;
      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
@@ -121,9 +122,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
 
   /* Securely load private key to PKC buffer FFDH_UPTRTINDEX_EXP */
   uint8_t *pPrivateKeyDest = MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_EXP]);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession, key, &pPrivateKeyDest, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE));
+  MCUXCLKEY_LOAD_FP(pSession, key, &pPrivateKeyDest, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
+  MCUX_CSSL_DI_RECORD(memoryClear, pPrivateKeyDest + pDomainParameters->lenQ);
+  MCUX_CSSL_DI_RECORD(memoryClear, expOperandSize - pDomainParameters->lenQ);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pPrivateKeyDest + pDomainParameters->lenQ, expOperandSize - pDomainParameters->lenQ));
 
+  MCUX_CSSL_DI_RECORD(exponentiation, pDomainParameters->lenQ);
   MCUXCLPKC_PS1_SETLENGTH(expOperandSize, expOperandSize);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_SECMODEXP(pSession,
                       pExpTemp,
@@ -156,10 +160,16 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
   MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);
   mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClFfdh_KeyAgreement,
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(
+    mcuxClFfdh_KeyAgreement,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+    MCUX_CSSL_FP_CONDITIONAL(
+      FFDH_EXPTMP_FAME_RAM_ONLY_MAX_LENGTH < lenP,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa)
+    ),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClFfdh_SetupEnvironment),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClFfdh_PublicKeyLoadAndValidate),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load),
+    MCUXCLKEY_LOAD_FP_CALLED(key),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_SecModExp),
     MCUXCLPKC_FP_CALLED_CALC_MC1_MR,

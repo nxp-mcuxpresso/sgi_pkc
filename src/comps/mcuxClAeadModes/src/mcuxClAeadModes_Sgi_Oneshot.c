@@ -38,14 +38,6 @@
 
 #include <mcuxClResource_Types.h>
 
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_castUint32ToAeadModesContext)
-static mcuxClAeadModes_Context_t* mcuxClAeadModes_castUint32ToAeadModesContext(uint32_t* pContext)
-{
-  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-  return (mcuxClAeadModes_Context_t*) pContext;
-  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-}
-
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_encrypt, mcuxClAead_encrypt_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
   mcuxClSession_Handle_t session,
@@ -74,10 +66,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  mcuxClAeadModes_WorkArea_t *workArea = mcuxClAeadModes_castToAeadModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   const uint32_t ctxSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_Context_t));
-  mcuxClAeadModes_Context_t *aeadCtx = mcuxClAeadModes_castUint32ToAeadModesContext(mcuxClSession_allocateWords_cpuWa(session, ctxSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_Context_t*, aeadCtx, mcuxClSession_allocateWords_cpuWa(session, ctxSizeInWords));
 
   workArea->sgiWa.pKeyChecksums = &(aeadCtx->cipherCtx.keyContext.keyChecksums);
   /* Initialize/request SGI */
@@ -173,7 +167,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  mcuxClAeadModes_WorkArea_t *workArea = mcuxClAeadModes_castToAeadModesWorkArea(mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Prepare a buffer for the to-be-computed tag */
   uint8_t *pComputedTag = &workArea->cpuWa.tagBuffer[MCUXCLAEADMODES_TAGLEN_MAX];
@@ -182,7 +177,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   MCUX_CSSL_DI_RECORD(computedTagBuffer, computedTagBuffer); /* Will be balanced after usage in mode->algorithm->finish() */
 
   const uint32_t ctxSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_Context_t));
-  mcuxClAeadModes_Context_t *aeadCtx = mcuxClAeadModes_castUint32ToAeadModesContext(mcuxClSession_allocateWords_cpuWa(session, ctxSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+  MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_Context_t*, aeadCtx, mcuxClSession_allocateWords_cpuWa(session, ctxSizeInWords));
 
   workArea->sgiWa.pKeyChecksums = &(aeadCtx->cipherCtx.keyContext.keyChecksums);
 

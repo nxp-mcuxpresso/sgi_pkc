@@ -107,6 +107,7 @@ static mcuxClResource_Context_t * resourceCtxHandle = (mcuxClResource_Context_t 
    mcuxClResource_handle_interrupt needs to be called afterwards to wrap-up the CLib operation. */
 static void handleDmaInterrupt_channel0(void)
 {
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SFR_ACCESS()
   /* Clear DMA interrupt request status, W1C. Needed for DONE interrupts. */
   DMA0->CH[0].CH_INT = 1U;
 
@@ -118,9 +119,10 @@ static void handleDmaInterrupt_channel0(void)
   chCsr &= ~((uint32_t)DMA_CH_CSR_EEI_MASK);
   /* 3. Write to CH_CSR */
   DMA0->CH[0].CH_CSR = chCsr;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SFR_ACCESS()
 
   /* DMA_CH0 caused the interrupt */
-  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0);
+  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(0U);
 }
 
 /* This is the Interrupt handler for DMA done and error interrupts on the output channel.
@@ -128,6 +130,7 @@ static void handleDmaInterrupt_channel0(void)
    mcuxClResource_handle_interrupt needs to be called afterwards to wrap-up the CLib operation. */
 static void handleDmaInterrupt_channel1(void)
 {
+  MCUX_CSSL_ANALYSIS_START_PATTERN_SFR_ACCESS()
   /* Clear DMA interrupt request status, W1C. Needed for DONE interrupts. */
   DMA0->CH[1].CH_INT = 1U;
 
@@ -139,31 +142,32 @@ static void handleDmaInterrupt_channel1(void)
   chCsr &= ~((uint32_t)DMA_CH_CSR_EEI_MASK);
   /* 3. Write to CH_CSR */
   DMA0->CH[1].CH_CSR = chCsr;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_SFR_ACCESS()
 
   /* DMA_CH1 caused the interrupt */
-  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(1);
+  flag_interruptNumber = GET_DMA_CHX_IRQ_NUMBER(1U);
 }
 
 /* Initialize (install, enable) the interrupts */
 static void interruptInit(void)
 {
   /* Enable interrupts for the input channel */
-  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0));
+  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel0, GET_DMA_CHX_IRQ_NUMBER(0U));
 
   /* Enable interrupts for the output channel */
-  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel1, GET_DMA_CHX_IRQ_NUMBER(1));
+  mcuxClExample_OS_Interrupt_Callback_Install(handleDmaInterrupt_channel1, GET_DMA_CHX_IRQ_NUMBER(1U));
 
   /* Enable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0));
-  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(1));
+  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(0U));
+  mcuxClExample_OS_Interrupt_Enable(GET_DMA_CHX_IRQ_NUMBER(1U));
 }
 
 /* Uninitialize (disable) the interrupts */
 static void interruptUninit(void)
 {
   /* Disable the interrupts in the controller */
-  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0));
-  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(1));
+  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(0U));
+  mcuxClExample_OS_Interrupt_Disable(GET_DMA_CHX_IRQ_NUMBER(1U));
 }
 
 /***************************************************************************/
@@ -209,13 +213,15 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
 
   /* Initialize the key */
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClKey_Handle_t key = (mcuxClKey_Handle_t) &keyDesc;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ki_status, ki_token, mcuxClKey_init(
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ key,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData:                   */ (uint8_t *) keyBytes,
+    /* uint8_t * pKeyData:                   */ keyBytes,
     /* uint32_t keyDataLength:               */ sizeof(keyBytes))
   );
 
@@ -241,7 +247,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
     /* mcuxClSession_Handle_t session:          */ session,
     /* mcuxClSession_Channels_t dmaChannels,    */ dmaChannels,
     /* mcuxClSession_Callback_t pUserCallback,  */ user_callback,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* void * pUserData                        */ NULL)
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
   );
 
   /* Initialize resource context and add it to the session */
@@ -266,7 +274,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
 
   /* Create a buffer for the context */
   ALIGNED uint8_t ctxBuf[MCUXCLCIPHER_AES_CONTEXT_SIZE];
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
   mcuxClCipher_Context_t * const ctx = (mcuxClCipher_Context_t *) ctxBuf;
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   /* Multipart encrypt init */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ei_status, ei_token, mcuxClCipher_init_encrypt(
@@ -274,7 +284,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
     /* const mcuxClKey_Handle_t key:           */ key,
     /* mcuxClCipher_Mode_t mode:               */ mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method1_NonBlocking,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxCl_InputBuffer_t pIv:               */ NULL,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
     /* uint32_t ivLength:                     */ 0u)
   );
 
@@ -289,7 +301,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   /* Multipart encrypt process 1 */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep1_status, ep1_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_encrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
     /* uint32_t inLength:                     */ 24u, // 1.5 blocks, normal blocking flow that will not trigger a non-blocking operation
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
@@ -336,7 +350,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   /* Multipart encrypt process 2 */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep2_status, ep2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_encrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
     /* uint32_t inLength:                     */ sizeof(plain) - 24u, // 3 Blocks that will trigger a non-blocking operation
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
@@ -376,14 +392,18 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /* Using MCUXCLBUFFER_SET instead of MCUXCLBUFFER_UPDATE is needed to properly advance the buffer to the correct offset */
   MCUXCLBUFFER_SET(encryptedDataBuf, &encryptedData[encryptedSize], sizeof(encryptedData) /* unused */);
   /* Multipart encrypt finish */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ef_status, ef_token, mcuxClCipher_finish(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_encrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -394,7 +414,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   encryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /**************************************************************************/
   /* Decryption                                                             */
@@ -409,7 +431,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
     /* const mcuxClKey_Handle_t key:           */ key,
     /* mcuxClCipher_Mode_t mode:               */ mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method1_NonBlocking,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxCl_InputBuffer_t pIv:               */ NULL,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
     /* uint32_t ivLength:                     */ 0u)
   );
 
@@ -424,7 +448,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   /* Multipart decrypt process 1 */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp1_status, dp1_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_decrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ (mcuxCl_InputBuffer_t) encryptedDataBuf,
     /* uint32_t inLength:                     */ 24u, // 1.5 blocks, normal blocking flow that will not trigger a non-blocking operation
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
@@ -464,14 +490,18 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   MCUXCLBUFFER_UPDATE(encryptedDataBuf, 24u);
   MCUXCLBUFFER_UPDATE(decryptedDataBuf, decryptedSize);
   /* Multipart decrypt process 2 */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp2_status, dp2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_decrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ (mcuxCl_InputBuffer_t) encryptedDataBuf,
     /* uint32_t inLength:                     */ sizeof(encryptedData) - 24u, // 3.5 blocks that will trigger a non-blocking operation
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
@@ -511,14 +541,18 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /* Using MCUXCLBUFFER_SET instead of MCUXCLBUFFER_UPDATE is needed to properly advance the buffer to the correct offset */
   MCUXCLBUFFER_SET(decryptedDataBuf, &decryptedData[decryptedSize], sizeof(decryptedData) /* unused */);
   /* Multipart decrypt finish */
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(df_status, df_token, mcuxClCipher_finish(
     /* mcuxClSession_Handle_t session:         */ session,
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED("Initialized by mcuxClCipher_init_decrypt")
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -529,7 +563,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not overflow")
   decryptedSize += outLength;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /**************************************************************************/
   /* Destroy the current session and clean-up                               */
@@ -537,7 +573,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_No
 
   if(!mcuxClExample_Session_Clean(session))
   {
-      return MCUXCLEXAMPLE_STATUS_ERROR;
+    return MCUXCLEXAMPLE_STATUS_ERROR;
   }
 
   /* Disable the interrupts */

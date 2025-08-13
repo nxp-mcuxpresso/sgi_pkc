@@ -233,6 +233,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_CreatePPTable(
     uint64_t *pPrecPointTable                                       ///<  [in]  pPrecPointTable   Pointer to CPU workarea buffer as a table to store PKC offset
 );
 
+/**
+ * Declaration of function to perform repeated doublings of twisted Edwards curve points in homogeneous coordinates
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_TwEd_RepeatedDoubling)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_RepeatedDoubling(
+    uint16_t noOfDoubles        ///<  [in]  noOfDoubles     Number of double operations to be performed
+);
+
 
 /**********************************************************/
 /* Internal mcuxClEcc_TwEd functions for Ed25519           */

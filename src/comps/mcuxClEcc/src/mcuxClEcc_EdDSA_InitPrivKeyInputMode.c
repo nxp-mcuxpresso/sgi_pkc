@@ -12,8 +12,8 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_EdDSA_GenerateKeyPair.c
- * @brief implementation of TwEd_EdDsaKeyGen function
+ * @file  mcuxClEcc_EdDSA_InitPrivKeyInputMode.c
+ * @brief implementation of mcuxClEcc_EdDSA_InitPrivKeyInputMode function
  */
 
 

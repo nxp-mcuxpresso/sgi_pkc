@@ -49,7 +49,7 @@
  *
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_GenerateRandomModModulus)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_GenerateRandomModModulus(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_GenerateRandomModModulus(
     mcuxClSession_Handle_t pSession,
     uint8_t iModulus,
     uint8_t iDst
@@ -66,14 +66,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_GenerateRandomModModul
 
     MCUXCLBUFFER_INIT(buffRandom, NULL, MCUXCLPKC_OFFSET2PTR(pOperands[ECC_T0]), operandSize);
     MCUX_CSSL_FP_FUNCTION_CALL(ret_Prng_GetRandom, mcuxClRandom_ncGenerate(pSession, buffRandom, operandSize));
-    if (MCUXCLRANDOM_STATUS_OK != ret_Prng_GetRandom)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_RNG_ERROR);
-    }
+    MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_Prng_GetRandom);
 
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_ReduceRandomModModulus, mcuxClEcc_FUP_ReduceRandomModModulus_LEN);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_GenerateRandomModModulus, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_GenerateRandomModModulus,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
 }

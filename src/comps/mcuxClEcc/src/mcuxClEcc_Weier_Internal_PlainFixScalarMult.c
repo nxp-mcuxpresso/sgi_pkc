@@ -53,7 +53,7 @@
  *
  * @attention The PKC calculation might be still on-going, call #MCUXCLPKC_WAITFORFINISH before CPU accesses to the result.
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_PlainFixScalarMult, mcuxClEcc_ScalarMultFunction_t)
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_Weier_PlainFixScalarMult, mcuxClEcc_ScalarMultFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_PlainFixScalarMult(
     mcuxClSession_Handle_t pSession,                 ///<  [in]  pSession            Handle for the current CL session
     mcuxClEcc_CommonDomainParams_t *pDomainParams,   ///<  [in]  pDomainParams       Pointer to ECC common domain parameters structure

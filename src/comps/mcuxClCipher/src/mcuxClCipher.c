@@ -95,8 +95,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
     pOut,
     pOutLength));
 
-  /* STATUS_OK is protected */
-  MCUX_CSSL_DI_EXPUNGE(cipherDecryptRetCode , status);
+  /* Only STATUS_OK is protected */
+  if(MCUXCLCIPHER_STATUS_OK == status)
+  {
+    MCUX_CSSL_DI_EXPUNGE(cipherDecryptRetCode , status);
+  }
 
   MCUXCLSESSION_EXIT(session, mcuxClCipher_decrypt, diRefValue, status, MCUXCLCIPHER_STATUS_FAULT_ATTACK, pModeFunctions->protection_token_decrypt);
 }

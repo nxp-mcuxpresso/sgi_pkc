@@ -115,10 +115,13 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClHash_AlgoSkeleton_Finish_t)(
 #define MCUXCLHASH_OID_SHA2SHA3_LEN    19u
 #define MCUXCLHASH_OID_SHA1_LEN        18u
 
+#if defined(MCUXCL_FEATURE_HASH_OIDS)
 extern const uint8_t mcuxClHash_oidSha2_224[MCUXCLHASH_OID_SHA2SHA3_LEN];
 extern const uint8_t mcuxClHash_oidSha2_256[MCUXCLHASH_OID_SHA2SHA3_LEN];
 extern const uint8_t mcuxClHash_oidSha2_384[MCUXCLHASH_OID_SHA2SHA3_LEN];
 extern const uint8_t mcuxClHash_oidSha2_512[MCUXCLHASH_OID_SHA2SHA3_LEN];
+#endif /*MCUXCL_FEATURE_HASH_OIDS*/
+
 
 /**
  * @brief Hash Algorithm structure
@@ -137,8 +140,10 @@ struct mcuxClHash_AlgorithmDescriptor
   size_t hashSize;                                         ///< Size of the output of the hash algorithm
   size_t stateSize;                                        ///< Size of the state used by the hash algorithm
   uint32_t counterSize;                                    ///< Size of the counter used by the hash algorithm
+#ifdef MCUXCL_FEATURE_HASH_OIDS
   const uint8_t *pOid;                                     ///< Pointer to the OID
   uint32_t oidSize;                                        ///< Size of the OID
+#endif /* MCUXCL_FEATURE_HASH_OIDS */
   const void *pAlgorithmDetails;                           ///< Contains algorithm specific details not needed on API level
 };
 

@@ -25,6 +25,7 @@
 
 #include <internal/mcuxClPkc_Internal.h>
 #include <internal/mcuxClPkc_Operations.h>
+#include <internal/mcuxClEcc_FeatureConfig.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal_FUP.h>
 
@@ -82,6 +83,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_PointCheckAffineNR(mcu
     MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
 }
 
+#if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_JACOBIAN_POINT_CHECK)
 
 /**
  * This function checks a point, if y^2 == x^3 + a*x*z^4 + b*z^6 (mod p).
@@ -131,3 +133,4 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_PointCheckJacMR(
     MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
 }
 
+#endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_JACOBIAN_POINT_CHECK) */

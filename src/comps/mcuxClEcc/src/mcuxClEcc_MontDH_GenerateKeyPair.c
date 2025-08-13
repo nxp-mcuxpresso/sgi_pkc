@@ -76,16 +76,10 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     uint16_t keyLen = pCommonDomainParameters->byteLenP;
 
     /* mcuxClEcc_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
-    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-    mcuxClEcc_CpuWa_t *pCpuWorkarea = (mcuxClEcc_CpuWa_t *) mcuxClSession_getEndOfUsedBuffer_Internal(pSession);
-    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY()
-    MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDH_SetupEnvironment, mcuxClEcc_MontDH_SetupEnvironment(pSession,
-                                                                pDomainParameters,
-                                                                ECC_MONTDH_NO_OF_BUFFERS));
-    if(MCUXCLECC_STATUS_OK != retCode_MontDH_SetupEnvironment)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLKEY_STATUS_FAULT_ATTACK);
-    }
+    mcuxClEcc_CpuWa_t *pCpuWorkarea = mcuxClEcc_castToEccCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+      mcuxClEcc_MontDH_SetupEnvironment(pSession, pDomainParameters, ECC_MONTDH_NO_OF_BUFFERS)
+    );
 
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
 
@@ -121,19 +115,21 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
         /* Store private key into key handle */
         uint8_t *pPrivKeySrc = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S3]);
         MCUXCLPKC_WAITFORFINISH();
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_store));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_store(pSession,
-                                                                   privKey,
-                                                                   pPrivKeySrc,
-                                                                   MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE));
+        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(privKey));
+        MCUXCLKEY_STORE_FP(
+          pSession,
+          privKey,
+          pPrivKeySrc,
+          MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
 
         /* Store public key into key handle */
         uint8_t *pPubKeySrc = MCUXCLPKC_OFFSET2PTR(pOperands[MONT_X0]);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_store));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_store(pSession,
-                                                                  pubKey,
-                                                                  pPubKeySrc,
-                                                                  MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL));
+        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(pubKey));
+        MCUXCLKEY_STORE_FP(
+          pSession,
+          pubKey,
+          pPubKeySrc,
+          MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL);
 
         /* Create link between private and public key handles */
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_linkKeyPair(pSession, privKey, pubKey));
@@ -160,7 +156,9 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     }
 }
 
+MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 const mcuxClKey_GenerationDescriptor_t mcuxClKey_GenerationDescriptor_MontDH =
+MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 {
     .pKeyGenFct = mcuxClEcc_MontDH_GenerateKeyPair,
     .protectionTokenKeyGenFct = MCUX_CSSL_FP_FUNCID_mcuxClEcc_MontDH_GenerateKeyPair,

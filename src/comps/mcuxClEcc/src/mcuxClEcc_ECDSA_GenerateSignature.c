@@ -38,6 +38,7 @@
 #include <internal/mcuxClPkc_Resource.h>
 #include <internal/mcuxClMath_Internal.h>
 #include <internal/mcuxClMath_Internal_Utils.h>
+#include <internal/mcuxClMemory_Clear_Internal.h>
 
 #include <internal/mcuxClEcc_Internal_Random.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
@@ -72,7 +73,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_VOID()
     if(MCUXCLECC_ECDSA_SIGNATURE_GENERATE_RANDOMIZED != pMode->generateOption)
     {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+        MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
     }
 
     /**********************************************************/
@@ -85,10 +86,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
 
     /* mcuxClEcc_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
     /* MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned */
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned")
-    mcuxClEcc_CpuWa_t *pCpuWorkarea = (mcuxClEcc_CpuWa_t *) mcuxClSession_getEndOfUsedBuffer_Internal(pSession);
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-    uint8_t *pPkcWorkarea = (uint8_t *) mcuxClSession_allocateWords_pkcWa(pSession, 0u);
+    mcuxClEcc_CpuWa_t *pCpuWorkarea = mcuxClEcc_castToEccCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
+
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, 0u));
+
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_WeierECC_SetupEnvironment(pSession,
                 pDomainParams,
                        ECC_GENERATESIGNATURE_NO_OF_BUFFERS));
@@ -108,12 +110,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
     const uint32_t byteLenN = pDomainParams->common.byteLenN;
 
     /* Main loop of signature generation until both r and s are nonzero. */
-    uint32_t fail_r = 0u;
-    uint32_t fail_s = 0u;
+    MCUX_CSSL_FP_COUNTER_STMT(uint32_t fail_r = 0u);
+    MCUX_CSSL_FP_COUNTER_STMT(uint32_t fail_s = 0u);
     MCUX_CSSL_FP_LOOP_DECL(MainLoop_R);
     MCUX_CSSL_FP_LOOP_DECL(MainLoop_S);
     do
     {
+        MCUX_CSSL_FP_COUNTER_STMT(
+            MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(fail_r, 0u, UINT32_MAX - MCUXCLCORE_MAX(MCUXCLPKC_FLAG_ZERO, MCUXCLPKC_FLAG_NONZERO), MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
+            MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(fail_s, 0u, UINT32_MAX - MCUXCLCORE_MAX(MCUXCLPKC_FLAG_ZERO, MCUXCLPKC_FLAG_NONZERO), MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
+        )
+
         /**********************************************************/
         /* Import and check base point G                          */
         /**********************************************************/
@@ -128,7 +135,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         MCUX_CSSL_FP_FUNCTION_CALL(pointCheckStatus, mcuxClEcc_PointCheckAffineNR(pSession));
         if (MCUXCLECC_STATUS_OK != pointCheckStatus)
         {
-            MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+            MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
         }
         else
         {
@@ -143,18 +150,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         MCUX_CSSL_FP_FUNCTION_CALL(ret_CoreKeyGen, mcuxClEcc_Int_CoreKeyGen(pSession, byteLenN));
         if (MCUXCLECC_STATUS_OK != ret_CoreKeyGen)
         {
-            if ( (MCUXCLECC_STATUS_RNG_ERROR == ret_CoreKeyGen)
-                 && (0u == fail_r) && (0u == fail_s) )
-            {
-                mcuxClSession_freeWords_pkcWa(pSession, pCpuWorkarea->wordNumPkcWa);
-                MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);
-
-                mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
-
-                MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_RNG_ERROR);
-            }
-
-            MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+            MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
         }
 
         MCUX_CSSL_FP_LOOP_ITERATION(MainLoop_R,
@@ -213,7 +209,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         MCUX_CSSL_FP_FUNCTION_CALL(pointCheckQStatus, mcuxClEcc_PointCheckAffineNR(pSession));
         if (MCUXCLECC_STATUS_OK != pointCheckQStatus)
         {
-            MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+            MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
         }
 
         /**********************************************************/
@@ -222,7 +218,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
 
         MCUXCLPKC_FP_CALC_MC1_MS(WEIER_XA, WEIER_XA, ECC_N, ECC_N);  /* Hasse's theorem: Abs(n - (p+1)) <= 2 * sqrt(p). */
 
-        fail_r += MCUXCLPKC_WAITFORFINISH_GETZERO();
+        MCUX_CSSL_FP_COUNTER_STMT(fail_r += MCUXCLPKC_WAITFORFINISH_GETZERO());
         if (MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_GETZERO())
         {
             continue;
@@ -233,14 +229,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         /**********************************************************/
 
         uint8_t *pPrivateKeyDest = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_ZA]);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_load));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_load(pSession,
-                                                                   key,
-                                                                   &pPrivateKeyDest,
-                                                                   MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
-                                                                   NULL,
-                                                                   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
-                                                                   MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE));
+
+        /* Clear bytes on top of private key */
+        MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(operandSize, byteLenN, UINT32_MAX, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
+        const uint32_t bytesToClear = operandSize - byteLenN;
+        MCUX_CSSL_DI_RECORD(sumOfMemClearParams, &pPrivateKeyDest[byteLenN]);
+        MCUX_CSSL_DI_RECORD(sumOfMemClearParams, bytesToClear);
+        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPrivateKeyDest[byteLenN], bytesToClear));
+
+        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
+        MCUXCLKEY_LOAD_FP(
+          pSession,
+          key,
+          &pPrivateKeyDest,
+          MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
+          NULL,
+          MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
+          MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
 
         /* Generate random number d1 (to blind the private key). */
         uint8_t * const ptrZ = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_Z]);
@@ -253,12 +259,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         /**********************************************************/
 
         /* Import message digest to buffer ECC_S2 and pad or truncate it */
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_ECDSA_PrepareMessageDigest(pIn,
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_ECDSA_PrepareMessageDigest(
+                                         pIn,
                                          inSize,
                                          byteLenN));
 
         MCUX_CSSL_FP_LOOP_ITERATION(MainLoop_S, MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_LOOP_S );
-
 
         /**********************************************************/
         /* Securely calculate signature s, and check if s is zero */
@@ -287,8 +293,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         MCUXCLPKC_FP_CALC_MC1_MM(WEIER_YA, ECC_T0, ECC_T1, ECC_N);
         MCUXCLPKC_FP_CALC_MC1_MS(WEIER_YA, WEIER_YA, ECC_N, ECC_N);
 
-        fail_s += MCUXCLPKC_WAITFORFINISH_GETZERO();
-
+        MCUX_CSSL_FP_COUNTER_STMT(fail_s += MCUXCLPKC_WAITFORFINISH_GETZERO());
+        /* Balance mcuxClEcc_ECDSA_PrepareMessageDigest call */
+        MCUX_CSSL_DI_RECORD(parameterProtection, (uint32_t)pIn);
+        MCUX_CSSL_DI_RECORD(parameterProtection, inSize);
     } while(MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_GETZERO());
 
 
@@ -299,7 +307,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
     /* Import prime p and order n again, and check (compare with) existing one. */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
         mcuxClEcc_IntegrityCheckPN(pSession, (mcuxClEcc_CommonDomainParams_t *) &pDomainParams->common));
-        *pSignatureSize += (byteLenN * 2u);
+
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("caller-controlled variable. user must handle overflows.")
+    *pSignatureSize = (byteLenN * 2u);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
     MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(mcuxClEcc_ECDSA_GenerateSignature, pSignature, WEIER_XA, byteLenN);
     MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(mcuxClEcc_ECDSA_GenerateSignature, pSignature, WEIER_YA, byteLenN, byteLenN);
@@ -314,7 +325,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
 
     mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_GenerateSignature, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_GenerateSignature, MCUXCLSIGNATURE_STATUS_OK,
         MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_BEFORE_LOOP,
         MCUX_CSSL_FP_LOOP_ITERATIONS(MainLoop_R, fail_r + fail_s + 1u),
         MCUX_CSSL_FP_LOOP_ITERATIONS(MainLoop_S, fail_s + 1u),

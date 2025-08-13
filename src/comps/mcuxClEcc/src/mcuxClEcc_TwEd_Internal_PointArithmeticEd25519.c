@@ -64,11 +64,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_PointDoubleEd25519(void)
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
 /**
- * This function implements a unified mixed extended point addition on Ed25519.
+ * This function implements a unified and complete mixed extended point addition on Ed25519.
  * More precisely, given a point P1 = (X1:Y1:Z1:T1) in extended homogeneous
  * coordinates and a point P2 = (X2:Y2:1:T2) in extended affine coordinates,
  * it calculates the sum P1 + P2 in extended homogeneous coordinates
- * P1 = (Xres:Yres:Zres:Tres). To this end the a = -1 specific algorithm specified
+ * P1 = (Xres:Yres:Zres:Tres), even if either an input or the resulting point is the neutral point.
+ * To this end the a = -1 specific algorithm specified
  * in Section 3.1 of https://eprint.iacr.org/2008/522.pdf is used with Z2 = 1.
  *
  * Input:
@@ -103,12 +104,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_MixedPointAddEd25519(void)
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
 /**
- * This function implements a unified extended point addition on Ed25519.
+ * This function implements a unified and complete extended point addition on Ed25519.
  * More precisely, given a point P1 = (X1:Y1:Z1:T1) in extended homogeneous
  * coordinates and a point P2 = (X2:Y2:Z2:T2) in extended affine coordinates,
  * it calculates the sum P1 + P2 in extended homogeneous coordinates
- * P1 = (Xres:Yres:Zres:Tres). To this end the a = -1 specific algorithm specified
- * in Section 3.1 of https://eprint.iacr.org/2008/522.pdf is used.
+ * P1 = (Xres:Yres:Zres:Tres), even if either an input or the resulting point is the neutral point.
+ * To this end the a = -1 specific algorithm specified in Section 3.1 of https://eprint.iacr.org/2008/522.pdf is used.
  *
  * Input:
  *  - pSession  Handle for the current CL session

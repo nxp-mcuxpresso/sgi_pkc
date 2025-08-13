@@ -29,7 +29,6 @@
 extern "C" {
 #endif
 
-
 /**
  * @brief Request hardware
  *

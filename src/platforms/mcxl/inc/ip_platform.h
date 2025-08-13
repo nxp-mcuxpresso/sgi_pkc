@@ -107,6 +107,10 @@
 // #define SGI_HAS_FLUSHWR            1    ///< Not available on L20, because of HYBRID SGI
 // #define SGI_HAS_PRNG_SW_READ         1      ///< "feature" flag for existence of the SGI PRNG
 
+#if (defined(PKC0))
+#define PKC0__PKC PKC0
+#endif
+
 // Define base address of PKC
 #define PKC_SFR_BASE            PKC0__PKC   ///< base of PKC SFRs
 #define PKC_SFR_NAME(sfr)       PKC_ ## sfr ///< full name of SFR
@@ -121,6 +125,7 @@
 #define TRNG_SFR_SUFFIX_POS     _SHIFT      ///< sfr field name suffix for bit position
 #define TRNG_SFR_PREFIX         TRNG_   ///< sfr field name prefix
 
+/*
 #if defined ( __ICCARM__ )
 extern const uint32_t __ICFEDIT_region_RAM_PKC_start__;
 #define PKC_RAM_ADDR  (&__ICFEDIT_region_RAM_PKC_start__)
@@ -131,8 +136,12 @@ extern const uint32_t Image$$PKC_RAM_BUF_ADDRESS$$Base;
 #define PKC_RAM_ADDR ((uint32_t) &Image$$PKC_RAM_BUF_ADDRESS$$Base)
 #define PKC_WORD_SIZE  8u
 
-#endif /* __ICCARM__ */
+#endif  __ICCARM__ */
+
+// PKC_RAM base address is not defined in any header file
+#define PKC_RAM_ADDR  ((uint32_t)0x2801E000UL)
 #define PKC_WORD_SIZE  8u
+#define PKC_RAM_SIZE  ((uint32_t)0x1000u)
 
 #define NXPCL_CACHE_FLUSH(addr, len)
 #define NXPCL_CACHE_CLEAR(addr, len)

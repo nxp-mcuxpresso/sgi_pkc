@@ -13,15 +13,13 @@ config MCUX_COMPONENT_component.sgi_pkc
 	
 	if MCUX_COMPONENT_component.sgi_pkc
 	  choice
-	    prompt "Target device family"
-		config MCUX_DEPENDENCY_COMPONENT_component.sgi_pkc_DEPEND_ANYOF_OPTION_1
+	    prompt "Target device family - Platform Support"
+		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxa
             bool "MCXA"
-			select MCUX_COMPONENT_component.sgi_pkc.platform.mcxa
 			depends on MCUX_HW_DEVICE_MCXA266 || MCUX_HW_DEVICE_MCXA366
 			
-		config MCUX_DEPENDENCY_COMPONENT_component.sgi_pkc_DEPEND_ANYOF_OPTION_2
+		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxl
             bool "MCXL"
-			select MCUX_COMPONENT_component.sgi_pkc.platform.mcxl
 			depends on MCUX_HW_DEVICE_MCXL254 || MCUX_HW_DEVICE_MCXL255
 	  endchoice
 	endif
@@ -43,18 +41,6 @@ config MCUX_COMPONENT_component.sgi_pkc
 
         config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxl
             bool "MCXL"
-            depends on MCUX_HW_DEVICE_MCXL254 || MCUX_HW_DEVICE_MCXL255
-    endmenu
-
-    menu "Platform Support"
-        config MCUX_COMPONENT_component.sgi_pkc.platform.mcxa
-            bool "MCXA"
-            select MCUX_COMPONENT_component.sgi_pkc.toolchain
-            depends on MCUX_HW_DEVICE_MCXA266 || MCUX_HW_DEVICE_MCXA366
-
-        config MCUX_COMPONENT_component.sgi_pkc.platform.mcxl
-            bool "MCXL"
-            select MCUX_COMPONENT_component.sgi_pkc.toolchain
             depends on MCUX_HW_DEVICE_MCXL254 || MCUX_HW_DEVICE_MCXL255
     endmenu
 

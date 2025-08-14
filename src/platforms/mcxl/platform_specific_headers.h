@@ -20,7 +20,6 @@
  
  MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_HEADER()
  #include "fsl_device_registers.h"
- #include "system_MCXL255_cm33.h" 
  #include "ip_platform.h" 
  MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_HEADER()
  

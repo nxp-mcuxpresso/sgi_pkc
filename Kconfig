@@ -218,9 +218,7 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.cipher
             select MCUX_COMPONENT_component.sgi_pkc.cipher_modes
             select MCUX_COMPONENT_component.sgi_pkc.trng
-			
-            select MCUX_COMPONENT_component.sgi_pkc.platform.mcxa
-			
+
         config MCUX_COMPONENT_component.sgi_pkc.signature
             bool "Signature"
             select MCUX_COMPONENT_component.sgi_pkc.flow_protection

@@ -87,6 +87,8 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.flow_protection
             select MCUX_COMPONENT_component.sgi_pkc.data_integrity
             select MCUX_COMPONENT_component.sgi_pkc.toolchain
+			
+            select MCUX_COMPONENT_driver.crc
 
         config MCUX_COMPONENT_component.sgi_pkc.dma
             bool "DMA"
@@ -233,6 +235,8 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.pre_processor
             select MCUX_COMPONENT_component.sgi_pkc.memory
 
+            select MCUX_COMPONENT_driver.trng
+
         config MCUX_COMPONENT_component.sgi_pkc.pre_processor
             bool "Pre-processor"
 
@@ -316,7 +320,6 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.flow_protection
             select MCUX_COMPONENT_component.sgi_pkc.session
             select MCUX_COMPONENT_component.sgi_pkc.memory
-            select MCUX_COMPONENT_driver.crc
 
         config MCUX_COMPONENT_component.sgi_pkc.examples_ecc
             bool "ECC"

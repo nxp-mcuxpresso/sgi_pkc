@@ -104,15 +104,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
 {
     MCUXCLSESSION_ENTRY(session, mcuxClKey_encode, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK);
 
-    /* Only AES key encoding mechanisms implemented so far. Early return to avoid set-up of the key object. */
-    if(MCUXCLKEY_ALGO_ID_AES != (type->algoId & MCUXCLKEY_ALGO_ID_ALGO_MASK))
+    /**
+     *  1. Validate the input - early return to avoid set-up of the key object.
+     *    a) Only AES key encoding mechanisms implemented so far.
+     *    b) The sizes of the type and the given key data must match for symmetric keys
+     */
+    if((MCUXCLKEY_ALGO_ID_AES != (type->algoId & MCUXCLKEY_ALGO_ID_ALGO_MASK)) || (type->size != plainKeyDataLength))
     {
         /* key type not supported (yet) for encoding */
         MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
 
     /**
-     *  1. Initialize the new key object with basic fields for Key_load
+     *  2. Initialize the new key object with basic fields for Key_load
      */
     mcuxClKey_setTypeDescriptor(encodedKey, *type);
     mcuxClKey_setLoadedKeySlot(encodedKey, MCUXCLKEY_LOADOPTION_SLOT_INVALID);
@@ -122,14 +126,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
     mcuxClKey_setAuxData(encodedKey, (const uint8_t *)pAuxData);
     mcuxClKey_setAuxDataLength(encodedKey, auxDataLength);
 
-    /* key data size validation in case of symmetric keys*/
-    if(((encodedKey->type.algoId & MCUXCLKEY_ALGO_ID_USAGE_MASK) == MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY) && (encodedKey->type.size != plainKeyDataLength))
-    {
-        MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
-    }
-
     /**
-     *  2. Call Key_load to load the plain key
+     *  3. Call Key_load to load the plain key
      */
 
     /* Initialize fields for the plain encoding before calling the plain key load */
@@ -152,7 +150,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
         spec = MCUXCLKEY_ENCODING_SPEC_ACTION_PTR;
     }
 
-    /* Securely load the plain key material using the plain key encoding associated to the type */
+    /* Securely load the plain key material using the plain key encoding associated to the type. */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(encodedKey->type.plainEncoding->loadFunc(
       session,
       encodedKey,
@@ -161,15 +159,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
       spec));
 
     /**
-     *  3. Modify the key object to the new encoding
+     *  4. Modify the key object to the new encoding, and perform key storing.
      */
     mcuxClKey_setEncodingType(encodedKey, encoding);
     mcuxClKey_setKeyData(encodedKey, pEncodedKeyData);
     // TODO CLNS-16429: how to best set the container.length and container.used? Should pEncodedKeyDataLength be an input parameter instead, as for Key_init?
 
-    /**
-     *  4. Perform key storing, this will apply the encoding and store the encoded key material in the container.
-     */
+    /* They key store will apply the encoding and store the encoded key material in the container. */
     uint8_t *pPlainKeySrc = pPlainKeyDest;
     MCUXCLKEY_STORE_FP(
       session,
@@ -179,11 +175,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
       MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PLAIN);
 
-    /**
+    /*
      * 5. Set *pEncodedKeyDataLength to number of bytes written to pEncodedKeyData
      */
     if (mcuxClAes_Encoding_Rfc3394 == encoding)
     {
+      /* In case of mcuxClAes_Encoding_Rfc3394 encoding, the result size is the key material size + 8 bytes (MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE). */
       uint32_t keySize = mcuxClKey_getSize(encodedKey);
       MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(keySize, 0U, MCUXCLAES_AES256_KEY_SIZE, MCUXCLKEY_STATUS_FAULT_ATTACK)
       // TODO CLNS-16429
@@ -210,6 +207,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
 {
     MCUXCLSESSION_ENTRY(session, mcuxClKey_recode, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK);
 
+    /* 1. Validate the input */
     /* Only AES key encoding mechanisms implemented so far. Early return to avoid set-up of the key object. */
     if(MCUXCLKEY_ALGO_ID_AES != (encodedKey->type.algoId & MCUXCLKEY_ALGO_ID_ALGO_MASK))
     {
@@ -217,7 +215,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
         MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
 
-    /* 1. Initialize the new key object with basic fields for Key_load */
+    /**
+     *  2. Initialize the new key object
+     */
     mcuxClKey_setTypeDescriptor(recodedKey, encodedKey->type);
     mcuxClKey_setLoadedKeySlot(recodedKey, MCUXCLKEY_LOADOPTION_SLOT_INVALID);
     mcuxClKey_setLoadStatus(recodedKey, MCUXCLKEY_LOADSTATUS_NOTLOADED);
@@ -229,8 +229,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
     mcuxClKey_setKeyData(recodedKey, pEncodedKeyData);
     // TODO CLNS-16429: how to best set the container.length and container.used? Should pEncodedKeyDataLength be an input parameter instead, as for Key_init?
 
+    /**
+     * 3. Decode the encoded key material
+     */
     uint8_t *pPlainKeyDest = NULL;
-
     if(mcuxClAes_Encoding_Rfc3394 == encoding)
     {
       /* Track the location/destination of the key, similar behaviour as mcuxClKey_load.*/
@@ -249,7 +251,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
         MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
     }
 
-    /* 3. Perform key storing, this will apply the new encoding and store the encoded key material in the container */
+    /**
+     * 4. Perform key storing, this will apply the new encoding and store the encoded key material in the container
+     */
     uint8_t *pPlainKeySrc = pPlainKeyDest;
     MCUXCLKEY_STORE_FP(
       session,
@@ -257,10 +261,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
       pPlainKeySrc,
       MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PROTECTED);
 
-    /* 4. Set *pEncodedKeyDataLength to number of bytes written to pEncodedKeyData */
-    /* In case of mcuxClAes_Encoding_Rfc3394 encoding, the result size is the key material size + 8 bytes (MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE). */
+    /**
+     * 5. Set *pEncodedKeyDataLength to number of bytes written to pEncodedKeyData
+     */
     if (mcuxClAes_Encoding_Rfc3394 == encoding)
     {
+      /* In case of mcuxClAes_Encoding_Rfc3394 encoding, the result size is the key material size + 8 bytes (MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE). */
       uint32_t keySize = mcuxClKey_getSize(encodedKey);
       MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(keySize, 0U, MCUXCLAES_AES256_KEY_SIZE, MCUXCLKEY_STATUS_FAULT_ATTACK)
       // TODO CLNS-16429
@@ -284,12 +290,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
 {
     MCUXCLSESSION_ENTRY(session, mcuxClKey_loadCopro, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK,
       MCUX_CSSL_FP_CONDITIONAL(
-          (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadedKeySlot(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK)),
+          (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK)),
         MCUXCLKEY_FLUSH_FP_CALLED(key)
       )
     );
 
-    if(MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadedKeySlot(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK))
+    if(MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK))
     {
       /* If the key was already loaded to a copro, flush the old location before continuing
        * with the new load operation. */

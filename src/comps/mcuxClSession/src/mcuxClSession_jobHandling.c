@@ -38,7 +38,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_configure_job(
     session->jobContext.pUserCallback = pUserCallback;
     session->jobContext.pUserData = pUserData;
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_configure_job, MCUXCLSESSION_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_configure_job, MCUXCLSESSION_STATUS_OK, MCUXCLSESSION_STATUS_FAULT_ATTACK);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_triggerUserCallback)

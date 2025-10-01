@@ -41,12 +41,12 @@ extern "C" {
 /**********************************************************/
 /**
  * @brief Function to switch the endianness of the data in a buffer
- * 
+ *
  * This function switches the endianness of a data buffer of a specified length.
- * 
+ *
  * @param[in/out]  ptr     pointer to data buffer of which endianness is switched
  * @param          length  length of data buffer pointed to by ptr
- * 
+ *
  * @pre
  *  - @p ptr pointer shall be CPU word aligned.
  *  - if @p length is not a multiple of CPU wordsize, this function will:
@@ -64,22 +64,22 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SwitchEndianness(uint32_t *ptr, uint
 
 /**
  * @brief Function to import an operand, which is provided in big-endian order
- * 
+ *
  * This function imports an integer stored as a big-endian octet string with specified length
  * and stores it as an integer in PKC workarea according PKC specification.
- * 
+ *
  * @param[out]  iTarget                 index of PKC operand, where the imported integer will be stored
  * @param[in]   pSource                 address of the octet string to be imported
  * @param       length                  length of the octet string to be imported
  * @param       targetBufferLength      length of the buffer iTarget
- * 
+ *
  * @pre
  *  - @p iTarget is the index of the PKC operand, size = targetBufferLength.
  *    The bytes on top of this operand will be cleared to zero if length < targetBufferLength.
  *    The offset (UPTRT[iTarget]) shall be exactly a multiple of MCUXCLPKC_WORDSIZE.
  *  - @p length shall be equal to or smaller than targetBufferLength.
  *  - @p targetBufferLength shall be equal to the buffer size of iTarget and a multiple of MCUXCLPKC_WORDSIZE.
- * 
+ *
  * @post
  *  - Data Integrity: Expunge(iTarget + pSource + length + targetBufferLength)
  *
@@ -110,19 +110,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportBigEndianToPkc(uint8_t iTarget
 
  * This function imports an integer stored as a little-endian octet string with specified length
  * and stores it as an integer in PKC workarea according PKC specification.
- * 
+ *
  * @param[out]  iTarget                 index of PKC operand, where the imported integer will be stored
  * @param[in]   pSource                 address of the octet string to be imported
  * @param       length                  length of the octet string to be imported
  * @param       targetBufferLength      length of the buffer iTarget
- * 
+ *
  * @pre
  *  - @p iTarget is the index of the PKC operand, size = targetBufferLength.
  *    The bytes on top of this operand will be cleared to zero if length < targetBufferLength.
  *    The offset (UPTRT[iTarget]) shall be exactly a multiple of MCUXCLPKC_WORDSIZE.
  *  - @p length shall be equal to or smaller than targetBufferLength.
  *  - @p targetBufferLength shall be equal to the buffer size of iTarget and a multiple of MCUXCLPKC_WORDSIZE.
- * 
+ *
  * @post
  *  - Data Integrity: Expunge(iTarget + pSource + length + targetBufferLength)
  *
@@ -150,19 +150,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportLittleEndianToPkc(uint8_t iTar
 
 /**
  * @brief Function to export an operand to a big-endian integer
- * 
+ *
  * This function exports a PKC integer in PKC workarea and stores it as a big-endian octet string
  * in a buffer specified by the given address and length.
- * 
+ *
  * @param[out]  pTarget  address of operand, where the exported integer will be stored
  * @param[in]   iSource  index of PKC operand to be exported
  * @param       length   length of the octet string to be exported
- * 
+ *
  * @pre
  *  - @p iSource is the index of the PKC operand, size = PKC PS1LEN.
  *    The offset (UPTRT[iSource]) shall be exactly a multiple of MCUXCLPKC_WORDSIZE.
  *  - @p length shall be equal to or smaller than PKC PS1LEN.
- * 
+ *
  * @post
  *  - Data Integrity: Expunge(pTarget + iSource + length)
  *
@@ -189,19 +189,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ExportBigEndianFromPkc(uint8_t * pTa
 
 /**
  * @brief Function to export an operand to a little-endian integer
- * 
+ *
  * This function exports a PKC integer in PKC workarea and stores it as a little-endian octet string
  * in a buffer specified by the given address and length.
  *
  * @param[out]  pTarget  address of operand, where the exported integer will be stored
  * @param[in]   iSource  index of PKC operand to be exported
  * @param       length   length of the octet string to be exported
- * 
+ *
  * @pre
  *   - @p iSource is the index of the PKC operand, size = PKC PS1LEN.
  *     The offset (UPTRT[iSource]) shall be exactly a multiple of MCUXCLPKC_WORDSIZE.
  *   - @p length shall be equal to or smaller than PKC PS1LEN.
- * 
+ *
  * @post
  *  - Data Integrity: Expunge(pTarget + iSource + length)
  *
@@ -228,15 +228,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ExportLittleEndianFromPkc(uint8_t * 
 
 /**
  * @brief Function to securely import an operand, which is provided in big-endian order
- * 
+ *
  * This function imports an integer stored as a big-endian octet string with specified length
  * and stores it as an integer in PKC workarea according PKC specification, in a secure manner.
- * 
+ *
  * @param[out]  iTarget                 index of PKC operand, where the imported integer will be stored
  * @param[in]   pSource                 address of the octet string to be imported
  * @param       length                  length of the octet string to be imported
  * @param       targetBufferLength      length of the buffer iTarget
- * 
+ *
  * @pre
  *  - @p iTarget is the index of Target (PKC operand), size = targetBufferLength, where the imported integer
  *    will be stored. The bytes on top of this operand will be cleared to zero if length < targetBufferLength.
@@ -273,22 +273,21 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
     mcuxClPkc_Status_t status = MCUXCLPKC_STATUS_OK
 
 
-
 /**
  * @brief Function to securely export an operand to a big-endian integer
- * 
+ *
  * This function exports a PKC integer in PKC workarea and stores it as a big-endian octet string
  * in a buffer specified by the given address and length, in a secure manner.
- * 
+ *
  * @param[out]  pTarget        address of operand, where the exported integer will be stored
  * @param[in]   iSource        index of PKC operands Source
  * @param       length         length of the octet string to be exported
- * 
+ *
  * @pre
  *  - @p iSource is the index of Source (PKC operand) to be exported, size = PKC PS1LEN.
  *    The offset (UPTRT[iSource]) shall be exactly a multiple of MCUXCLPKC_WORDSIZE.
  *  - @p length shall be equal to or smaller than PKC PS1LEN.
- * 
+ *
  * @post
  *  - Data Integrity: Expunge(pTarget + iSource + length)
  *
@@ -321,19 +320,19 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 
 /**
  * @brief Function to securely export an operand to a little-endian integer
- * 
+ *
  * This function exports a PKC integer in PKC workarea and stores it as a little-endian octet string
  * in a buffer specified by the given address and length, in a secure manner.
- * 
+ *
  * @param[out]  pTarget  address of operand, where the exported integer will be stored
  * @param[in]   iSource  index of PKC operand to be exported
  * @param       length   length of the octet string to be exported
- * 
+ *
  * @pre
  *  - @p iSource is the index of Source (PKC operand) to be exported, size = PKC PS1LEN.
  *    The offset (UPTRT[iSource]) shall be exactly a multiple of MCUXCLPKC_WORDSIZE.
  *   - @p length shall be equal to or smaller than PKC PS1LEN.
- * 
+ *
  * @post
  *  - Data Integrity: Expunge(pTarget + iSource + length)
  *

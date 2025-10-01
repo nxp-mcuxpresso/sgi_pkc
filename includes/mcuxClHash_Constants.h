@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023 NXP                                                  */
+/* Copyright 2020-2023, 2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -38,8 +38,6 @@
 #define MCUXCLHASH_STATUS_FAILURE                             ((mcuxClHash_Status_t) 0x06665330u)                   ///< Hash operation failed
 #define MCUXCLHASH_FAILURE                                    MCUXCLHASH_STATUS_FAILURE                             ///< \deprecated Replaced by MCUXCLHASH_STATUS_FAILURE
 #define MCUXCLHASH_STATUS_INVALID_PARAMS                      ((mcuxClHash_Status_t) 0x066653F8u)                   ///< Hash function called with invalid parameters
-#define MCUXCLHASH_STATUS_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK  ((mcuxClHash_Status_t) 0x06665338u)                   ///< Export on state, for which a NON-multiple of the blocksize has been hashed
-#define MCUXCLHASH_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK         MCUXCLHASH_STATUS_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK  ///< \deprecated Replaced by MCUXCLHASH_STATUS_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK
 #define MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL                   ((mcuxClHash_Status_t) 0x06668930u)                   ///< Hash operation succeeded, but comparison of result failed
 #define MCUXCLHASH_COMPARE_NOT_EQUAL                          ((mcuxClHash_Status_t) 0x06668930u)                   ///< \deprecated Replaced by MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL
 #define MCUXCLHASH_STATUS_FULL                                ((mcuxClHash_Status_t) 0x0666538Eu)                   ///< Hash operation failed because the total input size exceeds the upper limit

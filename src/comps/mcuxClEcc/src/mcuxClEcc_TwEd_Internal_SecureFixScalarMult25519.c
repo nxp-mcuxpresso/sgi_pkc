@@ -43,7 +43,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     (void) pSession;
     options |= MCUXCLECC_SCALARMULT_OPTION_SECURE;
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_FixScalarMult));
-    MCUX_CSSL_FP_FUNCTION_CALL(returnScalarMult, mcuxClEcc_TwEd_FixScalarMult(pSession,
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_TwEd_FixScalarMult(pSession,
             pDomainParams,
             iScalar,
             scalarBitLength,
@@ -52,11 +52,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
             options
         )
     );
-
-    if(MCUXCLECC_STATUS_OK != returnScalarMult)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_SecureFixScalarMult25519);
 }

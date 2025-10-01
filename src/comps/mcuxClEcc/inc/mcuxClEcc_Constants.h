@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -45,11 +45,9 @@ extern "C" {
  * @{ */
 #define MCUXCLECC_STATUS_OK                        ((mcuxClEcc_Status_t) 0x04442E03u)  ///< Operation was successful.
 #define MCUXCLECC_STATUS_INVALID_PARAMS            ((mcuxClEcc_Status_t) 0x044453F8u)  ///< Parameters are invalid.
-#define MCUXCLECC_STATUS_RNG_ERROR                 ((mcuxClEcc_Status_t) 0x04445334u)  ///< Random number (DRBG / PRNG) error (unexpected behavior).
 #define MCUXCLECC_STATUS_INVALID_SIGNATURE         ((mcuxClEcc_Status_t) 0x04448930u)  ///< ECDSA Signature is invalid.
 #define MCUXCLECC_STATUS_NEUTRAL_POINT             ((mcuxClEcc_Status_t) 0x04448934u)  ///< The result of the point operation is the neutral point.
 #define MCUXCLECC_STATUS_FAULT_ATTACK              ((mcuxClEcc_Status_t) 0x0444F0F0u)  ///< Fault attack (unexpected behavior) is detected.
-#define MCUXCLECC_STATUS_NOT_SUPPORTED             ((mcuxClEcc_Status_t) 0x04445370u)  ///< Functionality is not supported.
 
 #define MCUXCLECC_STATUS_ERROR_SMALL_SUBGROUP      ((mcuxClEcc_Status_t) 0x04445374u)  ///< MONTDH public key lies in small subgroup.
 /** @} */  /* MCUXCLECC_STATUS_ */

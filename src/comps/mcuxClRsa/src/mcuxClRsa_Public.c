@@ -95,7 +95,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   uint8_t *pBlind = pT2 + bufferSizeT2;
 
   /* Setup UPTR table. */
-  const uint32_t cpuWaSizeWord = (((sizeof(uint16_t)) * MCUXCLRSA_INTERNAL_PUBLIC_UPTRT_SIZE) + (sizeof(uint32_t)) - 1u) / (sizeof(uint32_t));
+  const uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_PUBLIC_WACPU_SIZE_IN_WORDS;
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));

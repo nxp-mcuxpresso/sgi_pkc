@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_WeierECC_Internal_GenerateDomainParams.c
+ * @file  mcuxClEcc_Weier_GenerateDomainParams.c
  * @brief ECC Weierstrass custom domain parameter generation function
  */
 
@@ -148,16 +148,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     pOperands[WEIER_VY0] = pOperands[ECC_S1];
 
     /* Perform basic domain parameter checks */
-    MCUX_CSSL_FP_FUNCTION_CALL(ret_DomainParamsCheck,
-        mcuxClEcc_Weier_DomainParamsCheck(pSession, byteLenP, byteLenN) );
-    if (MCUXCLECC_STATUS_INVALID_PARAMS == ret_DomainParamsCheck)
-    {
-        mcuxClSession_freeWords_pkcWa(pSession, pCpuWorkarea->wordNumPkcWa);
-        MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);
-
-        mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
-        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_INVALID_PARAMS);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Weier_DomainParamsCheck(pSession, byteLenP, byteLenN));
 
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("32-bit aligned UPTRT table is assigned in CPU workarea")
     uint32_t *pOperands32 = (uint32_t *)pOperands;

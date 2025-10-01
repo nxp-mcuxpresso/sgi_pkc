@@ -89,7 +89,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_PointCheckAffineNR(mcu
  * This function checks a point, if y^2 == x^3 + a*x*z^4 + b*z^6 (mod p).
  * @retval #MCUXCLECC_STATUS_OK
  * @retval #MCUXCLECC_INTSTATUS_POINTCHECK_NOT_OK
- * @retval #MCUXCLECC_STATUS_FAULT_ATTACK
  *
  * Inputs in pOperands[] and PKC workarea:
  *   buffers (X0,Y0,Z) contain the point, Jacobian, Montgomery representation.

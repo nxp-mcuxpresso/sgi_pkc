@@ -35,8 +35,6 @@
 #define MCUXCLMAC_STATUS_FAULT_ATTACK              ((mcuxClMac_Status_t) 0x0888F0F0u) ///< Fault attack detected
 #define MCUXCLMAC_STATUS_OK                        ((mcuxClMac_Status_t) 0x08882E03u) ///< Blocking operation finished successfully
 #define MCUXCLMAC_STATUS_COMPARE_NOK               ((mcuxClMac_Status_t) 0x088889FCu) ///< Blocking operation finished, invalid tag detected
-// TODO CLNS-17634: delete from Lib, no longer needed due to MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION
-#define MCUXCLMAC_STATUS_ERROR_MEMORY_ALLOCATION   ((mcuxClMac_Status_t) 0x0888533Cu) ///< Memory allocation error detected
 #define MCUXCLMAC_STATUS_JOB_STARTED               ((mcuxClMac_Status_t) 0x08882E47u) ///< Non-blocking operation started successfully
 #define MCUXCLMAC_STATUS_JOB_COMPLETED             ((mcuxClMac_Status_t) 0x08882EFCu) ///< Non-blocking operation finished successfully
 #define MCUXCLMAC_STATUS_JOB_COMPLETED_COMPARE_NOK ((mcuxClMac_Status_t) 0x08888903u) ///< Non-blocking operation finished, invalid tag detected

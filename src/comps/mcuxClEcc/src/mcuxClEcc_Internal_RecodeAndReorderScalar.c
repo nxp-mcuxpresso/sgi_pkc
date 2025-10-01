@@ -99,7 +99,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_RecodeAndReorderScalar(mcuxClSession
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("the result does not wrap, because the return vaule of mcuxClMath_CountLeadingZerosWord is in the range [0,31].")
     uint32_t fLog = 32u - mcuxClMath_CountLeadingZerosWord((uint32_t) f) - 1u;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-    MCUXCLECC_FP_INTERLEAVESCALAR(scalarIndex, scalarBitLength, fLog);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_InterleaveScalar(scalarIndex, scalarBitLength, fLog));
 
     /* Step 5:
      * Complete pkc operations

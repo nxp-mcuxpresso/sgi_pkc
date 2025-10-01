@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -38,10 +38,8 @@ extern "C" {
 /**
  * @brief Return codes
  */
-#define MCUXCLPADDING_STATUS_OK           ((mcuxClPadding_Status_t) 0x0FF42E03u) ///< Padding operation successful
-#define MCUXCLPADDING_STATUS_NOT_OK       ((mcuxClPadding_Status_t) 0x0FF453FCu) ///< Incorrect padding
+
 #define MCUXCLPADDING_STATUS_ERROR        ((mcuxClPadding_Status_t) 0x0FF45330u) ///< Error occurred during Padding operation
-#define MCUXCLPADDING_STATUS_FAULT_ATTACK ((mcuxClPadding_Status_t) 0x0FF4F0F0u) ///< Fault attack (unexpected behaviour) detected
 
 /** @} */
 

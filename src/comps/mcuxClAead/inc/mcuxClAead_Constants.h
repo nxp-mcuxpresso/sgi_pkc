@@ -28,8 +28,6 @@
 
 /* Error codes */
 #define MCUXCLAEAD_STATUS_ERROR                        ((mcuxClAead_Status_t) 0x01115330u)  ///< Error occured during Aead operation
-// TODO CLNS-17634: delete from Lib, no longer needed due to MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION
-#define MCUXCLAEAD_STATUS_ERROR_MEMORY_ALLOCATION      ((mcuxClAead_Status_t) 0x0111533Cu)  ///< Memory allocation error detected
 #define MCUXCLAEAD_STATUS_FAULT_ATTACK                 ((mcuxClAead_Status_t) 0x0111F0F0u)  ///< Aead function returned fault attack
 #define MCUXCLAEAD_STATUS_OK                           ((mcuxClAead_Status_t) 0x01112E03u)  ///< Aead function returned successfully
 #define MCUXCLAEAD_STATUS_INVALID_PARAM                ((mcuxClAead_Status_t) 0x011153F8u)  ///< Aead function parameter invalid

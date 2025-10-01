@@ -73,28 +73,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_requestDmaInputChannelAndConfig
   );
 }
 
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_handleDmaErrorDuringAutomode)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_handleDmaErrorDuringAutomode(void)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_handleDmaErrorDuringAutomode);
-
-  /* Perform a dummy SGI_DATOUT read to be sure AUTO mode is wrapped-up correctly */
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 0u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 4u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 8u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 12u);
-
-  /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 , subsequent SGI operations will not work.
-     Workaround: wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
-
-  mcuxClSgi_Drv_wait();
-  mcuxClSgi_Drv_resetAutoMode();
-
-  /* Channels do not need to be canceled / stopped. Minor loop will just not be triggered again. */
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_handleDmaErrorDuringAutomode);
-}
-
 
 /* Mode functions and ISRs */
 
@@ -230,9 +208,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /* Output result of MAC operation to result buffer */
-  uint32_t dataProcessed = (0u < pWa->nonBlockingWa.inLength) ? MCUXCLMACMODES_TRUE : MCUXCLMACMODES_FALSE;
   MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_copyOut);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->copyOut(session, dataProcessed, pWa->nonBlockingWa.pMac.output,
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->copyOut(session, MCUXCLMACMODES_TRUE, pWa->nonBlockingWa.pMac.output,
                                            pWa->nonBlockingWa.pOutputLength));
 
   /* Notify the user that the operation finished */
@@ -244,7 +221,11 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     cpuWaSizeInWords));
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSession_triggerUserCallback(session, MCUXCLMAC_STATUS_JOB_COMPLETED));
+  MCUX_CSSL_FP_FUNCTION_CALL(retSessionTriggerCallback, mcuxClSession_triggerUserCallback(session, MCUXCLMAC_STATUS_JOB_COMPLETED));
+  if(MCUXCLSESSION_STATUS_OK != retSessionTriggerCallback)
+  {
+    MCUXCLSESSION_ERROR(session, retSessionTriggerCallback);
+  }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_ISR_completeNonBlocking_compute);
 }
@@ -411,8 +392,12 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   /* Notify the user that the operation finished */
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSession_triggerUserCallback(session, MCUXCLMAC_STATUS_JOB_COMPLETED));
-
+  MCUX_CSSL_FP_FUNCTION_CALL(retSessionTriggerCallback, mcuxClSession_triggerUserCallback(session, MCUXCLMAC_STATUS_JOB_COMPLETED));
+  if(MCUXCLSESSION_STATUS_OK != retSessionTriggerCallback)
+  {
+    MCUXCLSESSION_ERROR(session, retSessionTriggerCallback);
+  }
+  
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_ISR_completeNonBlocking_multipart);
 }
 

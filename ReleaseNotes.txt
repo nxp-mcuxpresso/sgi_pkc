@@ -1,32 +1,31 @@
-DCI_SDK (1.0.0) Release Notes
+DCI_SDK (3.0.0) Release Notes
 
 - Release: DCI_SDK PRC
-- Version: DCI_SDK_V1.0.0
-- Date:    2025-08-06
+- Version: DCI_SDK_V3.0.0
+- Date:    2025-09-15
 - Compiler: IAR C/C++ Compiler V9.60.2.399 for ARM
 - Code size: 
     -delivery/mcxa2xx_release/static_library/mcxa2xx/libclns.a
         TEXT 	RO 	RW 	ZI 	TOTAL_CONSUMPTION
-        118456 23784 	0 	0 	142240
+        112438  23752   0       0       136190
 
     -delivery/mcxl2xx_release/static_library/mcxl2xx/libclns.a
         TEXT 	RO 	RW 	ZI 	TOTAL_CONSUMPTION
-        118248 23784 	0 	0 	142032
+        112232  23752   0       0       135984
 
 
 --- Test Targets: 
    - MCX A276 sample
-   - CCCS FPGA v2 using A20 cosim v2 bitfile r1785
+   - MCX L20 sample
+   - CCCS FPGA v2 using A20 CoSim v2 bitfile r1785
 
 --- New Features 
-      - The PRNG seed function provided. The PRNG must be seeded after Power-On reset before first CLib usage
-      - Coverity/MISRA violations fixes
-      - Hardened memory functions for copy and compare (Robust Copy/Compare/Set/Clear, Secure Copy/Compare/Set/XOR)
-      - Usage of HW CRC IP for CRC calculations
-      - Performance optimizations for Cipher and Hash operations
-      - Test coverage improvements
-      - TRNG configuration check during TRNG initialization removed.
-      - Zero Hash issue for ECDSA Verify fix
+   - Removal of concatenation macro in mcuxClAnalysis.h to fix Coverity analysis warnings
+   - The code size optimizations
+   - The code coverage improvements
+   - The significant performance improvements of CPU driven hash operation on the first block
+   - Fix the FFDH doxygen documentation
+   - Fix the issue with unaligned key buffers in RSA KeyGen operation
 
 --- Features:
    - Components included: mcuxClAead, mcuxClAeadModes, mcuxClAes, mcuxClBuffer, mcuxClCipher, mcuxClCipherModes, mcuxClCore, mcuxClCrc,
@@ -38,9 +37,5 @@ DCI_SDK (1.0.0) Release Notes
 
 --- Known Issues/Limitations:
    - To use any Asymmetric Cryptographic Operations the RAM_INTERLEAVE flag in SYSCON must be enabled before invoking any CLib Asymmetric Cryptographic Functionality.
-   - L20 variants tested on CoSim FPGA v2 only
-   - The ARMGCC build on A20 SDK variant is failing due to bug in platform header file. 
-     The HW team will be informed to fix header file and meanwhile appropriate patch for platform header file will be provided 
-     together with the release package
-   - Mac.CMAC.nxpClMac_oneshot_compute_cmac_nonblocking_source_bus_error_L4 tests failed on COSIM FPGA v2, because the DMA error interrupt is not routed correctly. 
-     It passes on A20 sample. (CLNS-19717)
+   - The platform header file is still using MCXA276.
+   - The key descriptors buffers must be 4-bytes aligned

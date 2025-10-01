@@ -29,13 +29,6 @@
 #include <mcuxClConfig.h>  // Exported features flags header
 
 #include <mcuxClCore_Platform.h>
-#include <mcuxClMemory_Constants.h>
-#include <mcuxClMemory_Types.h>
-#include <mcuxClToolchain.h>
-#include <mcuxCsslFlowProtection.h>
-#include <mcuxCsslDataIntegrity.h>
-#include <internal/mcuxCsslMemory_Internal_CopyRev_arm_asm.h>
-#include <internal/mcuxClMemory_CompareRev_Internal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -61,35 +54,13 @@ extern "C" {
  * @return void
  */
 
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMemory_copy_reversed_int)
-static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_reversed_int
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMemory_copy_reversed_int)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_reversed_int
 (
     uint8_t * pDst,
     uint8_t const * pSrc,
     uint32_t length
-)
-{
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_reversed_int);
-
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_CopyRev_arm_asm(pDst, pSrc, length));
-    /*
-     * Compare copied data to ensure copy operation performed properly
-     * As internal copy function doesn't have session reference to trigger early exit,
-     * we will left SC unbalanced to trigger FA from upper layer
-     */
-    MCUX_CSSL_DI_RECORD(compareParams, pDst);
-    MCUX_CSSL_DI_RECORD(compareParams, pSrc);
-    MCUX_CSSL_DI_RECORD(compareParams, length);
-    MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxClMemory_compare_reversed_int(pDst, pSrc, length));
-    if(MCUXCLMEMORY_STATUS_EQUAL != clRetval)
-    {
-        MCUX_CSSL_DI_RECORD(compareParams, clRetval);
-    }
-
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_reversed_int,
-                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_CopyRev_arm_asm),
-                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_reversed_int));
-}
+);
 
 #ifdef __cplusplus
 } /* extern "C" */

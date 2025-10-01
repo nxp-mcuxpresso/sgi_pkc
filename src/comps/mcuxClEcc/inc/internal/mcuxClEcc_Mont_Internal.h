@@ -85,7 +85,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_SetupEnvironment(
     );
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(
     mcuxClSession_Handle_t pSession,
     uint8_t iScalar,
     uint32_t scalarBitLength,
@@ -110,7 +110,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
  * This function performs elliptic curve key generation of the private key and calculates corresponding public key for MontDH key agreement
  * as specified in rfc7748.
  * This API does not check if the curve parameters are correct.
- * This API might return MCUXCLECC_STATUS_RNG_ERROR when RNG behave in unexpected way
  * Unexpected behavior will return MCUXCLECC_STATUS_FAULT_ATTACK.
  *
  * @param[in] pSession          pointer to #mcuxClSession_Descriptor.
@@ -131,7 +130,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_GenerateKeyPair(
  *
  * This function performs a MontDH key agreement to compute a shared secret between two parties using according to Curve25519 or Curve448 as specified in rfc7748.
  * This API does not check if the curve parameters are correct.
- * This API might return MCUXCLECC_STATUS_RNG_ERROR when RNG behave in unexpected way
  * This API might return MCUXCLECC_STATUS_ERROR_SMALL_SUBGROUP if generated public key lies in the small subgroup
  * Unexpected behavior will return MCUXCLECC_STATUS_FAULT_ATTACK.
  *

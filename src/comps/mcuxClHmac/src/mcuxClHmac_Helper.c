@@ -20,6 +20,7 @@
 #include <mcuxCsslAnalysis.h>
 #include <mcuxClSession.h>
 #include <mcuxCsslFlowProtection.h>
+#include <mcuxCsslDataIntegrity.h>
 #include <mcuxClCore_FunctionIdentifiers.h>
 #include <mcuxClMac.h>
 #include <mcuxClMemory.h>

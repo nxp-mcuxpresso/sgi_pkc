@@ -37,7 +37,6 @@
  * @ingroup mcuxClMemory_Types_Macros
  * @{
  */
-#define MCUXCLMEMORY_STATUS_OK                   ((mcuxClMemory_Status_t) 0x09992E03u) ///< Memory operation successful
 #define MCUXCLMEMORY_STATUS_EQUAL                ((mcuxClMemory_Status_t) 0x09992E47u) ///< The two contents of the Memory Compare are equal
 #define MCUXCLMEMORY_STATUS_NOT_EQUAL            ((mcuxClMemory_Status_t) 0x099989B8u) ///< The two contents of the Memory Compare are not equal
 #define MCUXCLMEMORY_STATUS_FAULT                ((mcuxClMemory_Status_t) 0x0999F0F0u) ///< A fault occurred in the execution
@@ -45,9 +44,6 @@
 /**
  * @}
  */
-
-#define MCUXCLMEMORY_ERRORCODE_OK MCUXCLMEMORY_STATUS_OK ///< Memory operation successful
-                                                       ///< @deprecated Please use #MCUXCLMEMORY_STATUS_OK instead
 
 #endif  /* MCUXCLMEMORY_CONSTANTS_H */
 

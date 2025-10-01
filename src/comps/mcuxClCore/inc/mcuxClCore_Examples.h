@@ -30,6 +30,7 @@ void S5xy_Disable_IRQ(uint32_t IRQ_Number);
 // TODO CLNS-3599: #define MCUXCLEXAMPLE_FUNCTION(_name) uint32_t _name(void)
 #define MCUXCLEXAMPLE_FUNCTION(_name) \
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXAMPLE_FUNCTION() \
+bool _name(void); \
 bool _name(void) \
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXAMPLE_FUNCTION()
 

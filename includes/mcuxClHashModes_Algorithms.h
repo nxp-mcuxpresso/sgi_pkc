@@ -54,6 +54,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
 /**
  * @brief Sha-224 algorithm descriptor
  *        Sha-224 hash calculation using the Hash functionality SGI.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten.
  * \implements{REQ_788287}
  */
 static mcuxClHash_Algo_t mcuxClHash_Algorithm_Sha224 = &mcuxClHash_AlgorithmDescriptor_Sgi_Sha224;
@@ -70,6 +72,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
  * @note Interrupts must be enabled on the DMA input channel with a properly installed handler.
  * If the non-blocking Hash operation returns @ref MCUXCLHASH_STATUS_JOB_STARTED, a
  * non-blocking operation has started and the CPU is unblocked in the meantime.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten.
  *
  * \implements{REQ_1550262}
  */
@@ -85,6 +89,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
 /**
  * @brief Sha-256 algorithm descriptor
  *        Sha-256 hash calculation using the Hash functionality SGI.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten
  * \implements{REQ_788287}
  */
 static mcuxClHash_Algo_t mcuxClHash_Algorithm_Sha256 = &mcuxClHash_AlgorithmDescriptor_Sgi_Sha256;
@@ -100,6 +106,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
  * @note Interrupts must be enabled on the DMA input channel with a properly installed handler.
  * If the non-blocking Hash operation returns @ref MCUXCLHASH_STATUS_JOB_STARTED, a
  * non-blocking operation has started and the CPU is unblocked in the meantime.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten
  *
  * \implements{REQ_1550262}
  */
@@ -117,6 +125,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
  * @note Interrupts must be enabled on the DMA input channel with a properly installed handler.
  * If the non-blocking Hash operation returns @ref MCUXCLHASH_STATUS_JOB_STARTED, a
  * non-blocking operation has started and the CPU is unblocked in the meantime.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten
  *
  * \implements{REQ_788288}
  */
@@ -133,6 +143,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
  * @note Interrupts must be enabled on the DMA input channel with a properly installed handler.
  * If the non-blocking Hash operation returns @ref MCUXCLHASH_STATUS_JOB_STARTED, a
  * non-blocking operation has started and the CPU is unblocked in the meantime.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten
  *
  * \implements{REQ_1550264}
  */
@@ -150,6 +162,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
  * @note Interrupts must be enabled on the DMA input channel with a properly installed handler.
  * If the non-blocking Hash operation returns @ref MCUXCLHASH_STATUS_JOB_STARTED, a
  * non-blocking operation has started and the CPU is unblocked in the meantime.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten
  *
  * \implements{REQ_788288}
  */
@@ -166,6 +180,8 @@ extern const mcuxClHash_AlgorithmDescriptor_t mcuxClHash_AlgorithmDescriptor_Sgi
  * @note Interrupts must be enabled on the DMA input channel with a properly installed handler.
  * If the non-blocking Hash operation returns @ref MCUXCLHASH_STATUS_JOB_STARTED, a
  * non-blocking operation has started and the CPU is unblocked in the meantime.
+ * @attention This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3.
+ *            Any preloaded key data in these slots will potentially be overwritten
  *
  * \implements{REQ_1550264}
  */

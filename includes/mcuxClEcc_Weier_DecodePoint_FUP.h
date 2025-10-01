@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2023 NXP                                                  */
+/* Copyright 2022-2023, 2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -11,14 +11,14 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-/** @file  mcuxClEcc_WeierECC_Internal_GenerateDomainParams_FUP.h
+/** @file  mcuxClEcc_Weier_DecodePoint_FUP.h
 *  @brief defines FUP programs byte arrays
 */
-#ifndef MCUXCLECC_WEIERECC_INTERNAL_GENERATEDOMAINPARAMS_FUP_H_
-#define MCUXCLECC_WEIERECC_INTERNAL_GENERATEDOMAINPARAMS_FUP_H_
+#ifndef MCUXCLECC_WEIER_DECODEPOINT_FUP_H_
+#define MCUXCLECC_WEIER_DECODEPOINT_FUP_H_
 #include <internal/mcuxClPkc_FupMacros.h>
 
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_GenerateDomainParams_Convert_G_toJacMR[5];
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_GenerateDomainParams_Reduce_R2N_R2P[4];
+extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_DecodePoint_SEC_CalcAlpha[7];
+extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_DecodePoint_SEC_VerifyBeta[7];
 
-#endif /* MCUXCLECC_WEIERECC_INTERNAL_GENERATEDOMAINPARAMS_FUP*/ 
+#endif /* MCUXCLECC_WEIER_DECODEPOINT_FUP*/ 

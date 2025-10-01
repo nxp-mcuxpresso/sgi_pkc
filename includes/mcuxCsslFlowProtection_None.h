@@ -189,7 +189,11 @@
  * @param return The protected return value which contains the result.
  */
 #define MCUX_CSSL_FP_RESULT_IMPL2(type, return) \
-  ((type)(return))
+  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES() \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Proper alignment is ensured during type cast") \
+  ((type)(return)) \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER() \
+  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
 /**
  * @def MCUX_CSSL_FP_RESULT_IMPL1
@@ -334,7 +338,8 @@
  * @param call   The (protected) function call that must be performed.
  */
 #define MCUX_CSSL_FP_FUNCTION_CALL_IMPL3(type, result, call) \
-  type const result = (type)(call)
+  type const result = MCUX_CSSL_FP_RESULT(type,call)
+
 
 /**
  * @def MCUX_CSSL_FP_FUNCTION_CALL_IMPL2
@@ -360,7 +365,9 @@
  * @param call   The (protected) function call that must be performed.
  */
 #define MCUX_CSSL_FP_FUNCTION_CALL_IMPL(...) \
-  MCUX_CSSL_CPP_OVERLOADED3(MCUX_CSSL_FP_FUNCTION_CALL_IMPL, __VA_ARGS__)
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("False positive, due to macro expansion, any usage of NULL is considered as 0 by Coverity") \
+  MCUX_CSSL_CPP_OVERLOADED3(MCUX_CSSL_FP_FUNCTION_CALL_IMPL, __VA_ARGS__) \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
 
 /**
  * @def MCUX_CSSL_FP_FUNCTION_CALL_VOID_IMPL
@@ -373,7 +380,9 @@
  * @param call   The (protected) function call that must be performed.
  */
 #define MCUX_CSSL_FP_FUNCTION_CALL_VOID_IMPL(call) \
-  (call)
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("False positive, due to macro expansion, any usage of NULL is considered as 0 by Coverity") \
+  (call) \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
 
 /**
  * @def MCUX_CSSL_FP_FUNCTION_CALL_PROTECTED_IMPL

@@ -316,7 +316,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_Sha2Sgi_ISR_Multipart(m
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
 
-    uint32_t expectedSgiCounter = numberOfFullBlocks + (((isrCtx->inputOffset > 0u) && (0u == context->unprocessedLength))? 1u : 0u);
+    /* We have isrCtx->inputOffset > 0 if and only if there was one block (the unprocessed buffer) processed before. */
+    uint32_t expectedSgiCounter = numberOfFullBlocks + ((isrCtx->inputOffset > 0u)? 1u : 0u);
     /* Check whether number of processed blocks is correct */
     expectedSgiCounter = expectedSgiCounter % (MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE + 1u);
 
@@ -714,13 +715,13 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_proc
     int processedAlreadyOneBlock = mcuxClHash_processedLength_cmp(context->processedLength, algoBlockSize);
     if (0 > processedAlreadyOneBlock)
     {
-        /* Configure respective SHA-2 in normal mode using standard IV */
+        /* Configure respective SHA-2 in auto mode using standard IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, NULL, MCUXCLSGI_UTILS_AUTO_MODE_STANDARD_IV));
     }
     else
     {
-        /* Configure respective SHA-2 in normal mode using pState as IV */
+        /* Configure respective SHA-2 in auto mode using pState as IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, pState, MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV));
     }

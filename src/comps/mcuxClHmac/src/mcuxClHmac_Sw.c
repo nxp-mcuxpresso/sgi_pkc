@@ -66,9 +66,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Init_Sw(
     MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
     MCUXCLKEY_LOAD_FP(session, key, &pKeyData, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_PTR);
 
-    size_t alreadyFilledKeyDataSize = 0u;
+    uint32_t alreadyFilledKeyDataSize = 0u;
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("hashBlockSize is less than PH_NCCLHASH_BLOCK_SIZE_MAX and hashBlockSize+4-1 is less than MAX of uint32_t")
-    uint32_t hashBlockWordSize = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(hashBlockSize);
+    size_t hashBlockWordSize = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL((size_t)hashBlockSize);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
     MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pPreparedHmacKey, mcuxClSession_allocateWords_cpuWa(session, hashBlockWordSize));
@@ -299,7 +299,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
           pContext,
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
         MCUXCLHMAC_CONTEXT_SIZE_SW_IN_WORDS,
-        hashWordSize
+        (size_t)hashWordSize
       )
     );
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OVERFLOWED_TRUNCATED_STATUS_CODE()

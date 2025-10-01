@@ -59,17 +59,14 @@ extern "C" {
  * @ingroup mcuxClRsa_Internal_Macros
  * @{
  */
-
 #define MCUXCLRSA_GET_MINIMUM_SECURITY_STRENGTH(keyBitLength) \
         (((keyBitLength) <= 1024u) ? 80u :  \
         (((keyBitLength) <= 2048u) ? 112u : \
         (((keyBitLength) <= 3072u) ? 128u : \
-        (((keyBitLength) <= 4096u) ? 152u : \
-        (((keyBitLength) <= 6144u) ? 176u : \
-                                     200u))))) ///< Macro to determine the minimal security strength that
-                                               ///< needs to be provided by the RNG for RSA keys with
-                                               ///< lengths from 1024 bits to 8192 bits.
-                                               ///< Numbers taken from NIST SP 800-56B REV. 2, Table 2 and Appendix D
+                                     152u))) ///< Macro to determine the minimal security strength that
+                                             ///< needs to be provided by the RNG for RSA keys with
+                                             ///< lengths from 1024 bits to 4096 bits.
+                                             ///< Numbers taken from NIST SP 800-56B REV. 2, Table 2 and Appendix D
 
 /** @} */
 

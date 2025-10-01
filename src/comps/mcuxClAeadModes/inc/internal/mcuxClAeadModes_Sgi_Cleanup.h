@@ -27,26 +27,40 @@ extern "C" {
 #endif
 
 /**
- * @brief Function to handle OK and ERROR/FAILURE exit
+ * @brief Function to handle the normal exit for AEAD multipart.
  *
- * Use this function to leave highest-level mode functions in normal/normal mismatch cases.
- * It flushes the SGI, frees CPU workarea and uninitializes the SGI.
+ * Use this function to leave highest-level mode functions in normal exit cases.
+ * It flushes the SGI Key in context if not preloaded, frees CPU workarea and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
  * @param      pContext         Pointer to multipart context
- * @param      key              Handle for the key.
- *                              If the key is in the context, this param shall be NULL.
  * @param[in]  cpuWaSizeInWords Number of cpu wa words to free
  *
  * @return void
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAeadModes_cleanupOnExit)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_cleanupOnExit(
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAeadModes_cleanupOnMultipartExit)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_cleanupOnMultipartExit(
   mcuxClSession_Handle_t session,
   mcuxClAeadModes_Context_t *pContext,
-  mcuxClKey_Handle_t key,
   uint32_t cpuWaSizeInWords);
 
+/**
+ * @brief Function to handle the normal exit for AEAD oneshot.
+ *
+ * Use this function to leave highest-level mode functions in normal exit cases.
+ * It flushes the SGI Key if not preloaded, frees CPU workarea and uninitializes the SGI.
+ *
+ * @param      session          Handle for the current CL session.
+ * @param      key              Handle for the key.
+ * @param[in]  cpuWaSizeInWords Number of cpu wa words to free
+ *
+ * @return void
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAeadModes_cleanupOnOneshotExit)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_cleanupOnOneshotExit(
+  mcuxClSession_Handle_t session,
+  mcuxClKey_Handle_t key,
+  uint32_t cpuWaSizeInWords);
 
 #ifdef __cplusplus
 } /* extern "C" */

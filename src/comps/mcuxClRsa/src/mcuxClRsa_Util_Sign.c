@@ -114,12 +114,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
-  /* Return FAULT if the pRsa_Signature_ProtocolDescriptor->pSignMode function does not return MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK. */
-  if(MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK != retVal_PaddingOperation)
-  {
-    MCUXCLSESSION_FAULT(pSession, MCUXCLRSA_STATUS_FAULT_ATTACK);
-  }
-
+  /* Note: the pRsa_Signature_ProtocolDescriptor->pSignMode functions always return
+   * MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK on success, and on any early exit it returns other errors through session parameter.
+   * Hence retVal_PaddingOperation does not need to be checked.
+   */
+  (void)retVal_PaddingOperation;
 
   if (pkcWaUsedByte > keyByteLength)
   {

@@ -35,7 +35,7 @@
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_copyOut_toPtr, mcuxClSgi_copyOut_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
-  mcuxClSession_Handle_t session,
+  mcuxClSession_Handle_t session UNUSED_PARAM,
   void* pWa,
   mcuxCl_Buffer_t outBuf,
   uint32_t offset,

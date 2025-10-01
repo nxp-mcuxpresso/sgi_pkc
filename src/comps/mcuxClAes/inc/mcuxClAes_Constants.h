@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022, 2024 NXP                                                 */
+/* Copyright 2022, 2024-2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -29,8 +29,7 @@ extern "C" {
  * @{
  */
 
-/* Error codes */
-#define MCUXCLAES_STATUS_ERROR              ((mcuxClAes_Status_t) 0x0FF95330u)
+/* Status code */
 #define MCUXCLAES_STATUS_OK                 ((mcuxClAes_Status_t) 0x0FF92E03u)
 
 /* Block size */

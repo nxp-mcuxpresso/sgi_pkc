@@ -74,7 +74,7 @@
 
 
 /*
- * SHA-2 SGI Normal Mode Descriptors
+ * SHA-2 SGI Blocking Mode Descriptors
  */
 
 

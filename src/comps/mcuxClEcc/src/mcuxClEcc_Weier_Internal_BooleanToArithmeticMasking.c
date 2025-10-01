@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024 NXP                                                       */
+/* Copyright 2024-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -31,10 +31,6 @@
  * PS2 Oplen need to be set at least to length of the expected arithmetic masking
  * Masked value will be updated with new value.
  * Input and temporary buffers are considered double-sized thererfore buffers ECC_Sx are used instead of ECC_Tx
- *
- * @retval #MCUXCLECC_STATUS_OK
- * @retval #MCUXCLECC_STATUS_RNG_ERROR
- * @retval #MCUXCLECC_STATUS_FAULT_ATTACK
  *
  * Inputs in PKC workarea:
  *   S2 - Boolean Masked value

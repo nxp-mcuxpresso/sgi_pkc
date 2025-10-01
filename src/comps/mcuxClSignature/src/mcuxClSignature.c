@@ -56,17 +56,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_sign(
   MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE(MISRA_C_2012_Rule_14_3, "intentional, this 'false' is a temporary solution")
   if(
     MCUXCLRSA_STATUS_SIGN_OK == sign_status ||
-    MCUXCLECC_STATUS_OK == sign_status ||
     false) // This causes a MISRA violation Rule 14.3
   {
     sign_result_tmp = MCUXCLSIGNATURE_STATUS_OK;
   }
 
-  if(
-    false) // This causes a MISRA violation Rule 14.3
-  {
-    sign_result_tmp = MCUXCLSIGNATURE_STATUS_FAULT_ATTACK;
-  }
   MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(MISRA_C_2012_Rule_14_3)
 
   MCUXCLSESSION_EXIT(session,

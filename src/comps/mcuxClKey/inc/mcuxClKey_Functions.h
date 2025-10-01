@@ -146,7 +146,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_setEncoding(
  * @retval #MCUXCLKEY_STATUS_OK             on successful operation
  * @retval #MCUXCLKEY_STATUS_INVALID_INPUT  if the given loadOptions do not fit the key type
  * @retval #MCUXCLKEY_STATUS_FAULT_ATTACK   if a fault attack was detected
+ */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR    Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
  *
+ * @attention If the given key handle contains an RFC3394 wrapped key, this operation will unwrap the key material.
+ * This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClKey_loadCopro)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(

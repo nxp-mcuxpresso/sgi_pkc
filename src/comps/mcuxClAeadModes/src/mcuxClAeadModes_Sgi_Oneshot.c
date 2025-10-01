@@ -134,8 +134,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputSize, 0u, inLength, MCUXCLAEAD_STATUS_INVALID_PARAM)
   *pOutLength += outputSize;
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnExit));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnExit(session, NULL /* TODO CLNS-16637 give context as well */, key,cpuWaSizeInWords + ctxSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnOneshotExit));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnOneshotExit(session, key, cpuWaSizeInWords + ctxSizeInWords));
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_encrypt);
 }
 
@@ -290,7 +290,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   }
 
   MCUX_CSSL_DI_RECORD(returnCode, retCode);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnExit));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnExit(session, NULL /* TODO CLNS-16637 give context as well */, key,cpuWaSizeInWords + ctxSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnOneshotExit));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnOneshotExit(session, key, cpuWaSizeInWords + ctxSizeInWords));
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClAeadModes_decrypt, retCode);
 }

@@ -59,6 +59,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_createGmacMode(
   gmacModeDescriptor->pIv = pIv;
   gmacModeDescriptor->ivLength = ivLength;
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClMacModes_createGmacMode, MCUXCLMAC_STATUS_OK, MCUXCLMAC_STATUS_FAULT_ATTACK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_createGmacMode, MCUXCLMAC_STATUS_OK);
 }
 

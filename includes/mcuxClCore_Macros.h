@@ -67,7 +67,10 @@
  * @api
  * @param value Variable that shall not be moved around.
  */
+#if !defined ( __m56800E__ )
  #define MCUXCLCORE_DONOTOPTIMIZE(val) \
   __asm volatile("" : "+r" (val))
-
+#else
+ #define MCUXCLCORE_DONOTOPTIMIZE(val)
+#endif /* !defined ( __m56800E__ ) */
 #endif /* MCUXCLCORE_MACROS_H_ */

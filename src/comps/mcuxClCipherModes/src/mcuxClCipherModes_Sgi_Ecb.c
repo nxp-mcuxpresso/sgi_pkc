@@ -200,8 +200,8 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_checkIvLength                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_checkIvLen_noIv),
   .addPadding                                    = mcuxClPadding_addPadding_None,
   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_None),
-  .removePadding                                 = mcuxClPadding_removePadding_None,
-  .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_None),
+  .removePadding                                 = NULL,
+  .protectionToken_removePadding                 = 0U,
   .granularityEnc                                = MCUXCLAES_BLOCK_SIZE,
   .granularityDec                                = MCUXCLAES_BLOCK_SIZE
 };

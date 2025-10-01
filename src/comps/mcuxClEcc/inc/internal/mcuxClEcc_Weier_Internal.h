@@ -114,7 +114,7 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_SecureConvertPoint_JacToAffine)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_SecureConvertPoint_JacToAffine(void);
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_DomainParamsCheck)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_DomainParamsCheck(mcuxClSession_Handle_t pSession,
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_DomainParamsCheck(mcuxClSession_Handle_t pSession,
                                                                                const uint32_t byteLenP,
                                                                                const uint32_t byteLenN);
 
@@ -160,8 +160,7 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_BooleanToArithmeticMasking)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_BooleanToArithmeticMasking(void);
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Int_CoreKeyGen)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_t pSession,
-                                                                      uint32_t nByteLength);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_t pSession, uint32_t nByteLength);
 
 
 
@@ -198,6 +197,55 @@ struct mcuxClEcc_WeierECC_PointEncDescriptor
     mcuxClEcc_WeierECC_PointDecodingFunction_t pointDecFct; ///< Weierstrass point decoding function
     uint32_t pointDecFctFPId;                              ///< FP ID of the function pointDecFct
 };
+
+
+
+/**********************************************************/
+/* Internal declarations - Weier key pair generation      */
+/**********************************************************/
+
+/**
+ * @brief Function implementing WeierECC key pair generation.
+ * @api
+ *
+ * This function generates an ECC key pair for usage within WeierECC protocols such as ECDSA and ECDH.
+ *
+ * @param      pSession             Handle for the current CL session.
+ * @param[in]  generation           Key generation algorithm specifier.
+ * @param[out] privKey              Key handle for the generated private key.
+ * @param[out] pubKey               Key handle for the generated public key.
+ *
+ * @attention This function uses DRBG and PRNG. Caller needs to check if DRBG and PRNG are ready.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_WeierECC_GenerateKeyPair, mcuxClKey_KeyGenFct_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
+    mcuxClSession_Handle_t pSession,
+    mcuxClKey_Generation_t generation,
+    mcuxClKey_Handle_t privKey,
+    mcuxClKey_Handle_t pubKey
+    );
+
+
+
+/**********************************************************/
+/* Internal declarations - Weier key Validation           */
+/**********************************************************/
+
+/**
+ * @brief ECC public key validation function
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_WeierECC_PublicKeyValidation, mcuxClKey_ValidationFunction_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClEcc_WeierECC_PublicKeyValidation(
+    mcuxClSession_Handle_t pSession,
+    mcuxClKey_Handle_t key);
+
+/**
+ * @brief ECC private key validation function
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_WeierECC_PrivateKeyValidation, mcuxClKey_ValidationFunction_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClEcc_WeierECC_PrivateKeyValidation(
+    mcuxClSession_Handle_t pSession,
+    mcuxClKey_Handle_t key);
 
 
 #ifdef __cplusplus

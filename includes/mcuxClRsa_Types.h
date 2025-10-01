@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -56,9 +56,6 @@
 #define MCUXCLRSA_STATUS_VERIFY_FAILED                      ((mcuxClRsa_Status_t) 0x0FF68930u )  ///< Signature verification failed
 #define MCUXCLRSA_STATUS_FAULT_ATTACK                       ((mcuxClRsa_Status_t) 0x0FF6F0F0u )  ///< Fault attack detected
 #define MCUXCLRSA_STATUS_KEYGENERATION_OK                   ((mcuxClRsa_Status_t) 0x0FF62E0Fu )  ///< RSA key generation operation executed successfully
-#define MCUXCLRSA_STATUS_KEYGENERATION_ITERATIONSEXCEEDED   ((mcuxClRsa_Status_t) 0x0FF68934u )  ///< RSA key generation exceeds the limit of iterations to generate a prime
-#define MCUXCLRSA_STATUS_RNG_ERROR                          ((mcuxClRsa_Status_t) 0x0FF65338u )  ///< Random number (DRBG / PRNG) error (unexpected behavior)
-#define MCUXCLRSA_STATUS_ERROR_MEMORY_ALLOCATION            ((mcuxClRsa_Status_t) 0x0FF65334u )  ///< Memory allocation error during RSA operation
 
 /** @} */
 
@@ -102,11 +99,12 @@ typedef uint32_t mcuxClRsa_Status_t;
 /**
  * @brief Structure type for Rsa key entries, specifying key entry length and data.
  */
+/* Struct is packed to prevent compiler optimizations (e.g., LDR.D) on unaligned data. */
 typedef struct
 {
   uint8_t* pKeyEntryData;    ///< Pointer to buffer containing the key entry data in big-endian byte order
   uint32_t keyEntryLength;   ///< Byte-length of the buffer pointed to by pKeyEntryData
-}mcuxClRsa_KeyEntry_t;
+} __attribute__ ((packed)) mcuxClRsa_KeyEntry_t;
 
 /**
  * @}

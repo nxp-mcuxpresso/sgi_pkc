@@ -60,6 +60,7 @@ extern "C" {
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Internal_updateCRC16)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Internal_updateCRC16(const uint8_t *pBytes, uint32_t length, uint16_t seed16);
 
+#ifdef MCUXCL_FEATURE_INTERNAL_CRC_BUFFER
 /**
  * @brief Compute 16-bit CRC checksum of a given byte string with a given seed
  *        and the platform-specified 16-bit CRC polynomial
@@ -76,6 +77,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Internal_updateCRC16(const uint8
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Internal_updateCRC16_buffer)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Internal_updateCRC16_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length, uint16_t seed16);
+#endif /* MCUXCL_FEATURE_INTERNAL_CRC_BUFFER */
 
 /**
  * @brief Identical as mcuxClCrc_Internal_updateCRC16 except, the CRC module has to be preconfigured by the caller.
@@ -94,6 +96,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Internal_updateCRC16_buffer(mcux
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Drv_updateCRC16)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Drv_updateCRC16(const uint8_t *pBytes, uint32_t length);
 
+#ifdef MCUXCL_FEATURE_INTERNAL_CRC_BUFFER
 /**
  * @brief Identical as mcuxClCrc_Internal_updateCRC16 except, the CRC module has to be preconfigured by the caller.
  *
@@ -110,6 +113,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Drv_updateCRC16(const uint8_t *p
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Drv_updateCRC16_buffer)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Drv_updateCRC16_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length);
+#endif /* MCUXCL_FEATURE_INTERNAL_CRC_BUFFER */
 
 /**
  * @brief Compute 32-bit CRC checksum of a given byte string with a given seed
@@ -128,6 +132,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Drv_updateCRC16_buffer(mcuxCl_In
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Internal_updateCRC32)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Internal_updateCRC32(const uint8_t *pBytes, uint32_t length, uint32_t seed32);
 
+#ifdef MCUXCL_FEATURE_INTERNAL_CRC_BUFFER
 /**
  * @brief Compute 32-bit CRC checksum of a given byte string with a given seed
  *        and the platform-specified 32-bit CRC polynomial
@@ -144,6 +149,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Internal_updateCRC32(const uint8
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Internal_updateCRC32)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Internal_updateCRC32_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length, uint32_t seed32);
+#endif /* MCUXCL_FEATURE_INTERNAL_CRC_BUFFER */
 
 /**
  * @brief Identical as mcuxClCrc_Internal_updateCRC32 except, the CRC module has to be preconfigured by the caller.
@@ -162,6 +168,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Internal_updateCRC32_buffer(mcux
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Drv_updateCRC32)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Drv_updateCRC32(const uint8_t *pBytes, uint32_t length);
 
+#ifdef MCUXCL_FEATURE_INTERNAL_CRC_BUFFER
 /**
  * @brief Identical as mcuxClCrc_Internal_updateCRC32_buffer except, the CRC module has to be preconfigured by the caller.
  *
@@ -178,6 +185,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Drv_updateCRC32(const uint8_t *p
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCrc_Drv_updateCRC32_buffer)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Drv_updateCRC32_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length);
+#endif /* MCUXCL_FEATURE_INTERNAL_CRC_BUFFER */
 
 /**
  * @brief Computes the CRC for a context struct (without the CRC value member) and saves it in the struct.

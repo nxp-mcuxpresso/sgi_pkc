@@ -34,9 +34,6 @@
 
 /**
  * This function securely converts a point from Jacobian to affine coordinates.
- * @retval #MCUXCLECC_STATUS_OK
- * @retval #MCUXCLECC_STATUS_RNG_ERROR
- * @retval #MCUXCLECC_STATUS_FAULT_ATTACK
  *
  * Inputs in PKC workarea:
  *   buffers (X0,Y0,Z) contain the point, Jacobian, Montgomery representation.

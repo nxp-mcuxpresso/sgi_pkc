@@ -30,9 +30,9 @@
 
 
 /**
- * @brief Function to handle OK and ERROR/FAILURE exit
+ * @brief Function to handle normal exit
  *
- * Use this function to leave functions in this file in _not_ FAULT_ATTACK cases.
+ * Use this function to leave functions in this file in normal exit cases.
  * It frees CPU workarea and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
@@ -81,7 +81,7 @@
    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_cleanupOnExit,
      MCUX_CSSL_FP_CONDITIONAL(((NULL != key)
          && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))),
-       MCUXCLKEY_FLUSH_FP_CALLED(key)
+       MCUXCLKEY_FLUSH_FP_CALLED_CHECK_NULL(key)
      ), /* NULL != key */
      MCUX_CSSL_FP_CONDITIONAL(((NULL == key)
          && (NULL != pContext)),
@@ -159,24 +159,3 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven);
 }
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_handleDmaError_autoModeNonBlocking)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_handleDmaError_autoModeNonBlocking(void)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_handleDmaError_autoModeNonBlocking);
-
-  /* Perform a dummy SGI_DATOUT read to be sure AUTO mode is wrapped-up correctly */
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 0u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 4u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 8u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 12u);
-
-  /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 , subsequent SGI operations will not work.
-     Workaround: wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
-  mcuxClSgi_Drv_wait();
-  mcuxClSgi_Drv_resetAutoMode();
-
-  /* Channels do not need to be canceled / stopped. Minor loop will just not be triggered again with handshakes disabled. */
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_handleDmaError_autoModeNonBlocking);
-}
-

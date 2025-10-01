@@ -109,34 +109,10 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClResource_inline_hwId_irq)
 static inline mcuxClResource_HwId_t mcuxClResource_inline_hwId_irq(mcuxClResource_Interrupt_t interrupt)
 {
     mcuxClResource_HwId_t hwId = MCUXCLRESOURCE_HWID_INVALID;
-
-    switch (interrupt)
+    if (MCUXCLRESOURCE_IRQ_DMA00 <= interrupt)
     {
-    case MCUXCLRESOURCE_IRQ_SGI:
-        hwId = MCUXCLRESOURCE_HWID_SGI;
-        break;
-    case MCUXCLRESOURCE_IRQ_PKC:
-        hwId = MCUXCLRESOURCE_HWID_PKC;
-        break;
-#ifdef MCUXCL_FEATURE_HW_LTC
-    case MCUXCLRESOURCE_IRQ_LTC:
-        hwId = MCUXCLRESOURCE_HWID_LTC;
-        break;
-#endif
-    case MCUXCLRESOURCE_IRQ_TRNG0:
-        hwId = MCUXCLRESOURCE_HWID_TRNG0;
-        break;
-    case MCUXCLRESOURCE_IRQ_TRNG1:
-        hwId = MCUXCLRESOURCE_HWID_TRNG1;
-        break;
-    default:
-        if (MCUXCLRESOURCE_IRQ_DMA00 <= interrupt)
-        {
-            hwId = MCUXCLRESOURCE_HWID_DMA(interrupt - MCUXCLRESOURCE_IRQ_DMA00);
-        }
-        break;
+        hwId = MCUXCLRESOURCE_HWID_DMA(interrupt - MCUXCLRESOURCE_IRQ_DMA00);
     }
-
     return hwId;
 }
 

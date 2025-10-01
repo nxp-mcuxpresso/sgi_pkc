@@ -45,7 +45,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClResource_Status_t) mcuxClResource_init(
         pResourceCtx->hwTable[i].session = NULL;
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClResource_init, MCUXCLRESOURCE_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClResource_init, MCUXCLRESOURCE_STATUS_OK, MCUXCLRESOURCE_STATUS_FAULT_ATTACK);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClResource_handle_interrupt)
@@ -70,14 +70,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClResource_Status_t) mcuxClResource_handle_inter
          *   - use SESSION_ENTRY/SESSION_EXIT to make use of the early-exit strategy internally */
     MCUXCLSESSION_ENTRY(session, mcuxClResource_handle_interrupt, diRefValue, MCUXCLRESOURCE_STATUS_FAULT_ATTACK);
 
-    if(MCUXCLRESOURCE_HWID_IS_DMA(hwId))
-    {
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(session->jobContext.pCallBackDMA(session));
-    }
-    else
-    {
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(session->jobContext.pCallBackCopro(session));
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(session->jobContext.pCallBackDMA(session));
 
     MCUXCLSESSION_EXIT(
       session,
@@ -85,8 +78,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClResource_Status_t) mcuxClResource_handle_inter
       diRefValue,
       MCUXCLRESOURCE_STATUS_OK,
       MCUXCLRESOURCE_STATUS_FAULT_ATTACK,
-      MCUX_CSSL_FP_CONDITIONAL(MCUXCLRESOURCE_HWID_IS_DMA(hwId), session->jobContext.protectionToken_pCallBackDMA),
-      MCUX_CSSL_FP_CONDITIONAL(!MCUXCLRESOURCE_HWID_IS_DMA(hwId), session->jobContext.protectionToken_pCallBackCopro)
+      session->jobContext.protectionToken_pCallBackDMA
     );
 }
 
@@ -147,16 +139,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClResource_request(
 
     if(NULL != pHwIrqHandler)
     {
-        if(MCUXCLRESOURCE_HWID_IS_DMA(hwId))
-        {
-            session->jobContext.pCallBackDMA = pHwIrqHandler;
-            session->jobContext.protectionToken_pCallBackDMA = protectionToken_pHwIrqHandler;
-        }
-        else
-        {
-            session->jobContext.pCallBackCopro = pHwIrqHandler;
-            session->jobContext.protectionToken_pCallBackCopro = protectionToken_pHwIrqHandler;
-        }
+        session->jobContext.pCallBackDMA = pHwIrqHandler;
+        session->jobContext.protectionToken_pCallBackDMA = protectionToken_pHwIrqHandler;
     }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClResource_request);

@@ -83,7 +83,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit(
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_cleanupOnExit,
     MCUX_CSSL_FP_CONDITIONAL(((NULL != key)
         && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))),
-      MCUXCLKEY_FLUSH_FP_CALLED(key)
+      MCUXCLKEY_FLUSH_FP_CALLED_CHECK_NULL(key)
     ), /* NULL != key */
     MCUX_CSSL_FP_CONDITIONAL(((NULL == key)
         && (NULL != pContext)),

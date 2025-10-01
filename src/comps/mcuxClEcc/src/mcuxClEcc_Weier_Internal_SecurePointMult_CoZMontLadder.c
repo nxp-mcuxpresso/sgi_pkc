@@ -76,8 +76,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePointMult(uint8_t iScalar,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup) );
 
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(scalarBitLength, 8u * MCUXCLECC_WEIERECC_MIN_SIZE_PRIVATEKEY, 8u * MCUXCLECC_WEIERECC_MAX_SIZE_PRIVATEKEY,
-        MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(scalarBitLength, 8u * MCUXCLECC_WEIERECC_MIN_SIZE_PRIVATEKEY, 8u * MCUXCLECC_WEIERECC_MAX_SIZE_PRIVATEKEY)
 
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("32-bit aligned UPTRT table is assigned in CPU workarea")
@@ -118,12 +117,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePointMult(uint8_t iScalar,
     while (0u == scalarWord0)
     {
         /* Scalar is nonzero */
-        MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(scalarBitIndex, 32u, scalarBitLength - 1u, MCUXCLECC_STATUS_INVALID_PARAMS)
+        MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(scalarBitIndex, 32u, scalarBitLength - 1u)
         scalarBitIndex -= 32u;
         scalarWord0 = pScalar[scalarBitIndex / 32u];
     }
     uint32_t scalarWord0leadingZeros = mcuxClMath_CountLeadingZerosWord(scalarWord0);  /* bit position of most significant non-zero bit */
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(scalarWord0leadingZeros, 0u, 31u, MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(scalarWord0leadingZeros, 0u, 31u)
     scalarBitIndex = (scalarBitIndex | 31u) - scalarWord0leadingZeros;
     scalarWord0 ^= scalarWord1;
 

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -43,9 +43,8 @@
  * @{
  */
 /* Status/error codes */
-#define MCUXCLSGI_STATUS_DMA_BUS_ERROR           ((mcuxClSgi_Status_t) 0x0FFF5334U) ///< Source or destination address bus error in the DMA
 #define MCUXCLSGI_STATUS_ERROR                   ((mcuxClSgi_Status_t) 0x0FFF5330U) ///< An error occurred during an SGI operation
-#define MCUXCLSGI_STATUS_UNWRAP_ERROR            ((mcuxClSgi_Status_t) 0x0FFF53B8U) ///< An error occurred during SGI key unwrap
+#define MCUXCLSGI_STATUS_UNWRAP_ERROR            ((mcuxClSgi_Status_t) 0x0FFF53B8U) ///< An error occurred during SGI key unwrap, an SGI reset or FULL_FLUSH has to be performed to clear this sticky error
 #define MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED   ((mcuxClSgi_Status_t) 0x0FFF5374U) ///< The given key size is not supported for the operation
 #define MCUXCLSGI_STATUS_OK                      ((mcuxClSgi_Status_t) 0x0FFF2E03U) ///< The operation was successful and no SGI error occurred
 #define MCUXCLSGI_STATUS_FAULT                   ((mcuxClSgi_Status_t) 0x0FFFF0F0U) ///< Fault attack detected

@@ -40,8 +40,5 @@
 /* Internal mcuxClBuffer object features depending on available features  */
 /**********************************************************************/
 
-/* Inclusion of the internal mcuxClBuffer_read_withoutDestIncrement.
- * It is currently only used in mcuxClCrc_Drv_updateCRC32_buffer which is only compiled if MCUXCL_FEATURE_CRC_HW is set. */
-#define MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC
 
 #endif /* MCUXCLBUFFER_FEATURECONFIG_H_ */

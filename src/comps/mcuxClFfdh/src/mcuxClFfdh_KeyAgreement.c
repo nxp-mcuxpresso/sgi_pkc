@@ -67,18 +67,14 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
   uint8_t * pOut,
   uint32_t * const pOutLength)
 {
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClFfdh_KeyAgreement);
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClFfdh_KeyAgreement);
 
   /* Initialize output length with zero */
   *pOutLength = 0U;
 
-  /* Verify that the key handles are correctly initialized for the FFDH use case */
-  if( (mcuxClKey_Agreement_FFDH != agreement)
-      || (MCUXCLKEY_ALGO_ID_FFDH != mcuxClKey_getAlgorithm(key))
-      || MCUXCLKEY_ALGO_ID_FFDH != mcuxClKey_getAlgorithm(otherKey)
-      || mcuxClKey_getTypeInfo(key) != mcuxClKey_getTypeInfo(otherKey) /* domain parameters must be the same */
-      || MCUXCLKEY_ALGO_ID_PRIVATE_KEY != mcuxClKey_getKeyUsage(key)
-      || MCUXCLKEY_ALGO_ID_PUBLIC_KEY != mcuxClKey_getKeyUsage(otherKey))
+  /* Domain parameters for each key must be properly matched on protocol level.
+   * Double check here for extra safety against downgrade attacks. */
+  if(mcuxClKey_getTypeInfo(key) != mcuxClKey_getTypeInfo(otherKey))
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
   }

@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_WeierECC_Internal_GenerateCustomKeyType.c
+ * @file  mcuxClEcc_Weier_GenerateCustomKeyType.c
  * @brief Implementation of the custom key type constructor.
  */
 

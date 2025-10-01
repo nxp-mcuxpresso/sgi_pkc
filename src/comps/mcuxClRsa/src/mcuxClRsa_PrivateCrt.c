@@ -148,7 +148,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   uint8_t *pN = pModT4 + bufferSizeModT4 + MCUXCLRSA_PKC_WORDSIZE;  // one extra PKC word for NDash
 
   /* Setup UPTR table */
-  uint32_t cpuWaSizeWord = (((sizeof(uint16_t)) * MCUXCLRSA_INTERNAL_PRIVCRT_UPTRT_SIZE) + (sizeof(uint32_t)) - 1u) / (sizeof(uint32_t));
+  uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_PRIVATECRT_WACPU_SIZE_IN_WORDS(byteLenPQ);
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pOperands32, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")

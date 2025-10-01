@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -63,8 +63,7 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_Int_PointMult)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_PointMult(uint8_t iScalar, uint32_t scalarBitLength)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_Int_PointMult);
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(scalarBitLength, 8u * MCUXCLECC_WEIERECC_MIN_SIZE_PRIVATEKEY, 8u * MCUXCLECC_WEIERECC_MAX_SIZE_PRIVATEKEY,
-    MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(scalarBitLength, 8u * MCUXCLECC_WEIERECC_MIN_SIZE_PRIVATEKEY, 8u * MCUXCLECC_WEIERECC_MAX_SIZE_PRIVATEKEY)
 
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("32-bit aligned UPTRT table is assigned in CPU workarea")
@@ -85,7 +84,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_PointMult(uint8_t iScalar, uint3
     {
         MCUX_CSSL_FP_LOOP_ITERATION(PointMult_Double);  /* trivial double */
         /* Scalar is nonzero and even number */
-        MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(index, 2u, scalarBitLength, MCUXCLECC_STATUS_INVALID_PARAMS)
+        MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(index, 2u, scalarBitLength)
         index -= 2u;
         scalarWord = pScalar[index / 32u];
         scalarBits = (scalarWord >> (index & 31u)) & 0x3u;
@@ -134,7 +133,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_PointMult(uint8_t iScalar, uint3
         /* Double, R = 2 * Prec_i, where Prec_i is selected by (VX2, VY2). */
         MCUXCLECC_FP_CALCFUP_ONE_DOUBLE();
         /* Scalar is nonzero, even number and 0u != index */
-        MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(index, 2u, scalarBitLength, MCUXCLECC_STATUS_INVALID_PARAMS)
+        MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(index, 2u, scalarBitLength)
         index -= 2u;
         MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
         scalarWord = pScalar[index / 32u];
@@ -164,7 +163,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_PointMult(uint8_t iScalar, uint3
     while (0u != index)
     {
         /* Scalar is nonzero, even number and 0u != index */
-        MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(index, 2u, scalarBitLength, MCUXCLECC_STATUS_INVALID_PARAMS)
+        MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(index, 2u, scalarBitLength)
         index -= 2u;
         if (0x1Eu == (index & 0x1Fu))
         {

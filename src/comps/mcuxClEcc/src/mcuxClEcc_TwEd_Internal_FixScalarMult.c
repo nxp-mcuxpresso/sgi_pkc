@@ -117,14 +117,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_ImportAndConvertPrecPoin
  * Result:
  *  - Buffers TWED_X, TWED_Y, TWED_T, TWED_Z contain the randomized coordinates (X:Y:T:Z) of the accumulated point in MR
  *  - Buffers TWED_PP_Xi, TWED_PP_Yi, TWED_PP_Ti contain the coordinates Xi, Yi and Ti in MR
- *
- * Return values:
- *  - MCUXCLECC_STATUS_OK            if the function executed successfully
- *  - MCUXCLECC_STATUS_FAULT_ATTACK  if a fault attack was detected
- *  - MCUXCLxxx_STATUS_xxx           The function execution failed and the first internal error will be returned
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints)
-static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints(
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_CommonDomainParams_t *pDomainParams,
     uint32_t options
@@ -178,7 +173,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_InitAccumu
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_ImportAndConvertPrecPoints));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_TwEd_ImportAndConvertPrecPoints(pDomainParams));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints);
 }
 
 
@@ -210,13 +205,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_InitAccumu
  *    TWED_PP_Xi, TWED_PP_Yi, TWED_PP_Ti, i = 0,...,7, and TWED_PP_Z contain the coordinates
  *    (Z'*PP_Xi:Z'*PP_Yi:Z'*PP_Ti:Z'*PP_Z) in MR for a random value Z' in [1,p-1].
  *  - Buffers TWED_PP_Xi, TWED_PP_Yi, TWED_PP_Ti, i = 0,...,7 have been shuffled in memory
- *
- * Return values:
- *  - MCUXCLECC_STATUS_OK            if the function executed successfully
- *  - MCUXCLxxx_STATUS_xxx           The function execution failed and the first internal error will be returned
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded)
-static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded(
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_TwEd_SecureFixScalarMult_CpuWa_t *pCpuWa,
     uint32_t currentDigitBitIndex)
@@ -288,7 +279,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarM
         MCUX_CSSL_DI_EXPUNGE(SecureFixScalarMult_Loop_Shuffle, 1u);
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded);
 }
 
 
@@ -332,16 +323,11 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  * Result:
  *  - Buffers TWED_X, TWED_Y and TWED_Z contain Xres, Yres and Zres in MR
  *
- * Return values:
- *  - MCUXCLECC_STATUS_OK            if the function executed successfully
- *  - MCUXCLECC_STATUS_FAULT_ATTACK  if a fault attack was detected
- *  - MCUXCLxxx_STATUS_xxx           The function execution failed and the first internal error will be returned
- *
  * @attention The PKC calculation might be still on-going, call #mcuxClPkc_WaitForFinish before CPU accesses to the result.
  */
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_URL_IN_COMMENTS()
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_TwEd_FixScalarMult)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_FixScalarMult(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_CommonDomainParams_t *pDomainParams,
     uint8_t iScalar,
@@ -386,7 +372,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
 
     /* Recode and reorder scalar. */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_RecodeAndReorderScalar));
-    MCUXCLECC_FP_RECODEANDREORDERSCALAR(iScalar, MCUXCLECC_TWED_FIXSCALARMULT_DIGITSIZE, roundedScalarBitLength);
+     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_RecodeAndReorderScalar(pSession, iScalar, MCUXCLECC_TWED_FIXSCALARMULT_DIGITSIZE, roundedScalarBitLength));
 
     /*
      * Step 3: Prepare the accumulated point and the pre-computed points for the upcoming scalar multiplication loop:
@@ -399,11 +385,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
      *            in MR and in range [0,p-1].
      */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints));
-    MCUX_CSSL_FP_FUNCTION_CALL(ret_InitAccAndPrePoints, mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints(pSession, pDomainParams, options));
-    if (MCUXCLECC_STATUS_OK != ret_InitAccAndPrePoints)
-    {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_FixScalarMult, ret_InitAccAndPrePoints);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_TwEd_InitAccumulatorAndPrecPoints(pSession, pDomainParams, options));
 
     /*
      * Step 4: If OPTION_SECURE is chosen:
@@ -501,11 +483,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
         if ((MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options)))
         {
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded));
-            MCUX_CSSL_FP_FUNCTION_CALL(ret_ReRandomizeIfNeeded, mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded(pSession, pCpuWa, currentDigitBitIndex));
-            if (MCUXCLECC_STATUS_OK != ret_ReRandomizeIfNeeded)
-            {
-                MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_FixScalarMult, ret_ReRandomizeIfNeeded);
-            }
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_TwEd_FixScalarMult_ReRandomizeIfNeeded(pSession, pCpuWa, currentDigitBitIndex));
         }
     }
 
@@ -526,5 +504,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
         mcuxClSession_freeWords_cpuWa(pSession, (uint32_t) (sizeof(mcuxClEcc_TwEd_SecureFixScalarMult_CpuWa_t) + sizeof(uint32_t)) / sizeof(uint32_t));
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_FixScalarMult, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_FixScalarMult);
 }

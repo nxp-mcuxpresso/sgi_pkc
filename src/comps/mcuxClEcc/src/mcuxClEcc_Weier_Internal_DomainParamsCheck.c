@@ -46,10 +46,6 @@
  * 6) check if curve is nonsingular
  * 7) base point on curve check
  *
- * @retval #MCUXCLECC_STATUS_OK
- * @retval #MCUXCLECC_STATUS_INVALID_PARAMS
- * @retval #MCUXCLECC_STATUS_FAULT_ATTACK
- *
  * Prerequisites:
  *   buffer WEIER_A contains curve coefficient a, Montgomery representation;
  *   buffer ECC_TO contains curve coefficient a, normal representation;
@@ -66,7 +62,7 @@
  *   buffers ECC_S2, ECC_S3, ECC_T2 are modified (as temp)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_Weier_DomainParamsCheck)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_DomainParamsCheck(mcuxClSession_Handle_t pSession, const uint32_t byteLenP, const uint32_t byteLenN)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_DomainParamsCheck(mcuxClSession_Handle_t pSession, const uint32_t byteLenP, const uint32_t byteLenN)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_Weier_DomainParamsCheck);
 
@@ -104,7 +100,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_DomainParamsChec
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
     const uint32_t * ptrNS = MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_NS]);
     const uint32_t pkcLen32 = MCUXCLPKC_WORDSIZE / sizeof(uint32_t);
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pkcLen32, 0u, nSizeInFW32, MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(pkcLen32, 0u, nSizeInFW32)
     const uint32_t shortenedOpLen32 = nSizeInFW32 - pkcLen32;
     uint32_t allOnes = MCUXCLECC_ALL_ONES_WORD;
 
@@ -155,6 +151,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_DomainParamsChec
         /* Do nothing. */
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_Weier_DomainParamsCheck, MCUXCLECC_STATUS_OK,
-        MCUXCLECC_FP_WEIERECC_DOMAINPARAMSCHECK_FINAL);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_Weier_DomainParamsCheck, MCUXCLECC_FP_WEIERECC_DOMAINPARAMSCHECK_FINAL);
 }

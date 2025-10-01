@@ -61,7 +61,7 @@
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(mcuxClSession_Handle_t pSession, uint8_t iScalar, uint32_t scalarBitLength, uint32_t optionAffineOrProjective UNUSED_PARAM)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(mcuxClSession_Handle_t pSession, uint8_t iScalar, uint32_t scalarBitLength, uint32_t optionAffineOrProjective UNUSED_PARAM)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder);
 
@@ -165,7 +165,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Mont_SecureScalarMult_
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(MONT_X0, MONT_X1, 0u);           /* MONT_X0 = MONT_X1 */
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(MONT_Z0, MONT_Z1, 0u);           /* MONT_Z0 = MONT_Z1 */
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder, MCUXCLECC_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder,
                     MCUXCLPKC_FP_CALLED_CALC_OP1_NEG,
                     MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
                     MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,

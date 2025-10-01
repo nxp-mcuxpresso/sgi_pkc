@@ -204,7 +204,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_PlainPtrSelectML(
  * Data Integrity: Expunge((MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options) * scalarBitLength)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_TwEd_FixScalarMult)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_FixScalarMult(
     mcuxClSession_Handle_t pSession,                                     ///<  [in]  pSession              Handle for the current CL session
     mcuxClEcc_CommonDomainParams_t *pDomainParams,                       ///<  [in]  pDomainParams         Pointer to ECC common domain parameters structure
     uint8_t iScalar,                                                    ///<  [in]  iScalar               Pointer table index of secret scalar lambda
@@ -220,7 +220,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_FixScalarMult(
  * Data Integrity: Expunge((MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options) * scalarBitLength)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_TwEd_VarScalarMult)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_VarScalarMult(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
     mcuxClSession_Handle_t pSession,                                ///<  [in]  pSession           Handle for the current CL session
     mcuxClEcc_CommonDomainParams_t *pDomainParams,                  ///<  [in]  pDomainParams      Pointer to ECC common domain parameters structure
     uint8_t iScalar,                                               ///<  [in]  iScalar            Pointer table index of scalar

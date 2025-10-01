@@ -57,7 +57,7 @@ typedef struct mcuxClFfdh_DomainParams mcuxClFfdh_DomainParams_t;
 /**
  * @defgroup mcuxClFfdh_DomainParamsDescriptor mcuxClFfdh_DomainParamsDescriptor
  * @brief Definitions of domain parameters descriptors
- * @ingroup mcuxClFfdh_Descriptors
+ * @ingroup mcuxClFfdh
  * @{
  */
 

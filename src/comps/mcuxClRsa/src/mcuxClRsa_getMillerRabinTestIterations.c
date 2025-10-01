@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023 NXP                                                       */
+/* Copyright 2023, 2025 NXP                                                 */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -26,7 +26,7 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_getMillerRabinTestIterations)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClRsa_getMillerRabinTestIterations(const uint32_t primeBitLength)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_getMillerRabinTestIterations);
-  
+
   uint32_t numberMillerRabinTestIterations = 11u; /* init value for 512b prime */
   if(1024u == primeBitLength)
   {
@@ -39,14 +39,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClRsa_getMillerRabinTestIterations(con
   else if(2048u == primeBitLength)
   {
     numberMillerRabinTestIterations = 3u;
-  }
-  else if(3072u == primeBitLength)
-  {
-    numberMillerRabinTestIterations = 2u;
-  }
-  else if(4096u == primeBitLength)
-  {
-    numberMillerRabinTestIterations = 2u;
   }
   else
   {

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023 NXP                                                  */
+/* Copyright 2020-2021, 2023-2024 NXP                                       */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -11,13 +11,13 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-/** @file  mcuxClEcc_Weier_KeyGen_FUP.h
+/** @file  mcuxClEcc_Internal_BlindedVarScalarMult_FUP.h
 *  @brief defines FUP programs byte arrays
 */
-#ifndef MCUXCLECC_WEIER_KEYGEN_FUP_H_
-#define MCUXCLECC_WEIER_KEYGEN_FUP_H_
+#ifndef MCUXCLECC_INTERNAL_BLINDEDVARSCALARMULT_FUP_H_
+#define MCUXCLECC_INTERNAL_BLINDEDVARSCALARMULT_FUP_H_
 #include <internal/mcuxClPkc_FupMacros.h>
 
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_KeyGen_DerivePlainPrivKey[7];
+extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_PointMult_SplitScalar_ConvertPoint2MR[10];
 
-#endif /* MCUXCLECC_WEIER_KEYGEN_FUP*/ 
+#endif /* MCUXCLECC_INTERNAL_BLINDEDVARSCALARMULT_FUP*/ 

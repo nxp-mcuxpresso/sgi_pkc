@@ -40,11 +40,8 @@
 #define MCUXCLKEY_STATUS_ERROR                       ((mcuxClKey_Status_t) 0x07775330u)  ///< Error occured during Key operation
 #define MCUXCLKEY_STATUS_FAILURE                     ((mcuxClKey_Status_t) 0x07775334u)  ///< Failure during execution
 #define MCUXCLKEY_STATUS_INVALID_INPUT               ((mcuxClKey_Status_t) 0x07775338u)  ///< Invalid input
-#define MCUXCLKEY_STATUS_ERROR_MEMORY_ALLOCATION     ((mcuxClKey_Status_t) 0x0777533Cu)  ///< Memory allocation error during Key operation
-#define MCUXCLKEY_STATUS_RNG_ERROR                   ((mcuxClKey_Status_t) 0x07775374u)  ///< Random number (DRBG / PRNG) error (unexpected behavior)
 #define MCUXCLKEY_STATUS_FAULT_ATTACK                ((mcuxClKey_Status_t) 0x0777F0F0u)  ///< Fault attack detected
 #define MCUXCLKEY_STATUS_CRC_NOT_OK                  ((mcuxClKey_Status_t) 0x077753FCu)  ///< CRC verification failed
-#define MCUXCLKEY_STATUS_NOT_SUPPORTED               ((mcuxClKey_Status_t) 0x07775370u)  ///< Functionality not supported
 #define MCUXCLKEY_STATUS_ITERATIONS_EXCEEDED         ((mcuxClKey_Status_t) 0x07775378u)  ///< Maximum interations exceeded, during prime generation for RSA
 #define MCUXCLKEY_STATUS_VALIDATION_PASSED           ((mcuxClKey_Status_t) 0x07772E07u)  ///< Key validation successful
 #define MCUXCLKEY_STATUS_VALIDATION_FAILED           ((mcuxClKey_Status_t) 0x07778930u)  ///< Key validation failed
@@ -88,7 +85,6 @@
 #define MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM         (0x0060A000u)  ///< ECC key using Short Weierstrass Curve over GF(p) with static custom domain parameters
 #define MCUXCLKEY_ALGO_ID_KYBER                              (0x0050B000u)  ///< Kyber key
 #define MCUXCLKEY_ALGO_ID_MLDSA                              (0x0040C000u)  ///< MLDSA key
-#define MCUXCLKEY_ALGO_ID_LMS                                (0x0010E000u)  ///< LMS key TODO CLNS-14347: check
 #define MCUXCLKEY_ALGO_ID_GMAC                               (0x00601000u)  ///< GMAC H key
 #define MCUXCLKEY_ALGO_ID_FFDH                               (0x0020E000u)  ///< FFDH key
 #define MCUXCLKEY_ALGO_ID_ALGO_MASK                          (0x00FFF000u)  ///< Mask for Algorithm

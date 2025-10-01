@@ -131,13 +131,12 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *  - the public key Qenc=(s*G)enc where G is the base point.
  *
  * This API does not check if the curve parameters are correct.
- * This API might return MCUXCLECC_STATUS_RNG_ERROR when RNG behave in unexpected way
  * Unexpected behavior will return MCUXCLECC_STATUS_FAULT_ATTACK.
  *
  *
  * @param[in]     pSession              Handle for the current CL session
  * @param[in]     generation            Generation descriptor specifying the EdDSA GenerateKeyPair variant
- * @param[in/out] privKey               Key handle for the private key
+ * @param[in,out] privKey               Key handle for the private key
  * @param[out]    pubKey                Key handle for the public key
  *
  */
@@ -165,7 +164,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  * where the secret scalar r is given by r=H(prefix||(hb,...,h{2b-1})||m') and G is the base point.
  *
  * This API does not check if the curve parameters are correct.
- * This API might return MCUXCLECC_STATUS_RNG_ERROR when RNG behave in unexpected way
  * Unexpected behavior will return MCUXCLECC_STATUS_FAULT_ATTACK.
  *
  *
@@ -179,7 +177,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *
  * @return A code-flow protected error code (see @ref MCUXCLECC_STATUS_)
  * @retval #MCUXCLECC_STATUS_OK            signature generation was successful
- * @retval #MCUXCLECC_STATUS_RNG_ERROR     random number generation (DRBG / PRNG) error (unexpected behavior)
  * @retval #MCUXCLECC_STATUS_FAULT_ATTACK  fault attack (unexpected behavior) is detected
  */
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_URL_IN_COMMENTS()
@@ -207,7 +204,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *          * h*S*G=h*R+h*H(prefix||Renc||Qenc||m')*Q
  *
  * This API does not check if the curve parameters are correct.
- * This API might return MCUXCLECC_STATUS_RNG_ERROR when RNG behave in unexpected way
  * Unexpected behavior will return MCUXCLECC_STATUS_FAULT_ATTACK.
  *
  * Data Integrity: Record(returnCode)

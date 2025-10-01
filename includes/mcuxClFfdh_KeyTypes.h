@@ -30,7 +30,7 @@ extern "C" {
 /**
  * @defgroup mcuxClFfdh_KeyTypeDescriptors mcuxClFfdh_KeyTypeDescriptors
  * @brief Definitions of FFDH related key type descriptors
- * @ingroup mcuxClFfdh_Descriptors
+ * @ingroup mcuxClFfdh
  * @{
  */
 
@@ -204,7 +204,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 /**
  * @defgroup mcuxClFfdh_KeyAgreementDescriptors mcuxClFfdh_KeyAgreementDescriptors
  * @brief Definitions of FFDH related key agreement algorithm descriptors
- * @ingroup mcuxClFfdh_Descriptors
+ * @ingroup mcuxClFfdh
  * @{
  */
 

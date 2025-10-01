@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -85,6 +85,12 @@ extern "C" {
  * @retval MCUXCLCIPHER_STATUS_INVALID_INPUT   An invalid parameter was given to the function
  * @retval MCUXCLCIPHER_STATUS_FAULT_ATTACK    Fault attack detected */
 /**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR       Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
  * @retval MCUXCLCIPHER_STATUS_JOB_STARTED     Non-blocking Cipher operation started successfully
  * @retval MCUXCLCIPHER_STATUS_JOB_COMPLETED   Non-blocking Cipher operation successful
  *
@@ -160,6 +166,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_encrypt(
  * @retval MCUXCLCIPHER_STATUS_INVALID_INPUT   An invalid parameter was given to the function
  * @retval MCUXCLCIPHER_STATUS_FAULT_ATTACK    Fault attack detected */
 /**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR       Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
  * @retval MCUXCLCIPHER_STATUS_JOB_STARTED     Non-blocking Cipher operation started successfully
  * @retval MCUXCLCIPHER_STATUS_JOB_COMPLETED   Non-blocking Cipher operation successful
  *
@@ -196,7 +208,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
  *
  * This function performs the initialization for a multi part encryption
  * operation. The algorithm to be used will be determined based on the key
- * that is provided.
+ * that is provided. After init operation, a pointer to the whole key handle
+ * is stored in context. The user of the Crypto Library needs to keep the
+ * keyHandle alive until the mcuxClCipher_finish phase of cipher multipart operation.
  *
  * @param      session  Handle for the current CL session.
  * @param      pContext Cipher context which is used to maintain the state and
@@ -214,6 +228,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
  * @retval MCUXCLCIPHER_STATUS_FAILURE         Functional failure ocurred during Cipher operation
  * @retval MCUXCLCIPHER_STATUS_INVALID_INPUT   An invalid parameter was given to the function
  * @retval MCUXCLCIPHER_STATUS_FAULT_ATTACK    Fault attack detected
+ */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR       Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
  * 
  * \implements{REQ_788203,REQ_788205}
  */
@@ -233,7 +255,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_encrypt(
  *
  * This function performs the initialization for a multi part decryption
  * operation. The algorithm to be used will be determined based on the key
- * that is provided.
+ * that is provided. After init operation, a pointer to the whole key handle
+ * is stored in context. The user of the Crypto Library needs to keep the
+ * keyHandle alive until the mcuxClCipher_finish phase of cipher multipart operation.
  *
  * @param      session  Handle for the current CL session.
  * @param      pContext Cipher context which is used to maintain the state and
@@ -251,6 +275,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_encrypt(
  * @retval MCUXCLCIPHER_STATUS_FAILURE         Functional failure ocurred during Cipher operation
  * @retval MCUXCLCIPHER_STATUS_INVALID_INPUT   An invalid parameter was given to the function
  * @retval MCUXCLCIPHER_STATUS_FAULT_ATTACK    Fault attack detected
+ */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR       Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
  * 
  * \implements{REQ_788203,REQ_788205}
  */
@@ -270,7 +302,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_decrypt(
  *
  * This function performs the processing of (a part of) a data stream for an
  * encryption/decryption operation. The algorithm and key to be used will be
- * determined based on the context that is provided.
+ * determined based on the context that is provided. The user of the Crypto
+ * Library needs to keep the keyHandle alive until the mcuxClCipher_finish phase
+ * of cipher multipart operation.
  * Data is processed in full blocks only. Remaining data is stored in the context
  * to be handled in later process or finish calls.
  */
@@ -330,7 +364,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_process(
  *
  * This function performs the finalization of an encryption or decryption
  * operation. The algorithm and key to be used will be determined based on the
- * context that is provided.
+ * context that is provided. The user of the Crypto Library needs to keep the
+ * keyHandle alive until the mcuxClCipher_finish phase of cipher multipart operation.
  * No new data is accepted but remaining data in the context is processed.
  *
  * @param      session    Handle for the current CL session.

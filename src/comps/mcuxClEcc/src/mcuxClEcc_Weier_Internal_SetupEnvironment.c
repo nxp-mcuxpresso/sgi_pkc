@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_WeierECC_Internal_SetupEnvironment.c
+ * @file  mcuxClEcc_Weier_Internal_SetupEnvironment.c
  * @brief Weierstrass curve internal setup environment
  */
 

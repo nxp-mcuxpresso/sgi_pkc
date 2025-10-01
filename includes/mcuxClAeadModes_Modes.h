@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -51,13 +51,16 @@ static mcuxClAead_Mode_t mcuxClAead_Mode_CCM =
 /**
  * @brief GCM mode descriptor
  */
+/** @attention This mode overwrites the contents of key register SGI KEY2 for storing the H-Key.
+ *             Any preloaded key data in this slot will be overwritten.
+ */
 extern const mcuxClAead_ModeDescriptor_t mcuxClAead_ModeDescriptor_AES_GCM;
 
 /**
  * @brief GCM mode.
  *
  * See @ref mcuxClAead_ModeDescriptor_AES_GCM.
- * 
+ *
  * \implements{REQ_788227}
  */
 static mcuxClAead_Mode_t mcuxClAead_Mode_GCM =

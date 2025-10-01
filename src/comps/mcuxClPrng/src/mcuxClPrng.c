@@ -29,26 +29,29 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_reseed(mcuxClSession_Handle_t pSess
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPrng_reseed);
 
-    /* Allocate memory for the seed */
-    uint32_t prngSeed[1] = {0U};
+        /* Generate entropy using the TRNG */
 
-    /* Record DI for mcuxClTrng_getEntropyInput */
-    MCUX_CSSL_DI_RECORD(trngOutputSize, sizeof(uint32_t));
+        /* Allocate memory for the seed */
+        uint32_t prngSeed[1] = {0U};
 
-    /* Call TRNG initialization function to ensure it's properly configured for upcoming TRNG accesses */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_Init(pSession));
+        /* Record DI for mcuxClTrng_getEntropyInput */
+        MCUX_CSSL_DI_RECORD(trngOutputSize, sizeof(uint32_t));
 
-    /* Generate entropy input using the TRNG */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-        mcuxClTrng_getEntropyInput(pSession, prngSeed, sizeof(uint32_t))
-    );
+        /* Call TRNG initialization function to ensure it's properly configured for upcoming TRNG accesses */
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_Init(pSession));
 
-    /* Set the Sfr seed */
-    mcuxClSgi_Sfr_writeSfrSeed(prngSeed[0]);
+        /* Generate entropy input using the TRNG */
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+            mcuxClTrng_getEntropyInput(pSession, prngSeed, sizeof(uint32_t))
+        );
+
+            /* Set the Sfr seed */
+            mcuxClSgi_Sfr_writeSfrSeed(prngSeed[0]);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPrng_reseed,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_Init),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_getEntropyInput) );
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_getEntropyInput)
+    );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClPrng_generate_word)

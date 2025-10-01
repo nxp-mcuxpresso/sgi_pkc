@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2023 NXP                                                  */
+/* Copyright 2022-2023, 2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_WeierECC_Internal_DecodePoint_FUP.c
+ * @file  mcuxClEcc_Weier_DecodePoint_FUP.c
  * @brief mcuxClEcc: FUP programs used in ECC functions for NIST curves
  */
 

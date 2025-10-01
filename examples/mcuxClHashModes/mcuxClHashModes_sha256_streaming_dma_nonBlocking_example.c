@@ -221,7 +221,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   /* uint32_t inSize:               */ sizeof(data1)
   ));
   // mcuxClHash_process is a flow-protected function: Check the protection token and the return value
-  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token3))
+  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token3) || ((MCUXCLHASH_STATUS_OK != result3) && (MCUXCLHASH_STATUS_JOB_STARTED != result3)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
@@ -251,10 +251,6 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
     flag_interruptNumber = MCUXCLHASH_FLAG_DMA_INTERRUPT_NOT_TRIGGERED;
     sha2MultipartnonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
   }
-  else if (MCUXCLHASH_STATUS_OK != result3)
-  {
-    return MCUXCLEXAMPLE_STATUS_ERROR;
-  }
   else
   {
     /* Entering here means that all operations executed successfully without starting non-blocking job,
@@ -272,7 +268,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   /* uint32_t inSize:               */ sizeof(data2)
   ));
   // mcuxClHash_process is a flow-protected function: Check the protection token and the return value
-  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token4))
+  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token4) || ((MCUXCLHASH_STATUS_OK != result4) && (MCUXCLHASH_STATUS_JOB_STARTED != result4)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
@@ -302,10 +298,6 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
     flag_interruptNumber = MCUXCLHASH_FLAG_DMA_INTERRUPT_NOT_TRIGGERED;
     sha2MultipartnonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
   }
-  else if (MCUXCLHASH_STATUS_OK != result4)
-  {
-    return MCUXCLEXAMPLE_STATUS_ERROR;
-  }
   else
   {
     /* Entering here means that all operations executed successfully without starting non-blocking job,
@@ -323,7 +315,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   /* uint32_t inSize:               */ sizeof(data3)
   ));
   // mcuxClHash_process is a flow-protected function: Check the protection token and the return value
-  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token5))
+  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token5) || ((MCUXCLHASH_STATUS_OK != result5) && (MCUXCLHASH_STATUS_JOB_STARTED != result5)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
@@ -353,10 +345,6 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
     flag_interruptNumber = MCUXCLHASH_FLAG_DMA_INTERRUPT_NOT_TRIGGERED;
     sha2MultipartnonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
   }
-  else if (MCUXCLHASH_STATUS_OK != result5)
-  {
-    return MCUXCLEXAMPLE_STATUS_ERROR;
-  }
   else
   {
     /* Entering here means that all operations executed successfully without starting non-blocking job,
@@ -374,7 +362,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   /* uint32_t inSize:               */ sizeof(data4)
   ));
   // mcuxClHash_process is a flow-protected function: Check the protection token and the return value
-  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token6))
+  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token6) || ((MCUXCLHASH_STATUS_OK != result6) && (MCUXCLHASH_STATUS_JOB_STARTED != result6)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
@@ -382,10 +370,6 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   {
     /* A non-blocking job was started. A polling loop is used to wait for the user callback. */
     while(MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED == sha2MultipartnonBlockingStatus_callback) {};
-  }
-  else if (MCUXCLHASH_STATUS_OK != result6)
-  {
-    return MCUXCLEXAMPLE_STATUS_ERROR;
   }
   else
   {
@@ -404,7 +388,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   /* uint32_t inSize:               */ sizeof(data5)
   ));
   // mcuxClHash_process is a flow-protected function: Check the protection token and the return value
-  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token7))
+  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process) != token7) || ((MCUXCLHASH_STATUS_OK != result7) && (MCUXCLHASH_STATUS_JOB_STARTED != result7)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
@@ -412,10 +396,6 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha256_streaming_dma_nonBlocking_example)
   {
     /* A non-blocking job was started. A polling loop is used to wait for the user callback. */
     while(MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED == sha2MultipartnonBlockingStatus_callback) {};
-  }
-  else if (MCUXCLHASH_STATUS_OK != result7)
-  {
-    return MCUXCLEXAMPLE_STATUS_ERROR;
   }
   else
   {

@@ -34,33 +34,6 @@
  * Helper functions
  **********************************************************/
 
-/**
- * @brief Hash modes LTC and SGI release function
- *
- * This function shall release LTC or SGI hardware based on releaseOption specified
- *
- * @param[in]       session                 Handle for the current CL session
- * @param[in]       releaseOption           Option indicating which hardware shall be released
- */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHashModes_LTC_SGI_Release)
-static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_LTC_SGI_Release(
-    mcuxClSession_Handle_t session,
-    uint32_t releaseOption
-)
-{
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHashModes_LTC_SGI_Release);
-
-    const uint32_t sgiOption = MCUXCLHASHMODES_REQ_SGI & releaseOption;
-
-    if(MCUXCLHASHMODES_REQ_SGI == sgiOption)
-    {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_release));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_release(session->pResourceCtx, MCUXCLRESOURCE_HWID_SGI));
-    }
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_LTC_SGI_Release);
-}
-
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHashModes_HwRequest)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRequest(
     mcuxClSession_Handle_t session,
@@ -69,22 +42,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRequest(
     uint32_t requestOption
 )
 {
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHashModes_HwRequest);
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHashModes_HwRequest);
 
-  const uint32_t sgiOption = MCUXCLHASHMODES_REQ_SGI & requestOption;
-
-    if(MCUXCLHASHMODES_REQ_SGI == sgiOption)
-    {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(
-            session, MCUXCLRESOURCE_HWID_SGI,
-            MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE,
-            NULL, 0U));
-    }
+    /* Request SGI hardware */
+    /* The `requestOption` check for SGI hardware has been removed, as SGI is the only hardware in mcu_dci for Hash */
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(
+        session, MCUXCLRESOURCE_HWID_SGI,
+        MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE,
+        NULL, 0U)
+    );
 
 
-  const uint32_t dmaInputOption   = MCUXCLHASHMODES_REQ_DMA_INPUT & requestOption;
-  const uint32_t dmaOutputOption  = MCUXCLHASHMODES_REQ_DMA_OUTPUT & requestOption;
+    const uint32_t sgiOption = MCUXCLHASHMODES_REQ_SGI & requestOption;
+    const uint32_t dmaInputOption   = MCUXCLHASHMODES_REQ_DMA_INPUT & requestOption;
+    const uint32_t dmaOutputOption  = MCUXCLHASHMODES_REQ_DMA_OUTPUT & requestOption;
 
     mcuxClSession_HwInterruptHandler_t dmaIsr = NULL;
     uint32_t protectionToken_dmaIsr = 0U;
@@ -122,7 +94,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRequest(
         }
     }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_HwRequest);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_HwRequest);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHashModes_HwRelease)
@@ -133,8 +105,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRelease(
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHashModes_HwRelease);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHashModes_LTC_SGI_Release));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClHashModes_LTC_SGI_Release(session, releaseOption));
+    /* Release the SGI hardware */
+    /* The `releaseOption` check for SGI hardware has been removed, as SGI is the only hardware in mcu_dci for Hash */
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_release));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_release(session->pResourceCtx, MCUXCLRESOURCE_HWID_SGI));
 
     const uint32_t dmaInputOption = MCUXCLHASHMODES_REQ_DMA_INPUT & releaseOption;
     const uint32_t dmaOutputOption = MCUXCLHASHMODES_REQ_DMA_OUTPUT & releaseOption;

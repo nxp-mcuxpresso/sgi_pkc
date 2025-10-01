@@ -88,8 +88,11 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClTrng_Init)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_Init(mcuxClSession_Handle_t pSession)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClTrng_Init);
- 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_Init);
+
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_checkConfig(pSession));
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClTrng_Init,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_checkConfig));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClTrng_checkConfig)

@@ -79,13 +79,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_updateMac(mcuxClSession_Handle
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
   MCUX_CSSL_FP_EXPECT(pAlgo->macAlgo->protectionToken_update);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->macAlgo->update(
+  MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, pAlgo->macAlgo->update(
     session,
     macModesWorkArea,
     &pContext->macCtx,
     pIn,
     macInSize,
     NULL /* unused for now */));
+  (void)retMacUpdate;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
 
@@ -295,7 +296,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CcmGcm_finish(
       cipherWa->sgiWa.copyOutFunction = mcuxClCipherModes_copyOut_toPtr;
       cipherWa->sgiWa.protectionToken_copyOutFunction = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_copyOut_toPtr);
       MCUX_CSSL_FP_EXPECT(pAlgo->cipherAlgo->protectionToken_encryptEngine);
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->cipherAlgo->encryptEngine(
+      MCUX_CSSL_FP_FUNCTION_CALL(retCipherEncrypt, pAlgo->cipherAlgo->encryptEngine(
         session,
         cipherWa,
         tagBuf,
@@ -303,7 +304,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CcmGcm_finish(
         MCUXCLAES_BLOCK_SIZE,
         pContext->cipherCtx.ivState,
         &outLen));
-
+      (void)retCipherEncrypt;
       MCUX_CSSL_FP_EXPECT(pKeyChecksum->protectionToken_VerifyFunc);
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(pKeyChecksum->VerifyFunc(
         session,

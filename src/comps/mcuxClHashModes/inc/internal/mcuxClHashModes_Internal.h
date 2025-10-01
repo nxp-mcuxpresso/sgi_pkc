@@ -55,8 +55,6 @@ typedef struct mcuxClHashModes_Internal_AlgorithmDescriptor
 {
   mcuxClSgi_Utils_initHash sgiUtilsInitHash;
   uint32_t protectionToken_sgiUtilsInitHash;
-  mcuxClSgi_Utils_loadInternalHashBlock sgiLoadInternalDataBlock;
-  uint32_t protectionToken_sgiLoadInternalDataBlock;
   uint32_t dummyValue;                                          ///< needed in the absense of any algorithm using internal algorithm properties
 } mcuxClHashModes_Internal_AlgorithmDescriptor_t;
 /**@}*/

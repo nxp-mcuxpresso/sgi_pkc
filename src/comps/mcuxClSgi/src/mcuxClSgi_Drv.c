@@ -181,7 +181,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getCtrl(void)
 
 /** Gets control value (CTRL2) */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_getCtrl2)
-MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getCtrl2()
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getCtrl2(void)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_getCtrl2);
   uint32_t ctrl2 = mcuxClSgi_Sfr_readCtrl2();
@@ -213,18 +213,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_configureSha2(uint32_t control)
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_configureSha2);
   mcuxClSgi_Sfr_writeSha2Ctrl(control);
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_configureSha2);
-}
-
-/** Configure SHA-2 operation; disable IV AUTO-INIT */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_disableIvAutoInit)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableIvAutoInit(void)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_disableIvAutoInit);
-    /* Read SHA2_CTRL SFR */
-  const uint32_t ctrlsha2 = mcuxClSgi_Sfr_readSha2Ctrl();
-
-  mcuxClSgi_Sfr_writeSha2Ctrl(ctrlsha2 | (MCUXCLSGI_SFR_CTRL_SHA2_NO_AUTO_INIT));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_disableIvAutoInit);
 }
 
 #if 0
@@ -384,15 +372,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadWord(uint32_t offset, uint32
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_loadWord);
   mcuxClSgi_Sfr_writeWord(offset, data);
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_loadWord);
-}
-
-/** Write SHA-2 input data to FIFO */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_loadFifo)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadFifo(uint32_t data)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_loadFifo);
-  mcuxClSgi_Sfr_writeFifoWord(data);
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_loadFifo);
 }
 
 /** Enables storing output in key register

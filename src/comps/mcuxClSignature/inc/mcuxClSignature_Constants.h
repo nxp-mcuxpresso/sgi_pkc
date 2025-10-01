@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -22,7 +22,6 @@
 
 // Old Error Codes
 #define MCUXCLSIGNATURE_STATUS_FAILURE                               (0x0FF75330u)
-#define MCUXCLSIGNATURE_STATUS_ERROR_MEMORY_ALLOCATION               (0x0FF75334u)  ///< Memory allocation error during Signature operation
 #define MCUXCLSIGNATURE_FAILURE                                      MCUXCLSIGNATURE_STATUS_FAILURE ///< @deprecated Please use #MCUXCLSIGNATURE_STATUS_FAILURE instead
 #define MCUXCLSIGNATURE_OK                                           MCUXCLSIGNATURE_STATUS_OK ///< @deprecated Please use #MCUXCLSIGNATURE_STATUS_OK instead
 #define MCUXCLSIGNATURE_STATUS_NOT_OK                                (0x0FF78930u)
@@ -35,6 +34,6 @@
 #define MCUXCLSIGNATURE_TRANSLATE_VERIFY_RETURN_CODE(code) \
   (((((code) & 0x0000FFFFu) == 0x00002E03u) || (((code) & 0x0000FFFFu) == 0x00008930u)) \
        ? ((MCUXCLSIGNATURE_STATUS_NOT_OK & 0xFFFF0000u) | ((code) & 0x0000FFFFu)) \
-       : (MCUXCLSIGNATURE_FAILURE))
+       : (MCUXCLSIGNATURE_STATUS_FAILURE))
 
 #endif /* MCUXCLSIGNATURE_CONSTANTS_H_ */

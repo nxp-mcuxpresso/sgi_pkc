@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023 NXP                                                  */
+/* Copyright 2022-2023, 2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -11,20 +11,14 @@
 /* software.                                                                */
 /*--------------------------------------------------------------------------*/
 
-/**
- * @file  mcuxClEcc_Weier_KeyGen_FUP.c
- * @brief FUP program for Weierstrass curve key generation
- */
-
-#include <mcuxCsslAnalysis.h>
-
+/** @file  mcuxClEcc_Weier_DecodePoint_FUP.h
+*  @brief defines FUP programs byte arrays
+*/
+#ifndef MCUXCLECC_WEIER_DECODEPOINT_FUP_H_
+#define MCUXCLECC_WEIER_DECODEPOINT_FUP_H_
 #include <internal/mcuxClPkc_FupMacros.h>
-#include <internal/mcuxClEcc_Weier_Internal_PkcWaLayout.h>
-#include <internal/mcuxClEcc_Weier_Internal_FUP.h>
 
-MCUX_CSSL_ANALYSIS_START_PATTERN_FUP_PROGRAM()
-const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Weier_KeyGen_DerivePlainPrivKey[7] MCUX_FUP_ATTRIBUTE = {{0x10u,0x00u,0xbeu,0x53u,0xf3u,0x9fu},{0x80u,0x33u,0x1eu,0x1eu,0x01u,0x1cu},{0x80u,0x00u,0x1cu,0x18u,0x01u,0x1eu},{0x80u,0x21u,0x01u,0x19u,0x1cu,0x19u},{0x80u,0x00u,0x19u,0x18u,0x01u,0x1cu},{0x80u,0x2au,0x01u,0x1cu,0x01u,0x19u},{0x80u,0x2au,0x01u,0x19u,0x1eu,0x1cu}};
-MCUX_CSSL_ANALYSIS_STOP_PATTERN_FUP_PROGRAM()
+extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_DecodePoint_SEC_CalcAlpha[7];
+extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_DecodePoint_SEC_VerifyBeta[7];
 
-
-
+#endif /* MCUXCLECC_WEIER_DECODEPOINT_FUP*/ 

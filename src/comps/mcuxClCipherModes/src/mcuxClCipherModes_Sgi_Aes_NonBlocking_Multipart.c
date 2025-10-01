@@ -72,12 +72,13 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven);
 
   mcuxClCipherModes_Context_Aes_Sgi_t * pCtx = mcuxClCipherModes_castToCipherModesContextAesSgi(pContext);
+  mcuxClCipherModes_Algorithm_Aes_Sgi_t pAlgo = mcuxClCipherModes_castToCipherModesAlgorithmAesSgi(pCtx->common.pMode->pAlgorithm);
 
   /* Move data from inputBuffer to blockBuffer if:
    *   1. blockBuffer is not empty
    *   2. inputBuffer has too little data to fill an entire block
    */
-  if(0u != pCtx->common.blockBufferUsed || (MCUXCLAES_BLOCK_SIZE  >= (inLength + pCtx->common.blockBufferUsed)))
+  if(0u != pCtx->common.blockBufferUsed || (MCUXCLAES_BLOCK_SIZE  > (inLength + pCtx->common.blockBufferUsed)))
   {
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pCtx->common.blockBufferUsed, 0u, MCUXCLAES_BLOCK_SIZE, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
     /* Store bytes in context */
@@ -99,27 +100,48 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
     pCtx->common.blockBufferUsed += bytesToCopy;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
-    /* If the blockBuffer is full and there is still data remaining in the inputBuffer, process this block. */
-    if((MCUXCLAES_BLOCK_SIZE == pCtx->common.blockBufferUsed)
-        && (inLength > bytesToCopy))
+    /* If the block buffer is now full, the block can be immediately processed if
+     *   - This is not the last block (there are still bytes left to process in the input buffer)
+     *   - Encryption is executed
+     *   - Decryption is executed for:
+     *     - streamcipher-like mode of operation(granularityDec == 1)
+     *     - padding is None (NULL == pAlgo->removePadding)
+     *
+     * Note: In case of decryption for blockcipher modes of operation(granularityDec == BLOCK_SIZE) with
+     *       padding (pAlgo->removePadding!=NULL) immediate processing is not possible because padding removal
+     *       needs to be performed on the last block during Cipher_finish. Do "lazy" processing and save
+     *       the potential last block for later.
+     */
+    if(MCUXCLAES_BLOCK_SIZE == pCtx->common.blockBufferUsed)
     {
-      MCUXCLBUFFER_INIT(blockBuff, session, pCtx->blockBuffer, MCUXCLAES_BLOCK_SIZE);
-      MCUX_CSSL_FP_EXPECT(pCtx->protectionToken_processEngine);
-      MCUX_CSSL_FP_FUNCTION_CALL(status, pCtx->processEngine(
-        session,
-        pWa,
-        blockBuff,
-        pOut,
-        MCUXCLAES_BLOCK_SIZE,
-        pWa->pIV,
-        pOutLength));
-      (void) status; /* One-block processing is blocking -  processEngine only returns OK */
+      bool isBlockCipherDecryptWithPadding = (MCUXCLSGI_DRV_CTRL_DEC == pCtx->direction) && (MCUXCLAES_BLOCK_SIZE == pAlgo->granularityDec) && (NULL != pAlgo->removePadding);
 
-      MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("pOutOffset cannot overflow as it is always initialized to 0, and is guaranteed to be increased by at max the 32-bit input size.")
-      *pOutOffset += MCUXCLAES_BLOCK_SIZE;
-      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
+      if((inLength > bytesToCopy) || !isBlockCipherDecryptWithPadding)
+      {
+        MCUXCLBUFFER_INIT(blockBuff, session, pCtx->blockBuffer, MCUXCLAES_BLOCK_SIZE);
+        MCUX_CSSL_FP_EXPECT(pCtx->protectionToken_processEngine);
+        MCUX_CSSL_FP_FUNCTION_CALL(status, pCtx->processEngine(session, pWa, blockBuff, pOut, MCUXCLAES_BLOCK_SIZE, pWa->pIV, pOutLength));
+        (void) status; /* One-block processing is blocking -  processEngine only returns OK */
 
-      pCtx->common.blockBufferUsed = 0u;
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("pOutOffset cannot overflow as it is always initialized to 0, and is guaranteed to be increased by at max the 32-bit input size.")
+        *pOutOffset += MCUXCLAES_BLOCK_SIZE;
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
+
+        pCtx->common.blockBufferUsed = 0u;
+        /*
+         * This check ensures that mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven has processed exactly
+         * one block. This is important due to the behaviour of the counter mode. When no block would have been
+         * processed the IV value read from the SGI would be incorrect for the counter mode.
+         */
+        if((NULL != pWa->pIV) && (inLength == bytesToCopy))
+        {
+          //Update IV - IV is located in pIV which points to SGI data register
+          MCUX_CSSL_DI_RECORD(copyIvToContext, (uint32_t)pCtx->ivState);
+          MCUX_CSSL_DI_RECORD(copyIvToContext, (uint32_t)pWa->pIV + MCUXCLAES_BLOCK_SIZE);
+          MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int));
+          MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int((uint8_t*)pCtx->ivState, (const uint8_t*)pWa->pIV, MCUXCLAES_BLOCK_SIZE));
+        }
+      }
     }
   }
 
@@ -163,10 +185,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
   mcuxClCipherModes_Algorithm_Aes_Sgi_t pAlgo = (mcuxClCipherModes_Algorithm_Aes_Sgi_t) pCtx->common.pMode->pAlgorithm;
 
   uint32_t lastBlockRemainingBytes = 0u;
-  if((((pAlgo->granularityEnc == 1u) && (pCtx->direction == MCUXCLSGI_DRV_CTRL_ENC))
-    || ((pAlgo->granularityDec == 1u) && (pCtx->direction == MCUXCLSGI_DRV_CTRL_DEC))))
+  if((pCtx->direction == MCUXCLSGI_DRV_CTRL_ENC)
+    || (((pAlgo->granularityDec == 1u) || (NULL == pAlgo->removePadding)) && (pCtx->direction == MCUXCLSGI_DRV_CTRL_DEC)))
   {
-    /* In case of encryption / stream ciphers we can process all full blocks immediately. */
+    /* In case of encryption / streamcipher-like decryption(granularityDec == 1) or no padding, we can process all full blocks immediately. */
     lastBlockRemainingBytes = remainingBytes % MCUXCLAES_BLOCK_SIZE;
   }
   else
@@ -459,7 +481,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_ISR_completeNonBlocking_mult
     pWa,
     pCtx,
     pAlgo,
-    pWa->nonBlockingWa.pIn, pWa->nonBlockingWa.inOffset,
+    pWa->nonBlockingWa.pIn,
+    pWa->nonBlockingWa.inOffset,
     lastBlockRemainingBytes));
 
   /* Notify the user that the operation finished */
@@ -467,8 +490,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_ISR_completeNonBlocking_mult
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords, MCUXCLCIPHERMODES_CLEANUP_HW_ALL));
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSession_triggerUserCallback(session, MCUXCLCIPHER_STATUS_JOB_COMPLETED));
-
+  MCUX_CSSL_FP_FUNCTION_CALL(retSessionTriggerCallback, mcuxClSession_triggerUserCallback(session, MCUXCLCIPHER_STATUS_JOB_COMPLETED));
+  if(MCUXCLSESSION_STATUS_OK != retSessionTriggerCallback)
+  {
+    MCUXCLSESSION_ERROR(session, retSessionTriggerCallback);
+  }
+  
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_ISR_completeNonBlocking_multipart);
 }
 

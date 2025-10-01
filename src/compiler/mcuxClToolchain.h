@@ -90,6 +90,16 @@
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
 
+/* for dsp56800x */
+#elif defined ( __m56800E__ )
+    #define MCUX_FUP_ATTRIBUTE __attribute__((aligned(4)))
+    #define UNUSED_PARAM __attribute__((unused))
+    #define UNALIGNED
+    /* Macro for alligning buffers to cpu word */
+    #define ALIGNED __attribute__((aligned(4)))
+    #define ALIGNED_N(x) __attribute__((aligned(x)))
+    #define NORETURN __attribute__((__noreturn__))
+
 #endif
 
 

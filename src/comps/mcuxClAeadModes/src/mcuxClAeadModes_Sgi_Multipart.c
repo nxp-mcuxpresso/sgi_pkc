@@ -132,8 +132,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEAD_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnExit));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnExit(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_init_encrypt_decrypt);
 }
 
@@ -261,8 +261,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process(
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEAD_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnExit));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnExit(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_process);
 }
 
@@ -316,8 +316,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process_adata(
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEAD_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnExit));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnExit(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_process_adata);
 }
 
@@ -371,11 +371,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_finish(
     pOutLength,
     pTag));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnExit));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnExit(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
 
   /* Clear cipher key context.
-   * Clear the context after the call to mcuxClAeadModes_cleanupOnExit to not loose the key information too soon. */
+   * Clear the context after the call to mcuxClAeadModes_cleanupOnMultipartExit to not loose the key information too soon. */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, &pCtx->cipherCtx.keyContext);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, sizeof(mcuxClAes_KeyContext_Sgi_t));
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
@@ -482,11 +482,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_verify(
   }
 
   MCUX_CSSL_DI_RECORD(returnCode, retCode);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnExit));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnExit(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords));
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
 
   /* Clear cipher key context.
-   * Clear the context after the call to mcuxClAeadModes_cleanupOnExit to not loose the key information too soon. */
+   * Clear the context after the call to mcuxClAeadModes_cleanupOnMultipartExit to not loose the key information too soon. */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, &pCtx->cipherCtx.keyContext);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, sizeof(mcuxClAes_KeyContext_Sgi_t));
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));

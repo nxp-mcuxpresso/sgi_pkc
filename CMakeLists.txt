@@ -8,9 +8,9 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxa)
         SOURCES
                 doc/mcxa/html/*.*
                 doc/mcxa/html/search/*.*
-                LICENSE.txt
-                SBOM-MCU_DCI-DCI_SDK_V1.0.0.spdx.json
+                LICENSE.md
                 ReleaseNotes.txt
+                SBOM-MCU_DCI-DCI_SDK_V3.0.0.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -25,9 +25,9 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxl)
         SOURCES
                 doc/mcxl/html/*.*
                 doc/mcxl/html/search/*.*
-                LICENSE.txt
-                SBOM-MCU_DCI-DCI_SDK_V1.0.0.spdx.json
+                LICENSE.md
                 ReleaseNotes.txt
+                SBOM-MCU_DCI-DCI_SDK_V3.0.0.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -319,6 +319,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.crc)
                 src/comps/mcuxClCrc/src/mcuxClCrc_Drv.c
                 src/comps/mcuxClCrc/inc/mcuxClCrc.h
                 src/comps/mcuxClCrc/inc/internal/mcuxClCrc_Drv.h
+                src/comps/mcuxClCrc/inc/internal/mcuxClCrc_FeatureConfig.h
                 src/comps/mcuxClCrc/inc/internal/mcuxClCrc_Internal_Constants.h
                 src/comps/mcuxClCrc/inc/internal/mcuxClCrc_Internal_Functions.h
                 src/comps/mcuxClCrc/inc/internal/mcuxClCrc_Internal_Types.h
@@ -384,6 +385,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/src/mcuxClEcc_EdDSA_VerifySignature.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_BlindedFixScalarMult.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_BlindedVarScalarMult.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Internal_BlindedVarScalarMult_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_Convert_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_GenerateMultiplicativeBlinding.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_GenerateMultiplicativeBlinding_FUP.c
@@ -402,7 +404,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_Types.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_KeyEncodingMechanisms.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_KeyTypes.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_KeyValidation.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Mont_Internal_DhSetupEnvironment.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Mont_Internal_MontDhX.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Mont_Internal_MontDhX_FUP.c
@@ -429,15 +430,23 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/src/mcuxClEcc_TwEd_Internal_UpdateExtHomCoords_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_TwEd_Internal_VarScalarMult.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_TwEd_Internal_VarScalarMult_FUP.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_DecodePoint.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_DecodePoint_FUP.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_GenerateDomainParams.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_GenerateDomainParams_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_BooleanToArithmeticMasking.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_BooleanToArithmeticMasking_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_ConvertPoint.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_ConvertPoint_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_DiscriminantCalculate_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_DomainParamsCheck.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_EncTypeSEC.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_FUP.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_GenerateKeyPair.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_GenerateKeyPair_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_KeyGen.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_KeyGen_FUP.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_KeyValidation.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_PlainFixScalarMult.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_PointArithmetic.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_PointArithmetic_FUP.c
@@ -446,16 +455,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_PointMult.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_SecurePointMult_CoZMontLadder.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_SecurePointMult_CoZMontLadder_FUP.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_KeyGen_FUP.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_PointMult_FUP.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_DecodePoint.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_DecodePoint_FUP.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_EncTypeSEC.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_GenerateCustomKeyType.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_GenerateDomainParams.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_GenerateDomainParams_FUP.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_GenerateKeyPair.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_WeierECC_Internal_SetupEnvironment.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Weier_Internal_SetupEnvironment.c
                 src/comps/mcuxClEcc/src/size/size.c			
 				
                 src/comps/mcuxClEcc/inc/mcuxClEcc.h
@@ -467,6 +467,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/inc/mcuxClEcc_EdDSA_Internal_CalcHashModN_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_EdDSA_Internal_DecodePoint_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Functions.h
+                src/comps/mcuxClEcc/inc/mcuxClEcc_Internal_BlindedVarScalarMult_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Internal_Convert_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Internal_GenerateMultiplicativeBlinding_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Internal_Interleave_FUP.h
@@ -485,18 +486,17 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/inc/mcuxClEcc_TwEd_Internal_UpdateExtHomCoords_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_TwEd_Internal_VarScalarMult_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Types.h
+                src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_DecodePoint_FUP.h
+                src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_GenerateDomainParams_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_BooleanToArithmeticMasking_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_ConvertPoint_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_DiscriminantCalculate_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_FUP.h
+                src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_GenerateKeyPair_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_KeyGen_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_PointArithmetic_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_PointCheck_FUP.h
                 src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_Internal_SecurePointMult_CoZMontLadder_FUP.h
-                src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_KeyGen_FUP.h
-                src/comps/mcuxClEcc/inc/mcuxClEcc_Weier_PointMult_FUP.h
-                src/comps/mcuxClEcc/inc/mcuxClEcc_WeierECC_Internal_DecodePoint_FUP.h
-                src/comps/mcuxClEcc/inc/mcuxClEcc_WeierECC_Internal_GenerateDomainParams_FUP.h
 				
 				src/comps/mcuxClEcc/inc/internal/mcuxClEcc_ECDH_Internal.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_ECDSA_Internal.h
@@ -520,8 +520,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Weier_Internal_FP.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Weier_Internal_FUP.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Weier_Internal_PkcWaLayout.h
-                src/comps/mcuxClEcc/inc/internal/mcuxClEcc_WeierECC_Internal_GenerateKeyPair.h
-                src/comps/mcuxClEcc/inc/internal/mcuxClEcc_WeierECC_Internal_KeyValidation.h
 								
                 #src/comps/mcuxClEcc/inc/platform/mcxa/mcuxClEcc_MemoryConsumption.h
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
@@ -598,6 +596,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.hash)
         SOURCES src/comps/mcuxClHash/src/mcuxClHash_api_multipart_common.c
                 src/comps/mcuxClHash/src/mcuxClHash_api_multipart_compute.c
                 src/comps/mcuxClHash/src/mcuxClHash_api_oneshot_compute.c
+                src/comps/mcuxClHash/src/mcuxClHash_Internal.c
                 src/comps/mcuxClHash/src/mcuxClHash_Oid.c
                 src/comps/mcuxClHash/inc/mcuxClHash.h
                 src/comps/mcuxClHash/src/size/size.c
@@ -823,6 +822,7 @@ endif()
 if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.memory)
     mcux_add_source(
         SOURCES src/comps/mcuxClMemory/src/mcuxClMemory.c
+                src/comps/mcuxClMemory/src/mcuxClMemory_Internal.c
                 src/comps/mcuxClMemory/inc/mcuxClMemory.h
                 src/comps/mcuxClMemory/inc/mcuxClMemory_Clear.h
                 src/comps/mcuxClMemory/inc/mcuxClMemory_Constants.h
@@ -844,6 +844,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.memory)
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_Copy_Reversed_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_CopySecurePow2_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_CopyWords_Internal.h
+                src/comps/mcuxClMemory/inc/internal/mcuxClMemory_FeatureConfig.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_Set_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_SetSecure_Internal.h
@@ -949,7 +950,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.prng)
     mcux_add_source(
         SOURCES src/comps/mcuxClPrng/src/mcuxClPrng.c
                 src/comps/mcuxClPrng/inc/internal/mcuxClPrng_Internal.h
-                src/comps/mcuxClPrng/inc/internal/mcuxClPrng_Internal_Constants.h
                 src/comps/mcuxClPrng/inc/internal/mcuxClPrng_Internal_Functions.h
                 src/comps/mcuxClPrng/inc/internal/mcuxClPrng_Internal_Types.h
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
@@ -1410,11 +1410,11 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.examples_ecc)
                 examples/mcuxClEcc/mcuxClEcc_EdDSA_VerifySignature_Ed25519_example.c
                 examples/mcuxClEcc/mcuxClEcc_MontDH_Curve448_example.c
                 examples/mcuxClEcc/mcuxClEcc_MontDH_Curve25519_example.c
-                examples/mcuxClEcc/mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c
+                examples/mcuxClEcc/mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c
+                examples/mcuxClEcc/mcuxClEcc_Weier_KeyValidation_PublicKey_example.c
+                # examples/mcuxClEcc/mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c
                 examples/mcuxClEcc/mcuxClEcc_WeierECC_DecodePoint_brainpoolP384r1_example.c
                 examples/mcuxClEcc/mcuxClEcc_WeierECC_DecodePoint_secp224r1_example.c
-                examples/mcuxClEcc/mcuxClEcc_WeierECC_KeyValidation_PrivateKey_example.c
-                examples/mcuxClEcc/mcuxClEcc_WeierECC_KeyValidation_PublicKey_example.c
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
     mcux_add_include(

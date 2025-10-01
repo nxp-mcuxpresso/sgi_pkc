@@ -56,7 +56,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha224(mcuxClSession_Handl
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_224_AUTOMODE_LOADDATA_USESTANDARDIV));
     }
-    else if(MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode)
+    else  /* (MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode) */
     {
         /* Configure SHA2-224, loading a special IV/state in auto mode */
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
@@ -82,37 +82,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha224(mcuxClSession_Handl
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_224_AUTOMODE_LOADDATA_USELOADEDIV));
     }
-    else if(MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV == mode)
-    {
-        /* Configure SHA2-224 in normal mode using standard IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_224_NORMALMODE_LOADDATA_USESTANDARDIV));
-    }
-    else
-    {
-        /* Configure SHA2-224, loading a special IV/state in normal mode */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_224_NORMALMODE_LOADIV));
-
-        /* Load IV to DATIN and KEY register banks */
-        MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_load256BitBlock_params, mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET));
-        MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_load256BitBlock_params, pIV);
-        MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_load256BitBlock_params, 32U);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load256BitBlock));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load256BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, (const uint8_t*) pIV));
-
-        /* Start SGI SHA2-224 processing */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLSGI_DRV_START_SHA2));
-
-        /* Wait until SGI has loaded IV and check for SGI SHA error */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
-
-        /* Configure SHA2-224, loading data in normal mode, using the already loaded IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_224_NORMALMODE_LOADDATA_USELOADEDIV));
-    }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_initSha224);
 }
@@ -128,7 +97,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha256(mcuxClSession_Handl
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_256_AUTOMODE_LOADDATA_USESTANDARDIV));
     }
-    else if(MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode)
+    else /* (MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode) */
     {
         /* Configure SHA2-256, loading a special IV/state in auto mode */
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
@@ -154,37 +123,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha256(mcuxClSession_Handl
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_256_AUTOMODE_LOADDATA_USELOADEDIV));
     }
-    else if(MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV == mode)
-    {
-        /* Configure SHA2-256 in normal mode using standard IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_256_NORMALMODE_LOADDATA_USESTANDARDIV));
-    }
-    else
-    {
-        /* Configure SHA2-256, loading a special IV/state in normal mode */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_256_NORMALMODE_LOADIV));
-
-        /* Load IV to DATIN and KEY register banks */
-        MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_load256BitBlock_params, mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET));
-        MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_load256BitBlock_params, pIV);
-        MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_load256BitBlock_params, 32U);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load256BitBlock));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load256BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, (const uint8_t*) pIV));
-
-        /* Start SGI SHA2-256 processing */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLSGI_DRV_START_SHA2));
-
-        /* Wait until SGI has loaded IV and check for SGI SHA error */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
-
-        /* Configure SHA2-256, loading data in normal mode, using the already loaded IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_256_NORMALMODE_LOADDATA_USELOADEDIV));
-    }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_initSha256);
 }
@@ -200,7 +138,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha384(mcuxClSession_Handl
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_384_AUTOMODE_LOADDATA_USESTANDARDIV));
     }
-    else if(MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode)
+    else /* (MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode) */
     {
         /* Configure SHA2-384, loading a special IV/state in auto mode */
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
@@ -226,34 +164,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha384(mcuxClSession_Handl
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_384_AUTOMODE_LOADDATA_USELOADEDIV));
     }
-    else if(MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV == mode)
-    {
-        /* Configure SHA2-384 in normal mode using standard IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_384_NORMALMODE_LOADDATA_USESTANDARDIV));
-    }
-    else
-    {
-        /* Configure SHA2-384, loading a special IV/state in normal mode */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_384_NORMALMODE_LOADIV));
-
-        /* Load IV to DATIN and KEY register banks */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load512BitBlock(pIV));
-
-        /* Start SGI SHA2-384 processing */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLSGI_DRV_START_SHA2));
-
-        /* Wait until SGI has loaded IV and check for SGI SHA error */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
-
-        /* Configure SHA2-384, loading data in normal mode, using the already loaded IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_384_NORMALMODE_LOADDATA_USELOADEDIV));
-    }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_initSha384);
 }
@@ -269,7 +179,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha512(mcuxClSession_Handl
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_512_AUTOMODE_LOADDATA_USESTANDARDIV));
     }
-    else if(MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode)
+    else /* (MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV == mode) */
     {
         /* Configure SHA2-512, loading a special IV/state in auto mode */
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
@@ -294,34 +204,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_initSha512(mcuxClSession_Handl
         /* Configure SHA2-512, loading data in auto mode, using the already loaded IV */
         MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_512_AUTOMODE_LOADDATA_USELOADEDIV));
-    }
-    else if(MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV == mode)
-    {
-        /* Configure SHA2-512 in normal mode using standard IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_512_NORMALMODE_LOADDATA_USESTANDARDIV));
-    }
-    else
-    {
-        /* Configure SHA2-512, loading a special IV/state in normal mode */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_512_NORMALMODE_LOADIV));
-
-        /* Load IV to DATIN and KEY register banks */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load512BitBlock(pIV));
-
-        /* Start SGI SHA2-512 processing */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLSGI_DRV_START_SHA2));
-
-        /* Wait until SGI has loaded IV and check for SGI SHA error */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_Sha2_wait(session));
-
-        /* Configure SHA2-512, loading data in normal mode, using the already loaded IV */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureSha2));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureSha2(MCUXCLSGI_DRV_CONFIG_SHA2_512_NORMALMODE_LOADDATA_USELOADEDIV));
     }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_initSha512);
@@ -457,131 +339,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_store128BitBlock);
 }
 
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_load256BitBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load256BitBlock(uint32_t sgisfrDatOffset, const uint8_t *pData)
-{
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_load256BitBlock);
-
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_UNALIGNED_ACCESS()
-    const uint32_t *pData32 = (const uint32_t *)pData;
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_UNALIGNED_ACCESS()
-
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("offset calculations cannot wrap")
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 0U, pData32[0]);
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 4U, pData32[1]);
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 8U, pData32[2]);
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 12U, pData32[3]);
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 16U, pData32[4]);
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 20U, pData32[5]);
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 24U, pData32[6]);
-    mcuxClSgi_Sfr_writeWord(sgisfrDatOffset + 28U, pData32[7]);
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-
-    MCUX_CSSL_DI_EXPUNGE(inputParam, mcuxClSgi_Drv_getAddr(sgisfrDatOffset));
-    MCUX_CSSL_DI_EXPUNGE(inputParam, pData32);
-    MCUX_CSSL_DI_EXPUNGE(inputParam, 32U);
-
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_load256BitBlock);
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_load512BitBlock, mcuxClSgi_Utils_loadInternalHashBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load512BitBlock(const uint32_t *pData)
-{
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_load512BitBlock);
-
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 0U, pData[0]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 4U, pData[1]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 8U, pData[2]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 12U, pData[3]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 16U, pData[4]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 20U, pData[5]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 24U, pData[6]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 28U, pData[7]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 32U, pData[8]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 36U, pData[9]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 40U, pData[10]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 44U, pData[11]);
-#if( MCUXCLSGI_SFR_DATIN_CNT > 12U )   /* if the DATIN3 bank is available */
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 48U, pData[12]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 52U, pData[13]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 56U, pData[14]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 60U, pData[15]);
-#else
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 0U, pData[12]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 4U, pData[13]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 8U, pData[14]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 12U, pData[15]);
-#endif /* MCUXCLSGI_SFR_DATIN_CNT */
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_load512BitBlock);
-}
-
-MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_load1024BitBlock, mcuxClSgi_Utils_loadInternalHashBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load1024BitBlock(const uint32_t *pData)
-MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
-{
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_load1024BitBlock);
-
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 0U, pData[0]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 4U, pData[1]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 8U, pData[2]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 12U, pData[3]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 16U, pData[4]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 20U, pData[5]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 24U, pData[6]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 28U, pData[7]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 32U, pData[8]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 36U, pData[9]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 40U, pData[10]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 44U, pData[11]);
-#if( MCUXCLSGI_SFR_DATIN_CNT > 12U )   /* if the DATIN3 bank is available */
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 48U, pData[12]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 52U, pData[13]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 56U, pData[14]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_DRV_DATIN0_OFFSET + 60U, pData[15]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET +  0U, pData[16]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET +  4U, pData[17]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET +  8U, pData[18]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 12U, pData[19]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 16U, pData[20]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 20U, pData[21]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 24U, pData[22]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 28U, pData[23]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 32U, pData[24]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 36U, pData[25]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 40U, pData[26]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 44U, pData[27]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 48U, pData[28]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 52U, pData[29]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 56U, pData[30]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 60U, pData[31]);
-#else
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 0U, pData[12]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 4U, pData[13]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 8U, pData[14]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 12U, pData[15]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 16U, pData[16]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 20U, pData[17]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 24U, pData[18]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 28U, pData[19]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 32U, pData[20]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 36U, pData[21]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 40U, pData[22]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 44U, pData[23]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 48U, pData[24]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 52U, pData[25]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 56U, pData[26]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 60U, pData[27]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 64U, pData[28]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 68U, pData[29]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 72U, pData[30]);
-    mcuxClSgi_Sfr_writeWord(MCUXCLSGI_SFR_KEY0_OFFSET + 76U, pData[31]);
-#endif /* MCUXCLSGI_SFR_DATIN_CNT */
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_load1024BitBlock);
-}
-
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_loadFifo)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo(const uint32_t *pData, uint32_t length)
@@ -591,8 +348,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo(const uint32_t *pData
     /* Load data to FIFO word-wise */
     for(uint32_t i = 0U; i < (length / sizeof(uint32_t)); i++)
     {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_loadFifo));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_loadFifo(pData[i]));
+        mcuxClSgi_Drv_loadFifo(pData[i]);
     }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_loadFifo);
@@ -891,7 +647,7 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_decrement128Bit)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_decrement128Bit(uint32_t srcSfrDatOffset, uint32_t dstSfrDatOffset)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_decrement128Bit);
-    
+
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("offset calculations cannot wrap")
     mcuxClSgi_Sfr_writeWord(dstSfrDatOffset + 0U, mcuxClSgi_Sfr_readWord(srcSfrDatOffset + 0U));
     mcuxClSgi_Sfr_writeWord(dstSfrDatOffset + 4U, mcuxClSgi_Sfr_readWord(srcSfrDatOffset + 4U));
@@ -987,7 +743,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_keyUnwrapRfc3394(
    * Even if the unwrapping was invalid, the invalid unwrapped material will be placed in this
    * key register. */
 
-  /* Check for unwrapping errors - the SGI checks internally whether the RFC3394 IV is correct */
+  /* Check for unwrapping errors - the SGI checks internally whether the RFC3394 IV is correct.
+   * When MCUXCLSGI_SFR_STATUS_HAS_KEY_UNWRAP_ERROR is raised, an SGI reset or FULL_FLUSH has to be performed
+   * because this error is sticky. As we never perform any FULL_FLUSH in the SGI due to pre-loaded keys,
+   * it is user responsibility to perform a reset or FULL_FLUSH on MCUXCLSGI_STATUS_UNWRAP_ERROR.
+   */
   uint32_t sgiStatus = mcuxClSgi_Sfr_readStatus();
   if(MCUXCLSGI_SFR_STATUS_HAS_KEY_UNWRAP_ERROR(sgiStatus))
   {

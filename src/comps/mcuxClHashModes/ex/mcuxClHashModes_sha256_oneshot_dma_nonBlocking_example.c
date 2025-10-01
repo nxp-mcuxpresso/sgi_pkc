@@ -197,10 +197,11 @@ uint8_t longData[] = {
   /* uint32_t *const pOutSize,      */ &hashOutputSize
   ));
 
-  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute) != token2))
+  if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute) != token2) || ((MCUXCLHASH_STATUS_JOB_STARTED != result) && (MCUXCLHASH_STATUS_OK != result)))
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+  
   if(MCUXCLHASH_STATUS_JOB_STARTED == result)
   {
     /* A non-blocking job was started. Wait for the interrupt. */
@@ -226,10 +227,6 @@ uint8_t longData[] = {
     /* Reset polling loop condition and the status code */
     flag_interruptNumber = MCUXCLHASH_FLAG_DMA_INTERRUPT_NOT_TRIGGERED;
     sha2APInonBlockingStatus_callback = MCUXCLHASH_STATUS_CALLBACK_NOT_EXECUTED;
-  }
-  else if(MCUXCLHASH_STATUS_OK != result)
-  {
-    return MCUXCLEXAMPLE_STATUS_ERROR;
   }
   else
   {

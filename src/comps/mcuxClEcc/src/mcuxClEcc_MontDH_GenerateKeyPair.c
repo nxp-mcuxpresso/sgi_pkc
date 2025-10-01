@@ -91,22 +91,15 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     /* Derive the security strength required for the RNG from bitLenN/2 and check whether it can be provided. */
     MCUX_CSSL_FP_FUNCTION_CALL(ret_checkSecurityStrength, mcuxClRandom_checkSecurityStrength(pSession, ((uint32_t) pCommonDomainParameters->byteLenN * 8u) / 2u));
-    if (MCUXCLRANDOM_STATUS_OK != ret_checkSecurityStrength)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_ERROR);
-    }
+    MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_checkSecurityStrength);
 
     /* Generate a M byte random private key d using the DRBG and store it in PKC buffer ECC_S3, M equals to dp->nLen */
     MCUXCLECC_FP_RANDOM_HQRNG_PKCWA(mcuxClEcc_MontDH_GenerateKeyPair, pSession, ptrS3, keyLen, ((uint32_t*)NULL));
 
-    /* Call mcuxClEcc_MontDH_X to calculate the public key q=MontDH_X(d,Gx) and store it in buffer MONT_X0. If the function returns NEUTRAL_POINT, return MCUXCLECC_STATUS_FAULT_ATTACK */
+    /* Call mcuxClEcc_MontDH_X to calculate the public key q=MontDH_X(d,Gx) and store it in buffer MONT_X0. If the function returns
+       SCALAR_ZERO or NEUTRAL_POINT, return MCUXCLKEY_STATUS_FAULT_ATTACK */
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDHx, mcuxClEcc_MontDH_X(pSession, pDomainParameters, pDomainParameters->common.pGx));
-
-    if(MCUXCLECC_STATUS_RNG_ERROR == retCode_MontDHx)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_ERROR);
-    }
-    else if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
+    if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
     {
         MCUXCLSESSION_FAULT(pSession, MCUXCLKEY_STATUS_FAULT_ATTACK);
     }

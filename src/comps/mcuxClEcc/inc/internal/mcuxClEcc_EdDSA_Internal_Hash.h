@@ -54,7 +54,7 @@
         if ((pDomainParams->algoHash->hashSize != outLength) || (MCUXCLHASH_STATUS_OK != retHash))  \
         {                                                                                          \
             MCUXCLSESSION_FAULT(pSession,                                                           \
-                                      MCUXCLECC_STATUS_FAULT_ATTACK);                               \
+                               MCUXCLECC_STATUS_FAULT_ATTACK);                                      \
         }                                                                                          \
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()                         \
     } while(false)                                                                                 \

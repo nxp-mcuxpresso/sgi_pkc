@@ -75,13 +75,11 @@
  * @attention The PKC calculation might be still on-going, call #MCUXCLPKC_WAITFORFINISH before CPU accesses to the result.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_Int_CoreKeyGen)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_t pSession,
-                                                                      uint32_t nByteLength)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_t pSession, uint32_t nByteLength)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_Int_CoreKeyGen);
 
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nByteLength, MCUXCLECC_WEIERECC_MIN_SIZE_BASEPOINTORDER, MCUXCLECC_WEIERECC_MAX_SIZE_BASEPOINTORDER,
-        MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(nByteLength, MCUXCLECC_WEIERECC_MIN_SIZE_BASEPOINTORDER, MCUXCLECC_WEIERECC_MAX_SIZE_BASEPOINTORDER)
 
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
 
@@ -92,7 +90,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     const uint32_t wordNumN = (nByteLength + (sizeof(uint32_t)) - 1u) / (sizeof(uint32_t));
     uint32_t nMSWord = ptr32N[wordNumN - 1u];
     uint32_t nMSWord_LeadZeros = mcuxClMath_CountLeadingZerosWord(nMSWord);
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nMSWord_LeadZeros, 0u, 31u, MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(nMSWord_LeadZeros, 0u, 31u)
     uint32_t bitLenN65 = (wordNumN * (sizeof(uint32_t)) * 8u) - nMSWord_LeadZeros + 65u;
     uint32_t pkcByteLenN65 = (bitLenN65 + (MCUXCLPKC_WORDSIZE * 8u) - 1u) / (MCUXCLPKC_WORDSIZE * 8u) * MCUXCLPKC_WORDSIZE;
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_pkcByteLenN65, pkcByteLenN65);
@@ -118,7 +116,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     uint8_t *ptrS0 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S0]);
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S0, (uint32_t) ptrS0);
     const uint32_t keySeedLength = (wordNumN * (sizeof(uint32_t))) + 8u;
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(keySeedLength, MCUXCLECC_WEIERECC_MIN_SIZE_PRIVATEKEY, pkcByteLenN65, MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(keySeedLength, MCUXCLECC_WEIERECC_MIN_SIZE_PRIVATEKEY, pkcByteLenN65)
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_keySeedLength, keySeedLength);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, &ptrS0[keySeedLength]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, pkcByteLenN65 - keySeedLength);
@@ -141,10 +139,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     /* Derive the security strength required for the RNG from bitLenN / 2 and check whether it can be provided. */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_checkSecurityStrength));
     MCUX_CSSL_FP_FUNCTION_CALL(ret_checkSecurityStrength, mcuxClRandom_checkSecurityStrength(pSession, MCUXCLCORE_MIN((nByteLength * 8u) / 2u, 256u)));
-    if (MCUXCLRANDOM_STATUS_OK != ret_checkSecurityStrength)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_RNG_ERROR);
-    }
+    MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_checkSecurityStrength);
 
     /* Generate key seed c with the DRBG in Boolean masked form c_b = c ^ r, where c_b is stored in ECC_S2 and the XOR-mask r has been generated above in buffer ECC_S0. */
     /* c_b is loaded into ECC_S2, second share (r) is generated in previous step in ECC_S0 buffer */
@@ -326,7 +321,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     const uint32_t wordNumN_2 = nByteLength / sizeof(uint32_t) + (nByteLength % sizeof(uint32_t)==0u?0u:1u);
     MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
     const uint32_t nMSWord_LeadZeros_2 = mcuxClMath_CountLeadingZerosWord(ptr32N_2[wordNumN_2 - 1u]);
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nMSWord_LeadZeros_2, 0u, 31u, MCUXCLECC_STATUS_INVALID_PARAMS)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(nMSWord_LeadZeros_2, 0u, 31u)
     const uint32_t bitLenN65_2 = (wordNumN_2 * (sizeof(uint32_t)) * 8u) - nMSWord_LeadZeros_2 + 65u;
     const uint32_t pkcByteLenN65_2 = (bitLenN65_2 + (MCUXCLPKC_WORDSIZE * 8u) - 1u) / (MCUXCLPKC_WORDSIZE * 8u) * MCUXCLPKC_WORDSIZE;
     const uint32_t keySeedLength_2 = (wordNumN_2 * (sizeof(uint32_t))) + 8u;
@@ -341,5 +336,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Int_CoreKeyGen(mcuxClS
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_S1, (uint32_t) MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S1]));
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_S2, (uint32_t) MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S2]));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_Int_CoreKeyGen, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_Int_CoreKeyGen);
 }

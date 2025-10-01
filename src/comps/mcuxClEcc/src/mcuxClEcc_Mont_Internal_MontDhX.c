@@ -191,7 +191,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
         mcuxClEcc_GenerateMultiplicativeBlinding(pSession, pDomainParameters->common.byteLenN));
     if (MCUXCLECC_STATUS_OK != retGenMulBlind)
     {
-        /* GenerateMultiplicativeBlinding is returning only OK, SCALAR_ZERO or RNG_ERROR */
+        /* GenerateMultiplicativeBlinding is returning only OK or SCALAR_ZERO */
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_X, retGenMulBlind);
 
     }
@@ -206,33 +206,34 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The leadingZerosN is less than operandSize * 8u.")
     uint32_t bitLenN = (operandSize * 8u) - leadingZerosN;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-    MCUX_CSSL_FP_FUNCTION_CALL(retSecScalarMult0,
-        mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(pSession, ECC_S1, bitLenN, MCUXCLECC_SCALARMULT_OPTION_PROJECTIVE_INPUT));
-    if (MCUXCLECC_STATUS_OK != retSecScalarMult0)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(
+      pSession,
+      ECC_S1,
+      bitLenN,
+      MCUXCLECC_SCALARMULT_OPTION_PROJECTIVE_INPUT
+    ));
 
     /* Securely calculate, R'' = phi * R', stored result in buffers (X0, Z0). */
     /* Secure multiplication is not needed here, but we do not have non secure one */
-    MCUX_CSSL_FP_FUNCTION_CALL(retSecScalarMult1,
-        mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(pSession, ECC_S0, MCUXCLECC_SCALARBLINDING_BITSIZE, MCUXCLECC_SCALARMULT_OPTION_PROJECTIVE_INPUT));
-    if (MCUXCLECC_STATUS_OK != retSecScalarMult1)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(
+      pSession,
+      ECC_S0,
+      MCUXCLECC_SCALARBLINDING_BITSIZE,
+      MCUXCLECC_SCALARMULT_OPTION_PROJECTIVE_INPUT
+    ));
+
     /* Copy cofactor to the buffer ECC_S0 overwriting phi */
     MCUXCLPKC_FP_CALC_OP1_CONST(ECC_S0, 0u);
     uint8_t *pS0 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S0]);
     MCUXCLPKC_WAITFORFINISH();
     *(pS0) = (uint8_t)((1u << pDomainParameters->c) & 0xFFu);
     /* Securely calculate, R = cofactor * R'', stored result in buffers (X0, Z0). */
-    MCUX_CSSL_FP_FUNCTION_CALL(retSecScalarMult2,
-        mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(pSession, ECC_S0, (uint32_t)(pDomainParameters->c) + 1u, MCUXCLECC_SCALARMULT_OPTION_PROJECTIVE_INPUT));
-    if (MCUXCLECC_STATUS_OK != retSecScalarMult2)
-    {
-        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-    }
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder(
+      pSession,
+      ECC_S0,
+      (uint32_t)(pDomainParameters->c) + 1u,
+      MCUXCLECC_SCALARMULT_OPTION_PROJECTIVE_INPUT
+    ));
 
     MCUXCLPKC_FP_CALC_MC1_MR(ECC_T0, MONT_Z0, ECC_P);        /* T0 = Z in NR, in range [0, p] */
     MCUXCLPKC_FP_CALC_MC1_MS(ECC_T0, ECC_T0, ECC_P, ECC_P);  /* T0 = Z in NR, in range [0, p-1] */

@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_KeyValidation.c
+ * @file  mcuxClEcc_Weier_Internal_KeyValidation.c
  * @brief mcuxClEcc: implementation of ECC related key validation functions
  */
 
@@ -21,7 +21,6 @@
 
 #include <mcuxClEcc.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
-#include <internal/mcuxClEcc_WeierECC_Internal_KeyValidation.h>
 
 #include <internal/mcuxClEcc_Internal_KeyHelper.h>
 #include <internal/mcuxClKey_Types_Internal.h>

@@ -35,9 +35,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  * 2*P = (Xres:Yres:Zres:Tres) according to the algorithm specified in Section 3.3 of
  * https://eprint.iacr.org/2008/522.pdf with a = -1.
  *
- * Input:
- *  - pSession  Handle for the current CL session
- *
  * Prerequisites:
  *  - Buffers TWED_X, TWED_Y, TWED_Z and TWED_T contain the homogeneous coordinates (X:Y:Z:T) of P in MR
  *  - ps1Len = (operandSize, operandSize)
@@ -71,9 +68,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  * P1 = (Xres:Yres:Zres:Tres), even if either an input or the resulting point is the neutral point.
  * To this end the a = -1 specific algorithm specified
  * in Section 3.1 of https://eprint.iacr.org/2008/522.pdf is used with Z2 = 1.
- *
- * Input:
- *  - pSession  Handle for the current CL session
  *
  * Prerequisites:
  *  - Buffers TWED_X, TWED_Y, TWED_Z and TWED_T contain the homogeneous coordinates (X1:Y1:Z1:T1) of P1 in MR
@@ -110,9 +104,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  * it calculates the sum P1 + P2 in extended homogeneous coordinates
  * P1 = (Xres:Yres:Zres:Tres), even if either an input or the resulting point is the neutral point.
  * To this end the a = -1 specific algorithm specified in Section 3.1 of https://eprint.iacr.org/2008/522.pdf is used.
- *
- * Input:
- *  - pSession  Handle for the current CL session
  *
  * Prerequisites:
  *  - Buffers TWED_X, TWED_Y, TWED_Z and TWED_T contain the homogeneous coordinates (X1:Y1:Z1:T1) of P1 in MR

@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_WeierECC_Internal_DecodePoint.c
+ * @file  mcuxClEcc_Weier_DecodePoint.c
  * @brief ECC Weierstrass point decoding function
  */
 

@@ -83,12 +83,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify_sizeA
   /* The constraint on sLen for FIPS186.5 is always met, so no additional check is needed. In step 10, we check that the zero-padding has the expected length w.r.t. sLen. */
   /* Step 4: Check if the leftmost octet of Em (before endianness switch) has hexadecimal value 0xbc.*/
   /* Step 6: Check if 8*emLen-emBits leftmost bits (before endianness switch) equal to zero. Note that, as keyBitLength is a multiple of 8, 8 * emLen - emBits = 1 bit.*/
-  if((((1024U == keyBitLength) && (512U == (8U * hLen)) && ((hLen - 2U) < sLen)) || (hLen < sLen))
-          || (emLen < (hLen + sLen + 2U)) || (0xbcU != *pEm) || (0U != ((pEm[emLen - 1u]) & 0x80u)))
+
+  if(((hLen < sLen)) || (emLen < (hLen + sLen + 2U)) || (0xbcU != *pEm) || (0U != ((pEm[emLen - 1u]) & 0x80u)))
   {
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pssVerify_sizeAndBytes_check, MCUXCLRSA_STATUS_VERIFY_FAILED);
   }
-  
+
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pssVerify_sizeAndBytes_check, MCUXCLRSA_STATUS_OK);
 }
 

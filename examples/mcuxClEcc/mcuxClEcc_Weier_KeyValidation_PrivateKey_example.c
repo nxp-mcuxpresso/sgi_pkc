@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @example mcuxClEcc_WeierECC_KeyValidation_PrivateKey_example.c
+ * @example mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c
  * @brief   Example for the mcuxClEcc component
  */
 
@@ -45,7 +45,7 @@ static const uint8_t pPrivKeyData_Valid[MCUXCLECC_WEIERECC_SECP192R1_SIZE_PRIVAT
 };
 
 /* Example of private key validation for Weierstrass curve secp192r1. */
-MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_WeierECC_KeyValidation_PrivateKey_example)
+MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_Weier_KeyValidation_PrivateKey_example)
 {
     /* Setup one session to be used by all functions called */
     mcuxClSession_Descriptor_t sessionDesc;

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -90,6 +90,12 @@ extern "C" {
  * @retval MCUXCLMAC_STATUS_INVALID_PARAM  An invalid parameter was given to the function
  * @retval MCUXCLMAC_STATUS_FAULT_ATTACK   Fault attack detected */
 /**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR   Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
  * @retval MCUXCLMAC_STATUS_JOB_STARTED    Non-blocking operation started successfully
  * @retval MCUXCLMAC_STATUS_JOB_COMPLETED  Non-blocking operation successful
  *
@@ -136,7 +142,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
  *
  * This function performs the initialization of a context for a multipart MAC
  * computation. The algorithm to be used will be determined based on the key
- * that is provided.
+ * that is provided. After init operation, a pointer to the whole key handle
+ * is stored in context. The user of the Crypto Library needs to keep the keyHandle
+ * alive until the mcuxClMac_finish/mcuxClMac_verify phase of mac multipart operation.
  *
  * This function should only be called once, as the first step for a multipart
  * computation.
@@ -160,6 +168,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
  * @retval MCUXCLMAC_STATUS_ERROR         Error occurred during Mac operation
  * @retval MCUXCLMAC_STATUS_INVALID_PARAM An invalid parameter was given to the function
  * @retval MCUXCLMAC_STATUS_FAULT_ATTACK  Fault attack detected
+ */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR  Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
  * 
  * \implements{REQ_788243}
  */
@@ -176,6 +192,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_init(
  *
  * This function performs the data processing for a multipart MAC computation.
  * The algorithm and key to be used will be determined based on the context that is provided.
+ * The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClMac_finish/
+ * mcuxClMac_verify phase of mac multipart operation.
 
  * This function can be called multiple times, after the multipart context
  * initialization.
@@ -239,6 +257,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_process(
  * This function performs the final MAC generation step for a multipart MAC
  * computation.
  * The algorithm and key to be used will be determined based on the context that is provided.
+ * The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClMac_finish
+ * phase of mac multipart operation.
  *
  * This function should only be called once, as the last step for a multipart
  * computation.

@@ -217,25 +217,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHash_finish_internal(
  * @param[in] addLen 32 Bit constant to increment counter with
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_processedLength_add)
-static inline void mcuxClHash_processedLength_add(
-  uint32_t *pLen128,
-  uint32_t addLen
-)
-{
-  if(pLen128[0] > (UINT32_MAX - addLen))
-  {
-    if(pLen128[1] > (UINT32_MAX - 1u))
-    {
-      if(pLen128[2] > (UINT32_MAX - 1u))
-      {
-        pLen128[3]++;
-      }
-      pLen128[2]++;
-    }
-    pLen128[1]++;
-  }
-  pLen128[0] += addLen;
-}
+void mcuxClHash_processedLength_add(uint32_t *pLen128, uint32_t addLen);
 
 /**
  * @brief Compares an 128 Bit counter value against a 32 Bit constant.
@@ -249,18 +231,8 @@ static inline void mcuxClHash_processedLength_add(
  * @retval -1   Counter value is smaller than constant
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_processedLength_cmp)
-static inline int mcuxClHash_processedLength_cmp(
-  uint32_t *pLen128,
-  uint32_t cmpLenLow32
-)
-{
-  if((pLen128[3] != 0u) || (pLen128[2] != 0u) || (pLen128[1] != 0u))
-  {
-    return 1;
-  }
-  return (pLen128[0] > cmpLenLow32)  ? 1 :
-         (pLen128[0] == cmpLenLow32) ? 0 : -1;
-}
+int mcuxClHash_processedLength_cmp(uint32_t *pLen128, uint32_t cmpLenLow32
+);
 
 /**
  * @brief convert 128 bit number of bytes to number of bits
@@ -268,15 +240,7 @@ static inline int mcuxClHash_processedLength_cmp(
  * @param pLen128[in out] 128 Bit number represented as uint32_t array. Upper 3 bits need to be zero to avoid overflow.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_processedLength_toBits)
-static inline void mcuxClHash_processedLength_toBits(
-  uint32_t *pLen128
-)
-{
-  pLen128[3] = (pLen128[3] << 3u) | (pLen128[2] >> 29u);
-  pLen128[2] = (pLen128[2] << 3u) | (pLen128[1] >> 29u);
-  pLen128[1] = (pLen128[1] << 3u) | (pLen128[0] >> 29u);
-  pLen128[0] = pLen128[0] << 3u;
-}
+void mcuxClHash_processedLength_toBits(uint32_t *pLen128);
 
 /**
  * @brief Computes the context size for a given hash algorithm.
@@ -312,7 +276,7 @@ static inline uint32_t* mcuxClHash_getStatePtr(
 {
   uint8_t *pState = (uint8_t *)pContext + MCUXCLHASH_CONTEXT_DATA_OFFSET;
   /* Align state to 64 Bit */
-  size_t stateOffset = ((uint32_t)pState % sizeof(uint64_t));
+  size_t stateOffset = (size_t) ((uint32_t)pState % sizeof(uint64_t));
   if(0u != stateOffset)
   {
     pState += (sizeof(uint64_t) - stateOffset);

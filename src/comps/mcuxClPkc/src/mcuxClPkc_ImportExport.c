@@ -269,7 +269,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureImportBigEndianToPkc(uint8_t i
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int) );
 }
 
-
 /**
  * [Design]
  * This function exports a PKC operand (with specified length) and stores it as

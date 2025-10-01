@@ -19,8 +19,20 @@
 #include <mcuxClSgi_Types.h>
 #include <mcuxClDma_Types.h>
 
-/* Function used to copy data from SGI to user */
-/* Data Integrity: Expunge(outBuf + offset + mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET) + byteLength) */
+/**
+ * @brief Function used to copy data from SGI to user
+ *
+ * @param[in]     session     Handle for the current CL session, it is UNUSED.
+ * @param[in]     pWa         pointer to workarea used in cipher mode.
+ * @param[in,out] outBuf      pointer to buffer of output data.
+ * @param[in]     offset      offset in outBuf to write.
+ * @param[in]     byteLength  length of data to copy in byte.
+ *
+ * @post
+ *  - Data Integrity: Expunge(outBuf + offset + mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET) + byteLength)
+ *
+ * @return void
+ */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_copyOut_toPtr, mcuxClSgi_copyOut_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
   mcuxClSession_Handle_t session,

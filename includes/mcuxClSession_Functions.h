@@ -155,6 +155,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_setRandom(
 
 
 
+
 /**
  * @brief Clean up HW Resources after error case. (Early Exit scenario)
  *

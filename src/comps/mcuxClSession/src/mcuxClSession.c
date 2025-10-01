@@ -150,7 +150,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_init(
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("intentional cast to do checks on pointer")
         if (   (0u != ((MCUXCLPKC_WORDSIZE - 1u) & (uint32_t) pPkcWaBuffer))       /* Check pPkcWaBuffer alignment. */
             || ((uint32_t) pPkcWaBuffer < (uint32_t) MCUXCLPKC_RAM_START_ADDRESS)  /* Check pPkcWaBuffer is in PKC workarea. */
-            || ((uint32_t) pPkcWaBuffer >= ((uint32_t) MCUXCLPKC_RAM_START_ADDRESS + MCUXCLPKC_RAM_SIZE)) )
+            || (((uint32_t) pPkcWaBuffer + pkcWaLength) > ((uint32_t) MCUXCLPKC_RAM_START_ADDRESS + MCUXCLPKC_RAM_SIZE))
+            || (pkcWaLength > MCUXCLPKC_RAM_SIZE))
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER()
         {
             /* We have a session pointer, but we didn't use SESSION_ENTRY in this function.
@@ -203,7 +204,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_setResource(
 
     session->pResourceCtx = pResourceCtx;
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_setResource, MCUXCLSESSION_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_setResource, MCUXCLSESSION_STATUS_OK, MCUXCLSESSION_STATUS_FAULT_ATTACK);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_cleanup)
@@ -215,7 +216,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
   mcuxClSession_Handle_t pSession
 )
 {
-    MCUXCLSESSION_ENTRY(pSession, mcuxClSession_cleanup, diRefValue, MCUXCLSESSION_STATUS_FAULT_ATTACK);
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSession_cleanup);
 
     MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_secure_int_CpuWa, pSession->cpuWa.buffer);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_secure_int_CpuWa, (sizeof(uint32_t)) * pSession->cpuWa.dirty);
@@ -241,10 +242,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
     /* Reset dirty to used, in case not all memory has been freed (and gets used again). */
     pSession->pkcWa.dirty = pSession->pkcWa.used;
 
-    MCUXCLSESSION_EXIT(
-      pSession,
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(
       mcuxClSession_cleanup,
-      diRefValue,
       MCUXCLSESSION_STATUS_OK,
       MCUXCLSESSION_STATUS_FAULT_ATTACK,
       2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
@@ -332,7 +331,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_setRandom(
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSession_setRandom);
     session->randomCfg.ctx = randomCtx;
     session->randomCfg.mode = randomMode;
-    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_setRandom, MCUXCLSESSION_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxClSession_setRandom, MCUXCLSESSION_STATUS_OK, MCUXCLSESSION_STATUS_FAULT_ATTACK);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_cleanupOnError)
@@ -340,7 +339,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
   mcuxClSession_Handle_t pSession
 )
 {
-    MCUXCLSESSION_ENTRY(pSession, mcuxClSession_cleanupOnError, diRefValue, MCUXCLSESSION_STATUS_FAULT_ATTACK);
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSession_cleanupOnError);
 
     /* Wipe the used CPU work-area and release allocated memory */
     MCUX_CSSL_DI_RECORD(cleanupOnError_clearCpuWa, pSession->cpuWa.buffer);
@@ -352,6 +351,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
     pSession->cpuWa.used = 0U;
     pSession->cpuWa.dirty = 0U;
 
+/* Check resource HW table for cleanup only if one of SGI/PKC/TRNG is used */
     /* Get the resource context */
     mcuxClResource_Context_t *pResourceCtx = pSession->pResourceCtx;
 
@@ -388,8 +388,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
         {
             case MCUXCLRESOURCE_HWID_SGI:
             {
-                /* Stop SGI AUTO mode */
+                /* Stop Cipher/MAC operation in SGI AUTO mode */
                 MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
+
+                /* Stop SHA2 Operation in SGI */
+                MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopSha2());
 
                 /* Wait until SGI is finished */
                 mcuxClSgi_Drv_wait();
@@ -455,13 +458,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
                 break;
             }
 
-            case MCUXCLRESOURCE_HWID_TRNG0:
-            case MCUXCLRESOURCE_HWID_TRNG1:
-            {
-                /* Reset TRNG.MCTL.ERR */
-                MCUXCLTRNG_SFR_BITSET(MCTL, ERR);
-                break;
-            }
 
             default:
             {
@@ -477,6 +473,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
     MCUX_CSSL_FP_EXPECT(
         MCUX_CSSL_FP_CONDITIONAL( (0U < isHwSgiUsed),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopSha2),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
         )
@@ -488,9 +485,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
         )
     );
 
-    MCUXCLSESSION_EXIT(pSession,
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(
         mcuxClSession_cleanupOnError,
-        diRefValue,
         MCUXCLSESSION_STATUS_OK,
         MCUXCLSESSION_STATUS_FAULT_ATTACK,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)

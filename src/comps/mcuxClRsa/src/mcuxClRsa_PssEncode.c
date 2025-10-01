@@ -76,10 +76,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
    * Thus, no unnecessary hashing is performed in case of invalid input.
    * In addition, this ensures that this check is done before any operation on checked arguments is performed.
    *
-   * Note: Additional checks on salt-length for FIPS 186-4 compliance are also done here.
+   * Note: The additional check on salt-length for FIPS 186-5 compliance is also done here.
+   * This check below also covers the checks mentioned in FIPS 186-4.
    */
 
-  if((hLen < sLen) || (emLen < (hLen + sLen + 2u)) || ((1024u == keyBitLength) && (512u == (8u * hLen)) && ((hLen - 2u) < sLen)))
+  if((hLen < sLen) || (emLen < (hLen + sLen + 2u)))
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
   }

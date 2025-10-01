@@ -33,9 +33,9 @@
 #define MCUXCLCIPHERMODES_CLEANUP_HW_NONE    0xFFFF0000u
 
 /**
- * @brief Function to handle OK and ERROR/FAILURE exit
+ * @brief Function to handle normal exit
  *
- * Use this function to leave functions in this file in _not_ FAULT_ATTACK cases.
+ * Use this function to leave functions in this file in normal exit cases.
  * It frees CPU workarea and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
@@ -53,9 +53,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_cleanupOnExit(
 );
 
 /**
- * @brief Function to handle OK and ERROR/FAILURE exit
+ * @brief Function to handle normal exit
  *
- * Use this function to leave functions in this file in _not_ FAULT_ATTACK cases.
+ * Use this function to leave functions in this file in normal exit cases.
  * It frees CPU workarea, releases the DMA and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
@@ -79,14 +79,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_cleanupOnExit_dmaDriven(
   uint32_t cleanupDmaSgi
 );
 
-/**
- * @brief Function to handle DMA errors that occurred during SGI AUTO mode with handshakes.
- *
- * This function cleans up the SGI in case an error happened during/after AUTO mode
- * with DMA handshakes.
- *
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_handleDmaError_autoModeNonBlocking)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_handleDmaError_autoModeNonBlocking(void);
 
 #endif /* MCUXCLCIPHERMODES_SGI_CLEANUP_H_ */

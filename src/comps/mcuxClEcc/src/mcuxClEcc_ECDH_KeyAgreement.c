@@ -45,6 +45,7 @@
 #include <internal/mcuxClPkc_ImportExport.h>
 #include <internal/mcuxClPkc_Resource.h>
 #include <internal/mcuxClPkc_Macros.h>
+#include <internal/mcuxClPrng_Internal_Functions.h>
 
 const mcuxClKey_AgreementDescriptor_t mcuxClKey_AgreementDescriptor_ECDH =
 {
@@ -180,8 +181,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pScalarDest[byteLenN], bytesToClearPrivate));
 
     /* Securely import scalar d to buffer ECC_S2 */
-//  MCUXCLPKC_WAITFORREADY();  <== there is WaitForFinish in mcuxClEcc_PointCheckAffineNR.
-    // TODO: Initialize buffer with LQRNG data before import?
+    //  MCUXCLPKC_WAITFORREADY();  <== there is WaitForFinish in mcuxClEcc_PointCheckAffineNR.
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate_Internal(pScalarDest,
+                                                               byteLenN));
     MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
     MCUXCLKEY_LOAD_FP(
       pSession,
@@ -198,16 +201,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
                                                                                       (mcuxClEcc_CommonDomainParams_t *) &pDomainParams->common) );
     if (MCUXCLECC_INTSTATUS_SCALAR_ZERO == ret_BlindedVarScalarMult)
     {
-        /* Clear PKC workarea. */
-        MCUXCLPKC_PS1_SETLENGTH(0u, bufferSize * ECC_KEYAGREEMENT_NO_OF_BUFFERS);
-        pOperands[ECC_P] = MCUXCLPKC_PTR2OFFSET(pPkcWorkarea);
-        MCUXCLPKC_FP_CALC_OP1_CONST(ECC_P, 0u);
-
-        mcuxClSession_freeWords_pkcWa(pSession, pCpuWorkarea->wordNumPkcWa);
-        MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);
-
-        mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
-
         MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_FAILURE);
     }
     else if (MCUXCLECC_STATUS_OK != ret_BlindedVarScalarMult)

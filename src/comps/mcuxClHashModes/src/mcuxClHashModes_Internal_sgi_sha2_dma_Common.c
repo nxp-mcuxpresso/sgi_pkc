@@ -107,7 +107,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     MCUX_CSSL_DI_RECORD(storeHashResultBalancing, pOut);
     MCUX_CSSL_DI_RECORD(storeHashResultBalancing, algorithm->hashSize);
-    
+
     /* Don't check the return value since it always return OK */
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
@@ -115,13 +115,13 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     int processedAlreadyOneBlock = mcuxClHash_processedLength_cmp(context->processedLength, algoBlockSize);
     if (0 > processedAlreadyOneBlock)
     {
-        /* Configure respective SHA-2 in normal mode using standard IV */
+        /* Configure respective SHA-2 in auto mode using standard IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, NULL, MCUXCLSGI_UTILS_AUTO_MODE_STANDARD_IV));
     }
     else
     {
-        /* Configure respective SHA-2 in normal mode using pState as IV */
+        /* Configure respective SHA-2 in auto mode using pState as IV */
         MCUX_CSSL_FP_EXPECT(algorithmDetails->protectionToken_sgiUtilsInitHash);
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(algorithmDetails->sgiUtilsInitHash(session, pState, MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV));
     }

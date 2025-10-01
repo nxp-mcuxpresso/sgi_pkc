@@ -50,7 +50,6 @@
  * Return values:
  *  - MCUXCLECC_STATUS_OK              if the function executed successfully
  *  - MCUXCLECC_INTSTATUS_SCALAR_ZERO  if the scalar is zero
- *  - MCUXCLECC_STATUS_RNG_ERROR       random number generation (PRNG) error (unexpected behavior)
  *  - MCUXCLECC_STATUS_FAULT_ATTACK    fault attack (unexpected behavior) is detected
  *
  * Prerequisites:

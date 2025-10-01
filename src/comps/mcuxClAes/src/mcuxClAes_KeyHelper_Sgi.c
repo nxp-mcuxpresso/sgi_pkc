@@ -94,7 +94,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadKey_Sgi(
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_loadKey_Sgi,
     MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_LOADSTATUS_NOTLOADED == keyLoadStatus),
-      MCUXCLKEY_LOAD_FP_CALLED(key))
+      MCUXCLKEY_LOAD_FP_CALLED_CHECK_NULL(key))
     );
 }
 
@@ -287,7 +287,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedKeyFromCtx_Sgi(
     MCUX_CSSL_FP_CONDITIONAL((
       (MCUXCLAES_KEYCONTEXT_KEYHANDLE_IN_CONTEXT == pContext->keyLocationInfo)
         && (MCUXCLKEY_LOADSTATUS_NOTLOADED == keyLoadStatus)),
-      MCUXCLKEY_LOAD_FP_CALLED(pContext->key))
+      MCUXCLKEY_LOAD_FP_CALLED_CHECK_NULL(pContext->key))
   );
 }
 

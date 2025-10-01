@@ -107,8 +107,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_GCM_init(
   mcuxClMac_CustomMode_t gmacMode = mcuxClAeadModes_castToMacCustomMode(workArea->gmacModeDescBuf);
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_createGmacMode));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_createGmacMode(gmacMode, pNonce, nonceSize));
-
+  MCUX_CSSL_FP_FUNCTION_CALL(retMacCreateGmacMode, mcuxClMacModes_createGmacMode(gmacMode, pNonce, nonceSize));
+  (void)retMacCreateGmacMode;
+  
   pContext->macCtx.common.pMode = gmacMode;
 
   /* Prepare masked pre-tag in macCtx */
@@ -159,13 +160,14 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_GCM_process_aad(
   mcuxClMacModes_WorkArea_t* macModesWorkArea = mcuxClAeadModes_castToMacModesWorkArea(workArea);
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
   MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_update);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(alg->macAlgo->update(
+  MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, alg->macAlgo->update(
     session,
     macModesWorkArea,
     &pContext->macCtx,
     pAdata,
     adataSize,
     NULL /* unused for now */));
+  (void)retMacUpdate;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_GCM_process_aad);
@@ -186,7 +188,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Gcm_process(
   /* Check if some remaining data is left in the Mac blockBuffer while the Cipher blockBuffer is empty -
    * this indicates that it is the first call to Aead_process, and that the handling of the remaining adata bytes
    * (if any in the blockBuffer) needs to be done first. */
-  if((0u != pContext->macCtx.blockBufferUsed) && (0u == pContext->cipherCtx.common.blockBufferUsed))
+  if(0u != pContext->macCtx.blockBufferUsed)
   {
     mcuxClMacModes_WorkArea_t* macModesWorkArea = mcuxClAeadModes_castToMacModesWorkArea(workArea);
 

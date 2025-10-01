@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023 NXP                                                       */
+/* Copyright 2023, 2025 NXP                                                 */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -34,8 +34,6 @@
 typedef uint32_t mcuxClBuffer_Status_t;
 
 /* Error codes */
-#define MCUXCLBUFFER_STATUS_ERROR                        ((mcuxClBuffer_Status_t) 0x01235330u)
 #define MCUXCLBUFFER_STATUS_OK                           ((mcuxClBuffer_Status_t) 0x01232E03u)
-#define MCUXCLBUFFER_STATUS_FAULT                        ((mcuxClBuffer_Status_t) 0x0123F0F0u)
 
 #endif /* MCUXCLBUFFER_CONSTANTS_H_ */

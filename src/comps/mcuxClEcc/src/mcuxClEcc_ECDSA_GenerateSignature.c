@@ -116,11 +116,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
     MCUX_CSSL_FP_LOOP_DECL(MainLoop_S);
     do
     {
-        MCUX_CSSL_FP_COUNTER_STMT(
-            MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(fail_r, 0u, UINT32_MAX - MCUXCLCORE_MAX(MCUXCLPKC_FLAG_ZERO, MCUXCLPKC_FLAG_NONZERO), MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
-            MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(fail_s, 0u, UINT32_MAX - MCUXCLCORE_MAX(MCUXCLPKC_FLAG_ZERO, MCUXCLPKC_FLAG_NONZERO), MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
-        )
-
         /**********************************************************/
         /* Import and check base point G                          */
         /**********************************************************/
@@ -147,11 +142,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         /* k = k0 * k1 mod n, where k0 is a 64-bit odd number     */
         /**********************************************************/
 
-        MCUX_CSSL_FP_FUNCTION_CALL(ret_CoreKeyGen, mcuxClEcc_Int_CoreKeyGen(pSession, byteLenN));
-        if (MCUXCLECC_STATUS_OK != ret_CoreKeyGen)
-        {
-            MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
-        }
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Int_CoreKeyGen(pSession, byteLenN));
 
         MCUX_CSSL_FP_LOOP_ITERATION(MainLoop_R,
             MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_LOOP_R );

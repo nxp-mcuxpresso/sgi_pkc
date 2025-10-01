@@ -203,15 +203,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
   uint32_t outputBytesWritten = 0u;
 
   uint32_t size;
-  if((pAlgo->granularityDec == 1u))
+  if((1u == pAlgo->granularityDec) || (NULL == pAlgo->removePadding))
   {
-    /* in case of stream ciphers all full blocks can be processed immediately. */
+    /* In the case of stream ciphers or when padding is set to "none", all full blocks can be processed immediately */
     /* TODO CLNS-14107 : update decryptEngine to handle all blocks at once for CTR*/
     size = (inLength / MCUXCLAES_BLOCK_SIZE) * MCUXCLAES_BLOCK_SIZE;
   }
   else
   {
-    /* Round down to block size, if the last block is full it will not be considered here */
+    /* Round down to block size, if the last block is full it will not be considered here to be able to remove the padding later. */
     size = (inLength - 1u) & ~(MCUXCLAES_BLOCK_SIZE - 1u);
   }
 
@@ -252,17 +252,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
   }
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_dec));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_handleLastBlock_dec(
-    session,
-    pWa,
-    pAlgo,
-    pIn,
-    inOffset,
-    inLength,
-    pOut,
-    outOffset,
-    pOutLength));
+  /* For no padding, all data are already processed. */
+  if(NULL != pAlgo->removePadding)
+  {
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_dec));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_handleLastBlock_dec(session, pWa, pAlgo, pIn, inOffset, inLength, pOut, outOffset, pOutLength));
+  }
 
   /* STATUS_OK is protected */
   MCUX_CSSL_DI_RECORD(cipherDecryptRetCode, MCUXCLCIPHER_STATUS_OK);
@@ -336,16 +331,16 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
                                                   pWa->nonBlockingWa.pIn, pWa->nonBlockingWa.inOffset, pWa->nonBlockingWa.totalInputLength,
                                                   pWa->nonBlockingWa.pOut, pWa->nonBlockingWa.outOffset, pWa->nonBlockingWa.pOutputLength));
   }
-  else if (MCUXCLCIPHERMODES_DECRYPT == pWa->nonBlockingWa.direction)
+  else /* MCUXCLCIPHERMODES_DECRYPT == pWa->nonBlockingWa.direction */
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_dec));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_handleLastBlock_dec(session, pWa, pAlgo,
+    /* For no padding, all data are already processed. */
+    if(NULL != pAlgo->removePadding)
+    {
+      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_dec));
+      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_handleLastBlock_dec(session, pWa, pAlgo,
                                                   pWa->nonBlockingWa.pIn, pWa->nonBlockingWa.inOffset, pWa->nonBlockingWa.totalInputLength,
                                                   pWa->nonBlockingWa.pOut, pWa->nonBlockingWa.outOffset, pWa->nonBlockingWa.pOutputLength));
-  }
-  else
-  {
-    MCUXCLSESSION_FAULT(session, MCUXCLCIPHER_STATUS_FAULT_ATTACK);
+    }
   }
 
   /* Notify the user that the operation finished */
@@ -353,8 +348,11 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven(session, NULL, NULL /* TODO CLNS-16946: store keys in nonBlocking WA and flush it here */, cpuWaSizeInWords, MCUXCLCIPHERMODES_CLEANUP_HW_ALL));
 
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSession_triggerUserCallback(session, MCUXCLCIPHER_STATUS_JOB_COMPLETED));
-
+  MCUX_CSSL_FP_FUNCTION_CALL(retSessionTriggerCallback, mcuxClSession_triggerUserCallback(session, MCUXCLCIPHER_STATUS_JOB_COMPLETED));
+  if(MCUXCLSESSION_STATUS_OK != retSessionTriggerCallback)
+  {
+    MCUXCLSESSION_ERROR(session, retSessionTriggerCallback);
+  }
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_ISR_completeNonBlocking_oneshot);
 }
 
@@ -449,12 +447,12 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   if((pAlgo->granularityDec == 1u))
   {
-    /* in case of stream ciphers all full blocks have already been processed. */
+    /* In case of stream ciphers or no padding, all full blocks have already been processed. Handle remaining bytes. */
     lastBlockLength = totalInputLength % MCUXCLAES_BLOCK_SIZE;
   }
   else
   {
-    /* all but the final block have already been processed. */
+    /* For modes with the need for padding removal, a full block might still be left to process. */
     lastBlockLength = (0u == totalInputLength) ? 0u : (((totalInputLength + (MCUXCLAES_BLOCK_SIZE - 1u)) % MCUXCLAES_BLOCK_SIZE) +  1u);
   }
 

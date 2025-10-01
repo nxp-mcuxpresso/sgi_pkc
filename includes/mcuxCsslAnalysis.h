@@ -857,9 +857,9 @@ MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(CERT_EXP36_C) \
   MCUX_CSSL_ANALYSIS_EXPAND(MCUX_CSSL_ANALYSIS_DEFER(MCUX_CSSL_ANALYSIS_PRAGMA)(coverity compliance end_block checker_identifier))
 
 #define MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE_INCLUDE_BLOCK(checker_identifier, rationale) \
-  MCUX_CSSL_ANALYSIS_EXPAND(MCUX_CSSL_ANALYSIS_DEFER(MCUX_CSSL_ANALYSIS_PRAGMA)(coverity compliance block##(include) deviate checker_identifier rationale))
+  MCUX_CSSL_ANALYSIS_EXPAND(MCUX_CSSL_ANALYSIS_DEFER(MCUX_CSSL_ANALYSIS_PRAGMA)(coverity compliance block(include) deviate checker_identifier rationale))
 #define MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE_INCLUDE_BLOCK(checker_identifier) \
-  MCUX_CSSL_ANALYSIS_EXPAND(MCUX_CSSL_ANALYSIS_DEFER(MCUX_CSSL_ANALYSIS_PRAGMA)(coverity compliance end_block##(include) checker_identifier))
+  MCUX_CSSL_ANALYSIS_EXPAND(MCUX_CSSL_ANALYSIS_DEFER(MCUX_CSSL_ANALYSIS_PRAGMA)(coverity compliance end_block(include) checker_identifier))
 
 #define MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(checker_identifier, rationale) \
   MCUX_CSSL_ANALYSIS_EXPAND(MCUX_CSSL_ANALYSIS_DEFER(MCUX_CSSL_ANALYSIS_PRAGMA)(coverity compliance block fp checker_identifier rationale))

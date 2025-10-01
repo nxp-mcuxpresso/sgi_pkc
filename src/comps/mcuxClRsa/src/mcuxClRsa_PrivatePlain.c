@@ -88,9 +88,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   const uint32_t bufferSizeT1 = blindOperandSize + MCUXCLRSA_PKC_WORDSIZE;  // size of temp buffer T1
   const uint32_t bufferSizeT2 = blindOperandSize + MCUXCLRSA_PKC_WORDSIZE;  // size of temp buffer T2
   const uint32_t bufferSizeT3 = blindOperandSize + MCUXCLRSA_PKC_WORDSIZE;  // size of temp buffer T3
-  const uint32_t bufferSizeTE = 6u*MCUXCLRSA_PKC_WORDSIZE;                  // size of temp buffer TE
+  const uint32_t bufferSizeTE = 6U*MCUXCLRSA_PKC_WORDSIZE;                  // size of temp buffer TE
   const uint32_t bufferSizeRand = blindAlignLen;  // size of buffer for random multiplicative blinding
-  const uint32_t bufferSizeModExpTemp = (byteLenN <= MCUXCLRSA_MAX_MODLEN_EXPTEMP_IN_PKCRAM ? MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenN + 1u) : 0u); // size of buffer for expTemp - byteLenD is not bigger than byteLenN
+
+  /* Size of buffer for expTemp in PKC RAM, assuming byteLenD is not bigger than byteLenN. */
+  const uint32_t bufferSizeModExpTemp = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenN + 1U);
 
   /* Setup session. */
   const uint32_t bufferSizeTotal = bufferSizeR + bufferSizeN + bufferSizeT0 + bufferSizeT1 + bufferSizeT2 + bufferSizeT3 + bufferSizeTE + bufferSizeRand + bufferSizeModExpTemp;
@@ -111,7 +113,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
 
   /* Setup UPTR table. */
-  uint32_t cpuWaSizeWord = (((sizeof(uint16_t)) * MCUXCLRSA_INTERNAL_PRIVPLAIN_UPTRT_SIZE) + (sizeof(uint32_t)) - 1u) / (sizeof(uint32_t));
+  uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_PRIVATEPLAIN_WACPU_SIZE_IN_WORDS(byteLenN);
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pOperands32, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
@@ -148,14 +150,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   {
     /* Prepare expTemp buffer in PKC workarea. It will be used in mcuxClMath_SecModExp */
     pExpTemp = pPkcWorkarea + ((bufferSizeTotal - bufferSizeModExpTemp) / sizeof(uint32_t));
-  }
-  else
-  {
-    /* Prepare expTemp buffer in CPU workarea - aligned to CPU word, length=MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(byteLenD) */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
-    MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pExpTemp2, mcuxClSession_allocateWords_cpuWa(pSession, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(byteLenD)));
-    pExpTemp = pExpTemp2;
-    cpuWaSizeWord += MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(byteLenD);
   }
 
   /************************************************************************************************/
@@ -209,6 +203,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
 
     mcuxClSession_freeWords_pkcWa(pSession, pkcWaSizeWord);
     mcuxClSession_freeWords_cpuWa(pSession, cpuWaSizeWord);
+
+    /* Would have been balanced in the call to mcuxClMath_SecModExp() */
+    MCUX_CSSL_DI_EXPUNGE(privatePlain_SecModExp, byteLenD);
+
+    /* Would have been balanced in the call to MCUXCLKEY_LOAD_FP */
+    MCUX_CSSL_DI_EXPUNGE(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_D);
 
     /* DI balance the key algoId - will be RECORDed by the caller */
     MCUX_CSSL_DI_EXPUNGE(PrivatePlain_verifyKey, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN);

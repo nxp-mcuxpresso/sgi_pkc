@@ -152,12 +152,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_init(
 
   /* Initialize the random sfrSeed and masked pre-tag buffer in the context. */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_initMaskedPreTag(pCtx));
-
-  /* Call init function if available */
-  if(pAlgo->init != NULL)
-  {
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->init(session, pWa, pCtx));
-  }
+  /* Only mcuxClMacModes_AlgorithmDescriptor_GMAC the init pointer is not NULL */
+  /* pAlgo->init will be called directly in AEAD GCM, It's not called through mcuxClMacModes_init */
 
   /* Set context CRC */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, sizeof(mcuxClMacModes_Context_t)));

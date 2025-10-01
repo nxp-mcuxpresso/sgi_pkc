@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_WeierECC_Internal_EncTypeSEC.c
+ * @file  mcuxClEcc_Weier_Internal_EncTypeSEC.c
  * @brief ECC types and functions to perform point decoding of Weierstrass points encoded as specified in
  *        SEC 1: Elliptic Curve Cryptography
  */

@@ -107,12 +107,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
       MCUXCLKEY_ENCODING_SPEC_ACTION_PTR);
 
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDHx, mcuxClEcc_MontDH_X(pSession, pDomainParameters, (const uint8_t*)pPublicKeyData));
-
-    if(MCUXCLECC_STATUS_RNG_ERROR == retCode_MontDHx)
-    {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_ERROR);
-    }
-    else if(MCUXCLECC_STATUS_NEUTRAL_POINT == retCode_MontDHx)
+    if(MCUXCLECC_STATUS_NEUTRAL_POINT == retCode_MontDHx)
     {
         MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
     }

@@ -39,8 +39,6 @@ const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_Al
 {
     .sgiUtilsInitHash                 = mcuxClSgi_Utils_initSha224,
     .protectionToken_sgiUtilsInitHash = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha224),
-    .sgiLoadInternalDataBlock         = mcuxClSgi_Utils_load512BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock),
 };
 
 
@@ -50,8 +48,6 @@ const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_Al
 {
     .sgiUtilsInitHash                 = mcuxClSgi_Utils_initSha256,
     .protectionToken_sgiUtilsInitHash = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha256),
-    .sgiLoadInternalDataBlock         = mcuxClSgi_Utils_load512BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load512BitBlock),
 };
 
 
@@ -60,8 +56,6 @@ const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_Al
 {
     .sgiUtilsInitHash                 = mcuxClSgi_Utils_initSha384,
     .protectionToken_sgiUtilsInitHash = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha384),
-    .sgiLoadInternalDataBlock         = mcuxClSgi_Utils_load1024BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load1024BitBlock),
 };
 
 
@@ -69,8 +63,6 @@ const mcuxClHashModes_Internal_AlgorithmDescriptor_t mcuxClHashModes_Internal_Al
 {
     .sgiUtilsInitHash                 = mcuxClSgi_Utils_initSha512,
     .protectionToken_sgiUtilsInitHash = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_initSha512),
-    .sgiLoadInternalDataBlock         = mcuxClSgi_Utils_load1024BitBlock,
-    .protectionToken_sgiLoadInternalDataBlock = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load1024BitBlock),
 };
 
 

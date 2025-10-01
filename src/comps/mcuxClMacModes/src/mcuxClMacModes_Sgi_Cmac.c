@@ -138,7 +138,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CmacGenerateSubKeys(mcuxClSessi
   /* Shift left subKey 1 to generate subKey 2 */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_ShiftLeftXorRb(*subKeys1, *subKeys0));        /*   key1 -> multipMCUX_CSSL_FP_FUNCTION_CALLED_VOID(lication GF(2)) = subKey 2 */
 
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_setByteOrder(MCUXCLSGI_DRV_BYTE_ORDER_LE));
+  MCUX_CSSL_FP_FUNCTION_CALL(retSetByteOrder, mcuxClSgi_Drv_setByteOrder(MCUXCLSGI_DRV_BYTE_ORDER_LE));
+  (void)retSetByteOrder;
 
 
   MCUX_CSSL_FP_EXPECT(
@@ -227,10 +228,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
   MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)pSubKey);
   MCUX_CSSL_DI_RECORD(sgiLoad, 16u);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, (uint8_t *)pSubKey));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_setByteOrder((uint32_t)MCUXCLSGI_DRV_BYTE_ORDER_LE));
+  MCUX_CSSL_FP_FUNCTION_CALL(sgiSetByteOrder, mcuxClSgi_Drv_setByteOrder((uint32_t)MCUXCLSGI_DRV_BYTE_ORDER_LE));
+  (void)sgiSetByteOrder;
 
   /* Enable XOR-on-write to XOR the subkey with the last block in mcuxClMacModes_finalizeEngine() */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_enableXorWrite());
+  MCUX_CSSL_FP_FUNCTION_CALL(ctlr2Backup, mcuxClSgi_Drv_enableXorWrite());
+  (void)ctlr2Backup;
 
   uint32_t pOutLen = 0U;
 
@@ -271,7 +274,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_finalizeEngine)));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
   }
-  else if (MCUXCLAES_BLOCK_SIZE == noOfBytesToProcess)
+  else /* MCUXCLAES_BLOCK_SIZE == noOfBytesToProcess */
   {
     /* Record load input */
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)pIn);
@@ -293,10 +296,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
       mcuxClMacModes_finalizeEngine,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_finalizeEngine)));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
-  }
-  else
-  {
-    MCUXCLSESSION_FAULT(session, MCUXCLMAC_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_computeCMAC, MCUXCLMAC_STATUS_OK,
@@ -477,7 +476,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCMAC(
     &pOutLen));
 
   /* Enable XOR-on-write to XOR the subkey with the last block */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_enableXorWrite());
+  MCUX_CSSL_FP_FUNCTION_CALL(ctlr2Backup, mcuxClSgi_Drv_enableXorWrite());
+  (void)ctlr2Backup;
 
   /* Perform encryption of the last block */
   uint32_t operation =  MCUXCLSGI_DRV_CTRL_ENC                     |
@@ -513,7 +513,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCMAC(
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_finalizeEngine)));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
   }
-  else if (MCUXCLAES_BLOCK_SIZE == pContext->blockBufferUsed)
+  else /* MCUXCLAES_BLOCK_SIZE == pContext->blockBufferUsed */
   {
     /* Record load input */
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)paddingInBuffer);
@@ -534,10 +534,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCMAC(
       mcuxClMacModes_finalizeEngine,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_finalizeEngine)));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
-  }
-  else
-  {
-    MCUXCLSESSION_FAULT(session, MCUXCLMAC_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_finalizeCMAC,

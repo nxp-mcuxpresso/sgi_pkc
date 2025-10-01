@@ -25,9 +25,9 @@ extern "C" {
 
 
 /**
- * @brief Function to handle OK and ERROR/FAILURE exit
+ * @brief Function to handle normal exit
  *
- * Use this function to leave functions in _not_ FAULT_ATTACK cases.
+ * Use this function to leave functions in OK exit cases.
  * It frees CPU workarea and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
@@ -47,9 +47,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit(
 
 
 /**
- * @brief Function to handle OK and ERROR/FAILURE exit
+ * @brief Function to handle normal exit
  *
- * Use this function to leave functions in _not_ FAULT_ATTACK cases.
+ * Use this function to leave functions in OK exit cases.
  * It frees CPU workarea, releases the DMA and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.

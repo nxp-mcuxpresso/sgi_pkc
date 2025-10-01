@@ -22,22 +22,22 @@
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
 #include <mcuxCsslAnalysis.h>
 
-#define ITERATION_COUNT 10u
+#define ITERATION_COUNT 10U
 
 /****************************************************************************/
 /* Defines                                                                  */
 /****************************************************************************/
 
-#define MCUXCLCSSLFLOWPROTECTION_OK            0x2EDEu
-#define MCUXCLCSSLFLOWPROTECTION_NOT_OK        0x89ADu
-#define MCUXCLCSSLFLOWPROTECTION_FAULT_ATTACK  0xF0FAu
+#define MCUXCLCSSLFLOWPROTECTION_OK            0x2EDEU
+#define MCUXCLCSSLFLOWPROTECTION_NOT_OK        0x89ADU
+#define MCUXCLCSSLFLOWPROTECTION_FAULT_ATTACK  0xF0FAU
 
 /****************************************************************************/
 /* Protected function declarations                                          */
 /****************************************************************************/
 
 MCUX_CSSL_FP_FUNCTION_DECL(functionLoop)
-MCUX_CSSL_FP_PROTECTED_TYPE(bool) functionLoop(void);
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) functionLoop(void);
 
 /****************************************************************************/
 /* Protected function definition                                            */
@@ -49,7 +49,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(bool) functionLoop(void);
  * MCUX_CSSL_FP_FUNCTION_DECL and MCUX_CSSL_FP_PROTECTED_TYPE.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(functionLoop)
-MCUX_CSSL_FP_PROTECTED_TYPE(bool) functionLoop(void)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) functionLoop(void)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(functionLoop);
 
@@ -90,5 +90,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(bool) functionLoop(void)
  * from an flow-protected function return value. */
 MCUX_CSSL_EX_FUNCTION(mcuxCsslFlowProtection_Loop_example)
 {
-  return MCUX_CSSL_FP_RESULT(bool, functionLoop());
+  uint32_t returnCode = MCUX_CSSL_FP_RESULT(uint32_t, functionLoop());
+  if (MCUXCLCSSLFLOWPROTECTION_OK != returnCode)
+  {
+    return MCUX_CSSL_EX_ERROR;
+  }
+  return MCUX_CSSL_EX_OK;
 }

@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @example mcuxClEcc_WeierECC_KeyValidation_PublicKey_example.c
+ * @example mcuxClEcc_Weier_KeyValidation_PublicKey_example.c
  * @brief   Example for the mcuxClEcc component
  */
 
@@ -51,7 +51,7 @@ static const uint8_t pPubKeyData_Valid[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICK
 };
 
 /* Example of public key validation for Weierstrass curve NIST P-256. */
-MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_WeierECC_KeyValidation_PublicKey_example)
+MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_Weier_KeyValidation_PublicKey_example)
 {
   /* Setup one session to be used by all functions called */
   mcuxClSession_Descriptor_t sessionDesc;

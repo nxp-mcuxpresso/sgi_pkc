@@ -51,10 +51,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateHashPrefix(
         MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
     }
 
-    /* Check whether the pDomPrefix is not NULL if the domPrefixLen is set */
-    /* pHashPrefixTmp is not NULL and allocate the buffer pHashPrefix with sufficient size */
-    if ((MCUXCLECC_EDDSA_ED25519_DOMPREFIXLEN < pDomainParams->domPrefixLen) || (NULL == pDomainParams->pDomPrefix)
-        || (NULL == pHashPrefixTmp))
+    /* Check whether the domPrefixLen is within valid range */
+    if (MCUXCLECC_EDDSA_ED25519_DOMPREFIXLEN < pDomainParams->domPrefixLen)
     {
         MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
     }

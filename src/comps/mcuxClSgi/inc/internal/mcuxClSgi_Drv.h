@@ -555,16 +555,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_setCtrl2(uint32_t control);
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_configureSha2)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_configureSha2(uint32_t control);
 
-/**
- * @brief Disable using a standard IV for SGI operation.
- *
- * Updates control value (SHA2_CTRL) to disable using a standard IV for SGI operation.
- * After initializing SGI with AUTO_INIT option, this function can be called to load further blocks, without
- * re-initialization of the SGI.
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableIvAutoInit)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableIvAutoInit(void);
-
 /*****************************************************
  * Functions related to security features
  *****************************************************/
@@ -710,8 +700,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadWord(uint32_t offset, uint32
  *
  * @param[in]  data   Data to be written to FIFO
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_loadFifo)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadFifo(uint32_t data);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_loadFifo)
+static inline void mcuxClSgi_Drv_loadFifo(uint32_t data)
+{
+  mcuxClSgi_Sfr_writeFifoWord(data);
+}
 
 /**
  * @brief Enables storing output in key register

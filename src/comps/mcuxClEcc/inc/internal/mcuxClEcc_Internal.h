@@ -173,12 +173,6 @@ struct mcuxClEcc_CommonDomainParams
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_InterleaveScalar)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveScalar(uint16_t iScalar, uint32_t scalarBitLength, uint32_t numberOfInterleavings);
 
-/** Helper macro to call #mcuxClEcc_InterleaveScalar with flow protection. */
-#define MCUXCLECC_FP_INTERLEAVESCALAR(iScalar, bitLenScalar, numberOfInterleavings)  \
-    do{ \
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_InterleaveScalar(iScalar, bitLenScalar, numberOfInterleavings));  \
-    } while (false)
-
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_InterleaveTwoScalars)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveTwoScalars(uint16_t iScalar0_iScalar1, uint32_t scalarBitLength);
@@ -247,12 +241,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_RecodeAndReorderScalar(
     uint8_t f,
     uint32_t scalarBitLength
     );
-
-/** Helper macro to call #mcuxClEcc_RecodeAndReorderScalar with flow protection. */
-#define MCUXCLECC_FP_RECODEANDREORDERSCALAR(scalarIndex, f, scalarBitLength)  \
-    do{ \
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_RecodeAndReorderScalar(pSession, scalarIndex, f, scalarBitLength));  \
-    } while (false)
 
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_SecurePointSelectML)

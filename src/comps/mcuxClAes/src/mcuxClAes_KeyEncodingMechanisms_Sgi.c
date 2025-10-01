@@ -47,12 +47,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyLoad_rfc3394(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClAes_keyLoad_rfc3394);
 
-  /* If spec specifies to set the key pointer to ppDest */
-  if((MCUXCLKEY_ENCODING_SPEC_ACTION_PTR == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)))
-  {
-    *ppDest = mcuxClKey_getKeyData(key);
-  }
-  else if(MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
+  if(MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
   {
      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_keyUnwrapRfc3394(session, key));
     *ppDest = mcuxClAes_getKeyDest_rfc3394UnWrap();
@@ -84,14 +79,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyStore_rfc3394(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClAes_keyStore_rfc3394);
 
-  /* If spec specifies to set the key pointer to pSrc */
-  if(MCUXCLKEY_ENCODING_SPEC_ACTION_PTR == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
-  {
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER("pKeyData can not made const inside of key component as it is possible that the data changes after init due to generation/agreement/derivation of keys.");
-    mcuxClKey_setKeyData(key, (uint8_t *) pSrc);
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()
-  }
-  else if(MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PLAIN == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
+  if(MCUXCLKEY_ENCODING_SPEC_ACTION_STORE_FROM_PLAIN == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
   {
     /* For a plain key the `pSfrSeed` is set to NULL. */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_keyWrapRfc3394(

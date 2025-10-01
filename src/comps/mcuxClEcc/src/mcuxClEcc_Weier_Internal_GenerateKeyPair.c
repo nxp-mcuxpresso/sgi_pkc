@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------*/
 
 /**
- * @file  mcuxClEcc_WeierECC_Internal_GenerateKeyPair.c
+ * @file  mcuxClEcc_Weier_Internal_GenerateKeyPair.c
  * @brief ECC Weierstrass key pair generation function
  */
 
@@ -32,7 +32,6 @@
 #include <mcuxClEcc.h>
 #include <internal/mcuxClEcc_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
-#include <internal/mcuxClEcc_WeierECC_Internal_GenerateKeyPair.h>
 #include <internal/mcuxClEcc_Weier_Internal_FP.h>
 #include <internal/mcuxClEcc_Weier_Internal_FUP.h>
 
@@ -139,21 +138,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
         /* d = d0 * d1 mod n, where d0 is a 64-bit odd number.    */
         /**********************************************************/
 
-        MCUX_CSSL_FP_FUNCTION_CALL(ret_CoreKeyGen, mcuxClEcc_Int_CoreKeyGen(pSession, byteLenN));
-        if (MCUXCLECC_STATUS_OK != ret_CoreKeyGen)
-        {
-            if (MCUXCLECC_STATUS_RNG_ERROR == ret_CoreKeyGen)
-            {
-                mcuxClSession_freeWords_pkcWa(pSession, pCpuWorkarea->wordNumPkcWa);
-                MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);
-
-                mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
-
-                MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_FAILURE);
-            }
-
-            MCUXCLSESSION_FAULT(pSession, MCUXCLKEY_STATUS_FAULT_ATTACK);
-        }
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Int_CoreKeyGen(pSession, byteLenN));
 
         /**********************************************************/
         /* Derive the plain private key d = d0 * d1 mod n < n.    */

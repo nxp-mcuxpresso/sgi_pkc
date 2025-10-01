@@ -232,81 +232,81 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
 
   uint32_t remainingBytes = inLength;
 
-  /* Process all full blocks but the last one */
-  if(remainingBytes > MCUXCLAES_BLOCK_SIZE)
+  uint32_t size;
+  if((pAlgo->granularityDec == 1u) || (NULL == pAlgo->removePadding))
   {
-    uint32_t size;
-    if((pAlgo->granularityDec == 1u) && (remainingBytes % MCUXCLAES_BLOCK_SIZE == 0u))
-    {
-      /* in case of stream ciphers all full blocks can be processed immediately. */
-      size = (remainingBytes / MCUXCLAES_BLOCK_SIZE) * MCUXCLAES_BLOCK_SIZE;
-    }
-    else
-    {
-      /* Round down to block size, if the last block is full it will not be considered here */
-      size = (inLength - 1u) & ~(MCUXCLAES_BLOCK_SIZE - 1u);
-    }
-
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
-      session,
-      NULL,
-      pWa,
-      pInCur,
-      pOutCur,
-      size,
-      pWa->pIV,
-      &outputBytesWritten,
-      pWa->sgiWa.pKeyChecksums,
-      pAlgo->decryptEngine,
-      pAlgo->protectionToken_decryptEngine));
-
-    /* Move input and output pointers */
-    MCUXCLBUFFER_UPDATE(pInCur, outputBytesWritten);
-    MCUXCLBUFFER_UPDATE(pOutCur, outputBytesWritten);
-
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputBytesWritten, 0u, remainingBytes, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
-    remainingBytes -= outputBytesWritten;
-    /* Update the output length */
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0u, UINT32_MAX - inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
-    *pOutLength += outputBytesWritten;
+    /* In the case of stream ciphers or when padding is set to "none", all full blocks can be processed immediately */
+    size = (inLength / MCUXCLAES_BLOCK_SIZE) * MCUXCLAES_BLOCK_SIZE;
+  }
+  else
+  {
+    /* Round down to block size, if the last block is full it will not be considered here to be able to remove the padding later. */
+    size = (inLength - 1u) & ~(MCUXCLAES_BLOCK_SIZE - 1u);
   }
 
-  /* Check that input granularity is correct for this mode, and add padding to incomplete last block (in case of stream cipher only).
-     The last block will be copied to padding buffer, including padding if needed */
-  uint32_t paddingOutputSize = 0u;
-
-  MCUXCLBUFFER_INIT_RW(paddingBuf, session, pWa->sgiWa.paddingBuff, remainingBytes);
-
-  /* Process the last block and store the result in the padding buffer */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
     session,
     NULL,
     pWa,
     pInCur,
-    paddingBuf,
-    remainingBytes,
-    NULL,
+    pOutCur,
+    size,
+    pWa->pIV,
     &outputBytesWritten,
     pWa->sgiWa.pKeyChecksums,
     pAlgo->decryptEngine,
     pAlgo->protectionToken_decryptEngine));
 
-  /* Remove the padding and copy the decrypted last block to the output buffer */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->removePadding(
-    session,
-    MCUXCLAES_BLOCK_SIZE,
-    pWa->sgiWa.paddingBuff,
-    remainingBytes,
-    pOutCur,
-    0U,
-    &paddingOutputSize));
+  /* Move input and output pointers */
+  MCUXCLBUFFER_UPDATE(pInCur, outputBytesWritten);
+  MCUXCLBUFFER_UPDATE(pOutCur, outputBytesWritten);
 
-  /* outputBytesWritten is bounded by inLength */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(paddingOutputSize, 0u, MCUXCLAES_BLOCK_SIZE, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputBytesWritten, 0u, remainingBytes, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
+  remainingBytes -= outputBytesWritten;
+  /* Update the output length */
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0u, UINT32_MAX - inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  *pOutLength += outputBytesWritten;
 
-  /* Update the output length and clean-up the session */
-  *pOutLength += paddingOutputSize;
+  /* Process remaining bytes and remove the padding, if needed */
+  if(remainingBytes > 0U)
+  {
+    uint32_t paddingOutputSize = 0u;
+
+    MCUXCLBUFFER_INIT_RW(paddingBuf, session, pWa->sgiWa.paddingBuff, remainingBytes);
+
+    /* Process the last block and store the result in the padding buffer */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
+      session,
+      NULL,
+      pWa,
+      pInCur,
+      paddingBuf,
+      remainingBytes,
+      NULL,
+      &outputBytesWritten,
+      pWa->sgiWa.pKeyChecksums,
+      pAlgo->decryptEngine,
+      pAlgo->protectionToken_decryptEngine));
+
+    /* Remove the padding and copy the decrypted last block to the output buffer */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("pAlgo->removePadding will never be NULL if remainingBytes > 0U")
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->removePadding(
+      session,
+      MCUXCLAES_BLOCK_SIZE,
+      pWa->sgiWa.paddingBuff,
+      remainingBytes,
+      pOutCur,
+      0U,
+      &paddingOutputSize));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
+
+    /* outputBytesWritten is bounded by inLength */
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(paddingOutputSize, 0u, MCUXCLAES_BLOCK_SIZE, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0u, UINT32_MAX - inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+
+    /* Update the output length and clean-up the session */
+    *pOutLength += paddingOutputSize;
+  }
 
   /* Protect STATUS_OK - will be balanced by caller */
   MCUX_CSSL_DI_RECORD(cipherDecryptRetCode, MCUXCLCIPHER_STATUS_OK);
@@ -320,10 +320,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
                             pAlgo->protectionToken_setupIVDecrypt,
-                            MCUX_CSSL_FP_CONDITIONAL( (inLength > MCUXCLAES_BLOCK_SIZE),
-                                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_crypt)),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_crypt),
-                            pAlgo->protectionToken_removePadding,
+                            MCUX_CSSL_FP_CONDITIONAL( (remainingBytes > 0u),
+                                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_crypt),
+                                                    pAlgo->protectionToken_removePadding),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit)
                           );
 }

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -78,6 +78,13 @@ extern "C" {
  *                         the \p tag buffer.
  * @return status
  */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR   Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_encrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_encrypt(
   mcuxClSession_Handle_t session,
@@ -137,6 +144,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_encrypt(
  *                         data that have been written to the \p out buffer.
  * @return status
  */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR   Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_decrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_decrypt(
   mcuxClSession_Handle_t session,
@@ -161,7 +175,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_decrypt(
  *
  * This function performs the initialization for a multi part authenticated
  * encryption operation. The algorithm to be used will be determined based on
- * the key that is provided.
+ * the key that is provided. After init operation, a pointer to the whole key
+ * handle is stored in context. The user of the Crypto Library needs to keep
+ * the keyHandle alive until the mcuxClAead_finish/mcuxClAead_verify phase of
+ * aead multipart operation.
  *
  * @param      session     Handle for the current CL session.
  * @param      pContext    AEAD context which is used to maintain the state and
@@ -177,6 +194,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_decrypt(
  * @param      tagLength   Number of bytes to be used for the authentication tag.
  * @return status
  */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR   Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_init_encrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_encrypt(
   mcuxClSession_Handle_t session,
@@ -197,7 +221,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_encrypt(
  *
  * This function performs the initialization for a multi part authenticated
  * decryption operation. The algorithm to be used will be determined based on
- * the key that is provided.
+ * the key that is provided. After init operation, a pointer to the whole key
+ * handle is stored in context. The user of the Crypto Library needs to keep
+ * the keyHandle alive until the mcuxClAead_finish/mcuxClAead_verify phase of
+ * aead multipart operation.
  *
  * @param      session     Handle for the current CL session.
  * @param      pContext    AEAD context which is used to maintain the state and
@@ -214,6 +241,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_encrypt(
  * @param      tagLength   Number of bytes used for the authentication tag.
  * @return status
  */
+/**
+ * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR   Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ *
+ * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
+ * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_init_decrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_decrypt(
   mcuxClSession_Handle_t session,
@@ -234,7 +268,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_decrypt(
  *
  * This function performs the processing of (a part of) a data stream for an
  * authenticated encryption/decryption operation. The algorithm and key to be
- * used will be determined based on the context that is provided.
+ * used will be determined based on the context that is provided. The user of
+ * the Crypto Library needs to keep the keyHandle alive until the mcuxClAead_finish/
+ * mcuxClAead_verify phase of aead multipart operation.
  *
  * @param      session    Handle for the current CL session.
  * @param      pContext   AEAD context which is used to maintain the state and
@@ -267,6 +303,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_process(
  * This function performs the processing of (a part of) an associated data
  * stream for an authenticated encryption/decryption operation. The algorithm
  * and key to be used will be determined based on the context that is provided.
+ * The user of the Crypto Library needs to keep the keyHandle alive until the
+ * mcuxClAead_finish/mcuxClAead_verify phase of aead multipart operation.
  *
  * @param      session     Handle for the current CL session.
  * @param      pContext    AEAD context which is used to maintain the state and
@@ -291,6 +329,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_process_adata(
  * This function performs the finalization of an authenticated encryption or
  * decryption operation and produces the authentication tag. The algorithm and
  * key to be used will be determined based on the context that is provided.
+ * The user of the Crypto Library needs to keep the keyHandle alive until the
+ * mcuxClAead_finish phase of aead multipart operation.
  *
  * Note: the taglength is already specified when the INIT function is called.
  *
@@ -322,6 +362,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_finish(
  * This function performs the finalization of an authenticated decryption
  * operation and verifies the authentication tag. The algorithm and key to be
  * used will be determined based on the context that is provided.
+ * The user of the Crypto Library needs to keep the keyHandle alive until the
+ * mcuxClAead_verify phase of aead multipart operation.
  *
  * This function can be used as an alternative for @p mcuxClAead_finish when one
  * also wants to perform the tag verification step.

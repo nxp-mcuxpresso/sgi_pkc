@@ -133,11 +133,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
     MCUX_CSSL_ANALYSIS_START_PATTERN_SWITCH_STATEMENT_RETURN_TERMINATION()
     switch(keyLength)
     {
-        case MCUXCLAES_AES128_KEY_SIZE:
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES128_ENCRYPT));
-            MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES128_KEY_SIZE);
-            MCUX_CSSL_DI_RECORD(switchKeySize, MCUXCLAES_AES128_KEY_SIZE);
-        break;
         case MCUXCLAES_AES256_KEY_SIZE:
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES256_ENCRYPT));
             MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES256_KEY_SIZE);
@@ -149,10 +144,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
     MCUX_CSSL_ANALYSIS_STOP_PATTERN_SWITCH_STATEMENT_RETURN_TERMINATION()
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start), /* Every non-default switch case calls mcuxClSgi_Drv_start */
-        MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES128_KEY_SIZE, MCUXCLAES_AES128_KEY_SIZE == keyLength),
-        MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES192_KEY_SIZE, MCUXCLAES_AES192_KEY_SIZE == keyLength),
-        MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES256_KEY_SIZE, MCUXCLAES_AES256_KEY_SIZE == keyLength));
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start) /* Every non-default switch case calls mcuxClSgi_Drv_start */
+        , MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES256_KEY_SIZE, MCUXCLAES_AES256_KEY_SIZE == keyLength)
+        );
 }
 
 

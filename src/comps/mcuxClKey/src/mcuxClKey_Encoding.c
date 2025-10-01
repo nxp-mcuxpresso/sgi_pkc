@@ -88,7 +88,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
 #ifdef MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_KeyStore_Plain, mcuxClKey_StoreFuncPtr_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
-  mcuxClSession_Handle_t session UNUSED_PARAM,
+  mcuxClSession_Handle_t session,
   mcuxClKey_Handle_t key,
   const uint8_t *pSrc,
   mcuxClKey_Encoding_Spec_t spec)

@@ -82,7 +82,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PrivateKeyLoad_Plain
   /* spec is not valid */
   else
   {
-    MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_PrivateKeyLoad_Plain,
@@ -138,7 +138,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PublicKeyLoad_Plain(
   /* spec is not valid */
   else
   {
-    MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_PublicKeyLoad_Plain,
@@ -196,7 +196,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyLoad_Plain(
   /* spec is not valid */
   else
   {
-    MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_PrivateKeyLoad_Plain,
@@ -304,9 +304,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PublicKeyStore_Plain
  * @param[out]  pSrc     Pointer to the source key
  * @param[in]   spec     Specifications about the used key
  *
- * @return status
- * @retval MCUXCLKEY_STATUS_OK               On success
- *
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_PrivateKeyStore_Plain, mcuxClKey_StoreFuncPtr_t)
 static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyStore_Plain(
@@ -345,7 +342,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyStore_Plain(
   /* spec is not valid */
   else
   {
-      MCUXCLSESSION_FAULT(session, MCUXCLECC_STATUS_FAULT_ATTACK);
+      MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 
   /* Record input data for mcuxClMemory_copy_secure_int() */

@@ -119,11 +119,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateKeyPair_GetPriv
         *ppPrivKey = mode->pPrivKeyInput;
         /* SREQI_EDDSA_8 - DI protect pPrivKey */
         MCUX_CSSL_DI_RECORD(privKeyStore, *ppPrivKey);
-        if(NULL == *ppPrivKey)
-        {
-            /* Invalid mode passed */
-            MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
-        }
 
         /* SREQI_EDDSA_8 - DI protection for branch execution */
         MCUX_CSSL_DI_EXPUNGE(keyGenBranchProtection, MCUXCLECC_EDDSA_PRIVKEY_INPUT);

@@ -181,18 +181,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_ISR_completeNonBlocking_multipa
   mcuxClSession_Handle_t session
 );
 
-/**
- * @brief Function to handle DMA errors that occurred during SGI AUTO mode with handshakes.
- *
- * This function cleans up the SGI and the DMA channels, and triggers the caller's callback function.
- *
- * @param      session         Handle for the current CL session.
- * @param      dmaErrorStatus  Error status of the dma channel(s), will be returned to user.
- *
- * @return void
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMacModes_handleDmaErrorDuringAutomode)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_handleDmaErrorDuringAutomode(void);
 
 /**
  * @brief Function to request DMA input channel and to write the workarea into the session job context.

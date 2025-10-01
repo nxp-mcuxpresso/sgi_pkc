@@ -397,12 +397,33 @@ static inline void mcuxClKey_setKeyContainerUsedSize(mcuxClKey_Handle_t key, uin
 
 static inline uint32_t mcuxClKey_load_getFpToken(mcuxClKey_Handle_t key)
 {
+  return key->encoding->protectionToken_loadFunc;
+}
+
+static inline uint32_t mcuxClKey_load_getFpTokenCheckNull(mcuxClKey_Handle_t key)
+{
   return ((key == NULL) ? 0U : key->encoding->protectionToken_loadFunc);
 }
 
-/** This macro defines the FP balancing for @ref MCUXCLKEY_LOAD_FP. */
+/**
+ * @brief Macro defines the FP balancing for @ref MCUXCLKEY_LOAD_FP.
+ *
+ *  If this balancing is needed inside a MCUX_CSSL_FP_CONDITIONAL and the key pointer could be NULL,
+ *  MCUXCLKEY_LOAD_FP_CALLED_CHECK_NULL must be used instead of this macro to avoid NULL-ptr access.
+ *  Else, this macro is the preferred balancing method (as it does not introduce dead code).
+ */
 #define MCUXCLKEY_LOAD_FP_CALLED(key) \
   mcuxClKey_load_getFpToken(key)
+
+/**
+ * @brief Macro defines the FP balancing for @ref MCUXCLKEY_LOAD_FP with key NULL check.
+ *
+ * Use MCUXCLKEY_LOAD_FP_CALLED_CHECK_NULL when key pointer could be NULL.
+ * Such case can occur within MCUX_CSSL_FP_CONDITIONAL with (key == NULL) condition
+ * (as the EXPECTATIONS are always expanded and the NULL might be dereferenced).
+ */
+#define MCUXCLKEY_LOAD_FP_CALLED_CHECK_NULL(key) \
+  mcuxClKey_load_getFpTokenCheckNull(key)
 
 /**
  * @brief Store (and encode/protect) the key data to the container.
@@ -421,10 +442,12 @@ static inline uint32_t mcuxClKey_load_getFpToken(mcuxClKey_Handle_t key)
 
 static inline uint32_t mcuxClKey_store_getFpToken(mcuxClKey_Handle_t key)
 {
-  return ((key == NULL) ? 0U : key->encoding->protectionToken_storeFunc);
+  return key->encoding->protectionToken_storeFunc;
 }
 
-/** This macro defines the FP balancing for @ref MCUXCLKEY_STORE_FP. */
+ /**
+ * @brief Macro defines the FP balancing for @ref MCUXCLKEY_STORE_FP.
+ */
 #define MCUXCLKEY_STORE_FP_CALLED(key) \
   mcuxClKey_store_getFpToken(key)
 
@@ -446,12 +469,33 @@ static inline uint32_t mcuxClKey_store_getFpToken(mcuxClKey_Handle_t key)
 
 static inline uint32_t mcuxClKey_flush_getFpToken(mcuxClKey_Handle_t key)
 {
+  return key->encoding->protectionToken_flushFunc;
+}
+
+static inline uint32_t mcuxClKey_flush_getFpTokenCheckNull(mcuxClKey_Handle_t key)
+{
   return ((key == NULL) ? 0U : key->encoding->protectionToken_flushFunc);
 }
 
-/** This macro defines the FP balancing for @ref MCUXCLKEY_FLUSH_FP. */
+ /**
+ * @brief Macro defines the FP balancing for @ref MCUXCLKEY_FLUSH_FP.
+ *
+ *  If this balancing is needed inside a MCUX_CSSL_FP_CONDITIONAL and the key pointer could be NULL,
+ *  MCUXCLKEY_FLUSH_FP_CALLED_CHECK_NULL must be used instead of this macro to avoid NULL-ptr access.
+ *  Else, this macro is the preferred balancing method (as it does not introduce dead code).
+ */
 #define MCUXCLKEY_FLUSH_FP_CALLED(key) \
   mcuxClKey_flush_getFpToken(key)
+
+/**
+ * @brief Macro defines the FP balancing for @ref MCUXCLKEY_FLUSH_FP with key NULL check.
+ *
+ * Use MCUXCLKEY_FLUSH_FP_CALLED_CHECK_NULL when key pointer could be NULL.
+ * Such case can occur within MCUX_CSSL_FP_CONDITIONAL with (key == NULL) condition
+ * (as the EXPECTATIONS are always expanded and the NULL might be dereferenced).
+ */
+#define MCUXCLKEY_FLUSH_FP_CALLED_CHECK_NULL(key) \
+  mcuxClKey_flush_getFpTokenCheckNull(key)
 
 /************************************************************
  * INTERNAL FUNCTION DECLARATIONS FOR KEY FUNCTIONALITY

@@ -88,7 +88,7 @@
 #define MCUXCLHASHMODES_COMPUTE_MEMORY_C_SHA2_FINISH(DESCRIPTOR)     4U
 
 /*
- * SHA-2 SGI Normal Modes
+ * SHA-2 SGI Blocking Modes
  */
 
 /** @brief Memory consumption of SGI SHA-2 oneshot */

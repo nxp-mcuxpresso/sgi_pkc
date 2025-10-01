@@ -674,7 +674,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(uint32_t iR_iX_iNb_iB
  *
  * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
  * @param[in]  pE                   Pointer to data, which contains public exponent e
- * @param[out] pProbablePrime       Pointer to data, which contains the generated probable prime number
+ * @param[out] pPrimeCandidate      Pointer to data, which contains the generated probable prime number
  * @param[in]  keyBitLength         Bit-length of key
  *
  *
@@ -1360,7 +1360,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
  * @retval #MCUXCLRSA_STATUS_SIGN_OK                             Sign operation executed successfully.
  * @retval #MCUXCLRSA_STATUS_INVALID_INPUT                       The input parameters are not valid.
  * @retval #MCUXCLRSA_STATUS_ERROR                               An error occurred during the execution. In that case, expectations for the flow protection are not balanced.
- * @retval #MCUXCLSIGNATURE_STATUS_ERROR_MEMORY_ALLOCATION       Memory allocation fails.
  *
  * @attention This function uses DRBG (for PSS encoding only) and PRNG which have to be initialized prior to calling the function.
  */

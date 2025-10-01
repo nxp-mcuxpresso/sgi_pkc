@@ -19,7 +19,6 @@
 #include <mcuxCsslDataIntegrity.h>
 #include <mcuxClCore_FunctionIdentifiers.h>
 
-
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Drv_configureCRC16)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCrc_Drv_configureCRC16(uint16_t poly16, uint16_t seed16, uint32_t rwCfg)
 {
@@ -58,26 +57,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Internal_updateCRC16(const uint8
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Internal_updateCRC16, crcRet,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_configureCRC16),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_updateCRC16));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Internal_updateCRC16_buffer)
-MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Internal_updateCRC16_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length, uint16_t seed16)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCrc_Internal_updateCRC16_buffer);
-
-  /* Configure CRC to perform 16-bit CRC computation with a given seed
-   * and the platform-specified 16-bit CRC polynomial.
-   * Also configure the writes to be transposed (byte-wise) */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_Drv_configureCRC16(
-    MCUXCLCRC_DEFAULT_POLY_16,
-    seed16,
-    MCUXCLCRC_DRV_WRITE_TRANSPOSE_BYTES_NO_BITS));
-
-  MCUX_CSSL_FP_FUNCTION_CALL(crcRet, mcuxClCrc_Drv_updateCRC16_buffer(bufSrc, length));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Internal_updateCRC16_buffer, crcRet,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_configureCRC16),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_updateCRC16_buffer));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Drv_updateCRC16)
@@ -130,6 +109,27 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Drv_updateCRC16(const uint8_t *p
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Drv_updateCRC16, (uint16_t)(crcResult & 0xFFFFu));
 }
 
+#ifdef MCUXCL_FEATURE_INTERNAL_CRC_BUFFER
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Internal_updateCRC16_buffer)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Internal_updateCRC16_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length, uint16_t seed16)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCrc_Internal_updateCRC16_buffer);
+
+  /* Configure CRC to perform 16-bit CRC computation with a given seed
+   * and the platform-specified 16-bit CRC polynomial.
+   * Also configure the writes to be transposed (byte-wise) */
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_Drv_configureCRC16(
+    MCUXCLCRC_DEFAULT_POLY_16,
+    seed16,
+    MCUXCLCRC_DRV_WRITE_TRANSPOSE_BYTES_NO_BITS));
+
+  MCUX_CSSL_FP_FUNCTION_CALL(crcRet, mcuxClCrc_Drv_updateCRC16_buffer(bufSrc, length));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Internal_updateCRC16_buffer, crcRet,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_configureCRC16),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_updateCRC16_buffer));
+}
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Drv_updateCRC16_buffer)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Drv_updateCRC16_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length)
 {
@@ -147,6 +147,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint16_t) mcuxClCrc_Drv_updateCRC16_buffer(mcuxCl_In
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Drv_updateCRC16_buffer, (uint16_t)(crcResult & 0xFFFFu),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read_withoutDestIncrement));
 }
+#endif /* MCUXCL_FEATURE_INTERNAL_CRC_BUFFER */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Drv_configureCRC32)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCrc_Drv_configureCRC32(uint32_t poly32, uint32_t seed32, uint32_t rwCfg)
@@ -186,26 +187,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Internal_updateCRC32(const uint8
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Internal_updateCRC32, crcRet,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_configureCRC32),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_updateCRC32));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Internal_updateCRC32_buffer)
-MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Internal_updateCRC32_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length, uint32_t seed32)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCrc_Internal_updateCRC32_buffer);
-
-  /* Configure CRC to perform 32-bit CRC computation with a given seed
-   * and the platform-specified 32-bit CRC polynomial.
-   * Also configure the writes to be transposed (byte-wise) */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_Drv_configureCRC32(
-    MCUXCLCRC_DEFAULT_POLY_32,
-    seed32,
-    MCUXCLCRC_DRV_WRITE_TRANSPOSE_BYTES_NO_BITS));
-
-  MCUX_CSSL_FP_FUNCTION_CALL(crcRet, mcuxClCrc_Drv_updateCRC32_buffer(bufSrc, length));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Internal_updateCRC32_buffer, crcRet,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_configureCRC32),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_updateCRC32_buffer));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Drv_updateCRC32)
@@ -258,6 +239,27 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Drv_updateCRC32(const uint8_t *p
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Drv_updateCRC32, crcResult);
 }
 
+#ifdef MCUXCL_FEATURE_INTERNAL_CRC_BUFFER
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Internal_updateCRC32_buffer)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Internal_updateCRC32_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length, uint32_t seed32)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCrc_Internal_updateCRC32_buffer);
+
+  /* Configure CRC to perform 32-bit CRC computation with a given seed
+   * and the platform-specified 32-bit CRC polynomial.
+   * Also configure the writes to be transposed (byte-wise) */
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_Drv_configureCRC32(
+    MCUXCLCRC_DEFAULT_POLY_32,
+    seed32,
+    MCUXCLCRC_DRV_WRITE_TRANSPOSE_BYTES_NO_BITS));
+
+  MCUX_CSSL_FP_FUNCTION_CALL(crcRet, mcuxClCrc_Drv_updateCRC32_buffer(bufSrc, length));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Internal_updateCRC32_buffer, crcRet,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_configureCRC32),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_Drv_updateCRC32_buffer));
+}
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCrc_Drv_updateCRC32_buffer)
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Drv_updateCRC32_buffer(mcuxCl_InputBuffer_t bufSrc, uint32_t length)
 {
@@ -275,4 +277,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClCrc_Drv_updateCRC32_buffer(mcuxCl_In
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCrc_Drv_updateCRC32_buffer, crcResult,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read_withoutDestIncrement));
 }
+#endif /* MCUXCL_FEATURE_INTERNAL_CRC_BUFFER */
+
 

@@ -62,9 +62,7 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClSgi_Utils_loadInternalHashBloc
  *****************************************************/
 
 #define MCUXCLSGI_UTILS_AUTO_MODE_LOAD_IV           (0xA5A5B4B4u)
-#define MCUXCLSGI_UTILS_NORMAL_MODE_LOAD_IV         (0xA5A54B4Bu)
 #define MCUXCLSGI_UTILS_AUTO_MODE_STANDARD_IV       (0x5A5AB4B4u)
-#define MCUXCLSGI_UTILS_NORMAL_MODE_STANDARD_IV     (0x5A5A4B4Bu)
 
 /**
  * @brief Initializes SHA-224 based on provided mode parameters
@@ -287,46 +285,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeMasked128BitBlock(
                                                                const uint32_t *pXorMask);
 
 /**
- * @brief Loads a 256-bit block of data to the SGI
- *
- * This function loads a 256-bit data block to the given SGI DATIN register bank.
- *
- * Data Integrity: Expunge(mcuxClSgi_Drv_getAddr(sgisfrDatOffset) + pData + 32)
- *
- * @param     sgisfrDatOffset   Offset of the target data SGI SFR,
- *                              can be either of these values:
- *                                 #MCUXCLSGI_DRV_DATIN0_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN1_OFFSET
- *                                 #MCUXCLSGI_DRV_DATIN2_OFFSET
- * @param[in]  pData            Pointer to data buffer which is loaded (word-aligned)
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load256BitBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load256BitBlock(uint32_t sgisfrDatOffset, const uint8_t *pData);
-
-/**
- * @brief Loads a 512-bit block of internal data to the SGI
- *
- * This function loads a 512-bit data block from internal memory
- * to the SGI DATIN register bank and subsequent KEY register banks.
- *
- * @param[in]  pData    Pointer to data buffer which is loaded (word-aligned)
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load512BitBlock, mcuxClSgi_Utils_loadInternalHashBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load512BitBlock(const uint32_t *pData);
-
-/**
- * @brief Loads a 1024-bit block of internal data to the SGI
- *
- * This function loads a 1024-bit data block from internal memory
- * to the SGI DATIN register bank and subsequent KEY register banks.
- *
- * @param[in]  pData    Pointer to data buffer which is loaded (word-aligned)
- *
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_load1024BitBlock, mcuxClSgi_Utils_loadInternalHashBlock)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load1024BitBlock(const uint32_t *pData);
-
-/**
  * @brief Load data to FIFO
  *
  * When using SGI in auto mode for hashing, data has to be
@@ -338,6 +296,27 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load1024BitBlock(const uint32_
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_loadFifo)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo(const uint32_t *pData, uint32_t length);
+
+/**
+ * @brief Load data from an input buffer to FIFO
+ *
+ * When using SGI in auto mode for hashing, data has to be
+ * loaded to FIFO. This function takes care of that.
+ *
+ * @param[in]  data     Data buffer which is loaded to the FIFO
+ * @param[in]  length   Byte-length of data
+ *
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_loadFifo_buffer)
+static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo_buffer(mcuxCl_InputBuffer_t data, uint32_t length)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_loadFifo_buffer);
+    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadFifo));
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("SGI driver expects unaligned memory access (guarded by MCUXCL_FEATURE_HW_UNALIGNED_MEMORY_ACCESS)")
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_loadFifo((const uint32_t*)MCUXCLBUFFER_GET(data), length));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_loadFifo_buffer);
+}
 
 /**
  * @brief Store partial hash in output buffer

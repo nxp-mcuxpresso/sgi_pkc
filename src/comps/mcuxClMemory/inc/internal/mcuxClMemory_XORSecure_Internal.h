@@ -52,7 +52,7 @@ extern "C" {
  * @param[in]  pSrc1       pointer to the first source buffer.
  * @param[in]  pSrc2       pointer to the second source buffer.
  * @param      length      size (in bytes) to be operated
- * 
+ *
  * @pre
  *  - pDst should not overlap with any of the source buffers
  *  - For better performance and security, please use aligned pointers, and lengths multiple of word size.
@@ -73,7 +73,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_XOR_secure_int
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_XOR_secure_int);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_xor(pDst, pSrc1, pSrc2, length, length));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_xor(pDst, pSrc1, pSrc2, length, (size_t)length));
     MCUX_CSSL_DI_EXPUNGE(xorParamsDst /* Not used */, (uint32_t) pDst);
     MCUX_CSSL_DI_EXPUNGE(xorParamsSrc /* Not used */, (uint32_t) pSrc1);
     MCUX_CSSL_DI_EXPUNGE(xorParamsSrc /* Not used */, (uint32_t) pSrc2);

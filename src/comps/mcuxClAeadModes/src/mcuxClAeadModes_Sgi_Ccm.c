@@ -120,15 +120,16 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
   MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_update);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(alg->macAlgo->update(
+  MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, alg->macAlgo->update(
     session,
     macModesWorkArea,
     &pContext->macCtx,
     waBuf,
     MCUXCLAES_BLOCK_SIZE,
     NULL /* unused for now */));
+  (void)retMacUpdate;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
-
+  
   // Formatting of the associated data
   // Encode a and concatenate with associated data
 
@@ -312,13 +313,14 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process_aad(
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
   MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_update);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(alg->macAlgo->update(
+  MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, alg->macAlgo->update(
     session,
     macModesWorkArea,
     &pContext->macCtx,
     pAdata,
     adataSize,
     NULL /* unused for now */));
+  (void)retMacUpdate;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
   /* Update cumulative adata size in ctx. */
@@ -367,7 +369,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process(
     MCUXCLBUFFER_INIT_RO(paddedBuf, NULL, workArea->sgiWa.paddingBuff, MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
     MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_update);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(alg->macAlgo->update(
+    MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, alg->macAlgo->update(
       session,
       macModesWorkArea,
       &pContext->macCtx,
@@ -375,6 +377,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process(
       padLen,
       NULL /* unused for now */));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
+    (void)retMacUpdate;
 
     /* Set the cumulative adata size to 0 to not enter this branch again in the next call to Aead_process */
     pContext->adataCumulativeSize = 0u;
@@ -438,7 +441,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
     cipherWa->sgiWa.copyOutFunction = mcuxClCipherModes_copyOut_toPtr;
     cipherWa->sgiWa.protectionToken_copyOutFunction = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_copyOut_toPtr);
     MCUX_CSSL_FP_EXPECT(pAlgo->cipherAlgo->protectionToken_encryptEngine);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->cipherAlgo->encryptEngine(
+    MCUX_CSSL_FP_FUNCTION_CALL(retCipherEncrypt, pAlgo->cipherAlgo->encryptEngine(
       session,
       cipherWa,
       pIn,
@@ -446,7 +449,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
       inSize,
       pContext->cipherCtx.ivState,
       &outLen));
-
+    (void)retCipherEncrypt;
     MCUX_CSSL_FP_EXPECT(pKeyChecksum->protectionToken_VerifyFunc);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pKeyChecksum->VerifyFunc(session, pKeyChecksum, (uint8_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_KEY0_OFFSET)));
   }

@@ -40,7 +40,7 @@
 * Function that implements the TwEd LadderStep.
 */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_TwEd_LadderStep)
-static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_LadderStep(
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_LadderStep(
     mcuxClSession_Handle_t pSession,
     uint16_t *pOperands,
     const uint32_t operandSize,
@@ -109,7 +109,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_LadderStep
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_LadderStep, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_LadderStep);
 }
 
 /*
@@ -203,15 +203,11 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult_ConvertAnd
  *   -  Buffer ECC_PS contains the shifted modulus associated to p
  *
  * Result:
- *   - If MCUXCLECC_STATUS_OK is returned, buffers TWED_X, TWED_Y and TWED_Z contain Xres, Yres and Zres in MR, even if the input point
- *     (and the result) is the neutral point.
- *
- * Returns:
- *   - MCUXCLECC_STATUS_OK               if the function executed successfully
- *   - MCUXCLECC_STATUS_FAULT_ATTACK     if OPTION_OUTPUT_VALIDATION is set and the point validation fails or if a fault attack is detected
+ *   - If the function exits successfully (i.e. no early exit has happened), buffers TWED_X, TWED_Y and TWED_Z contain Xres, Yres and
+ *     Zres in MR, even if the input point (and the result) is the neutral point.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_TwEd_VarScalarMult)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_VarScalarMult(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
     mcuxClSession_Handle_t pSession,
     mcuxClEcc_CommonDomainParams_t *pDomainParams,
     uint8_t iScalar,
@@ -313,14 +309,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_VarScalarMult(
             }
 
             MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_LadderStep));
-            MCUX_CSSL_FP_FUNCTION_CALL(ret_LadderStep,
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(
               mcuxClEcc_TwEd_LadderStep(pSession, pOperands, operandSize, options, i, currentScalarWordMask, maskedCurrentScalarWord, currentScalarWord)
             );
-
-            if(MCUXCLECC_STATUS_OK != ret_LadderStep)
-            {
-                MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_VarScalarMult, ret_LadderStep);
-            }
 
         }
 
@@ -363,5 +354,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_TwEd_VarScalarMult(
     MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_VarScalarMult_ConvertAndValidateOutput));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_TwEd_VarScalarMult_ConvertAndValidateOutput(pSession, options));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_TwEd_VarScalarMult, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_VarScalarMult);
 }

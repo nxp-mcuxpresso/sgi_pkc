@@ -234,6 +234,13 @@ Functions</h2></td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAILURE</td><td>Functional failure ocurred during Cipher operation </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_INVALID_INPUT</td><td>An invalid parameter was given to the function </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAULT_ATTACK</td><td>Fault attack detected </td></tr>
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_JOB_STARTED</td><td>Non-blocking Cipher operation started successfully </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_JOB_COMPLETED</td><td>Non-blocking Cipher operation successful</td></tr>
   </table>
@@ -347,6 +354,13 @@ When used with stream modes or RSA modes, the function uses PRNG, which has to b
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAILURE</td><td>Functional failure ocurred during Cipher operation </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_INVALID_INPUT</td><td>An invalid parameter was given to the function </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAULT_ATTACK</td><td>Fault attack detected </td></tr>
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_JOB_STARTED</td><td>Non-blocking Cipher operation started successfully </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_JOB_COMPLETED</td><td>Non-blocking Cipher operation successful</td></tr>
   </table>
@@ -413,7 +427,7 @@ When used with stream modes or RSA modes, the function uses PRNG, which has to b
 </div><div class="memdoc">
 
 <p>Multi-part encryption initialization function. </p>
-<p>This function performs the initialization for a multi part encryption operation. The algorithm to be used will be determined based on the key that is provided.</p>
+<p>This function performs the initialization for a multi part encryption operation. The algorithm to be used will be determined based on the key that is provided. After init operation, a pointer to the whole key handle is stored in context. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClCipher_finish phase of cipher multipart operation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
@@ -433,9 +447,11 @@ When used with stream modes or RSA modes, the function uses PRNG, which has to b
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAILURE</td><td>Functional failure ocurred during Cipher operation </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_INVALID_INPUT</td><td>An invalid parameter was given to the function </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAULT_ATTACK</td><td>Fault attack detected </td></tr>
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01125.html#a15">mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</a>, <a class="el" href="a01111.html#a8">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01120.html#a14">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01110.html#a8">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a01109.html#a8">mcuxClCipherModes_Cbc_Aes128_Multipart_example.c</a>, <a class="el" href="a01122.html#a14">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01115.html#a8">mcuxClCipherModes_Ctr_Aes128_Multipart_example.c</a>, <a class="el" href="a01104.html#a7">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01118.html#a13">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a01117.html#a13">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01103.html#a7">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_example.c</a>, and <a class="el" href="a01102.html#a7">mcuxClCipherModes_Ecb_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
@@ -492,7 +508,7 @@ When used with stream modes or RSA modes, the function uses PRNG, which has to b
 </div><div class="memdoc">
 
 <p>Multi-part decryption initialization function. </p>
-<p>This function performs the initialization for a multi part decryption operation. The algorithm to be used will be determined based on the key that is provided.</p>
+<p>This function performs the initialization for a multi part decryption operation. The algorithm to be used will be determined based on the key that is provided. After init operation, a pointer to the whole key handle is stored in context. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClCipher_finish phase of cipher multipart operation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
@@ -512,9 +528,11 @@ When used with stream modes or RSA modes, the function uses PRNG, which has to b
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAILURE</td><td>Functional failure ocurred during Cipher operation </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_INVALID_INPUT</td><td>An invalid parameter was given to the function </td></tr>
     <tr><td class="paramname">MCUXCLCIPHER_STATUS_FAULT_ATTACK</td><td>Fault attack detected </td></tr>
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01125.html#a23">mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</a>, <a class="el" href="a01111.html#a16">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01120.html#a25">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01110.html#a16">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a01109.html#a16">mcuxClCipherModes_Cbc_Aes128_Multipart_example.c</a>, <a class="el" href="a01122.html#a25">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01115.html#a16">mcuxClCipherModes_Ctr_Aes128_Multipart_example.c</a>, <a class="el" href="a01104.html#a16">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01118.html#a26">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a01117.html#a25">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01103.html#a16">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_example.c</a>, and <a class="el" href="a01102.html#a16">mcuxClCipherModes_Ecb_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
@@ -571,7 +589,7 @@ When used with stream modes or RSA modes, the function uses PRNG, which has to b
 </div><div class="memdoc">
 
 <p>Multi-part encryption/decryption processing function. </p>
-<p>This function performs the processing of (a part of) a data stream for an encryption/decryption operation. The algorithm and key to be used will be determined based on the context that is provided. Data is processed in full blocks only. Remaining data is stored in the context to be handled in later process or finish calls. This function supports non-blocking operation modes. If a non-blocking mode was used during mcuxClCipher_init, this function starts the operation and returns while coprocessors are still operating, unblocking the CPU in the meantime. Interrupt handlers need to be installed appropriately to retrieve the information that the coprocessors finished processing the data. Call <a class="el" href="a00880.html#gaf083fd1ec859bfe9e6e71a93a8d7e1c0">mcuxClResource_handle_interrupt</a> to complete this operation. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This function performs the processing of (a part of) a data stream for an encryption/decryption operation. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClCipher_finish phase of cipher multipart operation. Data is processed in full blocks only. Remaining data is stored in the context to be handled in later process or finish calls. This function supports non-blocking operation modes. If a non-blocking mode was used during mcuxClCipher_init, this function starts the operation and returns while coprocessors are still operating, unblocking the CPU in the meantime. Interrupt handlers need to be installed appropriately to retrieve the information that the coprocessors finished processing the data. Call <a class="el" href="a00880.html#gaf083fd1ec859bfe9e6e71a93a8d7e1c0">mcuxClResource_handle_interrupt</a> to complete this operation. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">pContext</td><td>Cipher context which is used to maintain the state and store other relevant information about the operation. </td></tr>
@@ -640,7 +658,7 @@ When used with stream modes or RSA modes, the function uses PRNG, which has to b
 </div><div class="memdoc">
 
 <p>Multi-part encryption/decryption finalization function. </p>
-<p>This function performs the finalization of an encryption or decryption operation. The algorithm and key to be used will be determined based on the context that is provided. No new data is accepted but remaining data in the context is processed.</p>
+<p>This function performs the finalization of an encryption or decryption operation. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClCipher_finish phase of cipher multipart operation. No new data is accepted but remaining data in the context is processed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>

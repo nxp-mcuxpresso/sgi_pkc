@@ -166,7 +166,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialization for a multipart MAC computation. </p>
-<p>This function performs the initialization of a context for a multipart MAC computation. The algorithm to be used will be determined based on the key that is provided.</p>
+<p>This function performs the initialization of a context for a multipart MAC computation. The algorithm to be used will be determined based on the key that is provided. After init operation, a pointer to the whole key handle is stored in context. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClMac_finish/mcuxClMac_verify phase of mac multipart operation.</p>
 <p>This function should only be called once, as the first step for a multipart computation.</p>
 <p>For example, to perform a multipart AES MAC computation with a 128-bit key in CMAC mode on padded data, the following needs to be provided in this step:</p><ul>
 <li>AES128 key</li>
@@ -189,9 +189,11 @@ Functions</h2></td></tr>
     <tr><td class="paramname">MCUXCLMAC_STATUS_ERROR</td><td>Error occurred during Mac operation </td></tr>
     <tr><td class="paramname">MCUXCLMAC_STATUS_INVALID_PARAM</td><td>An invalid parameter was given to the function </td></tr>
     <tr><td class="paramname">MCUXCLMAC_STATUS_FAULT_ATTACK</td><td>Fault attack detected </td></tr>
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01164.html#a13">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01162.html#a13">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01157.html#a7">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
@@ -236,7 +238,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Data processing for a multipart MAC computation. </p>
-<p>This function performs the data processing for a multipart MAC computation. The algorithm and key to be used will be determined based on the context that is provided.</p>
+<p>This function performs the data processing for a multipart MAC computation. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClMac_finish/ mcuxClMac_verify phase of mac multipart operation.</p>
 <p>This function can be called multiple times, after the multipart context initialization.</p>
 <p>For example, to perform a multipart AES MAC computation with a 128-bit key in CMAC mode on padded data, the following needs to be provided in this step:</p><ul>
 <li>Input data This function supports non-blocking operation modes. If a non-blocking mode was used during <a class="el" href="a00849.html#ga803bd7822372bdca8dfd0c81b5db96eb">mcuxClMac_init</a>, this function starts the operation and returns while coprocessors are still operating, unblocking the CPU in the meantime. Interrupt handlers need to be installed appropriately to retrieve the information that the coprocessors finished processing the data. Call <a class="el" href="a00880.html#gaf083fd1ec859bfe9e6e71a93a8d7e1c0">mcuxClResource_handle_interrupt</a> to complete this operation. The size of the context depends on the mode used (see mcuxClMac_MemoryConsumption).</li>
@@ -308,7 +310,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Finalize a MAC generation for a multipart MAC computation. </p>
-<p>This function performs the final MAC generation step for a multipart MAC computation. The algorithm and key to be used will be determined based on the context that is provided.</p>
+<p>This function performs the final MAC generation step for a multipart MAC computation. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClMac_finish phase of mac multipart operation.</p>
 <p>This function should only be called once, as the last step for a multipart computation.</p>
 <p>For example, to perform a multipart AES MAC computation with a 128-bit key in CMAC mode on padded data, the following needs to be provided in this step:</p><ul>
 <li>Output data buffer, at least the size of a single AES block</li>

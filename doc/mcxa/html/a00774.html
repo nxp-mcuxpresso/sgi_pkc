@@ -265,6 +265,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01098.html#a9">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist1_example.c</a>, <a class="el" href="a01099.html#a9">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist2_example.c</a>, <a class="el" href="a01100.html#a11">mcuxClAeadModes_Ccm_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a01097.html#a9">mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example.c</a>, and <a class="el" href="a01095.html#a9">mcuxClAeadModes_Gcm_Aes128_Oneshot_example.c</a>.</dd>
 </dl>
 
@@ -393,6 +400,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01098.html#a12">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist1_example.c</a>, <a class="el" href="a01099.html#a12">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist2_example.c</a>, <a class="el" href="a01100.html#a14">mcuxClAeadModes_Ccm_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a01097.html#a12">mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example.c</a>, and <a class="el" href="a01095.html#a12">mcuxClAeadModes_Gcm_Aes128_Oneshot_example.c</a>.</dd>
 </dl>
 
@@ -467,7 +481,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Multi-part authenticated encryption initialization function. </p>
-<p>This function performs the initialization for a multi part authenticated encryption operation. The algorithm to be used will be determined based on the key that is provided.</p>
+<p>This function performs the initialization for a multi part authenticated encryption operation. The algorithm to be used will be determined based on the key that is provided. After init operation, a pointer to the whole key handle is stored in context. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClAead_finish/mcuxClAead_verify phase of aead multipart operation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
@@ -483,6 +497,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01101.html#a9">mcuxClAeadModes_Ccm_Aes128_Multipart_example.c</a>, and <a class="el" href="a01096.html#a9">mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
@@ -557,7 +578,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Multi-part authenticated decryption initialization function. </p>
-<p>This function performs the initialization for a multi part authenticated decryption operation. The algorithm to be used will be determined based on the key that is provided.</p>
+<p>This function performs the initialization for a multi part authenticated decryption operation. The algorithm to be used will be determined based on the key that is provided. After init operation, a pointer to the whole key handle is stored in context. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClAead_finish/mcuxClAead_verify phase of aead multipart operation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
@@ -573,6 +594,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01101.html#a17">mcuxClAeadModes_Ccm_Aes128_Multipart_example.c</a>, and <a class="el" href="a01096.html#a17">mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
@@ -629,7 +657,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Multi-part authenticated encryption/decryption processing function for the regular data (authenticated and encrypted) </p>
-<p>This function performs the processing of (a part of) a data stream for an authenticated encryption/decryption operation. The algorithm and key to be used will be determined based on the context that is provided.</p>
+<p>This function performs the processing of (a part of) a data stream for an authenticated encryption/decryption operation. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClAead_finish/ mcuxClAead_verify phase of aead multipart operation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
@@ -686,7 +714,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Multi-part authenticated encryption/decryption processing function for the associated data (authenticated only) </p>
-<p>This function performs the processing of (a part of) an associated data stream for an authenticated encryption/decryption operation. The algorithm and key to be used will be determined based on the context that is provided.</p>
+<p>This function performs the processing of (a part of) an associated data stream for an authenticated encryption/decryption operation. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClAead_finish/mcuxClAead_verify phase of aead multipart operation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
@@ -747,7 +775,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Multi-part authenticated encryption/decryption finalization function. </p>
-<p>This function performs the finalization of an authenticated encryption or decryption operation and produces the authentication tag. The algorithm and key to be used will be determined based on the context that is provided.</p>
+<p>This function performs the finalization of an authenticated encryption or decryption operation and produces the authentication tag. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClAead_finish phase of aead multipart operation.</p>
 <p>Note: the taglength is already specified when the INIT function is called.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -810,7 +838,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Multi-part authenticated decryption verification function. </p>
-<p>This function performs the finalization of an authenticated decryption operation and verifies the authentication tag. The algorithm and key to be used will be determined based on the context that is provided.</p>
+<p>This function performs the finalization of an authenticated decryption operation and verifies the authentication tag. The algorithm and key to be used will be determined based on the context that is provided. The user of the Crypto Library needs to keep the keyHandle alive until the mcuxClAead_verify phase of aead multipart operation.</p>
 <p>This function can be used as an alternative for <code>mcuxClAead_finish</code> when one also wants to perform the tag verification step.</p>
 <p>Note: the taglength is already specified when the INIT function is called.</p>
 <dl class="params"><dt>Parameters</dt><dd>

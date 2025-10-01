@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('a00317_source.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2022, 2024 NXP                                                 */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2022, 2024-2025 NXP                                            */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* NXP Confidential and Proprietary. This software is owned or controlled   */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/* by NXP and may only be used strictly in accordance with the applicable   */</span></div>
@@ -130,36 +130,35 @@ $(document).ready(function(){initNavTree('a00317_source.html',''); initResizable
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/* Error codes */</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define MCUXCLAES_STATUS_ERROR              ((mcuxClAes_Status_t) 0x0FF95330u)</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define MCUXCLAES_STATUS_OK                 ((mcuxClAes_Status_t) 0x0FF92E03u)</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">/* Block size */</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a00779.html#gaa988298f03dda2718fd7d6a893d84b6a">   37</a></span><span class="preprocessor">#define MCUXCLAES_BLOCK_SIZE                (16u)                                    </span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a00779.html#ga70310305440fe83e2f18e79341de4830">   38</a></span><span class="preprocessor">#define MCUXCLAES_BLOCK_SIZE_IN_WORDS       (MCUXCLAES_BLOCK_SIZE / sizeof(uint32_t)) </span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">/* Key sizes */</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a00779.html#gaf7377746dc3a4ea714c79c17f9ddbdde">   41</a></span><span class="preprocessor">#define MCUXCLAES_AES128_KEY_SIZE           (MCUXCLKEY_SIZE_128)            </span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a00779.html#ga82f8be599a040e7a44d1c4a78513b643">   42</a></span><span class="preprocessor">#define MCUXCLAES_AES128_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_128_IN_WORDS)   </span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a00779.html#ga10c60a14d43acdf3a32074b6104c00b4">   43</a></span><span class="preprocessor">#define MCUXCLAES_AES192_KEY_SIZE           (MCUXCLKEY_SIZE_192)            </span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a00779.html#ga68bc6c94d74d3ddde085798e06c5968a">   44</a></span><span class="preprocessor">#define MCUXCLAES_AES192_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_192_IN_WORDS)   </span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a00779.html#gaf85d02f88b56069ada0d2e6eaf184af8">   45</a></span><span class="preprocessor">#define MCUXCLAES_AES256_KEY_SIZE           (MCUXCLKEY_SIZE_256)            </span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a00779.html#ga59948f7fc4145e5dc383387f01dc439b">   46</a></span><span class="preprocessor">#define MCUXCLAES_AES256_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_256_IN_WORDS)   </span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">/* RFC3394 key wrap/unwrap Key container data sizes */</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a00779.html#ga8f3e7e636d8aab80c1d1febf1458a8c1">   49</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE                (8U)                                                              </span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a00779.html#ga4aed085a8ff1694395af6cad6be38f53">   50</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE           (MCUXCLAES_AES128_KEY_SIZE + MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE) </span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a00779.html#gadcbbda5d84d745c621e06782402182e5">   51</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE_IN_WORDS  (MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE / sizeof(uint32_t))    </span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a00779.html#gaf0fb9ba0accc4be49731a9f9a25453a4">   52</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES256_KEY_SIZE           (MCUXCLAES_AES256_KEY_SIZE + MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE) </span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a00779.html#ga1624efc28f123f0db47e7ae7721dcdb4">   53</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES256_KEY_SIZE_IN_WORDS  (MCUXCLAES_ENCODING_RFC3394_AES256_KEY_SIZE / sizeof(uint32_t))    </span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> <span class="comment">/* mcuxClAes_Constants */</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLAES_CONSTANTS_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/* Status code */</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define MCUXCLAES_STATUS_OK                 ((mcuxClAes_Status_t) 0x0FF92E03u)</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">/* Block size */</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a00779.html#gaa988298f03dda2718fd7d6a893d84b6a">   36</a></span><span class="preprocessor">#define MCUXCLAES_BLOCK_SIZE                (16u)                                    </span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a00779.html#ga70310305440fe83e2f18e79341de4830">   37</a></span><span class="preprocessor">#define MCUXCLAES_BLOCK_SIZE_IN_WORDS       (MCUXCLAES_BLOCK_SIZE / sizeof(uint32_t)) </span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">/* Key sizes */</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a00779.html#gaf7377746dc3a4ea714c79c17f9ddbdde">   40</a></span><span class="preprocessor">#define MCUXCLAES_AES128_KEY_SIZE           (MCUXCLKEY_SIZE_128)            </span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a00779.html#ga82f8be599a040e7a44d1c4a78513b643">   41</a></span><span class="preprocessor">#define MCUXCLAES_AES128_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_128_IN_WORDS)   </span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a00779.html#ga10c60a14d43acdf3a32074b6104c00b4">   42</a></span><span class="preprocessor">#define MCUXCLAES_AES192_KEY_SIZE           (MCUXCLKEY_SIZE_192)            </span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a00779.html#ga68bc6c94d74d3ddde085798e06c5968a">   43</a></span><span class="preprocessor">#define MCUXCLAES_AES192_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_192_IN_WORDS)   </span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a00779.html#gaf85d02f88b56069ada0d2e6eaf184af8">   44</a></span><span class="preprocessor">#define MCUXCLAES_AES256_KEY_SIZE           (MCUXCLKEY_SIZE_256)            </span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a00779.html#ga59948f7fc4145e5dc383387f01dc439b">   45</a></span><span class="preprocessor">#define MCUXCLAES_AES256_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_256_IN_WORDS)   </span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">/* RFC3394 key wrap/unwrap Key container data sizes */</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a00779.html#ga8f3e7e636d8aab80c1d1febf1458a8c1">   48</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE                (8U)                                                              </span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a00779.html#ga4aed085a8ff1694395af6cad6be38f53">   49</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE           (MCUXCLAES_AES128_KEY_SIZE + MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE) </span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a00779.html#gadcbbda5d84d745c621e06782402182e5">   50</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE_IN_WORDS  (MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE / sizeof(uint32_t))    </span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a00779.html#gaf0fb9ba0accc4be49731a9f9a25453a4">   51</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES256_KEY_SIZE           (MCUXCLAES_AES256_KEY_SIZE + MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE) </span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a00779.html#ga1624efc28f123f0db47e7ae7721dcdb4">   52</a></span><span class="preprocessor">#define MCUXCLAES_ENCODING_RFC3394_AES256_KEY_SIZE_IN_WORDS  (MCUXCLAES_ENCODING_RFC3394_AES256_KEY_SIZE / sizeof(uint32_t))    </span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> <span class="comment">/* mcuxClAes_Constants */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLAES_CONSTANTS_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aa00464_html"><div class="ttname"><a href="a00464.html">mcuxClKey_Constants.h</a></div><div class="ttdoc">Constants for the mcuxClKey component.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -130,11 +130,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ga6cd095f16a5ff26877cc877cecbd0e2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#ga6cd095f16a5ff26877cc877cecbd0e2b">MCUXCLHASH_STATUS_INVALID_PARAMS</a></td></tr>
 <tr class="memdesc:ga6cd095f16a5ff26877cc877cecbd0e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash function called with invalid parameters.  <br /></td></tr>
 <tr class="separator:ga6cd095f16a5ff26877cc877cecbd0e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabeb9fdba3834bd6d1b62b53d0b981bb9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#gabeb9fdba3834bd6d1b62b53d0b981bb9">MCUXCLHASH_STATUS_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK</a></td></tr>
-<tr class="memdesc:gabeb9fdba3834bd6d1b62b53d0b981bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export on state, for which a NON-multiple of the blocksize has been hashed.  <br /></td></tr>
-<tr class="separator:gabeb9fdba3834bd6d1b62b53d0b981bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5cb4d265e6848270e5a3e38b5e57e84a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#ga5cb4d265e6848270e5a3e38b5e57e84a">MCUXCLHASH_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK</a></td></tr>
-<tr class="separator:ga5cb4d265e6848270e5a3e38b5e57e84a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad39c265fd8728f3287eeef999cfeb599"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#gad39c265fd8728f3287eeef999cfeb599">MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL</a></td></tr>
 <tr class="memdesc:gad39c265fd8728f3287eeef999cfeb599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash operation succeeded, but comparison of result failed.  <br /></td></tr>
 <tr class="separator:gad39c265fd8728f3287eeef999cfeb599"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,7 +170,7 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Hash operation successful. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01144.html#a9">mcuxClHashModes_sha224_oneshot_example.c</a>, <a class="el" href="a01147.html#a9">mcuxClHashModes_sha256_longMsgOneshot_example.c</a>, <a class="el" href="a01146.html#a20">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a01145.html#a9">mcuxClHashModes_sha256_oneshot_example.c</a>, <a class="el" href="a01151.html#a15">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a01150.html#a7">mcuxClHashModes_sha256_streaming_example.c</a>, <a class="el" href="a01148.html#a9">mcuxClHashModes_sha384_oneshot_example.c</a>, <a class="el" href="a01149.html#a9">mcuxClHashModes_sha512_oneshot_example.c</a>, and <a class="el" href="a01172.html#a17">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01144.html#a9">mcuxClHashModes_sha224_oneshot_example.c</a>, <a class="el" href="a01147.html#a9">mcuxClHashModes_sha256_longMsgOneshot_example.c</a>, <a class="el" href="a01146.html#a17">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a01145.html#a9">mcuxClHashModes_sha256_oneshot_example.c</a>, <a class="el" href="a01151.html#a15">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a01150.html#a7">mcuxClHashModes_sha256_streaming_example.c</a>, <a class="el" href="a01148.html#a9">mcuxClHashModes_sha384_oneshot_example.c</a>, <a class="el" href="a01149.html#a9">mcuxClHashModes_sha512_oneshot_example.c</a>, and <a class="el" href="a01172.html#a17">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -253,36 +248,6 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Hash function called with invalid parameters. </p>
-
-</div>
-</div>
-<a id="gabeb9fdba3834bd6d1b62b53d0b981bb9" name="gabeb9fdba3834bd6d1b62b53d0b981bb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabeb9fdba3834bd6d1b62b53d0b981bb9">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Export on state, for which a NON-multiple of the blocksize has been hashed. </p>
-
-</div>
-</div>
-<a id="ga5cb4d265e6848270e5a3e38b5e57e84a" name="ga5cb4d265e6848270e5a3e38b5e57e84a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5cb4d265e6848270e5a3e38b5e57e84a">&#9670;&#160;</a></span>MCUXCLHASH_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_EXPORT_STATE_NOT_MULTIPLE_OF_BLOCK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -379,7 +344,7 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Job started in coprocessor has completed successfully. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01146.html#a19">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, and <a class="el" href="a01151.html#a21">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01146.html#a20">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, and <a class="el" href="a01151.html#a21">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>.</dd>
 </dl>
 
 </div>

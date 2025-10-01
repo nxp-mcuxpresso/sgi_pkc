@@ -184,6 +184,7 @@ Variables</h2></td></tr>
 
 <p>Sha-512 algorithm descriptor Sha-512 hash calculation using the Hash functionality SGI. </p>
 <dl class="section note"><dt>Note</dt><dd>Interrupts must be enabled on the DMA input channel with a properly installed handler. If the non-blocking Hash operation returns <a class="el" href="a00823.html#ga5a2f3c25cf99ceb579c18218af5a1269">MCUXCLHASH_STATUS_JOB_STARTED</a>, a non-blocking operation has started and the CPU is unblocked in the meantime. </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01149.html#a7">mcuxClHashModes_sha512_oneshot_example.c</a>.</dd>
 </dl>
 
@@ -235,6 +236,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sha-224 algorithm descriptor Sha-224 hash calculation using the Hash functionality SGI. </p>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01144.html#a7">mcuxClHashModes_sha224_oneshot_example.c</a>.</dd>
 </dl>
 
@@ -286,6 +288,7 @@ Variables</h2></td></tr>
 
 <p>Sha-224 algorithm descriptor Sha-224 hash calculation using the Hash non-blocking functionality SGI. </p>
 <dl class="section note"><dt>Note</dt><dd>Interrupts must be enabled on the DMA input channel with a properly installed handler. If the non-blocking Hash operation returns <a class="el" href="a00823.html#ga5a2f3c25cf99ceb579c18218af5a1269">MCUXCLHASH_STATUS_JOB_STARTED</a>, a non-blocking operation has started and the CPU is unblocked in the meantime. </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten. </dd></dl>
 
 </div>
 </div>
@@ -334,6 +337,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sha-256 algorithm descriptor Sha-256 hash calculation using the Hash functionality SGI. </p>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01147.html#a7">mcuxClHashModes_sha256_longMsgOneshot_example.c</a>, <a class="el" href="a01145.html#a7">mcuxClHashModes_sha256_oneshot_example.c</a>, <a class="el" href="a01150.html#a5">mcuxClHashModes_sha256_streaming_example.c</a>, <a class="el" href="a01164.html#a9">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01163.html#a9">mcuxClHmac_Sw_Oneshot_example.c</a>, and <a class="el" href="a01172.html#a12">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
 </dl>
 
@@ -385,6 +389,7 @@ Variables</h2></td></tr>
 
 <p>Sha-256 algorithm descriptor Sha-256 hash calculation using the Hash non-blocking functionality SGI. </p>
 <dl class="section note"><dt>Note</dt><dd>Interrupts must be enabled on the DMA input channel with a properly installed handler. If the non-blocking Hash operation returns <a class="el" href="a00823.html#ga5a2f3c25cf99ceb579c18218af5a1269">MCUXCLHASH_STATUS_JOB_STARTED</a>, a non-blocking operation has started and the CPU is unblocked in the meantime. </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01146.html#a15">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, and <a class="el" href="a01151.html#a14">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>.</dd>
 </dl>
 
@@ -436,6 +441,7 @@ Variables</h2></td></tr>
 
 <p>Sha-384 algorithm descriptor Sha-384 hash calculation using the Hash functionality SGI. </p>
 <dl class="section note"><dt>Note</dt><dd>Interrupts must be enabled on the DMA input channel with a properly installed handler. If the non-blocking Hash operation returns <a class="el" href="a00823.html#ga5a2f3c25cf99ceb579c18218af5a1269">MCUXCLHASH_STATUS_JOB_STARTED</a>, a non-blocking operation has started and the CPU is unblocked in the meantime. </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01148.html#a7">mcuxClHashModes_sha384_oneshot_example.c</a>.</dd>
 </dl>
 
@@ -487,6 +493,7 @@ Variables</h2></td></tr>
 
 <p>Sha-384 algorithm descriptor Sha-384 hash calculation using the Hash non-blocking functionality SGI. </p>
 <dl class="section note"><dt>Note</dt><dd>Interrupts must be enabled on the DMA input channel with a properly installed handler. If the non-blocking Hash operation returns <a class="el" href="a00823.html#ga5a2f3c25cf99ceb579c18218af5a1269">MCUXCLHASH_STATUS_JOB_STARTED</a>, a non-blocking operation has started and the CPU is unblocked in the meantime. </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten </dd></dl>
 
 </div>
 </div>
@@ -560,6 +567,7 @@ Variables</h2></td></tr>
 
 <p>Sha-512 algorithm descriptor Sha-512 hash calculation using the Hash non-blocking functionality SGI. </p>
 <dl class="section note"><dt>Note</dt><dd>Interrupts must be enabled on the DMA input channel with a properly installed handler. If the non-blocking Hash operation returns <a class="el" href="a00823.html#ga5a2f3c25cf99ceb579c18218af5a1269">MCUXCLHASH_STATUS_JOB_STARTED</a>, a non-blocking operation has started and the CPU is unblocked in the meantime. </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This mode uses the SGI_SHA_FIFO which overwrites the contents of key registers SGI KEY0-KEY3. Any preloaded key data in these slots will potentially be overwritten </dd></dl>
 
 </div>
 </div>

@@ -14,7 +14,6 @@ var a00839 =
     [ "MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM", "a00839.html#ga8de9456ab126f7227b1077462fbca3b4", null ],
     [ "MCUXCLKEY_ALGO_ID_KYBER", "a00839.html#ga328e925948239535ffd16507ca850709", null ],
     [ "MCUXCLKEY_ALGO_ID_MLDSA", "a00839.html#ga46caf00a0a205d8de66cfc5f65e783cc", null ],
-    [ "MCUXCLKEY_ALGO_ID_LMS", "a00839.html#ga2ec5ac6ef12c253d9c6cbd5d4dce5589", null ],
     [ "MCUXCLKEY_ALGO_ID_GMAC", "a00839.html#gac650c6066ab7e04ef2ea206e411e5e91", null ],
     [ "MCUXCLKEY_ALGO_ID_FFDH", "a00839.html#gaebdbc34c8207f9184531eabc96e00620", null ],
     [ "MCUXCLKEY_ALGO_ID_ALGO_MASK", "a00839.html#gaf933f3469276e89b07aa395f90e2d180", null ],

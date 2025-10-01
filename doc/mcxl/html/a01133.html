@@ -139,14 +139,14 @@ $(document).ready(function(){initNavTree('a01133.html',''); initResizable(); });
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#define MAX_PKCWA_SIZE (MCUXCLKEY_AGREEMENT_ECDH_WAPKC_SIZE_256)</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pAlicePrivKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PRIVATEKEY] __attribute__ ((aligned (4))) = {</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pAlicePrivKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PRIVATEKEY] <a id="_a0" name="_a0"></a><a class="code hl_struct" href="a01078.html">__attribute__</a> ((aligned (4))) = {</div>
 <div class="line">  0x5Du, 0x37u, 0x8Du, 0xFDu, 0x5Cu, 0xDDu, 0x7Au, 0x37u,</div>
 <div class="line">  0xE7u, 0x0Fu, 0x1Au, 0xF7u, 0xFEu, 0x99u, 0xA5u, 0x16u,</div>
 <div class="line">  0xD4u, 0xE0u, 0xC4u, 0x34u, 0xD8u, 0x49u, 0x85u, 0xFBu,</div>
 <div class="line">  0x12u, 0x50u, 0x32u, 0x06u, 0x73u, 0x9Au, 0x96u, 0xF4u,</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pAlicePubKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] __attribute__ ((aligned (4))) = {</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pAlicePubKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] <a class="code hl_struct" href="a01078.html">__attribute__</a> ((aligned (4))) = {</div>
 <div class="line">  0x0Cu, 0xB2u, 0x52u, 0x2Fu, 0x18u, 0xF9u, 0xB5u, 0xA3u,</div>
 <div class="line">  0xADu, 0x3Au, 0xE0u, 0x99u, 0x75u, 0x5Au, 0x49u, 0xCDu,</div>
 <div class="line">  0xCEu, 0x4Bu, 0x05u, 0x14u, 0xB5u, 0xC6u, 0x15u, 0x07u,</div>
@@ -157,14 +157,14 @@ $(document).ready(function(){initNavTree('a01133.html',''); initResizable(); });
 <div class="line">  0x23u, 0xC7u, 0xE9u, 0x41u, 0x25u, 0x80u, 0x46u, 0xBBu,</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pBobPrivKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PRIVATEKEY] __attribute__ ((aligned (4))) = {</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pBobPrivKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PRIVATEKEY] <a class="code hl_struct" href="a01078.html">__attribute__</a> ((aligned (4))) = {</div>
 <div class="line">  0x90u, 0xA1u, 0x2Cu, 0xEDu, 0x78u, 0x9Au, 0x4Fu, 0x82u,</div>
 <div class="line">  0x95u, 0xBAu, 0x2Fu, 0x79u, 0x3Du, 0x52u, 0x15u, 0xABu,</div>
 <div class="line">  0xDEu, 0x98u, 0x4Cu, 0x4Bu, 0x08u, 0x87u, 0xBFu, 0x6Fu,</div>
 <div class="line">  0x75u, 0x1Bu, 0x1Bu, 0x19u, 0xF2u, 0xFDu, 0x76u, 0x03u</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pBobPubKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] __attribute__ ((aligned (4))) = {</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pBobPubKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] <a class="code hl_struct" href="a01078.html">__attribute__</a> ((aligned (4))) = {</div>
 <div class="line">  0xF4u, 0x7Au, 0x9Au, 0xA6u, 0x2Du, 0x6Bu, 0x5Cu, 0x57u,</div>
 <div class="line">  0x1Eu, 0xC6u, 0x6Au, 0xDFu, 0x00u, 0x1Eu, 0x2Cu, 0x2Du,</div>
 <div class="line">  0x21u, 0x72u, 0xDEu, 0x07u, 0x2Bu, 0xA5u, 0xB9u, 0xB4u,</div>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('a01133.html',''); initResizable(); });
 <div class="line"><span class="comment">  /**************************************************************************/</span></div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Setup one session to be used by all functions called */</span></div>
-<div class="line">  <a id="_a0" name="_a0"></a><a class="code hl_struct" href="a01094.html">mcuxClSession_Descriptor_t</a> sessionDesc;</div>
+<div class="line">  <a id="_a1" name="_a1"></a><a class="code hl_struct" href="a01094.html">mcuxClSession_Descriptor_t</a> sessionDesc;</div>
 <div class="line">  <a class="code hl_typedef" href="a00907.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
 <div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session,</div>
 <div class="line">                                              MAX_CPUWA_SIZE,</div>
@@ -195,18 +195,18 @@ $(document).ready(function(){initNavTree('a01133.html',''); initResizable(); });
 <div class="line">  <a class="code hl_typedef" href="a00844.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> alicePrivKey = (<a class="code hl_typedef" href="a00844.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;alicePrivKeyDesc;</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line"> </div>
-<div class="line">  <a id="a1" name="a1"></a><a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(aliceprivkeyinit_result, aliceprivkeyinit_token, <a id="a2" name="a2"></a><a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">  <a id="a2" name="a2"></a><a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(aliceprivkeyinit_result, aliceprivkeyinit_token, <a id="a3" name="a3"></a><a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> alicePrivKey,</div>
-<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a3" name="a3"></a><a class="code hl_variable" href="a00802.html#gacc7e8ff2ac5a8a3d894d7a9da0a80341">mcuxClKey_Type_WeierECC_NIST_P256_Priv</a>,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a4" name="a4"></a><a class="code hl_variable" href="a00802.html#gacc7e8ff2ac5a8a3d894d7a9da0a80341">mcuxClKey_Type_WeierECC_NIST_P256_Priv</a>,</div>
 <div class="line">  <span class="comment">/* const uint8_t * pKeyData              */</span> pAlicePrivKeyData,</div>
 <div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> MCUXCLECC_WEIERECC_NIST_P256_SIZE_PRIVATEKEY));</div>
 <div class="line"> </div>
-<div class="line">  if((<a id="a4" name="a4"></a><a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != aliceprivkeyinit_token) || (<a id="a5" name="a5"></a><a class="code hl_define" href="a00837.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != aliceprivkeyinit_result))</div>
+<div class="line">  if((<a id="a5" name="a5"></a><a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != aliceprivkeyinit_token) || (<a id="a6" name="a6"></a><a class="code hl_define" href="a00837.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != aliceprivkeyinit_result))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">  }</div>
-<div class="line">  <a id="a6" name="a6"></a><a class="code hl_define" href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <a id="a7" name="a7"></a><a class="code hl_define" href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Allocate space for and initialize Alice&#39;s public key handle for an ECDH NIST P-256 public key */</span></div>
 <div class="line">  uint32_t alicePubKeyDesc[(MCUXCLKEY_DESCRIPTOR_SIZE + (<span class="keyword">sizeof</span>(uint32_t)) - 1u) / (<span class="keyword">sizeof</span>(uint32_t))];</div>
@@ -217,7 +217,7 @@ $(document).ready(function(){initNavTree('a01133.html',''); initResizable(); });
 <div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(alicepubkeyinit_result, alicepubkeyinit_token, <a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> alicePubKey,</div>
-<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a7" name="a7"></a><a class="code hl_variable" href="a00802.html#ga7f344daa7b996e30a163c9053f05ac5f">mcuxClKey_Type_WeierECC_NIST_P256_Pub</a>,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a8" name="a8"></a><a class="code hl_variable" href="a00802.html#ga7f344daa7b996e30a163c9053f05ac5f">mcuxClKey_Type_WeierECC_NIST_P256_Pub</a>,</div>
 <div class="line">  <span class="comment">/* const uint8_t * pKeyData              */</span> pAlicePubKeyData,</div>
 <div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY));</div>
 <div class="line"> </div>
@@ -278,9 +278,9 @@ $(document).ready(function(){initNavTree('a01133.html',''); initResizable(); });
 <div class="line">  <span class="comment">/* Alice computes the shared key */</span></div>
 <div class="line">  uint8_t aliceSharedSecret[MCUXCLECC_WEIERECC_NIST_P256_SIZE_SHAREDSECRET];</div>
 <div class="line">  uint32_t aliceSharedSecretSize = 0u;</div>
-<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(alice_keyagreement_result, alice_keyagreement_token, <a id="a8" name="a8"></a><a class="code hl_function" href="a00843.html#gaea7419f6a10d0d173250a9de5d39765a">mcuxClKey_agreement</a>(</div>
+<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(alice_keyagreement_result, alice_keyagreement_token, <a id="a9" name="a9"></a><a class="code hl_function" href="a00843.html#gaea7419f6a10d0d173250a9de5d39765a">mcuxClKey_agreement</a>(</div>
 <div class="line">    <span class="comment">/* mcuxClSession_Handle_t pSession:                          */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Agreement_t agreement:                          */</span> <a id="a9" name="a9"></a><a class="code hl_variable" href="a00804.html#ga17bcc12a56c33f015f913d6bed36f8cc">mcuxClKey_Agreement_ECDH</a>,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Agreement_t agreement:                          */</span> <a id="a10" name="a10"></a><a class="code hl_variable" href="a00804.html#ga17bcc12a56c33f015f913d6bed36f8cc">mcuxClKey_Agreement_ECDH</a>,</div>
 <div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:                                   */</span> alicePrivKey,</div>
 <div class="line">    <span class="comment">/* mcuxClKey_Handle_t otherKey:                              */</span> bobPubKey,</div>
 <div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT(<span class="stringliteral">&quot;NULL is used in code&quot;</span>)</div>
@@ -351,6 +351,7 @@ $(document).ready(function(){initNavTree('a01133.html',''); initResizable(); });
 <div class="ttc" id="aa00931_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:623</div></div>
 <div class="ttc" id="aa00931_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:777</div></div>
 <div class="ttc" id="aa00931_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:658</div></div>
+<div class="ttc" id="aa01078_html"><div class="ttname"><a href="a01078.html">__attribute__</a></div><div class="ttdoc">Structure type for Rsa key entries, specifying key entry length and data.</div><div class="ttdef"><b>Definition</b> mcuxClRsa_Types.h:104</div></div>
 <div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">mcuxClSession_Descriptor</a></div><div class="ttdoc">Structure for mcuxClSession Descriptor.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:163</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

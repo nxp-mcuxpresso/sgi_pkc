@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClEcc_WeierECC_KeyValidation_PublicKey_example.c</title>
+<title>MCUX CLNS: mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClEcc_WeierECC_KeyValidation_PublicKey_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</div></div>
 </div><!--header-->
 <div class="contents">
 <p>Example for the mcuxClEcc component.</p>
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 <div class="line"><span class="preprocessor">#define MAX_CPUWA_SIZE MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WACPU_SIZE</span></div>
 <div class="line"><span class="preprocessor">#define MAX_PKCWA_SIZE MCUXCLECC_WEIERECC_PUBLICKEYVALIDATION_WAPKC_SIZE_256</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pPubKeyData_InvalidPoint[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] __attribute__ ((aligned (4))) = {</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pPubKeyData_InvalidPoint[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] <a id="_a0" name="_a0"></a><a class="code hl_struct" href="a01078.html">__attribute__</a> ((aligned (4))) = {</div>
 <div class="line">  0x0Cu, 0xB2u, 0x52u, 0x2Fu, 0x18u, 0xF9u, 0xB5u, 0xA3u,</div>
 <div class="line">  0xADu, 0x3Au, 0xE0u, 0x99u, 0x75u, 0x5Au, 0x49u, 0xCDu,</div>
 <div class="line">  0xCEu, 0x4Bu, 0x05u, 0x14u, 0xB5u, 0xC6u, 0x15u, 0x07u,</div>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 <div class="line">  0x23u, 0xC7u, 0xE9u, 0x41u, 0x25u, 0x80u, 0x46u, 0xBAu,</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pPubKeyData_Valid[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] __attribute__ ((aligned (4))) = {</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t pPubKeyData_Valid[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY] <a class="code hl_struct" href="a01078.html">__attribute__</a> ((aligned (4))) = {</div>
 <div class="line">  0x0Cu, 0xB2u, 0x52u, 0x2Fu, 0x18u, 0xF9u, 0xB5u, 0xA3u,</div>
 <div class="line">  0xADu, 0x3Au, 0xE0u, 0x99u, 0x75u, 0x5Au, 0x49u, 0xCDu,</div>
 <div class="line">  0xCEu, 0x4Bu, 0x05u, 0x14u, 0xB5u, 0xC6u, 0x15u, 0x07u,</div>
@@ -156,10 +156,10 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Example of public key validation for Weierstrass curve NIST P-256. */</span></div>
-<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_WeierECC_KeyValidation_PublicKey_example)</div>
+<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_Weier_KeyValidation_PublicKey_example)</div>
 <div class="line">{</div>
 <div class="line">  <span class="comment">/* Setup one session to be used by all functions called */</span></div>
-<div class="line">  <a id="_a0" name="_a0"></a><a class="code hl_struct" href="a01094.html">mcuxClSession_Descriptor_t</a> sessionDesc;</div>
+<div class="line">  <a id="_a1" name="_a1"></a><a class="code hl_struct" href="a01094.html">mcuxClSession_Descriptor_t</a> sessionDesc;</div>
 <div class="line">  <a class="code hl_typedef" href="a00907.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
 <div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MAX_CPUWA_SIZE, MAX_PKCWA_SIZE);</div>
 <div class="line"> </div>
@@ -169,26 +169,26 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 <div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Initialize public key with a point that is not on the curve */</span></div>
-<div class="line">  <a id="a1" name="a1"></a><a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(pubkeyinit_result1, pubkeyinit_token1, <a id="a2" name="a2"></a><a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">  <a id="a2" name="a2"></a><a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(pubkeyinit_result1, pubkeyinit_token1, <a id="a3" name="a3"></a><a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> pubKey,</div>
-<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a3" name="a3"></a><a class="code hl_variable" href="a00802.html#ga7f344daa7b996e30a163c9053f05ac5f">mcuxClKey_Type_WeierECC_NIST_P256_Pub</a>,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a4" name="a4"></a><a class="code hl_variable" href="a00802.html#ga7f344daa7b996e30a163c9053f05ac5f">mcuxClKey_Type_WeierECC_NIST_P256_Pub</a>,</div>
 <div class="line">  <span class="comment">/* const uint8_t * pKeyData              */</span> pPubKeyData_InvalidPoint,</div>
 <div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY));</div>
 <div class="line"> </div>
-<div class="line">  if((<a id="a4" name="a4"></a><a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != pubkeyinit_token1) || (<a id="a5" name="a5"></a><a class="code hl_define" href="a00837.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != pubkeyinit_result1))</div>
+<div class="line">  if((<a id="a5" name="a5"></a><a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != pubkeyinit_token1) || (<a id="a6" name="a6"></a><a class="code hl_define" href="a00837.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != pubkeyinit_result1))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">  }</div>
-<div class="line">  <a id="a6" name="a6"></a><a class="code hl_define" href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <a id="a7" name="a7"></a><a class="code hl_define" href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Validate key and expect MCUXCLKEY_STATUS_VALIDATION_FAILED */</span></div>
-<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(keyvalidate_result1, keyvalidate_token1, <a id="a7" name="a7"></a><a class="code hl_function" href="a00843.html#ga9da98381c1d94578097ed203f8f6084c">mcuxClKey_validate</a>(</div>
+<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(keyvalidate_result1, keyvalidate_token1, <a id="a8" name="a8"></a><a class="code hl_function" href="a00843.html#ga9da98381c1d94578097ed203f8f6084c">mcuxClKey_validate</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
-<div class="line">  <span class="comment">/* mcuxClKey_Validation_t validation      */</span> <a id="a8" name="a8"></a><a class="code hl_variable" href="a00805.html#gae2ba2f0108e57953f7527dbac699b1d2">mcuxClKey_Validation_WeierECC_PublicKey</a>,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Validation_t validation      */</span> <a id="a9" name="a9"></a><a class="code hl_variable" href="a00805.html#gae2ba2f0108e57953f7527dbac699b1d2">mcuxClKey_Validation_WeierECC_PublicKey</a>,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> pubKey));</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga9da98381c1d94578097ed203f8f6084c">mcuxClKey_validate</a>) != keyvalidate_token1) || (<a id="a9" name="a9"></a><a class="code hl_define" href="a00837.html#gaffba7b3ac623991f806248ec286cb42a">MCUXCLKEY_STATUS_VALIDATION_FAILED</a> != keyvalidate_result1))</div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga9da98381c1d94578097ed203f8f6084c">mcuxClKey_validate</a>) != keyvalidate_token1) || (<a id="a10" name="a10"></a><a class="code hl_define" href="a00837.html#gaffba7b3ac623991f806248ec286cb42a">MCUXCLKEY_STATUS_VALIDATION_FAILED</a> != keyvalidate_result1))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">  }</div>
@@ -215,7 +215,7 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 <div class="line">  <span class="comment">/* mcuxClKey_Validation_t validation      */</span> <a class="code hl_variable" href="a00805.html#gae2ba2f0108e57953f7527dbac699b1d2">mcuxClKey_Validation_WeierECC_PublicKey</a>,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> pubKey));</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga9da98381c1d94578097ed203f8f6084c">mcuxClKey_validate</a>) != keyvalidate_token2) || (<a id="a10" name="a10"></a><a class="code hl_define" href="a00837.html#ga6ca1fd21e2f91e36cd18d281507bc005">MCUXCLKEY_STATUS_VALIDATION_PASSED</a> != keyvalidate_result2))</div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga9da98381c1d94578097ed203f8f6084c">mcuxClKey_validate</a>) != keyvalidate_token2) || (<a id="a11" name="a11"></a><a class="code hl_define" href="a00837.html#ga6ca1fd21e2f91e36cd18d281507bc005">MCUXCLKEY_STATUS_VALIDATION_PASSED</a> != keyvalidate_result2))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">  }</div>
@@ -238,8 +238,8 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 <div class="ttc" id="aa00802_html_ga7f344daa7b996e30a163c9053f05ac5f"><div class="ttname"><a href="a00802.html#ga7f344daa7b996e30a163c9053f05ac5f">mcuxClKey_Type_WeierECC_NIST_P256_Pub</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_NIST_P256_Pub</div><div class="ttdoc">Key type pointer for public ECC Weierstrass keys for Weierstrass curve NIST P-256.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_KeyTypes.h:457</div></div>
 <div class="ttc" id="aa00805_html_gae2ba2f0108e57953f7527dbac699b1d2"><div class="ttname"><a href="a00805.html#gae2ba2f0108e57953f7527dbac699b1d2">mcuxClKey_Validation_WeierECC_PublicKey</a></div><div class="ttdeci">static mcuxClKey_Validation_t mcuxClKey_Validation_WeierECC_PublicKey</div><div class="ttdoc">Key validation type for a public key used for ECC on a Weierstrass curve.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_KeyTypes.h:1324</div></div>
 <div class="ttc" id="aa00837_html_ga3cac3b08cb53d2949698e19319010c49"><div class="ttname"><a href="a00837.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_OK</div><div class="ttdoc">Key operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:39</div></div>
-<div class="ttc" id="aa00837_html_ga6ca1fd21e2f91e36cd18d281507bc005"><div class="ttname"><a href="a00837.html#ga6ca1fd21e2f91e36cd18d281507bc005">MCUXCLKEY_STATUS_VALIDATION_PASSED</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_VALIDATION_PASSED</div><div class="ttdoc">Key validation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:49</div></div>
-<div class="ttc" id="aa00837_html_gaffba7b3ac623991f806248ec286cb42a"><div class="ttname"><a href="a00837.html#gaffba7b3ac623991f806248ec286cb42a">MCUXCLKEY_STATUS_VALIDATION_FAILED</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_VALIDATION_FAILED</div><div class="ttdoc">Key validation failed.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:50</div></div>
+<div class="ttc" id="aa00837_html_ga6ca1fd21e2f91e36cd18d281507bc005"><div class="ttname"><a href="a00837.html#ga6ca1fd21e2f91e36cd18d281507bc005">MCUXCLKEY_STATUS_VALIDATION_PASSED</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_VALIDATION_PASSED</div><div class="ttdoc">Key validation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:46</div></div>
+<div class="ttc" id="aa00837_html_gaffba7b3ac623991f806248ec286cb42a"><div class="ttname"><a href="a00837.html#gaffba7b3ac623991f806248ec286cb42a">MCUXCLKEY_STATUS_VALIDATION_FAILED</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_VALIDATION_FAILED</div><div class="ttdoc">Key validation failed.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:47</div></div>
 <div class="ttc" id="aa00843_html_ga5faf77a895683e1e7d904bd323abc38d"><div class="ttname"><a href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_init(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Type_t type, const uint8_t *pKeyData, uint32_t keyDataLength)</div><div class="ttdoc">Initializes a key handle.</div></div>
 <div class="ttc" id="aa00843_html_ga9da98381c1d94578097ed203f8f6084c"><div class="ttname"><a href="a00843.html#ga9da98381c1d94578097ed203f8f6084c">mcuxClKey_validate</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_validate(mcuxClSession_Handle_t session, mcuxClKey_Validation_t validation, mcuxClKey_Handle_t key)</div><div class="ttdoc">Key validation function.</div></div>
 <div class="ttc" id="aa00844_html_gafe84fa2aa66094f542164e0627a54c5d"><div class="ttname"><a href="a00844.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></div><div class="ttdeci">mcuxClKey_Descriptor_t *const mcuxClKey_Handle_t</div><div class="ttdoc">Key handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:91</div></div>
@@ -247,6 +247,7 @@ $(document).ready(function(){initNavTree('a01131.html',''); initResizable(); });
 <div class="ttc" id="aa00931_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:623</div></div>
 <div class="ttc" id="aa00931_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:777</div></div>
 <div class="ttc" id="aa00931_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:658</div></div>
+<div class="ttc" id="aa01078_html"><div class="ttname"><a href="a01078.html">__attribute__</a></div><div class="ttdoc">Structure type for Rsa key entries, specifying key entry length and data.</div><div class="ttdef"><b>Definition</b> mcuxClRsa_Types.h:104</div></div>
 <div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">mcuxClSession_Descriptor</a></div><div class="ttdoc">Structure for mcuxClSession Descriptor.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:163</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

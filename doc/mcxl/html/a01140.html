@@ -145,13 +145,13 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line"><span class="preprocessor">                                     MCUXCLECC_EDDSA_VERIFYSIGNATURE_ED25519_WAPKC_SIZE))</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Input taken from &quot;TEST abc&quot; from Section 7.3 of IRTF rfc 8032 */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pMessage[] __attribute__((aligned(4))) =</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pMessage[] <a id="_a0" name="_a0"></a><a class="code hl_struct" href="a01078.html">__attribute__</a>((aligned(4))) =</div>
 <div class="line">{</div>
 <div class="line">  0x61u, 0x62u, 0x63u</div>
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Signature taken from &quot;TEST abc&quot; from Section 7.3 of IRTF rfc 8032 */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pRefSignature[<a id="a0" name="a0"></a><a class="code hl_define" href="a01035.html#gafd15d3ce72046f505d9763687d1614df">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</a>] __attribute__((aligned(4))) =</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pRefSignature[<a id="a1" name="a1"></a><a class="code hl_define" href="a01035.html#gafd15d3ce72046f505d9763687d1614df">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</a>] <a class="code hl_struct" href="a01078.html">__attribute__</a>((aligned(4))) =</div>
 <div class="line">{</div>
 <div class="line">  0x98u, 0xa7u, 0x02u, 0x22u, 0xf0u, 0xb8u, 0x12u, 0x1au,</div>
 <div class="line">  0xa9u, 0xd3u, 0x0fu, 0x81u, 0x3du, 0x68u, 0x3fu, 0x80u,</div>
@@ -164,7 +164,7 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Private key taken from &quot;TEST abc&quot; from Section 7.3 of IRTF rfc 8032 */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pPrivateKey[<a id="a1" name="a1"></a><a class="code hl_define" href="a01035.html#gab2c2539baf2994a0baae71d5d5c8f9fe">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY</a>] __attribute__((aligned(4))) =</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pPrivateKey[<a id="a2" name="a2"></a><a class="code hl_define" href="a01035.html#gab2c2539baf2994a0baae71d5d5c8f9fe">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY</a>] <a class="code hl_struct" href="a01078.html">__attribute__</a>((aligned(4))) =</div>
 <div class="line">{</div>
 <div class="line">  0x83u, 0x3fu, 0xe6u, 0x24u, 0x09u, 0x23u, 0x7bu, 0x9du,</div>
 <div class="line">  0x62u, 0xecu, 0x77u, 0x58u, 0x75u, 0x20u, 0x91u, 0x1eu,</div>
@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line"><span class="comment">  /******************************************/</span></div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Setup one session to be used by all functions called */</span></div>
-<div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_struct" href="a01094.html">mcuxClSession_Descriptor_t</a> sessionDesc;</div>
+<div class="line">  <a id="_a3" name="_a3"></a><a class="code hl_struct" href="a01094.html">mcuxClSession_Descriptor_t</a> sessionDesc;</div>
 <div class="line">  <a class="code hl_typedef" href="a00907.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
 <div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MAX_CPUWA_SIZE, MAX_PKCWA_SIZE);</div>
 <div class="line"> </div>
@@ -196,32 +196,32 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line">  <a class="code hl_typedef" href="a00844.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> privKey = (<a class="code hl_typedef" href="a00844.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>)&amp;privKeyDesc;</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">  ALIGNED uint8_t pPrivateKeyData[<a id="a3" name="a3"></a><a class="code hl_define" href="a01035.html#ga550f1830c8403002664123225e0f594f">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA</a>];</div>
+<div class="line">  ALIGNED uint8_t pPrivateKeyData[<a id="a4" name="a4"></a><a class="code hl_define" href="a01035.html#ga550f1830c8403002664123225e0f594f">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA</a>];</div>
 <div class="line"> </div>
-<div class="line">  <a id="a4" name="a4"></a><a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(privkeyinit_result, privkeyinit_token, <a id="a5" name="a5"></a><a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">  <a id="a5" name="a5"></a><a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(privkeyinit_result, privkeyinit_token, <a id="a6" name="a6"></a><a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> privKey,</div>
-<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a6" name="a6"></a><a class="code hl_variable" href="a00802.html#ga4f21b03709a5cac0b713f4e930102af8">mcuxClKey_Type_EdDSA_Ed25519_Priv</a>,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a7" name="a7"></a><a class="code hl_variable" href="a00802.html#ga4f21b03709a5cac0b713f4e930102af8">mcuxClKey_Type_EdDSA_Ed25519_Priv</a>,</div>
 <div class="line">  <span class="comment">/* uint8_t * pKeyData                    */</span> pPrivateKeyData,</div>
 <div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> sizeof(pPrivateKeyData)));</div>
 <div class="line"> </div>
-<div class="line">  if ((<a id="a7" name="a7"></a><a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != privkeyinit_token) || (<a id="a8" name="a8"></a><a class="code hl_define" href="a00837.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != privkeyinit_result))</div>
+<div class="line">  if ((<a id="a8" name="a8"></a><a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != privkeyinit_token) || (<a id="a9" name="a9"></a><a class="code hl_define" href="a00837.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != privkeyinit_result))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">  }</div>
-<div class="line">  <a id="a9" name="a9"></a><a class="code hl_define" href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <a id="a10" name="a10"></a><a class="code hl_define" href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Allocate space for and initialize public key handle for an Ed25519 public key */</span></div>
 <div class="line">  uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line">  <a class="code hl_typedef" href="a00844.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> pubKey = (<a class="code hl_typedef" href="a00844.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>)&amp;pubKeyDesc;</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">  ALIGNED uint8_t pPublicKeyData[<a id="a10" name="a10"></a><a class="code hl_define" href="a01035.html#gaf6cce889f1dc2b213479126d850af09c">MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY</a>];</div>
+<div class="line">  ALIGNED uint8_t pPublicKeyData[<a id="a11" name="a11"></a><a class="code hl_define" href="a01035.html#gaf6cce889f1dc2b213479126d850af09c">MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY</a>];</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(pubkeyinit_result, pubkeyinit_token, <a class="code hl_function" href="a00843.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> pubKey,</div>
-<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a11" name="a11"></a><a class="code hl_variable" href="a00802.html#gab1d91d013e28a086fd4e13175252c049">mcuxClKey_Type_EdDSA_Ed25519_Pub</a>,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="a12" name="a12"></a><a class="code hl_variable" href="a00802.html#gab1d91d013e28a086fd4e13175252c049">mcuxClKey_Type_EdDSA_Ed25519_Pub</a>,</div>
 <div class="line">  <span class="comment">/* uint8_t * pKeyData                    */</span> pPublicKeyData,</div>
 <div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> sizeof(pPublicKeyData)));</div>
 <div class="line"> </div>
@@ -232,15 +232,15 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line">  <a class="code hl_define" href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Allocate space for and initialize EdDSA key pair generation descriptor for private key input */</span></div>
-<div class="line">  ALIGNED uint8_t privKeyInputDescriptor[<a id="a12" name="a12"></a><a class="code hl_define" href="a01050.html#ga435b584a2a74e53c5987727a938aa65d">MCUXCLECC_EDDSA_GENERATEKEYPAIR_DESCRIPTOR_SIZE</a>];</div>
-<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(initmode_result, initmode_token, <a id="a13" name="a13"></a><a class="code hl_function" href="a00801.html#ga878fb07c7885e8b54facc7dba3690100">mcuxClEcc_EdDSA_InitPrivKeyInputMode</a>(</div>
+<div class="line">  ALIGNED uint8_t privKeyInputDescriptor[<a id="a13" name="a13"></a><a class="code hl_define" href="a01050.html#ga435b584a2a74e53c5987727a938aa65d">MCUXCLECC_EDDSA_GENERATEKEYPAIR_DESCRIPTOR_SIZE</a>];</div>
+<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(initmode_result, initmode_token, <a id="a14" name="a14"></a><a class="code hl_function" href="a00801.html#ga878fb07c7885e8b54facc7dba3690100">mcuxClEcc_EdDSA_InitPrivKeyInputMode</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t pSession                   */</span> session,</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY(<span class="stringliteral">&quot;Buffer is correctly aligned&quot;</span>)</div>
 <div class="line">  <span class="comment">/* mcuxClKey_GenerationDescriptor_t *generationMode  */</span> (<a class="code hl_typedef" href="a00844.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a> *) &amp;privKeyInputDescriptor,</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()</div>
 <div class="line">  <span class="comment">/* const uint8_t *pPrivKey                          */</span> pPrivateKey));</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00801.html#ga878fb07c7885e8b54facc7dba3690100">mcuxClEcc_EdDSA_InitPrivKeyInputMode</a>) != initmode_token) || (<a id="a14" name="a14"></a><a class="code hl_define" href="a01001.html#gafed6866e44c300e1946713be81aefb9c">MCUXCLECC_STATUS_OK</a> != initmode_result))</div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00801.html#ga878fb07c7885e8b54facc7dba3690100">mcuxClEcc_EdDSA_InitPrivKeyInputMode</a>) != initmode_token) || (<a id="a15" name="a15"></a><a class="code hl_define" href="a01001.html#gafed6866e44c300e1946713be81aefb9c">MCUXCLECC_STATUS_OK</a> != initmode_result))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">  }</div>
@@ -253,7 +253,7 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line">  <span class="comment">/* Key pair generation for EdDSA on Ed25519                               */</span></div>
 <div class="line"><span class="comment">  /**************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(gkp_status, gkp_token, <a id="a15" name="a15"></a><a class="code hl_function" href="a00843.html#gabe229dce364a13239b307a5c9cfeb343">mcuxClKey_generate_keypair</a>(</div>
+<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(gkp_status, gkp_token, <a id="a16" name="a16"></a><a class="code hl_function" href="a00843.html#gabe229dce364a13239b307a5c9cfeb343">mcuxClKey_generate_keypair</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t pSession:   */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Generation_t generation: */</span> mcuxClKey_Generation_EdDSA,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t privKey:        */</span> privKey,</div>
@@ -270,13 +270,13 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line"><span class="comment">  /******************************************/</span></div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Allocate space for the hash prefix and a mode descriptor for Ed25519ph. */</span></div>
-<div class="line">  ALIGNED uint8_t signatureModeBytes[<a id="a16" name="a16"></a><a class="code hl_define" href="a01052.html#ga2babe27499b85ddf6e24059c6423a13e">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_MODE_DESCRIPTOR</a>(0u)];</div>
+<div class="line">  ALIGNED uint8_t signatureModeBytes[<a id="a17" name="a17"></a><a class="code hl_define" href="a01052.html#ga2babe27499b85ddf6e24059c6423a13e">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_MODE_DESCRIPTOR</a>(0u)];</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY(<span class="stringliteral">&quot;Buffer is correctly aligned&quot;</span>)</div>
 <div class="line">  <a class="code hl_typedef" href="a00914.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *pSignatureMode = (<a class="code hl_typedef" href="a00914.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *) signatureModeBytes;</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">/* Generate Ed25519ph protocol descriptor */</span></div>
-<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(genProtocolDescr_result, protocolDescr_token, <a id="a17" name="a17"></a><a class="code hl_function" href="a00801.html#ga5a82f1ad8d6418a0cc3ed6632053f5f8">mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor</a>(</div>
+<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(genProtocolDescr_result, protocolDescr_token, <a id="a18" name="a18"></a><a class="code hl_function" href="a00801.html#ga5a82f1ad8d6418a0cc3ed6632053f5f8">mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session                                    */</span> session,</div>
 <div class="line">  <span class="comment">/* const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams               */</span> &amp;mcuxClEcc_EdDSA_DomainParams_Ed25519,</div>
 <div class="line">  <span class="comment">/* mcuxClSignature_ModeDescriptor_t *pSignatureMode                  */</span> pSignatureMode,</div>
@@ -299,11 +299,11 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line"> </div>
 <div class="line">  ALIGNED uint8_t signature[<a class="code hl_define" href="a01035.html#gafd15d3ce72046f505d9763687d1614df">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</a>] = {0u};</div>
 <div class="line">  uint32_t signatureSize = 0u;</div>
-<div class="line">  <a id="a18" name="a18"></a><a class="code hl_define" href="a00784.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(buffIn, NULL, pMessage, <span class="keyword">sizeof</span>(pMessage));</div>
-<div class="line">  <a id="a19" name="a19"></a><a class="code hl_define" href="a00784.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(buffSignature, NULL, signature, <a class="code hl_define" href="a01035.html#gafd15d3ce72046f505d9763687d1614df">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</a>);</div>
+<div class="line">  <a id="a19" name="a19"></a><a class="code hl_define" href="a00784.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(buffIn, NULL, pMessage, <span class="keyword">sizeof</span>(pMessage));</div>
+<div class="line">  <a id="a20" name="a20"></a><a class="code hl_define" href="a00784.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(buffSignature, NULL, signature, <a class="code hl_define" href="a01035.html#gafd15d3ce72046f505d9763687d1614df">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</a>);</div>
 <div class="line"> </div>
 <div class="line">  MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(MISRA_C_2012_Rule_9_1, <span class="stringliteral">&quot;pSignatureMode is initialized&quot;</span>)</div>
-<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ss_status, ss_token, <a id="a20" name="a20"></a><a class="code hl_function" href="a00913.html#ga83fe33e60245cf90a490e3214c8de672">mcuxClSignature_sign</a>(</div>
+<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ss_status, ss_token, <a id="a21" name="a21"></a><a class="code hl_function" href="a00913.html#ga83fe33e60245cf90a490e3214c8de672">mcuxClSignature_sign</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session:   */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key:           */</span> privKey,</div>
 <div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(&quot;Initialized by <a class="code hl_function" href="a00801.html#ga5a82f1ad8d6418a0cc3ed6632053f5f8">mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor</a>&quot;)</div>
@@ -329,7 +329,7 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="line"><span class="comment">  /**************************************************************************/</span></div>
 <div class="line"> </div>
 <div class="line">  MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(MISRA_C_2012_Rule_9_1, <span class="stringliteral">&quot;pSignatureMode is initialized&quot;</span>)</div>
-<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(sv_status, sv_token, <a id="a21" name="a21"></a><a class="code hl_function" href="a00913.html#ga1b7deb8d71deafd479940561123b6a87">mcuxClSignature_verify</a>(</div>
+<div class="line">  <a class="code hl_define" href="a00931.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(sv_status, sv_token, <a id="a22" name="a22"></a><a class="code hl_function" href="a00913.html#ga1b7deb8d71deafd479940561123b6a87">mcuxClSignature_verify</a>(</div>
 <div class="line">  <span class="comment">/* mcuxClSession_Handle_t session:  */</span> session,</div>
 <div class="line">  <span class="comment">/* mcuxClKey_Handle_t key:          */</span> pubKey,</div>
 <div class="line">  <span class="comment">/* mcuxClSignature_Mode_t mode:     */</span> pSignatureMode,</div>
@@ -391,12 +391,13 @@ $(document).ready(function(){initNavTree('a01140.html',''); initResizable(); });
 <div class="ttc" id="aa00931_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a00931.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:777</div></div>
 <div class="ttc" id="aa00931_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a00931.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:658</div></div>
 <div class="ttc" id="aa01001_html_gafed6866e44c300e1946713be81aefb9c"><div class="ttname"><a href="a01001.html#gafed6866e44c300e1946713be81aefb9c">MCUXCLECC_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLECC_STATUS_OK</div><div class="ttdoc">Operation was successful.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:46</div></div>
-<div class="ttc" id="aa01035_html_ga550f1830c8403002664123225e0f594f"><div class="ttname"><a href="a01035.html#ga550f1830c8403002664123225e0f594f">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA</div><div class="ttdoc">Byte length of an Ed25519 private key handle data buffer.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:588</div></div>
-<div class="ttc" id="aa01035_html_gab2c2539baf2994a0baae71d5d5c8f9fe"><div class="ttname"><a href="a01035.html#gab2c2539baf2994a0baae71d5d5c8f9fe">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY</div><div class="ttdoc">Byte length of an Ed25519 private key.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:587</div></div>
-<div class="ttc" id="aa01035_html_gaf6cce889f1dc2b213479126d850af09c"><div class="ttname"><a href="a01035.html#gaf6cce889f1dc2b213479126d850af09c">MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY</div><div class="ttdoc">Byte length of an Ed25519 public key.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:589</div></div>
-<div class="ttc" id="aa01035_html_gafd15d3ce72046f505d9763687d1614df"><div class="ttname"><a href="a01035.html#gafd15d3ce72046f505d9763687d1614df">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</div><div class="ttdoc">Byte length of an Ed25519 signature.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:590</div></div>
+<div class="ttc" id="aa01035_html_ga550f1830c8403002664123225e0f594f"><div class="ttname"><a href="a01035.html#ga550f1830c8403002664123225e0f594f">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA</div><div class="ttdoc">Byte length of an Ed25519 private key handle data buffer.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:586</div></div>
+<div class="ttc" id="aa01035_html_gab2c2539baf2994a0baae71d5d5c8f9fe"><div class="ttname"><a href="a01035.html#gab2c2539baf2994a0baae71d5d5c8f9fe">MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY</div><div class="ttdoc">Byte length of an Ed25519 private key.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:585</div></div>
+<div class="ttc" id="aa01035_html_gaf6cce889f1dc2b213479126d850af09c"><div class="ttname"><a href="a01035.html#gaf6cce889f1dc2b213479126d850af09c">MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY</div><div class="ttdoc">Byte length of an Ed25519 public key.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:587</div></div>
+<div class="ttc" id="aa01035_html_gafd15d3ce72046f505d9763687d1614df"><div class="ttname"><a href="a01035.html#gafd15d3ce72046f505d9763687d1614df">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE</div><div class="ttdoc">Byte length of an Ed25519 signature.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:588</div></div>
 <div class="ttc" id="aa01050_html_ga435b584a2a74e53c5987727a938aa65d"><div class="ttname"><a href="a01050.html#ga435b584a2a74e53c5987727a938aa65d">MCUXCLECC_EDDSA_GENERATEKEYPAIR_DESCRIPTOR_SIZE</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_GENERATEKEYPAIR_DESCRIPTOR_SIZE</div><div class="ttdoc">EdDSA key pair generation descriptor size.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_MemoryConsumption.h:250</div></div>
 <div class="ttc" id="aa01052_html_ga2babe27499b85ddf6e24059c6423a13e"><div class="ttname"><a href="a01052.html#ga2babe27499b85ddf6e24059c6423a13e">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_MODE_DESCRIPTOR</a></div><div class="ttdeci">#define MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_MODE_DESCRIPTOR(contextLen)</div><div class="ttdoc">Byte length of an Ed25519 signature mode descriptor.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_MemoryConsumption.h:278</div></div>
+<div class="ttc" id="aa01078_html"><div class="ttname"><a href="a01078.html">__attribute__</a></div><div class="ttdoc">Structure type for Rsa key entries, specifying key entry length and data.</div><div class="ttdef"><b>Definition</b> mcuxClRsa_Types.h:104</div></div>
 <div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">mcuxClSession_Descriptor</a></div><div class="ttdoc">Structure for mcuxClSession Descriptor.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:163</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

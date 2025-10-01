@@ -126,21 +126,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gaf5c8b802949e1a7920cfdd65ec3fe42b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00837.html#gaf5c8b802949e1a7920cfdd65ec3fe42b">MCUXCLKEY_STATUS_INVALID_INPUT</a></td></tr>
 <tr class="memdesc:gaf5c8b802949e1a7920cfdd65ec3fe42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid input.  <br /></td></tr>
 <tr class="separator:gaf5c8b802949e1a7920cfdd65ec3fe42b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa1326a2e848cc2627434ac1200fcf78b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00837.html#gaa1326a2e848cc2627434ac1200fcf78b">MCUXCLKEY_STATUS_ERROR_MEMORY_ALLOCATION</a></td></tr>
-<tr class="memdesc:gaa1326a2e848cc2627434ac1200fcf78b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory allocation error during Key operation.  <br /></td></tr>
-<tr class="separator:gaa1326a2e848cc2627434ac1200fcf78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3175c4ab08b764d5049399432a8715f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00837.html#gaf3175c4ab08b764d5049399432a8715f">MCUXCLKEY_STATUS_RNG_ERROR</a></td></tr>
-<tr class="memdesc:gaf3175c4ab08b764d5049399432a8715f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random number (DRBG / PRNG) error (unexpected behavior)  <br /></td></tr>
-<tr class="separator:gaf3175c4ab08b764d5049399432a8715f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7be083c8ca459a7290b5cf7784c75469"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00837.html#ga7be083c8ca459a7290b5cf7784c75469">MCUXCLKEY_STATUS_FAULT_ATTACK</a></td></tr>
 <tr class="memdesc:ga7be083c8ca459a7290b5cf7784c75469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack detected.  <br /></td></tr>
 <tr class="separator:ga7be083c8ca459a7290b5cf7784c75469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa1223f9f839075cd078103d4129b5218"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00837.html#gaa1223f9f839075cd078103d4129b5218">MCUXCLKEY_STATUS_CRC_NOT_OK</a></td></tr>
 <tr class="memdesc:gaa1223f9f839075cd078103d4129b5218"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC verification failed.  <br /></td></tr>
 <tr class="separator:gaa1223f9f839075cd078103d4129b5218"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacb7a3820f23f7cc17d33498ab12e3b3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00837.html#gacb7a3820f23f7cc17d33498ab12e3b3c">MCUXCLKEY_STATUS_NOT_SUPPORTED</a></td></tr>
-<tr class="memdesc:gacb7a3820f23f7cc17d33498ab12e3b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functionality not supported.  <br /></td></tr>
-<tr class="separator:gacb7a3820f23f7cc17d33498ab12e3b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga570c6c57da1aaa17f64d3d322503b97f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00837.html#ga570c6c57da1aaa17f64d3d322503b97f">MCUXCLKEY_STATUS_ITERATIONS_EXCEEDED</a></td></tr>
 <tr class="memdesc:ga570c6c57da1aaa17f64d3d322503b97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum interations exceeded, during prime generation for RSA.  <br /></td></tr>
 <tr class="separator:ga570c6c57da1aaa17f64d3d322503b97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,7 +158,7 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Key operation successful. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01101.html#a6">mcuxClAeadModes_Ccm_Aes128_Multipart_example.c</a>, <a class="el" href="a01098.html#a6">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist1_example.c</a>, <a class="el" href="a01099.html#a6">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist2_example.c</a>, <a class="el" href="a01100.html#a6">mcuxClAeadModes_Ccm_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a01096.html#a6">mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</a>, <a class="el" href="a01097.html#a6">mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example.c</a>, <a class="el" href="a01095.html#a6">mcuxClAeadModes_Gcm_Aes128_Oneshot_example.c</a>, <a class="el" href="a01125.html#a7">mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</a>, <a class="el" href="a01111.html#a5">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01120.html#a6">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01110.html#a5">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a01109.html#a5">mcuxClCipherModes_Cbc_Aes128_Multipart_example.c</a>, <a class="el" href="a01121.html#a6">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01114.html#a5">mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingISO_example.c</a>, <a class="el" href="a01113.html#a5">mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingZero_example.c</a>, <a class="el" href="a01112.html#a5">mcuxClCipherModes_Cbc_Aes128_Oneshot_example.c</a>, <a class="el" href="a01122.html#a6">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01115.html#a5">mcuxClCipherModes_Ctr_Aes128_Multipart_example.c</a>, <a class="el" href="a01123.html#a6">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01116.html#a5">mcuxClCipherModes_Ctr_Aes128_Oneshot_example.c</a>, <a class="el" href="a01104.html#a5">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01118.html#a6">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a01117.html#a6">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01103.html#a5">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a01102.html#a5">mcuxClCipherModes_Ecb_Aes128_Multipart_example.c</a>, <a class="el" href="a01119.html#a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01107.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingISO_example.c</a>, <a class="el" href="a01108.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingPKCS7_example.c</a>, <a class="el" href="a01106.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingZero_example.c</a>, <a class="el" href="a01124.html#a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a01105.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_example.c</a>, <a class="el" href="a01133.html#a5">mcuxClEcc_ECDH_KeyAgreement_NIST_P256_example.c</a>, <a class="el" href="a01135.html#a5">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01134.html#a5">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01136.html#a5">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, <a class="el" href="a01141.html#a6">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a01139.html#a8">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a01140.html#a8">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a01142.html#a8">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, <a class="el" href="a01143.html#a7">mcuxClEcc_EdDSA_VerifySignature_Ed25519_example.c</a>, <a class="el" href="a01137.html#a6">mcuxClEcc_MontDH_Curve25519_example.c</a>, <a class="el" href="a01138.html#a6">mcuxClEcc_MontDH_Curve448_example.c</a>, <a class="el" href="a01128.html#a26">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>, <a class="el" href="a01132.html#a5">mcuxClEcc_WeierECC_KeyValidation_PrivateKey_example.c</a>, <a class="el" href="a01131.html#a5">mcuxClEcc_WeierECC_KeyValidation_PublicKey_example.c</a>, <a class="el" href="a01175.html#a5">mcuxClFfdh_KeyAgreement_ffdhe2048_example.c</a>, <a class="el" href="a01176.html#a5">mcuxClFfdh_KeyAgreement_ffdhe3072_example.c</a>, <a class="el" href="a01177.html#a5">mcuxClFfdh_KeyAgreement_ffdhe4096_example.c</a>, <a class="el" href="a01178.html#a5">mcuxClFfdh_KeyAgreement_ffdhe6144_example.c</a>, <a class="el" href="a01179.html#a5">mcuxClFfdh_KeyAgreement_ffdhe8192_example.c</a>, <a class="el" href="a01164.html#a6">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01163.html#a6">mcuxClHmac_Sw_Oneshot_example.c</a>, <a class="el" href="a01152.html#a6">mcuxClKey_Load_Flush_Sgi_example.c</a>, <a class="el" href="a01155.html#a8">mcuxClKey_Rewrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a01153.html#a7">mcuxClKey_Unwrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a01156.html#a8">mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example.c</a>, <a class="el" href="a01154.html#a8">mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example.c</a>, <a class="el" href="a01161.html#a6">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, <a class="el" href="a01158.html#a5">mcuxClMacModes_Cmac_Aes128_Compute_PreloadedKey_example.c</a>, <a class="el" href="a01159.html#a5">mcuxClMacModes_Cmac_Aes128_Compute_example.c</a>, <a class="el" href="a01162.html#a6">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01157.html#a5">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>, <a class="el" href="a01160.html#a5">mcuxClMacModes_Cmac_Aes256_Compute_example.c</a>, <a class="el" href="a01173.html#a6">mcuxClRsa_KeyGeneration_example.c</a>, <a class="el" href="a01172.html#a8">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>, and <a class="el" href="a01174.html#a5">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01101.html#a6">mcuxClAeadModes_Ccm_Aes128_Multipart_example.c</a>, <a class="el" href="a01098.html#a6">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist1_example.c</a>, <a class="el" href="a01099.html#a6">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist2_example.c</a>, <a class="el" href="a01100.html#a6">mcuxClAeadModes_Ccm_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a01096.html#a6">mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</a>, <a class="el" href="a01097.html#a6">mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example.c</a>, <a class="el" href="a01095.html#a6">mcuxClAeadModes_Gcm_Aes128_Oneshot_example.c</a>, <a class="el" href="a01125.html#a7">mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</a>, <a class="el" href="a01111.html#a5">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01120.html#a6">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01110.html#a5">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a01109.html#a5">mcuxClCipherModes_Cbc_Aes128_Multipart_example.c</a>, <a class="el" href="a01121.html#a6">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01114.html#a5">mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingISO_example.c</a>, <a class="el" href="a01113.html#a5">mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingZero_example.c</a>, <a class="el" href="a01112.html#a5">mcuxClCipherModes_Cbc_Aes128_Oneshot_example.c</a>, <a class="el" href="a01122.html#a6">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01115.html#a5">mcuxClCipherModes_Ctr_Aes128_Multipart_example.c</a>, <a class="el" href="a01123.html#a6">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01116.html#a5">mcuxClCipherModes_Ctr_Aes128_Oneshot_example.c</a>, <a class="el" href="a01104.html#a5">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a01118.html#a6">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a01117.html#a6">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01103.html#a5">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a01102.html#a5">mcuxClCipherModes_Ecb_Aes128_Multipart_example.c</a>, <a class="el" href="a01119.html#a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01107.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingISO_example.c</a>, <a class="el" href="a01108.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingPKCS7_example.c</a>, <a class="el" href="a01106.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingZero_example.c</a>, <a class="el" href="a01124.html#a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a01105.html#a5">mcuxClCipherModes_Ecb_Aes128_Oneshot_example.c</a>, <a class="el" href="a01133.html#a6">mcuxClEcc_ECDH_KeyAgreement_NIST_P256_example.c</a>, <a class="el" href="a01135.html#a5">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01134.html#a5">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01136.html#a5">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, <a class="el" href="a01141.html#a6">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a01139.html#a8">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a01140.html#a9">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a01142.html#a8">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, <a class="el" href="a01143.html#a7">mcuxClEcc_EdDSA_VerifySignature_Ed25519_example.c</a>, <a class="el" href="a01137.html#a6">mcuxClEcc_MontDH_Curve25519_example.c</a>, <a class="el" href="a01138.html#a6">mcuxClEcc_MontDH_Curve448_example.c</a>, <a class="el" href="a01128.html#a26">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>, <a class="el" href="a01132.html#a6">mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c</a>, <a class="el" href="a01131.html#a6">mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</a>, <a class="el" href="a01175.html#a5">mcuxClFfdh_KeyAgreement_ffdhe2048_example.c</a>, <a class="el" href="a01176.html#a5">mcuxClFfdh_KeyAgreement_ffdhe3072_example.c</a>, <a class="el" href="a01177.html#a5">mcuxClFfdh_KeyAgreement_ffdhe4096_example.c</a>, <a class="el" href="a01178.html#a5">mcuxClFfdh_KeyAgreement_ffdhe6144_example.c</a>, <a class="el" href="a01179.html#a5">mcuxClFfdh_KeyAgreement_ffdhe8192_example.c</a>, <a class="el" href="a01164.html#a6">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01163.html#a6">mcuxClHmac_Sw_Oneshot_example.c</a>, <a class="el" href="a01152.html#a6">mcuxClKey_Load_Flush_Sgi_example.c</a>, <a class="el" href="a01155.html#a8">mcuxClKey_Rewrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a01153.html#a7">mcuxClKey_Unwrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a01156.html#a8">mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example.c</a>, <a class="el" href="a01154.html#a8">mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example.c</a>, <a class="el" href="a01161.html#a6">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, <a class="el" href="a01158.html#a5">mcuxClMacModes_Cmac_Aes128_Compute_PreloadedKey_example.c</a>, <a class="el" href="a01159.html#a5">mcuxClMacModes_Cmac_Aes128_Compute_example.c</a>, <a class="el" href="a01162.html#a6">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01157.html#a5">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>, <a class="el" href="a01160.html#a5">mcuxClMacModes_Cmac_Aes256_Compute_example.c</a>, <a class="el" href="a01173.html#a7">mcuxClRsa_KeyGeneration_example.c</a>, <a class="el" href="a01172.html#a8">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>, and <a class="el" href="a01174.html#a5">mcuxClSession_cleanupOnError_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -220,38 +211,6 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="gaa1326a2e848cc2627434ac1200fcf78b" name="gaa1326a2e848cc2627434ac1200fcf78b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa1326a2e848cc2627434ac1200fcf78b">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_ERROR_MEMORY_ALLOCATION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_ERROR_MEMORY_ALLOCATION</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Memory allocation error during Key operation. </p>
-
-</div>
-</div>
-<a id="gaf3175c4ab08b764d5049399432a8715f" name="gaf3175c4ab08b764d5049399432a8715f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf3175c4ab08b764d5049399432a8715f">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_RNG_ERROR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_RNG_ERROR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Random number (DRBG / PRNG) error (unexpected behavior) </p>
-
-</div>
-</div>
 <a id="ga7be083c8ca459a7290b5cf7784c75469" name="ga7be083c8ca459a7290b5cf7784c75469"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7be083c8ca459a7290b5cf7784c75469">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_FAULT_ATTACK</h2>
 
@@ -284,22 +243,6 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="gacb7a3820f23f7cc17d33498ab12e3b3c" name="gacb7a3820f23f7cc17d33498ab12e3b3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacb7a3820f23f7cc17d33498ab12e3b3c">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_NOT_SUPPORTED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_NOT_SUPPORTED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Functionality not supported. </p>
-
-</div>
-</div>
 <a id="ga570c6c57da1aaa17f64d3d322503b97f" name="ga570c6c57da1aaa17f64d3d322503b97f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga570c6c57da1aaa17f64d3d322503b97f">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_ITERATIONS_EXCEEDED</h2>
 
@@ -329,7 +272,7 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Key validation successful. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01132.html#a10">mcuxClEcc_WeierECC_KeyValidation_PrivateKey_example.c</a>, and <a class="el" href="a01131.html#a10">mcuxClEcc_WeierECC_KeyValidation_PublicKey_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01132.html#a11">mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c</a>, and <a class="el" href="a01131.html#a11">mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -347,7 +290,7 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Key validation failed. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01132.html#a9">mcuxClEcc_WeierECC_KeyValidation_PrivateKey_example.c</a>, and <a class="el" href="a01131.html#a9">mcuxClEcc_WeierECC_KeyValidation_PublicKey_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01132.html#a10">mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c</a>, and <a class="el" href="a01131.html#a10">mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</a>.</dd>
 </dl>
 
 </div>

@@ -127,22 +127,22 @@ $(document).ready(function(){initNavTree('a01183.html',''); initResizable(); });
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00650.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxCsslAnalysis.h&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#define ITERATION_COUNT 10u</span></div>
+<div class="line"><span class="preprocessor">#define ITERATION_COUNT 10U</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/****************************************************************************/</span></div>
 <div class="line"><span class="comment">/* Defines                                                                  */</span></div>
 <div class="line"><span class="comment">/****************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#define MCUXCLCSSLFLOWPROTECTION_OK            0x2EDEu</span></div>
-<div class="line"><span class="preprocessor">#define MCUXCLCSSLFLOWPROTECTION_NOT_OK        0x89ADu</span></div>
-<div class="line"><span class="preprocessor">#define MCUXCLCSSLFLOWPROTECTION_FAULT_ATTACK  0xF0FAu</span></div>
+<div class="line"><span class="preprocessor">#define MCUXCLCSSLFLOWPROTECTION_OK            0x2EDEU</span></div>
+<div class="line"><span class="preprocessor">#define MCUXCLCSSLFLOWPROTECTION_NOT_OK        0x89ADU</span></div>
+<div class="line"><span class="preprocessor">#define MCUXCLCSSLFLOWPROTECTION_FAULT_ATTACK  0xF0FAU</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/****************************************************************************/</span></div>
 <div class="line"><span class="comment">/* Protected function declarations                                          */</span></div>
 <div class="line"><span class="comment">/****************************************************************************/</span></div>
 <div class="line"> </div>
 <div class="line"><a id="a0" name="a0"></a><a class="code hl_define" href="a00931.html#ga21e1a3f12fd2772ca92216b888b3bdff">MCUX_CSSL_FP_FUNCTION_DECL</a>(functionLoop)</div>
-<div class="line"><a id="a1" name="a1"></a><a class="code hl_define" href="a00931.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(<span class="keywordtype">bool</span>) functionLoop(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="a1" name="a1"></a><a class="code hl_define" href="a00931.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(uint32_t) functionLoop(<span class="keywordtype">void</span>);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/****************************************************************************/</span></div>
 <div class="line"><span class="comment">/* Protected function definition                                            */</span></div>
@@ -154,7 +154,7 @@ $(document).ready(function(){initNavTree('a01183.html',''); initResizable(); });
 <div class="line"><span class="comment"> * MCUX_CSSL_FP_FUNCTION_DECL and MCUX_CSSL_FP_PROTECTED_TYPE.</span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"><a id="a2" name="a2"></a><a class="code hl_define" href="a00931.html#ga7c1d29e4d644c86f11e337e30dd2b210">MCUX_CSSL_FP_FUNCTION_DEF</a>(functionLoop)</div>
-<div class="line"><a class="code hl_define" href="a00931.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(<span class="keywordtype">bool</span>) functionLoop(<span class="keywordtype">void</span>)</div>
+<div class="line"><a class="code hl_define" href="a00931.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(uint32_t) functionLoop(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
 <div class="line">  <a id="a3" name="a3"></a><a class="code hl_define" href="a00931.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb">MCUX_CSSL_FP_FUNCTION_ENTRY</a>(functionLoop);</div>
 <div class="line"> </div>
@@ -195,7 +195,12 @@ $(document).ready(function(){initNavTree('a01183.html',''); initResizable(); });
 <div class="line"><span class="comment"> * from an flow-protected function return value. */</span></div>
 <div class="line">MCUX_CSSL_EX_FUNCTION(mcuxCsslFlowProtection_Loop_example)</div>
 <div class="line">{</div>
-<div class="line">  <span class="keywordflow">return</span> <a id="a8" name="a8"></a><a class="code hl_define" href="a00931.html#ga0af0a0eef8733a99a15920c9cddf6473">MCUX_CSSL_FP_RESULT</a>(<span class="keywordtype">bool</span>, functionLoop());</div>
+<div class="line">  uint32_t returnCode = <a id="a8" name="a8"></a><a class="code hl_define" href="a00931.html#ga0af0a0eef8733a99a15920c9cddf6473">MCUX_CSSL_FP_RESULT</a>(uint32_t, functionLoop());</div>
+<div class="line">  <span class="keywordflow">if</span> (MCUXCLCSSLFLOWPROTECTION_OK != returnCode)</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUX_CSSL_EX_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">return</span> MCUX_CSSL_EX_OK;</div>
 <div class="line">}</div>
 <div class="ttc" id="aa00644_html"><div class="ttname"><a href="a00644.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
 <div class="ttc" id="aa00650_html"><div class="ttname"><a href="a00650.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>

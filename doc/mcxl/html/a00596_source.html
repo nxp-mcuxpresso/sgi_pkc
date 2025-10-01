@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('a00596_source.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 <a href="a00596.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023-2024 NXP                                                  */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023-2025 NXP                                                  */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* NXP Confidential and Proprietary. This software is owned or controlled   */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/* by NXP and may only be used strictly in accordance with the applicable   */</span></div>
@@ -129,15 +129,14 @@ $(document).ready(function(){initNavTree('a00596_source.html',''); initResizable
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> **********************************************/</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">/* Status/error codes */</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a00910.html#ga4865733e9fd2c535b84682382be4d7f3">   46</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_DMA_BUS_ERROR           ((mcuxClSgi_Status_t) 0x0FFF5334U) </span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a00910.html#ga3a7f396d056150e6b660e0a1c1411d8a">   47</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_ERROR                   ((mcuxClSgi_Status_t) 0x0FFF5330U) </span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a00910.html#gae800260950cd588eab670511e2897b01">   48</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_UNWRAP_ERROR            ((mcuxClSgi_Status_t) 0x0FFF53B8U) </span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a00910.html#gad238e73fbfbfd66329ec6bdcc869c74d">   49</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED   ((mcuxClSgi_Status_t) 0x0FFF5374U) </span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a00910.html#ga6943fe8a51be06c7ba75f2db2718beb1">   50</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_OK                      ((mcuxClSgi_Status_t) 0x0FFF2E03U) </span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a00910.html#ga15e56f64900801e09aefc4a6a1501e71">   51</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_FAULT                   ((mcuxClSgi_Status_t) 0x0FFFF0F0U) </span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif  </span><span class="comment">/* MCUXCLSGI_CONSTANTS_H */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a00910.html#ga3a7f396d056150e6b660e0a1c1411d8a">   46</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_ERROR                   ((mcuxClSgi_Status_t) 0x0FFF5330U) </span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a00910.html#gae800260950cd588eab670511e2897b01">   47</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_UNWRAP_ERROR            ((mcuxClSgi_Status_t) 0x0FFF53B8U) </span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a00910.html#gad238e73fbfbfd66329ec6bdcc869c74d">   48</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED   ((mcuxClSgi_Status_t) 0x0FFF5374U) </span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a00910.html#ga6943fe8a51be06c7ba75f2db2718beb1">   49</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_OK                      ((mcuxClSgi_Status_t) 0x0FFF2E03U) </span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a00910.html#ga15e56f64900801e09aefc4a6a1501e71">   50</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_FAULT                   ((mcuxClSgi_Status_t) 0x0FFFF0F0U) </span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif  </span><span class="comment">/* MCUXCLSGI_CONSTANTS_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">mcuxClSgi_Types.h</a></div><div class="ttdoc">Type and associated constant definitions of the mcuxClSgi component.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,6 +1,15 @@
 var searchData=
 [
-  ['used_0',['used',['../a01082.html#ab3280a7d27aa7837287e2fa4376492fb',1,'mcuxClSession_WorkArea']]],
-  ['user_20guidance_20manual_1',['User Guidance Manual',['../a01189.html',1,'']]],
-  ['user_20manual_20of_20crypto_20library_20normal_20secure_20_28clns_29_2',['User Manual of Crypto Library Normal Secure (CLNS)',['../index.html',1,'']]]
+  ['secure_20counter_20api_0',['Secure Counter API',['../a00969.html',1,'']]],
+  ['secure_20counter_20configuration_1',['Secure Counter Configuration',['../a00974.html',1,'']]],
+  ['secure_20counter_20core_20functionality_2',['Secure counter core functionality',['../a00970.html',1,'(Global Namespace)'],['../a00976.html',1,'(Global Namespace)'],['../a00981.html',1,'(Global Namespace)']]],
+  ['secure_20counter_20decrement_3',['Secure counter decrement',['../a00972.html',1,'(Global Namespace)'],['../a00978.html',1,'(Global Namespace)'],['../a00983.html',1,'(Global Namespace)']]],
+  ['secure_20counter_20direct_20access_4',['Secure counter direct access',['../a00973.html',1,'(Global Namespace)'],['../a00979.html',1,'(Global Namespace)'],['../a00984.html',1,'(Global Namespace)']]],
+  ['secure_20counter_20increment_5',['Secure counter increment',['../a00971.html',1,'(Global Namespace)'],['../a00977.html',1,'(Global Namespace)'],['../a00982.html',1,'(Global Namespace)']]],
+  ['secure_20counter_3a_20disabled_6',['Secure Counter: Disabled',['../a00975.html',1,'']]],
+  ['secure_20counter_3a_20sw_20local_7',['Secure Counter: SW Local',['../a00980.html',1,'']]],
+  ['security_20and_20integration_20guidance_20manual_8',['Security and Integration Guidance Manual',['../a01190.html',1,'']]],
+  ['signature_20rsa_20mode_20definitions_9',['Signature RSA mode definitions',['../a00898.html',1,'']]],
+  ['size_10',['size',['../a01082.html#a372ca932239a945030d51a23913c36e0',1,'mcuxClSession_WorkArea']]],
+  ['switching_20flow_20protection_11',['Switching flow protection',['../a00950.html',1,'(Global Namespace)'],['../a00943.html',1,'(Global Namespace)'],['../a00934.html',1,'(Global Namespace)']]]
 ];

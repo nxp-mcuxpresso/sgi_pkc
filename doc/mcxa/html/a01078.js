@@ -1,5 +1,5 @@
 var a01078 =
 [
-    [ "pKeyEntryData", "a01078.html#a1f5a90f95105b9abaf31a7997a2fb24e", null ],
-    [ "keyEntryLength", "a01078.html#a441763378fea50af88f8cdf75648a0e6", null ]
+    [ "pKeyEntryData", "a01078.html#abdf7dca920e7c2535abbc6dc626daabd", null ],
+    [ "keyEntryLength", "a01078.html#ae3517e1160b688cc010e30fa2868a019", null ]
 ];

@@ -205,6 +205,13 @@ Functions</h2></td></tr>
     <tr><td class="paramname">MCUXCLMAC_STATUS_ERROR</td><td>Error occurred during Mac operation </td></tr>
     <tr><td class="paramname">MCUXCLMAC_STATUS_INVALID_PARAM</td><td>An invalid parameter was given to the function </td></tr>
     <tr><td class="paramname">MCUXCLMAC_STATUS_FAULT_ATTACK</td><td>Fault attack detected </td></tr>
+    <tr><td class="paramname">MCUXCLSGI_STATUS_UNWRAP_ERROR</td><td>Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
     <tr><td class="paramname">MCUXCLMAC_STATUS_JOB_STARTED</td><td>Non-blocking operation started successfully </td></tr>
     <tr><td class="paramname">MCUXCLMAC_STATUS_JOB_COMPLETED</td><td>Non-blocking operation successful</td></tr>
   </table>

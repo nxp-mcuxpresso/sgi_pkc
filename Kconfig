@@ -87,7 +87,7 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.flow_protection
             select MCUX_COMPONENT_component.sgi_pkc.data_integrity
             select MCUX_COMPONENT_component.sgi_pkc.toolchain
-			
+
             select MCUX_COMPONENT_driver.crc
 
         config MCUX_COMPONENT_component.sgi_pkc.dma
@@ -165,6 +165,8 @@ config MCUX_COMPONENT_component.sgi_pkc
 
         config MCUX_COMPONENT_component.sgi_pkc.pkc
             bool "PKC"
+
+            select MCUX_COMPONENT_driver.glikey
 
         config MCUX_COMPONENT_component.sgi_pkc.prng
             bool "PRNG"

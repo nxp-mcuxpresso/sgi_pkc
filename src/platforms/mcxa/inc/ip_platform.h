@@ -63,7 +63,11 @@
 #define SGI_IRQ_NUMBER      SGI_IRQn
 #define PKC_IRQ_NUMBER      PKC_IRQn
 
+#if (defined(MCXA266_SERIES) || defined(MCXA366_SERIES))
 #define DMA_CH0_IRQ_NUMBER            ((uint32_t)DMA_CH0_IRQn)
+#else
+#define DMA_CH0_IRQ_NUMBER            ((uint32_t)DMA0_CH0_IRQn)
+#endif
 #define GET_DMA_CHX_IRQ_NUMBER(x)     ((DMA_CH0_IRQ_NUMBER) + (x))
 #define DMA_CH_TOTAL  8u
 

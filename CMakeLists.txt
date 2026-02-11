@@ -945,6 +945,9 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.pkc)
                  src/comps/mcuxClPkc/inc/internal
                  BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
+	mcux_add_linker_symbol(
+    SYMBOLS __pkc__=1
+    )
 endif()
 
 if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.prng)

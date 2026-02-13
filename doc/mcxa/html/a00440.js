@@ -1,17 +1,7 @@
 var a00440 =
 [
-    [ "MCUXCLHASH_STATUS_OK", "a00823.html#gadf29410b02d95357d48a3ba443558da4", null ],
-    [ "MCUXCLHASH_STATUS_COMPARE_EQUAL", "a00823.html#gaaf06d7932b91cce6e94312a534f61934", null ],
-    [ "MCUXCLHASH_COMPARE_EQUAL", "a00823.html#ga05eaccf399e17f323499f31e764d5173", null ],
-    [ "MCUXCLHASH_STATUS_FAILURE", "a00823.html#ga377eaddc82740c4c4590688c754f78a0", null ],
-    [ "MCUXCLHASH_FAILURE", "a00823.html#gaaef282127a4c3c3e8f9a034cba1b70e0", null ],
-    [ "MCUXCLHASH_STATUS_INVALID_PARAMS", "a00823.html#ga6cd095f16a5ff26877cc877cecbd0e2b", null ],
-    [ "MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL", "a00823.html#gad39c265fd8728f3287eeef999cfeb599", null ],
-    [ "MCUXCLHASH_COMPARE_NOT_EQUAL", "a00823.html#ga647cd722111188a5d028d1f3ab4eb795", null ],
-    [ "MCUXCLHASH_STATUS_FULL", "a00823.html#ga9abcd3d90166d6f4fd532d8b7c24931f", null ],
-    [ "MCUXCLHASH_STATUS_FAULT_ATTACK", "a00823.html#gaca3624d074b137e5587052f6ffb1b6f6", null ],
-    [ "MCUXCLHASH_STATUS_JOB_STARTED", "a00823.html#ga5a2f3c25cf99ceb579c18218af5a1269", null ],
-    [ "MCUXCLHASH_STATUS_JOB_COMPLETED", "a00823.html#ga3719a21b9caf2b9e4fa79ec95f86df58", null ],
-    [ "MCUXCLHASH_STATUS_JOB_COMPLETED_COMPARE_NOT_EQUAL", "a00823.html#ga3f11732d0f83fb0eb93e4b3477d628dc", null ],
-    [ "MCUXCLHASH_STATUS_JOB_UNAVAILABLE", "a00823.html#ga3df3ca09f533ee5e140c774c00e166cf", null ]
+    [ "mcuxClHash_compute", "a00820.html#ga7beb1bb4063eae682eca700efeba93db", null ],
+    [ "mcuxClHash_init", "a00820.html#ga68263436904cf849bfbe8c9b1f6542d4", null ],
+    [ "mcuxClHash_process", "a00820.html#ga49bdf3dca9746328fe58e6d5859e92eb", null ],
+    [ "mcuxClHash_finish", "a00820.html#gad55cc3a702b915f84d9cd2e94c2b7f6b", null ]
 ];

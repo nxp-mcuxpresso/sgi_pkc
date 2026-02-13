@@ -1,5 +1,5 @@
 var a00918 =
 [
-    [ "MCUX_CSSL_DI_RECORD", "a00918.html#ga885885837b7340002b9782ffc41e4842", null ],
-    [ "MCUX_CSSL_DI_EXPUNGE", "a00918.html#ga3e10066c4efffa9040982cde10a52076", null ]
+    [ "MCUX_CSSL_DI_USE_SECURE_COUNTER", "a00918.html#gad14940e758b00b26f2e699b4fc0144bb", null ],
+    [ "MCUX_CSSL_DI_USE_NONE", "a00918.html#ga4f0cea555852c5171e55303b6cb062be", null ]
 ];

@@ -1,12 +1,8 @@
 var a00846 =
 [
-    [ "MCUXCLMAC_STATUS_ERROR", "a00846.html#ga29a0556d236921ec9e6680cd049f784b", null ],
-    [ "MCUXCLMAC_STATUS_FAILURE", "a00846.html#gaeee9d7aded8807ac014d1030847457a2", null ],
-    [ "MCUXCLMAC_STATUS_INVALID_PARAM", "a00846.html#ga8eb86baa218d3f14c65c4cf1fd4a9a6b", null ],
-    [ "MCUXCLMAC_STATUS_FAULT_ATTACK", "a00846.html#ga025cf49de0fa3225a6d15fd972bf3c64", null ],
-    [ "MCUXCLMAC_STATUS_OK", "a00846.html#ga7df50ebdaad50cfe8661c930df6c43df", null ],
-    [ "MCUXCLMAC_STATUS_COMPARE_NOK", "a00846.html#ga322f2ecd934013fbc12b609d7f92b49f", null ],
-    [ "MCUXCLMAC_STATUS_JOB_STARTED", "a00846.html#gaa4205233c5a383270d954c792515a935", null ],
-    [ "MCUXCLMAC_STATUS_JOB_COMPLETED", "a00846.html#ga2fb1d85d0758aa314cfa6684291edff8", null ],
-    [ "MCUXCLMAC_STATUS_JOB_COMPLETED_COMPARE_NOK", "a00846.html#ga26a3e698b35633850eb2347a188891d8", null ]
+    [ "mcuxClMac_Status_t", "a00846.html#gaca63aa917056a18f99a911f329f3971b", null ],
+    [ "mcuxClMac_ModeDescriptor_t", "a00846.html#gaad5e6326d43f28d324ef2d98ac3ad2cc", null ],
+    [ "mcuxClMac_Mode_t", "a00846.html#ga8e9aa3b88af43aaf819650568abc471f", null ],
+    [ "mcuxClMac_CustomMode_t", "a00846.html#ga55e9279a13efd1dd87affcc88f3eb34a", null ],
+    [ "mcuxClMac_Context_t", "a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34", null ]
 ];

@@ -1,6 +1,7 @@
 var a00503 =
 [
-    [ "MCUXCLMEMORY_FP_MEMORY_CLEAR", "a00857.html#ga2dc0fdbb602c3777fffb8515f944d736", null ],
-    [ "MCUXCLMEMORY_FP_MEMORY_CLEAR_WITH_BUFF", "a00857.html#ga76dcce466859684502b4725d51d5de4f", null ],
-    [ "mcuxClMemory_clear", "a00857.html#ga1ac6e8a4335f620d41360c090ee5ce73", null ]
+    [ "MCUXCLMEMORY_COMPONENT_MASK", "a00854.html#ga08e000e31df077b27186e532e59c90f9", null ],
+    [ "MCUXCLMEMORY_STATUS_EQUAL", "a00855.html#gabaa088c030f9f7a12cbdbac0132659bd", null ],
+    [ "MCUXCLMEMORY_STATUS_NOT_EQUAL", "a00855.html#gabde52183de79322bf40674ee07a0bdac", null ],
+    [ "MCUXCLMEMORY_STATUS_FAULT", "a00855.html#gaf8817536a1139834b1b59ee8cf7ad04e", null ]
 ];

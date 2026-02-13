@@ -1,6 +1,6 @@
 var a00822 =
 [
-    [ "MCUXCLHASH_STATUS_", "a00823.html", "a00823" ],
-    [ "MCUXCLHASH_OUTPUT_SIZE_", "a00829.html", "a00829" ],
-    [ "mcuxClHashModes_ContextSize", "a00990.html", "a00990" ]
+    [ "mcuxClHashModes_Algorithms", "a00823.html", "a00823" ],
+    [ "mcuxClHashModes_Constants", "a00824.html", "a00824" ],
+    [ "mcuxClHashModes_MemoryConsumption", "a00986.html", "a00986" ]
 ];

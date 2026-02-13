@@ -1,6 +1,7 @@
 var a00879 =
 [
-    [ "mcuxClResource_Functions", "a00880.html", "a00880" ],
-    [ "mcuxClResource_Types", "a00881.html", "a00881" ],
-    [ "mcuxClResource_Constants", "a00882.html", "a00882" ]
+    [ "MCUXCLRESOURCE_STATUS_OK", "a00879.html#gaafc8964b2e6e576ec94cde857b6cec59", null ],
+    [ "MCUXCLRESOURCE_STATUS_UNAVAILABLE", "a00879.html#gafbaac9fa90070887de71bd51caac8e77", null ],
+    [ "MCUXCLRESOURCE_STATUS_ERROR", "a00879.html#ga645e736b3303b3a09350980cad311193", null ],
+    [ "MCUXCLRESOURCE_STATUS_FAULT_ATTACK", "a00879.html#ga8c3f2cbc88e178d264ddcb3903270505", null ]
 ];

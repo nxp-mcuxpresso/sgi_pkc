@@ -1,4 +1,4 @@
 var a00530 =
 [
-    [ "MCUXCLPADDING_STATUS_ERROR", "a00868.html#ga27d0fc33860c93a2241e1d6b37a92d94", null ]
+    [ "mcuxClPadding_Status_t", "a00865.html#ga965eb15986e53917365f3f3b769e0968", null ]
 ];

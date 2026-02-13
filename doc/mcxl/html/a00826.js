@@ -1,6 +1,7 @@
 var a00826 =
 [
-    [ "mcuxClHashModes_Algorithms", "a00827.html", "a00827" ],
-    [ "mcuxClHashModes_Constants", "a00828.html", "a00828" ],
-    [ "mcuxClHashModes_MemoryConsumption", "a00989.html", "a00989" ]
+    [ "mcuxClHmac_Constants", "a00827.html", null ],
+    [ "mcuxClHmac_Functions", "a00828.html", "a00828" ],
+    [ "mcuxClHmac_KeyTypes", "a00830.html", "a00830" ],
+    [ "mcuxClHmac_MemoryConsumption", "a00988.html", null ]
 ];

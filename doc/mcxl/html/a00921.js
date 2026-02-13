@@ -1,6 +1,5 @@
 var a00921 =
 [
-    [ "Data Integrity Configuration", "a00922.html", "a00922" ],
-    [ "Flow Protection Configuration", "a00936.html", "a00936" ],
-    [ "Secure Counter Configuration", "a00974.html", "a00974" ]
+    [ "MCUX_CSSL_DI_RECORD_IMPL", "a00921.html#ga528d28a827727ba460795460a30cccfd", null ],
+    [ "MCUX_CSSL_DI_EXPUNGE_IMPL", "a00921.html#gaac8a8ea1888347d41f58f27f11c9caab", null ]
 ];

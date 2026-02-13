@@ -1,5 +1,6 @@
 var a00880 =
 [
-    [ "mcuxClResource_init", "a00880.html#gad93d8ac6ebe62ec3d274b44ef27a4b79", null ],
-    [ "mcuxClResource_handle_interrupt", "a00880.html#gaf083fd1ec859bfe9e6e71a93a8d7e1c0", null ]
+    [ "MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS", "a00880.html#gac38fe43eba55a7f8c788c87b5cb07cb1", null ],
+    [ "MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE", "a00880.html#ga3976ca493ab75d898bb3512fc8c0c489", null ],
+    [ "MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE", "a00880.html#ga395aa5ac0c63ae9517057980ec521734", null ]
 ];

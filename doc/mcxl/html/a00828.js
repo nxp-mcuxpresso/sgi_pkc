@@ -1,4 +1,4 @@
 var a00828 =
 [
-    [ "MCUXCLHASH_OUTPUT_SIZE_", "a00829.html", "a00829" ]
+    [ "APIs to construct HMAC modes", "a00829.html", "a00829" ]
 ];

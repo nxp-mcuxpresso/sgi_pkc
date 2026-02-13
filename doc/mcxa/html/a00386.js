@@ -1,17 +1,8 @@
 var a00386 =
 [
-    [ "MCUXCLECC_STATUS_OK", "a01001.html#gafed6866e44c300e1946713be81aefb9c", null ],
-    [ "MCUXCLECC_STATUS_INVALID_PARAMS", "a01001.html#ga7eec856d4a1438ff6e603ee42aaa9aae", null ],
-    [ "MCUXCLECC_STATUS_INVALID_SIGNATURE", "a01001.html#gae739e1f3f62d1a66e2a862e40d5a0f37", null ],
-    [ "MCUXCLECC_STATUS_NEUTRAL_POINT", "a01001.html#gaad0d3ea3572cc175fe1608bca3ddac35", null ],
-    [ "MCUXCLECC_STATUS_FAULT_ATTACK", "a01001.html#ga9d53aaec17a413449e5cb6b73702c2c3", null ],
-    [ "MCUXCLECC_STATUS_ERROR_SMALL_SUBGROUP", "a01001.html#gaf70d3732e96746a174562deb076669f6", null ],
-    [ "MCUXCLECC_EDDSA_SIZE_HASH_PREFIX", "a00800.html#ga9a047998d3bb9c105dc1e19b5dca448d", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PRIMEP", "a01035.html#gac14b636a63b6ad2a4ba8edb45d213aea", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_BASEPOINTORDER", "a01035.html#gab9dd06ce9086a33b19e20eba3aed8a7c", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY", "a01035.html#gab2c2539baf2994a0baae71d5d5c8f9fe", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA", "a01035.html#ga550f1830c8403002664123225e0f594f", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY", "a01035.html#gaf6cce889f1dc2b213479126d850af09c", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE", "a01035.html#gafd15d3ce72046f505d9763687d1614df", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_DOMPREFIXLEN", "a01035.html#ga4eabea4e6baf9fb98992c3bc83fb6f2d", null ]
+    [ "mcuxClEcc_EdDSA_InitPrivKeyInputMode", "a00798.html#ga878fb07c7885e8b54facc7dba3690100", null ],
+    [ "mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor", "a00798.html#ga5a82f1ad8d6418a0cc3ed6632053f5f8", null ],
+    [ "mcuxClEcc_WeierECC_GenerateDomainParams", "a00798.html#ga1deb22c96b88674a4513e56cdd2dfe3a", null ],
+    [ "mcuxClEcc_WeierECC_GenerateCustomKeyType", "a00798.html#gaf5bdc4291b8564a9d6cab3794456b840", null ],
+    [ "mcuxClEcc_WeierECC_DecodePoint", "a00798.html#gab725139ad08fcd3e5a34ad11c1ae2671", null ]
 ];

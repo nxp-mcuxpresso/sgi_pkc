@@ -1,11 +1,14 @@
 var a00803 =
 [
-    [ "mcuxClKey_GenerationDescriptor_ECDH", "a00803.html#ga0172e9b22cb169b988a92b53f66e38c2", null ],
-    [ "mcuxClKey_Generation_ECDH", "a00803.html#gac4b12ce8bf78dbea254d4ee74f55e6c9", null ],
-    [ "mcuxClKey_GenerationDescriptor_ECDSA", "a00803.html#ga3dc0014c787cc578dfb4712012f5a585", null ],
-    [ "mcuxClKey_Generation_ECDSA", "a00803.html#gaf478f6dfe868e5c07e681d879ca15998", null ],
-    [ "mcuxClKey_GenerationDescriptor_EdDSA_GeneratePrivKey", "a00803.html#gafbd2702715b947923e9324196d92923d", null ],
-    [ "mcuxClKey_Generation_EdDSA_GeneratePrivKey", "a00803.html#gab79f0d23a62d358813ba10b4913adbea", null ],
-    [ "mcuxClKey_GenerationDescriptor_MontDH", "a00803.html#ga0a5de06b7cad6f9e8380cea9217c4604", null ],
-    [ "mcuxClKey_Generation_MontDH", "a00803.html#gadda89f0706a0d8cd84b8609068643319", null ]
+    [ "mcuxClEcc_Weier_BasicDomainParams_t", "a01055.html", null ],
+    [ "mcuxClEcc_Status_t", "a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41", null ],
+    [ "mcuxClEcc_Status_Protected_t", "a00803.html#ga3900d9bdb95a061d26b71f300318b6a1", null ],
+    [ "mcuxClEcc_MontDH_DomainParams_t", "a00803.html#ga52205a42d2027ba1c3ec49589f9f0b8c", null ],
+    [ "mcuxClEcc_EdDSA_DomainParams_t", "a00803.html#ga365359e63f156889e46845381455b321", null ],
+    [ "mcuxClEcc_EdDSA_GenerateKeyPairDescriptor_t", "a00803.html#gadee46209e43c63814a86e882b3927b27", null ],
+    [ "mcuxClEcc_EdDSA_SignatureProtocolDescriptor_t", "a00803.html#gaec003d78ecf36673f595fcc87f11b82c", null ],
+    [ "mcuxClEcc_Weier_DomainParams_t", "a00803.html#gafe84edad82c8934ef1634e9f29effa55", null ],
+    [ "mcuxClEcc_WeierECC_PointEncDescriptor_t", "a00803.html#ga00d97a82d25d15c17d4c082e773eb070", null ],
+    [ "mcuxClEcc_WeierECC_PointEncType_t", "a00803.html#ga8d75897bd07aa891fe0c630f73504ce1", null ],
+    [ "mcuxClEcc_ECDSA_SignatureProtocolDescriptor_t", "a00803.html#gaab4971d2dd9db11f649f8aadf8a40362", null ]
 ];

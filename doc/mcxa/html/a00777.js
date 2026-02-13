@@ -1,7 +1,5 @@
 var a00777 =
 [
-    [ "mcuxClAead_ModeDescriptor_AES_CCM", "a00777.html#ga739d66c96dbaa8185773c512a90133c5", null ],
-    [ "mcuxClAead_Mode_CCM", "a00777.html#ga79c0eb4a4ed95ddf752cd11928c6f4f8", null ],
-    [ "mcuxClAead_ModeDescriptor_AES_GCM", "a00777.html#ga8fbdfa3ad5b56a86be678fafe3198a6b", null ],
-    [ "mcuxClAead_Mode_GCM", "a00777.html#ga097a509a2fa462b5d61ba740c28d9ea3", null ]
+    [ "mcuxClAes_EncodingDescriptor_Rfc3394", "a00777.html#ga476271edf73ec93ed27a65969a602817", null ],
+    [ "mcuxClAes_Encoding_Rfc3394", "a00777.html#ga0a0b95171f3244efecc718424e2dc377", null ]
 ];

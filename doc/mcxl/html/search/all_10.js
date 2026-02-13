@@ -1,6 +1,29 @@
 var searchData=
 [
-  ['used_0',['used',['../a01082.html#ab3280a7d27aa7837287e2fa4376492fb',1,'mcuxClSession_WorkArea']]],
-  ['user_20guidance_20manual_1',['User Guidance Manual',['../a01189.html',1,'']]],
-  ['user_20manual_20of_20crypto_20library_20normal_20secure_20_28clns_29_2',['User Manual of Crypto Library Normal Secure (CLNS)',['../index.html',1,'']]]
+  ['p_0',['p',['../a01071.html#a4b55563d0da284786a1b3e662c66b96d',1,'mcuxClRsa_KeyData_Crt_t']]],
+  ['parameter_20integrity_20api_1',['Parameter Integrity API',['../a00962.html',1,'']]],
+  ['part_20mac_20interfaces_2',['Multi part MAC interfaces',['../a00845.html',1,'']]],
+  ['pcustomprngstate_3',['pCustomPrngState',['../a01063.html#a73a7ff5cf8624e067dd09f69c5733d32',1,'mcuxClRandom_Config']]],
+  ['pkcwa_4',['pkcWa',['../a01091.html#a394996570a6810808bd59d2f9672c76a',1,'mcuxClSession_Descriptor']]],
+  ['pkeyentrydata_5',['pKeyEntryData',['../a01075.html#abdf7dca920e7c2535abbc6dc626daabd',1,'__attribute__']]],
+  ['plain_20key_20type_20pointers_6',['RSA private plain key type pointers',['../a00887.html',1,'']]],
+  ['plain_20key_20type_20structures_7',['RSA private plain key type structures',['../a00886.html',1,'']]],
+  ['pointers_8',['pointers',['../a00889.html',1,'RSA private CRT key type pointers'],['../a00887.html',1,'RSA private plain key type pointers'],['../a00885.html',1,'RSA public key type pointers']]],
+  ['pointers_20with_9',['RSA private CRT_DFA key type pointers with',['../a00891.html',1,'']]],
+  ['presourcectx_10',['pResourceCtx',['../a01091.html#aeaf29ddb754ceb5e236eea01fc232ad3',1,'mcuxClSession_Descriptor']]],
+  ['private_20crt_20key_20type_20pointers_11',['RSA private CRT key type pointers',['../a00889.html',1,'']]],
+  ['private_20crt_20key_20type_20structures_12',['RSA private CRT key type structures',['../a00888.html',1,'']]],
+  ['private_20crt_5fdfa_20key_20type_20pointers_20with_13',['RSA private CRT_DFA key type pointers with',['../a00891.html',1,'']]],
+  ['private_20crt_5fdfa_20key_20type_20structures_20with_14',['RSA private CRT_DFA key type structures with',['../a00890.html',1,'']]],
+  ['private_20plain_20key_20type_20pointers_15',['RSA private plain key type pointers',['../a00887.html',1,'']]],
+  ['private_20plain_20key_20type_20structures_16',['RSA private plain key type structures',['../a00886.html',1,'']]],
+  ['prngpatchfunction_17',['prngPatchFunction',['../a01063.html#ae75595ff66d30f0ab9c18f9738b80ae1',1,'mcuxClRandom_Config']]],
+  ['protection_18',['protection',['../a00929.html',1,'Branching flow protection'],['../a00938.html',1,'Branching flow protection'],['../a00945.html',1,'Branching flow protection'],['../a00927.html',1,'Function calling flow protection'],['../a00936.html',1,'Function calling flow protection'],['../a00943.html',1,'Function calling flow protection'],['../a00928.html',1,'Looping flow protection'],['../a00937.html',1,'Looping flow protection'],['../a00944.html',1,'Looping flow protection'],['../a00930.html',1,'Switching flow protection'],['../a00939.html',1,'Switching flow protection'],['../a00946.html',1,'Switching flow protection']]],
+  ['protection_20api_19',['Flow Protection API',['../a00925.html',1,'']]],
+  ['protection_20configuration_20',['Flow Protection Configuration',['../a00932.html',1,'']]],
+  ['protection_20core_20functionality_21',['protection core functionality',['../a00926.html',1,'Flow protection core functionality'],['../a00934.html',1,'Flow protection core functionality'],['../a00941.html',1,'Flow protection core functionality']]],
+  ['protection_3a_20disabled_22',['Flow Protection: Disabled',['../a00933.html',1,'']]],
+  ['protection_3a_20secure_20counter_23',['Flow Protection: Secure Counter',['../a00940.html',1,'']]],
+  ['public_20key_20type_20pointers_24',['RSA public key type pointers',['../a00885.html',1,'']]],
+  ['public_20key_20type_20structures_25',['RSA public key type structures',['../a00884.html',1,'']]]
 ];

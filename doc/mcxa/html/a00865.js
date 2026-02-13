@@ -1,5 +1,4 @@
 var a00865 =
 [
-    [ "MCUXCLMEMORY_STATUS_", "a00859.html", "a00859" ],
-    [ "MCUXCLMEMORY_API", "a00865.html#ga2469abde1e59b6b478ba8c393dc3e95a", null ]
+    [ "mcuxClPadding_Status_t", "a00865.html#ga965eb15986e53917365f3f3b769e0968", null ]
 ];

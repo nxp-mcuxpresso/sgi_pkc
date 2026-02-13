@@ -1,16 +1,6 @@
 var a00841 =
 [
-    [ "MCUXCLKEY_LOADOPTION_SLOT_MASK", "a00841.html#ga3b59d79469cf73d905f884168c09e0b4", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_0", "a00841.html#ga3e9a6b739bcdcf5eb5e6924fd0caa155", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_1", "a00841.html#ga67ef1951a618422141f28c28551c0803", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_2", "a00841.html#ga1f07bf813f39c700adf2c9945328ea17", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_3", "a00841.html#ga0bc75cfe2cb282d23a6593c87f88b6ba", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_4", "a00841.html#gab7024bd22638c74cf9553e7752fa144e", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_5", "a00841.html#ga1f971246faa81482561e52221d1dfeda", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6", "a00841.html#gaaace2a5d7926bb12b4e9cb827bbd355a", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_7", "a00841.html#gad6715a20046b352b00e12c97c1f3d155", null ],
-    [ "MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP", "a00841.html#ga46fb193b6c8a3a030443bfe05397d5c4", null ],
-    [ "MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK", "a00841.html#ga482487588bc0ce17ad6bbbccdba6f1ec", null ],
-    [ "MCUXCLKEY_LOADOPTION_ALREADYLOADED", "a00841.html#gace2f11c195c9044f5fa5c4457f65d36b", null ],
-    [ "MCUXCLKEY_LOADOPTION_RFU_MASK", "a00841.html#ga3a14b2c1c5138a9393a6a780384b0101", null ]
+    [ "mcuxClMac_Constants", "a00842.html", "a00842" ],
+    [ "mcuxClMac_Functions", "a00843.html", "a00843" ],
+    [ "mcuxClMac_Types", "a00846.html", "a00846" ]
 ];

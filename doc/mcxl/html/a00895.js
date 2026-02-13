@@ -1,7 +1,5 @@
 var a00895 =
 [
-    [ "mcuxClKey_Type_Rsa_PrivateCRT_DFA_1024", "a00895.html#ga614ec91c86278e9b4e1d5f70071e6aab", null ],
-    [ "mcuxClKey_Type_Rsa_PrivateCRT_DFA_2048", "a00895.html#gaf7aed5cd69c57404fec8cf75deb00bd0", null ],
-    [ "mcuxClKey_Type_Rsa_PrivateCRT_DFA_3072", "a00895.html#ga803292ebb6a10e3fb524741b4806a276", null ],
-    [ "mcuxClKey_Type_Rsa_PrivateCRT_DFA_4096", "a00895.html#ga95857b9c3cab5b15d7b3411283d55f99", null ]
+    [ "MCUXCLRSA_KEYGEN_MODE_SIZE", "a00992.html", "a00992" ],
+    [ "mcuxClRsa_KeyGeneration_ModeConstructor", "a00895.html#ga35bdd815a2a124d877c3798e9edcfaf4", null ]
 ];

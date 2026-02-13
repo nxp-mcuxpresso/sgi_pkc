@@ -1,6 +1,7 @@
 var a00866 =
 [
-    [ "MCUXCLMEMORY_FP_MEMORY_XOR", "a00866.html#ga6c232e7d3a42052c2263f5eb853958f6", null ],
-    [ "MCUXCLMEMORY_FP_MEMORY_XOR_WITH_BUFF", "a00866.html#ga0dcd26faded8eb1fe7eaab8330e4c537", null ],
-    [ "mcuxClMemory_xor", "a00866.html#ga5db07fa8946e0fd685fe6fbb2f33c343", null ]
+    [ "mcuxClRandom_Constants", "a00867.html", "a00867" ],
+    [ "mcuxClRandom_Functions", "a00868.html", "a00868" ],
+    [ "mcuxClRandom_MemoryConsumption", "a00869.html", null ],
+    [ "mcuxClRandom_Types", "a00870.html", "a00870" ]
 ];

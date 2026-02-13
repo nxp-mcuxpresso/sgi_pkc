@@ -1,8 +1,9 @@
 var a00910 =
 [
-    [ "MCUXCLSGI_STATUS_ERROR", "a00910.html#ga3a7f396d056150e6b660e0a1c1411d8a", null ],
-    [ "MCUXCLSGI_STATUS_UNWRAP_ERROR", "a00910.html#gae800260950cd588eab670511e2897b01", null ],
-    [ "MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED", "a00910.html#gad238e73fbfbfd66329ec6bdcc869c74d", null ],
-    [ "MCUXCLSGI_STATUS_OK", "a00910.html#ga6943fe8a51be06c7ba75f2db2718beb1", null ],
-    [ "MCUXCLSGI_STATUS_FAULT", "a00910.html#ga15e56f64900801e09aefc4a6a1501e71", null ]
+    [ "mcuxClSignature_ModeDescriptor_t", "a00910.html#gac7698895768cf6208b4617d6ddf8c180", null ],
+    [ "mcuxClSignature_Mode_t", "a00910.html#ga6ac41432794064bbed527293f3004584", null ],
+    [ "mcuxClSignature_TestDescriptor_t", "a00910.html#ga672adb417c023f01ae78b0819d4d38ee", null ],
+    [ "mcuxClSignature_Test_t", "a00910.html#ga27896a9732ea6f2ed497b26796bf5348", null ],
+    [ "mcuxClSignature_Context_t", "a00910.html#ga3006d0f7ee6302bda8fa5edb1437f04a", null ],
+    [ "mcuxClSignature_Status_t", "a00910.html#ga2fdcf305b7ceacbb173a35887ead78c7", null ]
 ];

@@ -1,5 +1,5 @@
 var a00908 =
 [
-    [ "mcuxClSgi_Constants", "a00909.html", "a00909" ],
-    [ "mcuxClSgi_Types", "a00911.html", "a00911" ]
+    [ "mcuxClSignature_Functions", "a00909.html", "a00909" ],
+    [ "mcuxClSignature_Types", "a00910.html", "a00910" ]
 ];

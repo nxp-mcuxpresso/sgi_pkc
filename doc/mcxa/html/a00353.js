@@ -1,10 +1,9 @@
 var a00353 =
 [
-    [ "MCUXCLCIPHER_STATUS_ERROR", "a00789.html#ga350c525bf22b1a9c0297a36fe10f10e7", null ],
-    [ "MCUXCLCIPHER_STATUS_FAILURE", "a00789.html#ga88dab6d131989e4cca5fbfe2a666b277", null ],
-    [ "MCUXCLCIPHER_STATUS_INVALID_INPUT", "a00789.html#ga3d713d890dd9e6c2830f1e71d60b10e3", null ],
-    [ "MCUXCLCIPHER_STATUS_FAULT_ATTACK", "a00789.html#ga001d7e59d3c2904c0962f5ef013ed2f3", null ],
-    [ "MCUXCLCIPHER_STATUS_OK", "a00789.html#ga42278cd4637634ffa6d97b8e0e74c27c", null ],
-    [ "MCUXCLCIPHER_STATUS_JOB_STARTED", "a00789.html#ga2cc0714dead5d4fecff9cf576c0f4099", null ],
-    [ "MCUXCLCIPHER_STATUS_JOB_COMPLETED", "a00789.html#ga0e213ff812de409b99dd0a79a789c639", null ]
+    [ "mcuxClCipher_encrypt", "a00787.html#ga3fc0622052c3727f34945bc66d8502c0", null ],
+    [ "mcuxClCipher_decrypt", "a00787.html#ga7206fba58a10240ac14b0f9a08d36191", null ],
+    [ "mcuxClCipher_init_encrypt", "a00787.html#ga4b27dce4ecc47ce6b51467e707afae73", null ],
+    [ "mcuxClCipher_init_decrypt", "a00787.html#gac3fc7d6b4d27c7d69a78ab542d0cbcc4", null ],
+    [ "mcuxClCipher_process", "a00787.html#ga1a5072096f7f82fbce313d414dbb438d", null ],
+    [ "mcuxClCipher_finish", "a00787.html#ga90ac41c7d96f333de0708126b0bce4be", null ]
 ];

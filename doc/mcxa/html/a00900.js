@@ -1,10 +1,6 @@
 var a00900 =
 [
-    [ "MCUXCLRSA_STATUS_", "a00901.html", "a00901" ],
-    [ "MCUXCLRSA_OPTION_", "a00902.html", null ],
-    [ "MCUXCLRSA_SIGN_WA", "a00996.html", "a00996" ],
-    [ "MCUXCLRSA_VERIFY_WA", "a00997.html", "a00997" ],
-    [ "MCUXCLRSA_KEYGENERATION_CRT_WA", "a00998.html", "a00998" ],
-    [ "MCUXCLRSA_KEYGENERATION_PLAIN_WA", "a00999.html", "a00999" ],
-    [ "MCUXCLRSA_KEYGENERATION_KEY_DATA_SIZE", "a01000.html", "a01000" ]
+    [ "mcuxClSession_Functions", "a00901.html", "a00901" ],
+    [ "mcuxClSession_Constants", "a00902.html", "a00902" ],
+    [ "mcuxClSession_Types", "a00903.html", "a00903" ]
 ];

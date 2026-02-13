@@ -1,4 +1,5 @@
 var a00455 =
 [
-    [ "mcuxClHmac_createHmacMode", "a00833.html#ga43f6d98b6b3b6a6e62263130e2c95a68", null ]
+    [ "mcuxClKey_TypeDescriptor_Hmac_variableLength", "a00830.html#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f", null ],
+    [ "mcuxClKey_Type_Hmac_variableLength", "a00830.html#ga42eb018ca876c87b3d4539532ab2154d", null ]
 ];

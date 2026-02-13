@@ -1,11 +1,10 @@
 var a00626 =
 [
-    [ "MCUX_CSSL_DI_CHECK_PASSED", "a00917.html#gaf795c9830ecd5c53d21ae5efb05716c0", null ],
-    [ "MCUX_CSSL_DI_CHECK_FAILED", "a00917.html#ga836c5e13eae4d1fdcfe33a41051c26b5", null ],
-    [ "MCUX_CSSL_DI_INIT", "a00917.html#ga3f6c85a388e4eb44cb69e6bf76768ca5", null ],
-    [ "MCUX_CSSL_DI_CHECK", "a00917.html#ga86a850875eca35952e2c3a8312364896", null ],
-    [ "MCUX_CSSL_DI_CHECK_EXIT", "a00917.html#ga05531e777e457085ce2826205d849e53", null ],
-    [ "MCUX_CSSL_DI_RECORD", "a00918.html#ga885885837b7340002b9782ffc41e4842", null ],
-    [ "MCUX_CSSL_DI_EXPUNGE", "a00918.html#ga3e10066c4efffa9040982cde10a52076", null ],
-    [ "MCUX_CSSL_DI_DONOTOPTIMIZE", "a00917.html#ga71ebc1a2b396b14dd87499cb4ae266bc", null ]
+    [ "MCUX_CSSL_DI_ASM_BASE", "a00916.html#ga9168f0113c5cac1d54792cf0df915a01", null ],
+    [ "MCUX_CSSL_DI_ASM_INIT_BASE", "a00916.html#gaa9c2cbb1047b892d31ebe3b6ca5018be", null ],
+    [ "MCUX_CSSL_DI_ASM_INIT_BASE_COND", "a00916.html#ga6df0add4f59f5bb5ac1f718386c18a0b", null ],
+    [ "MCUX_CSSL_DI_ASM_VALUE", "a00916.html#ga70fd798fdb9dda7512988847b5e141f8", null ],
+    [ "MCUX_CSSL_DI_ASM_REF_VALUE", "a00916.html#ga04beadbbceb3d15e63638ef3e7f3b4fe", null ],
+    [ "MCUX_CSSL_DI_ASM_WRITE_REF", "a00916.html#ga74b192e2d6c0b12d63a2bffcc2cf271c", null ],
+    [ "MCUX_CSSL_DI_ASM_RECORD", "a00916.html#ga0343065772b8a90e15fa988facd895af", null ]
 ];

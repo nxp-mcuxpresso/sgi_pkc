@@ -1,12 +1,8 @@
 var a00974 =
 [
-    [ "MCUX_CSSL_SC_USE_HYBRID_LOCAL_CDOG", "a00974.html#gab32cca78e592e73eb1d15d06be994839", null ],
-    [ "MCUX_CSSL_SC_USE_HW_CDOG", "a00974.html#gaa488aa67a604f34f36c1a99b07a6ab71", null ],
-    [ "MCUX_CSSL_SC_USE_HW_SCM", "a00974.html#gae5b47bf9fecd4e15c34cb859cad286a4", null ],
-    [ "MCUX_CSSL_SC_USE_HW_S3SCM", "a00974.html#gaf65f19a392d0dda41627f1e4ef3f2291", null ],
-    [ "MCUX_CSSL_SC_USE_SW_LOCAL", "a00974.html#ga841fe66e0a59b9c720854ff0ee2c4678", null ],
-    [ "MCUX_CSSL_SC_USE_SW_CONTEXT", "a00974.html#gaff2c61772a19bdf2e5038b674ea04128", null ],
-    [ "MCUX_CSSL_SC_USE_SW_CALLBACK", "a00974.html#ga788677fbf1a036b432007aa84a2879ad", null ],
-    [ "MCUX_CSSL_SC_USE_SW_GLOBAL", "a00974.html#ga8743f66cbadb2592671510ed3160dc09", null ],
-    [ "MCUX_CSSL_SC_USE_NONE", "a00974.html#ga8141a2d6da07d7137207fb35505a6cb0", null ]
+    [ "MCUX_CSSL_SC_ADD_IMPL", "a00974.html#gaa4a21360f6c3d08fc777879e4f4551ed", null ],
+    [ "MCUX_CSSL_SC_ADD_ON_CALL_IMPL", "a00974.html#ga9c0484fdff900c04462d668a0870bf33", null ],
+    [ "MCUX_CSSL_SC_ADD_0X1_IMPL", "a00974.html#ga45a909bcf29531036b1aad68ac8b0afb", null ],
+    [ "MCUX_CSSL_SC_ADD_0X10_IMPL", "a00974.html#gaac716380d3c29a995745053bb6915044", null ],
+    [ "MCUX_CSSL_SC_ADD_0X100_IMPL", "a00974.html#gafb5fa6d42145120126b00ab3707711be", null ]
 ];

@@ -1,7 +1,8 @@
 var a00494 =
 [
-    [ "mcuxClMac_compute", "a00848.html#gad2fe8b5e17f2b468fbe8a61f8fee5400", null ],
-    [ "mcuxClMac_init", "a00849.html#ga803bd7822372bdca8dfd0c81b5db96eb", null ],
-    [ "mcuxClMac_process", "a00849.html#ga2749e40209d4308f21ebe761485d4d56", null ],
-    [ "mcuxClMac_finish", "a00849.html#ga9d66c6e242ff75b6ff4826fdcb784e08", null ]
+    [ "mcuxClMac_Status_t", "a00846.html#gaca63aa917056a18f99a911f329f3971b", null ],
+    [ "mcuxClMac_ModeDescriptor_t", "a00846.html#gaad5e6326d43f28d324ef2d98ac3ad2cc", null ],
+    [ "mcuxClMac_Mode_t", "a00846.html#ga8e9aa3b88af43aaf819650568abc471f", null ],
+    [ "mcuxClMac_CustomMode_t", "a00846.html#ga55e9279a13efd1dd87affcc88f3eb34a", null ],
+    [ "mcuxClMac_Context_t", "a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34", null ]
 ];

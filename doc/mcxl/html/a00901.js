@@ -1,11 +1,10 @@
 var a00901 =
 [
-    [ "MCUXCLRSA_STATUS_SIGN_OK", "a00901.html#gac7719ba5cbecc181bef2b21dca99fdf3", null ],
-    [ "MCUXCLRSA_STATUS_VERIFY_OK", "a00901.html#ga2dbb489ad7452a487a5d49df5a979d69", null ],
-    [ "MCUXCLRSA_STATUS_OK", "a00901.html#ga27536f048ce37687e3faf44063590820", null ],
-    [ "MCUXCLRSA_STATUS_ERROR", "a00901.html#gac062bb04172f071a8595aa39bef80edc", null ],
-    [ "MCUXCLRSA_STATUS_INVALID_INPUT", "a00901.html#ga14e28c4e4b6a325ddd1f038b5274ccec", null ],
-    [ "MCUXCLRSA_STATUS_VERIFY_FAILED", "a00901.html#ga05d091562f747706d7aecfb99b5a735c", null ],
-    [ "MCUXCLRSA_STATUS_FAULT_ATTACK", "a00901.html#gaf886957f4dc2794dd12839a690ae05d0", null ],
-    [ "MCUXCLRSA_STATUS_KEYGENERATION_OK", "a00901.html#gab08354492e4b0feceab7a3615abee1f0", null ]
+    [ "mcuxClSession_init", "a00901.html#gaf1b8776b0d519136df17f6dd632442cf", null ],
+    [ "mcuxClSession_setResource", "a00901.html#gade3d6d6bba82f2224685d20e3838cb11", null ],
+    [ "mcuxClSession_configure_job", "a00901.html#gad4f268ebb521716b8d5f8cb8fbf1c08a", null ],
+    [ "mcuxClSession_cleanup", "a00901.html#ga1ba3d2c6e561c86e1da8fcc0abfd046c", null ],
+    [ "mcuxClSession_destroy", "a00901.html#gaad324fd8f8eeefa29521c4297ac75fd2", null ],
+    [ "mcuxClSession_setRandom", "a00901.html#gaf54e4bf1b4aaf3d11e4da722ea55ef01", null ],
+    [ "mcuxClSession_cleanupOnError", "a00901.html#gab64cdbfbc66dfb7d7d9ff45f1b9ea5e9", null ]
 ];

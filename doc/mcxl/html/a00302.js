@@ -1,7 +1,8 @@
 var a00302 =
 [
-    [ "mcuxClAead_ModeDescriptor_AES_CCM", "a00777.html#ga739d66c96dbaa8185773c512a90133c5", null ],
-    [ "mcuxClAead_Mode_CCM", "a00777.html#ga79c0eb4a4ed95ddf752cd11928c6f4f8", null ],
-    [ "mcuxClAead_ModeDescriptor_AES_GCM", "a00777.html#ga8fbdfa3ad5b56a86be678fafe3198a6b", null ],
-    [ "mcuxClAead_Mode_GCM", "a00777.html#ga097a509a2fa462b5d61ba740c28d9ea3", null ]
+    [ "MCUXCLAEAD_STATUS_ERROR", "a00770.html#ga66d71fdbfe9e95ddd5af2f23466ba44a", null ],
+    [ "MCUXCLAEAD_STATUS_FAULT_ATTACK", "a00770.html#ga85ef5d5dd9baa2ab5001159f6c392d13", null ],
+    [ "MCUXCLAEAD_STATUS_OK", "a00770.html#ga6c761e767eb59aef9aa93a6e05661aa5", null ],
+    [ "MCUXCLAEAD_STATUS_INVALID_PARAM", "a00770.html#ga2f5ed8e86d5c5293e8a456458b5fa5c5", null ],
+    [ "MCUXCLAEAD_STATUS_INVALID_TAG", "a00770.html#gabe8157165ba824fde3b6df4151956c99", null ]
 ];

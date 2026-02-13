@@ -1,7 +1,12 @@
 var a00804 =
 [
-    [ "mcuxClKey_AgreementDescriptor_ECDH", "a00804.html#gaa8f7ba354fdad5294ea9cf738b0a5b30", null ],
-    [ "mcuxClKey_Agreement_ECDH", "a00804.html#ga17bcc12a56c33f015f913d6bed36f8cc", null ],
-    [ "mcuxClKey_AgreementDescriptor_MontDH", "a00804.html#ga74e6847c30fbe9789903eb200771333b", null ],
-    [ "mcuxClKey_Agreement_MontDH", "a00804.html#ga1141118249a5082ba001edea6d81930f", null ]
+    [ "mcuxClEcc_KeyTypeDescriptors", "a00799.html", "a00799" ],
+    [ "mcuxClEcc_KeyGenerationDescriptors", "a00800.html", "a00800" ],
+    [ "mcuxClEcc_KeyAgreementDescriptors", "a00801.html", "a00801" ],
+    [ "mcuxClEcc_KeyValidationDescriptors", "a00802.html", "a00802" ],
+    [ "mcuxClEcc_DomainParamsDescriptor", "a00805.html", "a00805" ],
+    [ "mcuxClEcc_WeierECC_PointEncDescriptor", "a00806.html", "a00806" ],
+    [ "mcuxClEcc_ArithmeticOperation", "a00807.html", null ],
+    [ "McuxClEcc_EdDsaDescriptors", "a01033.html", "a01033" ],
+    [ "McuxClEcc_ECDSADescriptors", "a01034.html", "a01034" ]
 ];

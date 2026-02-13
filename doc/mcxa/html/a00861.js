@@ -1,5 +1,5 @@
 var a00861 =
 [
-    [ "MCUXCLMEMORY_FP_MEMORY_COPY_REVERSED", "a00861.html#ga34f4a48eda22ae64759db5d7893d0c36", null ],
-    [ "mcuxClMemory_copy_reversed", "a00861.html#gafc918d181009c3af7638604e5e4b9281", null ]
+    [ "MCUXCLMEMORY_STATUS_", "a00855.html", "a00855" ],
+    [ "MCUXCLMEMORY_API", "a00861.html#ga2469abde1e59b6b478ba8c393dc3e95a", null ]
 ];

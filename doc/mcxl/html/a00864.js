@@ -1,6 +1,4 @@
 var a00864 =
 [
-    [ "mcuxClMemory_Types_Macros", "a00865.html", "a00865" ],
-    [ "mcuxClMemory_Status_t", "a00864.html#gad25887c99517f13c547e1d2bf027ccd1", null ],
-    [ "mcuxClMemory_Status_Protected_t", "a00864.html#ga57c9ba76c62b4ad9bd565df4a98c19ba", null ]
+    [ "MCUXCLPADDING_STATUS_ERROR", "a00864.html#ga27d0fc33860c93a2241e1d6b37a92d94", null ]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['size_0',['size',['../a01082.html#a372ca932239a945030d51a23913c36e0',1,'mcuxClSession_WorkArea']]]
+  ['size_0',['size',['../a01079.html#a372ca932239a945030d51a23913c36e0',1,'mcuxClSession_WorkArea']]]
 ];

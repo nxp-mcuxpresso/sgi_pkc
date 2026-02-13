@@ -1,9 +1,9 @@
 var a00356 =
 [
-    [ "mcuxClCipher_encrypt", "a00790.html#ga3fc0622052c3727f34945bc66d8502c0", null ],
-    [ "mcuxClCipher_decrypt", "a00790.html#ga7206fba58a10240ac14b0f9a08d36191", null ],
-    [ "mcuxClCipher_init_encrypt", "a00790.html#ga4b27dce4ecc47ce6b51467e707afae73", null ],
-    [ "mcuxClCipher_init_decrypt", "a00790.html#gac3fc7d6b4d27c7d69a78ab542d0cbcc4", null ],
-    [ "mcuxClCipher_process", "a00790.html#ga1a5072096f7f82fbce313d414dbb438d", null ],
-    [ "mcuxClCipher_finish", "a00790.html#ga90ac41c7d96f333de0708126b0bce4be", null ]
+    [ "mcuxClCipher_ModeDescriptor_t", "a00788.html#gaa9586d961025bb80660a563be606451e", null ],
+    [ "mcuxClCipher_Mode_t", "a00788.html#gacd434e81399ac5f9752f61d55ecfb305", null ],
+    [ "mcuxClCipher_TestDescriptor_t", "a00788.html#gae10b2dde7d4883d6992adb3e23d57714", null ],
+    [ "mcuxClCipher_Test_t", "a00788.html#ga2d2ad865d5d552ea37a471acb2c48a74", null ],
+    [ "mcuxClCipher_Context_t", "a00788.html#ga9faa78dbb34107f8f28344b36b91c93d", null ],
+    [ "mcuxClCipher_Status_t", "a00788.html#gadcf65a3850bca1bd4059213edf23df4f", null ]
 ];

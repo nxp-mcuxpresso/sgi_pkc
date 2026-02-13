@@ -1,4 +1,5 @@
 var a00848 =
 [
-    [ "mcuxClMac_compute", "a00848.html#gad2fe8b5e17f2b468fbe8a61f8fee5400", null ]
+    [ "MCUXCLMAC_CMAC_OUTPUT_SIZE", "a00848.html#ga19fabc0fcc4bb740d3ae3f5af0801932", null ],
+    [ "MCUXCLMAC_CMAC_OUTPUT_SIZE_IN_WORDS", "a00848.html#ga6c92dadeb46681334a49ccd369639ca3", null ]
 ];

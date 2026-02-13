@@ -1,7 +1,5 @@
 var a00830 =
 [
-    [ "mcuxClHmac_Constants", "a00831.html", null ],
-    [ "mcuxClHmac_Functions", "a00832.html", "a00832" ],
-    [ "mcuxClHmac_KeyTypes", "a00834.html", "a00834" ],
-    [ "mcuxClHmac_MemoryConsumption", "a00991.html", null ]
+    [ "mcuxClKey_TypeDescriptor_Hmac_variableLength", "a00830.html#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f", null ],
+    [ "mcuxClKey_Type_Hmac_variableLength", "a00830.html#ga42eb018ca876c87b3d4539532ab2154d", null ]
 ];

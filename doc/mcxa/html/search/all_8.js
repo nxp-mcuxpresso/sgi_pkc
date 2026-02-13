@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['key_20generation_20rsa_20mode_20descriptor_0',['Key Generation RSA mode descriptor',['../a00899.html',1,'']]],
-  ['key_20type_20descriptors_1',['Key Type Descriptors',['../a00887.html',1,'']]],
-  ['keyentrylength_2',['keyEntryLength',['../a01078.html#ae3517e1160b688cc010e30fa2868a019',1,'__attribute__']]]
+  ['handling_0',['handling',['../a00931.html',1,'Expectation handling'],['../a00935.html',1,'Expectation handling'],['../a00942.html',1,'Expectation handling']]],
+  ['hmac_20modes_1',['APIs to construct HMAC modes',['../a00829.html',1,'']]],
+  ['hw_20resource_2',['mcuxClResource status of HW resource and option to request HW resource',['../a00880.html',1,'']]],
+  ['hw_20resource_20and_20option_20to_20request_20hw_20resource_3',['mcuxClResource status of HW resource and option to request HW resource',['../a00880.html',1,'']]]
 ];

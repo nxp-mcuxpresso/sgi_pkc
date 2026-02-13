@@ -1,6 +1,5 @@
 var a00857 =
 [
-    [ "MCUXCLMEMORY_FP_MEMORY_CLEAR", "a00857.html#ga2dc0fdbb602c3777fffb8515f944d736", null ],
-    [ "MCUXCLMEMORY_FP_MEMORY_CLEAR_WITH_BUFF", "a00857.html#ga76dcce466859684502b4725d51d5de4f", null ],
-    [ "mcuxClMemory_clear", "a00857.html#ga1ac6e8a4335f620d41360c090ee5ce73", null ]
+    [ "MCUXCLMEMORY_FP_MEMORY_COPY_REVERSED", "a00857.html#ga34f4a48eda22ae64759db5d7893d0c36", null ],
+    [ "mcuxClMemory_copy_reversed", "a00857.html#gafc918d181009c3af7638604e5e4b9281", null ]
 ];

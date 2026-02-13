@@ -1,8 +1,8 @@
 var a00798 =
 [
-    [ "mcuxClEcc_Constants", "a00799.html", "a00799" ],
-    [ "mcuxClEcc_Functions", "a00801.html", "a00801" ],
-    [ "mcuxClEcc_Types", "a00807.html", "a00807" ],
-    [ "mcuxClEcc_Descriptors", "a00808.html", "a00808" ],
-    [ "mcuxClEcc_MemoryConsumption", "a00987.html", "a00987" ]
+    [ "mcuxClEcc_EdDSA_InitPrivKeyInputMode", "a00798.html#ga878fb07c7885e8b54facc7dba3690100", null ],
+    [ "mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor", "a00798.html#ga5a82f1ad8d6418a0cc3ed6632053f5f8", null ],
+    [ "mcuxClEcc_WeierECC_GenerateDomainParams", "a00798.html#ga1deb22c96b88674a4513e56cdd2dfe3a", null ],
+    [ "mcuxClEcc_WeierECC_GenerateCustomKeyType", "a00798.html#gaf5bdc4291b8564a9d6cab3794456b840", null ],
+    [ "mcuxClEcc_WeierECC_DecodePoint", "a00798.html#gab725139ad08fcd3e5a34ad11c1ae2671", null ]
 ];

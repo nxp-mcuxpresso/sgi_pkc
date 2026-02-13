@@ -1,8 +1,4 @@
 var a00596 =
 [
-    [ "MCUXCLSGI_STATUS_ERROR", "a00910.html#ga3a7f396d056150e6b660e0a1c1411d8a", null ],
-    [ "MCUXCLSGI_STATUS_UNWRAP_ERROR", "a00910.html#gae800260950cd588eab670511e2897b01", null ],
-    [ "MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED", "a00910.html#gad238e73fbfbfd66329ec6bdcc869c74d", null ],
-    [ "MCUXCLSGI_STATUS_OK", "a00910.html#ga6943fe8a51be06c7ba75f2db2718beb1", null ],
-    [ "MCUXCLSGI_STATUS_FAULT", "a00910.html#ga15e56f64900801e09aefc4a6a1501e71", null ]
+    [ "mcuxClSgi_Status_t", "a00907.html#ga438bf518456bded28bd3285f86b59e71", null ]
 ];

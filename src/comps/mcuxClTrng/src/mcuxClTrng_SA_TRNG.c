@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -124,7 +124,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
     uint32_t noOfTrngErrors = 0u;
 
     /* Copy full words of entropy.
-     * NOTE: mcuxClMemory_copy_words_int is used since only word-wise SFR access is allowed.
+     * NOTE: mcuxClMemory_copy_int is used since only word-wise SFR access is allowed.
      */
     uint32_t entropyInputWordLength = (entropyInputLength >> 2u);
     uint32_t *pDest = pEntropyInput;
@@ -144,7 +144,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
     for(uint32_t i = offset; i < (entropyInputWordLength + offset); i++)
     {
         /* When i is a multiple of the TRNG output buffer size (MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS) wait until new entropy words have been generated. */
-        if((i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS) == 0u)
+        uint32_t entId = i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS;
+        if(0u == entId)
         {
             /* Wait until TRNG entropy generation is ready. */
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClTrng_WaitForReady(pSession, &noOfTrngErrors));
@@ -153,10 +154,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
         }
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_OUT_OF_BOUNDS_ACCESS("Overrunning array due to accessing index in ENT is caused by incorrect array size specified in external header that is outside our control")
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_ARRAY_OUT_OF_BOUNDS("Overrunning array due to accessing index in ENT is caused by incorrect array size specified in external header that is outside our control")
-        const volatile uint32_t *pTrngSrc = &(MCUXCLTRNG_SFR_READ(ENT)[i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS]);
+        const volatile uint32_t *pTrngSrc = &(MCUXCLTRNG_SFR_READ(ENT)[entId]);
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ARRAY_OUT_OF_BOUNDS()
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OUT_OF_BOUNDS_ACCESS()
-        /* Balance DI for mcuxClMemory_copy_words_int */
+        /* Balance DI for mcuxClMemory_copy_int */
         MCUX_CSSL_DI_RECORD(memCopyDIpDest, pDest);
         MCUX_CSSL_DI_RECORD(memCopyDIpSrc, pTrngSrc);
         MCUX_CSSL_DI_RECORD(memCopyDIpLength, sizeof(uint32_t));
@@ -165,7 +166,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_VOLATILE("Access to a HW peripheral")
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_OUT_OF_BOUNDS_ACCESS("Overrunning array due to de-referencing pTrngSrc is caused by external header that is outside our control")
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_ARRAY_OUT_OF_BOUNDS("Overrunning array due to de-referencing pTrngSrc is caused by external header that is outside our control")
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int((uint8_t*)pDest, (uint8_t const *)pTrngSrc, sizeof(uint32_t)));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t*)pDest, (uint8_t const *)pTrngSrc, sizeof(uint32_t)));
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ARRAY_OUT_OF_BOUNDS()
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OUT_OF_BOUNDS_ACCESS()
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_VOLATILE()
@@ -174,9 +175,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
         MCUX_CSSL_FP_LOOP_ITERATION(forLoop,
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int),
-            MCUX_CSSL_FP_CONDITIONAL((i % MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS) == 0u,
-                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_WaitForReady)));
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
+            MCUX_CSSL_FP_CONDITIONAL(entId == 0u, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_WaitForReady)));
     }
 
     MCUX_CSSL_DI_EXPUNGE(trngOutputSize, entropyInputLength);

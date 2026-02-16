@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2023-2024 NXP                                            */
+/* Copyright 2021, 2023-2024, 2026 NXP                                      */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -39,19 +39,19 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  * FUP program declaration mcuxClEcc_FUP_MontDhDecodeScalar
  */
 #define mcuxClEcc_FUP_MontDhDecodeScalar_LEN  10u
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_MontDhDecodeScalar[mcuxClEcc_FUP_MontDhDecodeScalar_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_MontDhDecodeScalar);
 
 /**
  * FUP program declaration mcuxClEcc_FUP_MontDhX_CalcAffineX
  */
 #define mcuxClEcc_FUP_MontDhX_CalcAffineX_LEN  8u
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_MontDhX_CalcAffineX[mcuxClEcc_FUP_MontDhX_CalcAffineX_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_MontDhX_CalcAffineX);
 
 /**
  * FUP program declaration mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX
  */
 #define mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX_LEN  6u
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX[mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX);
 
 
 /**********************************************************/
@@ -62,7 +62,7 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX[mcux
  */
 #define mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords_LEN  9u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords[mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords);
 
 /**
  * FUP program declaration mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep
@@ -70,7 +70,7 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccC
 #define mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep_Affine_LEN  19u
 #define mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep_Projective_LEN  22u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep[mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep_Projective_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep);
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 

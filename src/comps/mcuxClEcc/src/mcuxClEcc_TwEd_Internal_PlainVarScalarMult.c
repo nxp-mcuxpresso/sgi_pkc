@@ -42,10 +42,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_PlainVarScalarMult(
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_TwEd_PlainVarScalarMult);
 
     options |= MCUXCLECC_SCALARMULT_OPTION_PLAIN;
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_VarScalarMult));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
       mcuxClEcc_TwEd_VarScalarMult(pSession, pDomainParams, iScalar, scalarBitLength, options)
     );
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_PlainVarScalarMult);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_PlainVarScalarMult,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_VarScalarMult));
 }

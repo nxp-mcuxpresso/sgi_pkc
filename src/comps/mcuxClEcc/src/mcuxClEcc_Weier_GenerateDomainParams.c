@@ -63,13 +63,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
                                           + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(byteLenOperandsTable);
     const uint32_t wordNumCpuWa = alignedByteLenCpuWa / (sizeof(uint32_t));
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned")
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
     MCUX_CSSL_FP_FUNCTION_CALL(mcuxClEcc_CpuWa_t*, pCpuWorkarea, mcuxClSession_allocateWords_cpuWa(pSession, wordNumCpuWa));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The bufferSize * 22U can't be larger than UINT32_MAX.")
     const uint32_t wordNumPkcWa = (bufferSize * ECC_GENERATEDOMAINPARAMS_NO_OF_BUFFERS) / (sizeof(uint32_t));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
     MCUX_CSSL_FP_FUNCTION_CALL(const uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordNumPkcWa));
 
     pCpuWorkarea->wordNumCpuWa = wordNumCpuWa;
@@ -108,8 +106,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     /**********************************************************/
 
     /* Import prime p and order n. */
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, ECC_P, pEccWeierBasicDomainParams->pP, byteLenP, operandSize);
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, ECC_N, pEccWeierBasicDomainParams->pN, byteLenN, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_P, pEccWeierBasicDomainParams->pP, byteLenP, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_N, pEccWeierBasicDomainParams->pN, byteLenN, operandSize);
 
     /* Check p and n are odd (Math functions assume modulus is odd). */
     const volatile uint8_t * ptrP = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_P]);
@@ -136,13 +134,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     MCUXCLMATH_FP_QSQUARED(ECC_PQSQR, ECC_PS, ECC_P, ECC_T0);
 
     /* Import coefficients a and b, and convert a to MR. */
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, ECC_T0, pEccWeierBasicDomainParams->pA, byteLenP, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_T0, pEccWeierBasicDomainParams->pA, byteLenP, operandSize);
     MCUXCLPKC_FP_CALC_MC1_MM(WEIER_A, ECC_T0, ECC_PQSQR, ECC_P);
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, WEIER_B, pEccWeierBasicDomainParams->pB, byteLenP, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(WEIER_B, pEccWeierBasicDomainParams->pB, byteLenP, operandSize);
 
     /* Import the base point coordinates (x,y) to buffers (ECC_S0,ECC_S1). */
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, ECC_S0, pEccWeierBasicDomainParams->pG, byteLenP, operandSize);
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, ECC_S1, pEccWeierBasicDomainParams->pG, byteLenP, byteLenP, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_S0, pEccWeierBasicDomainParams->pG, byteLenP, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(ECC_S1, pEccWeierBasicDomainParams->pG, byteLenP, byteLenP, operandSize);
 
     pOperands[WEIER_VX0] = pOperands[ECC_S0];
     pOperands[WEIER_VY0] = pOperands[ECC_S1];
@@ -165,6 +163,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     /* Optionally, generate the pre-computed point            */
     /**********************************************************/
 
+    MCUX_CSSL_FP_BRANCH_DECL(generatePrecomputedPointBranch);
     if (MCUXCLECC_OPTION_GENERATEPRECPOINT_YES == (options & MCUXCLECC_OPTION_GENERATEPRECPOINT_MASK))
     {
         /* Convert the affine base point coordinates (x,y) stored in ECC_S0 and ECC_S1 to
@@ -198,10 +197,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
         /* Convert precG to affine coordinates in NR and store them in (WEIER_X0,WEIER_Y0). */
-        MCUXCLMATH_FP_MODINV(ECC_T0, WEIER_ZA, ECC_P, ECC_T1);
+        MCUXCLECC_FP_MODINV(ECC_T0, WEIER_ZA, ECC_P, ECC_T1, ECC_T3);
         /* MISRA Ex. 22, while(0) is allowed */
         MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_ConvertJacToAffine,
                             mcuxClEcc_FUP_Weier_ConvertJacToAffine_LEN);
+
+        MCUX_CSSL_FP_BRANCH_POSITIVE(generatePrecomputedPointBranch,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_RepeatPointDouble),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ModInv),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     }
     else if (MCUXCLECC_OPTION_GENERATEPRECPOINT_NO != (options & MCUXCLECC_OPTION_GENERATEPRECPOINT_MASK))
     {
@@ -255,7 +260,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
      *
      * NOTE: This is done in two steps via imports to/exports from the PKC RAM
      *       because no ordinary memory copy with endianess reversal exists. */
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, ECC_T0, pEccWeierBasicDomainParams->pA, byteLenP, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_T0, pEccWeierBasicDomainParams->pA, byteLenP, operandSize);
     MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pDomainParams->common.pCurveParam1, ECC_T0, byteLenP);
     MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pDomainParams->common.pCurveParam2, WEIER_B, byteLenP);
 
@@ -263,11 +268,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pDomainParams->common.pGx, ECC_S0, byteLenP);
     MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pDomainParams->common.pGy, ECC_S1, byteLenP);
 
+    MCUX_CSSL_FP_BRANCH_DECL(generatePrecomputedPointSecondBranch);
     if (MCUXCLECC_OPTION_GENERATEPRECPOINT_YES == (options & MCUXCLECC_OPTION_GENERATEPRECPOINT_MASK))
     {
         /* Optionally, export prec point coordinates to optimized domain parameter struct. */
         MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pDomainParams->common.pPrecPoints, WEIER_X0, byteLenP);
         MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pDomainParams->common.pPrecPoints + byteLenP, WEIER_Y0, byteLenP);
+
+        MCUX_CSSL_FP_BRANCH_POSITIVE(generatePrecomputedPointSecondBranch,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ExportLittleEndianFromPkc),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ExportLittleEndianFromPkc));
     }
     else if (MCUXCLECC_OPTION_GENERATEPRECPOINT_NO != (options & MCUXCLECC_OPTION_GENERATEPRECPOINT_MASK))
     {
@@ -279,7 +289,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     }
 
     /* Import order n from input buffer and output buffer, compare to check if there are equal */
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_GenerateDomainParams, ECC_T0, pEccWeierBasicDomainParams->pN, byteLenN, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_T0, pEccWeierBasicDomainParams->pN, byteLenN, operandSize);
     MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_DI_BALANCED(ECC_T1, pDomainParams->common.pFullModulusN + MCUXCLPKC_WORDSIZE, byteLenN, operandSize);
 
     MCUXCLPKC_FP_CALC_OP1_CMP(ECC_T0, ECC_T1);
@@ -296,7 +306,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
         mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
         MCUXCLSESSION_EXIT(pSession, mcuxClEcc_WeierECC_GenerateDomainParams, diRefValue, MCUXCLECC_STATUS_OK, MCUXCLECC_STATUS_FAULT_ATTACK,
-            MCUXCLECC_FP_WEIERECC_GENERATEDOMAINPARAMS_FINAL(options));
+            MCUXCLECC_FP_WEIERECC_GENERATEDOMAINPARAMS_FINAL(options),
+            MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(generatePrecomputedPointBranch, MCUXCLECC_OPTION_GENERATEPRECPOINT_YES == (options & MCUXCLECC_OPTION_GENERATEPRECPOINT_MASK)),
+            MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(generatePrecomputedPointSecondBranch, MCUXCLECC_OPTION_GENERATEPRECPOINT_YES == (options & MCUXCLECC_OPTION_GENERATEPRECPOINT_MASK)));
     }
     MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
 }

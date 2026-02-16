@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -67,8 +67,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_createGmacMode(
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  *
  * @return void
  */
@@ -85,8 +85,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_initGMAC(
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  * @param[in]  pIn       Pointer to the input to be processed.
  * @param[in]  inLength    Size of input buffer pointed to by @p pIn.
  * @param[out] pProcessedBytes  Number of bytes processed from @p pIn. RFU.
@@ -115,8 +115,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateGMAC(
  * @pre    The Hkey has been loaded to SGI (key2).
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workarea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workarea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  *
  * @return void
  */
@@ -137,8 +137,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeDataGMAC(
  * @post  The final (encrypted) tag will be in SGI DATOUT0.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workarea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workarea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  * @param[in]  uint32_t  The size of the payload (for GMAC this is 0).
  *
  *

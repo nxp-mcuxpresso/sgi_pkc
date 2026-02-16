@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -49,8 +49,8 @@ extern "C" {
  *       The workarea is updated to reflect the key status and details.
  *
  * @param[in]  session             Current session handle.
- * @param[in]  key                 Handle for the key to be loaded to SGI.
- * @param[in]  pWa                 Pointer to the common workarea fields for Cipher/Mac/Aead.
+ * @param[in]  key                 Handle for the key to be loaded to SGI (word-aligned).
+ * @param[in]  pWa                 Pointer to the common workarea fields for Cipher/Mac/Aead (word-aligned).
  *                                 Can also be NULL if not needed.
  * @param[in]  keyOffset           Offset of the target KEY SGI SFR,
  *                                 can be either of these values:
@@ -74,78 +74,86 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadKey_Sgi(
 /**
  * @brief Internal function to store the key from the SGI to the AES key context.
  *
- * If the key can be read from SGI (key SFR is not WRITE_ONLY), store the key SFR-masked
- * in the context. This function implements masked key storage according to SREQI_BCIPHER_2.
- * If not, store the key handle in the context.
+ * Stores the key handle in the context.
  *
  * @pre Function @ref mcuxClAes_loadKey_Sgi was called to load the key and initialize the workarea.
  * @post The context is updated to reflect the key storage.
  *
  * @param[in]  session   Current session handle.
- * @param[in]  key       Handle for the key to be loaded to SGI.
- * @param[in]  pContext  Pointer to the context, where the key will be stored.
- * @param[in]  pWa       Pointer to the common workarea fields for Cipher/Mac/Aead.
+ * @param[in]  key       Handle for the key to be loaded to SGI (word-aligned).
+ * @param[in]  pContext  Pointer to the context, where the key will be stored (word-aligned).
+ * @param[in]  pWa       Pointer to the common workarea fields for Cipher/Mac/Aead (word-aligned).
  *                       Can also be NULL if not needed, e.g. when storing Clib internal keys.
- * @param[in]  keyOffset Offset of the target KEY SGI SFR or DATOUT SGI SFR based on MCUXCLSGI_DRV_DATIN0_OFFSET,
- *                       can be either of these values:
- *                         #MCUXCLSGI_DRV_KEY0_OFFSET
- *                         #MCUXCLSGI_DRV_KEY1_OFFSET
- *                         #MCUXCLSGI_DRV_KEY2_OFFSET
- *                         #MCUXCLSGI_DRV_KEY3_OFFSET
- *                         #MCUXCLSGI_DRV_DATOUT_OFFSET
- * @param[in]  keySize   Length of the masked key
  *
  * @return void
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_storeMaskedKeyInCtx_Sgi)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_storeMaskedKeyInCtx_Sgi(
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_storeKeyInCtx_Sgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_storeKeyInCtx_Sgi(
   mcuxClSession_Handle_t session,
   mcuxClKey_Handle_t key,
   mcuxClAes_KeyContext_Sgi_t * const pContext,
-  mcuxClAes_Workarea_Sgi_t* pWa,
-  uint32_t keyOffset,
-  uint32_t keySize);
+  mcuxClAes_Workarea_Sgi_t* pWa);
+
+/**
+ * @brief Internal function to store subkey from the SGI to the AES subkey context.
+ *
+ * Store subkey SFR-masked in the context.
+ * This function implements masked key storage according to SREQI_BCIPHER_2.
+ *
+ * @param[in]  session   Current session handle.
+ * @param[in]  pContext  Pointer to the context, where the key will be stored (word-aligned).
+ *
+ * @return void
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_storeMaskedSubKeyInCtx_Sgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_storeMaskedSubKeyInCtx_Sgi(
+  mcuxClSession_Handle_t session,
+  mcuxClAes_HKeyContext_Sgi_t * const pContext);
+
+/**
+ * @brief Internal function to load the key from the AES key context to the SGI.
+ *
+ * This function implements key loading according to SREQI_BCIPHER_2.
+ * It shall also be used for re-loading keys that could not be stored in context due to
+ * WRITE_ONLY SGI key registers (rfc3394).
+ *
+ * Loads the key into the SGI with the key handle in the context.
+ *
+ * @pre Function @ref mcuxClAes_storeKeyInCtx_Sgi was called to store the key and
+ *      update the context.
+ * @post The context and/or workarea are updated to reflect the key load status and details.
+ *
+ * @param[in]  session   Current session handle.
+ * @param[in]  pContext  Pointer to the context, from which the key will be loaded (word-aligned).
+ * @param[in]  pWa       Pointer to the common workarea fields for Cipher/Mac/Aead (word-aligned).
+ *                       Can also be NULL if not needed, e.g. when loading Clib internal keys.
+ *
+ * @return void
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_loadKeyFromCtx_Sgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadKeyFromCtx_Sgi(
+  mcuxClSession_Handle_t session,
+  mcuxClAes_KeyContext_Sgi_t * const pContext,
+  mcuxClAes_Workarea_Sgi_t* pWa);
 
 /**
  * @brief Internal function to load the key from the AES key context to the SGI.
  *
  * This function implements masked key loading according to SREQI_BCIPHER_2.
- * It shall also be used for loading Clib internal keys (subkeys, H-Key, ..), or for
- * re-loading keys that could not be stored in context due to WRITE_ONLY SGI key registers (rfc3394).
+ * Used for loading H-Key.
  *
- * If the key was stored SFR masked in the context, copy it back to SGI. This implements
+ * Subkey was stored SFR masked in the context, copy it back to SGI. This implements
  * masked key loading from context according to SREQI_BCIPHER_2.
- * If not, freshly load the key into the SGI with the key handle in the context.
- *
- * @pre Function @ref mcuxClAes_storeMaskedKeyInCtx_Sgi was called to store the key and
- *      update the context.
- * @post The context and/or workarea are updated to reflect the key load status and details.
  *
  * @param[in]  session   Current session handle.
- * @param[in]  pContext  Pointer to the context, from which the key will be loaded.
- * @param[in]  pWa       Pointer to the common workarea fields for Cipher/Mac/Aead.
- *                       Can also be NULL if not needed, e.g. when loading Clib internal keys.
- * @param[in]  keyOffset Offset of the target KEY SGI SFR or DATIN SGI SFR,
- *                       can be either of these values:
- *                         #MCUXCLSGI_DRV_KEY0_OFFSET
- *                         #MCUXCLSGI_DRV_KEY1_OFFSET
- *                         #MCUXCLSGI_DRV_KEY2_OFFSET
- *                         #MCUXCLSGI_DRV_KEY3_OFFSET
- *                         #MCUXCLSGI_DRV_DATIN0_OFFSET
- *                         #MCUXCLSGI_DRV_DATIN1_OFFSET
- *                         #MCUXCLSGI_DRV_DATIN2_OFFSET
- *                         #MCUXCLSGI_DRV_DATIN3_OFFSET
- * @param[in]  keySize   Length of the masked key
+ * @param[in]  pContext  Pointer to the context, from which the key will be loaded (word-aligned).
  *
  * @return void
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_loadMaskedKeyFromCtx_Sgi)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedKeyFromCtx_Sgi(
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_loadMaskedSubKeyFromCtx_Sgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedSubKeyFromCtx_Sgi(
   mcuxClSession_Handle_t session,
-  mcuxClAes_KeyContext_Sgi_t * const pContext,
-  mcuxClAes_Workarea_Sgi_t* pWa,
-  uint32_t keyOffset,
-  uint32_t keySize);
+  mcuxClAes_HKeyContext_Sgi_t * const pContext);
 
 /**
  * @brief Internal function to flush the key in the context from its SGI key slot.
@@ -160,14 +168,32 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_loadMaskedKeyFromCtx_Sgi(
  *        The context is updated to reflect the changes.
  *
  * @param[in]  session   Current session handle.
- * @param[in]  pContext  Pointer to the context, from which the key will be loaded.
+ * @param[in]  pContext  Pointer to the context, from which the key will be loaded (word-aligned).
  *
  * @return void
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_flushKeyInContext)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_flushKeyInContext(
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_flushKeyInSgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_flushKeyInSgi(
   mcuxClSession_Handle_t session,
   mcuxClAes_KeyContext_Sgi_t * const pContext);
+
+/**
+ * @brief Internal function to flush the subkey from its SGI key slot.
+ *
+ * This function flushes the subkey from SGI if pContext indicates it needs flushing.
+ *
+ * @post: The H-Key in key slot 2 is flushed from the SGI.
+ *
+ * @param[in]  session   Current session handle.
+ * @param[in]  pContext  Pointer to the context, which indicates if subkey needs flushing (word-aligned).
+ *
+ * @return void
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAes_flushSubKeyInSgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_flushSubKeyInSgi(
+  mcuxClSession_Handle_t session,
+  mcuxClAes_HKeyContext_Sgi_t * const pContext);
+
 
 
 

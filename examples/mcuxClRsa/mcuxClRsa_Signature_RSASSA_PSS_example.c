@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -211,14 +211,24 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_Signature_RSASSA_PSS_example)
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-  mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
-    /* mcuxClSignature_ModeDescriptor_t * pSignatureMode: */ pSignatureMode,
-    /* mcuxClRsa_SignatureProtocolDescriptor_t * pProtocolDescriptor: */ pRsaProtocolDescriptor,
-    /* mcuxClHash_Algo_t hashAlgorithm: */ mcuxClHash_Algorithm_Sha256,
-    /* uint32_t saltLength: */ RSA_PSS_SALT_LENGTH,
-    /* uint32_t options: */ 0u
-    );
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID_BEGIN(construct_mode_token,
+    mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
+      /* mcuxClSignature_ModeDescriptor_t * pSignatureMode: */ pSignatureMode,
+      /* mcuxClRsa_SignatureProtocolDescriptor_t * pProtocolDescriptor: */ pRsaProtocolDescriptor,
+      /* mcuxClHash_Algo_t hashAlgorithm: */ mcuxClHash_Algorithm_Sha256,
+      /* uint32_t saltLength: */ RSA_PSS_SALT_LENGTH,
+      /* uint32_t options: */ 0u
+    )
+  );
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
+
+  if(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_SignatureModeConstructor_RSASSA_PSS) != construct_mode_token)
+  {
+    return MCUXCLEXAMPLE_STATUS_ERROR;
+  }
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID_END();
+
   /**************************************************************************/
   /* Hash computation                                                       */
   /**************************************************************************/

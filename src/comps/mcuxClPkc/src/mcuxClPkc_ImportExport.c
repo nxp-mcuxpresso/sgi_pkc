@@ -136,14 +136,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportBigEndianToPkc(uint8_t iTarget
     {
         MCUX_CSSL_DI_RECORD(clearTarget, (uint32_t)pTarget);
         MCUX_CSSL_DI_RECORD(clearTarget, targetBufferLength);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pTarget[length], targetBufferLength - length));
+        MCUXCLMEMORY_CLEAR_INT(&pTarget[length], targetBufferLength - length);
     }
     MCUX_CSSL_DI_EXPUNGE(mcuxClPkc_ImportBigEndianToPkc /* not used*/, targetBufferLength);
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pTarget, pSource, length));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_ImportBigEndianToPkc,
-        MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)),
+        MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUXCLMEMORY_CLEAR_INT_FP_EXPECT),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
 }
 
@@ -171,14 +171,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportLittleEndianToPkc(uint8_t iTar
     {
         MCUX_CSSL_DI_RECORD(clearTarget, (uint32_t)pTarget);
         MCUX_CSSL_DI_RECORD(clearTarget, targetBufferLength);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pTarget[length], targetBufferLength - length));
+        MCUXCLMEMORY_CLEAR_INT(&pTarget[length], targetBufferLength - length);
     }
     MCUX_CSSL_DI_EXPUNGE(mcuxClPkc_ImportLittleEndianToPkc /* not used*/, targetBufferLength);
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pTarget, pSource, length));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_ImportLittleEndianToPkc,
-        MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)),
+        MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUXCLMEMORY_CLEAR_INT_FP_EXPECT),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
 }
 
@@ -258,15 +258,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureImportBigEndianToPkc(uint8_t i
     {
         MCUX_CSSL_DI_RECORD(clearTarget, (uint32_t)pTarget);
         MCUX_CSSL_DI_RECORD(clearTarget, targetBufferLength);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pTarget[length], targetBufferLength - length));
+        MCUXCLMEMORY_CLEAR_INT(&pTarget[length], targetBufferLength - length);
     }
     MCUX_CSSL_DI_EXPUNGE(mcuxClPkc_SecureImportBigEndianToPkc /* not used*/, targetBufferLength);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pTarget, pSource, length) );
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pTarget, pSource, length);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_SecureImportBigEndianToPkc,
-        MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int) );
+        MCUX_CSSL_FP_CONDITIONAL(targetBufferLength > length, MCUXCLMEMORY_CLEAR_INT_FP_EXPECT),
+        MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT);
 }
 
 /**
@@ -291,10 +291,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureExportBigEndianFromPkc(uint8_t
 
     MCUXCLPKC_WAITFORFINISH();
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pTarget, pSource, length));
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pTarget, pSource, length);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_SecureExportBigEndianFromPkc,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int) );
+        MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT);
 }
 
 /**
@@ -318,8 +318,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureExportLittleEndianFromPkc(uint
 
     MCUXCLPKC_WAITFORFINISH();
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pTarget, pSource, length) );
+    MCUXCLMEMORY_COPY_SECURE_INT(pTarget, pSource, length);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPkc_SecureExportLittleEndianFromPkc,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int) );
+        MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT);
 }

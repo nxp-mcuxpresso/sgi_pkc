@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -75,17 +75,16 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMemory_Status_t) mcuxClMemory_co
 
     mcuxClMemory_Status_t retval = MCUXCLMEMORY_STATUS_FAULT;
 
-    MCUX_CSSL_FP_FUNCTION_CALL(csslRetval, mcuxCsslMemory_CompareRev_arm_asm(pLhs, pRhs, length));
-
-    /* translate mcuxCsslMemory_Status_t -> mcuxClMemory_Status_t */
-    retval = (mcuxClMemory_Status_t) csslRetval ^ (MCUXCSSLMEMORY_COMPONENT_MASK ^ MCUXCLMEMORY_COMPONENT_MASK);
-
-    /* Record mcuxClMemory status and expunge mcuxCssl status, since it's internal */
-    /* TODO CLNS-17727: add expunge(status) after all calls to this function and uncomment here */
-    /* MCUX_CSSL_DI_RECORD(memoryRet, retval); */
-    MCUX_CSSL_DI_EXPUNGE(csslMemoryRet, csslRetval);
-
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMemory_compare_reversed_int, retval, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_CompareRev_arm_asm));
+    retval = MCUXCLMEMORY_STATUS_EQUAL;
+    for (uint32_t i = 0u; i < length; ++i)
+    {
+        if (pLhs[i] != pRhs[i])
+        {
+            retval = MCUXCLMEMORY_STATUS_NOT_EQUAL;
+        }
+    }
+    MCUX_CSSL_DI_EXPUNGE(identifier /* Not used */, (uint32_t) pLhs + (uint32_t) pRhs + length);  // Balance the SC
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMemory_compare_reversed_int, retval);
 }
 
 

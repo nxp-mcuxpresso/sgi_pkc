@@ -51,13 +51,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Cbc_NonBlocking_Compl
 
   /* Copy last output block from SGI */
   mcuxCl_Buffer_t pOutput = pWa->nonBlockingWa.pOut;
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiOutputChannel(
     session, MCUXCLSGI_DRV_DATOUT_OFFSET, MCUXCLBUFFER_GET(pOutput) + pWa->nonBlockingWa.outOffset));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(outputChannel));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, outputChannel));
 
   /* Increase output length if copy of last block was successful, and advance the output pointer */
@@ -69,7 +66,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Cbc_NonBlocking_Compl
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
      Workaround: After final result was read, wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
   mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
-  mcuxClSgi_Drv_resetAutoMode();
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
   if(MCUXCLCIPHERMODES_DECRYPT == pWa->nonBlockingWa.direction)
   {
@@ -78,7 +75,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Cbc_NonBlocking_Compl
     When we put first data in DATIN0 next will be placed in DATIN1 and next in DATIN2
     DATIN0->DATIN1->DATIN2->DATIN0....
     Warning: If number of SGI DATIN register changes this might cause issues*/
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount));
+
     MCUX_CSSL_FP_FUNCTION_CALL(uint32_t, blocksRead, mcuxClDma_Drv_readMajorBeginningLoopCount(inputChannel));
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("Blocksread must be at least one as otherwise the automode would not have been executed")
     uint32_t ivOffset = ((blocksRead - 1u) % 3u) * 4u;
@@ -86,7 +83,15 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Cbc_NonBlocking_Compl
     MCUXCLSGI_UTILS_STORE128BITBLOCK_DI_BALANCED(MCUXCLSGI_DRV_DATIN0_OFFSET + (4u*ivOffset), (uint8_t *)pWa->pIV);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Cbc_NonBlocking_CompleteAutoMode);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Cbc_NonBlocking_CompleteAutoMode,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
+      MCUX_CSSL_FP_CONDITIONAL( (MCUXCLCIPHERMODES_DECRYPT == pWa->nonBlockingWa.direction),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock))
+  );
 }
 
 /**
@@ -143,16 +148,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     /* For only one block of data, SGI AUTO-mode is not needed. */
 
     /* Copy input to SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLBUFFER_GET(pIn)));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
     /* Perform encryption */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
       MCUXCLSGI_DRV_CTRL_END_UP                  |
       MCUXCLSGI_DRV_CTRL_INSEL_DATIN0_XOR_DATOUT | /* IV stored in DATOUT, P0 ^ IV */
@@ -162,12 +163,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     mcuxClSgi_Drv_wait();
 
     /* Copy output block from SGI. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiOutputChannel(session, MCUXCLSGI_DRV_DATOUT_OFFSET, pOutPtr));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(outputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, outputChannel));
 
     status = MCUXCLCIPHER_STATUS_OK;
@@ -186,14 +184,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     /* For multiple blocks, use SGI AUTO mode with handshakes, non-blocking */
 
     /* Configure the DMA channels */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiTransferWithHandshakes(
       session,
       MCUXCLSGI_DRV_DATIN0_OFFSET,
       MCUXCLBUFFER_GET(pIn),
       pOutPtr));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
       session,
       remainingBlocks,
@@ -202,25 +198,38 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     /* Enable interrupts for the completion of the input channel, and for errors.
        As the output channel finishes first, there is not need to additionally enable DONE interrupts for it.
     */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(inputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(outputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel));
 
     /* Enable SGI AUTO mode CBC */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureAutoMode(MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_CBC));
 
     /* Start the operation - this will start the SGI-DMA interaction in the background, CPU is not blocked */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_startAutoModeWithHandshakes(sgiCtrl | MCUXCLSGI_DRV_CTRL_NO_UP, MCUXCLSGI_UTILS_OUTPUT_HANDSHAKE_ENABLE));
 
     status = MCUXCLCIPHER_STATUS_JOB_STARTED;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Cbc_NonBlocking_Enc, status);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Cbc_NonBlocking_Enc, status,
+    MCUX_CSSL_FP_CONDITIONAL( (1u == remainingBlocks),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+      MCUX_CSSL_FP_CONDITIONAL( (NULL != pIvOut),
+           MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock))),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1u),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks),
+      2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes))
+  );
 }
 
 /**
@@ -272,16 +281,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     /* For only one block of data, SGI AUTO-mode is not needed. */
 
     /* Copy input to SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN1_OFFSET, MCUXCLBUFFER_GET(pIn)));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
     /* Perform decryption */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
       MCUXCLSGI_DRV_CTRL_END_UP                  |
       MCUXCLSGI_DRV_CTRL_OUTSEL_RES_XOR_DATIN2   | /* IV stored in DATIN2, IV ^ C0 */
@@ -291,12 +296,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     mcuxClSgi_Drv_wait();
 
     /* Copy output block from SGI. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiOutputChannel(session, MCUXCLSGI_DRV_DATOUT_OFFSET, pOutPtr));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(outputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, outputChannel));
 
     status = MCUXCLCIPHER_STATUS_OK;
@@ -318,14 +320,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     /* For multiple blocks, use SGI AUTO mode with handshakes, non-blocking */
 
     /* Configure the DMA channels */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiTransferWithHandshakes(
       session,
       MCUXCLSGI_DRV_DATIN0_OFFSET,
       MCUXCLBUFFER_GET(pIn),
       pOutPtr));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
       session,
       remainingBlocks,
@@ -334,25 +334,38 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     /* Enable interrupts for the completion of the input channel, and for errors.
        As the output channel finishes first, there is not need to additionally enable DONE interrupts for it.
     */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(inputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(outputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel));
 
     /* Enable SGI AUTO mode CBC */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureAutoMode(MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_CBC));
 
     /* Start the operation - this will start the SGI-DMA interaction in the background, CPU is not blocked */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_startAutoModeWithHandshakes(sgiCtrl | MCUXCLSGI_DRV_CTRL_NO_UP | MCUXCLSGI_DRV_CTRL_AES_NO_KL, MCUXCLSGI_UTILS_OUTPUT_HANDSHAKE_ENABLE));
 
     status = MCUXCLCIPHER_STATUS_JOB_STARTED;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Cbc_NonBlocking_Dec, status);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Cbc_NonBlocking_Dec, status,
+    MCUX_CSSL_FP_CONDITIONAL( (1u == remainingBlocks),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+      MCUX_CSSL_FP_CONDITIONAL( (NULL != pIvOut),
+           MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock))),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1u),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks),
+      2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes))
+  );
 }
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()

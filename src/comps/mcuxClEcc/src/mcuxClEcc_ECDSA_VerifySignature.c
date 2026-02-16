@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -40,6 +40,7 @@
 #include <internal/mcuxClMath_Internal.h>
 #include <internal/mcuxClMath_Internal_Utils.h>
 
+#include <internal/mcuxClEcc_Internal_FUP.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal_FP.h>
 #include <internal/mcuxClEcc_Weier_Internal_FUP.h>
@@ -138,8 +139,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ECDSA_VerifySig
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_ECDSA_VerifySignature_Import);
 
     /* Import r to S3 and s to T1. */
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_ECDSA_VerifySignature_Import, ECC_S3, pSignature, byteLenN, operandSize);
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(mcuxClEcc_ECDSA_VerifySignature_Import, ECC_T1, pSignature, byteLenN, byteLenN, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_S3, pSignature, byteLenN, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(ECC_T1, pSignature, byteLenN, byteLenN, operandSize);
 
     /* Verify that r and s are in range [1,n-1] */
     MCUX_CSSL_FP_FUNCTION_CALL(ret_SignatureRangeCheck, mcuxClEcc_ECDSA_SignatureRangeCheck());
@@ -197,15 +198,21 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ECDSA_VerifySig
     /* Calculate P2 += P1, if u1 != 0. */
     if (MCUXCLPKC_FLAG_NONZERO == checkHashZero)
     {
+        /* Calculate P2 = P2 + P1 twice and compare results. Early-exit with FA in case the results differ. */
         MCUX_CSSL_DI_EXPUNGE(mcuxClEcc_ECDSA_VerifySignature_hash_zero_flag, MCUXCLECC_FLAG_HASHNONZERO);
         /* Input: P1 in (X0,Y0, Z) Jacobian;          */
         /*        P2 in (XA,YA, ZA) relative-z.       */
         /* Output: P1 + P2 in (XA,YA, ZA) relative-z. */
+        /* First calculation of P2 = P2 + P1 */
         MCUXCLPKC_WAITFORREADY();
-        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX0, WEIER_XA);   /* input: P2; output P1 + P2 */
-        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VZ0, WEIER_ZA);   /* input: z' and z; output z' */
+        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX2, WEIER_XA);   /* input: P2 */
         MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX1, WEIER_X0);   /* input: P1 */
+        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX0, WEIER_X2);   /* output: P1 + P2 */
+        pOperands[WEIER_VZ] = pOperands[WEIER_Z];                                /* input: z */
+        pOperands[WEIER_VZ2] = pOperands[WEIER_ZA];                              /* input: z' */
+        pOperands[WEIER_VZ0] = pOperands[WEIER_X3];                              /* output: z' */
         MCUX_CSSL_FP_FUNCTION_CALL(statusPointFullAdd, mcuxClEcc_PointFullAdd());
+
         if (MCUXCLECC_STATUS_NEUTRAL_POINT == statusPointFullAdd)
         {
             MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("insufficient workarea (pCpuWorkarea = NULL) will be checked in SetupEnvironment")
@@ -221,9 +228,37 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ECDSA_VerifySig
                 MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE
             );
         }
+
+        /* Second calculation of P2 = P2 + P1 */
+        MCUXCLPKC_WAITFORREADY();
+        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX2, WEIER_XA);   /* input: P2 */
+        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VZ0, WEIER_ZA);   /* input: z' and z;  */
+        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX1, WEIER_X0);   /* input: P1 */
+        MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX0, WEIER_XA);   /* output P1 + P2 */
+        pOperands[WEIER_VZ2] = pOperands[WEIER_ZA];                              /* output z' */
+        MCUX_CSSL_FP_FUNCTION_CALL(statusPointFullAdd2, mcuxClEcc_PointFullAdd());
+        if (MCUXCLECC_STATUS_NEUTRAL_POINT == statusPointFullAdd2)
+        {
+            MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
+        }
+
+        /* Compare result of first (X2,Y2, X3) and second (XA,YA, ZA) computation. If they're not the same, early-exit with FA. */
+        MCUXCLPKC_FP_CALC_OP1_SUB(ECC_T0, WEIER_X2, WEIER_XA);
+        MCUXCLPKC_FP_CALC_OP1_SUB(ECC_T1, WEIER_Y2, WEIER_YA);
+        MCUXCLPKC_FP_CALC_OP1_SUB(ECC_T2, WEIER_X3, WEIER_ZA);
+        MCUXCLPKC_FP_CALC_OP1_OR(ECC_T3, ECC_T0, ECC_T1);
+        MCUXCLPKC_FP_CALC_OP1_OR(ECC_T0, ECC_T3, ECC_T2);
+        if (MCUXCLPKC_FLAG_ZERO != MCUXCLPKC_WAITFORFINISH_GETZERO())
+        {
+            MCUXCLSESSION_FAULT(pSession, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
+        }
     }
     else if (MCUXCLPKC_FLAG_ZERO == checkHashZero)
     {
+        /* Move P2 to (X2,Y2, X3) in case of a null hash */
+        MCUXCLPKC_FP_CALC_OP1_OR_CONST(WEIER_X2, WEIER_XA, 0u);
+        MCUXCLPKC_FP_CALC_OP1_OR_CONST(WEIER_Y2, WEIER_YA, 0u);
+        MCUXCLPKC_FP_CALC_OP1_OR_CONST(WEIER_X3, WEIER_ZA, 0u);
         MCUX_CSSL_DI_EXPUNGE(mcuxClEcc_ECDSA_VerifySignature_hash_zero_flag, MCUXCLECC_FLAG_HASHZERO);
     }
     else
@@ -234,7 +269,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ECDSA_VerifySig
     /* Convert P1 + P2 (or P2 if u1 == 0) to (X0,Y0), affine NR. */
     /* Calculate R = x mod n, in X1. */
     MCUXCLPKC_FP_CALC_MC1_MM(ECC_T0, WEIER_Z, WEIER_ZA, ECC_P);  // t0 = z*z' * 256^LEN         = z*z' in MR
-    MCUXCLMATH_FP_MODINV(ECC_T1, ECC_T0, ECC_P, ECC_T2);     // t1 = (z*z')^(-1) * 256^(-LEN), use T2 as temp
+    MCUXCLECC_FP_MODINV(ECC_T1, ECC_T0, ECC_P, ECC_T2, ECC_T3);     // t1 = (z*z')^(-1) * 256^(-LEN), use T2, T3 as temp
     /* MISRA Ex. 22, while(0) is allowed */
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_Fup_Verify_Convert_P1plusP2_toAffineNR_CalcR,
                         mcuxClEcc_Fup_Verify_Convert_P1plusP2_toAffineNR_CalcR_LEN);
@@ -256,8 +291,18 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ECDSA_VerifySig
     MCUXCLPKC_FP_CALC_OP1_CMP(WEIER_X1, ECC_S3);
     *pZeroFlagValidityCheckByPKC = MCUXCLPKC_WAITFORFINISH_GETZERO();
 
+    /* Check signature R again by CPU. */
+    mcuxClMemory_Status_t cmpR_byCpu = MCUXCLMEMORY_STATUS_NOT_EQUAL;
+        uint8_t *pImportR = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S3]);
+        uint8_t *pCalcR = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_X1]);
+        const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
+
+        MCUX_CSSL_DI_RECORD(sigValiditycheckCPU, (uint32_t)pImportR + (uint32_t)pCalcR + operandSize);
+        MCUXCLMEMORY_COMPARE_INT(cmpR_byCpu, pImportR, pCalcR, operandSize);
+    MCUX_CSSL_DI_RECORD(sigValiditycheckCPU, (uint32_t)cmpR_byCpu);
 
     if ((MCUXCLPKC_FLAG_ZERO != *pZeroFlagValidityCheckByPKC)
+        || (MCUXCLMEMORY_STATUS_EQUAL != cmpR_byCpu)
     )
     {
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("insufficient workarea (pCpuWorkarea = NULL) will be checked in SetupEnvironment")
@@ -267,15 +312,21 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ECDSA_VerifySig
 
         mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
+        MCUX_CSSL_DI_EXPUNGE(sigValiditycheckCPU, (uint32_t)cmpR_byCpu);
         /* If imported signature is not equal to the calculated R, exit with Invalid Signature ; FP is balanced by the caller outside this function */
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_VerifySignature_Calculate, MCUXCLECC_STATUS_INVALID_SIGNATURE,
             MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P1_ADD_P2,
+                MCUXCLMEMORY_COMPARE_INT_FP_EXPECT,
             MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE
         );
     }
 
+    MCUX_CSSL_DI_EXPUNGE(sigValiditycheckCPU, MCUXCLMEMORY_STATUS_EQUAL);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_VerifySignature_Calculate, MCUXCLECC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_VerifySignature_Calculate, MCUXCLECC_STATUS_OK,
+            MCUXCLMEMORY_COMPARE_INT_FP_EXPECT,
+        MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P1_ADD_P2
+    );
 }
 
 /**
@@ -291,6 +342,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDSA_Calculate_P1(
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_ECDSA_Calculate_P1);
 
     /* Calculate P1 = u1 * G, if u1 != 0 */
+    MCUX_CSSL_FP_BRANCH_DECL(checkHashZeroBranch);
     if (MCUXCLPKC_FLAG_NONZERO == checkHashZero)
     {
         MCUX_CSSL_DI_EXPUNGE(mcuxClEcc_ECDSA_VerifySignature_hash_zero_flag, MCUXCLECC_FLAG_HASHNONZERO);
@@ -303,9 +355,13 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDSA_Calculate_P1(
                 MCUXCLECC_SCALARMULT_OPTION_AFFINE_INPUT |
                 MCUXCLECC_SCALARMULT_OPTION_PROJECTIVE_OUTPUT |
                 MCUXCLECC_SCALARMULT_OPTION_NO_OUTPUT_VALIDATION)); // TODO (CLNS-13627): Move mcuxClEcc_PointCheckAffineNR into the function
+
+        MCUX_CSSL_FP_BRANCH_POSITIVE(checkHashZeroBranch,
+            pDomainParams->common.pScalarMultFunctions->plainFixScalarMultFctFPId);
     }
     else if (MCUXCLPKC_FLAG_ZERO == checkHashZero)
     {
+        MCUX_CSSL_FP_BRANCH_NEGATIVE(checkHashZeroBranch);
         MCUX_CSSL_DI_EXPUNGE(mcuxClEcc_ECDSA_VerifySignature_hash_zero_flag, MCUXCLECC_FLAG_HASHZERO);
     }
     else
@@ -313,7 +369,13 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDSA_Calculate_P1(
         MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_ECDSA_Calculate_P1);
+    /* Reset z' = 1 in MR (or initialize z' if u1 == 0). */
+    MCUXCLPKC_FP_CALC_OP1_NEG(WEIER_ZA, ECC_P);
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_ECDSA_Calculate_P1,
+        MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(checkHashZeroBranch, MCUXCLPKC_FLAG_NONZERO == checkHashZero),
+        MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE(checkHashZeroBranch, MCUXCLPKC_FLAG_NONZERO != checkHashZero),
+        MCUXCLPKC_FP_CALLED_CALC_OP1_NEG);
 }
 
 // TODO: Add sanity checks on the key CLNS-7854
@@ -340,7 +402,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
     MCUX_CSSL_DI_RECORD(mcuxClEcc_ECDSA_VerifySignature_return, MCUXCLSIGNATURE_STATUS_NOT_OK);
 
     /**********************************************************/
-    /* Initialization                                         */
+    /* Step 1: Initialization                                 */
     /**********************************************************/
     /* TODO: Do sanity check for the input parameters. Ticket CLNS-7854 */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_VOID()
@@ -366,9 +428,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
     const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
 
     /**********************************************************/
-    /* Import signature r and s, and                          */
-    /* check both r,s are in range [1, n-1]                   */
+    /* Step 2: Import signature r and s twice, and            */
+    /* check both r,s are in range [1, n-1] twice             */
     /**********************************************************/
+
+    /* First import */
     MCUX_CSSL_FP_FUNCTION_CALL(ret_VerifySignature_Import_1,
         mcuxClEcc_ECDSA_VerifySignature_Import(pSession, pCpuWorkarea, pIn, inSize, pSignature, byteLenN, operandSize));
     if(MCUXCLECC_STATUS_OK != ret_VerifySignature_Import_1)
@@ -382,7 +446,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
 
         /* No need to record as RECORD(pIn + pSize) is done via Signature_Import */
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_VerifySignature, MCUXCLSIGNATURE_STATUS_NOT_OK,
-            MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_INIT_IMPORT1,
+            /* Step 1 */
+            MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_INIT,
+            /* Step 2 */
+            MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_IMPORT1,
             MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
     }
 
@@ -415,13 +482,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
     }
 
     /**********************************************************/
-    /* Calculate s^(-1), and                                  */
+    /* Step 3: Calculate s^(-1), and                          */
     /* u1 = hash * s^(-1) mod n and u2 = r * s^(-1) mod n     */
     /**********************************************************/
 
     /* Calculate s^(-1) * 256^LEN mod n. */
     MCUXCLPKC_FP_CALC_MC1_MR(ECC_T2, ECC_T1, ECC_N);      // t2 = s * (256^LEN)^(-1)
-    MCUXCLMATH_FP_MODINV(ECC_T1, ECC_T2, ECC_N, ECC_T3);  // t1 = t2^(-1) = s^(-1) * 256^LEN, using T3 as temp
+    MCUXCLECC_FP_MODINV(ECC_T1, ECC_T2, ECC_N, ECC_T3, ECC_T0);  // t1 = t2^(-1) = s^(-1) * 256^LEN, using T3, T0 as temp
 
     /* Initialize z coordinate, z = 1 in MR, in Z. */
     /* Calculate u1 and u2, store result in S0 and S1. */
@@ -435,21 +502,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
 
 
     /**********************************************************/
-    /* Calculate P1 = u1 * G                                  */
+    /* Step 4: Calculate P1 = u1 * G                          */
     /**********************************************************/
-
-    /* Interleave u1 in S0 and u2 in S1. */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_InterleaveTwoScalars(MCUXCLPKC_PACKARGS2(ECC_S0, ECC_S1), byteLenN * 8u));
-
     /* Calculate P1 = u1 * G, if u1 != 0 */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_ECDSA_Calculate_P1(checkHashZero, pDomainParams, pSession));
 
-    /* Reset z' = 1 in MR (or initialize z' if u1 == 0). */
-    MCUXCLPKC_FP_CALC_OP1_NEG(WEIER_ZA, ECC_P);
-
 
     /**********************************************************/
-    /* Calculate P2 = u2 * Q, and update P1 accordingly       */
+    /* Step 5: Calculate P2 = u2*Q, and update P1 accordingly */
     /**********************************************************/
 
     /* Load affine coordinates of public key Q to buffers (X1,Y1) in affine NR and clear any potential garbage
@@ -463,10 +523,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsX, (uint32_t)&pPubKeyX[byteLenP] + bytesToClear);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPubKeyX[byteLenP], bytesToClear));
+    MCUXCLMEMORY_CLEAR_INT(&pPubKeyX[byteLenP], bytesToClear);
 
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsY, (uint32_t)&pPubKeyY[byteLenP] + bytesToClear);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPubKeyY[byteLenP], bytesToClear));
+    MCUXCLMEMORY_CLEAR_INT(&pPubKeyY[byteLenP], bytesToClear);
 
     MCUXCLKEY_LOAD_FP(
       pSession,
@@ -530,7 +590,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Int_PointMult(ECC_S1, byteLenN * 8u));
 
     /**********************************************************/
-    /* Calculate (x1, y1) = P1 + P2, and check the result     */
+    /* Step 6: Calculate (x1,y1) = P1+P2,and check the result */
     /**********************************************************/
 
     volatile uint32_t zeroFlagValidityCheckByPKC = 0u;
@@ -545,22 +605,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
         MCUX_CSSL_DI_RECORD(pInIntegrity, pIn);
         MCUX_CSSL_DI_RECORD(inSizeIntegrity, inSize);
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_VerifySignature, MCUXCLSIGNATURE_STATUS_NOT_OK,
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_Calculate_P1),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_VerifySignature_Calculate),
-            MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_PREPARE_AND_CHECK,
-            MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P1,
-            MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P2(key)
+            MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_PREPARE_AND_CHECK
         );
     }
 
     /**********************************************************/
-    /* Clean up and exit                                      */
+    /* Step 7: Clean up and exit                              */
     /**********************************************************/
 
     /* Export the calculated r. */
     uint8_t computedRForComparison[MCUXCLECC_WEIERECC_MAX_SIZE_BASEPOINTORDER];
     MCUXCLBUFFER_INIT(buffComputedR, NULL, computedRForComparison, byteLenN);
-    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(mcuxClEcc_ECDSA_VerifySignature, buffComputedR, WEIER_X1, byteLenN);
+    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(buffComputedR, WEIER_X1, byteLenN);
 
     /* Import prime p and order n again, and check (compare with) existing one. */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
@@ -582,19 +638,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
     /* 2x EXPUNGE(pIn + pSize) done via Signature_Import so do one RECORD to get correct expectations */
     MCUX_CSSL_DI_RECORD(pInIntegrity, pIn);
     MCUX_CSSL_DI_RECORD(inSizeIntegrity, inSize);
-    uint32_t retCode =  (MCUXCLSIGNATURE_STATUS_OK ^ MCUXCLPKC_FLAG_ZERO) ^ zeroFlagValidityCheckByPKC;
+
+    uint32_t retCode = (MCUXCLSIGNATURE_STATUS_OK ^ MCUXCLPKC_FLAG_ZERO) ^ zeroFlagValidityCheckByPKC;
     MCUX_CSSL_FP_FUNCTION_EXIT(
       mcuxClEcc_ECDSA_VerifySignature,
       retCode,
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_Calculate_P1),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_VerifySignature_Calculate),
       MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_PREPARE_AND_CHECK,
-      MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P1,
-      MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P2(key),
-      MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_CALC_P1_ADD_P2,
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_IntegrityCheckPN),
       /* Clean up and exit */
-      MCUXCLPKC_FP_CALLED_EXPORTBIGENDIANFROMPKC_BUFFER,
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_computeAndSetCrcForExternalVerification),
-      MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
+      MCUXCLECC_FP_ECDSA_VERIFYSIGNATURE_FINAL
+      );
 }
+

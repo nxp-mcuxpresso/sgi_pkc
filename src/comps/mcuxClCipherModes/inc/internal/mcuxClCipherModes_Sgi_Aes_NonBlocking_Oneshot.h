@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -23,7 +23,7 @@
  * @attention This function does not support multiple software computations.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pKey       Handle for the used key
+ * @param[in]  pKey       Handle for the used key (word-aligned)
  * @param[in]  mode       Cipher mode to use for encryption operation
  * @param[in]  pIv        Pointer to initialization vector
  * @param[in]  ivLength   Length of initialization vector
@@ -59,7 +59,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
  * @attention This function does not support multiple software computations.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pKey       Handle for the used key
+ * @param[in]  pKey       Handle for the used key (word-aligned)
  * @param[in]  mode       Cipher mode to use for decryption operation
  * @param[in]  pIv        Pointer to initialization vector
  * @param[in]  ivLength   Length of initialization vector
@@ -112,7 +112,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_ISR_completeNonBlocking_ones
  * Therefore it takes also care of padding.
  *
  * @param[in]      session           Handle for the current CL session.
- * @param[in]      pWa               Handle for the current workarea
+ * @param[in]      pWa               Handle for the current workarea (word-aligned)
  * @param[in]      pAlgo             Pointer to the algorithm descriptor
  * @param[in]      pIn               Pointer to last block input data
  * @param[in]      inOffset          Offset of the @p pIn buffer
@@ -142,7 +142,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_handleLastBlock_enc(
  * Therefore it takes care of padding removal.
  *
  * @param[in]      session           Handle for the current CL session.
- * @param[in]      pWa               Handle for the current workarea
+ * @param[in]      pWa               Handle for the current workarea (word-aligned)
  * @param[in]      pAlgo             Pointer to the algorithm descriptor
  * @param[in]      pIn               Pointer to last block input data
  * @param[in]      inOffset          Offset of the @p pIn buffer

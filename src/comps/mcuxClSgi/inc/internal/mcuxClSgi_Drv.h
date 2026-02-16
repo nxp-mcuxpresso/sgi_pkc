@@ -133,6 +133,7 @@ extern "C" {
 #define MCUXCLSGI_DRV_CTRL_AES_NO_KL             (MCUXCLSGI_SFR_CTRL_AES_NO_KL)
 
 
+
 /****************************************************************
  * Static inline functions
  ****************************************************************/
@@ -247,6 +248,33 @@ static inline bool mcuxClSgi_Drv_isWriteOnlyKeySlot(uint32_t slot)
 {
   return mcuxClSgi_Sfr_isWriteOnlyKey(mcuxClSgi_Drv_keySlotToIndex(slot));
 }
+#else
+/**
+ * @brief Check if a key offset is write-only.
+ *
+ * @param  offset   Offset with respect to the SGI base. Can be any of MCUXCLSGI_DRV_KEY*_OFFSET_*.
+ *
+ * @return bool
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_isWriteOnlyKeyOffset)
+static inline bool mcuxClSgi_Drv_isWriteOnlyKeyOffset(uint32_t offset)
+{
+  return false;
+}
+
+/**
+ * @brief Check if a key slot is write-only.
+ *
+ * @param  slot   Key slot from a key handle.
+ *
+ * @return bool
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_isWriteOnlyKeySlot)
+static inline bool mcuxClSgi_Drv_isWriteOnlyKeySlot(uint32_t slot)
+{
+  return false;
+}
+
 #endif /* SGI_HAS_WRITEONLY_KEYS */
 
 /**
@@ -332,7 +360,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_configureAutoMode(uint32_t autoM
  * @pre The SGI busy must be de-asserted before resetting this register.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_resetAutoMode)
-void mcuxClSgi_Drv_resetAutoMode(void);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_resetAutoMode(void);
 
 /**
  * @brief Stops a Cipher/CMAC operation in AUTO mode, and disables AUTO mode.
@@ -371,14 +399,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableDmaHandshakes(void);
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_enableInputDmaHandshake)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableInputDmaHandshake(void);
-
-/**
- * @brief Disable Input DMA Handshake for AUTO mode
- *
- * Updates the AUTO mode DMA CTRL register to disable Input FIFO.
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_disableInputDmaHandshake)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableInputDmaHandshake(void);
 
 #endif /* SGI_HAS_AES_AUTO_MODE */
 
@@ -638,7 +658,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_getCount(void);
  * and will end at the most significant word (located at offset).
  * This function will also propagate carry if a non-zero length is specified.
  *
- * Data Integrity: Expunge(length)
+ * Data Integrity: Expunge(offset + length)
  *
  * @param[in]  offset   Offset with respect to the SGI base address.
  * @param[in]  length   Size of data on which increment shall be applied
@@ -694,19 +714,6 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_loadWord)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_loadWord(uint32_t offset, uint32_t data);
 
 /**
- * @brief Write data into SHA FIFO in AUTO mode
- *
- * Write one word to the SHA FIFO.
- *
- * @param[in]  data   Data to be written to FIFO
- */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_loadFifo)
-static inline void mcuxClSgi_Drv_loadFifo(uint32_t data)
-{
-  mcuxClSgi_Sfr_writeFifoWord(data);
-}
-
-/**
  * @brief Enables storing output in key register
  *
  * Enables to store the output of a crypto operation in a key
@@ -752,7 +759,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_triggerOutput(void);
  * @return 32-bit result word
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Drv_storeWord)
-uint32_t mcuxClSgi_Drv_storeWord(uint32_t offset);
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_storeWord(uint32_t offset);
 
 #ifdef SGI_HAS_PRNG_SW_READ
 /**
@@ -835,6 +842,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableFlushWr(void);
  * @brief Flushes consecutive register banks with random data
  *
  * Uses the SGI flush-on-write feature to flush a specific register bank with random data.
+ *
+ * Data Integrity: Expunge(offset + number of bytes to be cleared)
  *
  * @param offset         Offset of the register bank that should be flushed.
  *                       Can be any of MCUXCLSGI_DRV_KEY*_OFFSET or MCUXCLSGI_DRV_DAT*_OFFSET.

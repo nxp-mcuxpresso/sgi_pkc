@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -59,7 +59,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateHashPrefix(
 
     /* Write the fixed prefix string for dom2/dom4 to the output buffer */
     MCUX_CSSL_DI_RECORD(sumOfMemCopyParams, (uint32_t)pHashPrefix + (uint32_t)pDomainParams->pDomPrefix + pDomainParams->domPrefixLen);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
       mcuxClMemory_copy_int(pHashPrefixTmp, (const uint8_t*)pDomainParams->pDomPrefix, pDomainParams->domPrefixLen)
     );
@@ -84,6 +83,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_GenerateHashPrefix(
 
     MCUX_CSSL_ANALYSIS_COVERITY_STOP_FALSE_POSITIVE(INTEGER_OVERFLOW)
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_GenerateHashPrefix,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
         MCUX_CSSL_FP_CONDITIONAL((0u != contextLen), MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read)));
 }
 
@@ -107,14 +107,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PreHashMessage(
         /* phflag is set, pre-hash the message */
         MCUX_CSSL_DI_RECORD(hashComputeInternalParams, pIn);
         MCUX_CSSL_DI_RECORD(hashComputeInternalParams, inSize);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
         MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pMessageTmp, mcuxClSession_allocateWords_cpuWa(pSession, (uint32_t)pDomainParams->algoHash->hashSize / sizeof(uint32_t)));
 
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("the result does not wrap ")
         pCpuWorkarea->wordNumCpuWa += pDomainParams->algoHash->hashSize / sizeof(uint32_t);
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
         uint32_t hashOutputSize = 0u;
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ESCAPING_LOCAL_ADDRESS("Address hashOutputSize is for internal use only and does not escape")
         MCUX_CSSL_DI_RECORD(hashComputeInternalParams, &hashOutputSize);
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ESCAPING_LOCAL_ADDRESS()
 
         MCUXCLBUFFER_INIT(buffMessageTemp, NULL, pMessageTmp, (uint32_t) pDomainParams->algoHash->hashSize);
         MCUX_CSSL_DI_RECORD(hashComputeInternalParams, buffMessageTemp);
@@ -142,5 +143,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PreHashMessage(
     }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_PreHashMessage,
+        MCUX_CSSL_FP_CONDITIONAL(MCUXCLECC_EDDSA_PHFLAG_ONE == phflag, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa)),
         MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(phflagSet, MCUXCLECC_EDDSA_PHFLAG_ONE == phflag) );
 }

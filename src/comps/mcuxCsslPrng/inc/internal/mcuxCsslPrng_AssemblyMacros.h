@@ -35,7 +35,7 @@ MCUXCSSLPRNG_INIT_ADDR macro regPrngAddr
 #else 
 .macro MCUXCSSLPRNG_INIT_ADDR  regPrngAddr
   /* No init needed for stub*/
-     .endm
+.endmacro
 #endif /* defined (__IASMARM__) || defined(__ICCARM__) */
 
 #ifdef MCUXCL_FEATURE_CSSL_SC_RISCV_ASM
@@ -57,7 +57,7 @@ MCUXCSSLPRNG_INIT_ADDR macro regPrngAddr
  * addressOtherHw: a constant, which is an address of another hardware SFR
  */
 .macro MCUXCSSLPRNG_INIT_ADDR_COND  regPrngAddr, addressOtherHw
-.endm
+.endmacro
 #endif /* MCUXCL_FEATURE_CSSL_SC_RISCV_ASM */
 
 /**
@@ -73,6 +73,7 @@ MCUXCSSLPRNG_GET_PRNG macro regPrngAddr, regRandom
 #else
 .macro MCUXCSSLPRNG_GET_PRNG  regPrngAddr, regRandom
   ldr \regRandom, =0xDEADBEEF
+.endmacro
 #endif
 
 #endif /* MCUXCSSLPRNG_ASSEMBLYMACROS_H_ */

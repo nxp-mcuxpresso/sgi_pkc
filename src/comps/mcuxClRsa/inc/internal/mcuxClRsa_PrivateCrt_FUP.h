@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2023 NXP                                                 */
+/* Copyright 2021, 2023, 2026 NXP                                           */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -27,10 +27,10 @@
 #define mcuxClRsa_PrivateCrt_CalcM1_FUP_LEN          4u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_PrivateCrt_T2T3T4mb_FUP[mcuxClRsa_PrivateCrt_T2T3T4mb_FUP_LEN];
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_PrivateCrt_T1mb_FUP[mcuxClRsa_PrivateCrt_T1mb_FUP_LEN];
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_PrivateCrt_CalcM1_FUP[mcuxClRsa_PrivateCrt_CalcM1_FUP_LEN];
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_PrivateCrt_CalcM_b_FUP[mcuxClRsa_PrivateCrt_CalcM_b_FUP_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_PrivateCrt_T2T3T4mb_FUP);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_PrivateCrt_T1mb_FUP);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_PrivateCrt_CalcM1_FUP);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_PrivateCrt_CalcM_b_FUP);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #endif /* MCUXCLRSA_PRIVATECRT_FUP_H_ */

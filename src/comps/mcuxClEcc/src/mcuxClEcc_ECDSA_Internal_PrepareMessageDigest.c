@@ -74,7 +74,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDSA_PrepareMessageDigest(
     /* Import message hash (up to byteLenN bytes). */
     uint32_t byteLenHashImport = MCUXCLCORE_MIN(inSize, byteLenN);
     const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(mcuxClEcc_ECDSA_PrepareMessageDigest, ECC_S2, pIn, byteLenHashImport, operandSize);
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_S2, pIn, byteLenHashImport, operandSize);
 
     MCUX_CSSL_DI_EXPUNGE(pInIntegrity, pIn);
     /* Truncate message hash if its bit length is longer than that of n. */

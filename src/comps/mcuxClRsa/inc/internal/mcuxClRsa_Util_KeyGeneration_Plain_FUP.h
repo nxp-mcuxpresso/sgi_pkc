@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024 NXP                                                       */
+/* Copyright 2024, 2026 NXP                                                 */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -25,8 +25,8 @@
 #define mcuxClRsa_Util_KeyGeneration_Plain_ComputeNbAndRandSquare_FUP_LEN  3u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_Util_KeyGeneration_Plain_BlindPQ_FUP[mcuxClRsa_Util_KeyGeneration_Plain_BlindPQ_FUP_LEN];
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_Util_KeyGeneration_Plain_ComputeNbAndRandSquare_FUP[mcuxClRsa_Util_KeyGeneration_Plain_ComputeNbAndRandSquare_FUP_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_Util_KeyGeneration_Plain_BlindPQ_FUP);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_Util_KeyGeneration_Plain_ComputeNbAndRandSquare_FUP);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #endif /* MCUXCLRSA_UTIL_KEYGENERATION_PLAIN_FUP_H_ */

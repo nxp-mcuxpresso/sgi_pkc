@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -107,7 +107,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_PointCheckAffineNR(mcu
 
 #if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_JACOBIAN_POINT_CHECK)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_PointCheckJacMR)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_PointCheckJacMR(mcuxClSession_Handle_t pSession);
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_PointCheckJacMR(mcuxClSession_Handle_t pSession, uint32_t iX, uint32_t iY, uint32_t iZ);
 #endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_JACOBIAN_POINT_CHECK) */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_SecureConvertPoint_JacToAffine)
@@ -145,6 +145,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_PlainFixScalarMult(
     uint32_t scalarBitLength,                       ///<  [in]  scalarBitLength     Bit length of the scalar
     uint32_t options                                ///<  [in]  options             Parameter to pass options
 );
+
 
 
 #if defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_SECPOINTMULT)
@@ -212,8 +213,8 @@ struct mcuxClEcc_WeierECC_PointEncDescriptor
  *
  * @param      pSession             Handle for the current CL session.
  * @param[in]  generation           Key generation algorithm specifier.
- * @param[out] privKey              Key handle for the generated private key.
- * @param[out] pubKey               Key handle for the generated public key.
+ * @param[out] privKey              Key handle for the generated private key (word-aligned).
+ * @param[out] pubKey               Key handle for the generated public key (word-aligned).
  *
  * @attention This function uses DRBG and PRNG. Caller needs to check if DRBG and PRNG are ready.
  */
@@ -232,7 +233,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
 /**********************************************************/
 
 /**
- * @brief ECC public key validation function
+ * @brief ECC public key validation function, Key handle must be word-aligned
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_WeierECC_PublicKeyValidation, mcuxClKey_ValidationFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClEcc_WeierECC_PublicKeyValidation(
@@ -240,7 +241,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClEcc_WeierECC_PublicKeyVali
     mcuxClKey_Handle_t key);
 
 /**
- * @brief ECC private key validation function
+ * @brief ECC private key validation function, Key handle must be word-aligned
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_WeierECC_PrivateKeyValidation, mcuxClKey_ValidationFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClEcc_WeierECC_PrivateKeyValidation(

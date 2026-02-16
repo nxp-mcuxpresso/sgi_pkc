@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023 NXP                                                  */
+/* Copyright 2020-2023, 2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -47,7 +47,7 @@ typedef struct mcuxClPkc_FUPEntry
  * Macro to declare external constant FUP program.
  */
 #define MCUXCLPKC_FUP_EXT_ROM_DECLARE(name)  \
-    extern const mcuxClPkc_FUPEntry_t name[]
+    extern const mcuxClPkc_FUPEntry_t name[] __attribute__((aligned(4)))
 
 /**
  * Macro to create FUP program, e.g., a FUP program with 2 entries:

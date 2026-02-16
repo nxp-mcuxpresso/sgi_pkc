@@ -88,12 +88,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
     /* MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned */
     mcuxClEcc_CpuWa_t *pCpuWorkarea = mcuxClEcc_castToEccCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
     MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, 0u));
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_WeierECC_SetupEnvironment(pSession,
                 pDomainParams,
-                       ECC_GENERATESIGNATURE_NO_OF_BUFFERS));
+                ECC_GENERATESIGNATURE_NO_OF_BUFFERS));
 
     /* Randomize coordinate buffers used within secure scalar multiplication (X0/Y0/X1/Y1). */
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
@@ -125,7 +124,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_DI_BALANCED(WEIER_Y1, pDomainParams->common.pGy, byteLenP, operandSize);
 
         /* Check G in (X1,Y1) affine NR. */
-//      MCUXCLPKC_WAITFORREADY();  <== there is WaitForFinish in import function.
+        /* MCUXCLPKC_WAITFORREADY();  <== there is WaitForFinish in import function. */
         MCUXCLECC_COPY_PKCOFFSETPAIR_ALIGNED(pOperands32, WEIER_VX0, WEIER_X1);
         MCUX_CSSL_FP_FUNCTION_CALL(pointCheckStatus, mcuxClEcc_PointCheckAffineNR(pSession));
         if (MCUXCLECC_STATUS_OK != pointCheckStatus)
@@ -176,10 +175,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
                 MCUXCLPKC_FP_CALLED_CALC_OP1_SUB,
                 MCUXCLPKC_FP_CALLED_CALC_MC1_MS );
         }
+        else
+        {
+            k1NoOfTrailingZeros = MCUXCLPKC_GETZERO();
+            MCUX_CSSL_FP_BRANCH_NEGATIVE(scalarEvenBranch);
+
+        }
 
         /* Calculate Q = k1 * Q0. */
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_SecurePointMult(ECC_S1, byteLenN * 8u));
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(scalarEvenBranch, MCUXCLPKC_FLAG_NONZERO == k1NoOfTrailingZeros));
 
 
         /**********************************************************/
@@ -187,7 +191,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         /**********************************************************/
 
         /* T0 = ModInv(Z), where Z = (z * 256^LEN) \equiv z in MR. */
-        MCUXCLMATH_FP_MODINV(ECC_T0, WEIER_Z, ECC_P, ECC_T1);
+        MCUXCLECC_FP_MODINV(ECC_T0, WEIER_Z, ECC_P, ECC_T1, ECC_T3);
         /* T0 = z^(-1) * 256^(-LEN) \equiv z^(-1) * 256^(-2LEN) in MR. */
 
         /* Convert Q to affine coordinates. */
@@ -226,10 +230,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         const uint32_t bytesToClear = operandSize - byteLenN;
         MCUX_CSSL_DI_RECORD(sumOfMemClearParams, &pPrivateKeyDest[byteLenN]);
         MCUX_CSSL_DI_RECORD(sumOfMemClearParams, bytesToClear);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPrivateKeyDest[byteLenN], bytesToClear));
+        MCUXCLMEMORY_CLEAR_INT(&pPrivateKeyDest[byteLenN], bytesToClear);
 
-        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
         MCUXCLKEY_LOAD_FP(
           pSession,
           key,
@@ -244,7 +246,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
         MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandom_ncGenerate_Internal(pSession, ptrZ, operandSize));
 
-
         /**********************************************************/
         /* Import message hash, and truncate if longer than n     */
         /**********************************************************/
@@ -255,16 +256,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
                                          inSize,
                                          byteLenN));
 
-        MCUX_CSSL_FP_LOOP_ITERATION(MainLoop_S, MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_LOOP_S );
-
         /**********************************************************/
         /* Securely calculate signature s, and check if s is zero */
         /**********************************************************/
+        MCUX_CSSL_FP_LOOP_ITERATION(MainLoop_S,
+            MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_LOOP_S,
+            MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(scalarEvenBranch, MCUXCLPKC_FLAG_NONZERO == k1NoOfTrailingZeros),
+            MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE(scalarEvenBranch, MCUXCLPKC_FLAG_NONZERO != k1NoOfTrailingZeros),
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+            MCUXCLKEY_LOAD_FP_CALLED(key),
+            MCUX_CSSL_FP_CONDITIONAL(MCUXCLPKC_FLAG_NONZERO == k1NoOfTrailingZeros,
+                MCUXCLPKC_FP_CALLED_CALC_OP1_SUB));
         /* Revert scalar modification by computing n-k1 in place again before calculating signature s */
         if(MCUXCLPKC_FLAG_NONZERO == k1NoOfTrailingZeros)
         {
             MCUXCLPKC_FP_CALC_OP1_SUB(ECC_S1, ECC_N, ECC_S1);
-            MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
         }
         /* Now, XA = r,  S2 = z (hash of message);   */
         /*      S0 = k0, S1 = k1, k = k0 * k1 mod n; */
@@ -277,7 +283,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
                             mcuxClEcc_FUP_Weier_Sign_CalculateS_LEN);
 
         /* T0 = h0 = ModInv(k0') = (k*k1)^(-1) * R^3 mod n. */
-        MCUXCLMATH_FP_MODINV(ECC_T0, ECC_T2, ECC_N, ECC_T3);
+        MCUXCLECC_FP_MODINV(ECC_T0, ECC_T2, ECC_N, ECC_T3, WEIER_YA);
 
         /* YA = s = h0 * s' - n mod n < n. */
         /* MM(h0, s') < 2n because s' <= n. */
@@ -303,8 +309,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
     *pSignatureSize = (byteLenN * 2u);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
-    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(mcuxClEcc_ECDSA_GenerateSignature, pSignature, WEIER_XA, byteLenN);
-    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(mcuxClEcc_ECDSA_GenerateSignature, pSignature, WEIER_YA, byteLenN, byteLenN);
+    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(pSignature, WEIER_XA, byteLenN);
+    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pSignature, WEIER_YA, byteLenN, byteLenN);
 
     /* Clear PKC workarea. */
     MCUXCLPKC_PS1_SETLENGTH(0u, bufferSize * ECC_GENERATESIGNATURE_NO_OF_BUFFERS);
@@ -317,8 +323,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
     mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_ECDSA_GenerateSignature, MCUXCLSIGNATURE_STATUS_OK,
-        MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_BEFORE_LOOP,
+        MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_FINAL,
         MCUX_CSSL_FP_LOOP_ITERATIONS(MainLoop_R, fail_r + fail_s + 1u),
-        MCUX_CSSL_FP_LOOP_ITERATIONS(MainLoop_S, fail_s + 1u),
-        MCUXCLECC_FP_ECDSA_GENERATESIGNATURE_FINAL);
+        MCUX_CSSL_FP_LOOP_ITERATIONS(MainLoop_S, fail_s + 1u));
 }

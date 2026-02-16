@@ -24,6 +24,7 @@
 #include <internal/mcuxClPkc_Internal_Types.h>
 #include <internal/mcuxClEcc_Internal.h>
 
+#include <internal/mcuxClEcc_Internal_MemoryConsumption.h>
 #include <internal/mcuxClSignature_Internal.h>
 
 #include <internal/mcuxClEcc_ECDSA_Internal.h>
@@ -39,8 +40,8 @@
 
 #include <internal/mcuxClEcc_TwEd_Internal_PkcWaLayout.h>
 
-
 #define SIZEOF_ECCCPUWA_T  (MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(mcuxClEcc_CpuWa_t)) + sizeof(uint32_t)) /* Reserve 1 word for making UPTR table start from 64-bit aligned address */
+
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 MCUX_CSSL_ANALYSIS_START_PATTERN_OBJ_SIZES()

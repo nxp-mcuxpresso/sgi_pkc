@@ -63,120 +63,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClBuffer_Status_t) mcuxClBuffer_import(mcuxCl_In
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read));
 }
 
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pDst, &bufSrc[offset], byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_word)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_word(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_word);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int(pDst, &bufSrc[offset], byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_word,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_reverse(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_reverse);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pDst, &bufSrc[offset], byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_reverse,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_secure)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_secure);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pDst, &bufSrc[offset], byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_secure,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_secure_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure_reverse(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_secure_reverse);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pDst, &bufSrc[offset], byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_secure_reverse,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int)
-  );
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(&bufDst[offset], pSrc, byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_word)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_word(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_word);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int(&bufDst[offset], pSrc, byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_word,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_reverse(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_reverse);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(&bufDst[offset], pSrc, byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_reverse,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_secure)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_secure);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(&bufDst[offset], pSrc, byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_secure,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
-}
-
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_secure_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure_reverse(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_secure_reverse);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(&bufDst[offset], pSrc, byteLength));
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_secure_reverse,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int)
-  );
-}
-
-#ifdef MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC
+#if defined(MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC)
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_withoutDestIncrement)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
 {
@@ -188,5 +75,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_withoutDstIncrement_int)
   );
 }
-#endif /* MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC */
+#endif /* MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC && MCUXCL_FEATURE_BUFFER_USE_POINTER */
 

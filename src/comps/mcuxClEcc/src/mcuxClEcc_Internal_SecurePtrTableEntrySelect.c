@@ -191,6 +191,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
 
     /* Permuted copy point index table to buffer with indexMask_ at outShuf */
     /* As a result point from indexMask_ ^ maskedIndex_ is moved to indexMask_ ^ maskedIndex_ ^ indexMask_ = maskedIndex_ */
+    MCUX_CSSL_FP_LOOP_DECL(loop1);
     for (uint32_t i = 0u; i < numOfTableEntry; i++)
     {
         MCUXCLECC_PTR_TABLE_ENTRY_SHUFFLE(pSource, pDestionation, randomN_, inShufShr2_, i, pTable, pShufBuffer, mask_, indexMask_, tableEntrySizeLog2);
@@ -198,10 +199,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
         MCUX_CSSL_DI_RECORD(sumOfMemXorParams, pSource);
         MCUX_CSSL_DI_RECORD(sumOfMemXorParams, pPrecPointTableMask);
         MCUX_CSSL_DI_RECORD(sumOfMemXorParams, tableEntrySize);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XOR_int));
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XOR_int(pDestionation, pSource, pPrecPointTableMask, tableEntrySize)
-        );
+        MCUXCLMEMORY_XOR_INT(pDestionation, pSource, pPrecPointTableMask, tableEntrySize);
         MCUX_CSSL_DI_EXPUNGE(securePointSelection, i);
+
+        MCUX_CSSL_FP_LOOP_ITERATION(loop1, MCUXCLMEMORY_XOR_INT_FP_EXPECT);
     }
 
     /* Prepare inShuf and inShuf >> 2 for second xor shuffle */
@@ -209,15 +210,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
 
     /* Permuted copy point index table to buffer second time */
     /* As a result point from maskedIndex_ is moved maskedIndex_ ^ outShuf. maskedIndex is adjusted accordingly */
+    MCUX_CSSL_FP_LOOP_DECL(loop2);
     for (uint32_t i = 0u; i < numOfTableEntry; i++)
     {
         MCUXCLECC_PTR_TABLE_ENTRY_SHUFFLE(pSource, pDestionation, randomN_, inShufShr2_, i, pShufBuffer, pShufBuffer2, mask_, outShuf_, tableEntrySizeLog2);
         MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, pDestionation);
         MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, pSource);
         MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, tableEntrySize);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pDestionation, pSource, tableEntrySize));
         MCUX_CSSL_DI_EXPUNGE(securePointSelection, i);
+
+        MCUX_CSSL_FP_LOOP_ITERATION(loop2, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     }
     uint8_t* address_ = NULL;
 
@@ -227,9 +230,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePtrTableEntrySelect(
     MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, pTargetTableEntry);
     MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, address_);
     MCUX_CSSL_DI_RECORD(sumOfMemCpyParams, tableEntrySize);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pTargetTableEntry, address_, tableEntrySize));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_SecurePtrTableEntrySelect,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word));
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
+        MCUX_CSSL_FP_LOOP_ITERATIONS(loop1, numOfTableEntry),
+        MCUX_CSSL_FP_LOOP_ITERATIONS(loop2, numOfTableEntry),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
 }

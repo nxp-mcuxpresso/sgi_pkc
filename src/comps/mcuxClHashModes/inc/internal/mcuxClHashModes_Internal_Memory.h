@@ -55,6 +55,7 @@ extern "C" {
 #define MCUXCLHASH_BLOCK_SIZE_SECSHA_384        (2U * MCUXCLHASH_BLOCK_SIZE_SHA_384) ///<SECSHA-384 block size: 2*1024 bit (2*128 bytes). Includes the mask
 #define MCUXCLHASH_BLOCK_SIZE_SECSHA_512        (2U * MCUXCLHASH_BLOCK_SIZE_SHA_512) ///<SECSHA-512 block size: 2*1024 bit (2*128 bytes). Includes the mask
 #define MCUXCLHASH_BLOCK_SIZE_MAX_WITHOUT_MASK  (MCUXCLHASH_BLOCK_SIZE_SHA3_SHAKE_128) ///<Maximum block size without accounting for SecSha masks
+#define MCUXCLHASH_BLOCK_SIZE_MIN               (MCUXCLHASH_BLOCK_SIZE_SHA_1)  ///< Minimum block size
 #define MCUXCLHASH_BLOCK_SIZE_MAX               (MCUXCLHASH_BLOCK_SIZE_SHA3_SHAKE_128) ///< Maximum block size
 
 #define MCUXCLHASH_STATE_SIZE_SHA_1              (20U) ///< SHA-1 state size: 160 bit (20 bytes)

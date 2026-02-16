@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -63,8 +63,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
   const mcuxClAeadModes_AlgorithmDescriptor_t* alg = mcuxClAeadModes_castToAeadModesAlgorithmDescriptor(pContext->common.mode->algorithm);
 
   // Clear first blocks to guarantee zero padding
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(workArea->cpuWa.CCM_B0, MCUXCLAES_BLOCK_SIZE));
+  MCUXCLMEMORY_CLEAR_INT(workArea->cpuWa.CCM_B0, MCUXCLAES_BLOCK_SIZE);
 
   // Assert that parameters aren't negative
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(tagSize, 4u, 15u, MCUXCLAEAD_STATUS_INVALID_PARAM);
@@ -106,11 +105,9 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pNonce);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, &pB[1u]);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, nonceSize);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pNonce, 0u, &pB[1u], nonceSize));
 
   // Prepare masked pre-tag in macCtx
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_initMaskedPreTag));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_initMaskedPreTag(&pContext->macCtx));
 
   //Calculate tag over B0
@@ -119,7 +116,6 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
   mcuxClMacModes_WorkArea_t* macModesWorkArea = mcuxClAeadModes_castToMacModesWorkArea(workArea);
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
-  MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_update);
   MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, alg->macAlgo->update(
     session,
     macModesWorkArea,
@@ -129,7 +125,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
     NULL /* unused for now */));
   (void)retMacUpdate;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
-  
+
   // Formatting of the associated data
   // Encode a and concatenate with associated data
 
@@ -168,7 +164,12 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
 
   // If 2^{32} <= a < 2^{64}, then a is encoded as 0xff || 0xff || [a]_64, i.e., ten octets.
   // This case is not supported in CL and hence does not occur since inputLen is uint32_t
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_CCM_FormatFirstBlockAndCreatePreTag);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_CCM_FormatFirstBlockAndCreatePreTag,
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_initMaskedPreTag),
+    alg->macAlgo->protectionToken_update
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_CCM_GenerateCounterBlockV2)
@@ -182,8 +183,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_GenerateCoun
   // Clear counter first
   MCUX_CSSL_DI_RECORD(CCM_clearCtr, (uint32_t)pCtr);
   MCUX_CSSL_DI_RECORD(CCM_clearCtr, MCUXCLAES_BLOCK_SIZE);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pCtr, MCUXCLAES_BLOCK_SIZE));
+  MCUXCLMEMORY_CLEAR_INT(pCtr, MCUXCLAES_BLOCK_SIZE);
 
   // Assert that parameters aren't negative
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nonceSize, 7u, 13u, MCUXCLAEAD_STATUS_INVALID_PARAM);
@@ -208,10 +208,12 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_GenerateCoun
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pNonce);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, &pCtr[1u]);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, nonceSize);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pNonce, 0u, &pCtr[1u], nonceSize));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_CCM_GenerateCounterBlockV2);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_CCM_GenerateCounterBlockV2,
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read)
+  );
 }
 
 /**
@@ -243,15 +245,14 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_init(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClAeadModes_Ccm_init);
 
-  // DI_RECORD for mcuxClMemory_copy_words_int call below
+  // DI_RECORD for mcuxClMemory_copy_int call below
   MCUX_CSSL_DI_RECORD(CCMinit_copyIv, (uint32_t)pContext->cipherCtx.ivState);
   MCUX_CSSL_DI_RECORD(CCMinit_copyIv, (uint32_t)pContext->counter0);
   MCUX_CSSL_DI_RECORD(CCMinit_copyIv, MCUXCLAES_BLOCK_SIZE);
 
   MCUX_CSSL_DI_RECORD(CCMinit_clearBlockBuffer, (uint32_t)pContext->cipherCtx.blockBuffer);
   MCUX_CSSL_DI_RECORD(CCMinit_clearBlockBuffer, MCUXCLAES_BLOCK_SIZE);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t*)pContext->cipherCtx.blockBuffer, MCUXCLAES_BLOCK_SIZE));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t*)pContext->cipherCtx.blockBuffer, MCUXCLAES_BLOCK_SIZE);
 
   pContext->adataSize = adataSize;
   pContext->adataCumulativeSize = 0u;
@@ -262,7 +263,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_init(
   /* Set CBC mac mode such that we can use zero-padding (only required after the AAD) */
   pContext->macCtx.common.pMode = &mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1;
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_CCM_FormatFirstBlockAndCreatePreTag));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_CCM_FormatFirstBlockAndCreatePreTag(
     session,
     pContext,
@@ -274,21 +274,24 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_init(
     tagSize));
 
   // Generate the counter for CTR mode encryption
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_CCM_GenerateCounterBlockV2));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_CCM_GenerateCounterBlockV2(
     pNonce,
     nonceSize,
     pContext->counter0));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int((uint8_t *)pContext->cipherCtx.ivState, pContext->counter0, MCUXCLAES_BLOCK_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t *)pContext->cipherCtx.ivState, pContext->counter0, MCUXCLAES_BLOCK_SIZE));
 
   // Last X bytes of pCtxCcm->ivState are always equal zero, set last byte to one for the next computation
   pContext->cipherCtx.ivState[3] = (pContext->cipherCtx.ivState[3] & 0x00ffffffu) | ((uint32_t)0x01u << 24u);
 
   MCUX_CSSL_DI_EXPUNGE(tagSize, pContext->tagSize);
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_init);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_init,
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_CCM_FormatFirstBlockAndCreatePreTag),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_CCM_GenerateCounterBlockV2),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)
+  );
 }
 
 
@@ -312,7 +315,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process_aad(
   }
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
-  MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_update);
+
   MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, alg->macAlgo->update(
     session,
     macModesWorkArea,
@@ -326,7 +329,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process_aad(
   /* Update cumulative adata size in ctx. */
   pContext->adataCumulativeSize += adataSize;
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_process_aad);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_process_aad,
+    alg->macAlgo->protectionToken_update
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_Ccm_process, mcuxClAeadModes_alg_process_t)
@@ -341,18 +346,21 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClAeadModes_Ccm_process);
 
+  const mcuxClAeadModes_AlgorithmDescriptor_t* alg = mcuxClAeadModes_castToAeadModesAlgorithmDescriptor(pContext->common.mode->algorithm);
+
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t adataCumulativeSizeRef = pContext->adataCumulativeSize);
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsedRef = pContext->macCtx.blockBufferUsed);
+
   /* Compare the adataCumulativeSize against the expected adata size to see if this is the first call to Aead_process.
    * If yes, and if any bytes are left in the blockBuffer, pad and process this last aad block. */
   if((pContext->adataCumulativeSize == pContext->adataSize) && (0u != pContext->macCtx.blockBufferUsed))
   {
     /* Apply padding and process remaining adata and create pretag */
-
-    const mcuxClAeadModes_AlgorithmDescriptor_t* alg = mcuxClAeadModes_castToAeadModesAlgorithmDescriptor(pContext->common.mode->algorithm);
     mcuxClMacModes_WorkArea_t* macModesWorkArea = mcuxClAeadModes_castToMacModesWorkArea(workArea);
 
     uint32_t padLen = 0u;
     MCUXCLBUFFER_INIT_RO(paddingInputBuffer, session, (uint8_t*)pContext->macCtx.blockBuffer, pContext->macCtx.blockBufferUsed);
-    MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_addPadding);
+
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(alg->macAlgo->addPadding(
       session,
       MCUXCLAES_BLOCK_SIZE,
@@ -368,7 +376,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process(
 
     MCUXCLBUFFER_INIT_RO(paddedBuf, NULL, workArea->sgiWa.paddingBuff, MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
-    MCUX_CSSL_FP_EXPECT(alg->macAlgo->protectionToken_update);
+
     MCUX_CSSL_FP_FUNCTION_CALL(retMacUpdate, alg->macAlgo->update(
       session,
       macModesWorkArea,
@@ -380,13 +388,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process(
     (void)retMacUpdate;
 
     /* Set the cumulative adata size to 0 to not enter this branch again in the next call to Aead_process */
-    pContext->adataCumulativeSize = 0u;
+    pContext->adataCumulativeSize = 0U;
 
     /* pContext->macCtx.blockBufferUsed is still zero */
   }
 
   /* Process the input */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_CcmGcm_process));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_CcmGcm_process(
     session,
     pContext,
@@ -395,7 +402,14 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process(
     inSize,
     pOut,
     pOutSize));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_process);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_process,
+    MCUX_CSSL_FP_CONDITIONAL(((adataCumulativeSizeRef == pContext->adataSize) && (0U != blockBufferUsedRef)),
+      alg->macAlgo->protectionToken_addPadding,
+      alg->macAlgo->protectionToken_update
+    ),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_CcmGcm_process)
+  );
 }
 
 /* Mac-then-Encrypt/Encrypt-then-Mac core for CCM mode*/
@@ -417,7 +431,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
 
   if(MCUXCLAEADMODES_ENCRYPTION == pContext->encDecMode)
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_updateMac));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_updateMac(
       session,
       pContext,
@@ -429,7 +442,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
   MCUXCLBUFFER_INIT_RO(counterInputBuf, NULL, (uint8_t *)pContext->cipherCtx.ivState, MCUXCLAES_BLOCK_SIZE);
   uint32_t outLen = 0u;
 
-  MCUX_CSSL_FP_EXPECT(pAlgo->cipherAlgo->protectionToken_setupIVEncrypt);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->cipherAlgo->setupIVEncrypt(
     session,
     cipherWa,
@@ -440,7 +452,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
   {
     cipherWa->sgiWa.copyOutFunction = mcuxClCipherModes_copyOut_toPtr;
     cipherWa->sgiWa.protectionToken_copyOutFunction = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_copyOut_toPtr);
-    MCUX_CSSL_FP_EXPECT(pAlgo->cipherAlgo->protectionToken_encryptEngine);
     MCUX_CSSL_FP_FUNCTION_CALL(retCipherEncrypt, pAlgo->cipherAlgo->encryptEngine(
       session,
       cipherWa,
@@ -448,17 +459,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
       pOut,
       inSize,
       pContext->cipherCtx.ivState,
-      &outLen));
+      &outLen)
+    );
     (void)retCipherEncrypt;
-    MCUX_CSSL_FP_EXPECT(pKeyChecksum->protectionToken_VerifyFunc);
+
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pKeyChecksum->VerifyFunc(session, pKeyChecksum, (uint8_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_KEY0_OFFSET)));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_updateMac(session, pContext, workArea, pOut, inSize));
   }
-  else
+  else if (MCUXCLAEADMODES_ENCRYPTION == pContext->encDecMode)
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_crypt));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
       session,
-      &pContext->cipherCtx,
       cipherWa,
       pIn,
       pOut,
@@ -467,21 +478,26 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
       &outLen,
       pKeyChecksum,
       pAlgo->cipherAlgo->encryptEngine,
-      pAlgo->cipherAlgo->protectionToken_encryptEngine));
+      pAlgo->cipherAlgo->protectionToken_encryptEngine)
+    );
   }
-
-  if(MCUXCLAEADMODES_DECRYPTION == pContext->encDecMode)
+  else
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_updateMac));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_updateMac(
-      session,
-      pContext,
-      workArea,
-      pOut,
-      inSize));
+    /* The pContext->encDecMode could be only ENCRYPTION or DECRYPTION */
+    MCUXCLSESSION_FAULT(session, MCUXCLAEAD_STATUS_FAULT_ATTACK);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_processFullBlocks);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_Ccm_processFullBlocks,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_updateMac), /* mcuxClAeadModes_updateMac called once, for both ENCRYPTION and DECRYPTION */
+    pAlgo->cipherAlgo->protectionToken_setupIVEncrypt,
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLAEADMODES_DECRYPTION == pContext->encDecMode),
+      pAlgo->cipherAlgo->protectionToken_encryptEngine,
+      pKeyChecksum->protectionToken_VerifyFunc
+    ),
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLAEADMODES_ENCRYPTION == pContext->encDecMode),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_crypt)
+    )
+  );
 }
 
 const mcuxClAeadModes_AlgorithmDescriptor_t mcuxClAeadModes_AlgorithmDescriptor_Ccm =

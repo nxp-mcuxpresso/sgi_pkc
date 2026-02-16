@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -36,7 +36,7 @@ extern "C" {
 #define mcuxClEcc_FUP_ConvertHomToAffine_LEN  7u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_ConvertHomToAffine[mcuxClEcc_FUP_ConvertHomToAffine_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_ConvertHomToAffine);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 /*
@@ -45,7 +45,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 #define mcuxClEcc_FUP_Interleave_LEN  7u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_Interleave[mcuxClEcc_FUP_Interleave_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_Interleave);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 /*
@@ -54,7 +54,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 #define mcuxClEcc_FUP_ReduceRandomModModulus_LEN  4u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_ReduceRandomModModulus[mcuxClEcc_FUP_ReduceRandomModModulus_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_ReduceRandomModModulus);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 /**
@@ -63,7 +63,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 #define mcuxClEcc_FUP_PointComparisonHom_LEN  16u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_PointComparisonHom[mcuxClEcc_FUP_PointComparisonHom_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_PointComparisonHom);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 
@@ -73,7 +73,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 #define mcuxClEcc_FUP_SetupEnvironment_ClearBuffers_LEN  5u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_SetupEnvironment_ClearBuffers[mcuxClEcc_FUP_SetupEnvironment_ClearBuffers_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_SetupEnvironment_ClearBuffers);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #if defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING)
@@ -84,7 +84,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 #define mcuxClEcc_FUP_GenerateMultiplicativeBlinding_LEN  7u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_GenerateMultiplicativeBlinding[mcuxClEcc_FUP_GenerateMultiplicativeBlinding_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_GenerateMultiplicativeBlinding);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 #endif /* defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING) */
 

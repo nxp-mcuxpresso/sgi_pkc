@@ -27,35 +27,6 @@
 /***************************************************/
 /*               Driver functions                  */
 /***************************************************/
-
-#ifdef MCUXCLDMA_FEATURE_INTERNAL_CHECKFORCHANNELERRORS
-/** Checks the given channel for errors and throws a descriptive error code via early-exit. */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClDma_Drv_checkForChannelErrors)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_checkForChannelErrors(
-  mcuxClSession_Handle_t session,
-  mcuxClSession_Channel_t channel)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClDma_Drv_checkForChannelErrors);
-
-  uint32_t errorStatus = mcuxClDma_Sfr_readChannelErrorStatus(channel);
-
-  if(1UL == MCUXCLDMA_SFR_CH_ES_ERR(errorStatus))
-  {
-    if(1UL == MCUXCLDMA_SFR_CH_ES_SBE(errorStatus))
-    {
-      MCUXCLSESSION_ERROR(session, MCUXCLDMA_STATUS_SOURCE_BUS_ERROR);
-    }
-    if(1UL == MCUXCLDMA_SFR_CH_ES_DBE(errorStatus))
-    {
-      MCUXCLSESSION_ERROR(session, MCUXCLDMA_STATUS_DESTINATION_BUS_ERROR);
-    }
-    MCUXCLSESSION_ERROR(session, MCUXCLDMA_STATUS_CONFIGURATION_ERROR);
-  }
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClDma_Drv_checkForChannelErrors);
-}
-#endif /* MCUXCLDMA_FEATURE_INTERNAL_CHECKFORCHANNELERRORS */
-
 /** Enable hardware requests for a specific DMA channel. */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClDma_Drv_enableHardwareRequests)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_enableHardwareRequests(mcuxClSession_Channel_t channel)
@@ -201,7 +172,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_startChannel(mcuxClSession_Chann
  * @brief Checks the given channel for errors and returns a descriptive status code.
  *
  * This function shall not be used outside of the mcuxClDma component.
- * For this purpose, @ref mcuxClDma_Drv_checkForChannelErrors is available.
  *
  * @param  channel    The DMA channel
  *

@@ -39,8 +39,6 @@
 #include <mcuxClResource_Types.h>
 
 
-#include <internal/mcuxClCrc_Internal_Functions.h>
-
 /**
  * @brief Function used for DFA protection.
  *
@@ -52,7 +50,6 @@
  * Code flow is described in detail in SREQI_BCIPHER_11
  *
  * @param      session      Handle for the current CL session.
- * @param      pContext     Pointer to multipart context
  * @param[in]  pWa          Pointer to cpu workarea
  * @param[in]  pIn          Buffer which holds the input data
  * @param[in]  pOut         Buffer to hold the output data
@@ -65,7 +62,6 @@
  MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_crypt)
  MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_crypt(
    mcuxClSession_Handle_t session,
-   mcuxClCipherModes_Context_Aes_Sgi_t *pContext,
    mcuxClCipherModes_WorkArea_t* pWa,
    mcuxCl_InputBuffer_t pIn,
    mcuxCl_Buffer_t pOut,

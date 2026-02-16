@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -69,7 +69,7 @@ typedef struct mcuxClRsa_Signature_ProtocolDescriptor mcuxClRsa_SignatureProtoco
  * \implements{REQ_788249,REQ_788250,REQ_788253}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_SignatureModeConstructor_RSASSA_PSS)
-void mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
+MCUX_CSSL_FP_PROTECTED_TYPE (void) mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
   mcuxClSignature_ModeDescriptor_t * pSignatureMode,
   mcuxClRsa_SignatureProtocolDescriptor_t * pProtocolDescriptor,
   mcuxClHash_Algo_t hashAlgorithm,
@@ -89,7 +89,7 @@ void mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
  * \implements{REQ_788249,REQ_788250,REQ_788252}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5)
-void mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5(
+MCUX_CSSL_FP_PROTECTED_TYPE (void) mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5(
   mcuxClSignature_ModeDescriptor_t * pSignatureMode,
   mcuxClRsa_SignatureProtocolDescriptor_t * pProtocolDescriptor,
   mcuxClHash_Algo_t hashAlgorithm,
@@ -115,13 +115,13 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *
  * \details
  *         This function can be used to create mode descriptor used by @ref mcuxClKey_generate_keypair function.
- *         This mode shall be used to realize RSA key generation operation according to FIPS 186-4
- *         (https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf), in particular:
+ *         This mode shall be used to realize RSA key generation operation according to FIPS 186-5
+ *         (https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf), in particular:
  *         <ul>
- *             <li>method provided in Appendix B.3.3 used for the generation of the random primes p and q
+ *             <li>method provided in Appendix A.1.3 used for the generation of the random primes p and q
  *                  that are probably prime;</li>
  *             <li>public exponent e, primes p and q and private exponent d meet the criteria specified
- *                 in Appendix B.3.1. According to the criteria the exponent e is restricted to odd values
+ *                 in Appendix A.1.1. According to the criteria the exponent e is restricted to odd values
  *                 in the range \f$(2^{16}<e<2^{256})\f$.</li>
  *             <li>primes p and q are generated using probabilistic primality test with the error probability
  *                 lower than \f$2^{-125}\f$. The number of Miller-Rabin test iterations is consistent with the
@@ -150,25 +150,23 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *            <li>pointers to key data buffers and key handle must be aligned to CPU word size</li>
  *         </ul>
  *
- * \note   There are the following deviations were applied from the algorithm specified in Appendix B.3.3 of FIPS 186-4:
+ * \note   There are the following deviations were applied from the algorithm specified in Appendix A.1.3 of FIPS 186-5:
  * \note   \li Primes p and q are chosen to be congruent \f$3\mod4\f$.\n
- *             Rationale: With this additional restriction on p and q a generated key is still compatible with FIPS 186-4.
+ *             Rationale: With this additional restriction on p and q a generated key is still compatible with FIPS 186-5.
  *             Such primes and their products have properties that simplify algorithms, for example step 4.5 in Miller-Rabin test
- *             described in Appendix C.3.1 can be skipped (due to fact that a=1). This restriction has positive impact on the security,
+ *             described in Appendix B.3.1 can be skipped (due to fact that a=1). This restriction has positive impact on the security,
  *             performance, and code size. This approach was also accepted in other products.
- * \note   \li Checks performed in steps 4.4 and 5.5 are done using only 64 most significant bits of the value
+ * \note   \li Checks performed in steps 4.4 and 5.4 are done using only 64 most significant bits of the value
  *             specified by the expression \f$(\sqrt{2})(2^{(nlen/2)–1})\f$ and rounded up, it is 0xb504f333f9de6485.\n
  *             Rationale: This deviation is acceptable as it is a stronger condition.
- * \note   \li Check performed in step 5.4 (check if \f$|p–q| <= 2^{nlen/2–100}\f$) is performed after q is generated,
- *             it is after testing that q it probably prime. If p and q does not meet this FIPS requirements, no new
- *             prime q number will be generated. Instead the function ends with @ref MCUXCLKEY_STATUS_FAULT_ATTACK error.\n
- *             Rationale: This inequality occurs with a very small probability and it's usually treated
- *             as a hardware failure (this handling has been approved by InfoGard and NIST).
+ * \note   \li Check performed in step 5.5 (check if \f$|p–q| <= 2^{nlen/2–100}\f$) is performed after q is generated,
+ *             it is after testing that q it probably prime. If p and q does not meet this FIPS requirements, a new
+ *             prime q number will be generated.
  * \note   \li The pre-check against products of small primes is applied before the steps 4.5 and 5.6 respectively.
  * \note       If an event occurs that \f$d <= 2^{nlen/2}\f$ then only a new q will be generated.
- * \attention  To support all required key lengths, this implementation does not verify that key length meets the FIPS 186-4 criteria
- *              (i.e., no check whether the key size is 2048 or 3072 bits).
- *              User shall ensure that if FIPS 186-4 compliance is claimed, this mode is used to generate keys of 2048 or 3072 bits only.
+ * \attention  To support all required key lengths, this implementation does not verify that key length meets the FIPS 186-5 criteria
+ *              (i.e., no check whether the key size is less than 2048 bits).
+ *              User shall ensure that if FIPS 186-5 compliance is claimed, this mode is used to generate keys of length not less than 2048 bits.
  * \attention  If the key generation operation returns Error or Fault (through session), the user shall ensure that the generated key is
  *              cleared and not used.
  *
@@ -187,7 +185,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  */
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_URL_IN_COMMENTS()
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_KeyGeneration_ModeConstructor)
-void mcuxClRsa_KeyGeneration_ModeConstructor(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyGeneration_ModeConstructor(
   mcuxClKey_GenerationDescriptor_t * pKeyGenMode,
   const uint8_t * pE,
   uint32_t eLength

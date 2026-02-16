@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020, 2022-2024 NXP                                            */
+/* Copyright 2020, 2022-2025 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -23,6 +23,10 @@
 #include <internal/mcuxClKey_Types_Internal.h>
 
 // fully supported AES key types
+
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes128                 = {.algoId = MCUXCLKEY_ALGO_ID_AES + MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY, .size = MCUXCLAES_AES128_KEY_SIZE, .info = NULL, .plainEncoding = &mcuxClKey_EncodingDescriptor_Plain};
+
+
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes256                 = {.algoId = MCUXCLKEY_ALGO_ID_AES + MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY, .size = MCUXCLAES_AES256_KEY_SIZE, .info = NULL, .plainEncoding = &mcuxClKey_EncodingDescriptor_Plain};
+
 

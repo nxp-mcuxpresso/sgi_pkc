@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -95,10 +95,20 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClEcc_ScalarMultFunction_t)(
     uint8_t iScalar,                               ///< Pointer table index of scalar buffer in PKC RAM
     uint32_t scalarBitLength,                      ///< Bit length of the scalar
     uint32_t options                               ///< Parameter to pass options
-    ));
+));
+
+/**
+ * Function to prepare 2 scalars for multiplication.
+ */
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClEcc_PlainFixVarMult_PrepareTwoScalars_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClEcc_PlainFixVarMult_PrepareTwoScalars_t)(
+    uint16_t iScalar0_iScalar1,                 ///< UPTRT indexes to 2 scalars
+    uint32_t scalarBitLength                    ///< UPTRT indexes to 2 scalars
+));
 
 typedef struct mcuxClEcc_ScalarMultFunctions
 {
+    /* Slalar multiplication functions */
     mcuxClEcc_ScalarMultFunction_t secFixScalarMultFct;    ///< Pointer to secure scalar multiplication function that shall be used to perform a scalar multiplication lambda*G for secret scalar lambda in {1,...,n-1} and base point G
     uint32_t secFixScalarMultFctFPId;                     ///< FP ID of the secFixScalarMultFct function
     mcuxClEcc_ScalarMultFunction_t secVarScalarMultFct;    ///< Pointer to secure scalar multiplication function that shall be used to perform a scalar multiplication lambad*P for secret scalar lambda in {1,...,n-1} and arbitrary point P on the curve
@@ -106,7 +116,7 @@ typedef struct mcuxClEcc_ScalarMultFunctions
     mcuxClEcc_ScalarMultFunction_t plainFixScalarMultFct;  ///< Pointer to plain scalar multiplication function that shall be used to perform a scalar multiplication lambda*G for non-secret scalar lambda in {1,...,n-1} and base point G
     uint32_t plainFixScalarMultFctFPId;                   ///< FP ID of the plainFixScalarMultFctFPId function
     mcuxClEcc_ScalarMultFunction_t plainVarScalarMultFct;  ///< Pointer to plain scalar multiplication function that shall be used to perform a scalar multiplication lambda*G for non-secret scalar lambda in {1,...,n-1} and arbitrary point P on the curve
-    uint32_t plainVarScalarMultFctFPId;                   ///< FP ID of the plainVarScalarMultFct function
+    uint32_t plainVarScalarMultFctFPId;                   ///< FP ID of the plainVarScalarvMultFct function
 } mcuxClEcc_ScalarMultFunctions_t;
 
 /**
@@ -157,12 +167,13 @@ struct mcuxClEcc_CommonDomainParams
 /**
  * Define specifying the size of the multiplicative scalar blinding bit size
  */
-#define MCUXCLECC_SCALARBLINDING_BITSIZE (64u)
-#define MCUXCLECC_SCALARBLINDING_BYTELEN (MCUXCLECC_SCALARBLINDING_BITSIZE / 8u)
+#define MCUXCLECC_SCALARBLINDING_BITSIZE (64U)
+#define MCUXCLECC_SCALARBLINDING_BYTELEN (MCUXCLECC_SCALARBLINDING_BITSIZE / 8U)
 
 
 #define MCUXCLECC_ALL_ONES_WORD (0xFFFFFFFFU)
-#define MCUXCLECC_RANDOM_WORD   (0xFA18E8BCu)
+#define MCUXCLECC_RANDOM_WORD   (0xFA18E8BCU)
+
 
 /**********************************************************/
 /*                                                        */
@@ -173,9 +184,6 @@ struct mcuxClEcc_CommonDomainParams
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_InterleaveScalar)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveScalar(uint16_t iScalar, uint32_t scalarBitLength, uint32_t numberOfInterleavings);
 
-
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_InterleaveTwoScalars)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveTwoScalars(uint16_t iScalar0_iScalar1, uint32_t scalarBitLength);
 
 /**
  * @brief Implements low quality random generation and the value of random is [1, modulus-1].
@@ -280,6 +288,14 @@ static inline mcuxClEcc_CpuWa_t* mcuxClEcc_castToEccCpuWorkArea(uint32_t* pWa)
   return (mcuxClEcc_CpuWa_t *) pWa;
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 }
+
+/**
+ * Declaration of function which calculates modular inversion, X^(-1) mod N in a blinded way
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ModInv)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ModInv(uint32_t iR_iX_iN_iT, uint32_t iRnd);
+/** Helper macro for #mcuxClEcc_ModInv */
+#define MCUXCLECC_FP_MODINV(iR, iX, iN, iT, iRnd)   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_ModInv(MCUXCLPKC_PACKARGS4(iR, iX, iN, iT), iRnd))
 
 #ifdef __cplusplus
 } /* extern "C" */

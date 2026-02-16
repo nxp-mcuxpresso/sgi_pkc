@@ -148,8 +148,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_init(
     if (NULL != pPkcWaBuffer)
     {
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("intentional cast to do checks on pointer")
-        if (   (0u != ((MCUXCLPKC_WORDSIZE - 1u) & (uint32_t) pPkcWaBuffer))       /* Check pPkcWaBuffer alignment. */
-            || ((uint32_t) pPkcWaBuffer < (uint32_t) MCUXCLPKC_RAM_START_ADDRESS)  /* Check pPkcWaBuffer is in PKC workarea. */
+        if (((uint32_t) pPkcWaBuffer < (uint32_t) MCUXCLPKC_RAM_START_ADDRESS)  /* Check pPkcWaBuffer is in PKC workarea. */
             || (((uint32_t) pPkcWaBuffer + pkcWaLength) > ((uint32_t) MCUXCLPKC_RAM_START_ADDRESS + MCUXCLPKC_RAM_SIZE))
             || (pkcWaLength > MCUXCLPKC_RAM_SIZE))
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER()
@@ -226,18 +225,14 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
     /* For 32-bit architectures, the maximum number of bytes in the memory is UINT32_MAX, i.e. the maximum number of words is UINT32_MAX / 4 */
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->cpuWa.dirty, 0u, (UINT32_MAX >> 2u), MCUXCLSESSION_STATUS_ERROR)
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-      mcuxClMemory_clear_secure_int((uint8_t*)pSession->cpuWa.buffer, (sizeof(uint32_t)) * pSession->cpuWa.dirty)
-    );
+    MCUXCLMEMORY_CLEAR_SECURE_INT((uint8_t*)pSession->cpuWa.buffer, (sizeof(uint32_t)) * pSession->cpuWa.dirty);
 
     /* Reset dirty to used, in case not all memory has been freed (and gets used again). */
     pSession->cpuWa.dirty = pSession->cpuWa.used;
 
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.dirty, 0u, MCUXCLSESSION_PKC_RAM_SIZE >> 2u, MCUXCLSESSION_STATUS_ERROR)
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-      mcuxClMemory_clear_secure_int((uint8_t*)pSession->pkcWa.buffer, (sizeof(uint32_t)) * pSession->pkcWa.dirty)
-    );
+    MCUXCLMEMORY_CLEAR_SECURE_INT((uint8_t*)pSession->pkcWa.buffer, (sizeof(uint32_t)) * pSession->pkcWa.dirty);
 
     /* Reset dirty to used, in case not all memory has been freed (and gets used again). */
     pSession->pkcWa.dirty = pSession->pkcWa.used;
@@ -246,7 +241,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
       mcuxClSession_cleanup,
       MCUXCLSESSION_STATUS_OK,
       MCUXCLSESSION_STATUS_FAULT_ATTACK,
-      2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
+      2U * MCUXCLMEMORY_CLEAR_SECURE_INT_FP_EXPECT
     );
 }
 
@@ -267,10 +262,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_cleanup_freedWorkareas(
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->cpuWa.dirty, 0u, (UINT32_MAX >> 2u), MCUXCLSESSION_STATUS_ERROR)
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->cpuWa.used, 0u, pSession->cpuWa.dirty, MCUXCLSESSION_STATUS_ERROR)
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_secure_int(
+    MCUXCLMEMORY_CLEAR_SECURE_INT(
       (uint8_t*)&pSession->cpuWa.buffer[pSession->cpuWa.used],
       (sizeof(uint32_t)) * pSession->cpuWa.dirty - (sizeof(uint32_t)) * pSession->cpuWa.used
-    ));
+    );
 
     /* Reset dirty to used, as the range from used to dirty was cleared before */
     pSession->cpuWa.dirty = pSession->cpuWa.used;
@@ -278,17 +273,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSession_cleanup_freedWorkareas(
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.dirty, 0u, MCUXCLSESSION_PKC_RAM_SIZE >> 2u, MCUXCLSESSION_STATUS_ERROR)
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->pkcWa.used, 0u, pSession->pkcWa.dirty, MCUXCLSESSION_STATUS_ERROR)
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_secure_int(
+    MCUXCLMEMORY_CLEAR_SECURE_INT(
       (uint8_t*)&pSession->pkcWa.buffer[pSession->pkcWa.used],
       (sizeof(uint32_t)) * pSession->pkcWa.dirty - (sizeof(uint32_t)) * pSession->pkcWa.used
-    ));
+    );
 
     /* Reset dirty to used, in case not all memory has been freed (and gets used again). */
     pSession->pkcWa.dirty = pSession->pkcWa.used;
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(
       mcuxClSession_cleanup_freedWorkareas,
-      2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
+      2U * MCUXCLMEMORY_CLEAR_SECURE_INT_FP_EXPECT
     );
 }
 #endif /* MCUXCLSESSION_FEATURE_INTERNAL_CLEANUP_FREED_WA */
@@ -308,14 +303,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_destroy(
 
     MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, pSession);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, sizeof(mcuxClSession_Descriptor_t));
-
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t*)pSession, sizeof(mcuxClSession_Descriptor_t)));
+    MCUXCLMEMORY_CLEAR_INT((uint8_t*)pSession, sizeof(mcuxClSession_Descriptor_t));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(
       mcuxClSession_destroy,
       MCUXCLSESSION_STATUS_OK,
       MCUXCLSESSION_STATUS_FAULT_ATTACK,
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)
+      MCUXCLMEMORY_CLEAR_INT_FP_EXPECT
     );
 }
 
@@ -341,13 +335,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSession_cleanupOnError);
 
+    /* For 32-bit architectures, the maximum number of bytes in the memory is UINT32_MAX, i.e. the maximum number of words is UINT32_MAX / 4 */
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pSession->cpuWa.dirty, 0u, (UINT32_MAX >> 2u), MCUXCLSESSION_STATUS_ERROR)
+
     /* Wipe the used CPU work-area and release allocated memory */
     MCUX_CSSL_DI_RECORD(cleanupOnError_clearCpuWa, pSession->cpuWa.buffer);
     MCUX_CSSL_DI_RECORD(cleanupOnError_clearCpuWa, (sizeof(uint32_t)) * pSession->cpuWa.dirty);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-      mcuxClMemory_clear_secure_int((uint8_t*)pSession->cpuWa.buffer, (sizeof(uint32_t)) * pSession->cpuWa.dirty)
-    );
+    MCUXCLMEMORY_CLEAR_SECURE_INT((uint8_t*)pSession->cpuWa.buffer, (sizeof(uint32_t)) * pSession->cpuWa.dirty);
     pSession->cpuWa.used = 0U;
     pSession->cpuWa.dirty = 0U;
 
@@ -388,6 +383,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
         {
             case MCUXCLRESOURCE_HWID_SGI:
             {
+                /* Record input data for mcuxClSgi_Drv_flushRegisterBanks() */
+                MCUX_CSSL_DI_RECORD(sgiFlush, MCUXCLSGI_DRV_KEY0_OFFSET);
+                MCUX_CSSL_DI_RECORD(sgiFlush, 8U * sizeof(uint32_t));
+                
+#ifdef SGI_HAS_AES_AUTO_MODE
                 /* Stop Cipher/MAC operation in SGI AUTO mode */
                 MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
 
@@ -398,7 +398,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
                 mcuxClSgi_Drv_wait();
 
                 /* Reset SGI AUTO mode */
-                mcuxClSgi_Drv_resetAutoMode();
+                MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
+#endif /* SGI_HAS_AES_AUTO_MODE */
 
                 /* Flush keys in slot-0 and slot-1 (length of 128*2 bits = 8 words) */
                 MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_flushRegisterBanks(MCUXCLSGI_DRV_KEY0_OFFSET, 8U));
@@ -446,9 +447,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
                 MCUX_CSSL_DI_RECORD(cleanupOnError_clearPkcWa, pSession->pkcWa.buffer);
                 MCUX_CSSL_DI_RECORD(cleanupOnError_clearPkcWa, (sizeof(uint32_t)) * pSession->pkcWa.dirty);
 
-                MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-                    mcuxClMemory_clear_secure_int((uint8_t*)pSession->pkcWa.buffer, (sizeof(uint32_t)) * pSession->pkcWa.dirty)
-                );
+                MCUXCLMEMORY_CLEAR_SECURE_INT((uint8_t*)pSession->pkcWa.buffer, (sizeof(uint32_t)) * pSession->pkcWa.dirty);
                 pSession->pkcWa.used = 0U;
                 pSession->pkcWa.dirty = 0U;
 
@@ -472,8 +471,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
 /* This is done outside the SESSION_EXIT to avoid violations (of #if def inside macro) */
     MCUX_CSSL_FP_EXPECT(
         MCUX_CSSL_FP_CONDITIONAL( (0U < isHwSgiUsed),
+#ifdef SGI_HAS_AES_AUTO_MODE
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopSha2),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
+#endif /* SGI_HAS_AES_AUTO_MODE */
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
         )
@@ -481,7 +483,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
 
     MCUX_CSSL_FP_EXPECT(
         MCUX_CSSL_FP_CONDITIONAL( (0U < isHwPkcUsed),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
+            MCUXCLMEMORY_CLEAR_SECURE_INT_FP_EXPECT
         )
     );
 
@@ -489,6 +491,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
         mcuxClSession_cleanupOnError,
         MCUXCLSESSION_STATUS_OK,
         MCUXCLSESSION_STATUS_FAULT_ATTACK,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int)
+        MCUXCLMEMORY_CLEAR_SECURE_INT_FP_EXPECT
     );
 }

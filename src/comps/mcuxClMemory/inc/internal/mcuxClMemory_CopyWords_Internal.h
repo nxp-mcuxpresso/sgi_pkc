@@ -73,7 +73,6 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_words_int
 )
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_words_int);
-
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pDst, pSrc, length));
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_words_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
 }

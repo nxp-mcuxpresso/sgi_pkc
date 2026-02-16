@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -50,21 +50,21 @@ mcuxClAeadModes_cleanupOnMultipartExit(
      as the init phases of all current AEADs (GCM/CCM) properly clear/overwrite counter0 using DI-protected memory functions. */
 
   /* Clear the key in the context */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInContext));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInContext(session, &(pContext->cipherCtx.keyContext)));
-  // TODO CLNS-17176: for GCM, flush H-key in Mac context
-  // MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushSubKeyInContext));
-  // MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushSubKeyInContext(session, pContext->macContext.HkeyContext));
-
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInSgi(session, &(pContext->cipherCtx.keyContext)));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushSubKeyInSgi(session, &(pContext->macCtx.HkeyContext)));
 
   /* Uninitialize (and release) the SGI hardware */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Uninit(session));
 
   /* Free CPU WA in Session */
   mcuxClSession_freeWords_cpuWa(session, cpuWaSizeInWords);
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_cleanupOnMultipartExit);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_cleanupOnMultipartExit,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushSubKeyInSgi),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInSgi),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit)
+  );
+
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_cleanupOnOneshotExit)
@@ -81,21 +81,27 @@ mcuxClAeadModes_cleanupOnOneshotExit(
      as the init phases of all current AEADs (GCM/CCM) properly clear/overwrite counter0 using DI-protected memory functions. */
 
   /* Flush the given key, if needed */
-  if(MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))
+  const uint16_t keyLoadStatus = mcuxClKey_getLoadStatus(key);
+  MCUX_CSSL_FP_COUNTER_STMT(const volatile uint16_t keyLoadStatusRef = keyLoadStatus);
+  if(MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (keyLoadStatus & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))
   {
     /* Flush the key in use if it is not preloaded.
     * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
-    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_FLUSH_FP_CALLED(key));
     MCUXCLKEY_FLUSH_FP(session, key, 0U /* spec */);
   }
 
 
   /* Uninitialize (and release) the SGI hardware */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Uninit(session));
 
   /* Free CPU WA in Session */
   mcuxClSession_freeWords_cpuWa(session, cpuWaSizeInWords);
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_cleanupOnOneshotExit);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_cleanupOnOneshotExit,
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (keyLoadStatusRef & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED)),
+      MCUXCLKEY_FLUSH_FP_CALLED(key)
+    ),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit)
+  );
+
 }

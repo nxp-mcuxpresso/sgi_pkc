@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2023-2025 NXP                                            */
+/* Copyright 2021, 2023-2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -13,7 +13,7 @@
 
 /** @file  mcuxClRsa_TestPQDistance.c
  *  @brief mcuxClRsa: function, which is called to test |p - q| <= 2^(nlen/2 - 100).
- *  This is a verification required by FIPS 186-4 (Appendix B.3.3, step 5.4).
+ *  This is a verification required by FIPS 186-5 (Appendix A.1.3, step 5.5).
  *  Verification is done by checking the 100 MSbits of p and q. If they are equal,
  *  test fail.
  *
@@ -37,9 +37,6 @@
 #include <internal/mcuxClMath_Internal_Functions.h>
 #include <internal/mcuxClPrng_Internal_Functions.h>
 
-#include <internal/mcuxClSession_Internal.h>
-#include <internal/mcuxClSession_Internal_EntryExit.h>
-
 #include <mcuxClRsa.h>
 #include <internal/mcuxClRsa_Internal_Functions.h>
 #include <internal/mcuxClRsa_TestPQDistance_FUP.h>
@@ -47,12 +44,12 @@
 #include <internal/mcuxClRsa_Internal_Macros.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_TestPQDistance)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_TestPQDistance(mcuxClSession_Handle_t pSession, uint32_t iP_iQ_iT, uint32_t primeByteLength)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPQDistance(uint32_t iP_iQ_iT, uint32_t primeByteLength)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_TestPQDistance);
 
   /* Set init status to ERROR */
-  mcuxClRsa_Status_t status = MCUXCLKEY_STATUS_ERROR;
+  mcuxClRsa_Status_t status = MCUXCLRSA_STATUS_INVALID_INPUT;
 
   /* Backup Uptrt to recover in the end */
   const uint16_t *backupPtrUptrt = MCUXCLPKC_GETUPTRT();
@@ -93,7 +90,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_TestPQDistance(mcuxClSession_Handle_
           mcuxClRsa_TestPQDistance_FUP_LEN);
   uint32_t zeroFlag_check = MCUXCLPKC_WAITFORFINISH_GETZERO();
 
-  /* Check FIPS 186-4 verification (100 MS bits of p and q are not equal) */
+  /* Check FIPS 186-5 verification (100 MS bits of p and q are not equal) */
   if(MCUXCLPKC_FLAG_NONZERO == zeroFlag_check)
   {
     /* 100 MS bits of p and q are not equal */
@@ -104,15 +101,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_TestPQDistance(mcuxClSession_Handle_
   MCUXCLPKC_PS1_SETLENGTH_REG(backupPs1LenReg);
   MCUXCLPKC_SETUPTRT(backupPtrUptrt);
 
-  /* If the FIPS 186-4 verification is not successful return MCUXCLKEY_STATUS_ERROR */
-  if(MCUXCLRSA_STATUS_KEYGENERATION_OK != status)
-  {
-    /* FIPS verification of first 100 MS bits of p and q are not equal, is not successful*/
-    MCUXCLSESSION_ERROR(pSession, status);
-  }
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_TestPQDistance,
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal),
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
-                            );
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_TestPQDistance, status,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
+  );
 }

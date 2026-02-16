@@ -62,9 +62,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_IntegrityCheckPN(mcuxClSession_Handl
     MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_DI_BALANCED(ECC_T1, &(pCommonDomainParams->pFullModulusN[MCUXCLPKC_WORDSIZE]), byteLenN, operandSize);
 
     /* Re-calculate shifted prime p and shifted order N */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus));
     MCUXCLMATH_FP_SHIFTMODULUS(ECC_T2, ECC_T0);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus));
     MCUXCLMATH_FP_SHIFTMODULUS(ECC_T3, ECC_T1);
 
     /* Compare re-imported with existing values for p and n. */
@@ -100,6 +98,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_IntegrityCheckPN(mcuxClSession_Handl
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_IntegrityCheckPN,
         MCUXCLPKC_FP_CALLED_IMPORTLITTLEENDIANTOPKC_BUFFER,
         MCUXCLPKC_FP_CALLED_IMPORTLITTLEENDIANTOPKC_BUFFER,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
         MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
         MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
         MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,

@@ -42,13 +42,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ecb_NonBlocking_Compl
 
   /* Copy last output block from SGI */
   mcuxCl_Buffer_t pOutput = pWa->nonBlockingWa.pOut;
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiOutputChannel(
     session, MCUXCLSGI_DRV_DATOUT_OFFSET, MCUXCLBUFFER_GET(pOutput) + pWa->nonBlockingWa.outOffset));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(outputChannel));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, outputChannel));
 
   /* Increase output length if copy of last block was successful, and advance the output pointer */
@@ -59,7 +56,11 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ecb_NonBlocking_Compl
 
   mcuxClSgi_Drv_wait();
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Ecb_NonBlocking_CompleteAutoMode);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Ecb_NonBlocking_CompleteAutoMode,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_Ecb_NonBlocking)
@@ -102,16 +103,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
     /* For only one block of data, SGI AUTO-mode is not needed. */
 
     /* Copy input to SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN1_OFFSET, MCUXCLBUFFER_GET(pIn)));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
     /* Perform crypt operation */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
       MCUXCLSGI_DRV_CTRL_END_UP                  |
       MCUXCLSGI_DRV_CTRL_INSEL_DATIN1            |
@@ -120,12 +117,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
     mcuxClSgi_Drv_wait();
 
     /* Copy output block from SGI. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiOutputChannel(session, MCUXCLSGI_DRV_DATOUT_OFFSET, pOutPtr));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(outputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, outputChannel));
 
     status = MCUXCLCIPHER_STATUS_OK;
@@ -137,14 +131,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
     /* For multiple blocks, use SGI AUTO mode with handshakes, non-blocking */
 
     /* Configure the DMA channels */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiTransferWithHandshakes(
       session,
       MCUXCLSGI_DRV_DATIN0_OFFSET,
       MCUXCLBUFFER_GET(pIn),
       pOutPtr));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
       session,
       nrOfBlocks,
@@ -153,25 +145,38 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
     /* Enable interrupts for the completion of the input channel, and for errors.
        As the output channel finishes first, there is not need to additionally enable DONE interrupts for it.
     */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(inputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(outputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel));
 
     /* Enable SGI AUTO mode ECB */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureAutoMode(MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_ECB));
 
     /* Start the operation - this will start the SGI-DMA interaction in the background, CPU is not blocked */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_startAutoModeWithHandshakes(sgiCtrl | MCUXCLSGI_DRV_CTRL_NO_UP | MCUXCLSGI_DRV_CTRL_AES_NO_KL, MCUXCLSGI_UTILS_OUTPUT_HANDSHAKE_ENABLE));
 
     status = MCUXCLCIPHER_STATUS_JOB_STARTED;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_NonBlocking, status);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_NonBlocking, status,
+    MCUX_CSSL_FP_CONDITIONAL( (1u == nrOfBlocks),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone)
+      ),
+    MCUX_CSSL_FP_CONDITIONAL( (1u != nrOfBlocks),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks),
+          2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes)
+      )
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_Ecb_NonBlocking_Enc, mcuxClCipherModes_EngineFunc_AesSgi_t)
@@ -186,10 +191,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Ecb_NonBlocking_Enc);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb_NonBlocking));
   MCUX_CSSL_FP_FUNCTION_CALL(ecbStatus, mcuxClCipherModes_Ecb_NonBlocking(session, pWa, pIn, pOut, inLength, pIvOut, pOutLength, MCUXCLSGI_DRV_CTRL_ENC));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_NonBlocking_Enc, ecbStatus);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_NonBlocking_Enc, ecbStatus,
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb_NonBlocking));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_Ecb_NonBlocking_Dec, mcuxClCipherModes_EngineFunc_AesSgi_t)
@@ -204,10 +209,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Ecb_NonBlocking_Dec);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb_NonBlocking));
   MCUX_CSSL_FP_FUNCTION_CALL(ecbStatus, mcuxClCipherModes_Ecb_NonBlocking(session, pWa, pIn, pOut, inLength, pIvOut, pOutLength, MCUXCLSGI_DRV_CTRL_DEC));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_NonBlocking_Dec, ecbStatus);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_NonBlocking_Dec, ecbStatus,
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb_NonBlocking));
 }
 
 

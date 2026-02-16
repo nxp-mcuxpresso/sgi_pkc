@@ -54,8 +54,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_mgf1(
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(hLen, MCUXCLRSA_HASH_MIN_SIZE, MCUXCLRSA_HASH_MAX_SIZE, MCUXCLRSA_STATUS_INVALID_INPUT)
 
   /* Update PKC workarea */
-  const uint32_t wordSizePkcWa = (MCUXCLRSA_INTERNAL_MGF1_WAPKC_SIZE(inputLength, hLen) / (sizeof(uint32_t)));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  const uint32_t wordSizePkcWa = MCUXCLRSA_INTERNAL_MGF1_WAPKC_SIZE(inputLength, hLen) / (sizeof(uint32_t));
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa));
 
   /* Pointer to the hash output */
@@ -68,7 +67,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_mgf1(
   MCUX_CSSL_DI_RECORD(memCopyHashInput, pHashInput);
   MCUX_CSSL_DI_RECORD(memCopyHashInput, pInput);
   MCUX_CSSL_DI_RECORD(memCopyHashInput, inputLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pHashInput, pInput, inputLength));
 
   /* counter = UPPER_BOUND(outputLength / pHashAlgo->hashSize) */
@@ -108,7 +106,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_mgf1(
     MCUX_CSSL_DI_RECORD(memCopyOutput, pOutput + tLen);
     MCUX_CSSL_DI_RECORD(memCopyOutput, pHashOutput);
     MCUX_CSSL_DI_RECORD(memCopyOutput, concatenateLen);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pOutput + tLen, pHashOutput, concatenateLen));
 
     tLen += concatenateLen;
@@ -118,5 +115,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_mgf1(
 
 /* Check define outside of macro so the MISRA rule 20.6 does not get violated */
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_mgf1,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute) * mxCounter);
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
+      mxCounter * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute),
+      mxCounter * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)
+  );
 }

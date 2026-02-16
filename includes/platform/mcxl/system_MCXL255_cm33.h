@@ -1,3 +1,16 @@
+/*--------------------------------------------------------------------------*/
+/* Copyright 2026 NXP                                                       */
+/*                                                                          */
+/* NXP Proprietary. This software is owned or controlled by NXP and may     */
+/* only be used strictly in accordance with the applicable license terms.   */
+/* By expressly accepting such terms or by downloading, installing,         */
+/* activating and/or otherwise using the software, you are agreeing that    */
+/* you have read, and that you agree to comply with and are bound by, such  */
+/* license terms. If you do not agree to be bound by the applicable license */
+/* terms, then you may not retain, install, activate or otherwise use the   */
+/* software.                                                                */
+/*--------------------------------------------------------------------------*/
+
 /*
 ** ###################################################################
 **     Processors:          MCXL255VDF_cm33
@@ -8,9 +21,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXL25xRM DraftF
-**     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250121
+**     Reference manual:    MCXL25xRM DraftH
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250723
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -25,8 +38,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-01-09)
-**         Generated based on Rev1 DraftI.
+**     - rev. 1.0 (2025-06-13)
+**         Generated based on Rev1 DraftH.
 **
 ** ###################################################################
 */
@@ -34,7 +47,7 @@
 /*!
  * @file MCXL255_cm33
  * @version 1.0
- * @date 2023-01-09
+ * @date 2025-06-13
  * @brief Device specific configuration file for MCXL255_cm33 (header file)
  *
  * Provides a system configuration function and a global variable that contains

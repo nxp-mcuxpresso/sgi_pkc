@@ -18,7 +18,17 @@
 #ifndef IP_PLATFORM_H
 #define IP_PLATFORM_H
 
-#include <MCXA276.h>
+
+#if !(defined(CPU_MCXA345VLH) || defined(CPU_MCXA345VLL) || defined(CPU_MCXA345VLQ) || defined(CPU_MCXA345VPN) \
+      || defined(CPU_MCXA346VLH) || defined(CPU_MCXA346VLL) || defined(CPU_MCXA346VLQ) || defined(CPU_MCXA346VPN) \
+      || defined(CPU_MCXA355VLH) || defined(CPU_MCXA355VLL) || defined(CPU_MCXA355VLQ) || defined(CPU_MCXA355VPN) \
+      || defined(CPU_MCXA356VLH) || defined(CPU_MCXA356VLL) || defined(CPU_MCXA356VLQ) || defined(CPU_MCXA356VPN) \
+      || defined(CPU_MCXA365VLH) || defined(CPU_MCXA365VLL) || defined(CPU_MCXA365VLQ) || defined(CPU_MCXA365VPN) \
+      || defined(CPU_MCXA366VLH) || defined(CPU_MCXA366VLL) || defined(CPU_MCXA366VLQ) || defined(CPU_MCXA366VPN))
+  #define CPU_MCXA366VLQ 1
+#endif
+
+#include <MCXA366.h>
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
 /* ================================================================================ */
@@ -89,6 +99,7 @@
 #define SGI_DATOUT_CNT                4UL
 #define SGI_KEY_CNT                   32UL
 #define SGI_KEY_WRITEONLY_START       16UL  ///< first compile-time WO key index
+#define SGI_UNWRAP_KEY_REGISTER_BANK  4UL   ///< Sgi key register bank where the UNWRAP key will be written to
 #define SGI_SFR_BASE           SGI0                                   ///< base of SGI SFRs
 #define SGI_SFR_MACRO_PREFIX   SGI_SGI_                               ///< sfr macro name prefix
 #define SGI_SFR_PREFIX         SGI_                                   ///< sfr field name prefix

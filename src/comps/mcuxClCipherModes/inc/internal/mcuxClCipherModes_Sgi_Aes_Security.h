@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -36,8 +36,7 @@
  * Code flow is described in detail in SREQI_BCIPHER_11
  *
  * @param      session      Handle for the current CL session.
- * @param      pContext     Pointer to multipart context
- * @param[in]  pWa          Pointer to cpu workarea
+ * @param[in]  pWa          Pointer to cpu workarea (word-aligned)
  * @param[in]  pIn          Buffer which holds the input data
  * @param[in]  pOut         Buffer to hold the output data
  * @param[in]  inLength     Length of input data
@@ -50,7 +49,6 @@
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_crypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_crypt(
   mcuxClSession_Handle_t session,
-  mcuxClCipherModes_Context_Aes_Sgi_t* pContext,
   mcuxClCipherModes_WorkArea_t* pWa,
   mcuxCl_InputBuffer_t pIn,
   mcuxCl_Buffer_t pOut,

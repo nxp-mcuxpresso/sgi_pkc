@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -47,8 +47,8 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  * @param[in]  pIn       Pointer to the input to be processed.
  * @param[in]  inLength    Size of input buffer pointed to by @p pIn.
  * @param[out] pProcessedBytes  Number of bytes processed from @p pIn. RFU.
@@ -75,8 +75,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCBCMac(
  * @pre The subkeys K1 and K2 have been generated.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  *
  * @return void
  */

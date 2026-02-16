@@ -27,7 +27,9 @@
 #include <internal/mcuxClMacModes_Common_Types.h>
 #include <internal/mcuxClMemory_Copy_Internal.h>
 #include <internal/mcuxClMacModes_Sgi_Algorithms.h>
+
 #include <internal/mcuxClMacModes_Sgi_Gmac.h>
+
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_createGmacMode)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_createGmacMode(
@@ -42,7 +44,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_createGmacMode(
   MCUX_CSSL_DI_RECORD(mode_cpy, (uint32_t)&mcuxClMac_CommonModeDescriptor_GMAC);
   MCUX_CSSL_DI_RECORD(mode_cpy, sizeof(mcuxClMac_CommonModeDescriptor_GMAC));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(
     (uint8_t *)&mode->common,
     (const uint8_t *)&mcuxClMac_CommonModeDescriptor_GMAC,
@@ -59,6 +60,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_createGmacMode(
   gmacModeDescriptor->pIv = pIv;
   gmacModeDescriptor->ivLength = ivLength;
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_createGmacMode, MCUXCLMAC_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_createGmacMode, MCUXCLMAC_STATUS_OK,
+             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
 }
+
 

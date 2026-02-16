@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -40,7 +40,7 @@ struct mcuxClCipherModes_Context_Aes_Sgi;
 typedef struct mcuxClCipherModes_nonBlockingWa
 {
   const struct mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi * pAlgo; /* Algorithm descriptor as provided by the user */
-  struct mcuxClCipherModes_Context_Aes_Sgi * pContext;                /* Context needed to wrap-up multipart flows */
+  struct mcuxClCipherModes_Context_Aes_Sgi * pContext;                /* Context needed to wrap-up multipart flows， and must be word-aligned */
   uint8_t direction;                /* Indicates encryption or decryption for oneshot operations */
   uint32_t lastBlockRemainingBytes; /* Number of bytes in the last block [1..16] for multipart operations */
   uint32_t totalInputLength;        /* Total number of input in bytes */
@@ -59,6 +59,7 @@ typedef struct mcuxClCipherModes_WorkArea
   uint32_t ctrSize;
   mcuxClCipherModes_nonBlockingWa_t nonBlockingWa;
 } mcuxClCipherModes_WorkArea_t;
+
 
 
 #endif /* MCUXCLCIPHERMODES_COMMON_WA_H_ */

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020, 2023 NXP                                                 */
+/* Copyright 2020, 2023, 2026 NXP                                           */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -33,7 +33,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  */
 #define mcuxClMath_NDash_Fup_LEN  5u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_NDash_Fup[mcuxClMath_NDash_Fup_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_NDash_Fup);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

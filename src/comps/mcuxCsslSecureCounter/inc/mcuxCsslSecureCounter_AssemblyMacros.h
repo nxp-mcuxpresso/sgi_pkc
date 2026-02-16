@@ -20,7 +20,7 @@
 #define MCUXCSSLSECURECOUNTER_ASSEMBLYMACROS_H_
 
 
-#if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050) || defined(__GNUC__)
+#if (defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)) || defined(__GNUC__)
 
 .macro MCUX_CSSL_SC_ASM_INIT_BASE baseReg
   mov \baseReg, #0

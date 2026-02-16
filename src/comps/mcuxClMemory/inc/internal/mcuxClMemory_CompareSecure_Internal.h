@@ -74,6 +74,14 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMemory_Status_t) mcuxClMemory_co
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMemory_compare_secure_int, retClCompare, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_int));
 }
 
+#define MCUXCLMEMORY_COMPARE_SECURE_INT_FP_EXPECT (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_int))
+#define MCUXCLMEMORY_COMPARE_SECURE_INT(retval, pLhs, pRhs, length)                      \
+  do {                                                                                  \
+    MCUX_CSSL_FP_FUNCTION_CALL(csslRetval, mcuxClMemory_compare_int(pLhs, pRhs, length)); \
+    retval = (mcuxClMemory_Status_t) csslRetval;                                         \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()            \
+  } while(false)                                                                        \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 
 #ifdef __cplusplus
 } /* extern "C" */

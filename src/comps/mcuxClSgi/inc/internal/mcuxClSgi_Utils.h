@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -168,7 +168,9 @@ static inline uint32_t mcuxClSgi_getKeyConf(const mcuxClKey_Descriptor_t* key)
 {
   uint32_t keyTypeConfig = mcuxClSgi_getKeyTypeConf(key);
   uint32_t keyIndex = mcuxClSgi_Drv_keySlotToIndex(mcuxClKey_getLoadedKeySlot(key));
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("key have valid value and keyIndex is valid")
   return keyTypeConfig | MCUXCLSGI_DRV_CTRL_INKEYSEL(keyIndex);
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 }
 
 /**
@@ -178,7 +180,7 @@ static inline uint32_t mcuxClSgi_getKeyConf(const mcuxClKey_Descriptor_t* key)
  * register bank. Unaligned access is handled properly, as
  * well as differences in compilers and architectures.
  *
- * Data Integrity: Expunge(mcuxClSgi_Drv_getAddr(sgisfrDatOffset) + pData + 16u)
+ * Data Integrity: Expunge(sgisfrDatOffset + pData + 16u)
  *
  * @param[in]  sgisfrDatOffset   Offset of the target SGI SFR,
  *                               can be either of these values:
@@ -195,8 +197,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load128BitBlock(uint32_t sgisf
 /** Helper macro for DI balanced call to mcuxClSgi_Utils_load128BitBlock. */
 #define MCUXCLSGI_UTILS_LOAD128BITBLOCK_DI_BALANCED(sfrDatOffset, pData) \
   do {  \
-    MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)mcuxClSgi_Drv_getAddr(sfrDatOffset)) + ((uint32_t)pData) + 16u); \
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock)); \
+    MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)(sfrDatOffset)) + ((uint32_t)pData) + 16u); \
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(sfrDatOffset, pData)); \
   } while(false)
 
@@ -207,7 +208,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load128BitBlock(uint32_t sgisf
  * register bank. Unaligned access is handled properly, as
  * well as differences in compilers and architectures.
  *
- * Data Integrity: Expunge(mcuxClSgi_Drv_getAddr(sgisfrDatOffset) + pData + len + pTempBuff)
+ * Data Integrity: Expunge(sgisfrDatOffset + pData + len + pTempBuff)
  *
  * @param[in]  sgisfrDatOffset   Offset of the target SGI SFR,
  *                               can be either of these values:
@@ -231,7 +232,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_load_notFull128Block_buffer(ui
  * data register bank. Unaligned access is handled properly, as
  * well as differences in compilers and architectures.
  *
- * Data Integrity: Expunge(mcuxClSgi_Drv_getAddr(sgisfrDatOffset) + pOut + 16u)
+ * Data Integrity: Expunge(sgisfrDatOffset + pOut + 16u)
  *
  * @param[in]  sgisfrDatOffset   Offset of the target data SGI SFR,
  *                               can be either of these values:
@@ -248,8 +249,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_store128BitBlock(uint32_t sgis
 /** Helper macro for DI balanced call to mcuxClSgi_Utils_store128BitBlock. */
 #define MCUXCLSGI_UTILS_STORE128BITBLOCK_DI_BALANCED(sfrDatOffset, pOut) \
   do {  \
-    MCUX_CSSL_DI_RECORD(sgiStore, ((uint32_t)mcuxClSgi_Drv_getAddr(sfrDatOffset)) + ((uint32_t)pOut) + 16u); \
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock)); \
+    MCUX_CSSL_DI_RECORD(sgiStore, ((uint32_t)(sfrDatOffset)) + ((uint32_t)pOut) + 16u); \
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(sfrDatOffset, pOut)); \
   } while(false)
 
@@ -290,12 +290,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_storeMasked128BitBlock(
  * When using SGI in auto mode for hashing, data has to be
  * loaded to FIFO. This function takes care of that.
  *
+ * Data Integrity:
+ *   EXPUNGEs pData and length.
+ *
  * @param[in]  pData    Pointer to data buffer which is loaded
  * @param[in]  length   Byte-length of data
  *
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_loadFifo)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo(const uint32_t *pData, uint32_t length);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo(const uint8_t *pData, uint32_t length);
 
 /**
  * @brief Load data from an input buffer to FIFO
@@ -306,16 +309,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo(const uint32_t *pData
  * @param[in]  data     Data buffer which is loaded to the FIFO
  * @param[in]  length   Byte-length of data
  *
+ * Data Integrity:
+ *   EXPUNGEs data and length.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_loadFifo_buffer)
 static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo_buffer(mcuxCl_InputBuffer_t data, uint32_t length)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_loadFifo_buffer);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadFifo));
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("SGI driver expects unaligned memory access (guarded by MCUXCL_FEATURE_HW_UNALIGNED_MEMORY_ACCESS)")
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_loadFifo((const uint32_t*)MCUXCLBUFFER_GET(data), length));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_loadFifo(MCUXCLBUFFER_GET(data), length));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_loadFifo_buffer);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_loadFifo_buffer,MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadFifo));
 }
 
 /**
@@ -323,8 +327,11 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo_buffer(
  *
  * Store the result of a hash operation in an output buffer during process phase.
  *
+ * Data Integrity:
+ *   EXPUNGEs pOutput and length.
+ *
  * @param[in]  pOutput    Pointer to output buffer, where partial digest is stored word-wise.
-  *                       The pointer needs to be word aligned.
+ *                        The pointer needs to be word aligned.
  * @param[in]  length     Byte-length of result. The input length needs to be a multiple of wordsize.
  *
  */
@@ -395,15 +402,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_stopAutoModeWithDmaHandshakes(
 
 
 /**
- * Internal function to request the SGI.
- *
- * @param[in]  session             Session handle
- * @param[in]  hwStatusOption      Resource status option
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_Request)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_Request(mcuxClSession_Handle_t session, mcuxClResource_HwStatus_t hwStatusOption);
-
-/**
  * Internal function to release the SGI.
  * Will also release the HW if MCUXCL_FEATURE_SESSION_JOBS is enabled.
  *
@@ -411,6 +409,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_Request(mcuxClSession_Handle_t
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_Uninit)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_Uninit(mcuxClSession_Handle_t session);
+
+/**
+ * @brief Copy 16 bytes from source to destination with SFR masking enabled.
+ *
+ * This function will enable SGI SFR-masking with the given @p sfrSeed, and disable it again after the copy.
+ *
+ * Data Integrity: Expunge(pSrc + pDst + MCUXCLAES_BLOCK_SIZE)
+ *
+ * @param[out] pDst     Pointer to destination buffer.
+ * @param[in]  pSrc     Pointer to source buffer.
+ * @param[in]  sfrSeed  Seed value for SFR masking
+ *
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_copyBlockSfrMasked)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_copyBlockSfrMasked(uint32_t *pDst, const uint32_t *pSrc, uint32_t sfrSeed);
 
 /**
  * @brief Copy SFR-masked data to/from SGI.
@@ -435,6 +448,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_copySfrMasked(uint32_t *pDst, 
  * @param[out] pKey        pointer to the key buffer.
  * @param[in]  keySize     key size.
  *
+ * Data Integrity: Expunge(offset  + pKey + keySize)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_loadKey_secure)
 static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadKey_secure(
@@ -444,15 +458,11 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadKey_secure(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_loadKey_secure);
   uint32_t *sgiKey = mcuxClSgi_Sfr_getAddr(offset);
-  /* Record input data for mcuxClMemory_copy_secure_int() */
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_MODIFY_STRING_LITERALS("False positive: The constant string literal pKey is not being modified");
-  MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, pKey);
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_MODIFY_STRING_LITERALS();
+  /* The caller should have recorded the offset, hence expunge it and record sgiKey */
+  MCUX_CSSL_DI_EXPUNGE(mcuxClMemory_copy_secure_int, offset);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, sgiKey);
-  MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, keySize);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int((uint8_t *) sgiKey, pKey, keySize));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_loadKey_secure);
+  MCUXCLMEMORY_COPY_SECURE_INT((uint8_t *) sgiKey, pKey, keySize);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_loadKey_secure, MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT);
 }
 
 
@@ -463,6 +473,8 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadKey_secure(
  * and stores the result at an dstSfrDatOffset.
  * The decremention will start at the least significant word (located at srcSfrDatOffset + 12)
  * and will end at the most significant word (located at srcSfrDatOffset).
+ *
+ * EXPUNGEs srcSfrDatOffset + dstSfrDatOffset
  *
  * @param srcSfrDatOffset     Offset of the source data SGI SFR,
  *                            can be either of these values:
@@ -489,7 +501,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_decrement128Bit(uint32_t srcSf
  * fixed by hardware, see @ref MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP.
  *
  * @param      session       The session handle.
- * @param      key           The key handle containing the wrapped key material
+ * @param      key           The key handle containing the wrapped key material (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSgi_Utils_keyUnwrapRfc3394)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_keyUnwrapRfc3394(
@@ -512,7 +524,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_keyUnwrapRfc3394(
  * @post The wrapped key material will be stored in the container of the @p key.
  *
  * @param      session       The session handle.
- * @param      key           The key handle.
+ * @param      key           The key handle (word-aligned).
  * @param[in]  keyMaterial   A pointer to the key material to be wrapped.
  * @param[in]  pSfrSeed      Seed for the SFR-masked key.
  */

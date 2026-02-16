@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -27,6 +27,7 @@
 #include <internal/mcuxClPkc_Operations.h>
 #include <internal/mcuxClMath_Internal.h>
 
+#include <internal/mcuxClEcc_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal_FUP.h>
 
@@ -77,9 +78,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_PointMult(uint8_t iScalar, uint3
     uint32_t scalarBits;
     uint32_t index = scalarBitLength;
 
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_InterleaveScalar(iScalar, scalarBitLength, 1u));
+
     /* Scan scalar and skip leading zero bits. */
     MCUX_CSSL_FP_LOOP_DECL(PointMult_Double);
-    MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
+    MCUXCLPKC_WAITFORFINISH(); /* Wait for scalar interleaving */
     do
     {
         MCUX_CSSL_FP_LOOP_ITERATION(PointMult_Double);  /* trivial double */
@@ -200,6 +203,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_PointMult(uint8_t iScalar, uint3
     }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_Int_PointMult,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_InterleaveScalar),
         MCUXCLPKC_FP_CALLED_CALC_OP1_NEG,
         MCUX_CSSL_FP_LOOP_ITERATIONS(PointMult_Double, scalarBitLength / 2u),
         MCUX_CSSL_FP_LOOP_ITERATIONS(PointMult_Add, NoOfAdd) );

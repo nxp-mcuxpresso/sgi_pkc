@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -64,7 +64,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
 
   mcuxClAeadModes_Context_t * const pCtx = mcuxClAeadModes_castToAeadModesContext(pContext);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   workArea->sgiWa.pKeyChecksums = &(pCtx->cipherCtx.keyContext.keyChecksums);
@@ -74,28 +73,21 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
   MCUX_CSSL_DI_RECORD(MultipartInitEnc_copyKeyContext, sizeof(mcuxClAes_KeyContext_Sgi_t));
 
   /* Request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
   /* Initialize the SGI. From this point onwards, returning after any functional error must be done after flushing the SGI. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load key to SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, &(workArea->sgiWa), MCUXCLSGI_DRV_KEY0_OFFSET));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_storeMaskedKeyInCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_storeMaskedKeyInCtx_Sgi(session,
-                                                                  key,
-                                                                  &(pCtx->cipherCtx.keyContext),
-                                                                  &(workArea->sgiWa),
-                                                                  MCUXCLSGI_DRV_KEY0_OFFSET,
-                                                                  mcuxClKey_getSize(key)));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_storeKeyInCtx_Sgi(session,
+                                                            key,
+                                                            &(pCtx->cipherCtx.keyContext),
+                                                            &(workArea->sgiWa)));
 
   /* Copy the key context to mac context as well */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(
     (uint8_t*)&pCtx->macCtx.keyContext,
     (uint8_t const*)&pCtx->cipherCtx.keyContext,
@@ -103,6 +95,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
 
   pCtx->macCtx.keyContext.sgiCtrlKey = workArea->sgiWa.sgiCtrlKey;
   pCtx->cipherCtx.keyContext.sgiCtrlKey = workArea->sgiWa.sgiCtrlKey;
+
+  /* HkeyContext will be aptly set during mcuxClMacModes_initGMAC. */
+  pCtx->macCtx.HkeyContext.sgiCtrlKey = MCUXCLSGI_DRV_CTRL_INVALID;
 
   pCtx->encDecMode = encDecMode;
   MCUX_CSSL_DI_EXPUNGE(encDecModeDi, encDecMode);
@@ -116,7 +111,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
   pCtx->macCtx.dataProcessed = MCUXCLMACMODES_FALSE;
   pCtx->macCtx.totalInput = 0u;
 
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_init);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->init(
     session,
     pCtx,
@@ -129,12 +123,21 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
   );
 
   /* Init context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEAD_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_init_encrypt_decrypt);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_init_encrypt_decrypt,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_storeKeyInCtx_Sgi),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
+    mode->algorithm->protectionToken_init,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_init_encrypt, mcuxClAead_init_t)
@@ -153,7 +156,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt(
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClAeadModes_init_encrypt);
 
   MCUX_CSSL_DI_RECORD(encDecModeDi, MCUXCLAEADMODES_ENCRYPTION); /* Will be balanced in mcuxClAeadModes_init_encrypt_decrypt */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_init_encrypt_decrypt));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_init_encrypt_decrypt(
     session,
     pContext,
@@ -165,7 +167,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt(
     tagLength,
     MCUXCLAEADMODES_ENCRYPTION));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_init_encrypt);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_init_encrypt,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_init_encrypt_decrypt)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_init_decrypt, mcuxClAead_init_t)
@@ -184,7 +188,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_decrypt(
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClAeadModes_init_decrypt);
 
   MCUX_CSSL_DI_RECORD(encDecModeDi, MCUXCLAEADMODES_DECRYPTION); /* Will be balanced in mcuxClAeadModes_init_encrypt_decrypt */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_init_encrypt_decrypt));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_init_encrypt_decrypt(
     session,
     pContext,
@@ -197,7 +200,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_decrypt(
     tagLength,
     MCUXCLAEADMODES_DECRYPTION));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_init_decrypt);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_init_decrypt,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_init_encrypt_decrypt)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_process, mcuxClAead_process_t)
@@ -222,32 +227,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process(
   }
 
   /* Check context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLAEAD_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
   /* Initialize the SGI. From this point onwards, returning after any functional error must be done after flushing the SGI. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load the key */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(session,
-                                                                   &(pCtx->cipherCtx.keyContext),
-                                                                   &(workArea->sgiWa),
-                                                                   MCUXCLSGI_DRV_KEY0_OFFSET,
-                                                                   MCUXCLAES_MASKED_KEY_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKeyFromCtx_Sgi(session,
+                                                            &(pCtx->cipherCtx.keyContext),
+                                                            &(workArea->sgiWa)));
 
-  MCUX_CSSL_FP_EXPECT(pCtx->protectionToken_process);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pCtx->process(
     session,
     pCtx,
@@ -258,12 +255,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process(
     pOutLength));
 
   /* Update context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEAD_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_process);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_process,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+    pCtx->protectionToken_process,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_process_adata, mcuxClAead_process_aad_t)
@@ -279,32 +284,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process_adata(
   mcuxClAeadModes_Context_t * const pCtx = mcuxClAeadModes_castToAeadModesContext(pContext);
 
   /* Check context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLAEAD_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
   /* Initialize the SGI. From this point onwards, returning after any functional error must be done after flushing the SGI. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load the key */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(session,
-                                                                   &(pCtx->cipherCtx.keyContext),
-                                                                   &(workArea->sgiWa),
-                                                                   MCUXCLSGI_DRV_KEY0_OFFSET,
-                                                                   MCUXCLAES_MASKED_KEY_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKeyFromCtx_Sgi(session,
+                                                            &(pCtx->cipherCtx.keyContext),
+                                                            &(workArea->sgiWa)));
 
-  MCUX_CSSL_FP_EXPECT(pCtx->common.mode->algorithm->protectionToken_processAad);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pCtx->common.mode->algorithm->processAad(
     session,
     pCtx,
@@ -313,12 +310,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_process_adata(
     adataLength));
 
   /* Update context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEAD_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_process_adata);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_process_adata,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+    pCtx->common.mode->algorithm->protectionToken_processAad,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_finish, mcuxClAead_finish_t)
@@ -337,32 +342,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_finish(
   mcuxClAeadModes_Context_t * const pCtx = mcuxClAeadModes_castToAeadModesContext(pContext);
 
   /* Check context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLAEAD_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
   /* Initialize the SGI. From this point onwards, returning after any functional error must be done after flushing the SGI. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load the key */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(session,
-                                                                   &(pCtx->cipherCtx.keyContext),
-                                                                   &(workArea->sgiWa),
-                                                                   MCUXCLSGI_DRV_KEY0_OFFSET,
-                                                                   MCUXCLAES_MASKED_KEY_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKeyFromCtx_Sgi(session,
+                                                            &(pCtx->cipherCtx.keyContext),
+                                                            &(workArea->sgiWa)));
 
-  MCUX_CSSL_FP_EXPECT(pCtx->common.mode->algorithm->protectionToken_finish);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pCtx->common.mode->algorithm->finish(
     session,
     pCtx,
@@ -371,29 +368,34 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_finish(
     pOutLength,
     pTag));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
 
   /* Clear cipher key context.
    * Clear the context after the call to mcuxClAeadModes_cleanupOnMultipartExit to not loose the key information too soon. */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, &pCtx->cipherCtx.keyContext);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, sizeof(mcuxClAes_KeyContext_Sgi_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t *)&pCtx->cipherCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t)));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t *)&pCtx->cipherCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t));
 
   /* Clear mac key context */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, &pCtx->macCtx.keyContext);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, sizeof(mcuxClAes_KeyContext_Sgi_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t *)&pCtx->macCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t)));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t *)&pCtx->macCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t));
 
   /* Clear counter0 */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, pCtx->counter0);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, MCUXCLAES_BLOCK_SIZE);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t *)pCtx->counter0, MCUXCLAES_BLOCK_SIZE));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t *)pCtx->counter0, MCUXCLAES_BLOCK_SIZE);
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_finish);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_finish,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+    pCtx->common.mode->algorithm->protectionToken_finish,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit),
+    3U * MCUXCLMEMORY_CLEAR_INT_FP_EXPECT
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_verify, mcuxClAead_verify_t)
@@ -413,12 +415,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_verify(
   /* pTag will be protected after mcuxClBuffer_inputBufferToCPU() */
 
   /* Check context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLAEAD_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   uint8_t *pComputedTag = &workArea->cpuWa.tagBuffer[MCUXCLAEADMODES_TAGLEN_MAX];
@@ -428,23 +428,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_verify(
   MCUX_CSSL_DI_RECORD(finishTagbuff, computedTagBuffer); /* Will be balanced after usage in mode->algorithm->finish() */
 
   /* Request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
   /* Initialize the SGI. From this point onwards, returning after any functional error must be done after flushing the SGI. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load the key */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(session,
-                                                                   &(pCtx->cipherCtx.keyContext),
-                                                                   &(workArea->sgiWa),
-                                                                   MCUXCLSGI_DRV_KEY0_OFFSET,
-                                                                   MCUXCLAES_MASKED_KEY_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKeyFromCtx_Sgi(session,
+                                                            &(pCtx->cipherCtx.keyContext),
+                                                            &(workArea->sgiWa)));
 
-  MCUX_CSSL_FP_EXPECT(pCtx->common.mode->algorithm->protectionToken_finish);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pCtx->common.mode->algorithm->finish(
     session,
     pCtx,
@@ -459,7 +453,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_verify(
   MCUX_CSSL_DI_RECORD(referenceTag, pReferenceTag); /* Will be balanced in mcuxClMemory_compare_dpasecure_int() */
 
   /* Compare authentication tags */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_dpasecure_int));
   MCUX_CSSL_FP_FUNCTION_CALL(compareStatus, mcuxClMemory_compare_dpasecure_int(session, pReferenceTag, pComputedTag, pCtx->tagSize));
   MCUX_CSSL_DI_RECORD(compareStatus, compareStatus);
 
@@ -482,27 +475,33 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_verify(
   }
 
   MCUX_CSSL_DI_RECORD(returnCode, retCode);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnMultipartExit(session, pCtx, cpuWaSizeInWords));
 
   /* Clear cipher key context.
    * Clear the context after the call to mcuxClAeadModes_cleanupOnMultipartExit to not loose the key information too soon. */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, &pCtx->cipherCtx.keyContext);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, sizeof(mcuxClAes_KeyContext_Sgi_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t *)&pCtx->cipherCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t)));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t *)&pCtx->cipherCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t));
 
   /* Clear mac key context */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, &pCtx->macCtx.keyContext);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, sizeof(mcuxClAes_KeyContext_Sgi_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t *)&pCtx->macCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t)));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t *)&pCtx->macCtx.keyContext, sizeof(mcuxClAes_KeyContext_Sgi_t));
 
   /* Clear counter0 */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, pCtx->counter0);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, MCUXCLAES_BLOCK_SIZE);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t *)pCtx->counter0, MCUXCLAES_BLOCK_SIZE));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t *)pCtx->counter0, MCUXCLAES_BLOCK_SIZE);
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClAeadModes_verify, retCode);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClAeadModes_verify, retCode,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+    pCtx->common.mode->algorithm->protectionToken_finish,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_dpasecure_int),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnMultipartExit),
+    3U * MCUXCLMEMORY_CLEAR_INT_FP_EXPECT
+  );
 }

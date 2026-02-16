@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -23,9 +23,17 @@
 #define rPTgt        r0              /* pTargetX, current pointer to target buffer */
 #define rPSrc        r1              /* pSourceX, current pointer to source buffer */
 #define rN           r2              /* length, length of the data to be copied */
-#define rT           r3              /* data, temporary register to hold loaded data */
-#define rX           r4              /* X, loop condition */
-#define rSc          r5              /* SC register */
+#define rSc          r3              /* SC register */
+#define rT           r4              /* data, temporary register to hold loaded data */
+#define rX           r5              /* X, loop condition */
+#define rBulk0       r4              /* Bulk copy register 0 */
+#define rBulk1       r5              /* Bulk copy register 1 */
+#define rBulk2       r6              /* Bulk copy register 2 */
+#define rBulk3       r7              /* Bulk copy register 3 */
+#define rBulk4       r8              /* Bulk copy register 4 */
+#define rBulk5       r9              /* Bulk copy register 5 */
+#define rBulk6       r10             /* Bulk copy register 6 */
+#define rBulk7       r11             /* Bulk copy register 7 */
 
 #ifdef __IASMARM__
         NAME mcuxCsslMemory_Int_Copy_arm_asm
@@ -47,14 +55,14 @@
  * r2 = length
  */
 mcuxCsslMemory_Int_Copy_arm_asm:
-  push {r3-r5, lr}
+  push {r3-r11, lr}
 
   MCUX_CSSL_FP_ASM_FUNCTION_ENTRY  rSc, rT, MCUX_CSSL_FP_FUNCID_mcuxCsslMemory_Int_Copy_arm_asm
 
 mcuxCsslMemory_Int_Copy_arm_asm_CheckZeroLength:
-  cbz   rN, mcuxCsslMemory_Int_Copy_arm_asm_Return  /* If length is zero */
+  cbz   rN, mcuxCsslMemory_Int_Copy_arm_asm_Return_Near  /* If length is zero */
 
-  /* 
+  /*
    * After all iterations, pTgt/pSrc shall point to pTarget[length]/pSource[length]
    * pTgt/pSrc will be subtract from DI at the end, so we add length to DI first,
    * such that at the end we can do DI -= pTgt + pSrc = (pTarget + len) + (pSource + len)
@@ -70,9 +78,9 @@ mcuxCsslMemory_Int_Copy_arm_asm_CheckZeroLength:
   it    lo
   movlo rX, rN
 
-  /* 
-   * Copy unaligned byte(s) to head of pTraget[]
-   * for (i = x; i > 0; i-=1) 
+  /*
+   * Copy unaligned byte(s) to head of pTarget[]
+   * for (i = x; i > 0; i-=1)
    */
 mcuxCsslMemory_Int_Copy_arm_asm_LoopHeadUnAligned:
   ldrb  rT, [rPSrc], #1             /* Increase rPSrc after ldrb by 1 (post-index) */
@@ -81,17 +89,51 @@ mcuxCsslMemory_Int_Copy_arm_asm_LoopHeadUnAligned:
   subs  rX, rX, #1                  /* Decrease loop iterator */
   bne   mcuxCsslMemory_Int_Copy_arm_asm_LoopHeadUnAligned
 
-
 mcuxCsslMemory_Int_Copy_arm_asm_Aligned:
-  mov   rX, #4                      /* CPU wordsize */
+
+mcuxCsslMemory_Int_Copy_arm_asm_CheckBulk:
+  /* Check if source is also 4-byte aligned */
+  ands  rT, rPSrc, #3               /* Check alignment of source */
+  bne   mcuxCsslMemory_Int_Copy_arm_asm_CheckRemaining  /* Skip bulk copy if source unaligned */
+
+  cmp   rN, #32                     /* Check if we have at least 32 bytes */
+  blo   mcuxCsslMemory_Int_Copy_arm_asm_24Check
+
+mcuxCsslMemory_Int_Copy_arm_asm_Loop32Bulk:
+  ldmia rPSrc!, {rBulk0-rBulk7}  /* Load 8 words, increment rPSrc */
+  stmia rPTgt!, {rBulk0-rBulk7}  /* Store 8 words, increment rPTgt */
+  subs  rN, rN, #32      /* Decrease remaining length by 32 bytes */
+  cmp   rN, #32
+  bhs   mcuxCsslMemory_Int_Copy_arm_asm_Loop32Bulk
+
+mcuxCsslMemory_Int_Copy_arm_asm_24Check:
+  cmp   rN, #24                     /* Check if we have at least 24 bytes */
+  blo   mcuxCsslMemory_Int_Copy_arm_asm_16Check
+
+mcuxCsslMemory_Int_Copy_arm_asm_Loop24Bulk:
+  ldmia rPSrc!, {rBulk0-rBulk5}  /* Load 6 words, increment rPSrc */
+  stmia rPTgt!, {rBulk0-rBulk5}  /* Store 6 words, increment rPTgt */
+  subs  rN, rN, #24      /* Decrease remaining length by 24 bytes */
+
+mcuxCsslMemory_Int_Copy_arm_asm_Return_Near:
+  cbz   rN, mcuxCsslMemory_Int_Copy_arm_asm_Return
+
+mcuxCsslMemory_Int_Copy_arm_asm_16Check:
+  cmp   rN, #16                     /* Check if we have at least 16 bytes */
+  blo   mcuxCsslMemory_Int_Copy_arm_asm_CheckRemaining
+
+mcuxCsslMemory_Int_Copy_arm_asm_Loop16Bulk:
+  ldmia rPSrc!, {rBulk0-rBulk3}  /* Load 4 words, increment rPSrc */
+  stmia rPTgt!, {rBulk0-rBulk3}  /* Store 4 words, increment rPTgt */
+  subs  rN, rN, #16      /* Decrease remaining length by 16 bytes */
 
 mcuxCsslMemory_Int_Copy_arm_asm_CheckRemaining:
   cmp   rN, #4
   blo   mcuxCsslMemory_Int_Copy_arm_asm_CheckEnd
 
-  /* 
+  /*
    * Copy word(s). pTarget[] is written aligned, but pSource[] might be read unaligned.
-   * for (i = n; i >= 4; i-=4) 
+   * for (i = n; i >= 4; i-=4)
    */
 mcuxCsslMemory_Int_Copy_arm_asm_LoopAligned:
   ldr   rT, [rPSrc],  #4             /* load and then increase rPSrc by 4 */
@@ -103,7 +145,7 @@ mcuxCsslMemory_Int_Copy_arm_asm_LoopAligned:
 mcuxCsslMemory_Int_Copy_arm_asm_CheckEnd:
   cbz   rN, mcuxCsslMemory_Int_Copy_arm_asm_Return
 
-  /* 
+  /*
    * Copy remaining unaligned byte(s) to tail of pTarget[].
    * for (i = n; i > 0; i-=1)
    */
@@ -121,7 +163,7 @@ mcuxCsslMemory_Int_Copy_arm_asm_Return:
 
   /* Return to caller with DI -= (pSource + pTarget + length) */
   mov  r1, rSc
-  pop {r3-r5, pc}
+  pop {r3-r11, pc}
 
 #ifdef __IASMARM__
         END

@@ -118,10 +118,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_SecurePtrSelectComb(
     /* Determine the XOR-masked prec point table entry corresponding to the current scalar digit. */
     uint64_t maskedTableEntry = 0u;
     uint64_t *pPrecPointTableMask = &(pCpuWa->precPointTableMask);
-    (void)mcuxClEcc_SecurePtrTableEntrySelect((uint8_t *) pCpuWa->precPointTable, scalarWord0, scalarWord1, scalarDigitOffset,
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_SecurePtrTableEntrySelect((uint8_t *) pCpuWa->precPointTable, scalarWord0, scalarWord1, scalarDigitOffset,
                 MCUXCLECC_TWED_PPTABLE_ENTRY_SIZE_LOG2,
                 MCUXCLECC_TWED_PPTABLE_INDEX_BITSIZE,
-                (uint8_t *) pCpuWa->shuffleBuffer1, (uint8_t *) pCpuWa->shuffleBuffer2, (uint8_t *)&maskedTableEntry, (uint8_t *) pPrecPointTableMask);
+                (uint8_t *) pCpuWa->shuffleBuffer1, (uint8_t *) pCpuWa->shuffleBuffer2, (uint8_t *)&maskedTableEntry, (uint8_t *) pPrecPointTableMask));
 
     /* Unpack the masked prec point table entry to derive the XOR-masked
      *  - PKC offsets of prec point coordinates X,Y,T to be used in the upcoming double-and-add step
@@ -159,7 +159,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_SecurePtrSelectComb(
     MCUXCLPKC_PS1_START_L0();
 
     /* ECC_T0 = -X mod p */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
     MCUXCLPKC_FP_CALC_OP1_SUB(ECC_T0, ECC_P, ECC_T3);
 
     /* ECC_T1 = PKC_BUF(offsetMaskedMinusX ^ offsetMinusXMask)
@@ -177,7 +176,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_SecurePtrSelectComb(
     MCUXCLPKC_PS1_START_L0();
 
     /* ECC_T3 = -T mod p */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
     MCUXCLPKC_FP_CALC_OP1_SUB(ECC_T3, ECC_P, ECC_T0);
 
     /* ECC_T2 = PKC_BUF(offsetMaskedMinusT ^ offsetMinusTMask)
@@ -194,5 +192,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_SecurePtrSelectComb(
     pOperands[TWED_PP_VT0] = pOperands[ECC_T2];
     pOperands[TWED_PP_VY0] = offsetMaskedY ^ offsetYMask;
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_SecurePtrSelectComb);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_SecurePtrSelectComb,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_SecurePtrTableEntrySelect),
+        MCUXCLPKC_FP_CALLED_CALC_OP1_SUB,
+        MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
 }

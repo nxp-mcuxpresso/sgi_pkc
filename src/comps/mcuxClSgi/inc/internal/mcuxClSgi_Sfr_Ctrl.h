@@ -190,6 +190,7 @@ extern "C" {
 #define MCUXCLSGI_SFR_CTRL_SHA2_SHA2_STOP        (1UL << MCUXCLSGI_SFR_BITPOS(SHA2_CTRL,SHA2_STOP))
 #define MCUXCLSGI_SFR_CTRL_SHA2_NO_AUTO_INIT     (1UL << MCUXCLSGI_SFR_BITPOS(SHA2_CTRL,NO_AUTO_INIT))
 
+#ifdef SGI_HAS_WRITEONLY_KEYS
 /* Key control */
 #define MCUXCLSGI_SFR_KEY_CTRL_KEY_WO_KEY0A       (1UL << MCUXCLSGI_SFR_KEY0_INDEX)
 #define MCUXCLSGI_SFR_KEY_CTRL_KEY_WO_KEY1A       (1UL << MCUXCLSGI_SFR_KEY1_INDEX)
@@ -200,6 +201,7 @@ extern "C" {
 #define MCUXCLSGI_SFR_KEY_CTRL_KEY_WO_KEY6A       (1UL << MCUXCLSGI_SFR_KEY6_INDEX)
 #define MCUXCLSGI_SFR_KEY_CTRL_KEY_WO_KEY7A       (1UL << MCUXCLSGI_SFR_KEY7_INDEX)
 #define MCUXCLSGI_SFR_KEY_CTRL_KEY_WO(keyIndex)   (1UL << (keyIndex))
+#endif /* SGI_HAS_WRITEONLY_KEYS */
 
 /**
  * Read the SGI CTRL register
@@ -318,6 +320,7 @@ static inline void mcuxClSgi_Sfr_writeAutoMode(uint32_t value)
 }
 #endif /* SGI_HAS_AES_AUTO_MODE */
 
+#ifdef SGI_HAS_WRITEONLY_KEYS
 /**
  * Read the SGI KEY_CTRL register
  */
@@ -335,7 +338,7 @@ static inline void mcuxClSgi_Sfr_writeKeyCtrl(uint32_t value)
 {
   MCUXCLSGI_SFR_WRITE(KEY_CTRL, value);
 }
-
+#endif /* SGI_HAS_WRITEONLY_KEYS */
 
 
 #ifdef __cplusplus

@@ -54,8 +54,7 @@
 /* Reading the BITER field is only needed by Cipher NonBlocking modes */
 #define MCUXCLDMA_FEATURE_INTERNAL_READ_CITER                      1U
 
-/* Functionality to check for channel errors is only needed in ISRs for NonBlocking modes that use a single DMA channel */
-#define MCUXCLDMA_FEATURE_INTERNAL_CHECKFORCHANNELERRORS           1U
+#define MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_COPY                  1U
 
 /* Functionality to copy AES-blocks hardcoded with the DMA is only needed by CipherModes and MacModes NonBlocking modes */
 #define MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_SGI_COPY              1U

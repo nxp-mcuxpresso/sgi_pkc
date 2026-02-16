@@ -25,9 +25,6 @@
 #define MCUXCLCIPHERMODES_NO_DMA           (0u)
 #define MCUXCLCIPHERMODES_USE_DMA          (1u)
 
-/* Sizes used in workarea and context */
-#define MCUXCLCIPHERMODES_ROUNDKEYSSIZE  (1u)
 #define MCUXCLCIPHERMODES_BLOCKSIZE      (1u)
-
 
 #endif /* MCUXCLCIPHERMODES_COMMON_CONSTANTS_H_ */

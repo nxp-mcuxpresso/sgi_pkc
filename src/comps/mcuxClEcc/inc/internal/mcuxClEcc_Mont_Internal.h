@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -114,8 +114,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
  *
  * @param[in] pSession          pointer to #mcuxClSession_Descriptor.
  * @param[in] generation        pointer to #mcuxClKey_GenerationDescriptor.
- * @param[out] privKey          private key handling structure
- * @param[out] pubKey           public key handling structure
+ * @param[out] privKey          private key handling structure (word-aligned)
+ * @param[out] pubKey           public key handling structure (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_MontDH_GenerateKeyPair, mcuxClKey_KeyGenFct_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_GenerateKeyPair(
@@ -130,13 +130,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_GenerateKeyPair(
  *
  * This function performs a MontDH key agreement to compute a shared secret between two parties using according to Curve25519 or Curve448 as specified in rfc7748.
  * This API does not check if the curve parameters are correct.
- * This API might return MCUXCLECC_STATUS_ERROR_SMALL_SUBGROUP if generated public key lies in the small subgroup
- * Unexpected behavior will return MCUXCLECC_STATUS_FAULT_ATTACK.
+ * This API might return:
+ *  - MCUXCLECC_STATUS_SMALL_SUBGROUP_ATTACK if generated public key lies in the small subgroup.
+ *  - MCUXCLECC_STATUS_SCALAR_ZERO if the input scalar is zero (mod n).
+ *  - Unexpected behavior will return MCUXCLECC_STATUS_FAULT_ATTACK.
  *
  * @param[in] pSession             pointer to #mcuxClSession_Descriptor.
  * @param[in] agreement            Key agreement algorithm specifier.
- * @param[in] key                  private key handling structure
- * @param[in] otherKey             public key handling structure
+ * @param[in] key                  private key handling structure (word-aligned)
+ * @param[in] otherKey             public key handling structure (word-aligned)
  * @param[in] additionalInputs     Key agreement additional input pointers (unused parameter)
  * @param[in] numberOfInputs       number of additional inputs (unused parameter)
  * @param[out] pOut                buffer for shared secret

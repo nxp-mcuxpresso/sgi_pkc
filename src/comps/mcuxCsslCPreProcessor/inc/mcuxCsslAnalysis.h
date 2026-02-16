@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -35,6 +35,9 @@
 #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6100100)
 /* Arm Compiler above 6.10.1 (armclang) */
 #define MCUX_CSSL_COMPILER_ARMCLANG
+#define MCUX_CSSL_COMPILER_ARM_COMPILER
+
+#elif defined (__GNUC__)
 #define MCUX_CSSL_COMPILER_ARM_COMPILER
 
 #elif defined (_clang_)
@@ -365,6 +368,26 @@
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE() \
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
 
+#elif defined(__m56800E__)
+#define MCUX_CSSL_ANALYSIS_START_PATTERN_SIGNED_TRUNCATION() \
+  /* Intentionally empty */
+#define MCUX_CSSL_ANALYSIS_STOP_PATTERN_SIGNED_TRUNCATION() \
+  /* Intentionally empty */
+
+#define MCUX_CSSL_ANALYSIS_START_PATTERN_SIGNED_SHIFT() \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE("Shift operation on signed numbers is implementation defined and documented in m56800E compiler user guide. Right shifts on signed quantities are arithmetic (sign extension is performed).") \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_SIGNED_SHIFT_AMOUNT("Shift operation on signed numbers is implementation defined and documented in m56800E compiler user guide. Right shifts on signed quantities are arithmetic (sign extension is performed).")
+#define MCUX_CSSL_ANALYSIS_STOP_PATTERN_SIGNED_SHIFT() \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_SIGNED_SHIFT_AMOUNT() \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE()
+
+#define MCUX_CSSL_ANALYSIS_START_PATTERN_TWOS_COMPLEMENT_REPRESENTATION() \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("Algoritihm works correctly assuming two's complement representation of signed numbers. This is true for target m56800E platform.") \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE("Algoritihm works correctly assuming two's complement representation of signed numbers. This is true for target m56800E platform.")
+#define MCUX_CSSL_ANALYSIS_STOP_PATTERN_TWOS_COMPLEMENT_REPRESENTATION() \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE() \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
+
 #else /* defined(MCUX_CSSL_COMPILER_ARM_COMPILER) || defined(MCUX_CSSL_COMPILER_RISCV_LLVM) || defined(MCUX_CSSL_COMPILER_IAR)*/
 
 #define MCUX_CSSL_ANALYSIS_START_PATTERN_SIGNED_TRUNCATION() \
@@ -649,11 +672,13 @@ MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(CERT_EXP36_C) \
 
 #define MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER(rationale) \
   MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE(CERT_EXP34_C, rationale) \
+  MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE(NULL_FIELD, rationale)   \
   MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE(NULL_RETURNS, rationale) \
   MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE(FORWARD_NULL, rationale)
 #define MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER() \
   MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(FORWARD_NULL) \
   MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(NULL_RETURNS) \
+  MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(NULL_FIELD)   \
   MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(CERT_EXP34_C)
 
 #define MCUX_CSSL_ANALYSIS_START_SUPPRESS_SWITCH_STATEMENT_NOT_WELL_FORMED(rationale) \

@@ -89,10 +89,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
 
         /* mcuxClEcc_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned")
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
         MCUX_CSSL_FP_FUNCTION_CALL(mcuxClEcc_CpuWa_t*, pCpuWorkarea, mcuxClSession_allocateWords_cpuWa(pSession, 0u));
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
         MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, 0u));
 
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_WeierECC_SetupEnvironment(pSession,
@@ -177,7 +175,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
 
         /* Calculate Q = d1 * Q0. */
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_SecurePointMult(ECC_S1, byteLenN * 8u));
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(scalarEvenBranch, MCUXCLPKC_FLAG_NONZERO == d1NoOfTrailingZeros));
 
 
         /**********************************************************/
@@ -185,7 +182,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
         /**********************************************************/
 
         /* T0 = ModInv(Z), where Z = (z * 256^LEN) \equiv z in MR. */
-        MCUXCLMATH_FP_MODINV(ECC_T0, WEIER_Z, ECC_P, ECC_T1);
+        MCUXCLECC_FP_MODINV(ECC_T0, WEIER_Z, ECC_P, ECC_T1, ECC_T3);
         /* T0 = z^(-1) * 256^(-LEN) \equiv z^(-1) * 256^(-2LEN) in MR. */
 
         /* Convert Q to affine coordinates. */
@@ -212,7 +209,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
 
         /* Store private key into key handle */
         uint8_t *pPrivKeySrc = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S2]);
-        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(privKey));
         MCUXCLKEY_STORE_FP(
             pSession,
             privKey,
@@ -221,7 +217,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
 
         /* Store public key into key handle */
         uint8_t *pPubKeyXSrc = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_XA]);
-        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(pubKey));
         MCUXCLKEY_STORE_FP(
             pSession,
             pubKey,
@@ -242,8 +237,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
         mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
         MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_GenerateKeyPair,
-                                    MCUXCLECC_FP_GENERATEKEYPAIR_FINAL,
-                                    MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
-                                    MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
+            MCUXCLECC_FP_GENERATEKEYPAIR_FINAL(privKey, pubKey),
+            MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(scalarEvenBranch, MCUXCLPKC_FLAG_NONZERO == d1NoOfTrailingZeros));
     }
 }

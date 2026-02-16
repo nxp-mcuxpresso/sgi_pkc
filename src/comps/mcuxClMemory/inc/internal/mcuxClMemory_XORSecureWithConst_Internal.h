@@ -79,6 +79,19 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_XORWithConst_secure
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_XORWithConst_secure_int);
 }
 
+#define MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT_FP_EXPECT 0U
+#define MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT(pDst, pSrc, byteConstant, length) \
+  do {                                                                          \
+    MCUX_CSSL_DI_EXPUNGE(xorParamsDst /* Not used */, (uint32_t)(pDst));         \
+    MCUX_CSSL_DI_EXPUNGE(xorParamsSrc /* Not used */, (uint32_t)(pSrc));         \
+    MCUX_CSSL_DI_EXPUNGE(xorParamsLength /* Not used */, (uint32_t)(length));    \
+    for(uint32_t i = 0u; i < (length); ++i)                                     \
+    {                                                                           \
+        (pDst)[i] = (pSrc)[i] ^ (byteConstant);                                 \
+    }                                                                           \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()    \
+  } while(false)                                                                \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 
 #ifdef __cplusplus
 } /* extern "C" */

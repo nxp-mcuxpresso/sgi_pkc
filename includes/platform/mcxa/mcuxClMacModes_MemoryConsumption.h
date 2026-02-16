@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -30,22 +30,22 @@
  */
 
 /* Workarea sizes */
-#define MCUXCLMAC_MAX_CPU_WA_BUFFER_SIZE               (100u)
+#define MCUXCLMAC_MAX_CPU_WA_BUFFER_SIZE               (84u)
 #define MCUXCLMAC_MAX_CPU_WA_BUFFER_SIZE_IN_WORDS      MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLMAC_MAX_CPU_WA_BUFFER_SIZE)
 
-#define MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE           (100u)
+#define MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE           (84u)
 #define MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE_IN_WORDS  MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE)
-#define MCUXCLMAC_INIT_CPU_WA_BUFFER_SIZE              (100u)
+#define MCUXCLMAC_INIT_CPU_WA_BUFFER_SIZE              (84u)
 #define MCUXCLMAC_INIT_CPU_WA_BUFFER_SIZE_IN_WORDS     MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLMAC_INIT_CPU_WA_BUFFER_SIZE)
-#define MCUXCLMAC_PROCESS_CPU_WA_BUFFER_SIZE           (100u)
+#define MCUXCLMAC_PROCESS_CPU_WA_BUFFER_SIZE           (84u)
 #define MCUXCLMAC_PROCESS_CPU_WA_BUFFER_SIZE_IN_WORDS  MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLMAC_PROCESS_CPU_WA_BUFFER_SIZE)
-#define MCUXCLMAC_PROCESS_NONBLOCKING_CPU_WA_BUFFER_SIZE           (100u)
+#define MCUXCLMAC_PROCESS_NONBLOCKING_CPU_WA_BUFFER_SIZE           (84u)
 #define MCUXCLMAC_PROCESS_NONBLOCKING_CPU_WA_BUFFER_SIZE_IN_WORDS  MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLMAC_PROCESS_NONBLOCKING_CPU_WA_BUFFER_SIZE)
-#define MCUXCLMAC_FINISH_CPU_WA_BUFFER_SIZE            (100u)
+#define MCUXCLMAC_FINISH_CPU_WA_BUFFER_SIZE            (84u)
 #define MCUXCLMAC_FINISH_CPU_WA_BUFFER_SIZE_IN_WORDS   MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLMAC_FINISH_CPU_WA_BUFFER_SIZE)
 
 /* Context sizes */
-#define MCUXCLMAC_CONTEXT_SIZE                         (220u)
+#define MCUXCLMAC_CONTEXT_SIZE                         (144u)
 #define MCUXCLMAC_CONTEXT_SIZE_IN_WORDS                MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLMAC_CONTEXT_SIZE)
 
 /* Mode descriptor sizes */

@@ -200,7 +200,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
 
   MCUX_CSSL_FP_LOOP_DECL(mainLoopFp);
 
-  uint32_t executedIterations = 0u;
+  uint32_t executedIterations = 0U;
+
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t counterCmp2AndRandom = 0U); /* counter for comparison of random integer and 2 */
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t counterCmpPrimeCandidateAndZ = 0U); /* counter for comparison of PrimeCandidate-1 and Z */
 
   do
   {
@@ -224,9 +227,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
       /* Compare PrimeCandidate-2 and b */
       MCUXCLPKC_FP_CALC_OP2_CMP(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T0, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT);
       carryFlag_check = MCUXCLPKC_WAITFORFINISH_GETCARRY();
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_CONDITIONAL((MCUXCLPKC_FLAG_NOCARRY == carryFlag_check), MCUXCLPKC_FP_CALLED_CALC_OP2_SUB_CONST));
+
       if(MCUXCLPKC_FLAG_NOCARRY == carryFlag_check)
       {
+        MCUX_CSSL_FP_COUNTER_STMT(++counterCmp2AndRandom);
         /* Compare 2 and b */
         MCUXCLPKC_FP_CALC_OP2_SUB_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_X, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT, 2);
         carryFlag_check = MCUXCLPKC_WAITFORFINISH_GETCARRY();
@@ -287,8 +291,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
 
     uint32_t zeroFlag_check = MCUXCLPKC_WAITFORFINISH_GETZERO();
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_CONDITIONAL((MCUXCLPKC_FLAG_ZERO != zeroFlag_check), MCUXCLPKC_FP_CALLED_CALC_OP2_SUB_CONST, MCUXCLPKC_FP_CALLED_CALC_OP2_CMP));
-
     /* Check if z == 1: if true then the test passed, otherwise another check is performed */
     if(MCUXCLPKC_FLAG_ZERO != zeroFlag_check)
     {
@@ -297,7 +299,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
       /* if ((z == PrimeCandidate-1), test passed, then continue. Otherwise, it means  that PrimeCandidate is composite, */
       /* and function returns MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_MRT_FAILED error code                                   */
       /*******************************************************************************************************************/
-
+      MCUX_CSSL_FP_COUNTER_STMT(++counterCmpPrimeCandidateAndZ);
       /* Compute PrimeCandidate-1 */
       MCUXCLPKC_FP_CALC_OP2_SUB_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT /* PrimeCandidate-1 */, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_PRIMECANDIDATE, 1);
       /* Compare PrimeCandidate-1 and z */
@@ -326,7 +328,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
 
   if (counter == numberTestIterations)
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_getMillerRabinTestIterations));
     MCUX_CSSL_FP_FUNCTION_CALL(needNumberTestIterations, mcuxClRsa_getMillerRabinTestIterations(keyBitLength / 2u));
     if (needNumberTestIterations != executedIterations)
     {
@@ -341,18 +342,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
 
   MCUX_CSSL_FP_COUNTER_STMT(uint32_t mainLoopCounter = (counter == numberTestIterations) ? numberTestIterations : (counter + 1u));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_MillerRabinTest,
-                            status,
-                            MCUXCLPKC_FP_CALLED_CALC_OP2_SHR,
-                            MCUXCLPKC_FP_CALLED_CALC_MC2_PM_PATCH,
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QSquared),
-                            MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_generate) * witnessLoopCounterMain,
-                            MCUXCLPKC_FP_CALLED_CALC_OP2_SUB_CONST * witnessLoopCounterMain,
-                            MCUXCLPKC_FP_CALLED_CALC_OP2_CMP * witnessLoopCounterMain,
-                            MCUX_CSSL_FP_LOOP_ITERATIONS(mainLoopFp, mainLoopCounter));
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_MillerRabinTest, status,
+      MCUXCLPKC_FP_CALLED_CALC_OP2_SHR,
+      MCUXCLPKC_FP_CALLED_CALC_MC2_PM_PATCH,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QSquared),
+      MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_generate) * witnessLoopCounterMain,
+      MCUXCLPKC_FP_CALLED_CALC_OP2_SUB_CONST * witnessLoopCounterMain,
+      MCUXCLPKC_FP_CALLED_CALC_OP2_CMP * witnessLoopCounterMain,
+      MCUXCLPKC_FP_CALLED_CALC_OP2_SUB_CONST * counterCmp2AndRandom,
+      MCUX_CSSL_FP_LOOP_ITERATIONS(mainLoopFp, mainLoopCounter),
+      MCUXCLPKC_FP_CALLED_CALC_OP2_SUB_CONST * counterCmpPrimeCandidateAndZ,
+      MCUXCLPKC_FP_CALLED_CALC_OP2_CMP * counterCmpPrimeCandidateAndZ,
+      MCUX_CSSL_FP_CONDITIONAL((counter == numberTestIterations),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_getMillerRabinTestIterations)
+      )
+  );
 
 }

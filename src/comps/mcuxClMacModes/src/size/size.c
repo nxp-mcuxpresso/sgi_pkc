@@ -27,21 +27,19 @@
 #include <internal/mcuxClMacModes_Common_Wa.h>
 #include <internal/mcuxClMacModes_Sgi_Ctx.h>
 
+
 /*************************/
 /**** Work area sizes ****/
 /*************************/
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_OBJ_SIZES()
 
-
-#define MCUXCLMACMODES_SW_PRIMITIVE_WA_SIZE (0u)
-
-
 /* Context and WA for MAC computation */
 volatile mcuxClMacModes_Context_t mcuxClMacModes_Ctx;
-volatile uint8_t mcuxClMacModes_WA[MCUXCLMACMODES_INTERNAL_WASIZE + MCUXCLMACMODES_SW_PRIMITIVE_WA_SIZE];
+volatile uint8_t mcuxClMacModes_WA[MCUXCLMACMODES_INTERNAL_WASIZE];
 
 /* Mode-specific structures */
 volatile uint8_t mcuxClMacModes_GmacModeDescriptor_SIZE[sizeof(mcuxClMac_ModeDescriptor_t) + sizeof(mcuxClMacModes_GmacModeDescriptor_t)];
+
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_OBJ_SIZES()

@@ -23,6 +23,7 @@
 #include <internal/mcuxClRandomModes_Private_CtrDrbg.h>
 #include <internal/mcuxClRandomModes_Private_ExitGates.h>
 #include <internal/mcuxClResource_Internal_Types.h>
+#include <internal/mcuxClResource_Internal_Functions.h>
 
 /* ctr drbg defines */
 #define MCUXCLRANDOMMODES_CTR_DRBG_SGI_MODE_GENERAL (MCUXCLSGI_DRV_CTRL_DATOUT_RES_END_UP | \
@@ -48,13 +49,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_requestHW(mcuxClSess
 {
  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_requestHW);
 
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(pSession, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(pSession, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_requestHW,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init)
     );
 }
@@ -112,6 +113,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_Loa
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadKey);
+    /* Record input data for mcuxClSgi_Utils_loadKey_secure() */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_MODIFY_STRING_LITERALS("False positive: The constant string literal pKey is not being modified");
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_loadKey_secure, pKey);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_MODIFY_STRING_LITERALS();
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_loadKey_secure, MCUXCLSGI_DRV_KEY0_OFFSET);
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_loadKey_secure, keyLength);
     /* Load key into the SGI_KEY0 */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
       mcuxClSgi_Utils_loadKey_secure(MCUXCLSGI_DRV_KEY0_OFFSET, (const uint8_t*)pKey, keyLength)
@@ -165,7 +172,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEnc
 
     if(pXorMask != NULL)
     {
-        MCUX_CSSL_DI_RECORD(bufferReadDI, (uint32_t) mcuxClSgi_Sfr_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET));
+        MCUX_CSSL_DI_RECORD(bufferReadDI, (uint32_t)(MCUXCLSGI_DRV_DATOUT_OFFSET));
         MCUX_CSSL_DI_RECORD(bufferReadDI, pXorMask);
         MCUX_CSSL_DI_RECORD(bufferReadDI, pOut);
 
@@ -180,7 +187,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEnc
     else
     {
         /* copy out result */
-        MCUX_CSSL_DI_RECORD(bufferReadDI, (uint32_t)pOut + 0u + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET) + MCUXCLAES_BLOCK_SIZE);
+        MCUX_CSSL_DI_RECORD(bufferReadDI, (uint32_t)pOut + 0u + (uint32_t)(MCUXCLSGI_DRV_DATOUT_OFFSET) + MCUXCLAES_BLOCK_SIZE);
         /* Write to buffer from SGI, src pointer is calculated from sgiSfrDatIndex */
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, pOut));
     }
@@ -199,11 +206,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_incV(mcuxClSession_H
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_incV);
 
     /* Record for mcuxClSgi_Drv_incrementData call */
+    MCUX_CSSL_DI_RECORD(inputParam, MCUXCLSGI_DRV_DATIN0_OFFSET);
     MCUX_CSSL_DI_RECORD(incLength, MCUXCLAES_BLOCK_SIZE);
 
     uint32_t vBeforeIncrement[MCUXCLAES_BLOCK_SIZE_IN_WORDS] = {0};
     MCUXCLBUFFER_INIT(vBeforeIncrementBuf, NULL, (uint8_t *)&vBeforeIncrement[0], MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_DI_RECORD(bufferWriteDI, (uint32_t)vBeforeIncrementBuf + 0u + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET) + MCUXCLAES_BLOCK_SIZE);
+    MCUX_CSSL_DI_RECORD(bufferWriteDI, (uint32_t)vBeforeIncrementBuf + 0u + (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET) + MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, vBeforeIncrementBuf));
 
     /* Increment SGI DATIN0 register */
@@ -211,7 +219,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_incV(mcuxClSession_H
 
     uint32_t vAfterIncrement[MCUXCLAES_BLOCK_SIZE_IN_WORDS] = {0};
     MCUXCLBUFFER_INIT(vAfterIncrementBuf, NULL, (uint8_t *)&vAfterIncrement[0], MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_DI_RECORD(bufferWriteDI, (uint32_t)vAfterIncrementBuf + 0u + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET) + MCUXCLAES_BLOCK_SIZE);
+    MCUX_CSSL_DI_RECORD(bufferWriteDI, (uint32_t)vAfterIncrementBuf + 0u + (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET) + MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, vAfterIncrementBuf));
 
     /* Check whether at the least the least significant word was updated or not */

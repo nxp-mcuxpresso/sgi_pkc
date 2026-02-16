@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -126,11 +126,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
   /************************************************************************************************/
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_publicExp, MCUXCLPKC_FP_CALLED_CALC_OP1_MUL,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QSquared),
-        MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModExp_SqrMultL2R),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_RemoveBlinding)
-        );
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QSquared),
+      MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModExp_SqrMultL2R),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_RemoveBlinding)
+  );
 }

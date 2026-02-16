@@ -19,8 +19,8 @@
 #ifndef MCUXCSSLPRNG_ASSEMBLYHEADER_H_
 #define MCUXCSSLPRNG_ASSEMBLYHEADER_H_
 
-
-#define MCUXCSSLPRNG_PRNG_ADDR  ((1 << 16) | 1)
+/* subtract 1u to undo the +1 bias and recover the original hi16 address */
+#define MCUXCSSLPRNG_PRNG_ADDR  (((1 - 1) << 16) | 1)
 
 
 #endif /* MCUXCSSLPRNG_ASSEMBLYHEADER_H_ */

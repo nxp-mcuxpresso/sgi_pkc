@@ -26,16 +26,16 @@
 
 
 /******************************************************************************/
-/* Macro to generate high-quality random number in PKC workarea.              */
+/* Macro to generate high-quality random number in memory.                    */
 /******************************************************************************/
-#define MCUXCLECC_FP_RANDOM_HQRNG_PKCWA(callerID, pSession, pOutPKCWA, length, pXorMask)                     \
-    do{                                                                                                             \
-        MCUXCLBUFFER_INIT(buffOutPKCWA, NULL, pOutPKCWA, length);                                                    \
-        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, pSession);                                                    \
-        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, buffOutPKCWA);                                                \
-        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, length);                                                      \
-        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, pXorMask);                                                    \
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandom_generate_internal(pSession, buffOutPKCWA, length, pXorMask));    \
+#define MCUXCLECC_FP_RANDOM_HQRNG(callerID, pSession, pOut, length, pXorMask)                                    \
+    do{                                                                                                         \
+        MCUXCLBUFFER_INIT(buffOut, NULL, pOut, length);                                                          \
+        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, pSession);                                                \
+        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, buffOut);                                                 \
+        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, length);                                                  \
+        MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, pXorMask);                                                \
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandom_generate_internal(pSession, buffOut, length, pXorMask));     \
     } while(false)
 
 #define MCUXCLECC_FP_CALLED_RANDOM_HQRNG_PKCWA  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_generate_internal)

@@ -281,6 +281,50 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
     );
 }
 
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_loadCopro_Aes)
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_loadCopro_Aes(
+    mcuxClSession_Handle_t session,
+    mcuxClKey_Handle_t key,
+    uint32_t loadOptions // slot and other options
+)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClKey_loadCopro_Aes);
+
+    /* Get the slot to load to from the given loadOptions */
+    uint32_t slot = (loadOptions & MCUXCLKEY_LOADOPTION_SLOT_SLOT_MASK) >> MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT;
+
+    if(MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI != (loadOptions & MCUXCLKEY_LOADOPTION_SLOT_COPRO_MASK))
+    {
+        /* Not a proper SGI key load option */
+        MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
+    }
+
+    if(MCUXCLKEY_LOADOPTION_ALREADYLOADED != (loadOptions & MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK))
+    {
+        /* Initialize the SGI to LE before loading the key */
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, NULL /* Workarea */, mcuxClSgi_Drv_keySlotToOffset(slot)));
+        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_close(session));
+    }
+
+    uint16_t loadStatusDetails = 0U;
+    if(mcuxClSgi_Drv_isWriteOnlyKeySlot(slot))
+    {
+        loadStatusDetails = MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY;
+    }
+    mcuxClKey_setLoadStatus(key,
+        MCUXCLKEY_LOADSTATUS_LOCATION_COPRO | MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED | loadStatusDetails);
+
+    mcuxClKey_setLoadedKeySlot(key, slot);
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_loadCopro_Aes,
+        MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_LOADOPTION_ALREADYLOADED != (loadOptions & MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK)),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)));
+}
+
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_loadCopro)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
     mcuxClSession_Handle_t session,
@@ -289,11 +333,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
 )
 {
     MCUXCLSESSION_ENTRY(session, mcuxClKey_loadCopro, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK,
-      MCUX_CSSL_FP_CONDITIONAL(
-          (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK)),
-        MCUXCLKEY_FLUSH_FP_CALLED(key)
-      )
-    );
+      MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK)),
+                MCUXCLKEY_FLUSH_FP_CALLED(key)));
 
     if(MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK))
     {
@@ -305,32 +346,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
     /* Load the key to the respective copro, based on the key type */
     if(MCUXCLKEY_ALGO_ID_AES == (mcuxClKey_getAlgoId(key) & MCUXCLKEY_ALGO_ID_ALGO_MASK))
     {
-        /* Get the slot to load to from the given loadOptions */
-        uint32_t slot = (loadOptions & MCUXCLKEY_LOADOPTION_SLOT_SLOT_MASK) >> MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT;
-
-        if(MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI != (loadOptions & MCUXCLKEY_LOADOPTION_SLOT_COPRO_MASK))
-        {
-          /* Not a proper SGI key load option */
-          MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
-        }
-
-        if(MCUXCLKEY_LOADOPTION_ALREADYLOADED != (loadOptions & MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK))
-        {
-            /* Initialize the SGI to LE before loading the key */
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, NULL /* Workarea */, mcuxClSgi_Drv_keySlotToOffset(slot)));
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_close(session));
-        }
-
-        uint16_t loadStatusDetails = 0U;
-        if(mcuxClSgi_Drv_isWriteOnlyKeySlot(slot))
-        {
-            loadStatusDetails = MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY;
-        }
-        mcuxClKey_setLoadStatus(key,
-            MCUXCLKEY_LOADSTATUS_LOCATION_COPRO | MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED | loadStatusDetails);
-
-        mcuxClKey_setLoadedKeySlot(key, slot);
+       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_loadCopro_Aes(session, key, loadOptions));
     }
     else
     {
@@ -339,14 +355,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
     }
 
     MCUXCLSESSION_EXIT(session, mcuxClKey_loadCopro, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK,
-        MCUX_CSSL_FP_CONDITIONAL(
-          ((MCUXCLKEY_ALGO_ID_AES == (mcuxClKey_getAlgoId(key) & MCUXCLKEY_ALGO_ID_ALGO_MASK))
-              && (MCUXCLKEY_LOADOPTION_ALREADYLOADED != (loadOptions & MCUXCLKEY_LOADOPTION_ALREADYLOADED))),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
-        )
-    );
+            MCUX_CSSL_FP_CONDITIONAL( (MCUXCLKEY_ALGO_ID_AES == (mcuxClKey_getAlgoId(key) & MCUXCLKEY_ALGO_ID_ALGO_MASK)),
+                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_loadCopro_Aes)),
+            0u /* we need this here because there is a comma before it*/ );
+
 }
 
 
@@ -374,7 +386,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_flush(
 {
   MCUXCLSESSION_ENTRY(session, mcuxClKey_flush, diRefValue, MCUXCLKEY_STATUS_FAULT_ATTACK,
       MCUX_CSSL_FP_CONDITIONAL(
-        (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO))),
+        (MCUXCLKEY_LOADSTATUS_LOCATION_COPRO == (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_LOCATION_MASK)),
           MCUXCLKEY_FLUSH_FP_CALLED(key)
       )
   );

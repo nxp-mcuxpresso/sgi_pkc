@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -95,6 +95,23 @@ static inline mcuxClHash_Context_t mcuxClHashModes_castPointerToContext(uint32_t
 
     return pCtx;
 }
+
+/**********************************************
+ * Macros
+ **********************************************/
+
+/** @brief Macro to compute a % b given b is a power of two (MD5,SHA1,SHA2,SecSha1,SecSha2) */
+#define MCUXCLHASH_MOD_BLOCK_SIZE(a, b)   \
+  ((a) & ((b) - 1U))
+
+/** @brief Macro to compute a / b given b is a block size in {64, 128} (SHA2) */
+#define MCUXCLHASH_DIV_BLOCK_SIZE_SHA2(a, b)   \
+  ((MCUXCLHASH_BLOCK_SIZE_SHA_256 == (b)) ? ((a) >> 6U) : ((a) >> 7U))
+
+/** @brief Macro to compute a * b given b is a block size in {64, 128} (SHA2) */
+#define MCUXCLHASH_MUL_BLOCK_SIZE_SHA2(a, b)  \
+  ((MCUXCLHASH_BLOCK_SIZE_SHA_256 == (b)) ? ((a) << 6U) : ((a) << 7U))
+
 
 #ifdef __cplusplus
 } /* extern "C" */

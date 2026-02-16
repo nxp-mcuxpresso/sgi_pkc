@@ -53,11 +53,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_RepeatedDoubling(uint16_t noOfD
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_TwEd_RepeatedDoubling);
 
+    MCUX_CSSL_FP_LOOP_DECL(whileLoop);
     for(uint32_t i = 0u; i < noOfDoubles; i++)
     {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
         MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_TwEd_PointDouble, mcuxClEcc_FUP_TwEd_PointDouble_LEN);
+        MCUX_CSSL_FP_LOOP_ITERATION(whileLoop, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_RepeatedDoubling);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_RepeatedDoubling,
+         MCUX_CSSL_FP_LOOP_ITERATIONS(whileLoop, noOfDoubles));
 }

@@ -16,18 +16,15 @@
  * @brief Weierstrass curve internal key generation
  */
 
-
 #include <stdint.h>
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslDataIntegrity.h>
 #include <mcuxClCore_FunctionIdentifiers.h>
 #include <mcuxClCore_Macros.h>
-
 #include <mcuxClSession.h>
 #include <mcuxClBuffer.h>
 #include <mcuxClEcc.h>
 #include <mcuxClRandom.h>
-
 #include <internal/mcuxClMemory_Internal.h>
 #include <internal/mcuxClPkc_Internal.h>
 #include <internal/mcuxClPkc_Operations.h>
@@ -37,13 +34,12 @@
 #include <internal/mcuxClEcc_Internal_Random.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal_FUP.h>
+#include <internal/mcuxClEcc_Weier_Internal_FP.h>
 #include <internal/mcuxClRandom_Internal_Functions.h>
 #include <internal/mcuxClPrng_Internal_Functions.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 
-
 #define MCUXCLECC_FP_WEIER_KEYGEN_SECSTRENGTH  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_checkSecurityStrength)
-
 
 /**
  * This function implements secure ECDSA private key / ephemeral key generation,
@@ -68,7 +64,7 @@
  *   buffer S3 contains a random value usable for blinding operations of size opLen.
  *
  * Other modifications:
- *   buffers T0, XA, YA, ZA and Z are modified (as temp, buffer size);
+ *   buffers T0, T3, XA, YA, ZA and Z are modified (as temp, buffer size);
  *   buffers S0, S1, S2 and S3 are modified (as temp, double buffer size);
  *   offsets pOperands[VT] is modified.
  *
@@ -78,11 +74,8 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_Int_CoreKeyGen)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_t pSession, uint32_t nByteLength)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_Int_CoreKeyGen);
-
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(nByteLength, MCUXCLECC_WEIERECC_MIN_SIZE_BASEPOINTORDER, MCUXCLECC_WEIERECC_MAX_SIZE_BASEPOINTORDER)
-
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
-
     /* Count leading zeros in most significant word of n. */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("MISRA Ex. 9 to Rule 11.3 - PKC word is CPU word aligned.")
     const uint32_t *ptr32N = (const uint32_t *) MCUXCLPKC_OFFSET2PTR(pOperands[ECC_N]);
@@ -94,16 +87,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     uint32_t bitLenN65 = (wordNumN * (sizeof(uint32_t)) * 8u) - nMSWord_LeadZeros + 65u;
     uint32_t pkcByteLenN65 = (bitLenN65 + (MCUXCLPKC_WORDSIZE * 8u) - 1u) / (MCUXCLPKC_WORDSIZE * 8u) * MCUXCLPKC_WORDSIZE;
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_pkcByteLenN65, pkcByteLenN65);
-
     const uint32_t mcLen_opLen = MCUXCLPKC_PS1_GETLENGTH_REG();
     const uint32_t opLen = MCUXCLPKC_PS1_UNPACK_OPLEN(mcLen_opLen);
-
     /* Record the used PS1 and PS2 lengths for the called FUP programs */
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_FUPReduceModEven_PS1, MCUXCLPKC_PS1_PACK(pkcByteLenN65, opLen));
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_FUPCoreKeyGenSteps567_PS1, mcLen_opLen);
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_FUPCoreKeyGenSteps56_PS2, MCUXCLPKC_PS2_PACK(0u, opLen * 2u));
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_FUPCoreKeyGenSteps7_PS2, MCUXCLPKC_PS2_PACK(opLen * 2u, opLen));
-
 
     /************************************************************************************/
     /* Step 1: Generate key seed c with the DRBG in Boolean masked form c_b = c ^ r.    */
@@ -111,7 +101,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     /* b. generate Boolean masked key seed c_b                                          */
     /* NOTE: c_b and r is in a buffers of size, pkcSize(bitLenN+65)                     */
     /************************************************************************************/
-
     /* Generate mask r in buffer S0 and clear garbage bytes */
     uint8_t *ptrS0 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S0]);
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S0, (uint32_t) ptrS0);
@@ -120,35 +109,22 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_keySeedLength, keySeedLength);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, &ptrS0[keySeedLength]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, pkcByteLenN65 - keySeedLength);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&ptrS0[keySeedLength], pkcByteLenN65 - keySeedLength));
-
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate_Internal));
+    MCUXCLMEMORY_CLEAR_INT(&ptrS0[keySeedLength], pkcByteLenN65 - keySeedLength);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandom_ncGenerate_Internal(pSession, ptrS0, keySeedLength));
-
     /* Prepare buffer S2 for masked key seed c_b: Initialize it with PRNG data and clear garbage bytes */
     uint8_t *ptrS2 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S2]);
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S2, (uint32_t) ptrS2);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, (uint32_t)&ptrS2[keySeedLength] + pkcByteLenN65 - keySeedLength);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&ptrS2[keySeedLength], pkcByteLenN65 - keySeedLength));
-
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal));
+    MCUXCLMEMORY_CLEAR_INT(&ptrS2[keySeedLength], pkcByteLenN65 - keySeedLength);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate_Internal(ptrS2, keySeedLength));
-
     /* Derive the security strength required for the RNG from bitLenN / 2 and check whether it can be provided. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_checkSecurityStrength));
     MCUX_CSSL_FP_FUNCTION_CALL(ret_checkSecurityStrength, mcuxClRandom_checkSecurityStrength(pSession, MCUXCLCORE_MIN((nByteLength * 8u) / 2u, 256u)));
     MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_checkSecurityStrength);
-
     /* Generate key seed c with the DRBG in Boolean masked form c_b = c ^ r, where c_b is stored in ECC_S2 and the XOR-mask r has been generated above in buffer ECC_S0. */
     /* c_b is loaded into ECC_S2, second share (r) is generated in previous step in ECC_S0 buffer */
     uint32_t *ptr32S0 = MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_S0]);
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S0, (uint32_t) ptr32S0);
-
-    MCUX_CSSL_FP_EXPECT(MCUXCLECC_FP_CALLED_RANDOM_HQRNG_PKCWA);
-    MCUXCLECC_FP_RANDOM_HQRNG_PKCWA(mcuxClEcc_Int_CoreKeyGen, pSession, ptrS2, keySeedLength, ptr32S0);
-
+    MCUXCLECC_FP_RANDOM_HQRNG(mcuxClEcc_Int_CoreKeyGen, pSession, ptrS2, keySeedLength, ptr32S0);
     /*******************************************************************************/
     /* Step 2:                                                                     */
     /* a. Truncate c_b and r to nBitLen+64 bits.                                   */
@@ -161,89 +137,61 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     /* d. Calculate r' = 2^(nBitLen+64) - r    (c = c' - r')                       */
     /* OPLEN = pkcSize(bitLenN+65 bit).                                            */
     /*******************************************************************************/
-
     /* Step 2a: Set bit at the top of c_b of the generated random key seed */
     /* Step 2b: Truncate c_b and r. */
     pOperands[WEIER_VT] = (uint16_t) nMSWord_LeadZeros;
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_VT, nMSWord_LeadZeros);
-
     uint32_t *ptr32S1 = MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_S1]);
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S1, (uint32_t) ptr32S1);
-
     /* Set PS2 OPLEN = pkcByteLenN65. */
     MCUXCLPKC_PS2_SETLENGTH(0u, pkcByteLenN65);
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP2_CONST);
     MCUXCLPKC_FP_CALC_OP2_CONST(ECC_S1, 0u);
-
     MCUXCLPKC_WAITFORFINISH();
     ptr32S1[(bitLenN65 - 1u) / 32u] = (uint32_t) 1u << ((bitLenN65 - 1u) & 31u);
-
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_CoreKeyGen_Steps2ab,
                         mcuxClEcc_FUP_Weier_CoreKeyGen_Steps2ab_LEN);
-
     /* Expunge nMSWord_LeadZeros stored in PKC buffer VT after used in CoreKeyGen_Steps2ab */
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_VT, (uint32_t) pOperands[WEIER_VT]);
-
     /* Step 2c: Convert boolean masking to arithmetic masking by modyfying masked value            */
     /*         c' + r = c_b ^ r = c + 2^(nBitLen+64)                                               */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_Weier_BooleanToArithmeticMasking));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Weier_BooleanToArithmeticMasking());
-
     /* Step 2d: Calculate r' = 2^(nBitLen+64) - r.*/
     /* S1 = 2^(nBitLen+64) */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP2_CONST);
     MCUXCLPKC_FP_CALC_OP2_CONST(ECC_S1, 0u);
     MCUXCLPKC_WAITFORFINISH();
     ptr32S1[(bitLenN65 - 1u) / 32u] = (uint32_t) 1u << ((bitLenN65 - 1u) & 31u);
-
     /* S0 = r' = 2^(nBitLen+64) - r*/
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP2_SUB);
     MCUXCLPKC_FP_CALC_OP2_SUB(ECC_S0, ECC_S1, ECC_S3);
-
     /*******************************************************************/
     /* Step 3: use ReduceModEven to compute:                           */
     /*         s = r' mod (n-1);                                       */
     /*         c" = c' mod (n-1) = (c+s) mod (n-1).                    */
     /*******************************************************************/
-
     /* Z = n - 1*/
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SUB_CONST);
     MCUXCLPKC_FP_CALC_OP1_SUB_CONST(WEIER_Z, ECC_N, 1u);
     MCUXCLPKC_WAITFORREADY();
-
     /* S1 = c" = ReduceModEven(c', n-1). */
     MCUXCLPKC_PS1_SETLENGTH(pkcByteLenN65, opLen);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ReduceModEven));
     MCUXCLMATH_FP_REDUCEMODEVEN(ECC_S1, ECC_S2, WEIER_Z, WEIER_XA, ECC_S1, WEIER_YA, WEIER_ZA);
     /* S2 = s = ReduceModEven(r', n-1). */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ReduceModEven));
     MCUXCLMATH_FP_REDUCEMODEVEN(ECC_S2, ECC_S0, WEIER_Z, WEIER_XA, ECC_S2, WEIER_YA, WEIER_ZA);
-
 
     /* Expunge the PS1 lengths after used by ReduceModEven */
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_FUPReduceModEven_PS1, MCUXCLPKC_PS1_GETLENGTH_REG());
-
     MCUXCLPKC_WAITFORREADY();
     MCUXCLPKC_PS1_SETLENGTH_REG(mcLen_opLen);  /* MCLEN = OPLEN = opLen. */
-
 
     /**********************************************************/
     /* Step 4: generate 64-bit random d0, (MSb set);          */
     /*         compute v = ModInv(d0) = d0^(-1) mod n.        */
     /**********************************************************/
-
     /* Clear buffers S0 and S3, with OPLEN = operandSize. */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_CONST);
     MCUXCLPKC_FP_CALC_OP1_CONST(ECC_S0, 0u);
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_CONST);
     MCUXCLPKC_FP_CALC_OP1_CONST(ECC_S3, 0u);
     /* Generate S0 = 64-bit random d0, with PRNG. */
     MCUX_CSSL_DI_RECORD(EccIntCoreKeyGen_PKCWA_S0, ptrS0);
     MCUXCLPKC_WAITFORFINISH();
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate_Internal));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandom_ncGenerate_Internal(pSession, ptrS0, 8u));
-
     /* Set MSBit of d0 (to ensure d0 != 0) using the PKC.
      *
      * NOTES:
@@ -251,19 +199,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
      *   - The LSWord of S3 has already been cleared above */
     uint32_t *ptr32S3 = MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_S3]);
     ptr32S3[1] = 0x80000000u;
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR);
     MCUXCLPKC_FP_CALC_OP1_OR(ECC_S0, ECC_S0, ECC_S3);
     /* ZA = d0, duplicate because ModInv(d0) will destroy input d0. */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(WEIER_ZA, ECC_S0, 0u);
-
     /* T0 = v = ModInv(d0), with temp S3. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModInv));
-    MCUXCLMATH_FP_MODINV(ECC_T0, WEIER_ZA, ECC_N, ECC_S3);
-
+    MCUXCLECC_FP_MODINV(ECC_T0, WEIER_ZA, ECC_N, ECC_S3, ECC_T3);
     /* Now, S0 = d0 (opLen), T0 = v (opLen), Z = n-1 (opLen), */
     /*      S1 = c" (opLen), S2 = s (opLen).  */
-
     /**********************************************************/
     /* Step 5: compute d' = (v*c") - (v*s) mod (v*(n-1)),     */
     /*                    = v * (c mod (n-1)).                */
@@ -271,45 +213,34 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     /*    MCLEN = OPLEN = opLen, RLEN = 2 * opLen;            */
     /* b. modular addition (MS): OPLEN = 2 * opLen.           */
     /**********************************************************/
-
     /**********************************************************/
     /* Step 6: compute d" = d' + v,                           */
     /*                    = v * ((c mod (n-1)) + 1) = v * d.  */
     /* a. plain addition (ADD): OPLEN = 2 * opLen;            */
     /* b. v shall be prepared in buffer of size, 2*opLen.     */
     /**********************************************************/
-
     MCUXCLPKC_WAITFORREADY();
     MCUXCLPKC_PS2_SETLENGTH(0u, opLen * 2u);
-
     /* Step 5: S2 = d' = (v*c") + (v*s) mod (v*(n-1)); */
     /*         S3 = v * s, as another random number.   */
     /* Step 6: S2 = d" = d' + v.                       */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_CoreKeyGen_Steps56,
                         mcuxClEcc_FUP_Weier_CoreKeyGen_Steps56_LEN);
-
     /* Expunge the PS2 length after used by CoreKeyGen_Steps56 */
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_FUPCoreKeyGenSteps56_PS2, MCUXCLPKC_PS2_GETLENGTH_REG());
-
     /**********************************************************/
     /* Step 7: compute d1 = d" mod n < n.                     */
     /* a. length of d" is (2 * opLen).                        */
     /**********************************************************/
-
     MCUXCLPKC_WAITFORREADY();
     MCUXCLPKC_PS2_SETLENGTH(opLen * 2u, opLen);
-
     /* Step 7: S1 = d1 = (d" mod n) < n. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_CoreKeyGen_Step7,
                         mcuxClEcc_FUP_Weier_CoreKeyGen_Step7_LEN);
-
     /* Expunge the PS1 length after used by CoreKeyGen_Steps56 and CoreKeyGen_Step7 */
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_FUPCoreKeyGenSteps567_PS1, MCUXCLPKC_PS1_GETLENGTH_REG());
     /* Expunge the PS2 lengths after used by CoreKeyGen_Step7 */
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_FUPCoreKeyGenSteps7_PS2, MCUXCLPKC_PS2_GETLENGTH_REG());
-
     /**
      * Re-compute pkcByteLenN65 and keySeedLength then Expunge them
      * Consequently, the invariants ptr32N, wordNumN, bitLenN65, pkcByteLenN65, and keySeedLength are protected.
@@ -327,7 +258,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     const uint32_t keySeedLength_2 = (wordNumN_2 * (sizeof(uint32_t))) + 8u;
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_pkcByteLenN65, pkcByteLenN65_2);
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_keySeedLength, keySeedLength_2);
-
     /**
      * Expunge pointers to S0, S1, and S2.
      * Consequently, the pointers ptrS0, ptr32S0, ptr32S1, ptrS2 are protected.
@@ -335,6 +265,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_S0, (uint32_t) MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_S0]) * 3u);
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_S1, (uint32_t) MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S1]));
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_PKCWA_S2, (uint32_t) MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S2]));
-
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_Int_CoreKeyGen);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_Int_CoreKeyGen,
+        MCUXCLECC_FP_INT_COREKEYGEN_FINAL);
 }

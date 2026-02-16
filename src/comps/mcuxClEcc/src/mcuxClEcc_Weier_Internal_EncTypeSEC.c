@@ -117,7 +117,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_PointDecFct_S
 
         /* Import the encoded x coordinate to buffer WEIER_XA */
         const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
-        MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(mcuxClEcc_WeierECC_PointDecFct_SEC, WEIER_XA, pEncodedPoint, 1u, byteLenP, operandSize);
+        MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(WEIER_XA, pEncodedPoint, 1u, byteLenP, operandSize);
 
         pOperands[WEIER_VX0] = (uint16_t) 0x02u;
         MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_DecodePoint_SEC_CalcAlpha,
@@ -162,16 +162,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_PointDecFct_S
         /* Export the point.                                                  */
         /**********************************************************************/
 
-        if((encodingByte & 0x01u) != (MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_YA])[0] & 0x01u))
+        MCUX_CSSL_FP_BRANCH_DECL(encodingByteBranch);
+        uint8_t lsbWeierYa = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_YA])[0] & 0x01u;
+        if((encodingByte & 0x01u) != lsbWeierYa)
         {
             MCUXCLPKC_FP_CALC_OP1_SUB(WEIER_YA, ECC_P, WEIER_YA);
-            /* Balance FP before operand WEIER_YA is destroyed. */
-            MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
+
+            MCUX_CSSL_FP_BRANCH_POSITIVE(encodingByteBranch, MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
         }
 
         /* Success - Export decoded point */
-        MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(mcuxClEcc_WeierECC_PointDecFct_SEC, pDecodedPoint, WEIER_XA, byteLenP);
-        MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(mcuxClEcc_WeierECC_PointDecFct_SEC, pDecodedPoint, WEIER_YA, byteLenP, byteLenP);
+        MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(pDecodedPoint, WEIER_XA, byteLenP);
+        MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pDecodedPoint, WEIER_YA, byteLenP, byteLenP);
 
         /* Clean-up */
         mcuxClSession_freeWords_pkcWa(pSession, pCpuWorkarea->wordNumPkcWa);
@@ -186,6 +188,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_PointDecFct_S
                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModSquareRoot),
                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+                                  MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(encodingByteBranch, (encodingByte & 0x01u) != lsbWeierYa),
                                   MCUXCLPKC_FP_CALLED_EXPORTBIGENDIANFROMPKC_BUFFER,
                                   MCUXCLPKC_FP_CALLED_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET,
                                   MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);

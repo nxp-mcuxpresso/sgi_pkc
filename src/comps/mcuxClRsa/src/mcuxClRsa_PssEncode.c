@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -29,7 +29,6 @@
 #include <internal/mcuxClHash_Internal.h>
 #include <internal/mcuxClSession_Internal.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
-#include <internal/mcuxClPkc_ImportExport.h>
 #include <internal/mcuxClBuffer_Internal.h>
 #include <internal/mcuxClMemory_Internal.h>
 #include <internal/mcuxClRandom_Internal_Functions.h>
@@ -77,7 +76,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
    * In addition, this ensures that this check is done before any operation on checked arguments is performed.
    *
    * Note: The additional check on salt-length for FIPS 186-5 compliance is also done here.
-   * This check below also covers the checks mentioned in FIPS 186-4.
    */
 
   if((hLen < sLen) || (emLen < (hLen + sLen + 2u)))
@@ -97,10 +95,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
 
   /*
    * Set buffers in the PKC workarea
+   * PKC = | M' | EM | H
    * M' = | M'= (padding | mHash | salt) |
    */
   const uint32_t wordSizePkcWa = MCUXCLRSA_INTERNAL_PSSENCODE_MAX_WAPKC_SIZE_WO_MGF1(emLen) / sizeof(uint32_t);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pMprim, mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa));
 
   /* Pointer to the buffer for the mHash in the M'*/
@@ -109,8 +107,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   uint8_t *pSalt = pMHash + hLen;
 
   /* Pointer to the encoded message */
-  /* Extract plain pointer from buffer type (this buffer has been created in internal memory by the calling function, for compatibility purposes) */
-  uint8_t *pEm = MCUXCLBUFFER_GET(pOutput);
+  uint8_t *pEm = pSalt + sLen;
   /* Pointer to the hash */
   uint8_t *pH = pEm + dbLen;
 
@@ -136,8 +133,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   /* M' is an octet string of length 8 + hLen + sLen with eight initial zero octets. */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int_mPrim, pMprim);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int_mPrim, padding1Length);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pMprim, padding1Length));
+  MCUXCLMEMORY_CLEAR_INT(pMprim, padding1Length);
 
   /* Step 6: Let H = Hash(M'), an octet string of length hLen. */
   uint32_t hashOutputSize = 0u;
@@ -178,8 +174,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   MCUX_CSSL_DI_RECORD(memXORintParams, pEm + padding3Length);
   MCUX_CSSL_DI_RECORD(memXORintParams, pSalt);
   MCUX_CSSL_DI_RECORD(memXORintParams, sLen);
-
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XOR_int(pEm + padding3Length, pEm + padding3Length, pSalt, sLen));
+  MCUXCLMEMORY_XOR_INT(pEm + padding3Length, pEm + padding3Length, pSalt, sLen);
 
   /* Step 11:  Set the leftmost 8emLen - emBits bits of the leftmost octet in maskedDB to zero. */
   /* Since we assume the key length to be a multiple of 8, this becomes simply the leftmost bit. */
@@ -191,10 +186,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   *(pEm + emLen - 1U) = 0xbcu;
 
   /* Step 13:  Output EM. */
-  /* Switch endianess of EM buffer in-place to little-endian byte order. */
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("the pEm PKC buffer is CPU word aligned.")
-  MCUXCLPKC_FP_SWITCHENDIANNESS((uint32_t *) pEm, emLen);
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+  /* Write pEm in little-endian byte order to pOutput. */
+  MCUX_CSSL_DI_RECORD(memCopyRevintParams, pOutput);
+  MCUX_CSSL_DI_RECORD(memCopyRevintParams, pEm);
+  MCUX_CSSL_DI_RECORD(memCopyRevintParams, emLen);
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_write_reverse(pOutput, 0U, pEm, emLen));
 
   /************************************************************************************************/
   /* Function exit                                                                                */
@@ -202,12 +198,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   mcuxClSession_freeWords_pkcWa(pSession, wordSizePkcWa);
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pssEncode, MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_generate_internal),
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_mgf1),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XOR_int),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SwitchEndianness));
+    MCUXCLMEMORY_XOR_INT_FP_EXPECT,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write_reverse));
 
 #undef TMP_FEATURE_ELS_RNG
 }

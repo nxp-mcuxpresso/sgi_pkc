@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -55,12 +55,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_Util_KeyGeneration_Crt);
 
-  /* Protect key handles. This will be balanced when calling MCUXCLKEY_STORE_FP.  */
+  /* Step 1: Protect key handles. This will be balanced when calling MCUXCLKEY_STORE_FP.  */
   MCUX_CSSL_DI_RECORD(keyStore_private, privKey);
   MCUX_CSSL_DI_RECORD(keyStore_public, pubKey);
 
   /*
-   * Initialization process to Check entropy provided by RNG and if E is FIPS compliant
+   * Step 2: Initialization process to Check entropy provided by RNG and if E is FIPS compliant
    */
   const uint32_t bitLenKey = mcuxClKey_getSize(pubKey);
   const uint32_t byteLenKey = bitLenKey / 8u;
@@ -84,22 +84,29 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   MCUXCLPKC_FP_REQUEST_INITIALIZE(pSession, mcuxClRsa_Util_KeyGeneration_Crt);
 
   /*
-   * Allocate buffers in PKC RAM
+   * Step 3: Allocate buffers in PKC RAM
    *  - size aligned to PKC word
    *  - they are be stored in little-endian byte order
    */
   const uint32_t pkcByteLenKey = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenKey);
   const uint32_t byteLenPrime = byteLenKey / 2u;
   const uint32_t pkcByteLenPrime = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPrime);
+  const uint32_t blindLen = MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE;  // length in bytes of the random value used for blinding
+  const uint32_t blindAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen);
+  const uint32_t blindSquaredAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen * 2u);
+  const uint32_t blindedPrimeAlignLen = pkcByteLenPrime + blindAlignLen;
+  const uint32_t blindedModAlignLen = 2u * blindedPrimeAlignLen;
 
-  /* Allocate space in session for p, q and e for now */
-  uint32_t pkcWaSizeWord = (pkcByteLenPrime + (pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE) * 2u) / (sizeof(uint32_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  /* Allocate space in session for e, p, q, T1, T2 and T3 for now */
+  uint32_t pkcWaSizeWord = (pkcByteLenPrime                                  /* e */
+                            + (pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE) * 2u /* p and q */) /
+                           sizeof(uint32_t);
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
 
   uint8_t * pPkcBufferE = pPkcWorkarea;
   uint8_t * pPkcBufferP = pPkcBufferE + pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE /* offset for Ndash before p */;
   uint8_t * pPkcBufferQ = pPkcBufferP + pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE /* offset for Ndash before q */;
+  uint8_t * pPkcBufferT1 = NULL;
 
   /* Protect the lengths and pointers to the prime candidates, that will be balanced when calling mcuxClRsa_GenerateProbablePrime */
   MCUX_CSSL_DI_RECORD(generateProbablePrimeParams, pPkcBufferP);
@@ -109,7 +116,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   /* Setup UPTR table. */
   const uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_KEYGENERATION_CRT_UPTRT_SIZE_IN_WORDS;
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
@@ -122,7 +128,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_CONSTANT1] = 1u;
 
   /*
-   * Copy E to PKC RAM.
+   * Step 4: Copy E to PKC RAM.
    * It is stored in little-endian byte order (copied with reverse order and without leading zeros).
    *
    *  Used functions: mcuxClPkc_ImportBigEndianToPkc
@@ -136,7 +142,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_DI_BALANCED(MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_E, pPublicExponent->pKeyEntryData + leadingZerosE, byteLenE, pkcByteLenPrime);
 
   /*
-   * Generate prime p.
+   * Step 5: Generate prime p.
    * Continue if mcuxClRsa_GenerateProbablePrime returns MCUXCLRSA_STATUS_KEYGENERATION_OK.
    * In case of errors, the mcuxClRsa_GenerateProbablePrime function would do an early-exit via session.
    *
@@ -150,48 +156,105 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   mcuxClRsa_KeyEntry_t p;
   p.keyEntryLength = byteLenPrime;
   p.pKeyEntryData = pPkcBufferP;
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_GenerateProbablePrime(pSession, &e, &p, bitLenKey, MCUXCLRSA_MAX_LOOP_ITER_P));
 
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_GenerateProbablePrime(pSession, &e, &p, bitLenKey));
+  /* Step 6: Generate prime q and test prime p and q distance.
+   * This test will fail if at least 100 most significant bits of p and q are identical. This can happen
+   * with a very low probability. We generate a new q when the test fails. */
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t loopCounter = 0;)
 
-  /*
-   * Generate prime q.
-   * Continue if mcuxClRsa_GenerateProbablePrime returns MCUXCLRSA_STATUS_KEYGENERATION_OK.
-   * In case of errors, the mcuxClRsa_GenerateProbablePrime function would do an early-exit via session.
-   *
-   * Used functions: mcuxClRsa_GenerateProbablePrime
-   */
-  mcuxClRsa_KeyEntry_t q;
-  q.pKeyEntryData = pPkcBufferQ;
-  q.keyEntryLength = byteLenPrime;
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_GenerateProbablePrime(pSession, &e, &q, bitLenKey));
+  do
+  {
+    MCUX_CSSL_FP_COUNTER_STMT(++loopCounter;)
 
-  const uint32_t blindLen = MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE;  // length in bytes of the random value used for blinding
-  const uint32_t blindAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen);
-  const uint32_t blindSquaredAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen * 2u);
-  const uint32_t blindedPrimeAlignLen = pkcByteLenPrime + blindAlignLen;
-  const uint32_t blindedModAlignLen = 2u * blindedPrimeAlignLen;
+    /*
+     * Generate prime q.
+     * Continue if mcuxClRsa_GenerateProbablePrime returns MCUXCLRSA_STATUS_KEYGENERATION_OK.
+     * In case of errors, the mcuxClRsa_GenerateProbablePrime function would do an early-exit via session.
+     *
+     * Used functions: mcuxClRsa_GenerateProbablePrime
+     */
+    mcuxClRsa_KeyEntry_t q;
+    q.pKeyEntryData = pPkcBufferQ;
+    q.keyEntryLength = byteLenPrime;
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_GenerateProbablePrime(pSession, &e, &q, bitLenKey, MCUXCLRSA_MAX_LOOP_ITER_Q));
 
-  const uint32_t pkcWaSizeWord2 = (2u * (blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE) // dp, dq
-                                  + 4u * (blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE) // qInv,T1, T2, and T3
+    /*
+     * Allocate space for T1, T2 and T3 for mcuxClRsa_TestPQDistance. The space will be reused outside the while-loop; in steps 10-13.
+     */
+    const uint32_t pkcWaSizeWord2 = ((blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE) * 3u) / sizeof(uint32_t); /* T1, T2 and T3 */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pkcWaSizeWord += pkcWaSizeWord2 can't wrap")
+    pkcWaSizeWord += pkcWaSizeWord2;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+    MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea2, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord2));
+    pPkcBufferT1 = pPkcWorkarea2; /* pPkcBufferT2 and pPkcBufferT3 will be initialized later */
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T1] = MCUXCLPKC_PTR2OFFSET(pPkcBufferT1);
+
+    /*
+     * Check if |p - q| <= 2^(nlen/2 - 100)
+     * Continuation if mcuxClRsa_TestPQDistance function returns MCUXCLRSA_STATUS_KEYGENERATION_OK
+     *  otherwise function goes back to generating prime q.
+     *
+     * Used functions: mcuxClRsa_TestPQDistance
+     */
+    MCUX_CSSL_FP_FUNCTION_CALL(
+      retVal_TestPQDistance,
+      mcuxClRsa_TestPQDistance(
+        MCUXCLPKC_PACKARGS4(
+          0,
+          MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_P,
+          MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_Q,
+          MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T1 /* T1 + T2 + T3 size > 3 * MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(16) */
+        ),
+        pkcByteLenPrime
+      )
+    );
+
+    if(MCUXCLRSA_STATUS_KEYGENERATION_OK == retVal_TestPQDistance)
+    {
+      /* The mcuxClRsa_TestPQDistance can return MCUXCLRSA_STATUS_KEYGENERATION_OK or MCUXCLRSA_STATUS_INVALID_INPUT */
+      break;
+    }
+    else /* MCUXCLRSA_STATUS_INVALID_INPUT */
+    {
+      /* According to FIPS186.5, retry prime q generation if |p - q| <= 2^(nlen/2 - 100) */
+      /* pointer/length of Q will be expunged again when calling mcuxClRsa_GenerateProbablePrime */
+      MCUX_CSSL_DI_RECORD(generateProbablePrimeParams, pPkcBufferQ);
+      MCUX_CSSL_DI_RECORD(generateProbablePrimeParams, byteLenPrime);
+
+      /* Free up the space allocated for T1 + T2 + T3 */
+      MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pkcWaSizeWord += pkcWaSizeWord3 can't wrap")
+      pkcWaSizeWord -= pkcWaSizeWord2;
+      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+      mcuxClSession_freeWords_pkcWa(pSession, pkcWaSizeWord2);
+
+      /* Go back to prime q generation */
+    }
+  }
+  while(true);
+
+  /* Step 7: Initialize variables for T2, T3, dp, dq, qInv and N computation */
+  const uint32_t pkcWaSizeWord3 = (2u * (blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE) // dp, dq
+                                  + (blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE) // qInv
                                   + pkcByteLenKey + 2u * MCUXCLRSA_PKC_WORDSIZE // n, and one extra 2 PKC words for mcuxClMath_ExactDivideOdd
                                   + blindAlignLen // rand
                                   + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE // p_b, and one extra PKC word for NDash
                                   + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE // q_b, and one extra PKC word for mcuxClMath_ModInv
                                   + blindSquaredAlignLen + MCUXCLRSA_PKC_WORDSIZE // randSquare
                                   ) / sizeof(uint32_t);
-  pkcWaSizeWord += pkcWaSizeWord2;
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pkcWaSizeWord += pkcWaSizeWord3 can't wrap")
+  pkcWaSizeWord += pkcWaSizeWord3;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
-  /* allocate the remaining space for computing N */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
-  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea2, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord2));
-
-  uint8_t * pPkcBufferDp = pPkcWorkarea2;
-  uint8_t * pPkcBufferDq = pPkcBufferDp + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
-  uint8_t * pPkcBufferQinv = pPkcBufferDq + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
-  uint8_t * pPkcBufferT1 = pPkcBufferQinv + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
   uint8_t * pPkcBufferT2 = pPkcBufferT1 + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
   uint8_t * pPkcBufferT3 = pPkcBufferT2 + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
-  uint8_t * pPkcBufferN = pPkcBufferT3 + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
+
+  /* Step 8: Allocate the remaining space for computing N */
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea3, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord3));
+  uint8_t * pPkcBufferDp = pPkcWorkarea3;
+  uint8_t * pPkcBufferDq = pPkcBufferDp + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
+  uint8_t * pPkcBufferQinv = pPkcBufferDq + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
+  uint8_t * pPkcBufferN = pPkcBufferQinv + blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;
   uint8_t * pPkcBufferRand = pPkcBufferN + pkcByteLenKey + 2u* MCUXCLRSA_PKC_WORDSIZE;
   uint8_t * pPkcBufferPb = pPkcBufferRand + blindAlignLen + MCUXCLRSA_PKC_WORDSIZE; // Skip the extra PKC word for NDash
   uint8_t * pPkcBufferQb = pPkcBufferPb + blindedPrimeAlignLen;
@@ -203,12 +266,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   MCUXCLPKC_WAITFORREADY();
   MCUXCLPKC_PS2_SETLENGTH(pkcByteLenPrime, blindAlignLen);
 
+  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T2] = MCUXCLPKC_PTR2OFFSET(pPkcBufferT2);
+  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T3] = MCUXCLPKC_PTR2OFFSET(pPkcBufferT3);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_DP] = MCUXCLPKC_PTR2OFFSET(pPkcBufferDp);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_DQ] = MCUXCLPKC_PTR2OFFSET(pPkcBufferDq);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_QINV] = MCUXCLPKC_PTR2OFFSET(pPkcBufferQinv);
-  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T1] = MCUXCLPKC_PTR2OFFSET(pPkcBufferT1);
-  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T2] = MCUXCLPKC_PTR2OFFSET(pPkcBufferT2);
-  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T3] = MCUXCLPKC_PTR2OFFSET(pPkcBufferT3);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_N] = MCUXCLPKC_PTR2OFFSET(pPkcBufferN);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_RAND] = MCUXCLPKC_PTR2OFFSET(pPkcBufferRand);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_P_B] = MCUXCLPKC_PTR2OFFSET(pPkcBufferPb);
@@ -216,33 +278,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_N_B] = MCUXCLPKC_PTR2OFFSET(pPkcBufferT1); // reuse T1+T2
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_RAND_SQUARE] = MCUXCLPKC_PTR2OFFSET(pPkcBufferRandSquare);
 
-  /*
-   * Check if |p - q| <= 2^(nlen/2 - 100)
-   * Continue if mcuxClRsa_TestPQDistance function returns MCUXCLRSA_STATUS_KEYGENERATION_OK
-   * otherwise the function does an early-exit with MCUXCLRSA_STATUS_INVALID_INPUT error code.
-   *
-   * Used functions: mcuxClRsa_TestPQDistance
-   *
-   * NOTE: This is a deviation from the method specified in the FIPS 186-4, where this check is performed while generating the prime q
-   *       (see step 5.4 in Appendix B.3.3).
-   *       The @ref mcuxClRsa_GenerateProbablePrime function does not perform this check, it is done after generating p and q.
-   *       For this reason, if p and q does not meet this FIPS requirements, no new prime q number will be generated. Instead
-   *       of function ends with error.
-   *       Rationale of this deviation:
-   *       This check will fail if at least 100 most significant bits of p and q are identical. This can happen
-   *       with very low probability and it's usually treated as a hardware failure.
-   */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-    mcuxClRsa_TestPQDistance(
-      pSession,
-      MCUXCLPKC_PACKARGS4(
-        0,
-        MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_P,
-        MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_Q,
-        MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_CRT_T1),
-      pkcByteLenPrime));
-
-  /* Generate random number r32 used for blinding and set LSB to 1, to ensure it is odd and non-null */
+  /* Step 9: Generate random number r32 used for blinding and set LSB to 1, to ensure it is odd and non-null */
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("pPkcBufferRand is 32-bit aligned.")
   uint32_t *pR32 = (uint32_t *) pPkcBufferRand;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
@@ -251,7 +287,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   pR32[1] = 0u;
 
   /*
-   * Compute dp := e^(-1) mod (p-1)
+   * Step 10: Compute dp := e^(-1) mod (p-1)
    *
    * Used functions: mcuxClRsa_ModInv
    */
@@ -271,7 +307,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
       eAlignLen, blindedPrimeAlignLen));
 
   /*
-   * Compute dq := e^(-1) mod (q-1)
+   * Step 11: Compute dq := e^(-1) mod (q-1)
    *
    * Used functions: mcuxClRsa_ModInv
    */
@@ -291,7 +327,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
       eAlignLen, blindedPrimeAlignLen));
 
   /*
-   * Compute n := p*q in a blinded way.
+   * Step 12: Compute n := p*q in a blinded way.
    */
 
   /* Compute pb = p * r32 and qb = q * r32 */
@@ -316,7 +352,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
                               blindSquaredAlignLen);
 
   /*
-   * Compute qInvb := qb^(-1) mod pb
+   * Step 13: Compute qInvb := qb^(-1) mod pb
    *
    * Used functions: mcuxClMath_ModInv
    */
@@ -370,7 +406,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   MCUXCLPKC_WAITFORFINISH();
 
   /*
-   * Write public key (computed n, e) to the buffer pointed by pPubData.
+   * Step 14: Write public key (computed n, e) to the buffer pointed by pPubData.
    * This buffer contains RSA key (mcuxClRsa_KeyData_Plain_t data type, i.e. key entries)
    * followed by the key data, i.e.: n, e.
    * Key entries stored in big-endian byte order (copy with reverse order).
@@ -383,11 +419,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
                               .exponent.pKeyEntryData = pPkcBufferE,
                               .exponent.keyEntryLength = byteLenE
   };
-  MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(pubKey));
   MCUXCLKEY_STORE_FP(pSession, pubKey, (uint8_t*)&rsaPubKeySrc, 0u);  // RSA Key_store function always returns OK
 
   /*
-   * Write RSA CRT key (p, q, qInv, dp, dq) to the buffer pointed by pPrivData.
+   * Step 15: Write RSA CRT key (p, q, qInv, dp, dq) to the buffer pointed by pPrivData.
    * This buffer contains RSA key (mcuxClRsa_KeyData_Crt_t data type, i.e.key entries)
    * followed by the key data, i.e.: p, q, qInv, dp, dq and e (in case DFA).
    * Key entries stored in big-endian byte order (copy with reverse order).
@@ -409,13 +444,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
                               .e.keyEntryLength = byteLenE,
   };
 
-  MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(privKey));
   MCUXCLKEY_STORE_FP(pSession, privKey, (uint8_t*)&rsaPrivKeySrc, 0u);  // RSA Key_store function always returns OK
 
   /* Create link between private and public key handles */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_linkKeyPair(pSession, privKey, pubKey));
 
-  /* Free PKC WA.
+  /* Step 16: Clean up. Free PKC WA.
    * If MCUXCLSESSION_SECURITYOPTIONS_VERIFY_GENERATED_KEY_MASK is set, PKC WA will be re-used by the key verification.
    * Otherwise, the maximum PKC WA that has been used in mcuxClRsa_Util_KeyGeneration_Crt and its subfunctions will be cleared by mcuxClRsa_VerifyKey. */
   mcuxClSession_freeWords_pkcWa(pSession, pkcWaSizeWord);
@@ -434,22 +468,47 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
   mcuxClSession_freeWords_cpuWa(pSession, cpuWaSizeWord);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_Util_KeyGeneration_Crt,
+    /* Step 2 */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_Util_KeyGeneration_Init_CrtKey),
     MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
+    /* Step 3 */
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    /* Step 4 */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportBigEndianToPkc),
-    2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_GenerateProbablePrime),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_TestPQDistance),
+    /* Step 5 */
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_GenerateProbablePrime),
+    /* Step 6 */
+    loopCounter * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_GenerateProbablePrime),
+    loopCounter * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_TestPQDistance),
+    loopCounter * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+    /* Step 8 */
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+    /* Step 9 */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
-    4u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
-    2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_ModInv),
+    /* Step 10 */
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_ModInv),
+    /* Step 11 */
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_ModInv),
+    /* Step 12 */
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivideOdd),
+    /* Step 13 */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModInv),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QSquared),
     MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_RemoveBlinding),
+    /* Step 14 */
+    MCUXCLKEY_STORE_FP_CALLED(pubKey),
+    /* Step 15 */
+    MCUXCLKEY_STORE_FP_CALLED(privKey),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_linkKeyPair),
+    /* Step 16 */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_VerifyKey),
     MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
 }

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2024, 2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -86,7 +86,7 @@ typedef struct mcuxClKey_Descriptor mcuxClKey_Descriptor_t;
 /**
  * @brief Key handle type
  *
- * This type is used to refer to the opaque key descriptor.
+ * This type is used to refer to the opaque key descriptor, the pointer must be word-aligned.
  */
 typedef mcuxClKey_Descriptor_t * const mcuxClKey_Handle_t;
 

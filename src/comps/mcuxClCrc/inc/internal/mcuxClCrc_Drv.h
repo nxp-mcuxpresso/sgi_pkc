@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -32,6 +32,9 @@
 #define MCUXCLCRC_DRV_READ_TRANSPOSE_BYTES_AND_BITS     MCUXCLCRC_SFR_CTRL_READ_TRANSPOSE_BYTES_AND_BITS  ///< Both bits in bytes and bytes are transposed
 #define MCUXCLCRC_DRV_READ_TRANSPOSE_BITS_NO_BYTES      MCUXCLCRC_SFR_CTRL_READ_TRANSPOSE_BITS_NO_BYTES   ///< Bits in bytes are transposed; bytes are not transposed
 #define MCUXCLCRC_DRV_READ_TRANSPOSE_NONE               MCUXCLCRC_SFR_CTRL_READ_TRANSPOSE_NONE            ///< No transposition
+
+
+#define MCUXCLCRC_DRV_BIT_COMPLEMENT_RESULT             MCUXCLCRC_SFR_CTRL_BIT_COMPLEMENT_RESULT          ///< Set control to complement checksum result
 
 #ifdef __cplusplus
 extern "C" {

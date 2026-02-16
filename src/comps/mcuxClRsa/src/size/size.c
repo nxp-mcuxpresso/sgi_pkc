@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2024, 2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -53,7 +53,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Plain_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_PLAIN_NOEMSA_WAPKC_SIZE(1024/8)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_1024_t;
 #define MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_1024 (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_1024_t))
-volatile uint8_t mcuxClRsa_Sign_Plain_1024_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_1024];
+volatile uint8_t mcuxClRsa_Sign_Plain_1024_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_1024 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(1024U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN)];
 typedef union
 {
     uint8_t mcuxClRsa_Internal_Sign_Plain_PKCS1V15Encode_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_PLAIN_PKCS1V15ENCODE_WAPKC_SIZE(2048/8)];
@@ -61,7 +61,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Plain_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_PLAIN_NOEMSA_WAPKC_SIZE(2048/8)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_2048_t;
 #define MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_2048  (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_2048_t))
-volatile uint8_t mcuxClRsa_Sign_Plain_2048_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_2048];
+volatile uint8_t mcuxClRsa_Sign_Plain_2048_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_2048 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(2048U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN)];
 typedef union
 {
     uint8_t mcuxClRsa_Internal_Sign_Plain_PKCS1V15Encode_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_PLAIN_PKCS1V15ENCODE_WAPKC_SIZE(3072/8)];
@@ -69,7 +69,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Plain_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_PLAIN_NOEMSA_WAPKC_SIZE(3072/8)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_3072_t;
 #define MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_3072  (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_3072_t))
-volatile uint8_t mcuxClRsa_Sign_Plain_3072_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_3072];
+volatile uint8_t mcuxClRsa_Sign_Plain_3072_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_3072 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(3072U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN)];
 typedef union
 {
     uint8_t mcuxClRsa_Internal_Sign_Plain_PKCS1V15Encode_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_PLAIN_PKCS1V15ENCODE_WAPKC_SIZE(4096/8)];
@@ -77,7 +77,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Plain_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_PLAIN_NOEMSA_WAPKC_SIZE(4096/8)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_4096_t;
 #define MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_4096  (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Plain_PrimeByteLength_4096_t))
-volatile uint8_t mcuxClRsa_Sign_Plain_4096_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_4096];
+volatile uint8_t mcuxClRsa_Sign_Plain_4096_WaPKC[MCUXCLRSA_INTERNAL_SIGN_PLAIN_WAPKC_SIZE_4096 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(4096U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN)];
 
 volatile uint8_t mcuxClRsa_Sign_CRT_NoEMSA_1024_WaCPU[MCUXCLRSA_INTERNAL_SIGN_CRT_NOEMSA_WACPU_SIZE(1024/8/2)];
 volatile uint8_t mcuxClRsa_Sign_CRT_NoEMSA_2048_WaCPU[MCUXCLRSA_INTERNAL_SIGN_CRT_NOEMSA_WACPU_SIZE(2048/8/2)];
@@ -101,7 +101,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Crt_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_CRT_NOEMSA_WAPKC_SIZE(1024/8/2)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_1024_t;
 #define MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_1024  (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_1024_t))
-volatile uint8_t mcuxClRsa_Sign_CRT_1024_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_1024];
+volatile uint8_t mcuxClRsa_Sign_CRT_1024_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_1024 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(1024U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT)];
 typedef union
 {
     uint8_t mcuxClRsa_Internal_Sign_Crt_PKCS1V15Encode_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_CRT_PKCS1V15ENCODE_WAPKC_SIZE(2048/8/2)];
@@ -109,7 +109,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Crt_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_CRT_NOEMSA_WAPKC_SIZE(2048/8/2)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_2048_t;
 #define MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_2048  (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_2048_t))
-volatile uint8_t mcuxClRsa_Sign_CRT_2048_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_2048];
+volatile uint8_t mcuxClRsa_Sign_CRT_2048_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_2048 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(2048U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT)];
 typedef union
 {
     uint8_t mcuxClRsa_Internal_Sign_Crt_PKCS1V15Encode_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_CRT_PKCS1V15ENCODE_WAPKC_SIZE(3072/8/2)];
@@ -117,7 +117,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Crt_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_CRT_NOEMSA_WAPKC_SIZE(3072/8/2)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_3072_t;
 #define MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_3072  (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_3072_t))
-volatile uint8_t mcuxClRsa_Sign_CRT_3072_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_3072];
+volatile uint8_t mcuxClRsa_Sign_CRT_3072_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_3072 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(3072U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT)];
 typedef union
 {
     uint8_t mcuxClRsa_Internal_Sign_Crt_PKCS1V15Encode_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_CRT_PKCS1V15ENCODE_WAPKC_SIZE(4096/8/2)];
@@ -125,7 +125,7 @@ typedef union
     uint8_t mcuxClRsa_Internal_Sign_Crt_NoEMSA_WaPkc_Size[MCUXCLRSA_INTERNAL_SIGN_CRT_NOEMSA_WAPKC_SIZE(4096/8/2)];
 } mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_4096_t;
 #define MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_4096  (sizeof(mcuxClRsa_Internal_MaxUnion_WaPkc_Sign_Crt_PrimeByteLength_4096_t))
-volatile uint8_t mcuxClRsa_Sign_CRT_4096_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_4096];
+volatile uint8_t mcuxClRsa_Sign_CRT_4096_WaPKC[MCUXCLRSA_INTERNAL_SIGN_CRT_WAPKC_SIZE_4096 + MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(4096U/8U, MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT)];
 
 
 /****************************************************************************/

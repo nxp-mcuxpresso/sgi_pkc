@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -38,7 +38,7 @@ typedef struct mcuxClKey_KeyChecksum mcuxClKey_KeyChecksum_t;
  * @brief Functions to load a key into coprocessor or memory buffer.
  *
  * @param[in]  session        Handle of the current session
- * @param[in]  key            Key handle that provides information to load the key
+ * @param[in]  key            Key handle that provides information to load the key (word-aligned)
  * @param[out] ppDest         Pointer-pointer to the destination key location
  * @param[in]  pKeyChecksums  Storing data needed for key checksum generation
  * @param      spec           Specifications about the used key
@@ -51,7 +51,7 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClKey_LoadFuncPtr_t)(mcuxClSessi
  * @brief Functions to store a key.
  *
  * @param[in]   session  Handle of the current session
- * @param[out]  key      Key handle that provides information to store the key
+ * @param[out]  key      Key handle that provides information to store the key (word-aligned)
  * @param[in]   pSrc     Pointer to the source key location
  * @param       spec     Specifications about the used key
  *
@@ -63,7 +63,7 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClKey_StoreFuncPtr_t)(mcuxClSess
  * @brief Functions to flush a key from coprocessor or memory buffer.
  *
  * @param[in]  session  Handle of the current session
- * @param[out] key      Key handle that provides information to flush the key
+ * @param[out] key      Key handle that provides information to flush the key (word-aligned)
  * @param      spec     Specifications about the used key
  *
  */
@@ -156,7 +156,7 @@ struct mcuxClKey_EncodingDescriptor {
 };
 
 /**
- * @brief Struct of the key handle.
+ * @brief Struct of the key handle, must be placed work-aligned in RAM.
  */
 struct mcuxClKey_Descriptor {
   mcuxClKey_Container_t                    container;   ///< Container for external (encoded) storage of the key, it cannot be used directly by an operation
@@ -194,7 +194,7 @@ struct mcuxClKey_GenerationDescriptor
 MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClKey_ValidationFunction_t,
 typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) (*mcuxClKey_ValidationFunction_t)(
     mcuxClSession_Handle_t session,   ///< Handle for the current CL session
-    mcuxClKey_Handle_t key            ///< Handle for the key to be validated
+    mcuxClKey_Handle_t key            ///< Handle for the key to be validated (word-aligned)
 ));
 
 struct mcuxClKey_ValidationDescriptor {

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2024-2025 NXP                                            */
+/* Copyright 2021, 2024-2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -34,21 +34,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyE(mcuxClSession_Handle_t pSess
   /* Determine the exact length of e */
   uint32_t eLength = pE->keyEntryLength;
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(eLength, pE->keyEntryLength, pE->keyEntryLength, MCUXCLRSA_STATUS_INVALID_INPUT)
   while(eLength > 0u)
   {
-     if(0u != pE->pKeyEntryData[pE->keyEntryLength - eLength])
-     {
-       break;
-     }
-     --eLength;
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pE->keyEntryLength >= e, so pE->keyEntryLength - eLength can't be negatie")
+    if(0u != pE->pKeyEntryData[pE->keyEntryLength - eLength])
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+    {
+      break;
+    }
+    --eLength;
   }
 
   /* Check if it is the range 2^16 < e < 2^256 */
   if((eLength > 2u)  && (eLength < 33u))
   {
     /* Check if E is odd */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pE->keyEntryLength must be bigger than 1u when enter this branch")
     if(0x1u == (pE->pKeyEntryData[pE->keyEntryLength - 1u] % 2u))
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     {
       /* Set exact length of E */
       *exactLength = eLength;

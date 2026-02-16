@@ -47,14 +47,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Compare
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Compare, MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER);
     }
 
+    if((0U == length)) {
+        MCUX_CSSL_DI_EXPUNGE(identifier /* Not used */, (uint32_t) pLhs + (uint32_t) pRhs);  // Balance the SC
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Compare, MCUXCSSLMEMORY_STATUS_ZERO_LENGTH);
+    }
+
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_VOID()
     MCUX_CSSL_FP_FUNCTION_CALL(retval, mcuxCsslMemory_Compare_arm_asm(pLhs, pRhs, length));
     MCUX_CSSL_DI_EXPUNGE(robustCmpStatus, retval);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_VOID()
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(
       mcuxCsslMemory_Compare,
       retval,
+      MCUXCSSLMEMORY_STATUS_FAULT,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare_arm_asm)
     );
 }

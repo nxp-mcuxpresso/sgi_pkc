@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -22,20 +22,10 @@ extern "C" {
 #endif
 
 /**********************************************/
-/* Internal constants for keys in the context */
-/**********************************************/
-#define MCUXCLAES_MASKED_KEY_SIZE               (32u)  ///> Maximal size of a masked key in the context in bytes
-#define MCUXCLAES_MASKED_KEY_SIZE_IN_WORDS      (MCUXCLAES_MASKED_KEY_SIZE / sizeof(uint32_t)) ///> Maximal size of a masked key in the context in words
-
-// TODO CLNS-17176: Remove these two constants again
-#define MCUXCLAES_KEYCONTEXT_KEYDATA_MASKED_IN_CONTEXT (0xc2c2c2c2U) ///< The key is stored SFR-masked in the context. Used as a flag in the mcuxClAes_KeyContext_Sgi_t type.
-#define MCUXCLAES_KEYCONTEXT_KEYHANDLE_IN_CONTEXT      (0x2c2c2c2cU) ///< The key is stored as a handle in the context and needs to be loaded. Used as a flag in the mcuxClAes_KeyContext_Sgi_t type.
-
-
-/**********************************************/
 /* Internal constants for subkeys             */
 /**********************************************/
 #define MCUXCLAES_GCM_H_KEY_SIZE                (16u)
+#define MCUXCLAES_GCM_H_KEY_SIZE_IN_WORDS       (MCUXCLAES_GCM_H_KEY_SIZE / sizeof(uint32_t))
 #define MCUXCLAES_MAC_SUB_KEY_SIZE              (16u)
 
 
@@ -48,12 +38,6 @@ extern "C" {
 
 /* default 32-bit SGI SFR mask constant */
 #define MCUXCLAES_KEY_CHECKSUM_SFRMASKING_SEED             (0xF0F0F0F0u)
-
-
-/**********************************************/
-/* Internal constants for security options    */
-/**********************************************/
-
 
 #ifdef __cplusplus
 } /* extern "C" */

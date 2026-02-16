@@ -59,7 +59,6 @@
  *
  * @retval void
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_SecModExp_SqrMultAws)
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_SecModExp_SqrMultAws)
 static MCUX_CSSL_FP_PROTECTED_TYPE(void)
 mcuxClMath_SecModExp_SqrMultAws(const uint32_t *pExp, uint32_t expByteLength, uint32_t numSqr)
@@ -241,7 +240,8 @@ mcuxClMath_SecModExp_SqrMultAws(const uint32_t *pExp, uint32_t expByteLength, ui
     /* DI balance the parameter expByteLength after its last usage - will be RECORDed by callers */
     MCUX_CSSL_DI_EXPUNGE(SqrMultAws_expByteLength, bitLenExp >> 3);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_SecModExp_SqrMultAws,MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_SecModExp_SqrMultAws,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
 }
 
 
@@ -396,7 +396,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
         MCUX_CSSL_DI_RECORD(memCopySecDst, pExpTemp);
         MCUX_CSSL_DI_RECORD(memCopySecSrc, pA0);
         MCUX_CSSL_DI_RECORD(memCopySecLen, wordLenExp);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int((uint8_t *) pExpTemp, pA0, wordLenExp));
+        MCUXCLMEMORY_COPY_SECURE_INT((uint8_t *) pExpTemp, pA0, wordLenExp);
     }
 
     /* DI balance the parameter expByteLength after its last usage - will be RECORDed by callers */
@@ -461,7 +461,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
         /* Calculate q, interleave b and r, and export q */
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
         MCUX_CSSL_FP_CONDITIONAL(!MCUXCLPKC_IS_PKC_RAM(pExpTemp),
-          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)),
+          MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT),
         /* Exponentiation 1 */
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QSquared),

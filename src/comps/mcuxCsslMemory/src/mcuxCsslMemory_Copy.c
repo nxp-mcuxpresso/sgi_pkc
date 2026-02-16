@@ -59,7 +59,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Copy
     MCUX_CSSL_DI_RECORD(compareParams, pDst);
     MCUX_CSSL_DI_RECORD(compareParams, pSrc);
     MCUX_CSSL_DI_RECORD(compareParams, length);
-    MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxCsslMemory_Compare_arm_asm(pDst, pSrc, length));
+    MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxCsslMemory_FastCompare_arm_asm(pDst, pSrc, length));
     MCUX_CSSL_DI_EXPUNGE(compareParamsStatus, clRetval);
     if(MCUXCSSLMEMORY_STATUS_EQUAL != clRetval)
     {
@@ -70,8 +70,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Copy
         retval = MCUXCSSLMEMORY_STATUS_OK;
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Copy, retval,
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxCsslMemory_Copy, retval, MCUXCSSLMEMORY_STATUS_FAULT,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Copy_arm_asm),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare_arm_asm)
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_FastCompare_arm_asm)
     );
 }

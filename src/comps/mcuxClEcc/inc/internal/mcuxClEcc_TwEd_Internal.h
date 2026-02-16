@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -128,7 +128,7 @@ static inline mcuxClEcc_TwEd_SecureFixScalarMult_CpuWa_t* mcuxClEcc_TwEd_inline_
 /**
  * Declaration of function to perform plain (not protected against side-channel attacks) scalar multiplication with variable input point
  *
- * Data Integrity: Expunge(MCUXCLECC_SCALARMULT_OPTION_SECURE * scalarBitLength)
+ * Data Integrity: Expunge(MCUXCLECC_SCALARMULT_OPTION_PLAIN * scalarBitLength)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_TwEd_PlainVarScalarMult, mcuxClEcc_ScalarMultFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_PlainVarScalarMult(
@@ -142,7 +142,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_PlainVarScalarMult(
 /**
  * Declaration of function to perform secure (protected against side-channel attacks) scalar multiplication with variable input point
  *
- * Data Integrity: Expunge(MCUXCLECC_SCALARMULT_OPTION_PLAIN * scalarBitLength)
+ * Data Integrity: Expunge(MCUXCLECC_SCALARMULT_OPTION_SECURE * scalarBitLength)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_TwEd_SecureVarScalarMult, mcuxClEcc_ScalarMultFunction_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_SecureVarScalarMult(

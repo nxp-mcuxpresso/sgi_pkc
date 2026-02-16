@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -95,7 +95,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_compute(
  *
  * @param[in/out]   session    Handle for the current CL session.
  * @param[out]      pContext   Hash context which is used to maintain the state and
- *                             store other relevant information about the operation.
+ *                             store other relevant information about the operation (word-aligned).
  * @param[in]       algorithm  Hash algorithm that should be used during the
  *                             computation operation.
  *
@@ -121,7 +121,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_init(
  *
  * @param[in/out]   session    Handle for the current CL session.
  * @param[in/out]   pContext   Hash context which is used to maintain the state and
- *                             store other relevant information about the operation.
+ *                             store other relevant information about the operation (word-aligned).
  * @param[in]       pIn        Pointer to the input buffer that contains the data that
  *                             needs to be processed.
  * @param[in]       inSize     Number of bytes of data in the \p pIn buffer.
@@ -151,7 +151,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_process(
  *
  * @param[in/out]   session    Handle for the current CL session.
  * @param[in/out]   pContext   Hash context which is used to maintain the state and
- *                             store other relevant information about the operation.
+ *                             store other relevant information about the operation (word-aligned).
  * @param[out]      pOut       Pointer to the output buffer where the computed hash
  *                             value needs to be written.
  * @param[out]      pOutSize   Will be set to the number of bytes of data

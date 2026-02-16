@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2023-2025 NXP                                            */
+/* Copyright 2021, 2023-2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -67,6 +67,9 @@ extern "C" {
                                              ///< needs to be provided by the RNG for RSA keys with
                                              ///< lengths from 1024 bits to 4096 bits.
                                              ///< Numbers taken from NIST SP 800-56B REV. 2, Table 2 and Appendix D
+
+#define MCUXCLRSA_MAX_LOOP_ITER_P  (5u)   /* Value used to compute maximum number of iterations for generating p according to FIPS186-5 */
+#define MCUXCLRSA_MAX_LOOP_ITER_Q  (10u)   /* Value used to compute maximum number of iterations for generating q according to FIPS186-5 */
 
 /** @} */
 

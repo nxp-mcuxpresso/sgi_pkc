@@ -149,7 +149,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_rfc3394Utils_loadWrappedKeyDa
   MCUX_CSSL_DI_RECORD(memory_copy_words_params, pTargetReg);
   MCUX_CSSL_DI_RECORD(memory_copy_words_params, pData);
   MCUX_CSSL_DI_RECORD(memory_copy_words_params, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int(pTargetReg, pData, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pTargetReg, pData, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE));
 
   /* Fill corresponding DATIN parts based on the key size. */
   /* Loop iterations start with storing lowest wrapped key data chunk into the highest DATIN register*/
@@ -161,20 +161,20 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_rfc3394Utils_loadWrappedKeyDa
     pTargetReg = (uint8_t*)mcuxClSgi_Drv_getAddr(mcuxClSgi_Drv_datinIndexToOffset((uint32_t)i));
     MCUX_CSSL_DI_RECORD(memory_clear_loop_params, pTargetReg);
     MCUX_CSSL_DI_RECORD(memory_clear_loop_params, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pTargetReg, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE));
+    MCUXCLMEMORY_CLEAR_INT(pTargetReg, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
 
     pTargetReg += MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE;
-    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_words_int_params, pTargetReg);
-    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_words_int_params, pData);
-    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_words_int_params, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int(pTargetReg, pData, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE));
+    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int_params, pTargetReg);
+    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int_params, pData);
+    MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_int_params, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pTargetReg, pData, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE));
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_rfc3394Utils_loadWrappedKeyData,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
     (keySizeInRfc3394Blocks * (
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)
-      + MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int)
+      MCUXCLMEMORY_CLEAR_INT_FP_EXPECT
+      + MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)
     ))
   );
 }
@@ -250,7 +250,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyUnwrapRfc3394_swDriven(
 
       MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int_params, pLowerResult);
       MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int_params, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pLowerResult, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE));
+      MCUXCLMEMORY_CLEAR_INT(pLowerResult, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
 
       /* Execute decrypt with DATIN_i xor DATOUT as input */
       /* Each internal (iCount) loop iteration shall use seaprate DATIN slot to minimize number of copy operations
@@ -273,7 +273,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyUnwrapRfc3394_swDriven(
         MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_params, pLowerResultStore);
         MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_params, pLowerResult);
         MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_params, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pLowerResultStore, pLowerResult, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE));
+        MCUXCLMEMORY_COPY_SECURE_INT(pLowerResultStore, pLowerResult, MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
       }
       else /* last j-loop iteration */
       {
@@ -298,13 +298,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyUnwrapRfc3394_swDriven(
   /* Check if unwrapped IV matches the reference IV consisting of
      0xA6 bytes of MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE length */
   const uint32_t referenceIvWord = 0xA6A6A6A6U;
-  uint32_t dataoutA = mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 0U);
-  uint32_t dataoutB = mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 4U);
+  MCUX_CSSL_FP_FUNCTION_CALL(dataoutA, mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 0U));
+  MCUX_CSSL_FP_FUNCTION_CALL(dataoutB, mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 4U));
   if(   (referenceIvWord != dataoutA)
      || (referenceIvWord != dataoutB))
   {
     /* Clear the result in case validation fails - No need to balance DI or FP in error cases */
-    (void) mcuxClMemory_clear_int((uint8_t*)pCopyOut, iCount * MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
+    MCUXCLMEMORY_CLEAR_INT((uint8_t*)pCopyOut, iCount * MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE);
     MCUXCLSESSION_ERROR(session, MCUXCLKEY_STATUS_INVALID_INPUT);
   }
 
@@ -314,15 +314,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyUnwrapRfc3394_swDriven(
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAes_keyUnwrapRfc3394_swDriven,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_rfc3394Utils_loadWrappedKeyData),
+    2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_storeWord),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
     /* balance calls in the nested for-loops: */
     ((jCount * iCount) * (
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_loadWord)
-      + MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)
+      + MCUXCLMEMORY_CLEAR_INT_FP_EXPECT
       + MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start)
     )),
     /* if((jCount - 1U) != j): */
-    ((iCount * (jCount - 1U))  * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)),
+    ((iCount * (jCount - 1U))  * MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT),
     /* else: */
     (iCount * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked))
   );
@@ -340,6 +341,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyFlush(
   /* AES keys are assumed to be in SGI */
 
   uint32_t keySlot = mcuxClKey_getLoadedKeySlot(key);
+  
+  /* Record input data for mcuxClSgi_Drv_flushRegisterBanks() */
+  MCUX_CSSL_DI_RECORD(sgiFlush,mcuxClSgi_Drv_keySlotToOffset(keySlot));
+  MCUX_CSSL_DI_RECORD(sgiFlush,mcuxClKey_getSize(key));
+  
   if(keySlot >= MCUXCLSGI_DRV_KEY_BANK_COUNT)
   {
     /* Key slot number does not exist in SGI - invalid key object */
@@ -349,7 +355,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyFlush(
   uint32_t numKeyWords = mcuxClKey_getSize(key) / sizeof(uint32_t);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_flushRegisterBanks(mcuxClSgi_Drv_keySlotToOffset(keySlot), numKeyWords));
 
-  /* Restrore the initial state of the key object */
+  /* Restore the initial state of the key object */
   mcuxClKey_setLoadStatus(key, MCUXCLKEY_LOADSTATUS_NOTLOADED);
   mcuxClKey_setLoadedKeySlot(key, MCUXCLKEY_LOADOPTION_SLOT_INVALID);
 

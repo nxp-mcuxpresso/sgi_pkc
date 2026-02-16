@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -48,7 +48,7 @@ extern "C" {
  * The public exponent is limited to 2 <= e < N.
  *
  * \param[in]  pSession             Pointer to #mcuxClSession_Descriptor
- * \param[in]  key                  Key handle for the input key
+ * \param[in]  key                  Key handle for the input key (word-aligned)
  * \param[in]  pInput               Buffer which contains the input
  * \param[out] pOutput              Pointer to result
  *
@@ -164,7 +164,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
  * Data Integrity: Expunge(MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN)
  *
  * \param[in]  pSession             Pointer to #mcuxClSession_Descriptor
- * \param[in]  key                  Key handle for the input key
+ * \param[in]  key                  Key handle for the input key (word-aligned)
  * \param[in]  pInput               Pointer to input
  * \param[out] pOutput              Buffer to hold the result
  *
@@ -222,7 +222,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
  *              or Expunge(MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRTDFA) for pKey->keyType == MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRTDFA.
  *
  * \param[in]  pSession             Pointer to #mcuxClSession_Descriptor
- * \param[in]  key                  Key handle for the input key
+ * \param[in]  key                  Key handle for the input key (word-aligned)
  * \param[in]  pInput               Pointer to input
  * \param[out] pOutput              Buffer to hold the result
  *
@@ -655,19 +655,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(uint32_t iR_iX_iNb_iB
 /**
  * @brief RSA key generation of probable prime number p or q
  *
- * This function performs a generation of probable prime number based on the method specified in the FIPS 186-4, Appendix B.3.3.
+ * This function performs a generation of probable prime number based on the method specified in the FIPS 186-5, Appendix A.1.3.
  * The provided RNG (through the session) should be initialized (i.e., set the value of security_strength in accordance with
  * the key size as specified in SP 800-57, Part 1 and in SP 800-56B REV. 2, Table 2) before this function call.
  *
- * The main differences in comparison to method specified in the FIPS 186-4, Appendix B.3.3:
+ * The main differences in comparison to method specified in the FIPS 186-5, Appendix A.1.3:
  * - Primes p and q are chosen to be congruent 3 mod 4 (this deviation has been approved).
- * - Check preformed in step 4.4 and 5.5 of this method is done using only 64 most significant bits
+ * - Check preformed in step 4.4 and 5.4 of this method is done using only 64 most significant bits
  *   of sqrt(2)(2^(nlen/2)–1) rounded up, this is 0xb504f333f9de6485 (this deviation has been approved).
- * - There is no check if (|p–q| <= 2((nlen/2)–100) when generating prime q (check preformed in
- *   step 5.4 of this method). Instead of this check shall be done after generating p and q.
- *   Rationale: This inequality occurs with a very small probability and it's usually treated
- *   as a hardware failure. As an alternative to generating new prime q number error code
- *   shall be returned (this deviation has been approved).
+ * - The check if |p - q| <= 2^(nlen/2 - 100) (check performed in step 5.5 of the FIPS method) is done after generating
+ *   p and q (after checking GCD(q−1, e)). If this FIPS requirement is not met, a new prime q is generated.
  * - The pre-check against products of small primes was added before the Miller-Rabin test.
  *
  * Data Integrity: Expunge(pPrimeCandidate->pKeyEntryData + pPrimeCandidate->keyEntryLength)
@@ -676,6 +673,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(uint32_t iR_iX_iNb_iB
  * @param[in]  pE                   Pointer to data, which contains public exponent e
  * @param[out] pPrimeCandidate      Pointer to data, which contains the generated probable prime number
  * @param[in]  keyBitLength         Bit-length of key
+ * @param[in]  maxIter              maxIter*keyBitLength is the maximum number of iterations to find value for p or q
  *
  *
  * <dl>
@@ -687,7 +685,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(uint32_t iR_iX_iNb_iB
  *              with the entropy level (security strength) in accordance with the value of keyBitLength, as specified in SP 800-57, Part 1.
  *      <dt>pE:</dt>
  *          <dd>The public exponent e meets the following conditions:
- *              - The public exponent e shall be FIPS 186-4 compliant;
+ *              - The public exponent e shall be FIPS 186-5 compliant;
  *              - A buffer pointed by pKeyEntryData shall be located in PKC RAM, its address and length shall be aligned to PKC word;
  *              - Data in this buffer shall be stored in little-endian byte order;
  *              - The keyEntryLength shall be exact length of e (without leading zeros).
@@ -714,23 +712,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
   mcuxClSession_Handle_t           pSession,
   mcuxClRsa_KeyEntry_t *           pE,
   mcuxClRsa_KeyEntry_t *           pPrimeCandidate,
-  const uint32_t                  keyBitLength
-);
+  const uint32_t                  keyBitLength,
+  const uint32_t                  maxIter);
 
 /**
  * @brief Test prime candidate for RSA key generation
  *
- * This function performs a test of probable prime number based on the method specified in the FIPS 186-4, Appendix B.3.3.
+ * This function performs a test of probable prime number based on the method specified in the FIPS 186-5, Appendix A.1.3.
  *
- * The main differences in comparison to method specified in the FIPS 186-4, Appendix B.3.3:
+ * The main differences in comparison to method specified in the FIPS 186-5, Appendix A.1.3:
  * - Primes p and q are chosen to be congruent 3 mod 4 (this deviation has been approved).
- * - Check preformed in step 4.4 and 5.5 of this method is done using only 64 most significant bits
+ * - Check preformed in step 4.4 and 5.4 of this method is done using only 64 most significant bits
  *   of sqrt(2)(2^(nlen/2)–1) rounded up, this is 0xb504f333f9de6485 (this deviation has been approved).
- * - There is no check if |p - q| <= 2^(nlen/2 - 100) when generating prime q (check preformed in
- *   step 5.4 of this method). Instead of this check shall be done after generating p and q.
- *   Rationale: This inequality occurs with a very small probability and it's usually treated
- *   as a hardware failure. As an alternative to generating new prime q number error code
- *   shall be returned (this deviation has been approved).
+ * - The check if |p - q| <= 2^(nlen/2 - 100) (check performed in step 5.5 of the FIPS method) is done after generating
+ *   p and q (after checking GCD(q−1, e)). If this FIPS requirement is not met, a new prime q is generated.
  * - The pre-check against products of small primes was added before the Miller-Rabin test.
  *
  * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
@@ -748,7 +743,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
  *              with the entropy level (security strength) in accordance with the value of keyBitLength, as specified in SP 800-57, Part 1.
  *      <dt>pE:</dt>
  *          <dd>The public exponent e meets the following conditions:
- *              - The public exponent e shall be FIPS 186-4 compliant;
+ *              - The public exponent e shall be FIPS 186-5 compliant;
  *              - A buffer pointed by pKeyEntryData shall be located in PKC RAM, its address and length shall be aligned to PKC word;
  *              - Data in this buffer shall be stored in little-endian byte order;
  *              - The keyEntryLength shall be exact length of e (without leading zeros).
@@ -791,7 +786,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
  * @brief RSA Miller-Rabin probabilistic primality test function
  *
  * This function is used to test prime candidate for primality using Miller-Rabin
- * probabilistic primality tests described in FIPS 186-4, Appendices C.3.1.
+ * probabilistic primality tests described in FIPS 186-5, Appendices B.3.1.
  *
  * <dt>Assumptions:</dt>
  * Prime candidate is congruent 3 mod 4. Taking this into account, the Miller-Rabin
@@ -837,7 +832,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
 
 
 /**
- * @brief RSA function which computes private exponent d compliant with FIPS 186-4
+ * @brief RSA function which computes private exponent d compliant with FIPS 186-5
  *
  * This function is used to compute private exponent d for given p, q and e.
  * The d is calculated as d = e^(–1) mod (LCM(p–1, q–1)),
@@ -860,7 +855,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
  *          <dd>The session pointed to by pSession has to be initialized prior to a call to this function.
  *      <dt>pE:</dt>
  *          <dd>The public exponent e meets the following conditions:
- *              - The public exponent e shall be FIPS 186-4 compliant;
+ *              - The public exponent e shall be FIPS 186-5 compliant;
  *              - A buffer pointed by pKeyEntryData shall be located in PKC RAM, its address and length shall be aligned to PKC word;
  *              - Data in this buffer shall be stored in little-endian byte order;
  *              - The keyEntryLength shall be exact length of e (without leading zeros).
@@ -888,7 +883,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
  * @return Status of the mcuxClRsa_ComputeD operation (see @ref MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t))
  * @retval #MCUXCLRSA_STATUS_KEYGENERATION_OK            The prime candidate is probably prime.
  * @retval #MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID    For a given input (it means p, q and e) the computed D does not meet
- *                                                      the requirements specified in the FIPS 186-4, Appendix B.3.1.
+ *                                                      the requirements specified in the FIPS 186-5, Appendix A.1.1.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_ComputeD)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
@@ -904,9 +899,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
  * @brief RSA function which tests if |p–q| <= 2^(nlen/2–100).
  *
  * This function is used to test if |p–q| <= 2^(nlen/2–100).
- * This is a verification required by FIPS 186-4 (Appendix B.3.3, step 5.4).
+ * This is a verification required by FIPS 186-5 (Appendix A.1.3, step 5.5).
  *
- * @param[in]  pSession           Pointer to #mcuxClSession_Descriptor
  * @param[in]  iP_iQ_iT1          Pointer table indices of parameters
  * @param[in]  primeByteLength    Bytelength of parameters p and q
  *
@@ -923,13 +917,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
  *  </dl></dd>
  * </dl>
  *
- * @return void
- *
- * @note
- *    Other errors are returned through session parameter.
+ * @return Status of the mcuxClRsa_TestPQDistance operation (see @ref MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t))
+ * @retval #MCUXCLRSA_STATUS_KEYGENERATION_OK     The p and q primes meet the FIPS requirements.
+ * @retval #MCUXCLRSA_STATUS_INVALID_INPUT        The p and q primes do not meet the FIPS requirements.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_TestPQDistance)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_TestPQDistance(mcuxClSession_Handle_t pSession, uint32_t iP_iQ_iT, uint32_t primeByteLength);
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPQDistance(uint32_t iP_iQ_iT, uint32_t primeByteLength);
 
 
 /**
@@ -1008,7 +1001,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyE(mcuxClSession_Handle_t pSess
  *
  * The number of Miller-Rabin test iterations are determined for the prime lengths of 512, 1024, 1536, 2048,
  * 3072, 4096 bits based on Table 1 of SOGIS Agreed Cryptographic Mechanisms version 1.2 (it is following
- * the Appendix F.1 of FIPS PUB 186-4).
+ * the Appendix C.1 of FIPS PUB 186-5).
  *
  * @param[in]  primeBitLength   The prime bit length
  *
@@ -1042,8 +1035,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClRsa_getMillerRabinTestIterations(con
  * @param         pSession     Handle for the current CL session.
  * @param         generation   RSA Key generation algorithm that determines the key
  *                             data stored in @p privKey and @p pubKey.
- * @param[in/out] privKey      Key handle for the private key.
- * @param[in/out] pubKey       Key handle for the public key.
+ * @param[in/out] privKey      Key handle for the private key (word-aligned).
+ * @param[in/out] pubKey       Key handle for the public key (word-aligned).
  *
  * @return void
  *
@@ -1068,7 +1061,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyGeneration_GenerateKeyPair(
  * After that the function checks whether the public key data container has enough space.
  *
  * @param[in]      pSession              Pointer to #mcuxClSession_Descriptor
- * @param[in]      pubKey                Key handle for the generated public key
+ * @param[in]      pubKey                Key handle for the generated public key (word-aligned)
  * @param[in]      generation            RSA Key generation algorithm that determines the key
  *                                       data stored in @p pubKey.
  * @param[out]     pByteLenE             Pointer to data were the exact length of public exponent e will be set
@@ -1102,11 +1095,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Init_Common(
  * After that the function checks whether the private key data container in CRT or CRT-DFA format has enough space.
  *
  * @param[in]      pSession              Pointer to #mcuxClSession_Descriptor
- * @param[in]      pubKey                Key handle for the generated public key
+ * @param[in]      pubKey                Key handle for the generated public key (word-aligned)
  * @param[in]      generation            RSA Key generation algorithm that determines the key
  *                                       data stored in @p privKey and @p pubKey.
  * @param[out]     pbyteLenE             Pointer to data were the exact length of public exponent e will be set
- * @param[in]      privKey               Key handle for the generated private key
+ * @param[in]      privKey               Key handle for the generated private key (word-aligned)
  *
  * <dl>
  *  <dt>Parameter properties</dt>
@@ -1139,11 +1132,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Init_CrtKey(
  * After that the function checks whether the private key data container in plain format has enough space.
  *
  * @param[in]      pSession              Pointer to #mcuxClSession_Descriptor
- * @param[in]      pubKey                Key handle for the generated public key
+ * @param[in]      pubKey                Key handle for the generated public key (word-aligned)
  * @param[in]      generation            RSA Key generation algorithm that determines the key
  *                                       data stored in @p privKey and @p pubKey.
  * @param[out]     pbyteLenE             Pointer to data were the exact length of public exponent e will be set
- * @param[in]      privKey               Key handle for the generated private key
+ * @param[in]      privKey               Key handle for the generated private key (word-aligned)
  *
  * <dl>
  *  <dt>Parameter properties</dt>
@@ -1186,10 +1179,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Init_PlainKey(
  * Data Integrity: Expunge(pSession->securityOptions & MCUXCLSESSION_SECURITYOPTIONS_VERIFY_GENERATED_KEY_MASK)
  *
  * @param[in] pSession         Pointer to #mcuxClSession_Descriptor
- * @param[in] privKey          Key handle for the generated private key
- * @param[in] pubKey           Key handle for the generated public key
+ * @param[in] privKey          Key handle for the generated private key (word-aligned)
+ * @param[in] pubKey           Key handle for the generated public key (word-aligned)
  * @param[in] pPublicExponent  Pointer to RSA key entry for the public exponent e, used only for keys in CRT format
- * @param[in] pPkcWorkarea     Pointer to PKC WA to be cleared, used only if key verification is disabled.
+ * @param[in] pPkcWorkarea     Pointer to PKC WA (word-aligned) to be cleared, used only if key verification is disabled.
  *
  * @post
  *  - PKC WA used in the calling function will be overwritten if key verification is enabled, and cleared if it is disabled.
@@ -1213,11 +1206,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyKey(
  * This function for given public exponent and key size generates an RSA private key
  * in CRT representation (p, q, dp, dq, qInv) and computes the modulus n.
  *
- * Primes p and q are generated based on the method specified in the FIPS 186-4, Appendix B.3.3 using probabilistic
+ * Primes p and q are generated based on the method specified in the FIPS 186-5, Appendix A.1.3 using probabilistic
  * primality test with the probability of not being prime less than 2^(-125).
  * The public exponent is restricted to (FIPS compliant) odd values in the range 2^16 < e < 2^256 (i.e. including 0x10001).
  * The bit-length of the key size is limited to 2048, 3072 and 4096.
- * The keys generated by this function are FIPS 186-4 compliant provided their length is either 2048 or 3072 bits
+ * The keys generated by this function are FIPS 186-5 compliant provided their length is greater than or equal to 2048 bits
  * and the exponent value is an odd integer between 2^16 and 2^256.
  *
  * The two key handles are linked with each other using mcuxClKey_linkKeyPair.
@@ -1227,8 +1220,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyKey(
  * @param[in]      pSession              Pointer to #mcuxClSession_Descriptor
  * @param[in]      generation            RSA Key generation algorithm that determines the key
  *                                       data stored in @p privKey and @p pubKey.
- * @param[in/out]  privKey               Key handle for the generated private key
- * @param[in/out]  pubKey                Key handle for the generated public key
+ * @param[in/out]  privKey               Key handle for the generated private key (word-aligned)
+ * @param[in/out]  pubKey                Key handle for the generated public key (word-aligned)
  *
  * <dl>
  *  <dt>Parameter properties</dt>
@@ -1267,12 +1260,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
  *
  * This function for given public exponent and key size generates RSA private key in in plain from (d, n).
  *
- * Private exponent d is computed with the requirements specified in the FIPS 186-4, Appendix B.3.1.
- * Primes p and q are generated based on the method specified in the FIPS 186-4, Appendix B.3.3 using probabilistic
+ * Private exponent d is computed with the requirements specified in the FIPS 186-5, Appendix A.1.1.
+ * Primes p and q are generated based on the method specified in the FIPS 186-5, Appendix A.1.3 using probabilistic
  * primality test with the probability of not being prime less than 2^(-125).
  * The public exponent is restricted to (FIPS compliant) odd values in the range 2^16 < e < 2^256 (i.e. including 0x10001).
  * The bit-length of the key size is limited to 2048, 3072 and 4096.
- * The keys generated by this function are FIPS 186-4 compliant provided their length is either 2048 or 3072 bits
+ * The keys generated by this function are FIPS 186-5 compliant provided their length is either 2048 or 3072 bits
  * and the exponent value is an odd integer between 2^16 and 2^256.
  *
  * The two key handles are linked with each other using mcuxClKey_linkKeyPair.
@@ -1282,8 +1275,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Crt(
  * @param[in]      pSession              Pointer to #mcuxClSession_Descriptor
  * @param[in]      generation            RSA Key generation algorithm that determines the key
  *                                       data stored in @p privKey and @p pubKey.
- * @param[in/out]  privKey               Key handle for the generated private key
- * @param[in/out]  pubKey                Key handle for the generated public key
+ * @param[in/out]  privKey               Key handle for the generated private key (word-aligned)
+ * @param[in/out]  pubKey                Key handle for the generated public key (word-aligned)
  *
  * <dl>
  *  <dt>Parameter properties</dt>
@@ -1327,7 +1320,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
  * on one of the supported hash functions.
  *
  * @param[in]  pSession                  Pointer to #mcuxClSession_Descriptor
- * @param[in]  key                       Key handle for the input key
+ * @param[in]  key                       Key handle for the input key (word-aligned)
  * @param[in]  mode                      Signature mode descriptor
  * @param[in]  pMessageOrDigest          Pointer to buffer, which contains the input to the sign operation
  * @param[in]  messageLength             RFU
@@ -1382,7 +1375,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
  * padding verifications based on one of the supported hash functions.
  *
  * @param[in]  pSession                  Pointer to #mcuxClSession_Descriptor
- * @param[in]  key                       Key handle for the input key
+ * @param[in]  key                       Key handle for the input key (word-aligned)
  * @param[in]  mode                      Signature mode descriptor
  * @param[in]  pMessageOrDigest          Pointer to buffer, which contains the input to the verify operation
  * @param[in]  messageLength             RFU
@@ -1439,7 +1432,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
  * Data Integrity: Expunge(key + ppDest + (spec & MCUXCLKEY_ENCODING_SPEC_COMP_MASK))
  *
  * @param[in]   session  Handle of the current session
- * @param[in]   key      Handle to the key to be loaded
+ * @param[in]   key      Handle to the key to be loaded (word-aligned)
  * @param[out]  ppDest   Pointer-pointer to the destination key location
  * @param[in]   pKeyChecksums  Storing data needed for key checksum generation
  * @param[in]   spec     Specification of the load operation
@@ -1463,7 +1456,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_PlainKey_Plain(
  * Data Integrity: Expunge(key)
  *
  * @param[in]   session  Handle of the current session
- * @param[in]   key      Key handle that provides information to store the key
+ * @param[in]   key      Key handle that provides information to store the key (word-aligned)
  * @param[in]   pSrc     Pointer to the source key location
  * @param[in]   spec     Specifications about the used key
  *
@@ -1489,7 +1482,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivPlainKey_Plain(
  * Data Integrity: Expunge(key)
  *
  * @param[in]   session  Handle of the current session
- * @param[in]   key      Key handle that provides information to store the key
+ * @param[in]   key      Key handle that provides information to store the key (word-aligned)
  * @param[in]   pSrc     Pointer to the source key location
  * @param[in]   spec     Specifications about the used key
  *
@@ -1518,7 +1511,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PublicKey_Plain(
  * Data Integrity: Expunge(key + ppDest + (spec & MCUXCLKEY_ENCODING_SPEC_COMP_MASK))
  *
  * @param[in]   session  Handle of the current session
- * @param[in]   key      Handle to the key to be loaded
+ * @param[in]   key      Handle to the key to be loaded (word-aligned)
  * @param[out]  ppDest   Pointer-pointer to the destination key location
  * @param[in]   pKeyChecksums  Storing data needed for key checksum generation
  * @param[in]   spec     Specification of the load operation
@@ -1542,7 +1535,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_CrtKey_Plain(
  * Data Integrity: Expunge(key)
  *
  * @param[in]   session  Handle of the current session
- * @param[in]   key      Key handle that provides information to store the key
+ * @param[in]   key      Key handle that provides information to store the key (word-aligned)
  * @param[in]   pSrc     Pointer to the source key location
  * @param[in]   spec     Specifications about the used key
  *

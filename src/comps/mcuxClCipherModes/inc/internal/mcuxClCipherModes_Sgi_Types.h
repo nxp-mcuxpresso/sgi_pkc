@@ -95,6 +95,25 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void)(*mcuxClCipherModes_CheckIvLength_t) (
   uint32_t ivLength
 ));
 
+#define MCUXCLCIPHERMODES_INTEGRITY_PROTECTION_CONTEXT                                                    \
+  mcuxClCipher_Context_t common;                                                                          \
+  uint8_t blockBuffer[MCUXCLAES_BLOCK_SIZE];       /* Buffer used when not enough data for full block */  \
+  uint32_t ivState[MCUXCLAES_BLOCK_SIZE_IN_WORDS]; /* IV and internal state */                            \
+  mcuxClAes_KeyContext_Sgi_t keyContext;                                                                  \
+  uint32_t direction; /* to differentiate between encryption and decryption */
+
+/**
+ * @brief CipherModes integrity protected context structure for SGI modes
+ *
+ * This struct is used to calculate the size of the integrity protected context
+ */
+typedef struct
+{
+  MCUXCLCIPHERMODES_INTEGRITY_PROTECTION_CONTEXT
+} mcuxClCipherModes_IntegrityProtectionContext_Aes_Sgi_t;
+
+#define MCUXCLCIPHERMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE  (sizeof(mcuxClCipherModes_IntegrityProtectionContext_Aes_Sgi_t))
+
 /**
  * @brief Cipher context structure for SGI modes
  *
@@ -103,17 +122,15 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void)(*mcuxClCipherModes_CheckIvLength_t) (
  */
 typedef struct mcuxClCipherModes_Context_Aes_Sgi
 {
-  mcuxClCipher_Context_t common;
+  /* Integrity protected Context */
+  MCUXCLCIPHERMODES_INTEGRITY_PROTECTION_CONTEXT
+
   mcuxClCipherModes_SetupIvFunc_t        setupIV;
   uint32_t                              protectionToken_setupIV;
   mcuxClCipherModes_EngineFunc_AesSgi_t  processEngine;
   uint32_t                              protectionToken_processEngine;
   mcuxClCipherModes_FinishFunc_AesSgi_t  finishSkeleton;
   uint32_t                              protectionToken_finishSkeleton;
-  uint8_t     blockBuffer[MCUXCLAES_BLOCK_SIZE];   /* Buffer used when not enough data for full block */
-  uint32_t    ivState[MCUXCLAES_BLOCK_SIZE_IN_WORDS]; /* IV and internal state */
-  mcuxClAes_KeyContext_Sgi_t keyContext;
-  uint32_t direction; /* to differentiate between encryption and decryption */
 } mcuxClCipherModes_Context_Aes_Sgi_t;
 
 /**

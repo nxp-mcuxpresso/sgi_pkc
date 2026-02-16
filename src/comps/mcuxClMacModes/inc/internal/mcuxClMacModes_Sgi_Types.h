@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -59,7 +59,7 @@ typedef const mcuxClMacModes_AlgorithmDescriptor_t * const mcuxClMacModes_Algori
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
  * @param[in]  mode      Mac mode that should be used during the computation.
  * @param[in]  pIn       Pointer to the input to be processed.
  * @param[in]  inLength  Length of input buffer pointed to by @p pIn.
@@ -85,8 +85,8 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) (* mcuxClMacModes_Comput
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  *
  * @return void
  */
@@ -103,8 +103,8 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (* mcuxClMacModes_InitFunc_t)(
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  * @param[in]  pIn       Pointer to the input to be processed.
  * @param[in]  inLength  Length of input buffer pointed to by @p pIn.
  * @param[out] pProcessedBytes  Number of bytes processed from @p pIn.
@@ -127,8 +127,8 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) (* mcuxClMacModes_Update
  * @brief Internal engine function, which finalizes a MAC computation.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  *
  * @return void
  */
@@ -183,7 +183,7 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (* mcuxClMacModes_CopyOutputFunc_t)(
  * @brief Function type to handle the last input block for DMA-driven oneshot modes
  *
  * @param[in]      session           Handle for the current CL session
- * @param[in]      pWa               Handle for the current workarea
+ * @param[in]      pWa               Handle for the current workarea (word-aligned)
  * @param[in]      pAlgo             Pointer to the algorithm descriptor
  * @param[in]      pIn               Pointer to last block input data
  * @param[in]      inOffset          Offset of the @p pIn buffer

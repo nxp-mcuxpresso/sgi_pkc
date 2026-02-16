@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -25,11 +25,11 @@
 extern "C" {
 #endif
 
-#define MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP (0xa5a5u)
-#define MCUXCLHASHMODES_INTERNAL_SGI_SHA2_SUBSEQUENT_SGI_OP (0x5a5au)
+#define MCUXCLHASHMODES_INTERNAL_SGI_SHA2_FIRST_SGI_OP (0xa5a5U)
+#define MCUXCLHASHMODES_INTERNAL_SGI_SHA2_SUBSEQUENT_SGI_OP (0x5a5aU)
 
-#define MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE         (0xFFFFu)
-#define MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE_IN_LOOP (0xFFFEu)
+#define MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE         (0xFFFFUL)
+#define MCUXCLHASHMODES_INTERNAL_SGI_COUNT_MAX_VALUE_IN_LOOP (0xFFFEUL)
 
 /**
  * @brief Oneshot Skeleton implementation for Sha2 with SGI support

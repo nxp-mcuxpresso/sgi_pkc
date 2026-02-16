@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -50,7 +50,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(uint32_t iR_iX_iNb_iB
   /* Call the FUP program to convert result of the exponentiation to normal representation modulo Nb */
   MCUXCLPKC_FP_CALCFUP(mcuxClRsa_RemoveBlinding_FUP,
     mcuxClRsa_RemoveBlinding_FUP_LEN);
-  
+
   /* Calculate R=T1/b */
   MCUXCLMATH_FP_EXACTDIVIDEODD(MCUXCLRSA_INTERNAL_UPTRTINDEX_REMOVEBLINDING_R,
     MCUXCLRSA_INTERNAL_UPTRTINDEX_REMOVEBLINDING_T1,
@@ -64,7 +64,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(uint32_t iR_iX_iNb_iB
   MCUXCLPKC_SETUPTRT(backupPtrUptrt);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_RemoveBlinding,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_InitLocalUptrt),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivideOdd));
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_InitLocalUptrt),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivideOdd)
+  );
 }

@@ -1,5 +1,5 @@
 #---------------------------------------------
-# Copyright 2025 NXP.
+# Copyright 2025-2026 NXP.
 # SPDX-License-Identifier: BSD-3-Clause
 #---------------------------------------------
 
@@ -10,7 +10,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxa)
                 doc/mcxa/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V3.0.0.spdx.json
+                SBOM-MCU_DCI-DCI_SDK_V4.0.0.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -315,7 +315,7 @@ endif()
 if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.crc)
     mcux_add_source(
         SOURCES src/comps/mcuxClCrc/src/mcuxClCrc.c
-                src/comps/mcuxClCrc/src/mcuxClCrc_Context_Crc.c
+                src/comps/mcuxClCrc/src/mcuxClCrc_Context_Crc_Hw.c
                 src/comps/mcuxClCrc/src/mcuxClCrc_Drv.c
                 src/comps/mcuxClCrc/inc/mcuxClCrc.h
                 src/comps/mcuxClCrc/inc/internal/mcuxClCrc_Drv.h
@@ -392,7 +392,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_IntegrityCheckPN.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_Interleave_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_InterleaveScalar.c
-                src/comps/mcuxClEcc/src/mcuxClEcc_Internal_InterleaveTwoScalars.c
+                src/comps/mcuxClEcc/src/mcuxClEcc_Internal_ModInv.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_PointComparison_FUP.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_Random.c
                 src/comps/mcuxClEcc/src/mcuxClEcc_Internal_Random_FUP.c
@@ -507,6 +507,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.ecc)
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Internal.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Internal_FUP.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Internal_KeyHelper.h
+                src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Internal_MemoryConsumption.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Internal_PkcWaLayout.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Internal_Random.h
                 src/comps/mcuxClEcc/inc/internal/mcuxClEcc_Internal_UPTRT_access.h
@@ -842,7 +843,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.memory)
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_CopySecure_Reversed_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_CopySecure_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_Copy_Reversed_Internal.h
-                src/comps/mcuxClMemory/inc/internal/mcuxClMemory_CopySecurePow2_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_CopyWords_Internal.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_FeatureConfig.h
                 src/comps/mcuxClMemory/inc/internal/mcuxClMemory_Internal.h
@@ -862,7 +862,8 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.memory)
                 src/comps/mcuxCsslMemory/src/mcuxCsslMemory_Set.c
 				
                 src/comps/mcuxCsslMemory/src/asm/mcuxCsslMemory_Compare_arm_asm.S
-                src/comps/mcuxCsslMemory/src/asm/mcuxCsslMemory_CompareRev_arm_asm.S
+                src/comps/mcuxCsslMemory/src/asm/mcuxCsslMemory_FastCompare_arm_asm.S
+                src/comps/mcuxCsslMemory/src/asm/mcuxCsslMemory_FastCompareRev_arm_asm.S
                 src/comps/mcuxCsslMemory/src/asm/mcuxCsslMemory_Internal_Copy_arm_asm.S
                 src/comps/mcuxCsslMemory/src/asm/mcuxCsslMemory_Internal_CopyRev_arm_asm.S
 				
@@ -1407,7 +1408,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.examples_ecc)
                 examples/mcuxClEcc/mcuxClEcc_EdDSA_Ed25519ctx_example.c
                 examples/mcuxClEcc/mcuxClEcc_EdDSA_Ed25519ph_example.c
                 examples/mcuxClEcc/mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c
-                examples/mcuxClEcc/mcuxClEcc_EdDSA_VerifySignature_Ed25519_example.c
                 examples/mcuxClEcc/mcuxClEcc_MontDH_Curve448_example.c
                 examples/mcuxClEcc/mcuxClEcc_MontDH_Curve25519_example.c
                 examples/mcuxClEcc/mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c

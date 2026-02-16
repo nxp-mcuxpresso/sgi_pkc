@@ -146,7 +146,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_PatchMode_generateFunction(
         MCUX_CSSL_DI_RECORD(memXORintParams, pOutPtr);
         MCUX_CSSL_DI_RECORD(memXORintParams, pXorMask);
         MCUX_CSSL_DI_RECORD(memXORintParams, outLength);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XOR_int(pOutPtr, pOutPtr, (const uint8_t*)pXorMask, outLength));
+        MCUXCLMEMORY_XOR_INT(pOutPtr, pOutPtr, (const uint8_t*)pXorMask, outLength);
     }
 
     MCUX_CSSL_DI_EXPUNGE(sumOfRandomGenerateParams, session);
@@ -155,7 +155,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_PatchMode_generateFunction(
     MCUX_CSSL_DI_EXPUNGE(sumOfRandomGenerateParams, pXorMask);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_PatchMode_generateFunction,
-        MCUX_CSSL_FP_CONDITIONAL(pXorMask != NULL, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XOR_int)));
+        MCUX_CSSL_FP_CONDITIONAL(pXorMask != NULL, MCUXCLMEMORY_XOR_INT_FP_EXPECT));
 }
 
 /**

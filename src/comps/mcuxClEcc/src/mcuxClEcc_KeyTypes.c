@@ -44,6 +44,8 @@ const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp224k1_Pri
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp256k1_Pub  = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PUBLIC_KEY, .size = MCUXCLECC_WEIERECC_SECP256K1_SIZE_PUBLICKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_secp256k1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PublicKey_Plain};
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp256k1_Priv = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PRIVATE_KEY, .size = MCUXCLECC_WEIERECC_SECP256K1_SIZE_PRIVATEKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_secp256k1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain};
 
+
+
 /* Key type structure for private and public ECC keys for Weierstrass curve secp192r1 */
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp192r1_Pub  = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PUBLIC_KEY, .size = MCUXCLECC_WEIERECC_SECP192R1_SIZE_PUBLICKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_secp192r1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PublicKey_Plain};
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp192r1_Priv = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PRIVATE_KEY, .size = MCUXCLECC_WEIERECC_SECP192R1_SIZE_PRIVATEKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_secp192r1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain};
@@ -63,6 +65,9 @@ const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp384r1_Pri
 /* Key type structure for private and public ECC keys for Weierstrass curve secp521r1 */
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp521r1_Pub  = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PUBLIC_KEY, .size = MCUXCLECC_WEIERECC_SECP521R1_SIZE_PUBLICKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_secp521r1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PublicKey_Plain};
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp521r1_Priv = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PRIVATE_KEY, .size = MCUXCLECC_WEIERECC_SECP521R1_SIZE_PRIVATEKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_secp521r1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain};
+
+
+
 
 /* Key type structure for private and public ECC keys for Weierstrass curve brainpoolP160r1 */
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainpoolP160r1_Pub  = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PUBLIC_KEY, .size = MCUXCLECC_WEIERECC_BRAINPOOLP160R1_SIZE_PUBLICKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_brainpoolP160r1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PublicKey_Plain};
@@ -91,6 +96,8 @@ const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainpoolP384
 /* Key type structure for private and public ECC keys for Weierstrass curve brainpoolP512r1 */
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainpoolP512r1_Pub  = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PUBLIC_KEY, .size = MCUXCLECC_WEIERECC_BRAINPOOLP512R1_SIZE_PUBLICKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_brainpoolP512r1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PublicKey_Plain};
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainpoolP512r1_Priv = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PRIVATE_KEY, .size = MCUXCLECC_WEIERECC_BRAINPOOLP512R1_SIZE_PRIVATEKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_brainpoolP512r1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain};
+
+
 
 /* Key type structure for private and public ECC keys for Weierstrass curve brainpoolP160t1 */
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_brainpoolP160t1_Pub  = {.algoId = MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP + MCUXCLKEY_ALGO_ID_PUBLIC_KEY, .size = MCUXCLECC_WEIERECC_BRAINPOOLP160T1_SIZE_PUBLICKEY, .info = (void *) &mcuxClEcc_Weier_DomainParams_brainpoolP160t1, .plainEncoding = mcuxClEcc_Encoding_WeierECC_PublicKey_Plain};

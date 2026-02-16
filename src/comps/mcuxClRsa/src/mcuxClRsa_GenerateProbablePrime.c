@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -44,7 +44,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
   mcuxClSession_Handle_t           pSession,
   mcuxClRsa_KeyEntry_t *           pE,
   mcuxClRsa_KeyEntry_t *           pPrimeCandidate,
-  const uint32_t                  keyBitLength)
+  const uint32_t                  keyBitLength,
+  const uint32_t                  maxIter)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_GenerateProbablePrime,
         MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
@@ -54,10 +55,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     MCUX_CSSL_DI_RECORD(sumOfRandomGenerateParams, (uint32_t)pSession);
 
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(keyBitLength, 8u * MCUXCLRSA_MIN_MODLEN, 8u * MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(maxIter, MCUXCLRSA_MAX_LOOP_ITER_P, MCUXCLRSA_MAX_LOOP_ITER_Q, MCUXCLRSA_STATUS_INVALID_INPUT)
 
     mcuxClRsa_Status_t status = MCUXCLKEY_STATUS_FAILURE;
     uint32_t loopCounter = 0u;
-    const uint32_t loopMax = 5u * (keyBitLength / 2u);
+    uint32_t loopMax = maxIter*keyBitLength;
     MCUX_CSSL_FP_COUNTER_STMT(uint32_t cntRandomGen = 0u);
     MCUX_CSSL_FP_COUNTER_STMT(uint32_t cntTestPrime = 0u);
 
@@ -74,8 +76,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     * - update session (PKC workarea used...)
     */
 
-    const uint32_t pkcWaSizeWord = (3u * MCUXCLRSA_PKC_WORDSIZE) / (sizeof(uint32_t));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+    const uint32_t pkcWaSizeWord = MCUXCLRSA_INTERNAL_GENERATEPROBABLEPRIME_WO_TESTPRIMECANDIDATE_WAPKC_SIZE / sizeof(uint32_t);
     MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
     uint32_t *pNumToCompare = pPkcWorkarea;
     uint32_t *pA0 = pPkcWorkarea + (MCUXCLRSA_PKC_WORDSIZE/sizeof(uint32_t));
@@ -84,7 +85,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     /* Setup UPTR table */
     const uint32_t cpuWaSizeWord =  MCUXCLRSA_INTERNAL_GENERATEPROBABLEPRIME_WACPU_SIZE_IN_WORDS_WO_TESTPRIME_AND_MILLERRABIN(keyBitLength/8u/2u);
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
     MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
@@ -115,7 +115,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     /* Balance DI for call to mcuxClMemory_copy_int */
     MCUX_CSSL_DI_RECORD(memCopyNumToCompare, ((uint8_t*)pNumToCompare + MCUXCLRSA_PKC_WORDSIZE));
     MCUX_CSSL_DI_RECORD(memCopyNumToCompare, numToCompare);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(
       (uint8_t*)pNumToCompare + MCUXCLRSA_PKC_WORDSIZE - sizeof(numToCompare),
       numToCompare,
@@ -126,7 +125,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
     MCUX_CSSL_DI_RECORD(memCopyA0, pA0);
     MCUX_CSSL_DI_RECORD(memCopyA0, a0);
     MCUX_CSSL_DI_RECORD(memCopyA0, sizeof(a0));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t*)pA0, a0, sizeof(a0)));
 
     MCUXCLBUFFER_INIT(pBufKeyEntryData, NULL, pPrimeCandidate->pKeyEntryData, pPrimeCandidate->keyEntryLength);
@@ -147,7 +145,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
         /*
         * Generate a random prime candidate for given key size using DRBG:
         *    - Ensure that prime candidate is odd;
-        *    - Ensure that prime candidate is congruent 3 mod 4 (this deviation from FIPS 186-4 has been approved).
+        *    - Ensure that prime candidate is congruent 3 mod 4 (this deviation from FIPS 186-5 has been approved).
         *
         *    The session pointed to by pSession shall be initialized with the entropy level (security strength)
         *    in accordance with the value of keyBitLength, as specified in SP 800-57, Part 1.
@@ -207,10 +205,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_GenerateProbablePrime(
 
     /* Check define outside of macro so the MISRA rule 20.6 does not get violated */
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_GenerateProbablePrime,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+        2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_getMillerRabinTestIterations),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_generate_internal) * cntRandomGen,
         MCUXCLPKC_FP_CALLED_CALC_OP1_OR * cntTestPrime,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_TestPrimeCandidate) * cntTestPrime);
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_TestPrimeCandidate) * cntTestPrime
+    );
 
 }
 

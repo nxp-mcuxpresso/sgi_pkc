@@ -121,7 +121,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
   MCUXCLKEY_LOAD_FP(pSession, key, &pPrivateKeyDest, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
   MCUX_CSSL_DI_RECORD(memoryClear, pPrivateKeyDest + pDomainParameters->lenQ);
   MCUX_CSSL_DI_RECORD(memoryClear, expOperandSize - pDomainParameters->lenQ);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pPrivateKeyDest + pDomainParameters->lenQ, expOperandSize - pDomainParameters->lenQ));
+  MCUXCLMEMORY_CLEAR_INT(pPrivateKeyDest + pDomainParameters->lenQ, expOperandSize - pDomainParameters->lenQ);
 
   MCUX_CSSL_DI_RECORD(exponentiation, pDomainParameters->lenQ);
   MCUXCLPKC_PS1_SETLENGTH(expOperandSize, expOperandSize);
@@ -142,7 +142,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
   MCUXCLPKC_FP_CALC_MC1_MS(FFDH_UPTRTINDEX_T1, FFDH_UPTRTINDEX_T1, FFDH_UPTRTINDEX_P, FFDH_UPTRTINDEX_P);
   MCUXCLPKC_WAITFORFINISH();
   /* Securely export shared secret. */
-  MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(pSession, pOut, FFDH_UPTRTINDEX_T1, lenP);
+  MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(pOut, FFDH_UPTRTINDEX_T1, lenP);
   *pOutLength = lenP;
 
   /* Clear PKC workarea. */
@@ -166,7 +166,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClFfdh_SetupEnvironment),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClFfdh_PublicKeyLoadAndValidate),
     MCUXCLKEY_LOAD_FP_CALLED(key),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_SecModExp),
     MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
     MCUXCLPKC_FP_CALLED_CALC_MC1_MS,

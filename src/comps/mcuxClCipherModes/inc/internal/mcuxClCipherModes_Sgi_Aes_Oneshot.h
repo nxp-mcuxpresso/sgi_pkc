@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -31,7 +31,7 @@
  * It implements the mode function pointer type @ref mcuxClCipher_CryptFunc_t.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pKey       Handle for the used key
+ * @param[in]  pKey       Handle for the used key (word-aligned)
  * @param[in]  mode       Cipher mode to use for encryption operation
  * @param[in]  pIv        Pointer to initialization vector
  * @param[in]  ivLength   Length of initialization vector
@@ -62,7 +62,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
  * It implements the mode function pointer type @ref mcuxClCipher_CryptFunc_t.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pKey       Handle for the used key
+ * @param[in]  pKey       Handle for the used key (word-aligned)
  * @param[in]  mode       Cipher mode to use for encryption operation
  * @param[in]  pIv        Pointer to initialization vector
  * @param[in]  ivLength   Length of initialization vector

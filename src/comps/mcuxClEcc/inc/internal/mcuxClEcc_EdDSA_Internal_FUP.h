@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2024, 2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -37,7 +37,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  */
 #define mcuxClEcc_FUP_EdDSA_GenerateKeyPair_Prepare_S_LEN  12u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_GenerateKeyPair_Prepare_S[mcuxClEcc_FUP_EdDSA_GenerateKeyPair_Prepare_S_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_EdDSA_GenerateKeyPair_Prepare_S);
 
 
 /**********************************************************/
@@ -48,7 +48,7 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_GenerateKeyPair_Prepare_S[
  * FUP program declaration mcuxClEcc_FUP_EdDSA_GenerateSignature_Compute_S
  */
 #define mcuxClEcc_FUP_EdDSA_GenerateSignature_Compute_S_LEN  13u
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_GenerateSignature_Compute_S[mcuxClEcc_FUP_EdDSA_GenerateSignature_Compute_S_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_EdDSA_GenerateSignature_Compute_S);
 
 
 /**********************************************************/
@@ -60,7 +60,7 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_GenerateSignature_Compute_
  */
 #define mcuxClEcc_FUP_EdDSA_Internal_CalcHashModN_ModN_LEN  7u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_Internal_CalcHashModN_ModN[mcuxClEcc_FUP_EdDSA_Internal_CalcHashModN_ModN_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_EdDSA_Internal_CalcHashModN_ModN);
 
 
 /**********************************************************/
@@ -71,20 +71,20 @@ extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_Internal_CalcHashModN_ModN
  * FUP program declaration mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Common
  */
 #define mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Common_LEN  7u
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Common[mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Common_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Common);
 
 
 /**
  * FUP program declaration mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Ed25519
  */
 #define mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Ed25519_LEN  7u
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Ed25519[mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Ed25519_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_PrepareExp_Ed25519);
 
 /**
  * FUP program declaration mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_ComputeXCandidate_Ed25519
  */
 #define mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_ComputeXCandidate_Ed25519_LEN  7u
-extern const mcuxClPkc_FUPEntry_t mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_ComputeXCandidate_Ed25519[mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_ComputeXCandidate_Ed25519_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_EdDSA_Internal_DecodePoint_ComputeXCandidate_Ed25519);
 
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()

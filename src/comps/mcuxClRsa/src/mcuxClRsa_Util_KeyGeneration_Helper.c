@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -211,9 +211,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyKey(
     MCUXCLPKC_PS1_SETLENGTH(0u, pkcWaSize);
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_VERIFYKEY_PKCWA] = MCUXCLPKC_PTR2OFFSET(pPkcWorkarea);
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_CONST);
     MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_VERIFYKEY_PKCWA, 0u);
 
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_VerifyKey);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_VerifyKey,
+      MCUXCLPKC_FP_CALLED_CALC_OP1_CONST
+  );
 }

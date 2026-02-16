@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -26,6 +26,7 @@
 #define rPRhs           r1
 #define rLength         r2
 #define rWordLoopCtr    r3
+#define rDoubleWordLoopCtr r3
 #define rTmp0           r4
 #define rTmp1           r5
 #define rAcc            r6
@@ -34,12 +35,20 @@
 #define rDiff           r8
 #define rTmp2           r8
 #define rSc             r9 /* Only used when CSSL_SC_USE_SW_LOCAL is enabled */
+#define rTmp3           r10 /* Additional temp register for double word loop */
+#define rTmp4           r11 /* Additional temp register for double word loop */
 
 /* ARM calling convention to return flow-protected (64-bit) return value: */
 /* Status code is the LSW, goes into r0 (always).                         */
 /* FP token is MSW, if flow protection is enabled, goes into r1.          */
 #define rStatus         r0
 #define rToken          r1 /* Only used when CSSL_SC_USE_SW_LOCAL is enabled */
+
+/* Register defines for bulk compare operations */
+#define rBulk0          r4              /* Bulk compare register 0 */
+#define rBulk1          r5              /* Bulk compare register 1 */
+#define rBulk2          r10             /* Bulk compare register 2 */
+#define rBulk3          r11             /* Bulk compare register 3 */
 
 #define FA              (MCUXCSSLMEMORY_STATUS_ASM_FAULT    )
 #define EQ              (MCUXCSSLMEMORY_STATUS_ASM_EQUAL    )
@@ -70,14 +79,54 @@
 .type     mcuxCsslMemory_Compare_arm_asm, %function
 #endif
 mcuxCsslMemory_Compare_arm_asm:
-        push    {r4-r9, lr}
+        push    {r4-r11, lr}
         MCUX_CSSL_FP_ASM_FUNCTION_ENTRY  rSc, rTmp0, MCUX_CSSL_FP_FUNCID_mcuxCsslMemory_Compare_arm_asm
         MCUX_CSSL_SC_ASM_ADD       rSc, rLength         /* Record(length) to make end pointer match caller record */
         eor     rAcc, rAcc, rAcc                       /* init acc = 0x0 */
         mvn     rInvAcc, rAcc                          /* init inverse acc = 0xffffffff */
         mov     rWordLoopCtr, rLength, lsr #2          /* Compute div = length / 4 */
-        cbz     rLength, mcuxCsslMemory_Compare_end
+        cbz     rLength, mcuxCsslMemory_Compare_end_near
+
+mcuxCsslMemory_Int_Copy_arm_asm_CheckAlignment:
+        orr   rTmp0, rPLhs, rPRhs
+        ands  rTmp0, rTmp0, #3
+        bne   mcuxCsslMemory_Compare_single_word_check
+
+        /* Check if we have enough length for double word processing (8 bytes minimum) */
+        cmp     rLength, #8
+        blo     mcuxCsslMemory_Compare_single_word_check
+
+        /* Calculate double word loop counter */
+        mov     rDoubleWordLoopCtr, rLength, lsr #3    /* Compute div = length / 8 */
+
+mcuxCsslMemory_Compare_DoubleWord_loop:
+        ldmia   rPLhs, {rBulk0, rBulk1}                /* Load 2 words from LHS with increment */
+        ldmia   rPRhs, {rBulk2, rBulk3}                /* Load 2 words from RHS with increment */
+
+        eor     rDiff, rBulk0, rBulk2                  /* Compare first words */
+        orr     rAcc, rAcc, rDiff                      /* acc |= (a[0] ^ b[0]) */
+        eor     rDiff, rBulk1, rBulk3                  /* Compare second words */
+        orr     rAcc, rAcc, rDiff                      /* acc |= (a[1] ^ b[1]) */
+
+        ldmia   rPLhs!, {rBulk0, rBulk1}               /* Load 2 words from LHS with increment */
+        ldmia   rPRhs!, {rBulk2, rBulk3}               /* Load 2 words from RHS with increment */
+
+        eor     rDiff, rBulk0, rBulk2                  /* Redundant XOR for security */
+        bic     rInvAcc, rInvAcc, rDiff                /* accInv &= ~(a[0] ^ b[0]) */
+        eor     rDiff, rBulk1, rBulk3                  /* Redundant XOR for security */
+        bic     rInvAcc, rInvAcc, rDiff                /* accInv &= ~(a[1] ^ b[1]) */
+
+        subs    rDoubleWordLoopCtr, #1
+        bne     mcuxCsslMemory_Compare_DoubleWord_loop
+        and     rLength, rLength, #7                   /* Compute rem = length % 8 */
+
+mcuxCsslMemory_Compare_end_near:
+        cbz     rLength, mcuxCsslMemory_Compare_end     /* Exit if no remaining bytes */
+
+mcuxCsslMemory_Compare_single_word_check:
+        mov     rWordLoopCtr, rLength, lsr #2          /* Compute div = length / 4 */
         cbz     rWordLoopCtr, mcuxCsslMemory_Compare_byte_loop
+
 mcuxCsslMemory_Compare_word_loop:
         ldr     rTmp0, [rPLhs]                         /* Load once, no increment */
         ldr     rTmp1, [rPRhs]
@@ -91,17 +140,19 @@ mcuxCsslMemory_Compare_word_loop:
         bne     mcuxCsslMemory_Compare_word_loop
         and     rLength, rLength, #3                   /* Compute rem = length % 4 */
         cbz     rLength, mcuxCsslMemory_Compare_end
+
 mcuxCsslMemory_Compare_byte_loop:
         ldrb    rTmp0, [rPLhs]
         ldrb    rTmp1, [rPRhs]
         eor     rDiff, rTmp0, rTmp1
         orr     rAcc, rAcc, rDiff                      /* acc |= (a[i] ^ b[i]) */
-        ldrb    rTmp0, [rPLhs], #1
+        ldrb    rTmp0, [rPLhs], #1                     /* Load with increment */
         ldrb    rTmp1, [rPRhs], #1
         eor     rDiff, rTmp0, rTmp1
         bic     rInvAcc, rInvAcc, rDiff                /* accInv &= ~(a[i] ^ b[i]) */
         subs    rLength, #1
         bne     mcuxCsslMemory_Compare_byte_loop
+
 mcuxCsslMemory_Compare_end:
         MCUX_CSSL_SC_ASM_ADD    rSc, rLength            /* Record(rLength) to DI (should be zero at this point) */
         MCUX_CSSL_SC_ASM_ADD    rSc, rWordLoopCtr       /* Record(wordLoopCtr) to DI (should be zero at this point) */
@@ -128,7 +179,7 @@ mcuxCsslMemory_Compare_end:
         MCUX_CSSL_SC_ASM_ADD    rSc, rStatus            /* Record(status) */
         MCUX_CSSL_FP_ASM_FUNCTION_EXIT rSc, rTmp0, MCUX_CSSL_FP_FUNCID_mcuxCsslMemory_Compare_arm_asm
         mov     rToken, rSc
-        pop     {r4-r9, pc}
+        pop     {r4-r11, pc}
 
 #ifdef __IASMARM__
         END

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -65,7 +65,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_cleanupOnExit(
  * This function acts as an intermediate layer between the mcuxClMac_compute API and specific HMAC algorithm cores
  *
  * @param[in]  session      Handle for the current CL session.
- * @param[in]  key          Key to be used to authenticate the data.
+ * @param[in]  key          Key to be used to authenticate the data (word-aligned).
  * @param[in]  mode         Mode that should be used during the MAC operation.
  * @param[in]  pIn          Input buffer that contains the data that needs to be authenticated.
  * @param[in]  inLength     Number of bytes of data in the @p pIn buffer.
@@ -92,8 +92,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClHmac_compute(
  *
  * @param[in]  session   Handle for the current CL session.
  * @param[in]  pContext  MAC context which is used to maintain the state and
- *                       store other relevant information about the operation.
- * @param[in]  key       Key to be used to authenticate the data.
+ *                       store other relevant information about the operation (word-aligned).
+ * @param[in]  key       Key to be used to authenticate the data (word-aligned).
  *
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHmac_init, mcuxClMac_InitFunc_t)
@@ -110,7 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_init(
  *
  * @param      session   Handle for the current CL session.
  * @param[in]  pContext  MAC context which is used to maintain the state and
- *                       store other relevant information about the operation.
+ *                       store other relevant information about the operation (word-aligned).
  * @param[in]  pIn       Input buffer that contains the data that need to be processed.
  * @param[in]  inLength  Number of bytes of data in the @p pIn buffer.
  *
@@ -130,7 +130,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClHmac_process(
  *
  * @param[in]  session     Handle for the current CL session.
  * @param[in]  pContext    MAC context which is used to maintain the state and
- *                         store other relevant information about the operation.
+ *                         store other relevant information about the operation (word-aligned).
  * @param[out] pMac        Output buffer where the MAC needs to be written.
  * @param[out] pMacLength  Will be incremented by the number of bytes of data that
  *                         have been written to the @p pMac buffer.

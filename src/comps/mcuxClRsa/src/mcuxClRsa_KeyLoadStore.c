@@ -71,7 +71,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_PlainKey_Plain(mcuxClSession
       pSrc = pRsaKeyData->modulus.pKeyEntryData;
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
       length = pRsaKeyData->modulus.keyEntryLength;
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pDst, pSrc, length));
     }
     else if(MCUXCLKEY_ENCODING_SPEC_RSA_D == (spec & MCUXCLKEY_ENCODING_SPEC_COMP_MASK))
@@ -81,8 +80,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_PlainKey_Plain(mcuxClSession
       pSrc = pRsaKeyData->exponent.pKeyEntryData;
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
       length = pRsaKeyData->exponent.keyEntryLength;
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pDst, pSrc, length));
+      MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDst, pSrc, length);
     }
     else
     {
@@ -94,7 +92,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_PlainKey_Plain(mcuxClSession
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, length);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyLoad_PlainKey_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyLoad_PlainKey_Plain,
+      MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_RSA_N == (spec & MCUXCLKEY_ENCODING_SPEC_COMP_MASK)),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int)
+      ),
+      MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_RSA_D == (spec & MCUXCLKEY_ENCODING_SPEC_COMP_MASK)),
+          MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT
+      )
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_KeyStore_PrivPlainKey_Plain, mcuxClKey_StoreFuncPtr_t)
@@ -120,7 +125,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivPlainKey_Plain(mcuxClSe
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPrivKeyDst->modulus.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPrivKeySrc->modulus.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPrivKeyDst->modulus.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(
     pRsaPrivKeyDst->modulus.pKeyEntryData,
     pRsaPrivKeySrc->modulus.pKeyEntryData,
@@ -134,15 +138,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivPlainKey_Plain(mcuxClSe
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivKeyDst->exponent.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivKeySrc->exponent.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivKeyDst->exponent.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(
     pRsaPrivKeyDst->exponent.pKeyEntryData,
     pRsaPrivKeySrc->exponent.pKeyEntryData,
     pRsaPrivKeyDst->exponent.keyEntryLength
-  ));
+  );
 
-
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyStore_PrivPlainKey_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyStore_PrivPlainKey_Plain,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int),
+      MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_KeyStore_PublicKey_Plain, mcuxClKey_StoreFuncPtr_t)
@@ -168,7 +174,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PublicKey_Plain(mcuxClSessi
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPubKeyDst->modulus.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPubKeySrc->modulus.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPubKeyDst->modulus.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
+
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(
     pRsaPubKeyDst->modulus.pKeyEntryData,
     pRsaPubKeySrc->modulus.pKeyEntryData,
@@ -182,14 +188,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PublicKey_Plain(mcuxClSessi
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPubKeyDst->exponent.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPubKeySrc->exponent.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPubKeyDst->exponent.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
+
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(
     pRsaPubKeyDst->exponent.pKeyEntryData,
     pRsaPubKeySrc->exponent.pKeyEntryData,
     pRsaPubKeyDst->exponent.keyEntryLength
   ));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyStore_PublicKey_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyStore_PublicKey_Plain,
+      2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_KeyLoad_CrtKey_Plain, mcuxClKey_LoadFuncPtr_t)
@@ -269,11 +277,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_CrtKey_Plain(mcuxClSession_H
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pDst);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pSrc);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, length);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pDst, pSrc, length));
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDst, pSrc, length);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyLoad_CrtKey_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyLoad_CrtKey_Plain,
+      MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_RSA_E != (spec & MCUXCLKEY_ENCODING_SPEC_COMP_MASK)),
+          MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT
+      )
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_KeyStore_PrivCrtKey_Plain, mcuxClKey_StoreFuncPtr_t)
@@ -299,12 +310,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivCrtKey_Plain(mcuxClSess
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->p.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeySrc->p.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->p.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(
     pRsaPrivCrtKeyDst->p.pKeyEntryData,
     pRsaPrivCrtKeySrc->p.pKeyEntryData,
     pRsaPrivCrtKeyDst->p.keyEntryLength
-  ));
+  );
 
   /* Secure export q */
   pRsaPrivCrtKeyDst->q.pKeyEntryData = pRsaPrivCrtKeyDst->p.pKeyEntryData + pRsaPrivCrtKeyDst->p.keyEntryLength;
@@ -312,26 +323,25 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivCrtKey_Plain(mcuxClSess
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->q.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeySrc->q.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->q.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(
     pRsaPrivCrtKeyDst->q.pKeyEntryData,
     pRsaPrivCrtKeySrc->q.pKeyEntryData,
     pRsaPrivCrtKeyDst->q.keyEntryLength
-  ));
+  );
 
   /* Secure export qInv */
   pRsaPrivCrtKeyDst->qInv.pKeyEntryData = pRsaPrivCrtKeyDst->q.pKeyEntryData + pRsaPrivCrtKeyDst->q.keyEntryLength;
   pRsaPrivCrtKeyDst->qInv.keyEntryLength = pRsaPrivCrtKeySrc->qInv.keyEntryLength;
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->qInv.pKeyEntryData);
-
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeySrc->qInv.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->qInv.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(
     pRsaPrivCrtKeyDst->qInv.pKeyEntryData,
     pRsaPrivCrtKeySrc->qInv.pKeyEntryData,
     pRsaPrivCrtKeyDst->qInv.keyEntryLength
-  ));
+  );
 
   /* Secure export dp */
   pRsaPrivCrtKeyDst->dp.pKeyEntryData = pRsaPrivCrtKeyDst->qInv.pKeyEntryData + pRsaPrivCrtKeyDst->qInv.keyEntryLength;
@@ -339,12 +349,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivCrtKey_Plain(mcuxClSess
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->dp.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeySrc->dp.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->dp.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(
     pRsaPrivCrtKeyDst->dp.pKeyEntryData,
     pRsaPrivCrtKeySrc->dp.pKeyEntryData,
     pRsaPrivCrtKeyDst->dp.keyEntryLength
-  ));
+  );
 
 
   /* Secure export dq */
@@ -353,12 +363,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivCrtKey_Plain(mcuxClSess
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->dq.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeySrc->dq.pKeyEntryData);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_reversed_int /* not used*/, pRsaPrivCrtKeyDst->dq.keyEntryLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(
     pRsaPrivCrtKeyDst->dq.pKeyEntryData,
     pRsaPrivCrtKeySrc->dq.pKeyEntryData,
     pRsaPrivCrtKeyDst->dq.keyEntryLength
-  ));
+  );
 
 
   /* Export public exponent (should be exported for MCUXCLKEY_ALGO_ID_PRIVATE_KEY_CRT_DFA only). */
@@ -370,7 +380,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivCrtKey_Plain(mcuxClSess
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPrivCrtKeyDst->e.pKeyEntryData);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPrivCrtKeySrc->e.pKeyEntryData);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_reversed_int /* not used*/, pRsaPrivCrtKeyDst->e.keyEntryLength);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
+
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(
       pRsaPrivCrtKeyDst->e.pKeyEntryData,
       pRsaPrivCrtKeySrc->e.pKeyEntryData,
@@ -383,7 +393,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivCrtKey_Plain(mcuxClSess
     pRsaPrivCrtKeyDst->e.keyEntryLength = 0u;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyStore_PrivCrtKey_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyStore_PrivCrtKey_Plain,
+      5U * MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT,
+      MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ALGO_ID_PRIVATE_KEY_CRT_DFA == privKeyUsage),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int)
+      )
+  );
 }
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()

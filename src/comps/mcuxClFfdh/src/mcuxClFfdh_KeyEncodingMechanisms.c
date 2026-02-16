@@ -57,6 +57,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PrivateKeyLoad_Plain(
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClFfdh_PrivateKeyLoad_Plain);
 
   /* If spec specifies to securely copy a private key in BE and convert it to LE. */
+  MCUX_CSSL_FP_BRANCH_DECL(encodingSpecBranch);
   if (MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
   {
     uint8_t *pKeyData = mcuxClKey_getKeyData(key);
@@ -69,8 +70,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PrivateKeyLoad_Plain(
     MCUX_CSSL_DI_RECORD(privateKeyBELoad, keyLength);
 
     /* Securely copy the private key to *pDest, reversing its endianness */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pDest, pKeyData, keyLength));
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDest, pKeyData, keyLength);
+
+    MCUX_CSSL_FP_BRANCH_POSITIVE(encodingSpecBranch, MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT);
   }
   /* spec is not valid */
   else
@@ -78,7 +80,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PrivateKeyLoad_Plain(
     MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClFfdh_PrivateKeyLoad_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClFfdh_PrivateKeyLoad_Plain,
+    MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(encodingSpecBranch, MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)));
 }
 
 /**
@@ -103,6 +106,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoad_Plain(
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClFfdh_PublicKeyLoad_Plain);
 
   /* If spec specifies to copy the key data to ppDest. */
+  MCUX_CSSL_FP_BRANCH_DECL(encodingSpecBranch);
   if (MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
   {
     uint8_t *pDest = *ppDest;
@@ -115,8 +119,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoad_Plain(
     MCUX_CSSL_DI_RECORD(publicKeyBELoad, length);
 
     /* Copy the public key to *pDest, reversing its endianness */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pDest, pPubKeySrc, length));
+
+    MCUX_CSSL_FP_BRANCH_POSITIVE(encodingSpecBranch, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
   }
   /* spec is not valid */
   else
@@ -124,7 +129,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoad_Plain(
     MCUXCLSESSION_FAULT(session, MCUXCLKEY_STATUS_FAULT_ATTACK);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClFfdh_PublicKeyLoad_Plain);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClFfdh_PublicKeyLoad_Plain,
+    MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(encodingSpecBranch, MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)));
 }
 
 

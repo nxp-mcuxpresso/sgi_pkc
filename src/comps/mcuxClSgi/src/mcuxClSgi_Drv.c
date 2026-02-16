@@ -31,9 +31,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_init(uint32_t mode)
 #ifdef SGI_HAS_AES_AUTO_MODE
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
      Workaround: Reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
-  mcuxClSgi_Drv_resetAutoMode();
+  mcuxClSgi_Sfr_writeAutoMode(0u);
 #endif /* SGI_HAS_AES_AUTO_MODE */
-
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_init);
 }
 
@@ -46,26 +45,31 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_close(mcuxClSession_Handle_t ses
 #ifdef SGI_HAS_AES_AUTO_MODE
   /* Stop and disable AUTO mode - might still be running from CTR blocking mode */
   /* TODO CLNS-6458/CLNS-6459/CLNS-6455/CLNS-6460, Non-Blocking modes: clean-ups like this may only be done for blocking modes! */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
 #endif /* SGI_HAS_AES_AUTO_MODE */
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_readAccessError));
   MCUX_CSSL_FP_FUNCTION_CALL(accessErrorStatus, mcuxClSgi_Drv_readAccessError(session));
   if(MCUXCLSGI_STATUS_OK != accessErrorStatus)
   {
     MCUXCLSESSION_FAULT(session, MCUXCLSGI_STATUS_FAULT);
   }
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_readStatusError));
   MCUX_CSSL_FP_FUNCTION_CALL(errorStatus, mcuxClSgi_Drv_readStatusError(session));
-
   if(MCUXCLSGI_STATUS_OK != errorStatus)
   {
     MCUXCLSESSION_FAULT(session, MCUXCLSGI_STATUS_FAULT);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_close);
+#ifdef SGI_HAS_AES_AUTO_MODE 
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_close, 
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode), 
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_readAccessError), 
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_readStatusError));
+#else
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_close, 
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_readAccessError), 
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_readStatusError));
+#endif /* SGI_HAS_AES_AUTO_MODE */
 }
 
 #ifdef SGI_HAS_AES_AUTO_MODE
@@ -75,17 +79,17 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_configureAutoMode)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_configureAutoMode(uint32_t autoModeConfig)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_configureAutoMode);
-
   mcuxClSgi_Sfr_writeAutoMode(autoModeConfig);
-
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_configureAutoMode);
 }
 
 /** Resets the SGI in AUTO mode to 0. */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_resetAutoMode)
-void mcuxClSgi_Drv_resetAutoMode(void)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_resetAutoMode(void)
 {
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_resetAutoMode);
   mcuxClSgi_Sfr_writeAutoMode(0u);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_resetAutoMode);
 }
 
 /** Stops a Cipher/MAC operation in AUTO mode, disables AUTO mode */
@@ -133,16 +137,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_enableInputDmaHandshake(void)
   const uint32_t autoDmaCtrl = mcuxClSgi_Sfr_readAutoDmaCtrl();
   mcuxClSgi_Sfr_writeAutoDmaCtrl(autoDmaCtrl | MCUXCLSGI_SFR_AUTO_MODE_DMA_IFE_EN);
 MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_enableInputDmaHandshake);
-}
-
-/** Disables input FIFO DMA handshake for AUTO mode */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_disableInputDmaHandshake)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_disableInputDmaHandshake(void)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_disableInputDmaHandshake);
-  const uint32_t autoDmaCtrl = mcuxClSgi_Sfr_readAutoDmaCtrl();
-  mcuxClSgi_Sfr_writeAutoDmaCtrl(autoDmaCtrl & (~MCUXCLSGI_SFR_AUTO_MODE_DMA_IFE_EN));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_disableInputDmaHandshake);
 }
 
 #endif /* SGI_HAS_AES_AUTO_MODE */
@@ -317,6 +311,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
     mcuxClSgi_Sfr_writeWord(offset + (4u*length), 1u);
     mcuxClSgi_Sfr_writeCtrl2(config2 | MCUXCLSGI_SFR_CTRL2_INCR | MCUXCLSGI_SFR_CTRL2_INCR_CIN);
   }
+  /* Protect the passed offset. */
+  MCUX_CSSL_DI_EXPUNGE(inputParam, offset);
 
   //Restore config
   mcuxClSgi_Sfr_writeCtrl2(config2);
@@ -412,9 +408,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_triggerOutput(void)
 
 /** Get result from output register */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Drv_storeWord)
-uint32_t mcuxClSgi_Drv_storeWord(uint32_t offset)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClSgi_Drv_storeWord(uint32_t offset)
 {
-  return mcuxClSgi_Sfr_readWord(offset);
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_storeWord);
+  uint32_t result = mcuxClSgi_Sfr_readWord(offset);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSgi_Drv_storeWord, result);
 }
 
 #ifdef SGI_HAS_PRNG_SW_READ
@@ -512,7 +510,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_flushRegisterBanks(
   uint32_t numberOfWords)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Drv_flushRegisterBanks);
-
+  uint32_t localOffset = offset;
 #ifdef SGI_HAS_FLUSHWR /* SGI has the flush on write functionality available */
 
   MCUX_CSSL_FP_FUNCTION_CALL(ctrl2Backup, mcuxClSgi_Drv_enableFlushWr());
@@ -521,11 +519,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_flushRegisterBanks(
   {
     /* Writing any value to an SFR while flush-on-write is enabled causes random data to be written instead */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("offset calculations cannot wrap")
-    mcuxClSgi_Sfr_writeWord(offset + (i*sizeof(uint32_t)), 0xFFUL);
+    mcuxClSgi_Sfr_writeWord(localOffset, 0xFFUL);
+    localOffset = localOffset + sizeof(uint32_t);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
   }
 
   mcuxClSgi_Sfr_writeCtrl2(ctrl2Backup);
+  MCUX_CSSL_DI_EXPUNGE(inputParam,localOffset);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_flushRegisterBanks,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableFlushWr)
@@ -540,12 +540,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Drv_flushRegisterBanks(
     /* Writing random value to SFR */
     MCUXCLPRNG_GET_WORD(rng);
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("offset calculations cannot wrap")
-    mcuxClSgi_Sfr_writeWord(offset + (i*sizeof(uint32_t)), rng);
+    mcuxClSgi_Sfr_writeWord(localOffset, rng);
+    localOffset = localOffset + sizeof(uint32_t);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
   }
 
   MCUXCLPRNG_RESTORE();
-
+  MCUX_CSSL_DI_EXPUNGE(inputParam,localOffset);
+  
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Drv_flushRegisterBanks);
 #endif /* SGI_HAS_FLUSHWR */
 }

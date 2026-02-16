@@ -55,7 +55,8 @@
  * @param pRhs   The right-hand side data to compare. Must not be NULL.
  * @param length The number of bytes to compare.
  * @return A status code encapsulated in a flow-protection type.
- * @retval #MCUXCSSLMEMORY_STATUS_EQUAL If the contents of @p lhs and @p rhs are equal or if @p length is zero.
+ * @retval #MCUXCSSLMEMORY_STATUS_ZERO_LENGTH If @p length is zero.
+ * @retval #MCUXCSSLMEMORY_STATUS_EQUAL If the contents of @p lhs and @p rhs are equal.
  * @retval #MCUXCSSLMEMORY_STATUS_NOT_EQUAL If the contents of @p lhs and @p rhs are not equal.
  * @retval #MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER If one of the parameters was invalid (i.e. @p lhs or @p rhs was NULL).
  * @retval #MCUXCSSLMEMORY_STATUS_FAULT If a fault was detected.

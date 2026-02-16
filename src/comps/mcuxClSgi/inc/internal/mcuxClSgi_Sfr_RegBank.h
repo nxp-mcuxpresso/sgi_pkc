@@ -142,6 +142,7 @@ static inline uint32_t mcuxClSgi_Sfr_readWord(uint32_t sfrOffset)
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_HW_WRITE()
 }
 
+#ifdef SGI_HAS_KEY_WRAP_UNWRAP
 /** Read the KEY_WRAP SFR. */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Sfr_readWrappedKeyWord)
 static inline uint32_t mcuxClSgi_Sfr_readWrappedKeyWord(void)
@@ -150,7 +151,7 @@ static inline uint32_t mcuxClSgi_Sfr_readWrappedKeyWord(void)
   volatile uint32_t wrappedKeyWord = (uint32_t) *(mcuxClSgi_Sfr_getAddr(MCUXCLSGI_SFR_KEY_WRAP_OFFSET));
   return wrappedKeyWord;
 }
-
+#endif /* SGI_HAS_KEY_WRAP_UNWRAP */
 
 #ifdef __cplusplus
 } /* extern "C" */

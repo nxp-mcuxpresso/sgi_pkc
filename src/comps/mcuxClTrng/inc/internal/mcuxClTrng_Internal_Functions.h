@@ -53,7 +53,7 @@ extern "C" {
  * @retval #MCUXCLTRNG_STATUS_ERROR          The operation failed
  * @retval #MCUXCLTRNG_STATUS_FAULT_ATTACK   A fault attack is detected
  *
- * Data Integrity: Record(entropyInputLength)
+ * Data Integrity: Expunge (entropyInputLength)
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClTrng_getEntropyInput)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
@@ -63,7 +63,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
     );
 
 /**
- * @brief Function to init TRNG before use. 
+ * @brief Function to init TRNG before use.
  * @deprecated This function is deprecated, kept only for backward compatibility.
  *
  * @param[in]   pSession            Handle for the current CL session.

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -22,20 +22,18 @@
 /**
  * @brief Function used to copy data from SGI to user
  *
- * @param[in]     session     Handle for the current CL session, it is UNUSED.
- * @param[in]     pWa         pointer to workarea used in cipher mode.
+ * @param[in]     pWa         pointer to workarea used in cipher mode (word-aligned).
  * @param[in,out] outBuf      pointer to buffer of output data.
  * @param[in]     offset      offset in outBuf to write.
  * @param[in]     byteLength  length of data to copy in byte.
  *
  * @post
- *  - Data Integrity: Expunge(outBuf + offset + mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET) + byteLength)
+ *  - Data Integrity: Expunge(outBuf + offset + MCUXCLSGI_DRV_DATOUT_OFFSET + byteLength)
  *
  * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_copyOut_toPtr, mcuxClSgi_copyOut_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
-  mcuxClSession_Handle_t session,
   void* pWa,
   mcuxCl_Buffer_t outBuf,
   uint32_t offset,
@@ -46,7 +44,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
  * @brief Function to request DMA input and output channels and to write the workarea into the session job context.
  *
  * @param[in] session                           Session that requests the channels
- * @param[in] pWa                               Pointer to the workarea to be written into the session job context
+ * @param[in] pWa                               Pointer to the workarea (word-aligned) to be written into the session job context
  * @param[in] callbackFunction                  Callback function to be written into the session job context
  * @param[in] protectionToken_callbackFunction  Protection token of the callback function
  */
@@ -66,15 +64,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_requestDmaChannelsAndConfigu
  * from the AES key context and IV to to the SGI.
  *
  * @param           session           Handle for the current session.
- * @param           pCtx              Pointer to AES context.
- * @param[in]       pWa               Pointer to cpu workarea
+ * @param           pCtx              Pointer to AES context (word-aligned).
+ * @param[in]       pWa               Pointer to cpu workarea (word-aligned)
  * @param[in]       inLength          Length of input data
  * @param[out]      pKeyChecksum      Will be set to loaded key checksum in key was loaded
  *
  * @return void
 */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_loadMaskedKeyAndIvtoSgi)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_loadMaskedKeyAndIvtoSgi(
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipherModes_loadKeyAndIvtoSgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_loadKeyAndIvtoSgi(
   mcuxClSession_Handle_t session,
   mcuxClCipherModes_Context_Aes_Sgi_t * pCtx,
   mcuxClCipherModes_WorkArea_t * pWa,

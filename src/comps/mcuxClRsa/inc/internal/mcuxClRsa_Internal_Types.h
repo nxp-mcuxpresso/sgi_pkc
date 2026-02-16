@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -51,7 +51,7 @@ extern "C" {
 #define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDA0_FAILED   ((mcuxClRsa_Status_t) 0xB2B2ADADu )  ///< RSA key generation test failed at the stage of GCD with A0
 #define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDE_FAILED    ((mcuxClRsa_Status_t) 0xB2B2AEAEu )  ///< RSA key generation test failed at the stage of GCD with E
 #define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_MRT_FAILED     ((mcuxClRsa_Status_t) 0xB2B2AFAFu )  ///< RSA key generation test failed at the stage of Miller Rabin Test
-#define MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID          ((mcuxClRsa_Status_t) 0xB2B2ACACu )  ///< The private exponent d does not meet the FIPS 186-4 (B.3.1, step 3) requirements
+#define MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID          ((mcuxClRsa_Status_t) 0xB2B2ACACu )  ///< The private exponent d does not meet the FIPS 186-5 (A.1.1, step 3) requirements
 
 /** @} */
 

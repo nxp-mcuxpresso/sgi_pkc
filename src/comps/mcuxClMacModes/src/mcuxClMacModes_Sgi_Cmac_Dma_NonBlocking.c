@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -88,12 +88,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC_nonBl
   uint32_t fullBlocksLength = inLength - lastBlockLength; /* length of all full blocks, except the last one (if full) */
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
-  /* Generate subkeys */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_CmacGenerateSubKeys));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_CmacGenerateSubKeys(session, workArea));
-
   /* Load all-zero IV to DATOUT (needed by AUTO mode CMAC) */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_loadZeroIV));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_loadZeroIV());
 
   uint32_t sgiCtrl = MCUXCLSGI_DRV_CTRL_ENC            |
@@ -109,16 +104,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC_nonBl
     /* For only one block of data, SGI AUTO-mode is not needed. */
 
     /* Copy input to SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLBUFFER_GET(pIn)));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
     /* Perform crypt operation */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLSGI_DRV_CTRL_END_UP                  |
                                                       MCUXCLSGI_DRV_CTRL_INSEL_DATIN0_XOR_DATOUT | /* IV stored in DATOUT, P0 ^ IV */
                                                       MCUXCLSGI_DRV_CTRL_OUTSEL_RES              |
@@ -133,27 +124,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC_nonBl
     /* For multiple blocks, use SGI AUTO mode with handshakes, non-blocking */
 
     /* Configure the DMA channels */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputWithHandshakes(
       session,
       MCUXCLSGI_DRV_DATIN0_OFFSET,
       MCUXCLBUFFER_GET(pIn)));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks(session, nrOfBlocks));
 
     /* Enable interrupts for the completion of the input channel, and for errors. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(inputChannel));
 
     /* Enable SGI AUTO mode CBC */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureAutoMode(MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_CMAC));
 
     /* Start the operation - this will start the SGI-DMA interaction in the background, CPU is not blocked */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_startAutoModeWithHandshakes(
       sgiCtrl | MCUXCLSGI_DRV_CTRL_NO_UP,
       MCUXCLSGI_UTILS_OUTPUT_HANDSHAKE_DISABLE));
@@ -165,8 +150,57 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC_nonBl
     status = MCUXCLMAC_STATUS_OK;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_computeCMAC_nonBlocking, status);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_computeCMAC_nonBlocking, status,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_loadZeroIV),
+    MCUX_CSSL_FP_CONDITIONAL( (1u == nrOfBlocks),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start)),
+    MCUX_CSSL_FP_CONDITIONAL( (nrOfBlocks > 1u),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputWithHandshakes),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes))
+  );
 }
+
+MCUX_CSSL_FP_COUNTER_STMT(
+/* balancing the FP for non-blocking CMAC update engine */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_updateCMAC_nonBlocking_balancingFP)
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_updateCMAC_nonBlocking_balancingFP(uint32_t blockBufferUsed_FP,
+                                                                                         uint32_t blockBufferUsed_FP_2,
+                                                                                         uint32_t remainingInputBytes_FP,
+                                                                                         uint32_t nrOfBlocks)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_updateCMAC_nonBlocking_balancingFP);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_updateCMAC_nonBlocking_balancingFP,
+      MCUX_CSSL_FP_CONDITIONAL( ((blockBufferUsed_FP > 0u) && (MCUXCLAES_BLOCK_SIZE != blockBufferUsed_FP)),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureDataTransfer),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_startChannel),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copyBlockSfrMasked),
+      MCUX_CSSL_FP_CONDITIONAL( ((MCUXCLAES_BLOCK_SIZE == blockBufferUsed_FP_2) &&
+                        (remainingInputBytes_FP > 0u)),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start)),
+      MCUX_CSSL_FP_CONDITIONAL((1u == nrOfBlocks),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start)),
+      MCUX_CSSL_FP_CONDITIONAL((nrOfBlocks > 1u),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputWithHandshakes),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes))
+            );
+})
 
 /* Non-blocking CMAC update engine */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_updateCMAC_nonBlocking, mcuxClMacModes_UpdateFunc_t)
@@ -181,12 +215,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_updateCMAC_nonBlocking);
 
-  if(0u == inLength)
-  {
-    /* Nothing to do */
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_updateCMAC_nonBlocking, MCUXCLMAC_STATUS_OK);
-  }
-
   if(inLength > MCUXCLDMA_UTILS_SGI_AUTOMODE_MAX_INPUT_SIZE)
   {
     MCUXCLSESSION_ERROR(session, MCUXCLMAC_STATUS_INVALID_PARAM);
@@ -196,6 +224,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
   {
     MCUXCLSESSION_ERROR(session, MCUXCLMAC_STATUS_INVALID_PARAM);
   }
+
   pContext->totalInput += inLength;
 
   /* Local input buffer */
@@ -209,6 +238,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
 
   /* If context buffer has bytes, fill the rest of the context buffer with input data; copy as many bytes as possible */
   uint32_t bytesToCopy = 0u;
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsed_FP = pContext->blockBufferUsed );
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsed_FP_2 = 0u );
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t remainingInputBytes_FP = 0u );
   if((pContext->blockBufferUsed > 0u) && (MCUXCLAES_BLOCK_SIZE != pContext->blockBufferUsed))
   {
     bytesToCopy = ((MCUXCLAES_BLOCK_SIZE - pContext->blockBufferUsed) > inLength)
@@ -216,13 +248,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
                     : (MCUXCLAES_BLOCK_SIZE - pContext->blockBufferUsed);
 
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureDataTransfer));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureDataTransfer(
       inputChannel,
       MCUXCLBUFFER_GET(pInLocal),
       ((uint8_t *)pContext->blockBuffer + pContext->blockBufferUsed),
       bytesToCopy));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_startChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_startChannel(inputChannel));
 
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("blockBufferUsed has an upper bound of MCUXCLAES_BLOCK_SIZE")
@@ -234,7 +264,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
     /* Wait for data copy to finish and check for errors */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
   }
 
@@ -248,17 +277,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
   /* Load the pre-tag to DATOUT */
   const uint32_t *pSrc_maskedPreTag = (const uint32_t *)pContext->maskedPreTag;
   uint32_t *pDst_sgiDatout = mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, (uint32_t) pDst_sgiDatout);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, (uint32_t) pSrc_maskedPreTag);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, 16u);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copySfrMasked(
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pDst_sgiDatout);
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pSrc_maskedPreTag);
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
     pDst_sgiDatout,
     pSrc_maskedPreTag,
-    16u,
-    pContext->keyContext.keySeed));
+    pContext->keyContext.sfrSeed));
 
    /* Process the data in the context buffer, if possible */
+  MCUX_CSSL_FP_COUNTER_STMT(blockBufferUsed_FP_2 = pContext->blockBufferUsed);
+  MCUX_CSSL_FP_COUNTER_STMT(remainingInputBytes_FP = remainingInputBytes);
   if((MCUXCLAES_BLOCK_SIZE == pContext->blockBufferUsed) &&
       (remainingInputBytes > 0u) /* if block buffer is filled with the last block, leave it there to be handled during Finalize */ )
   {
@@ -266,12 +295,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
 
     /* Load the input block to DATIN0 - DMA transfer not needed because this is not a direct I/O operation.
        The block buffer is always filled with the DMA. */
-    MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET)) + ((uint32_t)pContext->blockBuffer) + 16u);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
+    MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET)) + ((uint32_t)pContext->blockBuffer) + 16u);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, (uint8_t *)pContext->blockBuffer));
 
     /* Perform encryption */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
       sgiCtrl                                   |
       MCUXCLSGI_DRV_CTRL_END_UP                  |
@@ -295,16 +322,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
     /* For only one block of data, SGI AUTO-mode is not needed. */
 
     /* Copy input to SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLBUFFER_GET(pInLocal)));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
     /* Perform encryption */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
       sgiCtrl                                   |
       MCUXCLSGI_DRV_CTRL_END_UP                  |
@@ -319,27 +342,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
     /* For multiple blocks, use SGI AUTO mode with handshakes. */
 
     /* Configure the DMA channel */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputWithHandshakes(
       session,
       MCUXCLSGI_DRV_DATIN0_OFFSET,
       MCUXCLBUFFER_GET(pInLocal)));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiInputHandshakes_writeNumberOfBlocks(session, nrOfBlocks));
 
     /* Enable interrupts for the completion of the input channel, and for errors. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(inputChannel));
 
     /* Enable SGI AUTO mode CBC */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureAutoMode(MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_CMAC));
 
     /* Start the operation - this will start the SGI-DMA interaction in the background, CPU is not blocked */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_startAutoModeWithHandshakes(
       sgiCtrl | MCUXCLSGI_DRV_CTRL_NO_UP,
       MCUXCLSGI_UTILS_OUTPUT_HANDSHAKE_DISABLE));
@@ -351,6 +368,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
     status = MCUXCLMAC_STATUS_OK;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_updateCMAC_nonBlocking, status);
+  MCUX_CSSL_FP_COUNTER_STMT(MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_updateCMAC_nonBlocking_balancingFP(blockBufferUsed_FP,
+                                                                                                           blockBufferUsed_FP_2,
+                                                                                                           remainingInputBytes_FP,
+                                                                                                           nrOfBlocks)));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_updateCMAC_nonBlocking, status,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_updateCMAC_nonBlocking_balancingFP));
 }
 

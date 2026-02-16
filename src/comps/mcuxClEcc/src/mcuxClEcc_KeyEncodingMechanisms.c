@@ -77,7 +77,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PrivateKeyLoad_Plain
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_PrivateKeyBELoad, keyLength);
 
     /* Securely copy the private key to *pDest, reversing its endianness */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pDest, pKeyData, keyLength));
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDest, pKeyData, keyLength);
   }
   /* spec is not valid */
   else
@@ -87,7 +87,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PrivateKeyLoad_Plain
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_PrivateKeyLoad_Plain,
     MCUX_CSSL_FP_CONDITIONAL(MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int)));
+      MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT));
 }
 
 /**
@@ -191,7 +191,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyLoad_Plain(
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_PrivateKeyLELoad, subPrivKeyLength);
 
     /* Securely copy the sub private key to pDest. */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pDest, pSubPrivKeyData, subPrivKeyLength));
+    MCUXCLMEMORY_COPY_SECURE_INT(pDest, pSubPrivKeyData, subPrivKeyLength);
   }
   /* spec is not valid */
   else
@@ -201,7 +201,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyLoad_Plain(
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_PrivateKeyLoad_Plain,
     MCUX_CSSL_FP_CONDITIONAL(MCUXCLECC_ENCODING_SPEC_EDDSA_SUBPRIVKEY_LOAD_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_COMP_MASK),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)));
+      MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT));
 }
 
 
@@ -237,10 +237,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_PrivateKeyStore_Plai
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_PrivateKeyStore, keyLength);
 
   /* Securely copy the WeierECC private key to pKeyData. */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_reversed_int(pKeyData, pSrc, keyLength));
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pKeyData, pSrc, keyLength);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_WeierECC_PrivateKeyStore_Plain,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_reversed_int));
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT);
 }
 #endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_PUBKEY_STORAGE) */
 
@@ -351,10 +351,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_PrivateKeyStore_Plain(
   MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int_PrivateKeyLELoad, keyLength);
 
   /* Securely copy the sub private key to pDest. */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pDest, pSrc, keyLength));
+  MCUXCLMEMORY_COPY_SECURE_INT(pDest, pSrc, keyLength);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_PrivateKeyStore_Plain,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
+    MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT);
 }
 
 /**********************************************************/
@@ -431,6 +431,7 @@ const mcuxClKey_EncodingDescriptor_t mcuxClEcc_EncodingDescriptor_EdDSA_PrivateK
                                                                                               mcuxClEcc_EdDSA_PrivateKeyStore_Plain),
                                                                                           0u,
                                                                                           0u};
+
 
 /**
  * @brief Plain key encoding descriptor for EdDSA public keys.

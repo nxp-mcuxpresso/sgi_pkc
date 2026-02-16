@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -35,6 +35,8 @@
 #include <internal/mcuxClEcc_TwEd_Internal.h>
 #include <internal/mcuxClEcc_TwEd_Internal_FUP.h>
 
+#include <internal/mcuxClSession_Internal_EntryExit.h>
+
 
 /*
 * Function that implements the TwEd LadderStep.
@@ -58,13 +60,11 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_LadderStep(
     if (MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
     {
         MCUX_CSSL_DI_EXPUNGE(varScalarMult, MCUXCLECC_SCALARMULT_OPTION_SECURE);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_SecurePointSelectML));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_SecurePointSelectML(maskedCurrentScalarWord, currentScalarWordMask, currentScalarBitInWord, TWED_ML_Y1, TWED_VY1));
     }
     else if (MCUXCLECC_SCALARMULT_OPTION_PLAIN == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
     {
         MCUX_CSSL_DI_EXPUNGE(varScalarMult, MCUXCLECC_SCALARMULT_OPTION_PLAIN);
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_PlainPtrSelectML));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_TwEd_PlainPtrSelectML(pSession, currentScalarWord, (uint8_t)currentScalarBitInWord));
     }
     else
@@ -73,7 +73,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_LadderStep(
     }
 
     /* Perform the ladder step to calculate (VY2:VZ2) = (VY1:VZ1) + (VY2:VZ2) and (VY1:VZ1) = 2*(VY1:VZ1) */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_VarScalarMult_YZMontLadder_LadderStep, mcuxClEcc_FUP_VarScalarMult_YZMontLadder_LadderStep_LEN);
 
     /*
@@ -84,24 +83,21 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_LadderStep(
             && ((0u < i) && (0u == (i & (MCUXCLECC_TWED_VARSCALARMULT_POINT_RANDOMIZE_PER_BITS - 1u)))))
     {
         /* Re-randomize the accumulated points' coordinates */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
 
         MCUXCLPKC_WAITFORREADY();
         pOperands[TWED_V1] = pOperands[TWED_ML_Y1];
         pOperands[TWED_V3] = pOperands[TWED_ML_Z1];
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
         MCUXCLPKC_FP_CALCFUP_OFFSET(mcuxClEcc_FUP_TwEd_UpdateExtHomCoords, mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XT_LEN, mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_YZ_LEN);
 
         MCUXCLPKC_WAITFORREADY();
         pOperands[TWED_V1] = pOperands[TWED_ML_Y2];
         pOperands[TWED_V3] = pOperands[TWED_ML_Z2];
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
+
         MCUXCLPKC_FP_CALCFUP_OFFSET(mcuxClEcc_FUP_TwEd_UpdateExtHomCoords, mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XT_LEN, mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_YZ_LEN);
 
         /* Shuffle the accumulated points' buffers */
         MCUXCLPKC_WAITFORFINISH();
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ReRandomizeUPTRT));
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("operandSize fits into uint16_t")
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPkc_ReRandomizeUPTRT(&pOperands[TWED_ML_Y1],
                                                             (uint16_t)operandSize,
@@ -109,7 +105,18 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_LadderStep(
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_LadderStep);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_LadderStep,
+        MCUX_CSSL_FP_CONDITIONAL(MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_SecurePointSelectML)),
+        MCUX_CSSL_FP_CONDITIONAL(MCUXCLECC_SCALARMULT_OPTION_PLAIN == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_PlainPtrSelectML)),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+        MCUX_CSSL_FP_CONDITIONAL(((MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
+                && ((0u < i) && (0u == (i & (MCUXCLECC_TWED_VARSCALARMULT_POINT_RANDOMIZE_PER_BITS - 1u))))),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ReRandomizeUPTRT)));
 }
 
 /*
@@ -124,14 +131,11 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult_ConvertAnd
 
     if(MCUXCLECC_SCALARMULT_OPTION_AFFINE_OUTPUT == (MCUXCLECC_SCALARMULT_OPTION_OUTPUT_MASK & options))
     {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModInv));
-        MCUXCLMATH_FP_MODINV(ECC_T0, TWED_Z, ECC_P, ECC_T1);         /* T0 = Z^(-1)*R^(-1) mod p    */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
+        MCUXCLECC_FP_MODINV(ECC_T0, TWED_Z, ECC_P, ECC_T1, ECC_T3);         /* T0 = Z^(-1)*R^(-1) mod p    */
         MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_ConvertHomToAffine, mcuxClEcc_FUP_ConvertHomToAffine_LEN);
 
         if(MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION == (MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION_MASK & options))
         {
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
             MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_TwEd_PointValidation_AffineNR, mcuxClEcc_FUP_TwEd_PointValidation_AffineNR_LEN);
             if (MCUXCLPKC_FLAG_ZERO != MCUXCLPKC_WAITFORFINISH_GETZERO())
             {
@@ -155,7 +159,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult_ConvertAnd
     {
         if(MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION == (MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION_MASK & options))
         {
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
             MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_TwEd_PointValidation_HomMR, mcuxClEcc_FUP_TwEd_PointValidation_HomMR_LEN);
             if (MCUXCLPKC_FLAG_ZERO != MCUXCLPKC_WAITFORFINISH_GETZERO())
             {
@@ -172,7 +175,16 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult_ConvertAnd
         }
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_VarScalarMult_ConvertAndValidateOutput);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_VarScalarMult_ConvertAndValidateOutput,
+        MCUX_CSSL_FP_CONDITIONAL(MCUXCLECC_SCALARMULT_OPTION_AFFINE_OUTPUT == (MCUXCLECC_SCALARMULT_OPTION_OUTPUT_MASK & options),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ModInv),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+            MCUX_CSSL_FP_CONDITIONAL(MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION == (MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION_MASK & options),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup))
+        ),
+        MCUX_CSSL_FP_CONDITIONAL(((MCUXCLECC_SCALARMULT_OPTION_AFFINE_OUTPUT != (MCUXCLECC_SCALARMULT_OPTION_OUTPUT_MASK & options)) &&
+            MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION == (MCUXCLECC_SCALARMULT_OPTION_OUTPUT_VALIDATION_MASK & options)),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)));
 }
 
 /**
@@ -231,11 +243,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
      *       the X-coordinate is zero mod p, for the only two points with X = 0 are the neutral point (0:Z:Z) and the point of order 2 (0:-Z:Z),
      *       which is an invalid input for this function.
      */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_MC1_MR);
     MCUXCLPKC_FP_CALC_MC1_MR(ECC_T0, TWED_X, ECC_P);
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_MC1_MS);
     MCUXCLPKC_FP_CALC_MC1_MS(ECC_T0, ECC_T0, ECC_P, ECC_P);
-    if (MCUXCLPKC_FLAG_NONZERO == MCUXCLPKC_WAITFORFINISH_GETZERO())
+
+    MCUX_CSSL_FP_LOOP_DECL(whileLoop);
+
+    uint32_t zeroFlag = MCUXCLPKC_WAITFORFINISH_GETZERO();
+    if (MCUXCLPKC_FLAG_NONZERO == zeroFlag)
     {
         /* Step 2: Initialize the accumulated points in YZ-coordinates
         * Only when MCUXCLECC_SCALARMULT_OPTION_SECURE is enabled in options,
@@ -245,10 +259,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
         if (MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
         {
             MCUXCLPKC_WAITFORFINISH();
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_RandomizeUPTRT));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPkc_RandomizeUPTRT(&pOperands[TWED_ML_Y1], (TWED_ML_Z2 - TWED_ML_Y1 + 1u)));
-
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, ECC_T0));
 
             /* Re-randomize the accumulated point's coordinates */
@@ -257,26 +268,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
             pOperands[TWED_V1] = pOperands[TWED_Y];
             pOperands[TWED_V2] = pOperands[TWED_T];
             pOperands[TWED_V3] = pOperands[TWED_Z];
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
+
             MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_TwEd_UpdateExtHomCoords, mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_LEN);
         }
 
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
         MCUXCLPKC_FP_CALC_OP1_OR_CONST(TWED_ML_Y1, TWED_Z, 0u);
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
         MCUXCLPKC_FP_CALC_OP1_OR_CONST(TWED_ML_Z1, TWED_Z, 0u);
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
         MCUXCLPKC_FP_CALC_OP1_OR_CONST(TWED_ML_Y2, TWED_Y, 0u);
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
         MCUXCLPKC_FP_CALC_OP1_OR_CONST(TWED_ML_Z2, TWED_Z, 0u);
 
         /* Step 3: Import ladder constant (a/d mod p), convert it to MR modulo p, and store it in buffer ECC_CP0. */
         MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
         uint32_t byteLenP = (uint32_t) pDomainParams->byteLenP;
         const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc));
+
         MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_DI_BALANCED(ECC_T0, pDomainParams->pLadderConst, byteLenP, operandSize);
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_MC1_MM);
         MCUXCLPKC_FP_CALC_MC1_MM(ECC_CP0, ECC_T0, ECC_PQSQR, ECC_P);
 
         MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
@@ -288,8 +294,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
         uint32_t currentScalarWordMask = MCUXCLECC_RANDOM_WORD;
         uint32_t currentScalarWord = 0u;
         uint32_t maskedCurrentScalarWord = 0u;
-        //MCUX_CSSL_FP_LOOP_DECL(whileLoop);  TODO: hardening CLNS-16864
-        // MCUX_CSSL_FP_BRANCH_DECL(ifInWhile);
+
+        MCUX_CSSL_FP_BRANCH_DECL(ifInWhile);
         while(0u < i)
         {
             /* Update loop counter, deviation from the design to let iterate over unsigned value */
@@ -298,32 +304,32 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
             /* Select pointers pOperands[TWED_VY1],...,pOperands[TWED_VZ2] according to the bit to be processed */
             if((i == (scalarBitLength - 1u)) || ((i % 32u) == 31u))
             {
-                MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word));
                 MCUX_CSSL_FP_FUNCTION_CALL(prngGenerateWordRet, mcuxClPrng_generate_word());
                 currentScalarWordMask = prngGenerateWordRet;
                 MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();  // avoid CPU accessing to PKC workarea when PKC is busy
                 uint32_t currentScalarWordIndex = i / 32u;
                 currentScalarWord = pScalar[currentScalarWordIndex];
                 maskedCurrentScalarWord = currentScalarWord ^ currentScalarWordMask;
-                // MCUX_CSSL_FP_BRANCH_POSITIVE(ifInWhile);
+
+                MCUX_CSSL_FP_BRANCH_POSITIVE(ifInWhile, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word));
             }
 
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_LadderStep));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(
               mcuxClEcc_TwEd_LadderStep(pSession, pOperands, operandSize, options, i, currentScalarWordMask, maskedCurrentScalarWord, currentScalarWord)
             );
 
+            MCUX_CSSL_FP_LOOP_ITERATION(whileLoop,
+                MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(ifInWhile, (i == (scalarBitLength - 1u)) || ((i % 32u) == 31u)),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_LadderStep)
+            );
         }
 
         /* Step 5: Import curve parameter a, convert it to MR modulo p, and store it in buffer ECC_CP0. */
         MCUXCLPKC_WAITFORFINISH();
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc));
         MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_DI_BALANCED(ECC_T0, pDomainParams->pCurveParam1, byteLenP, operandSize);
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_MC1_MM);
         MCUXCLPKC_FP_CALC_MC1_MM(ECC_CP0, ECC_T0, ECC_PQSQR, ECC_P);
 
         /* Step 6: Recover the missing X-coordinate */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
         MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate, mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate_LEN);
     }
     else if (MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_WAITFORFINISH_GETZERO())
@@ -331,11 +337,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
         /* Passed input point is the neutral point, hence if-statement is not executed with DI balancing and we have to balance it here */
         if (MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
         {
-            MCUX_CSSL_DI_EXPUNGE(varScalarMult, MCUXCLECC_SCALARMULT_OPTION_SECURE * scalarBitLength);
+            MCUX_CSSL_DI_EXPUNGE(varScalarMult, MCUXCLECC_SCALARMULT_OPTION_SECURE * scalarBitLength * (MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_GETZERO() ? 1u : 0u));
         }
         else if (MCUXCLECC_SCALARMULT_OPTION_PLAIN == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options))
         {
-            MCUX_CSSL_DI_EXPUNGE(varScalarMult, MCUXCLECC_SCALARMULT_OPTION_PLAIN * scalarBitLength);
+            MCUX_CSSL_DI_EXPUNGE(varScalarMult, MCUXCLECC_SCALARMULT_OPTION_PLAIN * scalarBitLength * (MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_GETZERO() ? 1u : 0u));
         }
         else
         {
@@ -351,8 +357,25 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_VarScalarMult(
      *            - convert the result to affine coordinates in NR
      *            - validate the resulting point. */
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_VarScalarMult_ConvertAndValidateOutput));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_TwEd_VarScalarMult_ConvertAndValidateOutput(pSession, options));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_VarScalarMult);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_VarScalarMult,
+    MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
+    MCUXCLPKC_FP_CALLED_CALC_MC1_MS,
+    MCUX_CSSL_FP_CONDITIONAL(MCUXCLPKC_FLAG_NONZERO == zeroFlag,
+        MCUX_CSSL_FP_CONDITIONAL(MCUXCLECC_SCALARMULT_OPTION_SECURE == (MCUXCLECC_SCALARMULT_OPTION_SECURE_MASK & options),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_RandomizeUPTRT),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)),
+        MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
+        MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
+        MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
+        MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
+        MCUX_CSSL_FP_LOOP_ITERATIONS(whileLoop, scalarBitLength),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc),
+        MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc),
+        MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_TwEd_VarScalarMult_ConvertAndValidateOutput));
 }

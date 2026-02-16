@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -32,10 +32,13 @@ extern "C" {
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
+/* Used as option for mcuxClMacModes_CmacGenerateSubKeys */
+#define MCUXCLMACMODES_AES_CMAC_K1_ONLY    (0xA5A5U)
+#define MCUXCLMACMODES_AES_CMAC_K1_AND_K2  (0x5A5AU)
+
 /* Internal CMAC defines */
 #define MCUXCLMACMODES_AES_CMAC_MSB_MASK (0x80000000u)
 #define MCUXCLMACMODES_AES_CMAC_RB_CONST (0x87u)
-
 
 /* Internal CMAC functions */
 
@@ -45,10 +48,10 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
  * @param[in]  mode      Mac mode that should be used during the computation.
  * @param[in]  pIn       Pointer to the input to be processed.
- * @param[in]  inLength    Size of input buffer pointed to by pIn.
+ * @param[in]  inLength  Size of input buffer pointed to by pIn.
  *
  * @return mcuxClMac_Status_t  Status of the operation
  * @retval MCUXCLMAC_STATUS_FAILURE Operation failed
@@ -72,10 +75,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
  * @param[in]  mode      Mac mode that should be used during the computation.
  * @param[in]  pIn       Pointer to the input to be processed.
- * @param[in]  inLength    Size of input buffer pointed to by pIn.
+ * @param[in]  inLength  Size of input buffer pointed to by pIn.
  *
  * @return mcuxClMac_Status_t  Status of the operation
  * @retval MCUXCLMAC_STATUS_FAILURE Operation failed
@@ -98,7 +101,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC_nonBl
  * a CMAC oneshot (compute/compare) operation. It completes the engine operation.
  *
  * @param      session         Handle for the current CL session.
- * @param      pWa             pointer to mac wa for data sharing across interrupts
+ * @param      pWa             pointer to mac wa for data sharing across interrupts (word-aligned)
  *
  * @pre Full input blocks where already processed (either blocking or non-blocking)
  *
@@ -121,8 +124,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_handleLastBlock_cmac_oneshot(
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  * @param[in]  pIn       Pointer to the input to be processed.
  * @param[in]  inLength    Size of input buffer pointed to by @p pIn.
  * @param[out] pProcessedBytes  Number of bytes processed from @p pIn. RFU.
@@ -149,8 +152,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC(
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  * @param[in]  pIn       Pointer to the input to be processed.
  * @param[in]  inLength    Size of input buffer pointed to by @p pIn.
  * @param[out] pProcessedBytes  Number of bytes processed from @p pIn.
@@ -176,8 +179,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC_nonBlo
  * @pre The key has been loaded to SGI.
  *
  * @param[in]  session   Handle for the current CL session.
- * @param[in]  workArea  Pointer to workarea.
- * @param[in]  pContext  Pointer to context.
+ * @param[in]  workArea  Pointer to workarea (word-aligned).
+ * @param[in]  pContext  Pointer to context (word-aligned).
  *
  * @return void
  */
@@ -194,18 +197,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCMAC(
  * @brief Internal function, which generates the subkeys K1 and K2.
  *
  * @pre The key has been loaded to SGI.
+ * @post The selected subkey is present in DATOUT
  *
- * @param[in]  pWa       Pointer to the workarea, where subkeys will be stored.
+ * @param[in]  session   Handle for the current CL session.
+ * @param[in]  pWa       Pointer to the workarea (word-aligned), where subkeys will be stored.
+ * @param[in]  option    Option to compute or skip the computation of K2.
+ *                       Either MCUXCLMACMODES_AES_CMAC_K1_ONLY
+ *                       or MCUXCLMACMODES_AES_CMAC_K1_AND_K2.
  *
  * @return void
  *
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMacModes_CmacGenerateSubKeys)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CmacGenerateSubKeys(mcuxClSession_Handle_t session, mcuxClMacModes_WorkArea_t* pWa);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CmacGenerateSubKeys(mcuxClSession_Handle_t session, mcuxClMacModes_WorkArea_t* pWa, uint32_t option);
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
-
-
 
 #ifdef __cplusplus
 } /* extern "C" */

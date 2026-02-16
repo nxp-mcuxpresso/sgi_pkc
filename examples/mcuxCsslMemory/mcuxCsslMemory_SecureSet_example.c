@@ -24,7 +24,7 @@
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
 #include <mcuxCsslParamIntegrity.h>
 
-bool mcuxCsslMemory_SecureSet_example(void)
+MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_SecureSet_example)
 {
   /* Define data array */
   uint8_t arr[33] = { 0u };

@@ -35,6 +35,7 @@
 #include <internal/mcuxClEcc_Internal_UPTRT_access.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal_FUP.h>
+#include <internal/mcuxClEcc_Weier_Internal_FP.h>
 
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 
@@ -83,15 +84,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
     /**********************************************************/
 
     /* Generate 64-bit random number d0 in buffer S0 of size = operandSize. */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_CONST);
     MCUXCLPKC_FP_CALC_OP1_CONST(ECC_S0, 0u);
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_CONST);
     MCUXCLPKC_FP_CALC_OP1_CONST(ECC_S3, 0u);
     {
         uint8_t * const ptrS0 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S0]);
         MCUXCLBUFFER_INIT(buffS0, NULL, ptrS0, 8u);
         MCUXCLPKC_WAITFORFINISH();
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate));
         MCUX_CSSL_FP_FUNCTION_CALL(ret_PRNG_randWord1, mcuxClRandom_ncGenerate(pSession, buffS0, 8u));
         MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_PRNG_randWord1);
     }  /* buffS0 scope. */
@@ -102,27 +100,22 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
     uint32_t *ptr32S3 = MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_S3]);
     ptr32S3[0u] = 0x00000000u;
     ptr32S3[1u] = 0x80000000u;
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR);
     MCUXCLPKC_FP_CALC_OP1_OR(ECC_S0, ECC_S0, ECC_S3);
 
     /* Prepare NQSQR for upcoming FUP program*/
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("the result of operandSize + bufferSize is in range of uint16")
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QDash));
     MCUXCLMATH_FP_QDASH(ECC_NQSQR, ECC_NS, ECC_N, ECC_T0, (uint16_t) (operandSize + bufferSize));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
 
     /* T0 = ModInv(d0), with temp T1. */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(ECC_S1, ECC_S0, 0u);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModInv));
-    MCUXCLMATH_FP_MODINV(ECC_T0, ECC_S1, ECC_N, ECC_T1);
+    MCUXCLECC_FP_MODINV(ECC_T0, ECC_S1, ECC_N, ECC_T1, ECC_S3);
 
     /* Generate buffer size random number d' in buffer S3. */
     {
         uint8_t * const ptrS3 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S3]);
         MCUXCLBUFFER_INIT(buffS3, NULL, ptrS3, bufferSize);
         MCUXCLPKC_WAITFORFINISH();
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate));
         MCUX_CSSL_FP_FUNCTION_CALL(ret_PRNG_GetRandom, mcuxClRandom_ncGenerate(pSession, buffS3, bufferSize));
         MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_PRNG_GetRandom);
     }  /* buffS3 scope. */
@@ -131,18 +124,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
      * to clear garbage before below additive blinding. */
     uint8_t * const ptrS2 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S2]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, (uint32_t) &ptrS2[operandSize] + MCUXCLPKC_WORDSIZE);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&ptrS2[operandSize], MCUXCLPKC_WORDSIZE));
+    MCUXCLMEMORY_CLEAR_INT(&ptrS2[operandSize], MCUXCLPKC_WORDSIZE);
 
     /* Set PS1 lengths for upcoming computation of d'' which consider operands of size bufferSize. */
     MCUXCLPKC_PS1_SETLENGTH(0u, bufferSize);
 
     /* Set d' = d' >> 1 to avoid a carry in the following addition operation */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SHR);
     MCUXCLPKC_FP_CALC_OP1_SHR(ECC_S1, ECC_S3, 1u);
 
     /* S3 = d" = d + d' */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_ADD);
     MCUXCLPKC_FP_CALC_OP1_ADD(ECC_S3, ECC_S2, ECC_S1);
 
     /* Prepare PS1 and PS2 lengths for upcoming FUP program (this restores PS1 lengths to default) */
@@ -151,14 +141,25 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
     MCUXCLPKC_PS2_SETLENGTH(bufferSize, operandSize);
 
     /* Split scalar d = d0 * d1, and convert coordinates of P to Montgomery representation. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_PointMult_SplitScalar_ConvertPoint2MR,
                         mcuxClEcc_FUP_Weier_PointMult_SplitScalar_ConvertPoint2MR_LEN);
 
     /* Check if d is zero. */
     if (MCUXCLPKC_FLAG_ZERO == MCUXCLPKC_WAITFORFINISH_GETZERO())
     {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedVarScalarMult, MCUXCLECC_INTSTATUS_SCALAR_ZERO);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedVarScalarMult, MCUXCLECC_INTSTATUS_SCALAR_ZERO,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate),
+            MCUXCLPKC_FP_CALLED_CALC_OP1_OR,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QDash),
+            MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ModInv),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate),
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_SHR,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_ADD,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     }
 
 
@@ -170,12 +171,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
     /* P will be randomized (projective coordinate randomization) in SecurePointMult. */
 
     /* Calculate Q0 = d0 * P. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_SecurePointMult));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_SecurePointMult(ECC_S0, 64u));
 
     /* In case d1 is even, perform scalar multiplication d1 * Q0 by computing (n-d1) * (-Q0) as this avoids the exceptional case d1 = n-1 */
     MCUX_CSSL_FP_BRANCH_DECL(scalarEvenBranch);
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_LSB0s);
     MCUXCLPKC_FP_CALC_OP1_LSB0s(ECC_S1);
     uint32_t d1NoOfTrailingZeros = MCUXCLPKC_WAITFORFINISH_GETZERO();
     if(MCUXCLPKC_FLAG_NONZERO == d1NoOfTrailingZeros)
@@ -189,9 +188,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
     }
 
     /* Calculate Q = d1 * Q0. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_SecurePointMult));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_SecurePointMult(ECC_S1, byteLenN * 8u));
 
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedVarScalarMult, MCUXCLECC_STATUS_OK,
+        MCUXCLECC_FP_BLINDEDVARSCALARMULT_FINAL,
         MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(scalarEvenBranch, (MCUXCLPKC_FLAG_NONZERO == d1NoOfTrailingZeros)));
 }

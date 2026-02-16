@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2023 NXP                                                 */
+/* Copyright 2021, 2023, 2026 NXP                                           */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -28,7 +28,7 @@ extern "C" {
 #define mcuxClRsa_MillerRabinTest_ReducAndCheck_FUP_LEN  4u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_MillerRabinTest_ReducAndCheck_FUP[mcuxClRsa_MillerRabinTest_ReducAndCheck_FUP_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_MillerRabinTest_ReducAndCheck_FUP);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

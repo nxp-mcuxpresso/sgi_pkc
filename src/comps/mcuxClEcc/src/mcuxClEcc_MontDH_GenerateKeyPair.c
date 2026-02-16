@@ -94,12 +94,15 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUXCLSESSION_CHECK_ERROR_FAULT(pSession, ret_checkSecurityStrength);
 
     /* Generate a M byte random private key d using the DRBG and store it in PKC buffer ECC_S3, M equals to dp->nLen */
-    MCUXCLECC_FP_RANDOM_HQRNG_PKCWA(mcuxClEcc_MontDH_GenerateKeyPair, pSession, ptrS3, keyLen, ((uint32_t*)NULL));
+    MCUXCLECC_FP_RANDOM_HQRNG(mcuxClEcc_MontDH_GenerateKeyPair, pSession, ptrS3, keyLen, ((uint32_t*)NULL));
 
     /* Call mcuxClEcc_MontDH_X to calculate the public key q=MontDH_X(d,Gx) and store it in buffer MONT_X0. If the function returns
        SCALAR_ZERO or NEUTRAL_POINT, return MCUXCLKEY_STATUS_FAULT_ATTACK */
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDHx, mcuxClEcc_MontDH_X(pSession, pDomainParameters, pDomainParameters->common.pGx));
-    if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
+    if(MCUXCLECC_INTSTATUS_SCALAR_ZERO == retCode_MontDHx)
+    {
+        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_SCALAR_ZERO);
+    } else if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
     {
         MCUXCLSESSION_FAULT(pSession, MCUXCLKEY_STATUS_FAULT_ATTACK);
     }
@@ -108,7 +111,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
         /* Store private key into key handle */
         uint8_t *pPrivKeySrc = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S3]);
         MCUXCLPKC_WAITFORFINISH();
-        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(privKey));
         MCUXCLKEY_STORE_FP(
           pSession,
           privKey,
@@ -117,7 +119,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
         /* Store public key into key handle */
         uint8_t *pPubKeySrc = MCUXCLPKC_OFFSET2PTR(pOperands[MONT_X0]);
-        MCUX_CSSL_FP_EXPECT(MCUXCLKEY_STORE_FP_CALLED(pubKey));
         MCUXCLKEY_STORE_FP(
           pSession,
           pubKey,
@@ -128,7 +129,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_linkKeyPair(pSession, privKey, pubKey));
 
         /* Import prime p and order n again, and check (compare with) existing one. */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_IntegrityCheckPN));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(
             mcuxClEcc_IntegrityCheckPN(pSession, (mcuxClEcc_CommonDomainParams_t *) &pDomainParameters->common));
 
@@ -144,6 +144,9 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
             MCUXCLECC_FP_MONTDH_GENKEYPAIR_SECSTRENGTH,
             MCUXCLECC_FP_CALLED_RANDOM_HQRNG_PKCWA,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_MontDH_X),
+            MCUXCLKEY_STORE_FP_CALLED(privKey),
+            MCUXCLKEY_STORE_FP_CALLED(pubKey),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_IntegrityCheckPN),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClKey_linkKeyPair),
             MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
     }

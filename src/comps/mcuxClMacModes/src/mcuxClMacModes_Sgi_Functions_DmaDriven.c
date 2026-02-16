@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -95,26 +95,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClMacModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClMacModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   mcuxClKey_KeyChecksum_t keyChecksums;
   pWa->sgiWa.pKeyChecksums = &keyChecksums;
 
   /* Initialize/request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE, NULL, 0U));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load key to SGI and Store configuration data in workarea*/
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, &(pWa->sgiWa), MCUXCLSGI_DRV_KEY0_OFFSET));
 
   /* Request DMA channel */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext(
     session, pWa, mcuxClMacModes_ISR_completeNonBlocking_compute,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_ISR_completeNonBlocking_compute)));
@@ -130,7 +125,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
   pWa->nonBlockingWa.processedBytes = 0u;
 
   /* Perform MAC operation */
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_compute);
   MCUX_CSSL_FP_FUNCTION_CALL(status, pAlgo->compute(
     session,
     pWa, mode,
@@ -143,12 +137,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
   if(MCUXCLMAC_STATUS_JOB_STARTED == status)
   {
     /* Early return for non-blocking */
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_compute_dmaDriven, MCUXCLMAC_STATUS_JOB_STARTED);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_compute_dmaDriven, MCUXCLMAC_STATUS_JOB_STARTED,
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext),
+          pAlgo->protectionToken_compute
+    );
   }
 
   /* Continue operation in case no non-blocking operation was started*/
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(processedBytes, 0u, inLength, MCUXCLMAC_STATUS_ERROR)
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_handleLastBlock_oneshot);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->handleLastBlock_oneshot(
     session, pWa, pAlgo,
     /* pIn, inOffset    */  pIn, processedBytes,
@@ -157,12 +157,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
 
   /* Output result of MAC operation to result buffer */
   uint32_t dataProcessed = (0u < inLength) ? MCUXCLMACMODES_TRUE : MCUXCLMACMODES_FALSE;
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_copyOut);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->copyOut(session, dataProcessed, pMac, pMacLength));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven(session, NULL, key, cpuWaSizeInWords));
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_compute_dmaDriven, MCUXCLMAC_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_compute_dmaDriven, MCUXCLMAC_STATUS_OK,
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext),
+          pAlgo->protectionToken_compute,
+          pAlgo->protectionToken_handleLastBlock_oneshot,
+          pAlgo->protectionToken_copyOut,
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven)
+    );
 }
 
 
@@ -181,11 +189,9 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
 
   /* Wait for DONE (just in case) and check errors, and clear DONE flag */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
   /* SGI needs a manual stop once all data is processed (or on DMA channel error). Disable interrupts. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaInputHandshakes));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_stopAutoModeWithDmaInputHandshakes(inputChannel));
   mcuxClDma_Drv_disableChannelDoneInterrupts(inputChannel);
   mcuxClDma_Drv_disableErrorInterrupts(inputChannel);
@@ -196,7 +202,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Total inputOffset has an upper bound of inLength")
   pWa->nonBlockingWa.inputOffset += pWa->nonBlockingWa.processedBytes;
 
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_handleLastBlock_oneshot);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->handleLastBlock_oneshot(
     session, pWa, pAlgo,
     /* pIn, inOffset    */  pWa->nonBlockingWa.pIn, pWa->nonBlockingWa.inputOffset,
@@ -208,26 +213,30 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /* Output result of MAC operation to result buffer */
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_copyOut);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->copyOut(session, MCUXCLMACMODES_TRUE, pWa->nonBlockingWa.pMac.output,
                                            pWa->nonBlockingWa.pOutputLength));
 
   /* Notify the user that the operation finished */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven(
     session,
     NULL,
     NULL /* TODO CLNS-16946: store keys in nonBlocking WA and flush it here */,
     cpuWaSizeInWords));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
   MCUX_CSSL_FP_FUNCTION_CALL(retSessionTriggerCallback, mcuxClSession_triggerUserCallback(session, MCUXCLMAC_STATUS_JOB_COMPLETED));
   if(MCUXCLSESSION_STATUS_OK != retSessionTriggerCallback)
   {
     MCUXCLSESSION_ERROR(session, retSessionTriggerCallback);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_ISR_completeNonBlocking_compute);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_ISR_completeNonBlocking_compute,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaInputHandshakes),
+            pAlgo->protectionToken_handleLastBlock_oneshot,
+            pAlgo->protectionToken_copyOut,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback)
+  );
 }
 
 
@@ -249,40 +258,34 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
   mcuxClMacModes_Context_t * const pCtx = mcuxClMacModes_castToMacModesContext(pContext);
 
   /* Check context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLMAC_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLMACMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
   if(0u == inLength)
   {
     /* Nothing to do */
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_process_dmaDriven, MCUXCLMAC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_process_dmaDriven, MCUXCLMAC_STATUS_OK
+            ,MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc)
+    );
   }
 
   /* Allocate workarea - only nonBlocking WA needed */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClMacModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   mcuxClMacModes_Algorithm_t pAlgo = mcuxClMacModes_castToMacModesAlgorithm(pCtx->common.pMode->common.pAlgorithm);
 
   /* Initialize/request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE, NULL, 0U));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load key to SGI and Store configuration data in workarea*/
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKeyFromCtx_Sgi(
     session,
     &(pCtx->keyContext),
-    NULL,
-    MCUXCLSGI_DRV_KEY0_OFFSET,
-    MCUXCLAES_MASKED_KEY_SIZE));
+    NULL));
 
   /* Request DMA channel */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext(session, pWa, mcuxClMacModes_ISR_completeNonBlocking_multipart,
                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_ISR_completeNonBlocking_multipart)));
 
@@ -295,7 +298,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
   pWa->nonBlockingWa.processedBytes = 0u;
 
   /* Call update function */
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_update);
   MCUX_CSSL_FP_FUNCTION_CALL(status, pAlgo->update(
     session,
     pWa,
@@ -309,13 +311,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
   if(MCUXCLMAC_STATUS_JOB_STARTED == status)
   {
     /* Early exit for non-blocking */
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_process_dmaDriven, MCUXCLMAC_STATUS_JOB_STARTED);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_process_dmaDriven, MCUXCLMAC_STATUS_JOB_STARTED,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext),
+            pAlgo->protectionToken_update);
   }
 
 
   /* Continue operation in case no non-blocking operation was started */
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(processedBytes, 0u, inLength, MCUXCLMAC_STATUS_ERROR)
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_handleLastBlock_update));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_handleLastBlock_update(
     session,
     pCtx,
@@ -324,12 +332,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
     /* remainingBytes   */ (inLength - processedBytes)));
 
   /* Update context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLMAC_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pContext, MCUXCLMACMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords));
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_process_dmaDriven, MCUXCLMAC_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_process_dmaDriven, MCUXCLMAC_STATUS_OK,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_requestDmaInputChannelAndConfigureJobContext),
+            pAlgo->protectionToken_update,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_handleLastBlock_update),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven)
+  );
 }
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
@@ -346,12 +363,10 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
 
-  /* Wait for DONE (just in case) and check errors, and clear DONE flag */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_checkForChannelErrors));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_checkForChannelErrors(session, inputChannel));
+    /* Wait for data copy to finish and check for errors */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
   /* SGI needs a manual stop once all data is processed (or on DMA channel error). Disable interrupts. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaInputHandshakes));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_stopAutoModeWithDmaInputHandshakes(inputChannel));
   mcuxClDma_Drv_disableChannelDoneInterrupts(inputChannel);
   mcuxClDma_Drv_disableErrorInterrupts(inputChannel);
@@ -368,7 +383,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("The pWa->nonBlockingWa.inputOffset and remainingBytes values did not overflow (see above), so passing them here is safe")
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_handleLastBlock_update));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_handleLastBlock_update(
     session,
     pContext,
@@ -379,10 +393,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   /* Update context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pWa->nonBlockingWa.pContext, MCUXCLMAC_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pWa->nonBlockingWa.pContext, MCUXCLMACMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven(
     session,
     pContext,
@@ -391,14 +403,20 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   ));
 
   /* Notify the user that the operation finished */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
   MCUX_CSSL_FP_FUNCTION_CALL(retSessionTriggerCallback, mcuxClSession_triggerUserCallback(session, MCUXCLMAC_STATUS_JOB_COMPLETED));
   if(MCUXCLSESSION_STATUS_OK != retSessionTriggerCallback)
   {
     MCUXCLSESSION_ERROR(session, retSessionTriggerCallback);
   }
-  
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_ISR_completeNonBlocking_multipart);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_ISR_completeNonBlocking_multipart,
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaInputHandshakes),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_handleLastBlock_update),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_cleanupOnExit_dmaDriven),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback)
+  );
 }
 
 
@@ -419,20 +437,18 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     Note that the preTag in the context is not considered I/O, so DMA transfer is not necessary. */
   const uint32_t *pSrc_sgiDatout = (const uint32_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET);
   uint32_t *pDst_maskedPreTag = pContext->maskedPreTag;
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, (uint32_t) pDst_maskedPreTag);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, (uint32_t) pSrc_sgiDatout);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, 16u);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copySfrMasked(
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pDst_maskedPreTag);
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pSrc_sgiDatout);
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
     pDst_maskedPreTag,
     pSrc_sgiDatout,
-    16u,
-    pContext->keyContext.keySeed));
+    pContext->keyContext.sfrSeed));
 
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
      Workaround: wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
   mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
-  mcuxClSgi_Drv_resetAutoMode();
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
   /* Fill context buffer with remaining input bytes */
   if(remainingBytes > 0u)
@@ -440,22 +456,28 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
     MCUXCLBUFFER_DERIVE_RO(pInWithOffset, pIn, inOffset);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureDataTransfer));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureDataTransfer(
       inputChannel,
       MCUXCLBUFFER_GET(pInWithOffset),
       &((uint8_t *)pContext->blockBuffer)[pContext->blockBufferUsed],
       remainingBytes));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_startChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_startChannel(inputChannel));
 
     /* Wait for data copy to finish and check for errors */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
     pContext->blockBufferUsed = remainingBytes;
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_handleLastBlock_update);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(
+    mcuxClMacModes_handleLastBlock_update,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copyBlockSfrMasked),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
+    MCUX_CSSL_FP_CONDITIONAL(
+      (remainingBytes > 0u),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureDataTransfer),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_startChannel),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone)
+    ));
 }
 

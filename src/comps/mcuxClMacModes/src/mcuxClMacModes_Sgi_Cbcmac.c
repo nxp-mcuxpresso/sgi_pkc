@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -86,7 +86,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCBCMac(
                          MCUXCLSGI_DRV_CTRL_ENC                     |
                          pContext->keyContext.sgiCtrlKey;
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_process_preTag_calculation));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_process_preTag_calculation(
       session,
       workArea,
@@ -96,7 +95,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCBCMac(
       operation));
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_updateCBCMac, MCUXCLMAC_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_updateCBCMac, MCUXCLMAC_STATUS_OK,
+        MCUX_CSSL_FP_CONDITIONAL((0u < inLength),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_process_preTag_calculation)));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_finalizeCBCMac, mcuxClMacModes_FinalizeFunc_t)
@@ -116,23 +117,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCBCMac(
     MCUXCLSESSION_ERROR(session, MCUXCLMAC_STATUS_INVALID_PARAM);
   }
 
-  /* Load the (masked) preTag to DATOUT */
-  uint32_t *pDst_sgiDatout = (uint32_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET);
   const uint32_t *pSrc_maskedPreTag = (const uint32_t *)pContext->maskedPreTag;
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, pDst_sgiDatout);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, (uint32_t)pSrc_maskedPreTag);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copySfrMasked, 16u);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copySfrMasked));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copySfrMasked(
-    pDst_sgiDatout,
-    pSrc_maskedPreTag,
-    16u,
-    pContext->keyContext.keySeed));
+    uint32_t *pDst_sgiDatout = (uint32_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET);
+    
+    /* Load pSrc_maskedPreTag to DATOUT. */
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, pDst_sgiDatout);
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t)pSrc_maskedPreTag);
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
+      pDst_sgiDatout,
+      pSrc_maskedPreTag,
+      pContext->keyContext.sfrSeed));
 
   /* Do padding if need */
   MCUXCLBUFFER_INIT_RO(paddingInBuffer, NULL, (uint8_t *)pContext->blockBuffer, pContext->blockBufferUsed);
   uint32_t pOutLen = 0u;
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_addPadding);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->addPadding(
     session,
     MCUXCLAES_BLOCK_SIZE,
@@ -152,15 +151,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCBCMac(
                          MCUXCLSGI_DRV_CTRL_ENC |
                          pContext->keyContext.sgiCtrlKey;
     /* Record load input */
-    MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET));
+    MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET));
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)workArea->sgiWa.paddingBuff);
     MCUX_CSSL_DI_RECORD(sgiLoad, 16u);
 
     /* Copy input to SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, workArea->sgiWa.paddingBuff));
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function ")
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_engine));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_engine(
       session,
       workArea,
@@ -168,12 +165,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCBCMac(
       NULL,
       0u,
       0u,
-      pContext->keyContext.keySeed,
+      pContext->keyContext.sfrSeed,
       operation,
       mcuxClMacModes_finalizeEngine,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_finalizeEngine)));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_finalizeCBCMac);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_finalizeCBCMac,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copyBlockSfrMasked),
+        pAlgo->protectionToken_addPadding,
+        MCUX_CSSL_FP_CONDITIONAL((MCUXCLAES_BLOCK_SIZE == pOutLen),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_engine))
+        );
 }

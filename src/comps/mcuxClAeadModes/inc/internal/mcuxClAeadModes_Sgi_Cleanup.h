@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -33,7 +33,7 @@ extern "C" {
  * It flushes the SGI Key in context if not preloaded, frees CPU workarea and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
- * @param      pContext         Pointer to multipart context
+ * @param      pContext         Pointer to multipart context (word-aligned)
  * @param[in]  cpuWaSizeInWords Number of cpu wa words to free
  *
  * @return void
@@ -51,7 +51,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_cleanupOnMultipartExit(
  * It flushes the SGI Key if not preloaded, frees CPU workarea and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
- * @param      key              Handle for the key.
+ * @param      key              Handle for the key (word-aligned).
  * @param[in]  cpuWaSizeInWords Number of cpu wa words to free
  *
  * @return void

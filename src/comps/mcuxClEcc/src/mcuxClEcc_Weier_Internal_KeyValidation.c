@@ -82,11 +82,11 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsX, &pPublicKeyXCoordDest[byteLenP]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsX, bytesToClear);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPublicKeyXCoordDest[byteLenP], bytesToClear));
+    MCUXCLMEMORY_CLEAR_INT(&pPublicKeyXCoordDest[byteLenP], bytesToClear);
 
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsY, &pPublicKeyYCoordDest[byteLenP]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsY, bytesToClear);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPublicKeyYCoordDest[byteLenP], bytesToClear));
+    MCUXCLMEMORY_CLEAR_INT(&pPublicKeyYCoordDest[byteLenP], bytesToClear);
 
     /* Import public key coordinates x and y into buffers ECC_S0 and ECC_T0. */
     MCUXCLKEY_LOAD_FP(pSession, key, &pPublicKeyXCoordDest, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL);
@@ -105,8 +105,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PublicKeyValidation, MCUXCLKEY_STATUS_VALIDATION_FAILED,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
             MCUXCLKEY_LOAD_FP_CALLED(key),
             MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
             MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
@@ -124,8 +124,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PublicKeyValidation, MCUXCLKEY_STATUS_VALIDATION_FAILED,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
             MCUXCLKEY_LOAD_FP_CALLED(key),
             MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
             MCUXCLPKC_FP_CALLED_CALC_OP1_CMP * 2u,
@@ -151,8 +151,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PublicKeyValidation, MCUXCLKEY_STATUS_VALIDATION_FAILED,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
             MCUXCLKEY_LOAD_FP_CALLED(key),
             MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
             MCUXCLPKC_FP_CALLED_CALC_OP1_CMP * 2u,
@@ -176,8 +176,8 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PublicKeyValidation, MCUXCLKEY_STATUS_VALIDATION_PASSED,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+        MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+        MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
         MCUXCLKEY_LOAD_FP_CALLED(key),
         MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
         MCUXCLPKC_FP_CALLED_CALC_OP1_CMP * 2u,
@@ -238,7 +238,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     const uint32_t bytesToClear = operandSize - basePointOrderLen;
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, &pPrivateKeyDest[basePointOrderLen]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, bytesToClear);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPrivateKeyDest[basePointOrderLen], bytesToClear));
+    MCUXCLMEMORY_CLEAR_INT(&pPrivateKeyDest[basePointOrderLen], bytesToClear);
 
     /* Secure import private key */
     MCUXCLKEY_LOAD_FP(pSession, key, &pPrivateKeyDest, NULL, MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE);
@@ -254,7 +254,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PrivateKeyValidation, MCUXCLKEY_STATUS_VALIDATION_FAILED,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
             MCUXCLKEY_LOAD_FP_CALLED(key),
             MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
             MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
@@ -271,7 +271,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PrivateKeyValidation, MCUXCLKEY_STATUS_VALIDATION_FAILED,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+            MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
             MCUXCLKEY_LOAD_FP_CALLED(key),
             MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
             MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
@@ -285,7 +285,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_WeierECC_PrivateKeyValidation, MCUXCLKEY_STATUS_VALIDATION_PASSED,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_WeierECC_SetupEnvironment),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+        MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
         MCUXCLKEY_LOAD_FP_CALLED(key),
         MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
         MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,

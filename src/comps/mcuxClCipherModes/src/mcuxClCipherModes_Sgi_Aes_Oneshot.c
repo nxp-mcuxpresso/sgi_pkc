@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -74,10 +74,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClCipherModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   mcuxClKey_KeyChecksum_t keyChecksums;
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_INCOMPATIBLE("The pointer pWa has compatible type and cast was valid")
   pWa->sgiWa.pKeyChecksums = &keyChecksums;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
 
   /* Initialize/request SGI */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
@@ -98,7 +100,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
   {
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
       session,
-      NULL,
       pWa,
       pInCur,
       pOutCur,
@@ -136,7 +137,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
   /* Process last (padded) block and store the result in the padding buffer */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
     session,
-    NULL,
     pWa,
     paddingBuf,
     pOutCur,
@@ -157,7 +157,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_encrypt_Sgi, MCUXCLCIPHER_STATUS_OK,
                             pAlgo->protectionToken_checkIvLength,
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request),
+                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
                             pAlgo->protectionToken_setupIVEncrypt,
@@ -213,10 +213,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClCipherModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   mcuxClKey_KeyChecksum_t keyChecksums;
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_INCOMPATIBLE("The pointer pWa has compatible type and cast was valid")
   pWa->sgiWa.pKeyChecksums = &keyChecksums;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
 
   /* Request SGI */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
@@ -246,7 +248,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
     session,
-    NULL,
     pWa,
     pInCur,
     pOutCur,
@@ -275,9 +276,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
     MCUXCLBUFFER_INIT_RW(paddingBuf, session, pWa->sgiWa.paddingBuff, remainingBytes);
 
     /* Process the last block and store the result in the padding buffer */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function ")
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_crypt(
       session,
-      NULL,
       pWa,
       pInCur,
       paddingBuf,
@@ -287,6 +288,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
       pWa->sgiWa.pKeyChecksums,
       pAlgo->decryptEngine,
       pAlgo->protectionToken_decryptEngine));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()
 
     /* Remove the padding and copy the decrypted last block to the output buffer */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("pAlgo->removePadding will never be NULL if remainingBytes > 0U")
@@ -316,7 +318,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_decrypt_Sgi, MCUXCLCIPHER_STATUS_OK,
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_decrypt_Sgi_CheckInputs),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
-                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request),
+                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
                             pAlgo->protectionToken_setupIVDecrypt,

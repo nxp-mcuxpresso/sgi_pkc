@@ -43,11 +43,12 @@
  * @{
  */
 /* Status/error codes */
-#define MCUXCLSGI_STATUS_ERROR                   ((mcuxClSgi_Status_t) 0x0FFF5330U) ///< An error occurred during an SGI operation
-#define MCUXCLSGI_STATUS_UNWRAP_ERROR            ((mcuxClSgi_Status_t) 0x0FFF53B8U) ///< An error occurred during SGI key unwrap, an SGI reset or FULL_FLUSH has to be performed to clear this sticky error
-#define MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED   ((mcuxClSgi_Status_t) 0x0FFF5374U) ///< The given key size is not supported for the operation
-#define MCUXCLSGI_STATUS_OK                      ((mcuxClSgi_Status_t) 0x0FFF2E03U) ///< The operation was successful and no SGI error occurred
-#define MCUXCLSGI_STATUS_FAULT                   ((mcuxClSgi_Status_t) 0x0FFFF0F0U) ///< Fault attack detected
+#define MCUXCLSGI_STATUS_ERROR                            ((mcuxClSgi_Status_t) 0x0FFF5330U) ///< An error occurred during an SGI operation
+#define MCUXCLSGI_STATUS_UNWRAP_ERROR                     ((mcuxClSgi_Status_t) 0x0FFF53B8U) ///< An error occurred during SGI key unwrap, an SGI reset or FULL_FLUSH has to be performed to clear this sticky error
+#define MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED            ((mcuxClSgi_Status_t) 0x0FFF5374U) ///< The given key size is not supported for the operation
+#define MCUXCLSGI_STATUS_UNALIGNED_ACCESS_NOT_SUPPORTED   ((mcuxClSgi_Status_t) 0x0FFF5338U) ///< The given key buffer is not aligned correctly for the operation
+#define MCUXCLSGI_STATUS_OK                               ((mcuxClSgi_Status_t) 0x0FFF2E03U) ///< The operation was successful and no SGI error occurred
+#define MCUXCLSGI_STATUS_FAULT                            ((mcuxClSgi_Status_t) 0x0FFFF0F0U) ///< Fault attack detected
 
 /**
  * @}

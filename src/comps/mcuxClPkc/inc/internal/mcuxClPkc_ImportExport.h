@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -98,11 +98,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportBigEndianToPkc(uint8_t iTarget
 
 /** Helper macros to use the correct buffer implementation */
 #define MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFEROFFSET  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportBigEndianToPkc)
-#define MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(functionID, iTarget, pBufSource, offset, length, buffLength) \
+#define MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(iTarget, pBufSource, offset, length, buffLength) \
     MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_DI_BALANCED(iTarget, & ((const uint8_t *) (pBufSource))[offset], length, buffLength)
 #define MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFER  MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFEROFFSET
-#define MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(functionID, iTarget, pBufSource, length, buffLength) \
-    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(functionID, iTarget, pBufSource, 0u, length, buffLength)
+#define MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(iTarget, pBufSource, length, buffLength) \
+    MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(iTarget, pBufSource, 0u, length, buffLength)
 
 
 /**
@@ -141,11 +141,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ImportLittleEndianToPkc(uint8_t iTar
 
 /** Helper macros to use the correct buffer implementation */
 #define MCUXCLPKC_FP_CALLED_IMPORTLITTLEENDIANTOPKC_BUFFEROFFSET  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc)
-#define MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(functionID, iTarget, pBufSource, offset, length, buffLength) \
+#define MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(iTarget, pBufSource, offset, length, buffLength) \
     MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_DI_BALANCED(iTarget, & ((const uint8_t *) (pBufSource))[offset], length, buffLength)
 #define MCUXCLPKC_FP_CALLED_IMPORTLITTLEENDIANTOPKC_BUFFER  MCUXCLPKC_FP_CALLED_IMPORTLITTLEENDIANTOPKC_BUFFEROFFSET
-#define MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_BUFFER_DI_BALANCED(functionID, iTarget, pBufSource, length, buffLength) \
-    MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(functionID, iTarget, pBufSource, 0u, length, buffLength)
+#define MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_BUFFER_DI_BALANCED(iTarget, pBufSource, length, buffLength) \
+    MCUXCLPKC_FP_IMPORTLITTLEENDIANTOPKC_BUFFEROFFSET_DI_BALANCED(iTarget, pBufSource, 0u, length, buffLength)
 
 
 /**
@@ -180,11 +180,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ExportBigEndianFromPkc(uint8_t * pTa
 
 /** Helper macros to use the correct buffer implementation */
 #define MCUXCLPKC_FP_CALLED_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ExportBigEndianFromPkc)
-#define MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(functionID, pBufTarget, iSource, offset, length) \
+#define MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pBufTarget, iSource, offset, length) \
     MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_DI_BALANCED(& ((uint8_t *) (pBufTarget))[offset], iSource, length)
 #define MCUXCLPKC_FP_CALLED_EXPORTBIGENDIANFROMPKC_BUFFER  MCUXCLPKC_FP_CALLED_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET
-#define MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(functionID, pBufTarget, iSource, length) \
-    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(functionID, pBufTarget, iSource, 0u, length)
+#define MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(pBufTarget, iSource, length) \
+    MCUXCLPKC_FP_EXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pBufTarget, iSource, 0u, length)
 
 
 /**
@@ -219,11 +219,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_ExportLittleEndianFromPkc(uint8_t * 
 
 /** Helper macros to use the correct buffer implementation */
 #define MCUXCLPKC_FP_CALLED_EXPORTLITTLEENDIANFROMPKC_BUFFEROFFSET  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ExportLittleEndianFromPkc)
-#define MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(functionID, pBufTarget, iSource, offset, length) \
+#define MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pBufTarget, iSource, offset, length) \
     MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_DI_BALANCED(& ((uint8_t *) (pBufTarget))[offset], iSource, length)
 #define MCUXCLPKC_FP_CALLED_EXPORTLITTLEENDIANFROMPKC_BUFFER  MCUXCLPKC_FP_CALLED_EXPORTLITTLEENDIANFROMPKC_BUFFEROFFSET
-#define MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_BUFFER_DI_BALANCED(functionID, pBufTarget, iSource, length) \
-    MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(functionID, pBufTarget, iSource, 0u, length)
+#define MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_BUFFER_DI_BALANCED(pBufTarget, iSource, length) \
+    MCUXCLPKC_FP_EXPORTLITTLEENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pBufTarget, iSource, 0u, length)
 
 
 /**
@@ -253,7 +253,7 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClPkc_SecureImportBigEndianToPkc)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureImportBigEndianToPkc(uint8_t iTarget, const uint8_t * pSource, uint32_t length, uint32_t targetBufferLength);
 
 /** Helper macro to call #mcuxClPkc_SecureImportBigEndianToPkc with flow protection. */
-#define MCUXCLPKC_FP_SECUREIMPORTBIGENDIANTOPKC_DI_BALANCED(pSession, iTarget, pSource, length, buffLength) \
+#define MCUXCLPKC_FP_SECUREIMPORTBIGENDIANTOPKC_DI_BALANCED(iTarget, pSource, length, buffLength) \
     do{ \
         (void)pSession; /* not used*/ \
         MCUX_CSSL_DI_RECORD(mcuxClPkc_SecureImportBigEndianToPkc /* not used*/, iTarget); \
@@ -268,9 +268,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 
 /** Helper macros to use the correct buffer implementation */
 #define MCUXCLPKC_FP_CALLED_SECUREIMPORTBIGENDIANTOPKC_BUFFER  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SecureImportBigEndianToPkc)
-#define MCUXCLPKC_FP_SECUREIMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(functionID, status, pSession, iTarget, pBufSource, length, buffLength) \
-    MCUXCLPKC_FP_SECUREIMPORTBIGENDIANTOPKC_DI_BALANCED(pSession, iTarget, pBufSource, length, buffLength); \
-    mcuxClPkc_Status_t status = MCUXCLPKC_STATUS_OK
+#define MCUXCLPKC_FP_SECUREIMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(iTarget, pBufSource, length, buffLength) \
+    MCUXCLPKC_FP_SECUREIMPORTBIGENDIANTOPKC_DI_BALANCED(iTarget, pBufSource, length, buffLength);
 
 
 /**
@@ -297,7 +296,7 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClPkc_SecureExportBigEndianFromPkc)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_SecureExportBigEndianFromPkc(uint8_t * pTarget, uint8_t iSource, uint32_t length);
 
 /** Helper macro to call #mcuxClPkc_SecureExportBigEndianFromPkc with flow protection. */
-#define MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(pSession, pTarget, iSource, length) \
+#define MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(pTarget, iSource, length) \
   do{ \
         (void)pSession; /* not used*/ \
         MCUX_CSSL_DI_RECORD(mcuxClPkc_SecureExportBigEndianFromPkc /* not used*/, pTarget); \
@@ -310,12 +309,11 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 
 /** Helper macros to use the correct buffer implementation */
 #define MCUXCLPKC_FP_CALLED_SECUREEXPORTBIGENDIANFROMPKC_BUFFEROFFSET  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SecureExportBigEndianFromPkc)
-#define MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(functionID, status, pSession, pBufTarget, iSource, offset, length) \
-    MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(pSession, & ((uint8_t *) (pBufTarget))[offset], iSource, length); \
-    mcuxClPkc_Status_t status = MCUXCLPKC_STATUS_OK
+#define MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pBufTarget, iSource, offset, length) \
+    MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(& ((uint8_t *) (pBufTarget))[offset], iSource, length);
 #define MCUXCLPKC_FP_CALLED_SECUREEXPORTBIGENDIANFROMPKC_BUFFER  MCUXCLPKC_FP_CALLED_SECUREEXPORTBIGENDIANFROMPKC_BUFFEROFFSET
-#define MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(functionID, status, pSession, pBufTarget, iSource, length) \
-    MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(functionID, status, pSession, pBufTarget, iSource, 0u, length)
+#define MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(pBufTarget, iSource, length) \
+    MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFEROFFSET_DI_BALANCED(pBufTarget, iSource, 0u, length)
 
 
 /**
@@ -354,9 +352,8 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 
 /** Helper macros to use the correct buffer implementation */
 #define MCUXCLPKC_FP_CALLED_SECUREEXPORTLITTLEENDIANFROMPKC_BUFFER  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SecureExportLittleEndianFromPkc)
-#define MCUXCLPKC_FP_SECUREEXPORTLITTLEENDIANFROMPKC_BUFFER_DI_BALANCED(functionID, status, pBufTarget, iSource, length) \
-    MCUXCLPKC_FP_SECUREEXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pBufTarget, iSource, length); \
-    mcuxClPkc_Status_t status = MCUXCLPKC_STATUS_OK
+#define MCUXCLPKC_FP_SECUREEXPORTLITTLEENDIANFROMPKC_BUFFER_DI_BALANCED(pBufTarget, iSource, length) \
+    MCUXCLPKC_FP_SECUREEXPORTLITTLEENDIANFROMPKC_DI_BALANCED(pBufTarget, iSource, length);
 
 
 #ifdef __cplusplus

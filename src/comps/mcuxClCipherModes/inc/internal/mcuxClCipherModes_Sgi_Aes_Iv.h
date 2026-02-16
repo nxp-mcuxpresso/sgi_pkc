@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -23,7 +23,7 @@
  * @brief Function used to load IV
  *
  * @param[in]     session     Handle for the current CL session.
- * @param[in,out] pWa         pointer to workarea used in cipher mode.
+ * @param[in,out] pWa         pointer to workarea used in cipher mode (word-aligned).
  * @param[in,out] pIv         pointer to buffer of IV.
  *
  * @post
@@ -41,7 +41,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV(
  * @brief Function sets pointer to inital vector to NULL for modes where it is not needed.
  *
  * @param[in]     session     Handle for the current CL session.
- * @param[in,out] pWa         pointer to workarea used in cipher mode.
+ * @param[in,out] pWa         pointer to workarea used in cipher mode (word-aligned).
  * @param[in]     pIv         pointer to buffer of IV, it is UNUSED.
  *
  * @post
@@ -59,7 +59,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_No_IV(
  * @brief Function copies IV to SGI DATIN0.
  *
  * @param[in]     session     Handle for the current CL session.
- * @param[in,out] pWa         pointer to workarea used in cipher mode.
+ * @param[in,out] pWa         pointer to workarea used in cipher mode (word-aligned).
  * @param[in]     pIv         pointer to buffer of IV.
  * 
  * @post
@@ -76,7 +76,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_AutoMode_Ctr(
  * @brief Function copies IV to SGI DATOUT.
  *
  * @param[in]     session     Handle for the current CL session.
- * @param[in,out] pWa         pointer to workarea used in cipher mode.
+ * @param[in,out] pWa         pointer to workarea used in cipher mode (word-aligned).
  * @param[in]     pIv         pointer to buffer of IV.
  *
  * @post
@@ -94,7 +94,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_to_DATOUT_DMA(
  * @brief Function copies IV to SGI DATIN2.
  *
  * @param[in]     session     Handle for the current CL session.
- * @param[in,out] pWa         pointer to workarea used in cipher mode.
+ * @param[in,out] pWa         pointer to workarea used in cipher mode (word-aligned).
  * @param[in]     pIv         pointer to buffer of IV.
  *
  * @post

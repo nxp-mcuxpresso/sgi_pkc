@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -66,31 +66,26 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   const uint32_t ctxSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_Context_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_Context_t*, aeadCtx, mcuxClSession_allocateWords_cpuWa(session, ctxSizeInWords));
 
   workArea->sgiWa.pKeyChecksums = &(aeadCtx->cipherCtx.keyContext.keyChecksums);
   /* Initialize/request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load key to SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, &(workArea->sgiWa), MCUXCLSGI_DRV_KEY0_OFFSET));
 
   MCUX_CSSL_DI_RECORD(MultipartInitDec_copyKeyContext, (uint32_t)&aeadCtx->macCtx.keyContext.keyChecksums);
   MCUX_CSSL_DI_RECORD(MultipartInitDec_copyKeyContext, (uint32_t)&aeadCtx->cipherCtx.keyContext.keyChecksums);
   MCUX_CSSL_DI_RECORD(MultipartInitDec_copyKeyContext, sizeof(aeadCtx->cipherCtx.keyContext.keyChecksums));
+
   /* Copy the key context to mac context as well */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(
     (uint8_t*)&aeadCtx->macCtx.keyContext.keyChecksums,
     (uint8_t const*)&aeadCtx->cipherCtx.keyContext.keyChecksums,
@@ -109,7 +104,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
   aeadCtx->macCtx.dataProcessed = MCUXCLMACMODES_FALSE;
   aeadCtx->macCtx.totalInput = 0u;
 
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_init);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->init(
     session,
     aeadCtx,
@@ -120,23 +114,31 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
     adataLength,
     tagLength));
 
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_processAad);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->processAad(session, aeadCtx, workArea, pAdata, adataLength));
 
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_processEncDec);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->processEncDec(session, aeadCtx, workArea, pIn, inLength, pOut, &outputSize));
 
   MCUXCLBUFFER_DERIVE_RW(outBuf, pOut, outputSize);
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_finish);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->finish(session, aeadCtx, workArea, outBuf, &outputSize, pTag));
 
   /* outputSize is bounded by inLength */
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputSize, 0u, inLength, MCUXCLAEAD_STATUS_INVALID_PARAM)
   *pOutLength += outputSize;
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnOneshotExit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnOneshotExit(session, key, cpuWaSizeInWords + ctxSizeInWords));
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_encrypt);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_encrypt,
+    2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
+    mode->algorithm->protectionToken_init,
+    mode->algorithm->protectionToken_processAad,
+    mode->algorithm->protectionToken_processEncDec,
+    mode->algorithm->protectionToken_finish,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnOneshotExit)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAeadModes_decrypt, mcuxClAead_decrypt_t)
@@ -167,7 +169,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
 
   /* Allocate workarea */
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_WorkArea_t*, workArea, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Prepare a buffer for the to-be-computed tag */
@@ -177,28 +178,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   MCUX_CSSL_DI_RECORD(computedTagBuffer, computedTagBuffer); /* Will be balanced after usage in mode->algorithm->finish() */
 
   const uint32_t ctxSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClAeadModes_Context_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClAeadModes_Context_t*, aeadCtx, mcuxClSession_allocateWords_cpuWa(session, ctxSizeInWords));
 
   workArea->sgiWa.pKeyChecksums = &(aeadCtx->cipherCtx.keyContext.keyChecksums);
 
   /* Initialize/request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
   /* Load key to SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, &(workArea->sgiWa), MCUXCLSGI_DRV_KEY0_OFFSET));
 
   MCUX_CSSL_DI_RECORD(MultipartInitDec_copyKeyContext, (uint32_t)&aeadCtx->macCtx.keyContext.keyChecksums);
   MCUX_CSSL_DI_RECORD(MultipartInitDec_copyKeyContext, (uint32_t)&aeadCtx->cipherCtx.keyContext.keyChecksums);
   MCUX_CSSL_DI_RECORD(MultipartInitDec_copyKeyContext, sizeof(aeadCtx->cipherCtx.keyContext.keyChecksums));
+
   /* Copy the key context to mac context as well */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(
     (uint8_t*)&aeadCtx->macCtx.keyContext.keyChecksums,
     (uint8_t const*)&aeadCtx->cipherCtx.keyContext.keyChecksums,
@@ -216,7 +213,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   aeadCtx->macCtx.dataProcessed = MCUXCLMACMODES_FALSE;
   aeadCtx->macCtx.totalInput = 0u;
 
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_init);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->init(
     session,
     aeadCtx,
@@ -227,7 +223,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
     adataLength,
     tagLength));
 
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_processAad);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->processAad(
     session,
     aeadCtx,
@@ -235,7 +230,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
     pAdata,
     adataLength));
 
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_processEncDec);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->processEncDec(
     session,
     aeadCtx,
@@ -248,7 +242,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   /* outputSize is bounded by inLength */
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputSize, 0u, inLength, MCUXCLAEAD_STATUS_INVALID_PARAM)
   MCUXCLBUFFER_DERIVE_RW(outBuf, pOut, outputSize);
-  MCUX_CSSL_FP_EXPECT(mode->algorithm->protectionToken_finish);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->finish(
     session,
     aeadCtx,
@@ -267,7 +260,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   MCUX_CSSL_DI_RECORD(referenceTag, pReferenceTag); /* Will be balanced in mcuxClMemory_compare_dpasecure_int() */
 
   /* Compare authentication tags */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_dpasecure_int));
   MCUX_CSSL_FP_FUNCTION_CALL(compareStatus, mcuxClMemory_compare_dpasecure_int(session, pReferenceTag, pComputedTag, tagLength));
   MCUX_CSSL_DI_RECORD(compareStatus, compareStatus);
 
@@ -290,7 +282,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   }
 
   MCUX_CSSL_DI_RECORD(returnCode, retCode);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnOneshotExit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnOneshotExit(session, key, cpuWaSizeInWords + ctxSizeInWords));
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClAeadModes_decrypt, retCode);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClAeadModes_decrypt, retCode,
+    2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
+    mode->algorithm->protectionToken_init,
+    mode->algorithm->protectionToken_processAad,
+    mode->algorithm->protectionToken_processEncDec,
+    mode->algorithm->protectionToken_finish,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_dpasecure_int),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAeadModes_cleanupOnOneshotExit)
+  );
 }

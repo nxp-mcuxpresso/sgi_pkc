@@ -1,0 +1,267 @@
+/*--------------------------------------------------------------------------*/
+/* Copyright 2026 NXP                                                       */
+/*                                                                          */
+/* NXP Proprietary. This software is owned or controlled by NXP and may     */
+/* only be used strictly in accordance with the applicable license terms.   */
+/* By expressly accepting such terms or by downloading, installing,         */
+/* activating and/or otherwise using the software, you are agreeing that    */
+/* you have read, and that you agree to comply with and are bound by, such  */
+/* license terms. If you do not agree to be bound by the applicable license */
+/* terms, then you may not retain, install, activate or otherwise use the   */
+/* software.                                                                */
+/*--------------------------------------------------------------------------*/
+
+/*
+** ###################################################################
+**     Processors:          MCXL253VDF_cm0plus
+**                          MCXL253VDF_cm33
+**                          MCXL253VLL_cm0plus
+**                          MCXL253VLL_cm33
+**                          MCXL254VDF_cm0plus
+**                          MCXL254VDF_cm33
+**                          MCXL254VLL_cm0plus
+**                          MCXL254VLL_cm33
+**                          MCXL255VDF_cm0plus
+**                          MCXL255VDF_cm33
+**                          MCXL255VLL_cm0plus
+**                          MCXL255VLL_cm33
+**
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250901
+**
+**     Abstract:
+**         CMSIS Peripheral Access Layer for PMU
+**
+**     Copyright 1997-2016 Freescale Semiconductor, Inc.
+**     Copyright 2016-2025 NXP
+**     SPDX-License-Identifier: BSD-3-Clause
+**
+**     http:                 www.nxp.com
+**     mail:                 support@nxp.com
+**
+**     Revisions:
+**     - rev. 1.0 (2025-06-13)
+**         Generated based on Rev1 DraftH.
+**
+** ###################################################################
+*/
+
+/*!
+ * @file PERI_PMU.h
+ * @version 1.0
+ * @date 2025-06-13
+ * @brief CMSIS Peripheral Access Layer for PMU
+ *
+ * CMSIS Peripheral Access Layer for PMU
+ */
+
+#if !defined(PERI_PMU_H_)
+#define PERI_PMU_H_                              /**< Symbol preventing repeated inclusion */
+
+#if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
+#include "MCXL253_cm0plus_COMMON.h"
+#elif (defined(CPU_MCXL253VDF_cm33) || defined(CPU_MCXL253VLL_cm33))
+#include "MCXL253_cm33_COMMON.h"
+#elif (defined(CPU_MCXL254VDF_cm0plus) || defined(CPU_MCXL254VLL_cm0plus))
+#include "MCXL254_cm0plus_COMMON.h"
+#elif (defined(CPU_MCXL254VDF_cm33) || defined(CPU_MCXL254VLL_cm33))
+#include "MCXL254_cm33_COMMON.h"
+#elif (defined(CPU_MCXL255VDF_cm0plus) || defined(CPU_MCXL255VLL_cm0plus))
+#include "MCXL255_cm0plus_COMMON.h"
+#elif (defined(CPU_MCXL255VDF_cm33) || defined(CPU_MCXL255VLL_cm33))
+#include "MCXL255_cm33_COMMON.h"
+#else
+  #error "No valid CPU defined!"
+#endif
+
+/* ----------------------------------------------------------------------------
+   -- Device Peripheral Access Layer
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup Peripheral_access_layer Device Peripheral Access Layer
+ * @{
+ */
+
+
+/*
+** Start of section using anonymous unions
+*/
+
+#if defined(__ARMCC_VERSION)
+  #if (__ARMCC_VERSION >= 6010050)
+    #pragma clang diagnostic push
+  #else
+    #pragma push
+    #pragma anon_unions
+  #endif
+#elif defined(__GNUC__)
+  /* anonymous unions are enabled by default */
+#elif defined(__IAR_SYSTEMS_ICC__)
+  #pragma language=extended
+#else
+  #error Not supported compiler type
+#endif
+
+/* ----------------------------------------------------------------------------
+   -- PMU Peripheral Access Layer
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup PMU_Peripheral_Access_Layer PMU Peripheral Access Layer
+ * @{
+ */
+
+/** PMU - Register Layout Typedef */
+typedef struct {
+  __IO uint32_t PCTRL;                             /**< Power Control, offset: 0x0 */
+  __IO uint32_t VDD_CORE_AON_CONFIG;               /**< VDD_CORE DCDC_AON Power Configuration, offset: 0x4 */
+  __IO uint32_t VDD_CORE_MAIN_CONFIG;              /**< VDD_CORE DCDC_MAIN Configuration, offset: 0x8 */
+       uint8_t RESERVED_0[4];
+  __IO uint32_t FRO_CTRL;                          /**< FRO16K Control, offset: 0x10 */
+       uint8_t RESERVED_1[64];
+  __IO uint32_t PMU_DPD3_CTRL;                     /**< PMU DPD3 Control, offset: 0x54 */
+       uint8_t RESERVED_2[4];
+  __IO uint32_t VDD_CORE_AON_WKUP_WDTC;            /**< VDD Wakeup Watchdog Time Count, offset: 0x5C */
+  __IO uint32_t AWK_UP_TIME;                       /**< Analog Wakeup Time, offset: 0x60 */
+} PMU_Type;
+
+/* ----------------------------------------------------------------------------
+   -- PMU Register Masks
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup PMU_Register_Masks PMU Register Masks
+ * @{
+ */
+
+/*! @name PCTRL - Power Control */
+/*! @{ */
+
+#define PMU_PCTRL_VDD_CORE_AON_EN_MASK           (0x1U)
+#define PMU_PCTRL_VDD_CORE_AON_EN_SHIFT          (0U)
+/*! VDD_CORE_AON_EN - VDD Power Enable */
+#define PMU_PCTRL_VDD_CORE_AON_EN(x)             (((uint32_t)(((uint32_t)(x)) << PMU_PCTRL_VDD_CORE_AON_EN_SHIFT)) & PMU_PCTRL_VDD_CORE_AON_EN_MASK)
+
+#define PMU_PCTRL_VDD_CORE_MAIN_EN_MASK          (0x2U)
+#define PMU_PCTRL_VDD_CORE_MAIN_EN_SHIFT         (1U)
+/*! VDD_CORE_MAIN_EN - VDD_CORE_MAIN Power Enable */
+#define PMU_PCTRL_VDD_CORE_MAIN_EN(x)            (((uint32_t)(((uint32_t)(x)) << PMU_PCTRL_VDD_CORE_MAIN_EN_SHIFT)) & PMU_PCTRL_VDD_CORE_MAIN_EN_MASK)
+
+#define PMU_PCTRL_VDD_MAIN_LPWR_MASK             (0x4000U)
+#define PMU_PCTRL_VDD_MAIN_LPWR_SHIFT            (14U)
+/*! VDD_MAIN_LPWR - Signal to indicate the DCDC_MAIN to work in low power mode. */
+#define PMU_PCTRL_VDD_MAIN_LPWR(x)               (((uint32_t)(((uint32_t)(x)) << PMU_PCTRL_VDD_MAIN_LPWR_SHIFT)) & PMU_PCTRL_VDD_MAIN_LPWR_MASK)
+/*! @} */
+
+/*! @name VDD_CORE_AON_CONFIG - VDD_CORE DCDC_AON Power Configuration */
+/*! @{ */
+
+#define PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_ACONFIG_MASK (0x3FU)
+#define PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_ACONFIG_SHIFT (0U)
+/*! VDD_CORE_AON_ACONFIG - VDD_CORE DCDC_AON Active Configuration */
+#define PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_ACONFIG(x) (((uint32_t)(((uint32_t)(x)) << PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_ACONFIG_SHIFT)) & PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_ACONFIG_MASK)
+
+#define PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_DSCONFIG_MASK (0xFC0U)
+#define PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_DSCONFIG_SHIFT (6U)
+/*! VDD_CORE_AON_DSCONFIG - VDD_CORE Deep Sleep Mode Configuration */
+#define PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_DSCONFIG(x) (((uint32_t)(((uint32_t)(x)) << PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_DSCONFIG_SHIFT)) & PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_DSCONFIG_MASK)
+/*! @} */
+
+/*! @name VDD_CORE_MAIN_CONFIG - VDD_CORE DCDC_MAIN Configuration */
+/*! @{ */
+
+#define PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_ACONFIG_MASK (0xFFU)
+#define PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_ACONFIG_SHIFT (0U)
+/*! VDD_CORE_MAIN_ACONFIG - VDD_CORE DCDC_MAIN Active Configuration */
+#define PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_ACONFIG(x) (((uint32_t)(((uint32_t)(x)) << PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_ACONFIG_SHIFT)) & PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_ACONFIG_MASK)
+
+#define PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_VOUTSEL_LPWR_MASK (0x1F00U)
+#define PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_VOUTSEL_LPWR_SHIFT (8U)
+/*! VDD_CORE_MAIN_VOUTSEL_LPWR - VDD CORE DCDC_MAIN Vout Select Low Power */
+#define PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_VOUTSEL_LPWR(x) (((uint32_t)(((uint32_t)(x)) << PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_VOUTSEL_LPWR_SHIFT)) & PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_VOUTSEL_LPWR_MASK)
+/*! @} */
+
+/*! @name FRO_CTRL - FRO16K Control */
+/*! @{ */
+
+#define PMU_FRO_CTRL_FRO16K_EN_MASK              (0x1U)
+#define PMU_FRO_CTRL_FRO16K_EN_SHIFT             (0U)
+/*! FRO16K_EN - FRO16K Enable
+ *  0b0..Enable
+ *  0b1..Disable
+ */
+#define PMU_FRO_CTRL_FRO16K_EN(x)                (((uint32_t)(((uint32_t)(x)) << PMU_FRO_CTRL_FRO16K_EN_SHIFT)) & PMU_FRO_CTRL_FRO16K_EN_MASK)
+
+#define PMU_FRO_CTRL_CLOCK_SEL_MASK              (0x2000U)
+#define PMU_FRO_CTRL_CLOCK_SEL_SHIFT             (13U)
+/*! CLOCK_SEL - Clock Select
+ *  0b0..Use 16 KHz
+ *  0b1..Use 8 KHz
+ */
+#define PMU_FRO_CTRL_CLOCK_SEL(x)                (((uint32_t)(((uint32_t)(x)) << PMU_FRO_CTRL_CLOCK_SEL_SHIFT)) & PMU_FRO_CTRL_CLOCK_SEL_MASK)
+/*! @} */
+
+/*! @name PMU_DPD3_CTRL - PMU DPD3 Control */
+/*! @{ */
+
+#define PMU_PMU_DPD3_CTRL_FRO16KHZ_ACT_MASK      (0x100U)
+#define PMU_PMU_DPD3_CTRL_FRO16KHZ_ACT_SHIFT     (8U)
+/*! FRO16KHZ_ACT - FRO16KHz Active */
+#define PMU_PMU_DPD3_CTRL_FRO16KHZ_ACT(x)        (((uint32_t)(((uint32_t)(x)) << PMU_PMU_DPD3_CTRL_FRO16KHZ_ACT_SHIFT)) & PMU_PMU_DPD3_CTRL_FRO16KHZ_ACT_MASK)
+/*! @} */
+
+/*! @name VDD_CORE_AON_WKUP_WDTC - VDD Wakeup Watchdog Time Count */
+/*! @{ */
+
+#define PMU_VDD_CORE_AON_WKUP_WDTC_DCDC_AON_WKUP_WDOG_MASK (0x7FFFU)
+#define PMU_VDD_CORE_AON_WKUP_WDTC_DCDC_AON_WKUP_WDOG_SHIFT (0U)
+/*! DCDC_AON_WKUP_WDOG - DCDC_AON Wakeup Watchdog */
+#define PMU_VDD_CORE_AON_WKUP_WDTC_DCDC_AON_WKUP_WDOG(x) (((uint32_t)(((uint32_t)(x)) << PMU_VDD_CORE_AON_WKUP_WDTC_DCDC_AON_WKUP_WDOG_SHIFT)) & PMU_VDD_CORE_AON_WKUP_WDTC_DCDC_AON_WKUP_WDOG_MASK)
+/*! @} */
+
+/*! @name AWK_UP_TIME - Analog Wakeup Time */
+/*! @{ */
+
+#define PMU_AWK_UP_TIME_WKUP_TIME_MASK           (0xFFFU)
+#define PMU_AWK_UP_TIME_WKUP_TIME_SHIFT          (0U)
+/*! WKUP_TIME - Wakeup Time */
+#define PMU_AWK_UP_TIME_WKUP_TIME(x)             (((uint32_t)(((uint32_t)(x)) << PMU_AWK_UP_TIME_WKUP_TIME_SHIFT)) & PMU_AWK_UP_TIME_WKUP_TIME_MASK)
+/*! @} */
+
+
+/*!
+ * @}
+ */ /* end of group PMU_Register_Masks */
+
+
+/*!
+ * @}
+ */ /* end of group PMU_Peripheral_Access_Layer */
+
+
+/*
+** End of section using anonymous unions
+*/
+
+#if defined(__ARMCC_VERSION)
+  #if (__ARMCC_VERSION >= 6010050)
+    #pragma clang diagnostic pop
+  #else
+    #pragma pop
+  #endif
+#elif defined(__GNUC__)
+  /* leave anonymous unions enabled */
+#elif defined(__IAR_SYSTEMS_ICC__)
+  #pragma language=default
+#else
+  #error Not supported compiler type
+#endif
+
+/*!
+ * @}
+ */ /* end of group Peripheral_access_layer */
+
+
+#endif  /* PERI_PMU_H_ */
+

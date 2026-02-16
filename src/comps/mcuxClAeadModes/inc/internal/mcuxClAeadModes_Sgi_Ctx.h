@@ -28,19 +28,35 @@
 #include <internal/mcuxClAes_Ctx.h>
 #include <internal/mcuxClMacModes_Sgi_Ctx.h>
 
+#define MCUXCLAEAD_INTEGRITY_PROTECTION_CONTEXT   \
+  mcuxClAead_Context_t common;                   \
+  uint32_t encDecMode;                          \
+  uint8_t  counter0[MCUXCLAES_BLOCK_SIZE];       \
+  uint32_t inSize;     /* input bytes left */   \
+  uint32_t adataSize;  /* size of all adata */  \
+  uint32_t adataCumulativeSize;                 \
+  uint32_t tagSize;
+
+
+/**
+ * @brief AeadModes integrity protected context structure for SGI modes
+ *
+ * This struct is used to calculate the size of the integrity protected context
+ */
+typedef struct
+{
+  MCUXCLAEAD_INTEGRITY_PROTECTION_CONTEXT
+} mcuxClAeadModes_IntegrityProtectionContext_t;
+
+#define MCUXCLAEADMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE (sizeof(mcuxClAeadModes_IntegrityProtectionContext_t))
+
 struct mcuxClAeadModes_Context
 {
-  mcuxClAead_Context_t common;
+  /* Integrity protected Context */
+  MCUXCLAEAD_INTEGRITY_PROTECTION_CONTEXT
 
   mcuxClCipherModes_Context_Aes_Sgi_t cipherCtx;
   mcuxClMacModes_Context_t macCtx;
-
-  uint32_t encDecMode;
-  uint8_t  counter0[MCUXCLAES_BLOCK_SIZE];
-  uint32_t inSize;     /* input bytes left */
-  uint32_t adataSize;  /* size of all adata */
-  uint32_t adataCumulativeSize;
-  uint32_t tagSize;
   mcuxClAeadModes_alg_process_t process;
   uint32_t protectionToken_process;
 

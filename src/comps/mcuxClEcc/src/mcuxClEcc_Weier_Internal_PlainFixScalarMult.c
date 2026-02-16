@@ -38,7 +38,7 @@
  *  - pSession              Handle for the current CL session
  *  - pDomainParams         Pointer to ECC common domain parameters structure
  *  - iScalar Pointer       table index of secret scalar lambda
- *  - scalarBitLength       Bit length of the scalar; must be set to 4*byteLenN
+ *  - scalarBitLength       Bit length of the scalar
  *  - options               Parameter to pass options
  *
  * Prerequisites:
@@ -58,7 +58,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_PlainFixScalarMult(
     mcuxClSession_Handle_t pSession,                 ///<  [in]  pSession            Handle for the current CL session
     mcuxClEcc_CommonDomainParams_t *pDomainParams,   ///<  [in]  pDomainParams       Pointer to ECC common domain parameters structure
     uint8_t iScalar,                                ///<  [in]  iScalar             Pointer table index of secret scalar lambda
-    uint32_t scalarBitLength,                       ///<  [in]  scalarBitLength     Bit length of the scalar; must be set to 4*byteLenN
+    uint32_t scalarBitLength,                       ///<  [in]  scalarBitLength     Bit length of the scalar
     uint32_t options UNUSED_PARAM                   ///<  [in]  options             Parameter to pass options
 )
 {

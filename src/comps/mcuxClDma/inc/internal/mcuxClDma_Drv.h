@@ -112,26 +112,6 @@ extern "C" {
 /**
  * @}
  */ /* mcuxClDma_Drv_Defines */
-
-/**
- * @defgroup mcuxClDma_Drv_Functions mcuxClDma_Drv_Functions
- * @brief Functions of the Driver layer of the @ref mcuxClDma component
- * @ingroup mcuxClDma_Drv
- * @{
- */
-
-#ifdef MCUXCLDMA_FEATURE_INTERNAL_CHECKFORCHANNELERRORS
-/**
- * @brief Checks the given channel for errors and throws a descriptive status code
- *        on error (via early-exit).
- *
- * @param[in]  session             The session handle
- * @param[in]  channel             The DMA channel
- */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClDma_Drv_checkForChannelErrors)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClDma_Drv_checkForChannelErrors(mcuxClSession_Handle_t session, mcuxClSession_Channel_t channel);
-#endif /* MCUXCLDMA_FEATURE_INTERNAL_CHECKFORCHANNELERRORS */
-
 /**
  * @brief Enable hardware requests for a specific DMA channel.
  *

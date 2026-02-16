@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -45,7 +45,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
  * Internal function, which generates a random seed in the MacModes context,
  * and initializes in the context a null pre-tag that is masked with SGI SFR masking.
  *
- * @param[in]  pContext    Pointer to the MacModes context, contains the masked preTag and the seed.
+ * @param[in]  pContext    Pointer to the MacModes context (word-aligned), contains the masked preTag and the seed.
  *
  * @return void
  */
@@ -81,8 +81,8 @@ static inline mcuxClMacModes_Context_t* mcuxClMacModes_castToMacModesContext(mcu
  * The SFR seed from key context is used to mask the preTag as it is already generated.
  *
  * @param[in]  session     Handle for the current CL session.
- * @param[in]  pWa         Pointer to workarea.
- * @param[in]  pContext    Pointer to the MacModes context, contains the masked preTag.
+ * @param[in]  pWa         Pointer to workarea (word-aligned).
+ * @param[in]  pContext    Pointer to the MacModes context (word-aligned), contains the masked preTag.
  * @param[in]  pInput      Pointer to the input data.
  * @param[in]  inputLength Number of bytes of data in the @p pInput buffer.
  * @param[in]  operation   SGI operation configuration
@@ -119,7 +119,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CopyOutNormal(
  * Internal function, which copies out the result from the SGI to the output buffer using the DMA.
  *
  * @param[in]  session         Handle for the current CL session.
- * @param[in]  workArea        Pointer to workarea.
+ * @param[in]  workArea        Pointer to workarea (word-aligned).
  * @param[in]  dataProcessed   rfu
  * @param[out] pMac            Pointer to result buffer, which the MAC result will be written to.
  * @param[out] pOutLength      Pointer to length of output data.
@@ -186,7 +186,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_ISR_completeNonBlocking_multipa
  * @brief Function to request DMA input channel and to write the workarea into the session job context.
  *
  * @param session                           Session that requests the channels
- * @param pWa                               Pointer to the workarea to be written into the session job context
+ * @param pWa                               Pointer to the workarea to be written into the session job context (word-aligned)
  * @param callbackFunction                  Callback function to be written into the session job context
  * @param protectionToken_callbackFunction  Protection token of the callback function
  */
@@ -206,7 +206,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_requestDmaInputChannelAndConfig
  * Used for dma-driven blocking and non-blocking operations.
  *
  * @param[in]  session           Handle for the current CL session
- * @param[in]  pContext          Pointer to the context
+ * @param[in]  pContext          Pointer to the context (word-aligned)
  * @param[in]  pIn               Pointer to last block input data
  * @param[in]  inOffset          Offset of the @p pIn buffer
  * @param[in]  remainingBytes    Number of remaining bytes in buffer @p pIn
@@ -269,8 +269,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeEngine(
  * @pre Expect pretag is loaded to DATOUT
  *
  * @param[in]  session                        Handle for the current CL session
- * @param[in]  pWa                            Pointer to workarea
- * @param[in]  pContext                       Pointer to the context
+ * @param[in]  pWa                            Pointer to workarea (word-aligned)
+ * @param[in]  pContext                       Pointer to the context (word-aligned)
  * @param[in]  pIn                            Pointer to the input buffer data to be authenticated
  * @param[in]  inOffset                       Offset of the @p pIn buffer
  * @param[in]  inLength                       Length of the data in the @p pIn buffer

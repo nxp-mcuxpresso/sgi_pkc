@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2021, 2023 NXP                                            */
+/* Copyright 2020-2021, 2023, 2026 NXP                                      */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -33,21 +33,21 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  */
 #define mcuxClMath_QDash_Fup_Init_LEN  3u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_QDash_Fup_Init[mcuxClMath_QDash_Fup_Init_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_QDash_Fup_Init);
 
 /*
  * FUP program declaration mcuxClMath_QDash_Fup_Loop0
  */
 #define mcuxClMath_QDash_Fup_Loop0_LEN  3u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_QDash_Fup_Loop0[mcuxClMath_QDash_Fup_Loop0_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_QDash_Fup_Loop0);
 
 /*
  * FUP program declaration mcuxClMath_QDash_Fup_Loop1
  */
 #define mcuxClMath_QDash_Fup_Loop1_LEN  3u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_QDash_Fup_Loop1[mcuxClMath_QDash_Fup_Loop1_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_QDash_Fup_Loop1);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

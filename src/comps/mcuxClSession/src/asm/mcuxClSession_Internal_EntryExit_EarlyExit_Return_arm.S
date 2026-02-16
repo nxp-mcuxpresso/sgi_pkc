@@ -19,7 +19,11 @@
 
 #define rReturnCode    r0      /* returnCode, status code of the Clib */ /* UNUSED */
 #define rPSession      r1      /* pSession, pointer to the session */
+#ifdef CORTEXM0
+#define rAPIcall       r2      /* session->apiCall */
+#else
 #define rAPIcall       r12     /* session->apiCall */
+#endif
 
 #ifdef __IASMARM__
     NAME mcuxClSession_return
@@ -39,10 +43,27 @@
  * r1 = session
  */
 mcuxClSession_return:
-
     /* Restore CPU registers to prepare longjump */
     ldr rAPIcall, [rPSession, #APICALL_OFFSET]
-
+#ifdef CORTEXM0
+    mov r12, rAPIcall
+    ldr r4, [rAPIcall, #CPUREGISTERBACKUP_S(4)]
+    ldr r5, [rAPIcall, #CPUREGISTERBACKUP_S(5)]
+    ldr r6, [rAPIcall, #CPUREGISTERBACKUP_S(6)]
+    ldr r7, [rAPIcall, #CPUREGISTERBACKUP_S(7)]
+    mov r8, r4
+    mov r9, r5
+    mov r10, r6
+    mov r11, r7
+    ldr r4, [rAPIcall, #CPUREGISTERBACKUP_SP]
+    mov sp, r4
+    ldr r4, [rAPIcall, #CPUREGISTERBACKUP_RA]
+    mov lr, r4
+    ldr r4, [rAPIcall, #CPUREGISTERBACKUP_S(0)]
+    ldr r5, [rAPIcall, #CPUREGISTERBACKUP_S(1)]
+    ldr r6, [rAPIcall, #CPUREGISTERBACKUP_S(2)]
+    ldr r7, [rAPIcall, #CPUREGISTERBACKUP_S(3)]
+#else
     ldr r4, [rAPIcall, #CPUREGISTERBACKUP_S(0)]
     ldr r5, [rAPIcall, #CPUREGISTERBACKUP_S(1)]
     ldr r6, [rAPIcall, #CPUREGISTERBACKUP_S(2)]
@@ -53,8 +74,9 @@ mcuxClSession_return:
     ldr r11, [rAPIcall, #CPUREGISTERBACKUP_S(7)]
     ldr lr, [rAPIcall, #CPUREGISTERBACKUP_RA]
     ldr sp, [rAPIcall, #CPUREGISTERBACKUP_SP]
+#endif
 
-    /* Perform longjump to lr extracted from session->apiCall */
+    /* Perform longjump to ra extracted from session->apiCall */
     bx lr
 
 #ifdef __IASMARM__

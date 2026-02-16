@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -40,8 +40,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_updateMac(
  * Depending on the direction (encrypt vs. decrypt), it follows a Mac-then-Encrypt or Encrypt-then-Mac approach.
  *
  * @param      session   Handle of the current session.
- * @param      pContext  Pointer to the context.
- * @param      workArea  Handle of the CPU workarea.
+ * @param      pContext  Pointer to the context (word-aligned).
+ * @param      workArea  Handle of the CPU workarea (word-aligned).
  * @param[in]  pIn       Pointer to the input buffer.
  * @param[out] pOut      Pointer to the output buffer.  Will be filled with computed data bytes.
  * @param      inSize    Number of bytes in the input buffer to process.
@@ -62,8 +62,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Gcm_processFullBlocks(
  * Depending on the direction (encrypt vs. decrypt), it follows a Mac-then-Encrypt or Encrypt-then-Mac approach.
  *
  * @param      session   Handle of the current session.
- * @param      pContext  Pointer to the context.
- * @param      workArea  Handle of the CPU workarea.
+ * @param      pContext  Pointer to the context (word-aligned).
+ * @param      workArea  Handle of the CPU workarea (word-aligned).
  * @param[in]  pIn       Pointer to the input buffer.
  * @param[out] pOut      Pointer to the output buffer.  Will be filled with computed data bytes.
  * @param      inSize    Number of bytes in the input buffer to process.
@@ -83,8 +83,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
  * This function implements the input data processing step for CCM and GCM modes using the SGI.
  *
  * @param      session   Handle of the current session.
- * @param      pContext  Pointer to the context.
- * @param      workArea  Handle of the CPU workarea.
+ * @param      pContext  Pointer to the context (word-aligned).
+ * @param      workArea  Handle of the CPU workarea (word-aligned).
  * @param[in]  pIn       Pointer to the input buffer.
  * @param      inSize    Number of bytes in the input buffer.
  * @param[out] pOut      Pointer to the output buffer.  Will be filled with computed data bytes.
@@ -109,8 +109,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CcmGcm_process(
  * Data Integrity: Expunge(pTag)
  *
  * @param      session   Handle of the current session.
- * @param      pContext  Pointer to the multipart context.
- * @param      workArea  Handle of the CPU workarea.
+ * @param      pContext  Pointer to the multipart context (word-aligned).
+ * @param      workArea  Handle of the CPU workarea (word-aligned).
  * @param[out] pOut      Pointer to the output buffer. Will be filled with computed data.
  * @param[out] pOutSize  Will be set to the number of bytes written to the output buffer.
  * @param[out] pTag      Pointer to the tag buffer. Will be filled with the computed tag.

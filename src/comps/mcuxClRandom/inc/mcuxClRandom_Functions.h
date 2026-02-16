@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2022, 2024-2025 NXP                                       */
+/* Copyright 2020-2022, 2024-2026 NXP                                       */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -46,7 +46,7 @@ extern "C" {
  * operation initializes the Random context referenced in the session handle.
  *
  * @param [in]     pSession   Handle for the current CL session.
- * @param [in]     pContext   Pointer to a Random data context buffer large enough
+ * @param [in]     pContext   Pointer to a Random data context buffer (word-aligned) large enough
  *                            to hold the context for the selected @p mode
  * @param [in]     mode       Mode of operation for random data generator.
  *

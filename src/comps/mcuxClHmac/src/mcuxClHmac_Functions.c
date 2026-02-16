@@ -71,20 +71,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClHmac_compute(
     MCUX_CSSL_DI_RECORD(pMac, pMac);
 
     mcuxClHmac_Algorithm_t pAlgo = mcuxClHmac_castToHmacAlgorithm(mode->common.pAlgorithm);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
+
     MCUX_CSSL_FP_FUNCTION_CALL(mcuxClHmac_Context_Sw_t*, pContext, mcuxClSession_allocateWords_cpuWa(session, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLHMAC_INTERNAL_CONTEXT_SIZE)));
 
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_INCOMPATIBLE("The pointer pContext has compatible type and cast was valid")
     pContext->common.pMode = mode;
     pContext->key = (mcuxClKey_Descriptor_t *) key;
-    MCUX_CSSL_FP_EXPECT(pAlgo->protection_token_engineOneShot);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->engineOneshot(session, pContext, pIn, inLength, pMac, pMacLength));
 
     MCUX_CSSL_DI_EXPUNGE(pMacLength, *pMacLength); /* Was protected in pAlgo->engineOneshot() */
     /* Free pContext and return. No sensitive data remains to be cleared. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHmac_cleanupOnExit));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClHmac_cleanupOnExit(session, NULL, 0u, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLHMAC_INTERNAL_CONTEXT_SIZE)));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClHmac_cleanupOnExit(session, NULL, 0U, MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLHMAC_INTERNAL_CONTEXT_SIZE)));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHmac_compute, MCUXCLMAC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHmac_compute, MCUXCLMAC_STATUS_OK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+        pAlgo->protection_token_engineOneShot,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHmac_cleanupOnExit)
+    );
 }
 
 
@@ -100,15 +104,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_init(
     mcuxClHmac_Algorithm_t pAlgo = mcuxClHmac_castToHmacAlgorithm(pCtx->common.pMode->common.pAlgorithm);
 
     pCtx->key = (mcuxClKey_Descriptor_t *) key;
-    MCUX_CSSL_FP_EXPECT(pAlgo->protection_token_engineInit);
+
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->engineInit(session, pCtx));
 
     /* Init context CRC */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pCtx, MCUXCLHMAC_INTERNAL_CONTEXT_SIZE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pCtx, MCUXCLHMAC_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
     /* Nothing to clean, just forward return code. */
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHmac_init);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHmac_init,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc),
+        pAlgo->protection_token_engineInit
+    );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHmac_process, mcuxClMac_ProcessFunc_t)
@@ -128,18 +134,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClHmac_process(
     mcuxClHmac_Algorithm_t pAlgo = mcuxClHmac_castToHmacAlgorithm(pCtx->common.pMode->common.pAlgorithm);
 
     /* Check context CRC. Error is handled inside CRC. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLHMAC_INTERNAL_CONTEXT_SIZE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLHMAC_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-    MCUX_CSSL_FP_EXPECT(pAlgo->protection_token_engineUpdate);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->engineUpdate(session, pCtx, pIn, inLength));
 
     /* Update context CRC */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pCtx, MCUXCLHMAC_INTERNAL_CONTEXT_SIZE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(pCtx, MCUXCLHMAC_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
     /* Nothing to clean, just forward return code. */
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHmac_process, MCUXCLMAC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHmac_process, MCUXCLMAC_STATUS_OK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc),
+        pAlgo->protection_token_engineUpdate
+    );
 }
 
 
@@ -159,16 +166,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_finish(
     mcuxClHmac_Algorithm_t pAlgo = mcuxClHmac_castToHmacAlgorithm(pCtx->common.pMode->common.pAlgorithm);
 
     /* Check context CRC. Error is handled inside CRC. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLHMAC_INTERNAL_CONTEXT_SIZE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pCtx, MCUXCLHMAC_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-    MCUX_CSSL_FP_EXPECT(pAlgo->protection_token_engineFinalize);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->engineFinalize(session, pCtx, pMac, pMacLength));
 
     MCUX_CSSL_DI_EXPUNGE(pMacLength, *pMacLength); /* Was protected in pAlgo->engineFinalize() */
 
     /* Nothing to clean, just forward return code. */
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHmac_finish);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHmac_finish,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+        pAlgo->protection_token_engineFinalize
+    );
 }
 
 

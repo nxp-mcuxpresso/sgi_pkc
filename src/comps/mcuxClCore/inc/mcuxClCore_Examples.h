@@ -19,9 +19,9 @@
 #include <mcuxCsslFlowProtection.h>
 
 typedef void (*Interrupt_Callback_t)(void);
-void Interrupt_Callback_Install(Interrupt_Callback_t callback,uint8_t Interrupt_number);
-void S5xy_Enable_IRQ(uint32_t IRQ_Number);
-void S5xy_Disable_IRQ(uint32_t IRQ_Number);
+void IsrInterface_HandlerInstall(Interrupt_Callback_t callback,uint8_t Interrupt_number);
+void IsrInterface_Enable(uint32_t IRQ_Number);
+void IsrInterface_Disable(uint32_t IRQ_Number);
 
 /**
  * \def MCUXCLEXAMPLE_FUNCTION

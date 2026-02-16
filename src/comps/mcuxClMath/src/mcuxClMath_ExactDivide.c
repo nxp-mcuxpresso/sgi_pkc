@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -165,5 +165,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivide(uint32_t iR_iX_iY_iT, u
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivideOdd),
             MCUXCLPKC_FP_CALLED_CALC_OP1_SHL,
-            MCUXCLPKC_FP_CALLED_CALC_OP1_SHR);
+            MCUXCLPKC_FP_CALLED_CALC_OP2_SHR);
 }

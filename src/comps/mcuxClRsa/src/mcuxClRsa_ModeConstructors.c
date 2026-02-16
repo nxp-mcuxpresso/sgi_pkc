@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -58,13 +58,15 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_PkcDeinitialize(void)
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_SignatureModeConstructor_RSASSA_PSS)
-void mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
   mcuxClSignature_ModeDescriptor_t * pSignatureMode,
   mcuxClRsa_SignatureProtocolDescriptor_t * pProtocolDescriptor,
   mcuxClHash_Algo_t hashAlgorithm,
   uint32_t saltLength,
   uint32_t options)
 {
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_SignatureModeConstructor_RSASSA_PSS);
+
   /* Fill signature protocol parameters for RSA with PSS encoding */
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER("Const must be discarded to initialize the protocol parameters.")
   pProtocolDescriptor->pHashAlgo = (mcuxClHash_AlgorithmDescriptor_t *)hashAlgorithm;
@@ -91,16 +93,20 @@ void mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
   pSignatureMode->pVerifyFct = mcuxClRsa_Util_verify;
   pSignatureMode->protection_token_verify = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_Util_verify);
   pSignatureMode->pProtocolDescriptor = pProtocolDescriptor;
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_SignatureModeConstructor_RSASSA_PSS);
 }
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5)
-void mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5(
   mcuxClSignature_ModeDescriptor_t * pSignatureMode,
   mcuxClRsa_SignatureProtocolDescriptor_t * pProtocolDescriptor,
   mcuxClHash_Algo_t hashAlgorithm,
   uint32_t options)
 {
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5);
+
   /* Fill signature protocol parameters for RSA with PKCS#1 v1.5 encoding */
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER("Const must be discarded to initialize the protocol parameters")
   pProtocolDescriptor->pHashAlgo = (mcuxClHash_AlgorithmDescriptor_t *)hashAlgorithm;
@@ -127,17 +133,21 @@ void mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5(
   pSignatureMode->pVerifyFct = mcuxClRsa_Util_verify;
   pSignatureMode->protection_token_verify = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_Util_verify);
   pSignatureMode->pProtocolDescriptor = pProtocolDescriptor;
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5);
 }
 
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_KeyGeneration_ModeConstructor)
-void mcuxClRsa_KeyGeneration_ModeConstructor(
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyGeneration_ModeConstructor(
   mcuxClKey_GenerationDescriptor_t * pKeyGenMode,
   const uint8_t * pE,
   uint32_t eLength
 )
 {
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_KeyGeneration_ModeConstructor);
+
   /* Create RSA descriptor after the key mode.
    * It is assumed that sufficient space was allocated by users, with the macro MCUXCLRSA_KEYGEN_MODE_SIZE */
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Explicit cast to reinterpret memory, to initialize pProtocolDescriptor at word-aligned location after pKeyGenMode")
@@ -154,6 +164,8 @@ void mcuxClRsa_KeyGeneration_ModeConstructor(
   pKeyGenMode->pKeyGenFct = mcuxClRsa_KeyGeneration_GenerateKeyPair;
   pKeyGenMode->protectionTokenKeyGenFct = MCUX_CSSL_FP_FUNCID_mcuxClRsa_KeyGeneration_GenerateKeyPair;
   pKeyGenMode->pProtocolDescriptor = (void *) pProtocolDescriptor;
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyGeneration_ModeConstructor);
 }
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

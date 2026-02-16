@@ -33,6 +33,7 @@
 #include <internal/mcuxClMemory_CopySecure_Internal.h>
 #include <internal/mcuxClMemory_CopySecure_Reversed_Internal.h>
 #include <internal/mcuxClBuffer_FeatureConfig.h>
+#include <internal/mcuxClMemory_XOR_Internal.h>
 
 
 #ifdef __cplusplus
@@ -58,8 +59,40 @@ extern "C" {
  *  -  Data Integrity: Expunge(pDst + bufSrc + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pDst, &bufSrc[offset], byteLength));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
+}
+
+/**
+ * @brief Perform a read and XOR from the buffer
+ *
+ * @param[in]  bufSrc     Input buffer from which the data shall be read.
+ * @param[in]  offset     Offset that allows to access at the right index of bufSrc.
+ * @param[in]  pSrc       Pointer to the memory location where data shall be xored.
+ * @param[out] pDst       Pointer to the memory location where the data will be stored.
+ * @param      byteLength Amount of bytes that will be read.
+ *
+ * @post
+ *  - Data Integrity: Expunge(pDst + bufSrc + offset + pSrc + byteLength) -> done in MCUXCLMEMORY_XOR_INT function.
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_readAndXor)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_readAndXor(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t* pSrc, uint8_t* pDst, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_readAndXor);
+
+  MCUXCLMEMORY_XOR_INT(pDst, (const uint8_t *)&bufSrc[offset], (const uint8_t *)pSrc, byteLength);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_readAndXor,
+    MCUXCLMEMORY_XOR_INT_FP_EXPECT
+  );
+}
 
 /**
  * @brief Perform a word-wise read from the buffer
@@ -75,8 +108,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read(mcuxCl_InputBuffer_t bufSrc,
  *  - Data Integrity: Expunge(pDst + bufSrc + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read_word)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_word(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_word)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_word(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_word);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pDst, &bufSrc[offset], byteLength));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_word,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
+}
 
 /**
  * @brief Perform a read with endianess reversal from the buffer
@@ -90,8 +131,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_word(mcuxCl_InputBuffer_t bu
  *  - Data Integrity: Expunge(pDst + bufSrc + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_reverse(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_reverse)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_reverse(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_reverse);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pDst, &bufSrc[offset], byteLength));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_reverse,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
+}
 
 /**
  * @brief Perform a secure read from the buffer
@@ -105,8 +154,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_reverse(mcuxCl_InputBuffer_t
  *  -  Data Integrity: Expunge(pDst + bufSrc + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read_secure)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_secure)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_secure);
+
+  MCUXCLMEMORY_COPY_SECURE_INT(pDst, &bufSrc[offset], byteLength);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_secure, MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT);
+}
 
 /**
  * @brief Perform a secure read with endianess reversal from the buffer
@@ -120,8 +176,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure(mcuxCl_InputBuffer_t 
  *  -  Data Integrity: Expunge(pDst + bufSrc + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read_secure_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure_reverse(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_secure_reverse)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure_reverse(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_read_secure_reverse);
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDst, &bufSrc[offset], byteLength);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_read_secure_reverse,
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT
+  );
+}
 
 #ifdef MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC
 /**
@@ -141,8 +206,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_secure_reverse(mcuxCl_InputB
  *  - Data Integrity: Expunge(pDst + bufSrc + byteLength + offset)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_read_withoutDestIncrement)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_read_withoutDestIncrement)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *pDst, uint32_t byteLength)
 #endif /* MCUXCLBUFFER_FEATURE_INTERNAL_READ_NO_DEST_INC */
 
 /**
@@ -157,8 +222,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_read_withoutDestIncrement(mcuxCl_
  *  -  Data Integrity: Expunge(pSrc + bufDst + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_write)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(&bufDst[offset], pSrc, byteLength));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
+}
 
 /**
  * @brief Perform a word-wise write to the buffer
@@ -174,8 +247,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write(mcuxCl_Buffer_t bufDst, uin
  *  - Data Integrity: Expunge(pSrc + bufDst + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_write_word)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_word(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_word)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_word(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_word);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(&bufDst[offset], pSrc, byteLength));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_word,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
+}
 
 /**
  * @brief Perform a write with endianess reversal to the buffer
@@ -189,8 +270,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_word(mcuxCl_Buffer_t bufDst
  *  - Data Integrity: Expunge(pSrc + bufDst + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_write_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_reverse(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_reverse)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_reverse(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_reverse);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(&bufDst[offset], pSrc, byteLength));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_reverse,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
+}
 
 /**
  * @brief Perform a secure write to the buffer
@@ -204,8 +293,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_reverse(mcuxCl_Buffer_t buf
  *  - Data Integrity: Expunge(pSrc + bufDst + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_write_secure)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_secure)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_secure);
+
+  MCUXCLMEMORY_COPY_SECURE_INT(&bufDst[offset], pSrc, byteLength);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_secure, MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT);
+}
 
 /**
  * @brief Perform a secure write with endianess reversal to the buffer
@@ -219,8 +315,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure(mcuxCl_Buffer_t bufD
  *  - Data Integrity: Expunge(pSrc + bufDst + offset + byteLength)
  *
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxClBuffer_write_secure_reverse)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure_reverse(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength);
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_write_secure_reverse)
+static inline ALWAYS_INLINE MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure_reverse(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClBuffer_write_secure_reverse);
+
+  MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(&bufDst[offset], pSrc, byteLength);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClBuffer_write_secure_reverse,
+    MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT
+  );
+}
 
 /**
  * @brief Writes the pointer of @p bufSrc plus the @p offset in @p ppDest.
@@ -233,7 +338,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClBuffer_write_secure_reverse(mcuxCl_Buffe
  *
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClBuffer_inputBufferToCPU)
-static inline void mcuxClBuffer_inputBufferToCPU(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *bufCpuWa UNUSED_PARAM, const uint8_t **ppDest, uint32_t byteLength UNUSED_PARAM)
+static inline ALWAYS_INLINE void mcuxClBuffer_inputBufferToCPU(mcuxCl_InputBuffer_t bufSrc, uint32_t offset, uint8_t *bufCpuWa UNUSED_PARAM, const uint8_t **ppDest, uint32_t byteLength UNUSED_PARAM)
 {
   *ppDest = (const uint8_t *)bufSrc + offset;
 }

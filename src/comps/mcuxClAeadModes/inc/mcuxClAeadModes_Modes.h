@@ -36,6 +36,8 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_API_DECLARATIONS()
 /**
  * @brief AES-CCM mode descriptor
  */
+
+
 extern const mcuxClAead_ModeDescriptor_t mcuxClAead_ModeDescriptor_AES_CCM;
 
 /**
@@ -66,6 +68,8 @@ extern const mcuxClAead_ModeDescriptor_t mcuxClAead_ModeDescriptor_AES_GCM;
 static mcuxClAead_Mode_t mcuxClAead_Mode_GCM =
   &mcuxClAead_ModeDescriptor_AES_GCM;
 
+#ifdef MCUXCL_FEATURE_AEADMODES_SW
+#endif /* MCUXCL_FEATURE_AEADMODES_SW */
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_API_DECLARATIONS()
 

@@ -110,7 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   uint8_t *pP = MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_P]);
   MCUX_CSSL_DI_RECORD(sumOfMemParams, 2U * (uint32_t)pP + (uint32_t)pDomainParams->pP + byteLenP + bufferSize);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pP, (const uint8_t *)pDomainParams->pP, byteLenP));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pP + byteLenP, bufferSize - byteLenP));
+  MCUXCLMEMORY_CLEAR_INT(pP + byteLenP, bufferSize - byteLenP);
 
   /* import precomputed PDash */
   MCUX_CSSL_DI_RECORD(sumOfMemCopyParams, (uint32_t)MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_PFULL]) + (uint32_t)pDomainParams->pPDash + MCUXCLPKC_WORDSIZE);
@@ -125,7 +125,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
     MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_GenerateUPTRT),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QDash));
 }

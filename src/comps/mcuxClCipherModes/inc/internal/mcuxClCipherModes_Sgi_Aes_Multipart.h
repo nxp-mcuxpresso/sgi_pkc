@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -31,8 +31,8 @@
  * It implements the mode function pointer type @ref mcuxClCipher_InitFunc_t.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pContext   Pointer to the multipart context
- * @param[in]  pKey       Handle for the used key
+ * @param[in]  pContext   Pointer to the multipart context (word-aligned)
+ * @param[in]  pKey       Handle for the used key (word-aligned)
  * @param[in]  pIv        Pointer to initialization vector
  * @param[in]  ivLength   Length of initialization vector
  *
@@ -53,8 +53,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_init_encrypt_Sgi(
  * It implements the mode function pointer type @ref mcuxClCipher_InitFunc_t.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pContext   Pointer to the multipart context
- * @param[in]  pKey       Handle for the used key
+ * @param[in]  pContext   Pointer to the multipart context (word-aligned)
+ * @param[in]  pKey       Handle for the used key (word-aligned)
  * @param[in]  pIv        Pointer to initialization vector
  * @param[in]  ivLength   Length of initialization vector
  *
@@ -75,8 +75,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_init_decrypt_Sgi(
  * It implements the mode function pointer type @ref mcuxClCipher_InitFunc_t.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pContext   Pointer to the multipart context
- * @param[in]  pKey       Handle for the used key
+ * @param      pWa        Handle for the workarea (word-aligned)
+ * @param[in]  pContext   Pointer to the multipart context (word-aligned)
+ * @param[in]  pKey       Handle for the used key (word-aligned)
  * @param[in]  pIv        Pointer to initialization vector
  * @param[in]  ivLength   Length of initialization vector
  *
@@ -98,7 +99,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_init_internal_Sgi(
  * It implements the mode function pointer type @ref mcuxClCipher_ProcessFunc_t.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pContext   Pointer to the multipart context
+ * @param[in]  pContext   Pointer to the multipart context (word-aligned)
  * @param[in]  pIn        Pointer to the input buffer
  * @param[in]  inLength   Length of the input buffer
  * @param[out] pOut       Pointer to the output buffer
@@ -126,7 +127,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
  * depending on the used multipart finish API function.
  *
  * @param      session    Handle for the current CL session.
- * @param[in]  pContext   Pointer to the multipart context
+ * @param[in]  pContext   Pointer to the multipart context (word-aligned)
  * @param[out] pOut       Pointer to the output buffer to write the last block(s)
  * @param[out] pOutLength Pointer to write/update the amount of written output bytes
  *
@@ -146,8 +147,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_finish_Sgi(
  * It implements the context function pointer type @ref mcuxClCipherModes_FinishFunc_AesSgi_t.
  *
  * @param      session    Handle for the current CL session.
- * @param      pWa        Handle for the workarea
- * @param[in]  pContext   Pointer to the multipart context
+ * @param      pWa        Handle for the workarea (word-aligned)
+ * @param[in]  pContext   Pointer to the multipart context (word-aligned)
  * @param[out] pOut       Pointer to the output buffer to write the last block(s)
  * @param[out] pOutLength Pointer to write/update the amount of written output bytes
  *
@@ -168,8 +169,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_finish_encrypt_Sgi(
  * It implements the context function pointer type @ref mcuxClCipherModes_FinishFunc_AesSgi_t.
  *
  * @param      session    Handle for the current CL session.
- * @param      pWa        Handle for the workarea
- * @param[in]  pContext   Pointer to the multipart context
+ * @param      pWa        Handle for the workarea (word-aligned)
+ * @param[in]  pContext   Pointer to the multipart context (word-aligned)
  * @param[out] pOut       Pointer to the output buffer to write the last block(s)
  * @param[out] pOutLength Pointer to write/update the amount of written output bytes
  *

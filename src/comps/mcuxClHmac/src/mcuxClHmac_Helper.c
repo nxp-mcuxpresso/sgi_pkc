@@ -48,7 +48,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClHmac_createHmacMode(
     MCUX_CSSL_DI_RECORD(memCopySrc, (uint32_t) &mcuxClHmac_CommonModeDescriptor_Sw);
     MCUX_CSSL_DI_RECORD(memCopyLen, (uint32_t) sizeof(mcuxClHmac_CommonModeDescriptor_Sw));
     /* copy the common HMAC mode descriptor into the mode */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
+
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t *) &mode->common,
                                                         (uint8_t const *) &mcuxClHmac_CommonModeDescriptor_Sw,
                                                         sizeof(mcuxClHmac_CommonModeDescriptor_Sw)));
@@ -66,5 +66,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClHmac_createHmacMode(
     mcuxClHmac_ModeDescriptor_t * hmacModeDescriptor = (mcuxClHmac_ModeDescriptor_t *) mode->pCustom;
     hmacModeDescriptor->hashAlgorithm = (const mcuxClHash_AlgorithmDescriptor_t *) hashAlgorithm;
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHmac_createHmacMode, MCUXCLMAC_STATUS_OK);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHmac_createHmacMode, MCUXCLMAC_STATUS_OK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)
+    );
 }

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2023, 2025 NXP                                            */
+/* Copyright 2022-2023, 2025-2026 NXP                                       */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -109,11 +109,13 @@ MCUX_CSSL_FP_FUNCTION_DEF(mcuxClResource_inline_hwId_irq)
 static inline mcuxClResource_HwId_t mcuxClResource_inline_hwId_irq(mcuxClResource_Interrupt_t interrupt)
 {
     mcuxClResource_HwId_t hwId = MCUXCLRESOURCE_HWID_INVALID;
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("(interrupt - MCUXCLRESOURCE_IRQ_DMA00) can't be negative when (MCUXCLRESOURCE_IRQ_DMA00 <= interrupt)")
     if (MCUXCLRESOURCE_IRQ_DMA00 <= interrupt)
     {
         hwId = MCUXCLRESOURCE_HWID_DMA(interrupt - MCUXCLRESOURCE_IRQ_DMA00);
     }
     return hwId;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 }
 
 /* Macro and inline function to check if a hardware ID maps to a DMA channel. */

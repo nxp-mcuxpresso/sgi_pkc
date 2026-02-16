@@ -39,7 +39,6 @@
 #include <internal/mcuxClMemory_CopySecure_Internal.h>
 #include <internal/mcuxClMemory_SetSecure_Internal.h>
 #include <internal/mcuxClMemory_CopySecure_Reversed_Internal.h>
-#include <internal/mcuxClMemory_CopySecurePow2_Internal.h>
 #include <internal/mcuxClMemory_XORSecure_Internal.h>
 #include <internal/mcuxClMemory_XORSecureWithConst_Internal.h>
 

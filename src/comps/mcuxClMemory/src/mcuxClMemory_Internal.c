@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2021, 2023-2025 NXP                                       */
+/* Copyright 2020-2021, 2023-2026 NXP                                       */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -26,7 +26,7 @@
 #include <internal/mcuxCsslMemory_Internal_Copy_arm_asm.h>
 #include <internal/mcuxCsslMemory_Internal_Compare_arm_asm.h>
 #include <internal/mcuxCsslMemory_Internal_CopyRev_arm_asm.h>
-#include <internal/mcuxClMemory_CompareRev_Internal.h>
+#include <internal/mcuxCsslMemory_Internal_CompareRev_arm_asm.h>
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMemory_copy_int)
@@ -52,7 +52,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_int
     uint32_t TrngEntLastAddr  = (uint32_t) &((TRNG_SFR_BASE->TRNG_SFR_NAME(ENT))[MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS]);
 
     if (
-
         /* SGI */
           (((((uint32_t) pSrc) < (uint32_t)SGI_SFR_BASE) || (((uint32_t) pSrc) > SGILastAddr))
         && ((((uint32_t) pDst) < (uint32_t)SGI_SFR_BASE) || (((uint32_t) pDst) > SGILastAddr)))
@@ -69,7 +68,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_int
         MCUX_CSSL_DI_RECORD(compareParams, (uint32_t) pDst);
         MCUX_CSSL_DI_RECORD(compareParams, (uint32_t) pSrc);
         MCUX_CSSL_DI_RECORD(compareParams, length);
-        MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxCsslMemory_Compare_arm_asm(pDst, pSrc, length));
+        MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxCsslMemory_FastCompare_arm_asm(pDst, pSrc, length));
         MCUX_CSSL_DI_EXPUNGE(robustCmpStatus, clRetval);
         if(MCUXCSSLMEMORY_STATUS_EQUAL != clRetval)
         {
@@ -80,12 +79,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_int
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_int,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Copy_arm_asm),
         MCUX_CSSL_FP_CONDITIONAL(
-                                ((((((uint32_t) pSrc) < (uint32_t) SGI_SFR_BASE) || (((uint32_t) pSrc) > SGILastAddr))
+                                (((((uint32_t) pSrc) < (uint32_t) SGI_SFR_BASE) || (((uint32_t) pSrc) > SGILastAddr))
                               &&  ((((uint32_t) pDst) < (uint32_t) SGI_SFR_BASE) || (((uint32_t) pDst) > SGILastAddr)))
-                              &&  ((((uint32_t) pSrc) < TrngEntFirstAddr) || (((uint32_t) pSrc) > TrngEntLastAddr)))
+                              &&  ((((uint32_t) pSrc) < TrngEntFirstAddr) || (((uint32_t) pSrc) > TrngEntLastAddr))
                               ,
-                                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare_arm_asm)
-                                )
+                                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_FastCompare_arm_asm))
         );
 }
 
@@ -161,13 +159,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_reversed_int
     MCUX_CSSL_DI_RECORD(compareParams, pDst);
     MCUX_CSSL_DI_RECORD(compareParams, pSrc);
     MCUX_CSSL_DI_RECORD(compareParams, length);
-    MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxClMemory_compare_reversed_int(pDst, pSrc, length));
-    if(MCUXCLMEMORY_STATUS_EQUAL != clRetval)
+    MCUX_CSSL_FP_FUNCTION_CALL(clRetval, mcuxCsslMemory_FastCompareRev_arm_asm(pDst, pSrc, length));
+    MCUX_CSSL_DI_EXPUNGE(robustCmpStatus, clRetval);
+    if(MCUXCSSLMEMORY_STATUS_EQUAL != clRetval)
     {
         MCUX_CSSL_DI_RECORD(compareParams, clRetval);
     }
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_reversed_int,
                                     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_CopyRev_arm_asm),
-                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_reversed_int));
+                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_FastCompareRev_arm_asm));
 }

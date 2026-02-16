@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -34,6 +34,7 @@
 #define MCUXCLCIPHER_AES_ENCRYPT_CPU_WA_BUFFER_SIZE_IN_WORDS      MCUXCLCORE_NUM_OF_CPUWORDS_FLOOR(MCUXCLCIPHER_AES_ENCRYPT_CPU_WA_BUFFER_SIZE)
 #define MCUXCLCIPHER_AES_DECRYPT_CPU_WA_BUFFER_SIZE_IN_WORDS      MCUXCLCORE_NUM_OF_CPUWORDS_FLOOR(MCUXCLCIPHER_AES_DECRYPT_CPU_WA_BUFFER_SIZE)
 
+
 #define MCUXCLCIPHER_AES_INIT_ENCRYPT_CPU_WA_BUFFER_SIZE          (80u)
 #define MCUXCLCIPHER_AES_INIT_DECRYPT_CPU_WA_BUFFER_SIZE          (80u)
 #define MCUXCLCIPHER_AES_PROCESS_CPU_WA_BUFFER_SIZE               (80u)
@@ -43,12 +44,15 @@
 #define MCUXCLCIPHER_AES_PROCESS_CPU_WA_BUFFER_SIZE_IN_WORDS      MCUXCLCORE_NUM_OF_CPUWORDS_FLOOR(MCUXCLCIPHER_AES_PROCESS_CPU_WA_BUFFER_SIZE)
 #define MCUXCLCIPHER_AES_FINISH_CPU_WA_BUFFER_SIZE_IN_WORDS       MCUXCLCORE_NUM_OF_CPUWORDS_FLOOR(MCUXCLCIPHER_AES_FINISH_CPU_WA_BUFFER_SIZE)
 
+
 #define MCUXCLCIPHER_MAX_AES_CPU_WA_BUFFER_SIZE                   (MCUXCLCIPHER_AES_ENCRYPT_CPU_WA_BUFFER_SIZE)
 #define MCUXCLCIPHER_MAX_AES_CPU_WA_BUFFER_SIZE_IN_WORDS          (MCUXCLCIPHER_AES_ENCRYPT_CPU_WA_BUFFER_SIZE_IN_WORDS)
 
+
 /* Context sizes */
-#define MCUXCLCIPHER_AES_CONTEXT_SIZE                             (152u)
+#define MCUXCLCIPHER_AES_CONTEXT_SIZE                             (108u)
 #define MCUXCLCIPHER_AES_CONTEXT_SIZE_IN_WORDS                    MCUXCLCORE_NUM_OF_CPUWORDS_FLOOR(MCUXCLCIPHER_AES_CONTEXT_SIZE)
+
 
 /** @} */
 

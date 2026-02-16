@@ -112,8 +112,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
   }
 
   /* Locate paddedMessage buffer at beginning of PKC WA and update session info */
+  /* Note that pPaddedMessage is allocated with more bytes than required, the remaining bytes are used internally by mcuxClRsa_public */
   const uint32_t pkcWaSizeWord = MCUXCLRSA_INTERNAL_PUBLIC_OUTPUT_SIZE(keyByteLength) / (sizeof(uint32_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPaddedMessage, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
   MCUX_CSSL_DI_RECORD(verifyPadMsg, pPaddedMessage);
 
@@ -157,9 +157,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
   MCUXCLRSA_UTIL_VERIFY_FP_DEINITIALIZE_RELEASE(pSession);
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_Util_verify, retVal_PaddingOperation,
-          MCUXCLRSA_UTIL_VERIFY_FP_CALLED_REQUEST_INITIALIZE,
-          pRsa_Signature_ProtocolDescriptor->rsaPublicExp_FunId,
-          pRsa_Signature_ProtocolDescriptor->verify_FunId,
-          MCUXCLRSA_UTIL_VERIFY_FP_CALLED_DEINITIALIZE_RELEASE);
+      MCUXCLRSA_UTIL_VERIFY_FP_CALLED_REQUEST_INITIALIZE,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+      pRsa_Signature_ProtocolDescriptor->rsaPublicExp_FunId,
+      pRsa_Signature_ProtocolDescriptor->verify_FunId,
+      MCUXCLRSA_UTIL_VERIFY_FP_CALLED_DEINITIALIZE_RELEASE
+  );
 
 }

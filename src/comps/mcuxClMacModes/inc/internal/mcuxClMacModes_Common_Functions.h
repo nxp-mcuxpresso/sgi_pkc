@@ -24,7 +24,6 @@
 #include <mcuxClKey_Types.h>
 #include <mcuxClSession_Types.h>
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif

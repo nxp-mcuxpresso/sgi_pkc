@@ -37,6 +37,7 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
+    #define ALWAYS_INLINE __attribute__((always_inline))
 
 /* using the gcc toolchain file for both gcc and armgcc */
 #elif defined ( __GNUC__ )
@@ -49,6 +50,7 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
+    #define ALWAYS_INLINE __attribute__((always_inline))
 
 /* for armcc compiler */
 #elif defined ( __CC_ARM )
@@ -59,6 +61,7 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
+    #define ALWAYS_INLINE __attribute__((always_inline))
 
 /* for ghs compiler */
 #elif defined ( __ghs__ )
@@ -69,6 +72,7 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
+    #define ALWAYS_INLINE __attribute__((always_inline))
 
 /* for iar compiler */
 #elif defined ( __ICCARM__ )
@@ -79,6 +83,7 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
+    #define ALWAYS_INLINE __attribute__((always_inline))
 
 /* for llvm */
 #elif defined ( __clang__ )
@@ -89,6 +94,7 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
+    #define ALWAYS_INLINE __attribute__((always_inline))
 
 /* for dsp56800x */
 #elif defined ( __m56800E__ )
@@ -99,7 +105,7 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
-
+    #define ALWAYS_INLINE __attribute__((always_inline))
 #endif
 
 

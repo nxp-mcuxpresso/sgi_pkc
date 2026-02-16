@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -136,8 +136,8 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *
  * @param[in]     pSession              Handle for the current CL session
  * @param[in]     generation            Generation descriptor specifying the EdDSA GenerateKeyPair variant
- * @param[in,out] privKey               Key handle for the private key
- * @param[out]    pubKey                Key handle for the public key
+ * @param[in,out] privKey               Key handle for the private key (word-aligned)
+ * @param[out]    pubKey                Key handle for the public key (word-aligned)
  *
  */
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_URL_IN_COMMENTS()
@@ -168,7 +168,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *
  *
  * @param[in]  pSession       Handle for the current CL session
- * @param[in]  key            Key handle for private key related data which a.o. references the secret signing keys s and (hb,...,h{2b-1}) as well as the public key Qenc.
+ * @param[in]  key            Key handle for private key related data which a.o. references the secret signing keys s and (hb,...,h{2b-1}) as well as the public key Qenc (word-aligned).
  * @param[in]  signatureMode  Mode descriptor specifying the EdDSA variant
  * @param[in]  pIn            Buffer for message digest m'
  * @param[in]  inSize         Size of message digest m'
@@ -191,7 +191,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_EdDSA_GenerateSi
     uint32_t * const pSignatureSize
 );
 
-
 MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
 /**
  * @brief This function implements the EdDSA signature verification for Ed25519 and Ed448 as specified in rfc8032 (see Sections 5.1.7 and 5.2.7 of https://datatracker.ietf.org/doc/html/rfc8032).
@@ -210,7 +209,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  * returnCode is not recorded in case of fault attack
  *
  * @param[in]  pSession        Handle for the current CL session
- * @param[in]  key             Key handle for public key Qenc
+ * @param[in]  key             Key handle for public key Qenc (word-aligned)
  * @param[in]  signatureMode   Mode descriptor specifying the EdDSA variant
  * @param[in]  pIn             Buffer for message digest m'
  * @param[in]  inSize          Size of message digest m'

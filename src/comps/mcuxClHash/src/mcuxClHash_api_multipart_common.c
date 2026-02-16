@@ -30,11 +30,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_init(
 {
     MCUXCLSESSION_ENTRY(session, mcuxClHash_init, diRefValue, MCUXCLHASH_STATUS_FAULT_ATTACK);
 
-    pContext->unprocessedLength = 0u;
-    pContext->processedLength[0] = 0u;
-    pContext->processedLength[1] = 0u;
-    pContext->processedLength[2] = 0u;
-    pContext->processedLength[3] = 0u;
+    pContext->unprocessedLength = 0U;
+    pContext->processedLength[0] = 0ULL;
+    pContext->processedLength[1] = 0ULL;
     pContext->algo = algorithm;
 
     MCUXCLSESSION_EXIT(session, mcuxClHash_init, diRefValue, MCUXCLHASH_STATUS_OK, MCUXCLHASH_STATUS_FAULT_ATTACK);
@@ -55,10 +53,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_process_internal(
         MCUXCLSESSION_ERROR(session, MCUXCLHASH_STATUS_INVALID_PARAMS);
     }
 
-    MCUX_CSSL_FP_EXPECT(pContext->algo->protection_token_processSkeleton);
     MCUX_CSSL_FP_FUNCTION_CALL(skeletonStatus, pContext->algo->processSkeleton(session, pContext, pIn, inSize));
-    
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHash_process_internal, skeletonStatus);
+
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHash_process_internal, skeletonStatus, pContext->algo->protection_token_processSkeleton);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHash_process)
@@ -76,7 +73,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_process(
     MCUX_CSSL_DI_RECORD(processSkeletonParams, pIn);
     MCUX_CSSL_DI_RECORD(processSkeletonParams, inSize);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal));
     MCUX_CSSL_FP_FUNCTION_CALL(result, mcuxClHash_process_internal(
         session,
         pContext,
@@ -87,6 +83,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_process(
         mcuxClHash_process,
         diRefValue,
         result,
-        MCUXCLHASH_STATUS_FAULT_ATTACK
+        MCUXCLHASH_STATUS_FAULT_ATTACK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal)
       );
 }

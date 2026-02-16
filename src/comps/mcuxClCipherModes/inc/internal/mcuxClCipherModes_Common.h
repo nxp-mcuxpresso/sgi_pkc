@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -22,5 +22,6 @@
 #include <internal/mcuxClCipherModes_Sgi_Algorithms.h>
 #include <internal/mcuxClCipherModes_Sgi_Functions.h>
 #include <internal/mcuxClCipherModes_Sgi_Types.h>
+
 
 #endif /* MCUXCLCIPHERMODES_COMMON_H_ */

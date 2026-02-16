@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -38,7 +38,6 @@ volatile uint8_t mcuxClAeadModes_WorkArea_size[MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(
 volatile uint8_t mcuxClAead_OneShot[MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(mcuxClAeadModes_WorkArea_t))
                                    + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(mcuxClAeadModes_Context_t))];
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_OBJ_SIZES()
-
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_OBJ_SIZES()
 volatile struct mcuxClAeadModes_Context mcuxClAeadModes_Context_size;

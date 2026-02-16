@@ -127,20 +127,41 @@
   .align 2
 
 #define MCUX_CSSL_ASM_FUNC_SECTION(name) \
-  .section MCUX_CSSL_CPP_CAT(.text.,name)
+  .section MCUX_CSSL_CPP_CAT(.text.,name), "ax"
 
 #define MCUX_CSSL_ASM_FUNC_SYMBOL(name) \
   .type name, $function
+
+#define MCUX_CSSL_ASM_FUNC_START(name) \
+  name::
+
+#define MCUX_CSSL_ASM_FUNC_END(name)
+
+/* for iar compiler */
+#elif defined ( __ICCARM__ ) || defined ( __IASMARM__ )
+#define MCUX_CSSL_ASM_LABEL(name) \
+  name:
+
+#define MCUX_CSSL_ASM_FILE_START() \
+
+
+#define MCUX_CSSL_ASM_FILE_END() \
+  MCUX_CSSL_CPP_EMPTY()    END
+
+#define MCUX_CSSL_ASM_FUNC_ALIGNMENT() \
+  MCUX_CSSL_CPP_EMPTY()    THUMB
+
+#define MCUX_CSSL_ASM_FUNC_SECTION(name) \
+  MCUX_CSSL_CPP_EMPTY()    SECTION .text:CODE(2)
+
+#define MCUX_CSSL_ASM_FUNC_SYMBOL(name) \
+  MCUX_CSSL_CPP_EMPTY()    PUBLIC name
 
 #define MCUX_CSSL_ASM_FUNC_START(name) \
   MCUX_CSSL_ASM_LABEL(name)
 
 #define MCUX_CSSL_ASM_FUNC_END(name)
 
-/* for iar compiler */
-#elif defined ( __ICCARM__ )
-#define MCUX_CSSL_ASM_LABEL(name) \
-/* TODO CLNS-16812 implement macros for IAR */
 #else
 #error Unsupported assembler
 #endif

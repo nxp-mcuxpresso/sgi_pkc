@@ -77,24 +77,31 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_TwEd_PlainPtrSelectComb(
      *         Else:
      *   - Copy TWED_PP_VX0 and TWED_PP_VT0 to ECC_T1 and ECC_T2
      */
+    MCUX_CSSL_FP_BRANCH_DECL(nibbleBranch);
     if(0u == (nibble & 0x1u))
     {
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
         MCUXCLPKC_FP_CALC_OP1_SUB(ECC_T1, ECC_P, TWED_PP_VX0);
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
         MCUXCLPKC_FP_CALC_OP1_SUB(ECC_T2, ECC_P, TWED_PP_VT0);
+
+        MCUX_CSSL_FP_BRANCH_POSITIVE(nibbleBranch,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_SUB,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_SUB);
     }
     else
     {
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
         MCUXCLPKC_FP_CALC_OP1_OR_CONST(ECC_T1, TWED_PP_VX0, 0u);
-        MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
         MCUXCLPKC_FP_CALC_OP1_OR_CONST(ECC_T2, TWED_PP_VT0, 0u);
+
+        MCUX_CSSL_FP_BRANCH_NEGATIVE(nibbleBranch,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
+            MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
 
     }
     /* Set virtual pointers TWED_PP_VX0 and TWED_PP_VT0 to buffers ECC_T1 and ECC_T2. */
     pOperands[TWED_PP_VX0] = (uint16_t)pOperands[ECC_T1];
     pOperands[TWED_PP_VT0] = (uint16_t)pOperands[ECC_T2];
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_PlainPtrSelectComb);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_TwEd_PlainPtrSelectComb,
+        MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(nibbleBranch, 0u == (nibble & 0x1u)),
+        MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE(nibbleBranch, 0u != (nibble & 0x1u)));
 }

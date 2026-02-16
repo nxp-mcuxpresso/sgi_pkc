@@ -84,7 +84,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
     const uint16_t * pOperands = MCUXCLPKC_GETUPTRT();
     uint8_t *pPrivateKeyDest = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_S3]);
     MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();
-    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
     MCUXCLKEY_LOAD_FP(
       pSession,
       key,
@@ -96,7 +95,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
 
     /* Call mcuxClEcc_MontDH_X to calculate the public key q=MontDH_X(d,Gx) and store it in buffer MONT_X0. If the function returns NEUTRAL_POINT, return MCUXCLECC_STATUS_FAULT_ATTACK */
     uint8_t *pPublicKeyData = NULL;
-    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(pOtherKey));
     MCUXCLKEY_LOAD_FP(
       pSession,
       pOtherKey,
@@ -107,13 +105,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
       MCUXCLKEY_ENCODING_SPEC_ACTION_PTR);
 
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDHx, mcuxClEcc_MontDH_X(pSession, pDomainParameters, (const uint8_t*)pPublicKeyData));
-    if(MCUXCLECC_STATUS_NEUTRAL_POINT == retCode_MontDHx)
+    if(MCUXCLECC_INTSTATUS_SCALAR_ZERO == retCode_MontDHx)
     {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
-    }
-    else if(MCUXCLECC_INTSTATUS_SCALAR_ZERO == retCode_MontDHx)
+        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_SCALAR_ZERO);
+    } else if(MCUXCLECC_STATUS_NEUTRAL_POINT == retCode_MontDHx)
     {
-        MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
+        MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_SMALL_SUBGROUP_ATTACK);
     }
     else if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
     {
@@ -127,7 +124,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
         *pOutLength = keyLen;
 
         /* Import prime p and order n again, and check (compare with) existing one. */
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_IntegrityCheckPN));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(
             mcuxClEcc_IntegrityCheckPN(pSession, (mcuxClEcc_CommonDomainParams_t *) &pDomainParameters->common));
 
@@ -141,6 +137,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_MontDH_SetupEnvironment),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_MontDH_X),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_SecureExportLittleEndianFromPkc),
+            MCUXCLKEY_LOAD_FP_CALLED(key),
+            MCUXCLKEY_LOAD_FP_CALLED(pOtherKey),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_IntegrityCheckPN),
             MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
     }
 }

@@ -87,11 +87,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_PointCheckAffineNR(mcu
 
 /**
  * This function checks a point, if y^2 == x^3 + a*x*z^4 + b*z^6 (mod p).
+ * @param pSession Session handle for fault detection
+ * @param iX Pointer table index of X coordinate, Jacobian, Montgomery representation.
+ * @param iY Pointer table index of Y coordinate, Jacobian, Montgomery representation.
+ * @param iZ Pointer table index of Z coordinate, Jacobian, Montgomery representation.
  * @retval #MCUXCLECC_STATUS_OK
  * @retval #MCUXCLECC_INTSTATUS_POINTCHECK_NOT_OK
- *
- * Inputs in pOperands[] and PKC workarea:
- *   buffers (X0,Y0,Z) contain the point, Jacobian, Montgomery representation.
  *
  * Prerequisites:
  *   buffer WEIER_A contains curve coefficient a, Montgomery representation;
@@ -102,12 +103,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_PointCheckAffineNR(mcu
  *
  * Modifications:
  *   buffers T0, T1, t2 and T3 are modified (as temp).
+ *   VX0, VY0, VZ0 are set up as virtual pointers to iX, iY, iZ.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_Weier_PointCheckJacMR)
-MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_PointCheckJacMR(mcuxClSession_Handle_t pSession)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_PointCheckJacMR(mcuxClSession_Handle_t pSession, uint32_t iX, uint32_t iY, uint32_t iZ)
 
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_Weier_PointCheckJacMR);
+
+    /* Set up virtual pointers for mcuxClEcc_Weier_PointCheckJacMR */
+    uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
+    MCUXCLPKC_WAITFORREADY();
+    pOperands[WEIER_VX0] = pOperands[iX];
+    pOperands[WEIER_VY0] = pOperands[iY];
+    pOperands[WEIER_VZ0] = pOperands[iZ];
 
     /* Calculate t0 = (y^2 - x^3 - a*x*z^4 - b*z^6) mod p. */
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_PointCheckJacMR,

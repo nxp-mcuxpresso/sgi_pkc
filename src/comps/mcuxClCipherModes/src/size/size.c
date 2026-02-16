@@ -33,5 +33,4 @@ volatile uint8_t mcuxClCipherModes_WorkArea_Aes_Sgi[MCUXCLCORE_ALIGN_TO_CPU_WORD
 
 volatile mcuxClCipherModes_Context_Aes_Sgi_t mcuxClCipherModes_Context_Aes_SGI;
 
-
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_OBJ_SIZES()

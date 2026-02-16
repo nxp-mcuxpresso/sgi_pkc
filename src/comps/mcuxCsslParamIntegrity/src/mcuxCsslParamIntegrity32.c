@@ -15,7 +15,9 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
 #include <mcuxCsslAnalysis.h>
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_STDARG_USAGE("Usage of stdarg.h feature has been analyzed and approved, compiler error has been added for exceptions (when CPU word size > 32 bit)")
 #include <stdarg.h>
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_STDARG_USAGE()
 #include <stddef.h>
 
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_STDARG_USAGE("Usage of stdarg.h feature has been analyzed and approved, compiler error has been added for exceptions (when CPU word size > 32 bit)")

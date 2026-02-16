@@ -58,7 +58,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_IV);
 
-  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, ((uint32_t)pIv) + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN1_OFFSET) + 16u);
+  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, ((uint32_t)pIv) + (uint32_t)(MCUXCLSGI_DRV_DATIN1_OFFSET) + 16u);
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN1_OFFSET, pIv));  /* load the IV in DATIN1 */
 
@@ -89,18 +89,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_AutoMode_Cbc_Dec(
      is kept, hence it allows us for a more consistent SW behaviour for multi-block and
      single-block handling.
   */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN2_OFFSET, MCUXCLBUFFER_GET(pIv)));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
   /* Store the needed register of the IV s.t. intermediate IVs can be re-loaded after crypt operations */
   pWa->pIV = mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN2_OFFSET);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_IV_AutoMode_Cbc_Dec);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_IV_AutoMode_Cbc_Dec,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_IV_to_DATOUT_DMA, mcuxClCipherModes_SetupIvFunc_t)
@@ -113,18 +113,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_to_DATOUT_DMA(
 
   /* Copy IV to SGI DATOUT with DMA */
   mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATOUT_OFFSET, MCUXCLBUFFER_GET(pIv)));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
   /* Store the needed register of the IV s.t. intermediate IVs can be re-loaded after crypt operations */
   pWa->pIV = mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_IV_to_DATOUT_DMA);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_IV_to_DATOUT_DMA,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
 }
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
@@ -140,24 +140,24 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
 
   /* Known limitation: Configure and start the SGI to AUTO mode CTR *before* loading the IV to DATIN0 */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureAutoMode(MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_CTR_128));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(pWa->sgiWa.sgiCtrlKey | MCUXCLSGI_DRV_CTRL_NO_UP));
 
   /* Copy IV to SGI DATIN0 with DMA */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLBUFFER_GET(pIv)));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
   /* Use DATA register that is used to store the current IV. */
   pWa->pIV = mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN2_OFFSET);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_IV_AutoMode_Ctr);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_IV_AutoMode_Ctr,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_checkIvLen_noIv, mcuxClCipherModes_CheckIvLength_t)

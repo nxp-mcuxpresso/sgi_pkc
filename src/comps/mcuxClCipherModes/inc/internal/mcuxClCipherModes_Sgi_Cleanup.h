@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -39,8 +39,8 @@
  * It frees CPU workarea and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
- * @param      pContext         Pointer to multipart context
- * @param      key              Handle for the key.
+ * @param      pContext         Pointer to multipart context (word-aligned)
+ * @param      key              Handle for the key (word-aligned).
  *                              If the key is in the context, this param shall be NULL.
  * @param[in]  cpuWaSizeInWords Number of cpu wa words to free
  */
@@ -59,8 +59,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_cleanupOnExit(
  * It frees CPU workarea, releases the DMA and uninitializes the SGI.
  *
  * @param      session          Handle for the current CL session.
- * @param      pContext         Pointer to multipart context
- * @param      key              Handle for the used key
+ * @param      pContext         Pointer to multipart context (word-aligned)
+ * @param      key              Handle for the used key (word-aligned)
  * @param[in]  cpuWaSizeInWords Number of cpu wa words to free
  * @param[in]  cleanupDmaSgi    Instructions on whether to clean DMA, SGI,
  *                               can be either of these values:

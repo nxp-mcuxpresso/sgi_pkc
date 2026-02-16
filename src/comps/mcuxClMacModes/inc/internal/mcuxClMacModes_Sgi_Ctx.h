@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -27,6 +27,30 @@
 extern "C" {
 #endif
 
+#define MCUXCLMAC_GMAC_INTERNAL_CONTEXT                                                                    \
+  mcuxClAes_HKeyContext_Sgi_t HkeyContext;               /* Common H-key context */                        \
+  uint32_t counter0[MCUXCLAES_BLOCK_SIZE_IN_WORDS];      /* Buffer for the first counter for GMAC, J0 */
+
+#define MCUXCLMAC_INTEGRITY_PROTECTION_CONTEXT                                                                                  \
+  mcuxClMac_Context_t common;                            /* Common field of the context, for all modes */                      \
+  uint32_t blockBuffer[MCUXCLAES_BLOCK_SIZE_IN_WORDS];   /* Buffer of size block-size, to accumulate input data */             \
+  mcuxClAes_KeyContext_Sgi_t keyContext;                 /* Common key context; sfr seed will be re-used for preTag masking */ \
+  uint32_t dataProcessed;                               /* Indicate, whether data has been processed */                       \
+  uint32_t totalInput;                                  /* Total number of input bytes */                                     \
+  MCUXCLMAC_GMAC_INTERNAL_CONTEXT
+
+/**
+ * @brief MacModes integrity protected context structure for SGI modes
+ *
+ * This struct is used to calculate the size of the integrity protected context
+ */
+typedef struct
+{
+  MCUXCLMAC_INTEGRITY_PROTECTION_CONTEXT
+} mcuxClMacModes_IntegrityProtectionContext_t;
+
+#define MCUXCLMACMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE   (sizeof(mcuxClMacModes_IntegrityProtectionContext_t))
+
 /**
  * @brief Mac context structure for modes using SGI HW
  *
@@ -35,16 +59,11 @@ extern "C" {
  */
 typedef struct mcuxClMacModes_Context
 {
-  mcuxClMac_Context_t common;                            /* Common field of the context, for all modes */
-  uint32_t blockBuffer[MCUXCLAES_BLOCK_SIZE_IN_WORDS];   /* Buffer of size block-size, to accumulate input data */
+  /* Integrity protected Context */
+  MCUXCLMAC_INTEGRITY_PROTECTION_CONTEXT
+
   uint32_t blockBufferUsed;                             /* How many bytes in mode-specific blockBuffer are used */
   uint32_t maskedPreTag[MCUXCLAES_BLOCK_SIZE_IN_WORDS];  /* Intermediate result of CMAC operation (masked) */
-  mcuxClAes_KeyContext_Sgi_t keyContext;                 /* Common key context; sfr seed will be re-used for preTag masking */
-  uint32_t dataProcessed;                               /* Indicate, whether data has been processed */
-  uint32_t totalInput;                                  /* Total number of input bytes */
-  // TODO CLNS-17176: Use new type mcuxClAes_SubKeyContext_Sgi_t for HKey
-  mcuxClAes_KeyContext_Sgi_t HkeyContext;                      /* Common H-key context */
-  uint32_t counter0[MCUXCLAES_BLOCK_SIZE_IN_WORDS];            /* Buffer for the first counter for GMAC, J0 */
 } mcuxClMacModes_Context_t;
 
 

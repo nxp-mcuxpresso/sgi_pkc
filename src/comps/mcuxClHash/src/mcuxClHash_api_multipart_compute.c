@@ -28,14 +28,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHash_finish_internal(
     uint32_t *const pOutSize
 )
 {
-    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHash_finish_internal);
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHash_finish_internal, ((NULL != pContext->algo) ? ((NULL != pContext->algo->finishSkeleton) ? pContext->algo->protection_token_finishSkeleton : 0u) : 0u));
 
     if((NULL == pContext->algo) || (NULL == pContext->algo->finishSkeleton))
     {
         MCUXCLSESSION_ERROR(session, MCUXCLHASH_STATUS_INVALID_PARAMS);
     }
 
-    MCUX_CSSL_FP_EXPECT(pContext->algo->protection_token_finishSkeleton);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pContext->algo->finishSkeleton(session, pContext, pOut, pOutSize));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHash_finish_internal);
@@ -56,13 +55,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_finish(
     MCUX_CSSL_DI_RECORD(finishSkeletonParams, pOut);
     MCUX_CSSL_DI_RECORD(finishSkeletonParams, pOutSize);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_finish_internal));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClHash_finish_internal(session, pContext, pOut, pOutSize));
 
     MCUXCLSESSION_EXIT(session,
         mcuxClHash_finish,
         diRefValue,
         MCUXCLHASH_STATUS_OK,
-        MCUXCLHASH_STATUS_FAULT_ATTACK
+        MCUXCLHASH_STATUS_FAULT_ATTACK,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_finish_internal)
         );
 }

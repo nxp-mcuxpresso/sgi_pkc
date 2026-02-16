@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -48,7 +48,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_reseed(mcuxClSession_Handle_t pSess
             /* Set the Sfr seed */
             mcuxClSgi_Sfr_writeSfrSeed(prngSeed[0]);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPrng_reseed,
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPrng_reseed
+        ,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_Init),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_getEntropyInput)
     );
@@ -158,7 +159,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_generate(
 
         /* Write to pOut */
         MCUX_CSSL_DI_RECORD(sumOfBufferWrite1Params, i * sizeof(uint32_t));
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ESCAPING_LOCAL_ADDRESS("Address drawnRandom is for internal use only and does not escape")
         MCUX_CSSL_DI_RECORD(sumOfBufferWrite1Params, (uint32_t) &drawnRandom);
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ESCAPING_LOCAL_ADDRESS()
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_write(pOut, i * sizeof(uint32_t), (const uint8_t*)(&drawnRandom), sizeof(uint32_t)));
     }
 
@@ -168,7 +171,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_generate(
         MCUXCLPRNG_GET_WORD(drawnRandomRemainingBytes);
         MCUX_CSSL_DI_RECORD(sumOfBufferWrite2Params, (uint32_t)pOut);
         MCUX_CSSL_DI_RECORD(sumOfBufferWrite2Params, outLengthFullWords * sizeof(uint32_t));
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ESCAPING_LOCAL_ADDRESS("Address drawnRandomRemainingBytes is for internal use only and does not escape")
         MCUX_CSSL_DI_RECORD(sumOfBufferWrite2Params, (uint32_t) &drawnRandomRemainingBytes);
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ESCAPING_LOCAL_ADDRESS()
         MCUX_CSSL_DI_RECORD(sumOfBufferWrite2Params, remainingBytes);
 
         /* Write to pOut */

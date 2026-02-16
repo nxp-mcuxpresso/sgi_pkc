@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -39,7 +39,7 @@ extern "C" {
  * @brief Function implementing ECDSA signature generation
  *
  * @param[in]  pSession                  Pointer to #mcuxClSession_Descriptor
- * @param[in]  key                       Key handle for the input key
+ * @param[in]  key                       Key handle for the input key (word-aligned)
  * @param[in]  mode                      Signature mode descriptor
  * @param[in]  pIn                       Pointer to buffer, which contains the message digest to be signed
  * @param[in]  inSize                    Size of the message digest to be signed
@@ -50,6 +50,10 @@ extern "C" {
  * @retval #MCUXCLSIGNATURE_STATUS_OK     if signature is generated successfully;
  *
  * @attention This function uses DRBG and PRNG. Caller needs to check if DRBG and PRNG are ready.
+#if defined(MCUXCL_FEATURE_ECC_ECCKI)
+ *
+ * @note The ECKCKI DRBG has to be seeded with mcuxClEccki_SeedDRBG before mcuxClEcc_ECDSA_GenerateSignature
+#endif defined(MCUXCL_FEATURE_ECC_ECCKI)
  */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ECDSA_GenerateSignature, mcuxClSignature_SignFct_t)
@@ -75,7 +79,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_GenerateSi
  * returnCode is not recorded in case of fault attack or error
  *
  * @param[in]  pSession                  Pointer to #mcuxClSession_Descriptor
- * @param[in]  key                       Key handle for the input key
+ * @param[in]  key                       Key handle for the input key (word-aligned)
  * @param[in]  mode                      Signature mode descriptor
  * @param[in]  pIn                       Pointer to buffer, which contains the message digest
  * @param[in]  inSize                    Size of the message digest
@@ -124,7 +128,6 @@ struct mcuxClEcc_ECDSA_SignatureProtocolDescriptor
 
 /* ECDSA protocol descriptor */
 extern const mcuxClEcc_ECDSA_SignatureProtocolDescriptor_t mcuxClEcc_ECDSA_ProtocolDescriptor;
-
 
 /**********************************************************/
 /* Internal ECDSA functions                               */

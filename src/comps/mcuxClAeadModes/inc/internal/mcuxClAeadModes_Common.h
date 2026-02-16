@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -29,6 +29,5 @@
 #include <internal/mcuxClAeadModes_Sgi_Functions.h>
 #include <internal/mcuxClAeadModes_Sgi_Types.h>
 #include <internal/mcuxClAeadModes_Sgi_Ctx.h>
-
 
 #endif /* MCUXCLAEADMODES_COMMON_H_ */

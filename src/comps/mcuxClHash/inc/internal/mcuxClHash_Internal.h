@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -53,7 +53,7 @@ extern "C" {
  */
 struct mcuxClHash_ContextDescriptor
 {
-  uint32_t processedLength[4];
+  uint64_t processedLength[2];
   uint32_t unprocessedLength;
   const mcuxClHash_AlgorithmDescriptor_t * algo;
 };
@@ -209,21 +209,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHash_finish_internal(
 );
 
 /**
- * @brief Adds a 32 Bit constant to an 128 Bit counter
+ * @brief Adds a 64 Bit constant to an 128 Bit counter
  *
  * This function is used to support bigger input length up to 2^128 Bit
  *
  * @param[in out] pLen128 128 Bit counter to increment
- * @param[in] addLen 32 Bit constant to increment counter with
+ * @param[in] addLen 64 Bit constant to increment counter with
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_processedLength_add)
-void mcuxClHash_processedLength_add(uint32_t *pLen128, uint32_t addLen);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHash_processedLength_add(uint64_t *pLen128, uint64_t addLen);
 
 /**
- * @brief Compares an 128 Bit counter value against a 32 Bit constant.
+ * @brief Compares an 128 Bit counter value against a 64 Bit constant.
  *
  * @param[in] pLen128 128 Bit counter
- * @param[in] cmpLenLow32 32 Bit constant
+ * @param[in] cmpLenLow32 64 Bit constant
  *
  * @return ternary value indicating greater, equal, smaller relationship
  * @retval 1    Counter value is bigger than constant
@@ -231,16 +231,15 @@ void mcuxClHash_processedLength_add(uint32_t *pLen128, uint32_t addLen);
  * @retval -1   Counter value is smaller than constant
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_processedLength_cmp)
-int mcuxClHash_processedLength_cmp(uint32_t *pLen128, uint32_t cmpLenLow32
-);
+MCUX_CSSL_FP_PROTECTED_TYPE (int) mcuxClHash_processedLength_cmp(uint64_t *pLen128, uint64_t cmpLenLow64);
 
 /**
  * @brief convert 128 bit number of bytes to number of bits
  *
- * @param pLen128[in out] 128 Bit number represented as uint32_t array. Upper 3 bits need to be zero to avoid overflow.
+ * @param pLen128[in out] 128 Bit number represented as uint64_t array. Upper 3 bits need to be zero to avoid overflow.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_processedLength_toBits)
-void mcuxClHash_processedLength_toBits(uint32_t *pLen128);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHash_processedLength_toBits(uint64_t *pLen128);
 
 /**
  * @brief Computes the context size for a given hash algorithm.
@@ -266,7 +265,7 @@ static inline uint32_t mcuxClHash_getContextWordSize(
 /**
  * @brief Returns the address of the state within the given context
  *
- * @param[in] pContext The given context
+ * @param[in] pContext The given context which must be word-aligned
  *
 */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_getStatePtr)
@@ -290,7 +289,7 @@ static inline uint32_t* mcuxClHash_getStatePtr(
 /**
  * @brief Returns the address of the unprocessed buffer within the given context
  *
- * @param[in] pContext The given context
+ * @param[in] pContext The given context which must be word-aligned
  *
 */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_getUnprocessedPtr)

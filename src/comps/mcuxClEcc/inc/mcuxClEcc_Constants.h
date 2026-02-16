@@ -45,11 +45,12 @@ extern "C" {
  * @{ */
 #define MCUXCLECC_STATUS_OK                        ((mcuxClEcc_Status_t) 0x04442E03u)  ///< Operation was successful.
 #define MCUXCLECC_STATUS_INVALID_PARAMS            ((mcuxClEcc_Status_t) 0x044453F8u)  ///< Parameters are invalid.
+#define MCUXCLECC_STATUS_SCALAR_ZERO               ((mcuxClEcc_Status_t) 0x04445370u)  ///< Internal scalar for point multiplication is zero (mod n).
 #define MCUXCLECC_STATUS_INVALID_SIGNATURE         ((mcuxClEcc_Status_t) 0x04448930u)  ///< ECDSA Signature is invalid.
 #define MCUXCLECC_STATUS_NEUTRAL_POINT             ((mcuxClEcc_Status_t) 0x04448934u)  ///< The result of the point operation is the neutral point.
 #define MCUXCLECC_STATUS_FAULT_ATTACK              ((mcuxClEcc_Status_t) 0x0444F0F0u)  ///< Fault attack (unexpected behavior) is detected.
 
-#define MCUXCLECC_STATUS_ERROR_SMALL_SUBGROUP      ((mcuxClEcc_Status_t) 0x04445374u)  ///< MONTDH public key lies in small subgroup.
+#define MCUXCLECC_STATUS_SMALL_SUBGROUP_ATTACK     ((mcuxClEcc_Status_t) 0x04445374u)  ///< MONTDH public key lies in small subgroup.
 /** @} */  /* MCUXCLECC_STATUS_ */
 
 

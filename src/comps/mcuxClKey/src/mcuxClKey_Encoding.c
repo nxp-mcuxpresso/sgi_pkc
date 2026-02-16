@@ -50,9 +50,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, *ppDest);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getKeyData(key));
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getSize(key));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
-      mcuxClMemory_copy_secure_int((uint8_t*)(*ppDest), mcuxClKey_getKeyData(key), mcuxClKey_getSize(key))
-    );
+    MCUXCLMEMORY_COPY_SECURE_INT((uint8_t*)(*ppDest), mcuxClKey_getKeyData(key), mcuxClKey_getSize(key));
   }
   else if (MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL== (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
   {
@@ -77,7 +75,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_KeyLoad_Plain,
     MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)
+      MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT
     ),
     MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)
@@ -113,7 +111,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, pSrc);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getKeyData(key));
     MCUX_CSSL_DI_RECORD(mcuxClMemory_copy_secure_int, mcuxClKey_getSize(key));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pData, pSrc, mcuxClKey_getSize(key)));
+    MCUXCLMEMORY_COPY_SECURE_INT(pData, pSrc, mcuxClKey_getSize(key));
   }
   else if (MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL== (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK))
   {
@@ -136,7 +134,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyStore_Plain(
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClKey_KeyStore_Plain,
     MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_SECURE == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)
+      MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT
     ),
     MCUX_CSSL_FP_CONDITIONAL((MCUXCLKEY_ENCODING_SPEC_ACTION_NORMAL == (spec & MCUXCLKEY_ENCODING_SPEC_ACTION_MASK)),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -24,6 +24,7 @@
 //#define MCUXCL_FEATURE_AES
 //#define MCUXCL_FEATURE_AES128
 //#define MCUXCL_FEATURE_AES256
+//#define MCUXCL_FEATURE_AES_MASKED_SUBKEY_IN_CONTEXT
 //#define MCUXCL_FEATURE_BUFFER_USE_POINTER
 //#define MCUXCL_FEATURE_CIPHERMODES_CBC
 //#define MCUXCL_FEATURE_CIPHERMODES_CTR
@@ -69,6 +70,8 @@
 //#define MCUXCL_FEATURE_ECC_ECDSA_VERIFY
 //#define MCUXCL_FEATURE_ECC_ED25519
 //#define MCUXCL_FEATURE_ECC_EDDSA
+//#define MCUXCL_FEATURE_ECC_EDDSA_SIGN
+//#define MCUXCL_FEATURE_ECC_EDDSA_VERIFY
 //#define MCUXCL_FEATURE_ECC_MONTDH
 //#define MCUXCL_FEATURE_ECC_MONTGOMERY
 //#define MCUXCL_FEATURE_ECC_NISTPR1_CURVES
@@ -178,6 +181,7 @@
 //#define MCUXCL_FEATURE_SESSION_PKCWA_CHECK
 //#define MCUXCL_FEATURE_SGI
 //#define MCUXCL_FEATURE_SGI_AUTOMODE_WORKAROUND_READ_FULL_DATOUT
+//#define MCUXCL_FEATURE_SIGNATURE_DOUBLE_VERIFICATION
 //#define MCUXCL_FEATURE_SIGNATURE_ECDSA
 //#define MCUXCL_FEATURE_SIGNATURE_EDDSA
 //#define MCUXCL_FEATURE_SIGNATURE_ONESHOT

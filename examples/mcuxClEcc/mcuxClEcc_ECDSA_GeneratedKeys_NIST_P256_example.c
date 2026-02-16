@@ -32,13 +32,13 @@
 #include <mcuxClCore_FunctionIdentifiers.h> // Code flow protection
 #include <mcuxClCore_Macros.h>
 
+
 static const uint8_t digest[] = {
   0xC4u, 0x93u, 0xCFu, 0x6Bu, 0xE5u, 0x11u, 0x35u, 0x22u,
   0x1Au, 0x3Fu, 0x5Cu, 0x7Bu, 0xCFu, 0xF4u, 0x6Du, 0xC6u,
   0x10u, 0x77u, 0x6Eu, 0x2Cu, 0x04u, 0xA3u, 0xB9u, 0x9Du,
-  0x39u, 0x3Bu, 0x4Bu, 0xEEu, 0xD5u, 0xDDu, 0x88u, 0x86u,
+  0x39u, 0x3Bu, 0x4Bu, 0xEEu, 0xD5u, 0xDDu, 0x88u, 0x86u
 };
-
 
 #define MAX_CPUWA_SIZE MCUXCLCORE_MAX(MCUXCLRANDOM_NCINIT_WACPU_SIZE, \
                        MCUXCLCORE_MAX(MCUXCLRANDOMMODES_INIT_WACPU_SIZE, \
@@ -47,8 +47,8 @@ static const uint8_t digest[] = {
                                      MCUXCLSIGNATURE_VERIFY_ECDSA_WACPU_SIZE))))
 
 #define MAX_PKCWA_SIZE MCUXCLCORE_MAX(MCUXCLKEY_GENERATEKEYPAIR_WEIERECC_WAPKC_SIZE_256, \
-		               MCUXCLCORE_MAX(MCUXCLSIGNATURE_SIGN_ECDSA_WAPKC_SIZE_256, \
-		                             MCUXCLSIGNATURE_VERIFY_ECDSA_WAPKC_SIZE_256))
+		                   MCUXCLCORE_MAX(MCUXCLSIGNATURE_SIGN_ECDSA_WAPKC_SIZE_256, \
+		                                 MCUXCLSIGNATURE_VERIFY_ECDSA_WAPKC_SIZE_256))
 
 MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example)
 {
@@ -107,6 +107,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example)
   /* Initialize the RNG context and Initialize the PRNG */
   MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3);
 
+
   /**************************************************************************/
   /* Key pair generation for ECDSA on NIST P-256                            */
   /**************************************************************************/
@@ -154,6 +155,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example)
   {
     return MCUXCLEXAMPLE_STATUS_ERROR;
   }
+
 
   /**************************************************************************/
   /* ECDSA signature verification on NIST P-256                             */

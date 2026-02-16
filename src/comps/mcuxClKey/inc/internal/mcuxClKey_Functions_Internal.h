@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -39,7 +39,7 @@ extern "C" {
  * @brief Cast the key AuxData to a Key descriptor.
  *        This is needed for certain AES key encodings.
  *
- * @param key  The key handle to access
+ * @param key  The key handle to access (word-aligned)
  *
  * @return A pointer to the key descriptor that stored in the key AuxData field.
  */
@@ -57,9 +57,9 @@ static inline const mcuxClKey_Descriptor_t* mcuxClKey_getKeyDescriptorFromAuxDat
  ************************************************************/
 
 /**
- * @brief Returns the key data pointer of the key handle
+ * @brief Returns the key data pointer of the key handle (word-aligned)
  *
- * @return Key data pointer of the given key
+ * @return Key data pointer of the given key, must be word-aligned
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_getKeyData)
 static inline uint8_t * mcuxClKey_getKeyData(mcuxClKey_Handle_t key)
@@ -68,7 +68,7 @@ static inline uint8_t * mcuxClKey_getKeyData(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the key data pointer of the key handle
+ * @brief Sets the key data pointer of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setKeyData)
 static inline void mcuxClKey_setKeyData(mcuxClKey_Handle_t key, uint8_t * pKeyData)
@@ -80,7 +80,7 @@ static inline void mcuxClKey_setKeyData(mcuxClKey_Handle_t key, uint8_t * pKeyDa
 /**
  * @brief Returns the aux data pointer of the key handle
  *
- * @return Aux data pointer of the given key
+ * @return Aux data pointer of the given key (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_getAuxData)
 static inline const uint8_t * mcuxClKey_getAuxData(mcuxClKey_Handle_t key)
@@ -89,7 +89,7 @@ static inline const uint8_t * mcuxClKey_getAuxData(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the aux data pointer of the key handle
+ * @brief Sets the aux data pointer of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setAuxData)
 static inline void mcuxClKey_setAuxData(mcuxClKey_Handle_t key, const uint8_t * pAuxData)
@@ -99,7 +99,7 @@ static inline void mcuxClKey_setAuxData(mcuxClKey_Handle_t key, const uint8_t * 
 
 
 /**
- * @brief Returns the aux data length of the key handle
+ * @brief Returns the aux data length of the key handle (word-aligned)
  *
  * @return Aux data length of the given key
  */
@@ -110,7 +110,7 @@ static inline uint32_t mcuxClKey_getAuxDataLength(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the aux data length of the key handle
+ * @brief Sets the aux data length of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setAuxDataLength)
 static inline void mcuxClKey_setAuxDataLength(mcuxClKey_Handle_t key, uint32_t auxDataLength)
@@ -120,7 +120,7 @@ static inline void mcuxClKey_setAuxDataLength(mcuxClKey_Handle_t key, uint32_t a
 
 
 /**
- * @brief Sets the protection descriptor pointer of the key handle
+ * @brief Sets the protection descriptor pointer of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setEncodingType)
 static inline void mcuxClKey_setEncodingType(mcuxClKey_Handle_t key, const mcuxClKey_EncodingDescriptor_t * pEncoding)
@@ -129,7 +129,7 @@ static inline void mcuxClKey_setEncodingType(mcuxClKey_Handle_t key, const mcuxC
 }
 
 /**
- * @brief Returns the linked data pointer of the key handle
+ * @brief Returns the linked data pointer of the key handle (word-aligned)
  *
  * @return linked data pointer of the given key
  */
@@ -140,7 +140,7 @@ static inline void * mcuxClKey_getLinkedData(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the linked data pointer of the key handle
+ * @brief Sets the linked data pointer of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLinkedData)
 static inline void mcuxClKey_setLinkedData(mcuxClKey_Handle_t key, void * pLinkedData)
@@ -149,7 +149,7 @@ static inline void mcuxClKey_setLinkedData(mcuxClKey_Handle_t key, void * pLinke
 }
 
 /**
- * @brief Gets the type structure of the key handle
+ * @brief Gets the type structure of the key handle (word-aligned)
  *
  * @return Type structure of the given key
  */
@@ -160,7 +160,7 @@ static inline mcuxClKey_TypeDescriptor_t mcuxClKey_getTypeDescriptor(mcuxClKey_H
 }
 
 /**
- * @brief Sets the type structure of the key handle
+ * @brief Sets the type structure of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setTypeDescriptor)
 static inline void mcuxClKey_setTypeDescriptor(mcuxClKey_Handle_t key, mcuxClKey_TypeDescriptor_t pType)
@@ -170,7 +170,7 @@ static inline void mcuxClKey_setTypeDescriptor(mcuxClKey_Handle_t key, mcuxClKey
 
 
 /**
- * @brief Gets the type info field of the key handle, which might contain pointer to ECC domain parameters
+ * @brief Gets the type info field of the key handle (word-aligned), which might contain pointer to ECC domain parameters
  *
  * @return Type info of the given key
  */
@@ -182,7 +182,7 @@ static inline void * mcuxClKey_getTypeInfo(mcuxClKey_Handle_t key)
 
 
 /**
- * @brief Returns the key size in bytes of the key handle
+ * @brief Returns the key size in bytes of the key handle (word-aligned)
  *
  * @return Key size in bytes of the given key
  */
@@ -194,7 +194,7 @@ static inline mcuxClKey_Size_t mcuxClKey_getSize(mcuxClKey_Handle_t key)
 
 
 /**
- * @brief Returns the algorithm identifier of the key handle
+ * @brief Returns the algorithm identifier of the key handle (word-aligned)
  *
  * @return Algorithm identifier of the given key
  */
@@ -205,7 +205,7 @@ static inline mcuxClKey_AlgorithmId_t mcuxClKey_getAlgoId(mcuxClKey_Handle_t key
 }
 
 /**
- * @brief Returns the algorithm of the key handle
+ * @brief Returns the algorithm of the key handle (word-aligned)
  *
  * @return Algorithm identifier of the given key
  */
@@ -216,7 +216,7 @@ static inline mcuxClKey_AlgorithmId_t mcuxClKey_getAlgorithm(mcuxClKey_Handle_t 
 }
 
 /**
- * @brief Returns the key usage of the key handle
+ * @brief Returns the key usage of the key handle (word-aligned)
  *
  * @return Algorithm identifier of the given key
  */
@@ -228,7 +228,7 @@ static inline mcuxClKey_AlgorithmId_t mcuxClKey_getKeyUsage(mcuxClKey_Handle_t k
 
 
 /**
- * @brief Returns the pointer of the loaded key data of the key handle
+ * @brief Returns the pointer of the loaded key data of the key handle (word-aligned)
  *
  * @return Pointer to the loaded key data
  */
@@ -239,7 +239,7 @@ static inline uint8_t * mcuxClKey_getLoadedKeyData(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the pointer of the (to be) loaded key data
+ * @brief Sets the pointer of the (to be) loaded key data, key handle must be word-aligned
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadedKeyData)
 static inline void mcuxClKey_setLoadedKeyData(mcuxClKey_Handle_t key, uint32_t * pKeyDataLoadLocation)
@@ -249,7 +249,7 @@ static inline void mcuxClKey_setLoadedKeyData(mcuxClKey_Handle_t key, uint32_t *
 
 
 /**
- * @brief Returns the length of the loaded key data
+ * @brief Returns the length of the loaded key data (word-aligned)
  *
  * @return Length of to the loaded key data of the given key
  */
@@ -260,7 +260,7 @@ static inline uint32_t mcuxClKey_getLoadedKeyLength(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the length of the loaded key data
+ * @brief Sets the length of the loaded key data (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadedKeyLength)
 static inline void mcuxClKey_setLoadedKeyLength(mcuxClKey_Handle_t key, uint32_t keyLength)
@@ -270,7 +270,7 @@ static inline void mcuxClKey_setLoadedKeyLength(mcuxClKey_Handle_t key, uint32_t
 
 
 /**
- * @brief Returns the hardware slot of the loaded key
+ * @brief Returns the hardware slot of the loaded key (word-aligned)
  *
  * @return Hardware slot of the given key
  */
@@ -281,7 +281,7 @@ static inline uint32_t mcuxClKey_getLoadedKeySlot(const mcuxClKey_Descriptor_t* 
 }
 
 /**
- * @brief Sets the pointer of the (to be) loaded data of the key handle
+ * @brief Sets the pointer of the (to be) loaded data of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadedKeySlot)
 static inline void mcuxClKey_setLoadedKeySlot(mcuxClKey_Handle_t key, uint32_t keySlot)
@@ -291,7 +291,7 @@ static inline void mcuxClKey_setLoadedKeySlot(mcuxClKey_Handle_t key, uint32_t k
 
 
 /**
- * @brief Returns the load status of the key handle
+ * @brief Returns the load status of the key handle (word-aligned)
  *
  * @return Load status of the given key
  */
@@ -302,7 +302,7 @@ static inline mcuxClKey_LoadStatus_t mcuxClKey_getLoadStatus(mcuxClKey_Handle_t 
 }
 
 /**
- * @brief Sets the load status of the key handle
+ * @brief Sets the load status of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setLoadStatus)
 static inline void mcuxClKey_setLoadStatus(mcuxClKey_Handle_t key, mcuxClKey_LoadStatus_t loadStatus)
@@ -312,7 +312,7 @@ static inline void mcuxClKey_setLoadStatus(mcuxClKey_Handle_t key, mcuxClKey_Loa
 
 
 /**
- * @brief Returns the pointer to the parent key of the key handle
+ * @brief Returns the pointer to the parent key of the key handle (word-aligned)
  *
  * @return Pointer to the parent key of the given key
  */
@@ -323,7 +323,7 @@ static inline mcuxClKey_Descriptor_t * mcuxClKey_getParentKey(mcuxClKey_Handle_t
 }
 
 /**
- * @brief Sets the pointer to the parent key of the key handle
+ * @brief Sets the pointer to the parent key of the key handle (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setParentKey)
 static inline void mcuxClKey_setParentKey(mcuxClKey_Handle_t key, mcuxClKey_Descriptor_t * pParentKey)
@@ -333,7 +333,7 @@ static inline void mcuxClKey_setParentKey(mcuxClKey_Handle_t key, mcuxClKey_Desc
 
 
 /**
- * @brief Returns the size of the key data container
+ * @brief Returns the size of the key data container, key handle must be word-aligned
  *
  * @return Size of the key data container of the given key
  */
@@ -344,7 +344,7 @@ static inline uint32_t mcuxClKey_getKeyContainerSize(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the size of the key data container of the given key
+ * @brief Sets the size of the key data container of the given key (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setKeyContainerSize)
 static inline void mcuxClKey_setKeyContainerSize(mcuxClKey_Handle_t key, uint32_t keyContainerSize)
@@ -354,7 +354,7 @@ static inline void mcuxClKey_setKeyContainerSize(mcuxClKey_Handle_t key, uint32_
 
 
 /**
- * @brief Returns the used size of the key data container
+ * @brief Returns the used size of the key data container, key handle must be word-aligned
  *
  * @return Used size of the key data container of the given key
  */
@@ -365,7 +365,7 @@ static inline uint32_t mcuxClKey_getKeyContainerUsedSize(mcuxClKey_Handle_t key)
 }
 
 /**
- * @brief Sets the used size of the key data container of the given key
+ * @brief Sets the used size of the key data container of the given key (word-aligned)
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_setKeyContainerUsedSize)
 static inline void mcuxClKey_setKeyContainerUsedSize(mcuxClKey_Handle_t key, uint32_t keyContainerUsedSize)
@@ -383,7 +383,7 @@ static inline void mcuxClKey_setKeyContainerUsedSize(mcuxClKey_Handle_t key, uin
  * of type @ref mcuxClKey_LoadFuncPtr_t.
  *
  * @param[in]  session Handle of the current session
- * @param      key     Handle to the key to be loaded
+ * @param      key     Handle to the key to be loaded(word-aligned)
  * @param[out] ppDest  Pointer-pointer to the destination key location
  * @param[in]  pKeyChecksums  Pointer to the encoding specific key checksum(s) data. Can be NULL.
  * @param      spec    Specification of the load operation
@@ -431,7 +431,7 @@ static inline uint32_t mcuxClKey_load_getFpTokenCheckNull(mcuxClKey_Handle_t key
  * of type @ref mcuxClKey_StoreFuncPtr_t.
  *
  * @param[in]  session Handle of the current session
- * @param[out] key     Handle to the key to be stored
+ * @param[out] key     Handle to the key to be stored (word-aligned)
  * @param[in]  pSrc    Pointer to the source key location
  * @param      spec    Specification of the store operation
  *
@@ -460,7 +460,7 @@ static inline uint32_t mcuxClKey_store_getFpToken(mcuxClKey_Handle_t key)
  *       that the key is not longer loaded.
  *
  * @param         session Handle of the current session
- * @param[in,out] key     Handle to the key to be stored
+ * @param[in,out] key     Handle to the key to be stored (word-aligned)
  * @param         spec    Specification of the store operation
  */
 #define MCUXCLKEY_FLUSH_FP(session, key, spec) \
@@ -510,7 +510,7 @@ static inline uint32_t mcuxClKey_flush_getFpTokenCheckNull(mcuxClKey_Handle_t ke
  * else, invalid spec.
  *
  * @param[in]   session        Handle of the current session (unused)
- * @param[in]   key            Key handle that provides information to load the key
+ * @param[in]   key            Key handle that provides information to load the key (word-aligned)
  * @param[out]  ppDest         Pointer-pointer to the destination key location
  * @param[in]   pKeyChecksums  Storing data needed for key checksum generation
  * @param       spec           Specifications about the used key (unused)
@@ -534,7 +534,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_KeyLoad_Plain(
  * else, invalid spec.
  *
  * @param[in]    session        Handle of the current session (unused)
- * @param[out]   key            Key handle that provides information to store the key
+ * @param[out]   key            Key handle that provides information to store the key (word-aligned)
  * @param[in]    pSrc           Pointer to the source key location
  * @param        spec           Specifications about the used key (unused)
  *

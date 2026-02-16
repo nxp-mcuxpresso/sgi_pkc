@@ -46,7 +46,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRequest(
 
     /* Request SGI hardware */
     /* The `requestOption` check for SGI hardware has been removed, as SGI is the only hardware in mcu_dci for Hash */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(
         session, MCUXCLRESOURCE_HWID_SGI,
         MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE,
@@ -66,16 +65,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRequest(
         protectionToken_dmaIsr = protectionToken_pHwIrqHandler;
     }
 
+    MCUX_CSSL_FP_BRANCH_DECL(hashDmaOption);
     if ((MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption) && (MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption))
     {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_requestInputAndOutput));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_requestInputAndOutput(session, dmaIsr, protectionToken_dmaIsr));
+        MCUX_CSSL_FP_BRANCH_POSITIVE(hashDmaOption, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_requestInputAndOutput));
     }
     else
     {
         if(MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption)
         {
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_request));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_request(
                 session,
                 mcuxClSession_getDmaInputChannel(session),
@@ -85,16 +84,28 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRequest(
 
         if(MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption)
         {
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_request));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_request(
                 session,
                 mcuxClSession_getDmaOutputChannel(session),
                 dmaIsr,
                 protectionToken_dmaIsr));
         }
+
+        MCUX_CSSL_FP_BRANCH_NEGATIVE(hashDmaOption,
+            MCUX_CSSL_FP_CONDITIONAL((MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_request)
+            ),
+            MCUX_CSSL_FP_CONDITIONAL((MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_request)
+            )
+        );
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_HwRequest);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_HwRequest,
+        MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(hashDmaOption, ((MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption) && (MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption))),
+        MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE(hashDmaOption, ((MCUXCLHASHMODES_REQ_DMA_INPUT != dmaInputOption) || (MCUXCLHASHMODES_REQ_DMA_OUTPUT != dmaOutputOption))),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request)
+    );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHashModes_HwRelease)
@@ -107,30 +118,41 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_HwRelease(
 
     /* Release the SGI hardware */
     /* The `releaseOption` check for SGI hardware has been removed, as SGI is the only hardware in mcu_dci for Hash */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_release));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_release(session->pResourceCtx, MCUXCLRESOURCE_HWID_SGI));
 
     const uint32_t dmaInputOption = MCUXCLHASHMODES_REQ_DMA_INPUT & releaseOption;
     const uint32_t dmaOutputOption = MCUXCLHASHMODES_REQ_DMA_OUTPUT & releaseOption;
 
+    MCUX_CSSL_FP_BRANCH_DECL(hashDmaOption);
     if((MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption) && (MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption))
     {
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_releaseInputAndOutput));
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_releaseInputAndOutput(session));
+        MCUX_CSSL_FP_BRANCH_POSITIVE(hashDmaOption, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_releaseInputAndOutput));
     }
     else
     {
         if(MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption)
         {
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_release));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_release(session, mcuxClSession_getDmaInputChannel(session)));
         }
         if(MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption)
         {
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_release));
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_release(session, mcuxClSession_getDmaOutputChannel(session)));
         }
+
+        MCUX_CSSL_FP_BRANCH_NEGATIVE(hashDmaOption,
+            MCUX_CSSL_FP_CONDITIONAL((MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_release)
+            ),
+            MCUX_CSSL_FP_CONDITIONAL((MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_release)
+            )
+        );
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_HwRelease);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_HwRelease,
+        MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(hashDmaOption, ((MCUXCLHASHMODES_REQ_DMA_INPUT == dmaInputOption) && (MCUXCLHASHMODES_REQ_DMA_OUTPUT == dmaOutputOption))),
+        MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE(hashDmaOption, ((MCUXCLHASHMODES_REQ_DMA_INPUT != dmaInputOption) || (MCUXCLHASHMODES_REQ_DMA_OUTPUT != dmaOutputOption))),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_release)
+    );
 }

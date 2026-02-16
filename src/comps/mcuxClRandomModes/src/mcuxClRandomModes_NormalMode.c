@@ -281,7 +281,9 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     const mcuxClRandomModes_DrbgModeDescriptor_t *pDrbgMode = mcuxClRandomModes_castToDrbgModeDescriptor(mode->pDrbgMode);
 
     /* Call function executing the DRBG mode specific selftest algorithm */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_INCOMPATIBLE("The pointer pDrbgMode has compatible type and cast was valid")
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pDrbgMode->pDrbgAlgorithms->selftestAlgorithm(pSession, pTestCtx, pTestModeDesc));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
 
     /* Restore Random configuration of session */
     pSession->randomCfg.mode = modeBackup;

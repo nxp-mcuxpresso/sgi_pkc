@@ -32,7 +32,7 @@
 */
 static inline void mcuxClExample_OS_Interrupt_Callback_Install(Interrupt_Callback_t callback, uint8_t IRQNumber)
 {
-  Interrupt_Callback_Install(callback, IRQNumber);
+  IsrInterface_HandlerInstall(callback, IRQNumber);
 }
 
 /**
@@ -63,7 +63,7 @@ static inline void mcuxClExample_OS_Interrupt_Callback_Uninstall(void)
 */
 static inline void mcuxClExample_OS_Interrupt_Enable(uint32_t IRQNumber)
 {
-  S5xy_Enable_IRQ(IRQNumber);
+  IsrInterface_Enable(IRQNumber);
 }
 
 /**
@@ -79,7 +79,7 @@ static inline void mcuxClExample_OS_Interrupt_Enable(uint32_t IRQNumber)
 */
 static inline void mcuxClExample_OS_Interrupt_Disable(uint32_t IRQNumber)
 {
-  S5xy_Disable_IRQ(IRQNumber);
+  IsrInterface_Disable(IRQNumber);
 }
 
 

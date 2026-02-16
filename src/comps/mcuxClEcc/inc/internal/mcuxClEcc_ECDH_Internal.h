@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -40,8 +40,8 @@ extern "C" {
  *
  * @param[in] pSession             pointer to #mcuxClSession_Descriptor.
  * @param[in] agreement            Key agreement algorithm specifier.
- * @param[in] key                  private key handling structure
- * @param[in] otherKey             public key handling structure
+ * @param[in] key                  private key handling structure (word-aligned)
+ * @param[in] otherKey             public key handling structure (word-aligned)
  * @param[in] additionalInputs     Key agreement additional input pointers (unused parameter)
  * @param[in] numberOfInputs       number of additional inputs (unused parameter)
  * @param[out] pOut                buffer for shared secret

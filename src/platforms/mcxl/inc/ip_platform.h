@@ -19,6 +19,7 @@
 #define IP_PLATFORM_H
 
 #include "fsl_device_registers.h"
+
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
 /* ================================================================================ */
@@ -92,6 +93,7 @@
 #define SGI_DATOUT_CNT                4UL
 #define SGI_KEY_CNT                   32UL
 #define SGI_KEY_WRITEONLY_START       16UL  ///< first compile-time WO key index
+#define SGI_UNWRAP_KEY_REGISTER_BANK  4UL   ///< Sgi key register bank where the UNWRAP key will be written to
 #define SGI_SFR_BASE           SGI0                                   ///< base of SGI SFRs
 #define SGI_SFR_MACRO_PREFIX   SGI_SGI_                               ///< sfr macro name prefix
 #define SGI_SFR_PREFIX         SGI_                                   ///< sfr field name prefix
@@ -107,12 +109,8 @@
 // #define SGI_HAS_FLUSHWR            1    ///< Not available on L20, because of HYBRID SGI
 // #define SGI_HAS_PRNG_SW_READ         1      ///< "feature" flag for existence of the SGI PRNG
 
-#if (defined(PKC0))
-#define PKC0__PKC PKC0
-#endif
-
 // Define base address of PKC
-#define PKC_SFR_BASE            PKC0__PKC   ///< base of PKC SFRs
+#define PKC_SFR_BASE            PKC0   ///< base of PKC SFRs
 #define PKC_SFR_NAME(sfr)       PKC_ ## sfr ///< full name of SFR
 #define PKC_SFR_PREFIX          PKC_PKC_    ///< sfr field name prefix
 #define PKC_SFR_SUFFIX_MSK      _MASK       ///< sfr field name suffix for mask

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -46,7 +46,7 @@ extern "C" {
  * @brief Key load function into the SGI for encoding RFC3394
  *
  * @param[in]     session  Handle of the current session
- * @param[in]     key      Key handle for the loaded key
+ * @param[in]     key      Key handle for the loaded key (word-aligned)
  * @param[in,out] ppDest   Destination address of the key in the SGI.
  * @param[in]     pKeyChecksums  Storing data needed for masked key generation
  * @param[in]     spec     Specifications about the used key
@@ -65,7 +65,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyLoad_rfc3394(
  * @brief Key store function from the SGI for encoding RFC3394
  *
  * @param[in]   session  Handle of the current session
- * @param[in]   key      Key handle for the store key
+ * @param[in]   key      Key handle for the store key (word-aligned)
  * @param[in]   pSrc     Source address of the key in the SGI.
  *                       The SFRs of the SGI only support 32 bit access
  * @param[in]   spec     Specifications about the used key
@@ -114,7 +114,7 @@ static inline uint8_t* mcuxClAes_getKeyDest_rfc3394Wrap(void)
  * @post The unwrapped key material is masked and stored in the `pKeyDst`.
  *
  * @param[in]     session     Handle of the current session
- * @param[in]     wrappedKey  Initialized key handle with wrapped key.
+ * @param[in]     wrappedKey  Initialized key handle with wrapped key (word-aligned).
  * @param[out]    pKeyDst     Pointer to location where unwrapped key will be stored.
  *
  */
@@ -135,7 +135,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAes_keyUnwrapRfc3394_swDriven(
  * @pre The key must be loaded to a valid SGI key slot.
  *
  * @param[in]   session  Handle of the current session
- * @param[in]   key      Key handle for the key to flush
+ * @param[in]   key      Key handle for the key to flush (word-aligned)
  * @param[in]   spec     Specifications about the used key - unused
  *
  */

@@ -15,39 +15,37 @@
 #include <internal/mcuxClHash_Internal.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHash_processedLength_add)
-void mcuxClHash_processedLength_add(uint32_t *pLen128, uint32_t addLen)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHash_processedLength_add(uint64_t *pLen128, uint64_t addLen)
 {
-    if(pLen128[0] > (UINT32_MAX - addLen))
-    {
-        if(pLen128[1] > (UINT32_MAX - 1u))
-        {
-            if(pLen128[2] > (UINT32_MAX - 1u))
-            {
-                pLen128[3]++;
-            }
-            pLen128[2]++;
-        }
-        pLen128[1]++;
-    }
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHash_processedLength_add);
+
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("Integer wrap is intentional, carry is handled in the next line")
     pLen128[0] += addLen;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
+    pLen128[1] += (pLen128[0] < addLen) ? 1U : 0U;
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHash_processedLength_add);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHash_processedLength_cmp)
-int mcuxClHash_processedLength_cmp(uint32_t *pLen128, uint32_t cmpLenLow32)
+MCUX_CSSL_FP_PROTECTED_TYPE (int) mcuxClHash_processedLength_cmp(uint64_t *pLen128, uint64_t cmpLenLow64)
 {
-    if((pLen128[3] != 0u) || (pLen128[2] != 0u) || (pLen128[1] != 0u))
-    {
-        return 1;
-    }
-    return (pLen128[0] > cmpLenLow32)   ? 1 :
-            (pLen128[0] == cmpLenLow32) ? 0 : -1;
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHash_processedLength_cmp);
+
+    int result = (pLen128[1] != 0U) ? 1 :
+                 (pLen128[0] > cmpLenLow64)   ? 1 :
+                 (pLen128[0] == cmpLenLow64) ? 0 : -1;
+
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHash_processedLength_cmp, result);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHash_processedLength_toBits)
-void mcuxClHash_processedLength_toBits(uint32_t *pLen128)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHash_processedLength_toBits(uint64_t *pLen128)
 {
-  pLen128[3] = (pLen128[3] << 3u) | (pLen128[2] >> 29u);
-  pLen128[2] = (pLen128[2] << 3u) | (pLen128[1] >> 29u);
-  pLen128[1] = (pLen128[1] << 3u) | (pLen128[0] >> 29u);
-  pLen128[0] = pLen128[0] << 3u;
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClHash_processedLength_toBits);
+
+    pLen128[1] = (pLen128[1] << 3U) | (pLen128[0] >> 61U);
+    pLen128[0] = pLen128[0] << 3U;
+
+     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHash_processedLength_toBits);
 }

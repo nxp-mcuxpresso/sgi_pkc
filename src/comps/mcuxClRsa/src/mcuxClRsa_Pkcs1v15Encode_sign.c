@@ -40,6 +40,7 @@
 #include <internal/mcuxClRsa_Internal_Types.h>
 #include <internal/mcuxClRsa_Internal_Functions.h>
 #include <internal/mcuxClRsa_Internal_Macros.h>
+#include <internal/mcuxClRsa_Internal_MemoryConsumption.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_pkcs1v15Encode_sign, mcuxClRsa_PadVerModeEngine_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
@@ -89,8 +90,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   const uint32_t paddingLength = emLen - hashAlgorithmIdentifierLength - hLength - 3u;
 
   /* Setup session. */
-  const uint32_t wordSizePkcWa = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(emLen) / (sizeof(uint32_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
+  const uint32_t wordSizePkcWa = MCUXCLRSA_INTERNAL_PKCS1V15ENCODE_SIGN_WAPKC_SIZE(emLen) / sizeof(uint32_t);
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa));
 
   /*
@@ -115,8 +115,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   /* Write padding bytes */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_set_int_ps, pPs);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_set_int_ps, paddingLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int(pPs, 0xFFU, paddingLength));
+  MCUXCLMEMORY_SET_INT(pPs, 0xFFU, paddingLength);
 
   /* Write 0x00 divider */
   *(pPs + paddingLength) = (uint8_t) 0x00;
@@ -125,7 +124,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   MCUX_CSSL_DI_RECORD(memCopyT, pT);
   MCUX_CSSL_DI_RECORD(memCopyT, phashAlgorithmIdentifier);
   MCUX_CSSL_DI_RECORD(memCopyT, hashAlgorithmIdentifierLength);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(pT, phashAlgorithmIdentifier, hashAlgorithmIdentifierLength));
 
   /*****************************************************/
@@ -153,6 +151,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   /* Function exit                                                                                */
   /************************************************************************************************/
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pkcs1v15Encode_sign, MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write_secure_reverse));
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+      MCUXCLMEMORY_SET_INT_FP_EXPECT,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write_secure_reverse)
+  );
+
 }

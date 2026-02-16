@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -35,6 +35,150 @@
 #include <internal/mcuxClEcc_EdDSA_Internal_FUP.h>
 
 
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_KeyGen_HashPrivKey)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_KeyGen_HashPrivKey(
+    mcuxClSession_Handle_t pSession,
+    const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
+    mcuxCl_InputBuffer_t buffPrivKey,
+    mcuxCl_Buffer_t buffPrivKeyHash,
+    uint32_t privKeyLen)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_EdDSA_KeyGen_HashPrivKey);
+
+    uint32_t outLength = 0u;
+
+    /* DI balancing of Hash_compute_internal */
+    MCUX_CSSL_DI_RECORD(hashComputeInternalParams, &outLength);
+    MCUXCLPKC_WAITFORFINISH();
+    MCUX_CSSL_FP_FUNCTION_CALL(retHash,
+        mcuxClHash_compute_internal(pSession,
+                          pDomainParams->algoHash,
+                          buffPrivKey,
+                          privKeyLen,
+                          buffPrivKeyHash,
+                          &outLength));
+
+    if ((pDomainParams->algoHash->hashSize != outLength) || (MCUXCLHASH_STATUS_OK != retHash))
+    {
+        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+    }
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_KeyGen_HashPrivKey,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute_internal));
+}
+
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_EdDSA_SignVerify_CalcHash)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_SignVerify_CalcHash(
+    mcuxClSession_Handle_t pSession,
+    const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
+    mcuxClHash_Context_t pCtx,
+    const uint8_t *pHashPrefix,
+    uint32_t hashPrefixLen,
+    mcuxCl_InputBuffer_t buffSignatureR,
+    uint32_t signatureRLen,
+    const uint8_t *pPubKey,
+    uint32_t pubKeyLen,
+    mcuxCl_InputBuffer_t buffIn,
+    uint32_t inSize,
+    mcuxCl_Buffer_t buffOutput)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_EdDSA_SignVerify_CalcHash);
+
+    uint32_t outLength = 0u;
+
+    MCUX_CSSL_DI_RECORD(hashParams, 5U * (uint32_t)pCtx);
+    MCUX_CSSL_DI_RECORD(hashProcess1Params, hashPrefixLen);
+    MCUX_CSSL_DI_RECORD(hashProcess2Params, buffSignatureR);
+    MCUX_CSSL_DI_RECORD(hashProcess2Params, signatureRLen);
+    MCUX_CSSL_DI_RECORD(hashProcess3Params, pubKeyLen);
+    MCUX_CSSL_DI_RECORD(hashProcess4Params, buffIn);
+    MCUX_CSSL_DI_RECORD(hashProcess4Params, inSize);
+    MCUX_CSSL_DI_RECORD(hashFinishParams, buffOutput);
+    MCUX_CSSL_DI_RECORD(hashFinishParams, &outLength);
+
+    /* Initialize the hash context */
+    MCUX_CSSL_FP_FUNCTION_CALL(retInitHash,
+        mcuxClHash_init(pSession,
+                       pCtx,
+                       pDomainParams->algoHash));
+    if (MCUXCLHASH_STATUS_OK != retInitHash)
+    {
+        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+    }
+
+    /* Update hash context with prefix */
+    {
+        MCUXCLBUFFER_INIT_RO(buffHashPrefix, NULL, pHashPrefix, hashPrefixLen);
+        MCUX_CSSL_DI_RECORD(hashProcess1Params, buffHashPrefix);
+        MCUX_CSSL_FP_FUNCTION_CALL(retProcess1Hash,
+            mcuxClHash_process_internal(pSession,
+                                       pCtx,
+                                       buffHashPrefix,
+                                       hashPrefixLen));
+        if (MCUXCLHASH_STATUS_OK != retProcess1Hash)
+        {
+            MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+        }
+    }
+
+    /* Update hash context with Renc */
+    MCUX_CSSL_FP_FUNCTION_CALL(retProcess2Hash,
+        mcuxClHash_process_internal(pSession,
+                                   pCtx,
+                                   buffSignatureR,
+                                   signatureRLen));
+    if (MCUXCLHASH_STATUS_OK != retProcess2Hash)
+    {
+        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+    }
+
+    /* Update hash context with Qenc */
+    {
+        MCUXCLBUFFER_INIT_RO(buffPubKey, NULL, pPubKey, pubKeyLen);
+        MCUX_CSSL_DI_RECORD(hashProcess3Params, buffPubKey);
+        MCUX_CSSL_FP_FUNCTION_CALL(retProcess3Hash,
+            mcuxClHash_process_internal(pSession,
+                                       pCtx,
+                                       buffPubKey,
+                                       pubKeyLen));
+        if (MCUXCLHASH_STATUS_OK != retProcess3Hash)
+        {
+            MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+        }
+    }
+
+    /* Update hash context with m' */
+    MCUX_CSSL_FP_FUNCTION_CALL(retProcess4Hash,
+        mcuxClHash_process_internal(pSession,
+                                   pCtx,
+                                   buffIn,
+                                   inSize));
+    if (MCUXCLHASH_STATUS_OK != retProcess4Hash)
+    {
+        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+    }
+
+    MCUXCLPKC_WAITFORFINISH();
+
+    /* Finalize hash computation */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(
+        mcuxClHash_finish_internal(pSession,
+                                  pCtx,
+                                  buffOutput,
+                                  &outLength));
+    if (pDomainParams->algoHash->hashSize != outLength)
+    {
+        MCUXCLSESSION_FAULT(pSession, MCUXCLECC_STATUS_FAULT_ATTACK);
+    }
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_SignVerify_CalcHash,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_init),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_finish_internal));
+}
 
 /**
  * This function calculates the secret scalar H(prefix || (h_b,\dots,h_{2b-1}) || m') for EdDSA signature generation
@@ -87,7 +231,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcSecretScalar(
 
     /* Allocate context large enough for secure or non-secure hash operations */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Return pointer is 32-bit aligned and satisfies the requirement of mcuxClHash_Context_t");
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
     MCUX_CSSL_FP_FUNCTION_CALL(mcuxClHash_Context_t, pGenericHashCtx, mcuxClSession_allocateWords_cpuWa(pSession, mcuxClHash_getContextWordSize(pDomainParams->algoSecHash)));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
 
@@ -116,7 +259,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcSecretScalar(
 
     /* Update hash context with the private key half hash (h_b,...,h_{2b-1}) */
     uint8_t *pPrivKeyHalfHash = NULL;
-    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(privKey));
     MCUXCLKEY_LOAD_FP(
       pSession,
       privKey,
@@ -205,7 +347,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcSecretScalar(
 
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_CalcSecretScalar,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_init),
+        MCUXCLKEY_LOAD_FP_CALLED(privKey),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal),
@@ -263,7 +407,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcHashModN(
 
     /* Derive the pointer to the public key data */
     uint8_t *pPubKey = NULL;
-    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(pubKey));
     MCUXCLKEY_LOAD_FP(
       pSession,
       pubKey,
@@ -276,22 +419,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcHashModN(
     /* Allocate space for hash context buffer in CPU workarea */
     uint32_t hashContextSizeInWords = mcuxClHash_getContextWordSize(pDomainParams->algoHash);
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Return pointer is 32-bit aligned and satisfies the requirement of mcuxClHash_Context_t");
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
     MCUX_CSSL_FP_FUNCTION_CALL(mcuxClHash_Context_t, pHashCtx, mcuxClSession_allocateWords_cpuWa(pSession, mcuxClHash_getContextWordSize(pDomainParams->algoHash)));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
 
     /* Calculate 2b-bit hash of (prefix||Renc||Qenc||m'). */
-    {
-        MCUXCLBUFFER_INIT(buffS2, NULL, pS2, 2u * encodedLen);
-        MCUXCLECC_FP_EDDSA_SIGN_VERIFY_CALC_HASH(pSession,
-                                    pHashCtx,
-                                    pDomainParams->algoHash,
-                                    pHashPrefix, hashPrefixLen,
-                                    pSignatureR, encodedLen,
-                                    pPubKey, encodedLen,
-                                    pIn, inSize,
-                                    buffS2);
-    }
+    MCUXCLBUFFER_INIT(buffS2, NULL, pS2, 2u * encodedLen);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_EdDSA_SignVerify_CalcHash(pSession,
+                                              pDomainParams,
+                                pHashCtx,
+                                pHashPrefix, hashPrefixLen,
+                                pSignatureR, encodedLen,
+                                pPubKey, encodedLen,
+                                pIn, inSize,
+                                buffS2));
 
     /* Free the hash context */
     mcuxClSession_freeWords_cpuWa(pSession, hashContextSizeInWords);
@@ -308,8 +448,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcHashModN(
     const uint32_t bytesToClear = bufferSize - (byteLenH % bufferSize);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, (uint32_t)&pS2[byteLenH] + bytesToClear);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pS2[byteLenH], bytesToClear));
+    MCUXCLMEMORY_CLEAR_INT(&pS2[byteLenH], bytesToClear);
 
     /* Step 2: Use the PKC to calculate H(prefix||Renc||Qenc||m') mod n, and store the result in ECC_S2. */
     /* Calculate the Montgomery parameter Q' = 2 ^ (8*(operandSize + bufferSize)) mod n and store it in ECC_T1
@@ -327,11 +466,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_CalcHashModN(
     MCUXCLPKC_WAITFORREADY();
     pOperands[ECC_V0] = MCUXCLPKC_PTR2OFFSET(&pT1[MCUXCLPKC_WORDSIZE]);
     MCUXCLPKC_PS2_SETLENGTH(operandSize + bufferSize, operandSize);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_EdDSA_Internal_CalcHashModN_ModN,
                         mcuxClEcc_FUP_EdDSA_Internal_CalcHashModN_ModN_LEN);
 
     MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_CalcHashModN);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_CalcHashModN,
+        MCUXCLKEY_LOAD_FP_CALLED(pubKey),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_EdDSA_SignVerify_CalcHash),
+        MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
 }

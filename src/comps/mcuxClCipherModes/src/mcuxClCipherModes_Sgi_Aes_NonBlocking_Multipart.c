@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -36,6 +36,31 @@
 
 
 #include <internal/mcuxClCrc_Internal_Functions.h>
+
+MCUX_CSSL_FP_COUNTER_STMT(
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP)
+static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP(const mcuxClCipherModes_Context_Aes_Sgi_t * pCtx,
+                                                                                               const mcuxClCipherModes_WorkArea_t *pWa,
+                                                                                               const mcuxClCipherModes_Algorithm_Aes_Sgi_t pAlgo,
+                                                                                               const uint32_t inLength,
+                                                                                               const uint32_t bytesToCopy_FP,
+                                                                                               const uint32_t blockBufferUsed_FP,
+                                                                                               const uint32_t blockBufferUsed_FP_2)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP,
+    MCUX_CSSL_FP_CONDITIONAL( (0u != blockBufferUsed_FP ||
+                            (MCUXCLAES_BLOCK_SIZE  > (inLength + blockBufferUsed_FP))),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
+      MCUX_CSSL_FP_CONDITIONAL( ((MCUXCLAES_BLOCK_SIZE == blockBufferUsed_FP_2) &&
+                        ((inLength > bytesToCopy_FP) || !((MCUXCLSGI_DRV_CTRL_DEC == pCtx->direction) &&
+                                                       (MCUXCLAES_BLOCK_SIZE == pAlgo->granularityDec) &&
+                                                       (NULL != pAlgo->removePadding)))),
+        pCtx->protectionToken_processEngine,
+        MCUX_CSSL_FP_CONDITIONAL( ((NULL != pWa->pIV) && (inLength == bytesToCopy_FP)),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)))));
+})
 
 /**
  * @brief Function to fill and process block buffer if it is necesssary
@@ -74,6 +99,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
   mcuxClCipherModes_Context_Aes_Sgi_t * pCtx = mcuxClCipherModes_castToCipherModesContextAesSgi(pContext);
   mcuxClCipherModes_Algorithm_Aes_Sgi_t pAlgo = mcuxClCipherModes_castToCipherModesAlgorithmAesSgi(pCtx->common.pMode->pAlgorithm);
 
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t bytesToCopy_FP = MCUXCLCORE_MIN(MCUXCLAES_BLOCK_SIZE - pCtx->common.blockBufferUsed, inLength));
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsed_FP = pCtx->common.blockBufferUsed);
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsed_FP_2 = 0u);
   /* Move data from inputBuffer to blockBuffer if:
    *   1. blockBuffer is not empty
    *   2. inputBuffer has too little data to fill an entire block
@@ -86,7 +114,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
 
     MCUX_CSSL_DI_RECORD(bufferRead_smallInput_ProcessDmaDriven, (uint32_t)(pIn) + *pInOffset);
     MCUX_CSSL_DI_RECORD(bufferRead_smallInput_ProcessDmaDriven, (uint32_t)(&((uint8_t *)pCtx->blockBuffer)[pCtx->common.blockBufferUsed]) + bytesToCopy);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(
       pIn,
       *pInOffset,
@@ -112,6 +139,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
      *       needs to be performed on the last block during Cipher_finish. Do "lazy" processing and save
      *       the potential last block for later.
      */
+    MCUX_CSSL_FP_COUNTER_STMT(blockBufferUsed_FP_2 = pCtx->common.blockBufferUsed);
     if(MCUXCLAES_BLOCK_SIZE == pCtx->common.blockBufferUsed)
     {
       bool isBlockCipherDecryptWithPadding = (MCUXCLSGI_DRV_CTRL_DEC == pCtx->direction) && (MCUXCLAES_BLOCK_SIZE == pAlgo->granularityDec) && (NULL != pAlgo->removePadding);
@@ -119,7 +147,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
       if((inLength > bytesToCopy) || !isBlockCipherDecryptWithPadding)
       {
         MCUXCLBUFFER_INIT(blockBuff, session, pCtx->blockBuffer, MCUXCLAES_BLOCK_SIZE);
-        MCUX_CSSL_FP_EXPECT(pCtx->protectionToken_processEngine);
         MCUX_CSSL_FP_FUNCTION_CALL(status, pCtx->processEngine(session, pWa, blockBuff, pOut, MCUXCLAES_BLOCK_SIZE, pWa->pIV, pOutLength));
         (void) status; /* One-block processing is blocking -  processEngine only returns OK */
 
@@ -138,14 +165,24 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
           //Update IV - IV is located in pIV which points to SGI data register
           MCUX_CSSL_DI_RECORD(copyIvToContext, (uint32_t)pCtx->ivState);
           MCUX_CSSL_DI_RECORD(copyIvToContext, (uint32_t)pWa->pIV + MCUXCLAES_BLOCK_SIZE);
-          MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int));
-          MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int((uint8_t*)pCtx->ivState, (const uint8_t*)pWa->pIV, MCUXCLAES_BLOCK_SIZE));
+          MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t*)pCtx->ivState, (const uint8_t*)pWa->pIV, MCUXCLAES_BLOCK_SIZE));
         }
       }
     }
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven);
+    /* balancing FP */
+  MCUX_CSSL_FP_COUNTER_STMT(MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP(pCtx,
+                                                                                                                           pWa,
+                                                                                                                           pAlgo,
+                                                                                                                           inLength,
+                                                                                                                           bytesToCopy_FP,
+                                                                                                                           blockBufferUsed_FP,
+                                                                                                                           blockBufferUsed_FP_2)));
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven,
+           MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP)
+  );
 }
 
 /**
@@ -226,7 +263,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
     MCUXCLBUFFER_DERIVE_RO(pInCur, pIn, inOffset);
     MCUXCLBUFFER_DERIVE_RW(pOutCur, pOut, outOffset);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-    MCUX_CSSL_FP_EXPECT(pCtx->protectionToken_processEngine);
     MCUX_CSSL_FP_FUNCTION_CALL(status, pCtx->processEngine(
       session,
       pWa,
@@ -240,7 +276,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
     {
       /* Early exit for non-blocking, without clean-ups */
       MCUX_CSSL_ANALYSIS_START_SUPPRESS_OVERFLOWED_TRUNCATED_STATUS_CODE()
-      MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_handleRemainingInput_dmaDriven, status);
+      MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_handleRemainingInput_dmaDriven, status,
+                  pCtx->protectionToken_processEngine);
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OVERFLOWED_TRUNCATED_STATUS_CODE()
     }
 
@@ -250,7 +287,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
   }
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("inOffset has an upper bound of inLength")
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_process));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_handleLastBlock_process(
     session,
     pWa,
@@ -261,7 +297,11 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
     lastBlockRemainingBytes));
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_handleRemainingInput_dmaDriven, MCUXCLCIPHER_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_handleRemainingInput_dmaDriven, MCUXCLCIPHER_STATUS_OK,
+    MCUX_CSSL_FP_CONDITIONAL( (0u != fullBlocksRemainingBytes),
+      pCtx->protectionToken_processEngine),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_process)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_process_Sgi_dmaDriven, mcuxClCipher_ProcessFunc_t)
@@ -279,24 +319,27 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
   mcuxClCipherModes_Context_Aes_Sgi_t * pCtx = mcuxClCipherModes_castToCipherModesContextAesSgi(pContext);
 
   /* Check context CRC */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLCIPHER_AES_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLCIPHERMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
+
+  if(0u == inLength)
+  {
+    /* Nothing to do */
+      MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_process_Sgi_dmaDriven, MCUXCLCIPHER_STATUS_OK
+        ,MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc)
+        );
+  }
 
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClCipherModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClCipherModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request the DMA channels and register callback function */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext(
     session, pWa, mcuxClCipherModes_ISR_completeNonBlocking_multipart,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_ISR_completeNonBlocking_multipart)));
 
   /* Request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE, NULL, 0U));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
@@ -305,8 +348,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
   pCtx->common.totalInputLength += inLength;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_loadMaskedKeyAndIvtoSgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_loadMaskedKeyAndIvtoSgi(
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_loadKeyAndIvtoSgi(
     session,
     (mcuxClCipherModes_Context_Aes_Sgi_t *) pCtx,
     pWa,
@@ -321,7 +363,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
    *   1. blockBuffer is not empty. After that if blockBuffer is full and there is remaining data in inputBuffer, process blockBuffer.
    *   2. inputBuffer has too little data to fill entire block.
    */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven(
     session,
     pContext,
@@ -340,7 +381,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
 
   if (remainingBytes > 0u)
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleRemainingInput_dmaDriven));
     MCUX_CSSL_FP_FUNCTION_CALL(handleStatus, mcuxClCipherModes_handleRemainingInput_dmaDriven(
       session,
       pContext,
@@ -354,13 +394,32 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
 
     if (MCUXCLCIPHER_STATUS_JOB_STARTED == handleStatus)
     {
-      MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_process_Sgi_dmaDriven, handleStatus);
+      MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_process_Sgi_dmaDriven, handleStatus,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_loadKeyAndIvtoSgi),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven),
+      MCUX_CSSL_FP_CONDITIONAL( (remainingBytes > 0u),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleRemainingInput_dmaDriven)));
     }
   }
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords, MCUXCLCIPHERMODES_CLEANUP_HW_ALL));
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_process_Sgi_dmaDriven, MCUXCLCIPHER_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_process_Sgi_dmaDriven, MCUXCLCIPHER_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_loadKeyAndIvtoSgi),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBytes > 0u),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleRemainingInput_dmaDriven)),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit_dmaDriven)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_finish_Sgi_dmaDriven, mcuxClCipher_FinishFunc_t)
@@ -378,44 +437,43 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_finish_Sgi_dmaDriven(
   MCUX_CSSL_DI_RECORD(cipherModesFinishDma_clearCtxOk, sizeof(mcuxClCipherModes_Context_Aes_Sgi_t));
 
   /* Check context CRC - SREQI_BCIPHER_3 */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLCIPHER_AES_CONTEXT_SIZE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLCIPHERMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
   const uint32_t cpuWaSizeInWords = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(sizeof(mcuxClCipherModes_WorkArea_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClCipherModes_WorkArea_t*, pWa, mcuxClSession_allocateWords_cpuWa(session, cpuWaSizeInWords));
 
   /* Request the DMA channels and register callback function */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext(session, pWa, NULL, 0U));
 
   /* Request SGI */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Request));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Request(session, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_request(session, MCUXCLRESOURCE_HWID_SGI, MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE, NULL, 0U));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_init(MCUXCLSGI_DRV_BYTE_ORDER_LE));
 
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKeyFromCtx_Sgi(
     session,
     &(pCtx->keyContext),
-    &pWa->sgiWa,
-    MCUXCLSGI_DRV_KEY0_OFFSET,
-    MCUXCLAES_MASKED_KEY_SIZE));
+    &pWa->sgiWa));
 
-  MCUX_CSSL_FP_EXPECT(pCtx->protectionToken_finishSkeleton);
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t finishToken_FP = pCtx->protectionToken_finishSkeleton);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pCtx->finishSkeleton(session, pWa, pContext, pOut, pOutLength));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords, MCUXCLCIPHERMODES_CLEANUP_HW_ALL));
 
   /* Invalidate context - SREQI_BCIPHER_15 */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int((uint8_t*)pCtx, sizeof(mcuxClCipherModes_Context_Aes_Sgi_t)));
+  MCUXCLMEMORY_CLEAR_INT((uint8_t*)pCtx, sizeof(mcuxClCipherModes_Context_Aes_Sgi_t));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_finish_Sgi_dmaDriven);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_finish_Sgi_dmaDriven,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClResource_request),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+    finishToken_FP,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit_dmaDriven),
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_ISR_completeNonBlocking_multipart, mcuxClSession_HwInterruptHandler_t)
@@ -429,11 +487,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_ISR_completeNonBlocking_mult
   mcuxClSession_Channel_t outputChannel = mcuxClSession_getDmaOutputChannel(session);
 
   /* Wait for both channels, to be sure */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForHandshakeChannelsDone));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForHandshakeChannelsDone(session));
 
   /* SGI needs a manual stop once all data is processed (or on DMA channel error). Disable interrupts. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaHandshakes));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_stopAutoModeWithDmaHandshakes(inputChannel, outputChannel));
 
   mcuxClDma_Drv_disableChannelDoneInterrupts(inputChannel);
@@ -457,10 +513,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_ISR_completeNonBlocking_mult
   uint32_t lastBlockRemainingBytes = pWa->nonBlockingWa.lastBlockRemainingBytes;
 
   /* Increase output length and pointer with bytes written by AUTO mode */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount));
   MCUX_CSSL_FP_FUNCTION_CALL(uint16_t, blockWrittenWithDma, mcuxClDma_Drv_readMajorBeginningLoopCount(outputChannel));
   uint32_t bytesWritten = (uint32_t)  blockWrittenWithDma * MCUXCLAES_BLOCK_SIZE;
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount));
   MCUX_CSSL_FP_FUNCTION_CALL(uint16_t, blockReadWithDma, mcuxClDma_Drv_readMajorBeginningLoopCount(inputChannel));
   uint32_t bytesRead = (uint32_t) blockReadWithDma * MCUXCLAES_BLOCK_SIZE;
 
@@ -471,11 +525,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_ISR_completeNonBlocking_mult
   *pWa->nonBlockingWa.pOutputLength += bytesWritten;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_completeAutoModeEngine);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->completeAutoModeEngine(session, mcuxClSession_job_getClWorkarea(session)));
 
   /* Update ctx for further process calls */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_process));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_handleLastBlock_process(
     session,
     pWa,
@@ -486,17 +538,23 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_ISR_completeNonBlocking_mult
     lastBlockRemainingBytes));
 
   /* Notify the user that the operation finished */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit_dmaDriven));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven(session, pCtx, NULL /* key is in context */, cpuWaSizeInWords, MCUXCLCIPHERMODES_CLEANUP_HW_ALL));
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
   MCUX_CSSL_FP_FUNCTION_CALL(retSessionTriggerCallback, mcuxClSession_triggerUserCallback(session, MCUXCLCIPHER_STATUS_JOB_COMPLETED));
   if(MCUXCLSESSION_STATUS_OK != retSessionTriggerCallback)
   {
     MCUXCLSESSION_ERROR(session, retSessionTriggerCallback);
   }
-  
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_ISR_completeNonBlocking_multipart);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_ISR_completeNonBlocking_multipart,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForHandshakeChannelsDone),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaHandshakes),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount),
+    pAlgo->protectionToken_completeAutoModeEngine,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_process),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit_dmaDriven),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_triggerUserCallback));
 }
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
@@ -519,16 +577,17 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     //Update IV - IV is located in pIV which points to SGI data register
     MCUX_CSSL_DI_RECORD(copyIvToContext, (uint32_t)pCtx->ivState);
     MCUX_CSSL_DI_RECORD(copyIvToContext, (uint32_t)pWa->pIV + MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_words_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_words_int((uint8_t*)pCtx->ivState, (const uint8_t*)pWa->pIV, MCUXCLAES_BLOCK_SIZE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t*)pCtx->ivState, (const uint8_t*)pWa->pIV, MCUXCLAES_BLOCK_SIZE));
   }
 
   /* Store remaining bytes, which might form up to a full block, in context */
   MCUX_CSSL_DI_RECORD(bufferRead_handleLastBlockProcess, (uint32_t)(pIn) + inOffset);
   MCUX_CSSL_DI_RECORD(bufferRead_handleLastBlockProcess, (uint32_t)(pCtx->blockBuffer) + lastBlockRemainingBytes);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pIn, inOffset, pCtx->blockBuffer, lastBlockRemainingBytes));
   pCtx->common.blockBufferUsed = lastBlockRemainingBytes;
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_handleLastBlock_process);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_handleLastBlock_process,
+    MCUX_CSSL_FP_CONDITIONAL( (NULL != pWa->pIV),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int)),
+  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read));
 }

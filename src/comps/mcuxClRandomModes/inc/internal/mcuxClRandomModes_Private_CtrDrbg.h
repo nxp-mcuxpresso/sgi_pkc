@@ -53,6 +53,8 @@ extern "C" {
 
 
 
+
+
 /* Internal context structures for CTR_DRBGs */
 
 
@@ -99,7 +101,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_generateAlgorithm(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRandomModes_CtrDrbg_df)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
     mcuxClSession_Handle_t pSession,
-    mcuxClRandom_Mode_t mode,
+    uint32_t securityStrength,
     uint8_t *pInputString,
     uint32_t inputStringLen,
     uint32_t outputLen);
@@ -108,7 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRandomModes_CtrDrbg_bcc)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_bcc(
     mcuxClSession_Handle_t pSession,
-    mcuxClRandom_Mode_t mode,
+    uint32_t securityStrength,
     uint32_t * const pData,
     uint32_t dataLen,
     uint32_t *pOut);

@@ -35,6 +35,7 @@ const mcuxClSignature_ModeDescriptor_t mcuxClSignature_ModeDescriptor_ECDSA =
   .pVerifyFct = mcuxClEcc_ECDSA_VerifySignature,
   .protection_token_verify = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ECDSA_VerifySignature),
   .pProtocolDescriptor = (const void *) &mcuxClEcc_ECDSA_ProtocolDescriptor
+
 };
 
 

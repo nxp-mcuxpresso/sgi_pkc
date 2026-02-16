@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -50,7 +50,7 @@ extern "C" {
  * Initializes a key handle with default encoding values.
  *
  * @param       session          Session handle to provide session dependent information
- * @param       key              Key handle that will be initialized
+ * @param       key              Key handle that will be initialized (word-aligned)
  * @param       type             Define which key type shall be initialized
  * @param[in]   pKeyData         Pointer to the source data of the key. This can be a pointer to a plain key, any
  *                               supported encoded key, a share or a key blob. The encoding mechanism defines the
@@ -80,8 +80,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_init(
  * @brief Establishes a key pair link between a private and public key handle.
  *
  * @param   session     Session handle to provide session dependent information
- * @param   privKey     Key handle of private key
- * @param   pubKey      Key handle of public key
+ * @param   privKey     Key handle of private key (word-aligned)
+ * @param   pubKey      Key handle of public key (word-aligned)
  *
  * @retval void
  */
@@ -99,7 +99,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClKey_linkKeyPair(
  * encoded. @ref mcuxClKey_init must be called to initialize the key handle first.
  *
  * @param       session         Session handle to provide session dependent information
- * @param       key             Key handle that will be configured
+ * @param       key             Key handle that will be configured (word-aligned)
  * @param       encoding        Define the encoding and flush mechanism that shall be used with this @p key
  * @param[in]   pAuxData        Auxiliary data needed for the given key @p encoding.
  * @param       auxDataLength   Number of bytes available in the @p pAuxData buffer.
@@ -126,7 +126,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_setEncoding(
  * @brief Load key into destination key slot of a coprocessor
  *
  * @param  session        Session handle to provide session dependent information
- * @param  key            Key handle that provides of the key to be loaded
+ * @param  key            Key handle that provides of the key to be loaded (word-aligned)
  * @param  loadOptions    Provide the destination key slot in the hardware and associated options.
  *                        The key slot must be available in the coprocessor that fits the key type.
  *                          The slot shall be a provided constant in @ref MCUXCLKEY_LOADOPTION_SLOT_.
@@ -164,7 +164,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
  * @brief Flush key from destination which can be a key slot of coprocessor or memory buffer
  *
  * @param   session    Session handle to provide session dependent information
- * @param   key        Key handle that provides information to flush the key from its location
+ * @param   key        Key handle that provides information to flush the key from its location (word-aligned)
  *
  * @if (MCUXCL_FEATURE_CSSL_FP_USE_SECURE_COUNTER && MCUXCL_FEATURE_CSSL_SC_USE_SW_LOCAL)
  *  @return A code-flow protected error code (see @ref mcuxCsslFlowProtection). The error code can be any error code in @ref MCUXCLKEY_STATUS_, see individual documentation for more information
@@ -196,8 +196,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_flush(
  * @param[in]     session      Handle for the current CL session.
  * @param[in]     generation   Key generation algorithm that determines the key
  *                             data stored in @p privKey and @p pubKey.
- * @param         privKey      Key handle for the private key.
- * @param         pubKey       Key handle for the public key.
+ * @param         privKey      Key handle for the private key (word-aligned).
+ * @param         pubKey       Key handle for the public key (word-aligned).
  *
  * @return Status of the mcuxClKey_generate_keypair operation.
  * @retval #MCUXCLKEY_STATUS_OK                 Key generation operation executed successfully.
@@ -226,8 +226,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_generate_keypair(
  * @param      session            Handle for the current CL session.
  * @param      agreement          Key agreement algorithm that determines the value of
  *                                @p pOut.
- * @param      key                First key to be used for the agreement operation.
- * @param      otherKey           Other key to be used for the agreement operation.
+ * @param      key                First key to be used for the agreement operation (word-aligned).
+ * @param      otherKey           Other key to be used for the agreement operation (word-aligned).
  * @param      additionalInputs   Additional input needed for the agreement operation.
  * @param      numberOfInputs     Number of the additional inputs needed for the agreement operation.
  * @param[out] pOut               Pointer to a memory location to store the agreed key.
@@ -259,7 +259,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_agreement(
  * @param      session                 Handle for the current CL session.
  * @param      encoding                Encoding mechanism to be applied to the given
  *                                     @p pPlainKeyData.
- * @param      encodedKey              Key to be initialized and encoded.
+ * @param      encodedKey              Key to be initialized and encoded (word-aligned).
  * @param      type                    Type of the key.
  * @param[in]  pPlainKeyData           Plain raw key data.
  * @param      plainKeyDataLength      Number of bytes available in the @p pPlainKeyData.
@@ -298,11 +298,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_encode(
  *
  * @param      session                 Handle for the current CL session.
  * @param[in]  encodedKey              Input key associated with the material to be recoded.
- *                                     This key object is used as const input.
+ *                                     This key object is used as const input (word-aligned).
  * @param      encoding                Encoding mechanism to be applied to the plain key
  *                                     material of the given @p encodedKey.
  * @param      recodedKey              Output key handle containing the recoded key. Must point to an
- *                                     uninitialized key handle, in-place recoding is not supported.
+ *                                     uninitialized key handle, in-place recoding is not supported (word-aligned).
  * @param[in]  pAuxData                Auxiliary data needed for the given key @p encoding.
  * @param      auxDataLength           Number of bytes available in the @p pAuxData buffer.
  * @param[out] pEncodedKeyData         Recoded key data (after applying @p encoding to the
@@ -331,7 +331,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_recode(
  *
  * @param[in]    session       Handle for the current CL session.
  * @param[in]    validation    Key validation type.
- * @param[in]    key           Key handle for the key to be validated.
+ * @param[in]    key           Key handle for the key to be validated (word-aligned).
  *
  * @retval #MCUXCLKEY_STATUS_VALIDATION_PASSED      Key validation successful
  * @retval #MCUXCLKEY_STATUS_VALIDATION_FAILED      Key validation failed

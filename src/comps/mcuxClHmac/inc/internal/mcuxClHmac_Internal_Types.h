@@ -39,6 +39,23 @@ extern "C" {
 /****************************/
 /* Context types            */
 /****************************/
+#define MCUXCLHMAC_INTEGRITY_PROTECTION_CONTEXT                                             \
+    mcuxClMac_Context_t common;                                                            \
+    mcuxClKey_Descriptor_t * key;                                                          \
+    /* Padded/Hashed HMAC key, must be large enough to hold any block */                  \
+    uint32_t preparedHmacKey[MCUXCLHASH_BLOCK_SIZE_MAX_WITHOUT_MASK / sizeof(uint32_t)];
+
+/**
+ * @brief Hmac integrity protected context structure
+ *
+ * This struct is used to calculate the size of the integrity protected context
+ */
+typedef struct
+{
+    MCUXCLHMAC_INTEGRITY_PROTECTION_CONTEXT
+} mcuxClHmac_IntegrityProtectionContext_t;
+
+#define MCUXCLHMAC_INTEGRITY_PROTECTED_CONTEXT_SIZE (sizeof(mcuxClHmac_IntegrityProtectionContext_t))
 
 /**
  * @brief HMAC context structure for modes using a SW implementation
@@ -49,11 +66,11 @@ extern "C" {
  */
 typedef struct mcuxClHmac_Context_Sw
 {
-    mcuxClMac_Context_t common;
-    mcuxClKey_Descriptor_t * key;
+    /* Integrity protected Context */
+    MCUXCLHMAC_INTEGRITY_PROTECTION_CONTEXT
+
     mcuxClHash_ContextDescriptor_t *hashCtx;                                                     /* Hash context for SW-HMAC */
     uint32_t hashContextBuffer[MCUXCLHASHMODES_CONTEXT_MAX_SIZE_INTERNAL / sizeof(uint32_t)];    /* Buffer to store the actual hash context data using maximum size of a hash context */
-    uint32_t preparedHmacKey[MCUXCLHASH_BLOCK_SIZE_MAX_WITHOUT_MASK / sizeof(uint32_t)];         /* Padded/Hashed HMAC key, must be large enough to hold any block */
 } mcuxClHmac_Context_Sw_t;
 
 

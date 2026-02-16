@@ -38,7 +38,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_compute_internal(
         MCUXCLSESSION_ERROR(session, MCUXCLHASH_STATUS_INVALID_PARAMS);
     }
 
-    MCUX_CSSL_FP_EXPECT(algorithm->protection_token_oneShotSkeleton);
     MCUX_CSSL_FP_FUNCTION_CALL(skeletonStatus, algorithm->oneShotSkeleton(
         session,
         algorithm,
@@ -47,7 +46,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_compute_internal(
         pOut,
         pOutSize));
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHash_compute_internal, skeletonStatus);
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHash_compute_internal, skeletonStatus, algorithm->protection_token_oneShotSkeleton);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHash_compute)
@@ -68,8 +67,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_compute(
     MCUX_CSSL_DI_RECORD(oneshotSkeletonParams, pOut);
     MCUX_CSSL_DI_RECORD(oneshotSkeletonParams, pOutSize);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute_internal));
     MCUX_CSSL_FP_FUNCTION_CALL(result, mcuxClHash_compute_internal(session, algorithm, pIn, inSize, pOut, pOutSize));
 
-    MCUXCLSESSION_EXIT(session, mcuxClHash_compute, diRefValue, result, MCUXCLHASH_STATUS_FAULT_ATTACK);
+    MCUXCLSESSION_EXIT(session, mcuxClHash_compute, diRefValue, result, MCUXCLHASH_STATUS_FAULT_ATTACK, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute_internal));
 }

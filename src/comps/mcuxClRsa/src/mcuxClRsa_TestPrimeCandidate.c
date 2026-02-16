@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -65,7 +65,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
 
     /* Share the area with mcuxClRsa_MillerRabinTest*/
     const uint32_t pkcWaSizeWord = MCUXCLRSA_INTERNAL_TESTPRIMECANDIDATE_WAPKC_SIZE(primeByteLength) / (sizeof(uint32_t));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
     MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
 
     uint8_t *pGCD1 = pPkcWorkarea;
@@ -74,7 +73,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
     /* Setup UPTR table */
     const uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_TESTPRIMECANDIDATE_WACPU_SIZE_WO_MILLERRABIN_IN_WORDS;
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
     MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
@@ -96,13 +94,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
     MCUXCLPKC_PS1_SETLENGTH(pkcOperandSize, pkcOperandSize);
     MCUXCLPKC_PS2_SETLENGTH(0u, MCUXCLRSA_PKC_WORDSIZE);
 
+    MCUX_CSSL_FP_COUNTER_STMT(uint32_t primeCandidateChecks = 0U); /* flag for prime candidate checks */
+
     do
     {
         /*
         * 1. Check if prime candidate < sqrt(2)(2^((nlen/2)-1))
         *    This check is done using only 64 most significant bits of sqrt(2)(2^(nlen/2)-1)
         *    rounded up, this is 0xb504f333f9de6485u.
-        *    This deviation from FIPS 186-4 has been approved.
+        *    This deviation from FIPS 186-5 has been approved.
         *
         * Used functions: PKC operations (MCUXCLPKC_OP_CMP)
         */
@@ -110,9 +110,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
         if (MCUXCLPKC_FLAG_CARRY == MCUXCLPKC_WAITFORFINISH_GETCARRY())
         {
             status = MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_CMP_FAILED;
-            MCUX_CSSL_FP_EXPECT(0u - (2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)) - MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_MillerRabinTest));
             break;
         }
+        MCUX_CSSL_FP_COUNTER_STMT(++primeCandidateChecks); /* here primeCandidateChecks == 1U */
 
         /*
         * 2. Pre-check the prime candidate: GCD(prime candidate, A0)
@@ -123,9 +123,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
         if (MCUXCLPKC_FLAG_CARRY != MCUXCLPKC_WAITFORFINISH_GETCARRY())
         {
             status = MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDA0_FAILED;
-            MCUX_CSSL_FP_EXPECT(0u - MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup) - MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_MillerRabinTest));
             break;
         }
+        MCUX_CSSL_FP_COUNTER_STMT(++primeCandidateChecks); /* here primeCandidateChecks == 2U */
 
         /*
         * 3. Check if prime_candidate - 1 is coprime to the public exponent e:
@@ -136,9 +136,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
         if (MCUXCLPKC_FLAG_CARRY != MCUXCLPKC_WAITFORFINISH_GETCARRY())
         {
             status = MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDE_FAILED;
-            MCUX_CSSL_FP_EXPECT(0u - MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_MillerRabinTest));
             break;
         }
+        MCUX_CSSL_FP_COUNTER_STMT(++primeCandidateChecks); /* here primeCandidateChecks == 3U */
 
         /*
         * 4. Run Miller-Rabin test
@@ -157,7 +157,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
     MCUXCLPKC_SETUPTRT(bakUPTRT);
 
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_TestPrimeCandidate, status,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_MillerRabinTest));
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+        MCUX_CSSL_FP_CONDITIONAL((primeCandidateChecks > 0U),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
+        ),
+        MCUX_CSSL_FP_CONDITIONAL((primeCandidateChecks > 1U),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
+        ),
+        MCUX_CSSL_FP_CONDITIONAL((primeCandidateChecks > 2U),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_MillerRabinTest)
+        )
+    );
 }

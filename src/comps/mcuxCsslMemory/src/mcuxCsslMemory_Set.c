@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -40,7 +40,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxCsslMemory_Int_Set
 
     uint32_t currentLen = 0u;
     const uint32_t cpuWordSize = sizeof(uint32_t);
-
     uint8_t *p8Dst = pDst;
 
     const uint8_t *p8End = &(((const uint8_t *) pDst)[length]);
@@ -48,18 +47,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxCsslMemory_Int_Set
     const uint32_t *p32End = (const uint32_t *) p8End;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
 
-    MCUX_CSSL_FP_LOOP_DECL(FirstByteLoop);
-    MCUX_CSSL_FP_LOOP_DECL(SecondByteLoop);
-    MCUX_CSSL_FP_LOOP_DECL(WordLoop);
-
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Typecast pointer to integer to check address for alignment")
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NOT_ELEMENTS_OF_THE_SAME_OBJECT("p8Dst and p8End must point into the same object")
     while ((0u != ((uint32_t) p8Dst & (cpuWordSize - 1u))) && (currentLen < length) && (p8Dst < p8End))
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NOT_ELEMENTS_OF_THE_SAME_OBJECT()
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER()
     {
         MCUX_CSSL_DI_DONOTOPTIMIZE(p8Dst);
         MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(INTEGER_OVERFLOW, "p8Dst will be in the valid range pDst[0 ~ length].")
         *p8Dst = val;
-        MCUX_CSSL_FP_LOOP_ITERATION(FirstByteLoop);
         MCUX_CSSL_DI_DONOTOPTIMIZE(p8Dst);
         *p8Dst = val;
         p8Dst++;
@@ -73,13 +69,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxCsslMemory_Int_Set
 
     if(cpuWordSize <= length)
     {
-        while ((currentLen <= (length - cpuWordSize)) && (p32Dst < p32End))
+        while ((currentLen <= (length - cpuWordSize)) && ((uint32_t)p32Dst < (uint32_t)p32End))
         {
             MCUX_CSSL_DI_DONOTOPTIMIZE(p32Dst);
             MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(INTEGER_OVERFLOW, "p32Dst will be in the valid range pDst[0 ~ length].")
             MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("p8Dst is CPU word-aligned after the previous loop")
             *p32Dst = wordVal;
-            MCUX_CSSL_FP_LOOP_ITERATION(WordLoop);
             MCUX_CSSL_DI_DONOTOPTIMIZE(p32Dst);
             *p32Dst = wordVal;
             MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
@@ -91,12 +86,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxCsslMemory_Int_Set
     }
 
     p8Dst = (uint8_t *) p32Dst;
-    while ((currentLen < length) && (p8Dst < p8End))
+    while ((currentLen < length) && ((uint32_t)p8Dst < (uint32_t)p8End))
     {
         MCUX_CSSL_DI_DONOTOPTIMIZE(p8Dst);
         MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(INTEGER_OVERFLOW, "p8Dst will be in the valid range pDst[0 ~ length].")
         *p8Dst = val;
-        MCUX_CSSL_FP_LOOP_ITERATION(SecondByteLoop);
         MCUX_CSSL_DI_DONOTOPTIMIZE(p8Dst);
         *p8Dst = val;
         p8Dst++;
@@ -111,24 +105,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxCsslMemory_Int_Set
     MCUX_CSSL_DI_EXPUNGE(memSetVal, wordVal);
     MCUX_CSSL_DI_EXPUNGE(memSetVal, ((uint32_t)val << 24) | ((uint32_t)val << 16) | ((uint32_t)val << 8) | (uint32_t)val);
 
-
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("pointer cast to integer for alignment check")
-    MCUX_CSSL_ANALYSIS_COVERITY_START_FALSE_POSITIVE(INTEGER_OVERFLOW, "modular arithmetic, mod 4")
-    MCUX_CSSL_FP_COUNTER_STMT(uint32_t noOfBytesToAlignment = ((0u - ((uint32_t) pDst)) % cpuWordSize));
-    MCUX_CSSL_ANALYSIS_COVERITY_STOP_FALSE_POSITIVE(INTEGER_OVERFLOW)
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER()
-
-    MCUX_CSSL_FP_COUNTER_STMT(uint32_t firstByteIteration = (length > noOfBytesToAlignment)
-                             ? noOfBytesToAlignment
-                             : length);
-    MCUX_CSSL_FP_COUNTER_STMT(uint32_t wordIteration = (length > firstByteIteration)
-                             ? ((length - firstByteIteration) / cpuWordSize)
-                             : 0u);
-
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxCsslMemory_Int_Set,
-        MCUX_CSSL_FP_LOOP_ITERATIONS(FirstByteLoop, firstByteIteration),
-        MCUX_CSSL_FP_LOOP_ITERATIONS(WordLoop, wordIteration),
-        MCUX_CSSL_FP_LOOP_ITERATIONS(SecondByteLoop, length - (wordIteration * cpuWordSize) - firstByteIteration));
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxCsslMemory_Int_Set);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxCsslMemory_Set)
@@ -180,7 +157,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t) mcuxCsslMemory_Set
 
     MCUX_CSSL_DI_CHECK_EXIT(mcuxCsslMemory_Set, diRefValue, MCUXCSSLMEMORY_STATUS_FAULT);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxCsslMemory_Set, MCUXCSSLMEMORY_STATUS_OK,
+    MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(mcuxCsslMemory_Set, MCUXCSSLMEMORY_STATUS_OK, MCUXCSSLMEMORY_STATUS_FAULT,
                                 MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslParamIntegrity_Validate),
                                 MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_Set));
 }

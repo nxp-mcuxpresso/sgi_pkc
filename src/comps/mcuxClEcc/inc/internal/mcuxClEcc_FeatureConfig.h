@@ -40,6 +40,10 @@
 /**********************************************************************/
 
 /*
+ * Internal coprocessor feature flag config
+ */
+
+/*
  * Internal feature flags for generic ECC point operations
  */
 /* Inclusion of the internal Ecc mcuxClEcc_GenerateMultiplicativeBlinding function. */
@@ -77,5 +81,6 @@
 
 /* Inclusion of the internal Ecc Weierstrass mcuxClEcc_SecurePointMult function. */
 #define MCUXCLECC_FEATURE_INTERNAL_WEIER_SECPOINTMULT
+
 
 #endif /* MCUXCLECC_FEATURECONFIG_H_ */

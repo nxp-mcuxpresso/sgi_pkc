@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2023-2024 NXP                                            */
+/* Copyright 2021, 2023-2024, 2026 NXP                                      */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -25,8 +25,8 @@
 #define mcuxClRsa_ComputeD_Steps3_FUP_LEN   4u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_ComputeD_Steps12_FUP[mcuxClRsa_ComputeD_Steps12_FUP_LEN];
-extern const mcuxClPkc_FUPEntry_t mcuxClRsa_ComputeD_Steps3_FUP[mcuxClRsa_ComputeD_Steps3_FUP_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_ComputeD_Steps12_FUP);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClRsa_ComputeD_Steps3_FUP);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #endif /* MCUXCLRSA_COMPUTED_FUP_H_ */

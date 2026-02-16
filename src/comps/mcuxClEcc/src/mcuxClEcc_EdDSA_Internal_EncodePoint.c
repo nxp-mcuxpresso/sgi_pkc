@@ -48,9 +48,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_EncodePoint(
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_EdDSA_EncodePoint);
 
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP2_CONST);
     MCUXCLPKC_FP_CALC_OP2_CONST(ECC_COORD02, 0u);                   /* Clear encodedLenPkc bytes of result buffer */
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(ECC_COORD02, ECC_COORD01, 0u);   /* Copy operandSize < encodedLenPkc bytes of the y-coordinate from ECC_COORD01 to ECC_COORD02 */
     uint32_t *pX = MCUXCLPKC_OFFSET2PTRWORD(pOperands[ECC_COORD00]);
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(encodedLen, 1u, 57u)
@@ -59,5 +57,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_EncodePoint(
     uint32_t lsbX = (*pX) & (uint32_t)0x01u;    /* Loading a word is usually cheaper than loading a byte */
     *pEncLsbXByte |= ((uint8_t)lsbX << 7u);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_EncodePoint);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_EdDSA_EncodePoint,
+        MCUXCLPKC_FP_CALLED_CALC_OP2_CONST,
+        MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
 }

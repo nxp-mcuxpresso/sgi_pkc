@@ -67,7 +67,7 @@
    else if(NULL != pContext)
    {
      /* Flush the key in the context, if needed */
-     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInContext(session, &(pContext->keyContext)));
+     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInSgi(session, &(pContext->keyContext)));
    }
    else
    {
@@ -85,7 +85,7 @@
      ), /* NULL != key */
      MCUX_CSSL_FP_CONDITIONAL(((NULL == key)
          && (NULL != pContext)),
-       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInContext)
+       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInSgi)
      ), /* NULL != pContext */
      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit)
    );
@@ -109,7 +109,6 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   if(0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_DMA))
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_releaseInputAndOutput));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_releaseInputAndOutput(session));
   }
 
@@ -118,8 +117,9 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
    * pAlgo->setupIV step for this mode). We need to stop AUTO-mode here to bring the
    * SGI in non-busy state because the KEY_FLUSH (PRNG) uses the SGI.
    * If AUTO-mode is not running anymore, stopping it will do no harm. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
+
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t flush_FP_tag = 0u);
 
   if(0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_SGI))
   {
@@ -130,14 +130,13 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     {
       /* Flush the key in use if it is not preloaded.
       * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
-      MCUX_CSSL_FP_EXPECT(MCUXCLKEY_FLUSH_FP_CALLED(key));
+      MCUX_CSSL_FP_COUNTER_STMT(flush_FP_tag = MCUXCLKEY_FLUSH_FP_CALLED(key));
       MCUXCLKEY_FLUSH_FP(session, key, 0U /* spec */);
     }
     else if(NULL != pContext)
     {
       /* Flush the key in the context, if needed */
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInContext));
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInContext(session, &(pContext->keyContext)));
+      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInSgi(session, &(pContext->keyContext)));
     }
     else
     {
@@ -146,16 +145,27 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
 
     /* Uninitialize (and release) the SGI hardware */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Uninit(session));
   }
 
   if (NULL != pContext)
   {
     /* Update context CRC */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(&pContext->common, MCUXCLCIPHER_AES_CONTEXT_SIZE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_computeContextCrc(&pContext->common, MCUXCLCIPHERMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven,
+                                MCUX_CSSL_FP_CONDITIONAL( (0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_DMA)),
+                                                       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_releaseInputAndOutput)),
+                                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+                                MCUX_CSSL_FP_CONDITIONAL( (NULL != pContext),
+                                                       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc)),
+                                MCUX_CSSL_FP_CONDITIONAL( (0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_SGI)),
+                                                       MCUX_CSSL_FP_CONDITIONAL(((NULL != key)
+                               && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))),
+                                                       flush_FP_tag),
+                                                       MCUX_CSSL_FP_CONDITIONAL((NULL != pContext),
+                                                                              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInSgi)),
+                                                       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit))
+                                );
 }

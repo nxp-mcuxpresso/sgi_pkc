@@ -28,15 +28,14 @@
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_Ecb)
-static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ecb(
-  mcuxClSession_Handle_t session,
+static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb(
   mcuxClCipherModes_WorkArea_t* pWa,
   mcuxCl_InputBuffer_t pIn,
   mcuxCl_Buffer_t pOut,
   uint32_t inLength,
   uint32_t* pIvOut UNUSED_PARAM,
   uint32_t* const pOutLength,
-  uint32_t direction)
+  const uint32_t direction)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Ecb);
 
@@ -46,104 +45,118 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ecb(
 
   uint32_t numFullBlocks  = inLength / MCUXCLAES_BLOCK_SIZE;
 
-  if(0u < numFullBlocks)
-  {
-    uint32_t outOffset = 0u;
-    /* Record the number of blocks plus the SGI COUNT for DI protection. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCount));
-    MCUX_CSSL_FP_FUNCTION_CALL(currCount, mcuxClSgi_Drv_getCount());
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("value used for SC balancing which supports unsigned overflow behaviour")
-    const uint32_t sgiCount = numFullBlocks + currCount;
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-    const uint32_t sgiCountOverflow = sgiCount & 0xFFFF0000u; // since SGI_COUNT is 16-bit register, save the possibly overflowed value and use it in DI_EXPUNGE at the end
-    MCUX_CSSL_DI_RECORD(sgiCount, sgiCount);
+  uint32_t outOffset = 0u;
+  /* Record the number of blocks plus the SGI COUNT for DI protection. */
+  MCUX_CSSL_FP_FUNCTION_CALL(currCount, mcuxClSgi_Drv_getCount());
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("value used for SC balancing which supports unsigned overflow behaviour")
+  const uint32_t sgiCount = numFullBlocks + currCount;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+  const uint32_t sgiCountOverflow = sgiCount & 0xFFFF0000u; /* since SGI_COUNT is 16-bit register, save the possibly overflowed value and use it in DI_EXPUNGE at the end */
+  MCUX_CSSL_DI_RECORD(sgiCount, sgiCount);
 
-    /* SREQI_BCIPHER_8 - Balance the block loads to SGI DATIN, i.e. the calls to mcuxClSgi_Utils_load128BitBlock */
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("value used for SC balancing which supports unsigned overflow behaviour")
-    uint32_t sumOfOffsets = (MCUXCLAES_BLOCK_SIZE / 2u) * (numFullBlocks  - 1u) * numFullBlocks ;
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-    // sumOfOffsets = MCUXCLAES_BLOCK_SIZE * (0 + 1 + 2 + .. + (numFullBlocks -1))
-    //              = MCUXCLAES_BLOCK_SIZE * ((numFullBlocks -1) * numFullBlocks ) / 2
-    MCUX_CSSL_DI_RECORD(sgiLoadBuffer, sumOfOffsets);
-    MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks  * (uint32_t)pIn);
-    MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks  * MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks  * (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET));
+  /* SREQI_BCIPHER_8 - Balance the block loads to SGI DATIN, i.e. the calls to mcuxClSgi_Utils_load128BitBlock */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("value used for SC balancing which supports unsigned overflow behaviour")
+  uint32_t sumOfOffsets = (MCUXCLAES_BLOCK_SIZE / 2u) * (numFullBlocks  - 1u) * numFullBlocks ;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+  /* sumOfOffsets = MCUXCLAES_BLOCK_SIZE * (0 + 1 + 2 + .. + (numFullBlocks -1))     */
+  /*              = MCUXCLAES_BLOCK_SIZE * ((numFullBlocks -1) * numFullBlocks ) / 2 */
+  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, sumOfOffsets);
+  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks  * (uint32_t)pIn);
+  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks  * MCUXCLAES_BLOCK_SIZE);
+  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks  * (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET));
 
-    /* SREQI_BCIPHER_8 - Balance DI for copyOutFunction calls */
-    MCUX_CSSL_DI_RECORD(copyOutParams, sumOfOffsets);
-    MCUX_CSSL_DI_RECORD(copyOutParams, numFullBlocks  * (uint32_t)pOut);
-    MCUX_CSSL_DI_RECORD(copyOutParams, numFullBlocks  * (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET));
-    MCUX_CSSL_DI_RECORD(copyOutParams, numFullBlocks  * MCUXCLAES_BLOCK_SIZE);
+  /* SREQI_BCIPHER_8 - Balance DI for mcuxClSgi_Utils_store128BitBlock calls */
+  MCUX_CSSL_DI_RECORD(sgiStoreParam, sumOfOffsets);
+  MCUX_CSSL_DI_RECORD(sgiStoreParam, numFullBlocks  * (uint32_t)pOut);
+  MCUX_CSSL_DI_RECORD(sgiStoreParam, numFullBlocks  * (uint32_t)(MCUXCLSGI_DRV_DATOUT_OFFSET));
+  MCUX_CSSL_DI_RECORD(sgiStoreParam, numFullBlocks  * MCUXCLAES_BLOCK_SIZE);
 
-    // Copy first block of input to SGI
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, pIn));
+  /* Copy first block of input to SGI */
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, pIn));
 
-    // start_up first block
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
-      MCUXCLSGI_DRV_CTRL_END_UP        |
+  /* start_up first block crypto operation without an update of DATOUT */
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
+      MCUXCLSGI_DRV_CTRL_NO_UP         |
       direction                       |
       MCUXCLSGI_DRV_CTRL_INSEL_DATIN0  |
       MCUXCLSGI_DRV_CTRL_OUTSEL_RES    |
       pWa->sgiWa.sgiCtrlKey));
 
-    /* Keep track of the input bytes that are already copied */
-    uint32_t inOffset = MCUXCLAES_BLOCK_SIZE;
+  /* Keep track of the input bytes that are already copied */
+  uint32_t inOffset = MCUXCLAES_BLOCK_SIZE;
 
-    for(uint32_t i = 1u; i < numFullBlocks ; ++i)
-    {
-      // during processing previous block, copy next block to the SGI
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, pIn + inOffset));
+  for(uint32_t i = 1u; i < numFullBlocks ; ++i)
+  {
+    /* during processing previous block, copy next block to the SGI */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, pIn + inOffset));
 
-      // wait for finish
-      mcuxClSgi_Drv_wait();
-
-      // Copy result to user
-      MCUX_CSSL_FP_EXPECT(pWa->sgiWa.protectionToken_copyOutFunction);
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(pWa->sgiWa.copyOutFunction(session, pWa, pOut, outOffset, MCUXCLAES_BLOCK_SIZE));
-
-      // start_up
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
-      MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
-        MCUXCLSGI_DRV_CTRL_END_UP         |
+    /* wait for finish */
+    mcuxClSgi_Drv_wait();
+    /* Start up SGI, update DATOUT at the start of the operation. */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
+        MCUXCLSGI_DRV_CTRL_START_UP      |
         direction                       |
         MCUXCLSGI_DRV_CTRL_AES_NO_KL     |
         MCUXCLSGI_DRV_CTRL_INSEL_DATIN0  |
         MCUXCLSGI_DRV_CTRL_OUTSEL_RES    |
         pWa->sgiWa.sgiCtrlKey));
 
-      /* Keep track of the input/output bytes that are already copied */
-      MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("total outOffset / inOffset is bounded by inLength")
-      inOffset += MCUXCLAES_BLOCK_SIZE;
-      outOffset += MCUXCLAES_BLOCK_SIZE;
-      MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-    }
+    /* Copy result to user */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, pOut + outOffset));
 
-    // wait for finish
-    mcuxClSgi_Drv_wait();
-
-    // Copy result to user
-    MCUX_CSSL_FP_EXPECT(pWa->sgiWa.protectionToken_copyOutFunction);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(pWa->sgiWa.copyOutFunction(session, pWa, pOut, outOffset, MCUXCLAES_BLOCK_SIZE));
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("total outOffset is bounded by inLength")
+    /* Keep track of the input/output bytes that are already copied */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("total outOffset / inOffset is bounded by inLength")
+    inOffset += MCUXCLAES_BLOCK_SIZE;
     outOffset += MCUXCLAES_BLOCK_SIZE;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
-
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outOffset, 0u, inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
-    //Update number of data that was copied
-    *pOutLength += outOffset;
-
-    /* Expunge the current value of the SGI COUNT plus the possibly overflowed value for DI protection.
-      The sum is equal to the SGI COUNT in the beginning plus the number of full blocks. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCount));
-    MCUX_CSSL_FP_FUNCTION_CALL(currCount2, mcuxClSgi_Drv_getCount());
-    uint32_t endCount = sgiCountOverflow + currCount2;
-    MCUX_CSSL_DI_EXPUNGE(sgiCount, endCount);
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Ecb);
+  /* wait for finish */
+  mcuxClSgi_Drv_wait();
+
+  /* Start SGI with TRIGGER_UP, no cryptographic operation executed */
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLSGI_DRV_CTRL_TRIGGER_UP    |
+                                                    direction                       |
+                                                    MCUXCLSGI_DRV_CTRL_AES_NO_KL     |
+                                                    MCUXCLSGI_DRV_CTRL_INSEL_DATIN0  |
+                                                    MCUXCLSGI_DRV_CTRL_OUTSEL_RES    |
+                                                    pWa->sgiWa.sgiCtrlKey));
+
+
+  /* wait for finish */
+  mcuxClSgi_Drv_wait();
+
+  /* Copy result to user */
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, pOut + outOffset));
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("total outOffset is bounded by inLength")
+  outOffset += MCUXCLAES_BLOCK_SIZE;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outOffset, 0u, inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  /* Update number of data that was copied */
+  *pOutLength += outOffset;
+
+  /* Expunge the current value of the SGI COUNT plus the possibly overflowed value for DI protection.
+     The sum is equal to the SGI COUNT in the beginning plus the number of full blocks. */
+  MCUX_CSSL_FP_FUNCTION_CALL(currCount2, mcuxClSgi_Drv_getCount());
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Cannot overflow, since currCount2 < 2^16 and the lower 16 bits of sgiCountOverflow are 0.")
+  uint32_t endCount = sgiCountOverflow + currCount2;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
+  MCUX_CSSL_DI_EXPUNGE(sgiCount, endCount);
+
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb, MCUXCLCIPHER_STATUS_OK,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCount),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+      ( (numFullBlocks - 1U) * (
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock)
+          + MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock)
+          + MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start))
+      ),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getCount)
+  );
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_Ecb_Enc, mcuxClCipherModes_EngineFunc_AesSgi_t)
@@ -153,15 +166,15 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
   mcuxCl_InputBuffer_t pIn,
   mcuxCl_Buffer_t pOut,
   uint32_t inLength,
-  uint32_t* pIvOut UNUSED_PARAM,
+  uint32_t* pIvOut,
   uint32_t* const pOutLength)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Ecb_Enc);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_Ecb(session, pWa, pIn, pOut, inLength, pIvOut, pOutLength, MCUXCLSGI_DRV_CTRL_ENC));
+  MCUX_CSSL_FP_FUNCTION_CALL(ecbRet, mcuxClCipherModes_Ecb(pWa, pIn, pOut, inLength, pIvOut, pOutLength, MCUXCLSGI_DRV_CTRL_ENC));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_Enc, MCUXCLCIPHER_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_Enc, ecbRet,
+                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_Ecb_Dec, mcuxClCipherModes_EngineFunc_AesSgi_t)
@@ -171,15 +184,15 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ecb_
   mcuxCl_InputBuffer_t pIn,
   mcuxCl_Buffer_t pOut,
   uint32_t inLength,
-  uint32_t* pIvOut UNUSED_PARAM,
+  uint32_t* pIvOut,
   uint32_t* const pOutLength)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Ecb_Dec);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCipherModes_Ecb(session, pWa, pIn, pOut, inLength, pIvOut, pOutLength, MCUXCLSGI_DRV_CTRL_DEC));
+  MCUX_CSSL_FP_FUNCTION_CALL(ecbRet, mcuxClCipherModes_Ecb(pWa, pIn, pOut, inLength, pIvOut, pOutLength, MCUXCLSGI_DRV_CTRL_DEC));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_Dec, MCUXCLCIPHER_STATUS_OK);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ecb_Dec, ecbRet,
+                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Ecb));
 }
 
 

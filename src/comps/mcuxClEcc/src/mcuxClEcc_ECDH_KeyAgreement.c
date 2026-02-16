@@ -95,7 +95,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     /* mcuxClEcc_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
     mcuxClEcc_CpuWa_t *pCpuWorkarea = mcuxClEcc_castToEccCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
     MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, 0u));
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_WeierECC_SetupEnvironment(pSession,
@@ -110,32 +109,31 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("32-bit aligned UPTRT table is assigned in CPU workarea")
     uint32_t *pOperands32 = (uint32_t *) pOperands;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
-    const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
-    const uint32_t bufferSize = operandSize + MCUXCLPKC_WORDSIZE;
 
     /**********************************************************/
     /* Load public key P                                      */
     /**********************************************************/
 
     /* Clear bytes on top of public key */
-    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(operandSize, byteLenP, UINT32_MAX);
-    const uint32_t bytesToClear = operandSize - byteLenP;
 
     uint8_t *pPublicKeyXCoordDest = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_XA]);
-    uint8_t *pPublicKeyYCoordDest = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_YA]);
-
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsX, &pPublicKeyXCoordDest[byteLenP]);
-    MCUX_CSSL_DI_RECORD(sumOfMemClearParamsX, bytesToClear);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPublicKeyXCoordDest[byteLenP], bytesToClear));
 
+    uint8_t *pPublicKeyYCoordDest = MCUXCLPKC_OFFSET2PTR(pOperands[WEIER_YA]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsY, &pPublicKeyYCoordDest[byteLenP]);
+
+    const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
+
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(operandSize, byteLenP, UINT32_MAX);
+    const uint32_t bytesToClear = operandSize - byteLenP;
+    MCUX_CSSL_DI_RECORD(sumOfMemClearParamsX, bytesToClear);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParamsY, bytesToClear);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pPublicKeyYCoordDest[byteLenP], bytesToClear));
+
+    MCUXCLMEMORY_CLEAR_INT(&pPublicKeyXCoordDest[byteLenP], bytesToClear);
+
+    MCUXCLMEMORY_CLEAR_INT(&pPublicKeyYCoordDest[byteLenP], bytesToClear);
 
     /* Load public key P to (XA,YA). */
-    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(otherKey));
     MCUXCLKEY_LOAD_FP(
       pSession,
       otherKey,
@@ -177,15 +175,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     const uint32_t bytesToClearPrivate = operandSize - byteLenN;
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, &pScalarDest[byteLenN]);
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, bytesToClearPrivate);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pScalarDest[byteLenN], bytesToClearPrivate));
+    MCUXCLMEMORY_CLEAR_INT(&pScalarDest[byteLenN], bytesToClearPrivate);
 
     /* Securely import scalar d to buffer ECC_S2 */
     //  MCUXCLPKC_WAITFORREADY();  <== there is WaitForFinish in mcuxClEcc_PointCheckAffineNR.
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate_Internal(pScalarDest,
                                                                byteLenN));
-    MCUX_CSSL_FP_EXPECT(MCUXCLKEY_LOAD_FP_CALLED(key));
     MCUXCLKEY_LOAD_FP(
       pSession,
       key,
@@ -213,7 +208,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     }
 
     /* Check the confidential point Q in randomized Jacobian coordinates before the conversion to affine coordinates. */
-    MCUX_CSSL_FP_FUNCTION_CALL(pointCheckQStatusJacMR, mcuxClEcc_Weier_PointCheckJacMR(pSession));
+    MCUX_CSSL_FP_FUNCTION_CALL(pointCheckQStatusJacMR, mcuxClEcc_Weier_PointCheckJacMR(pSession, WEIER_X0, WEIER_Y0, WEIER_Z));
     if (MCUXCLECC_STATUS_OK != pointCheckQStatusJacMR)
     {
         MCUXCLSESSION_FAULT(pSession, MCUXCLKEY_STATUS_FAULT_ATTACK);
@@ -233,13 +228,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
         mcuxClEcc_IntegrityCheckPN(pSession, (mcuxClEcc_CommonDomainParams_t *) &pDomainParams->common) );
 
     /* Securely export shared secret from WEIER_XA. */
-    MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(pSession, pOut, WEIER_XA, byteLenP);
+    MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_DI_BALANCED(pOut, WEIER_XA, byteLenP);
 
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("caller-controlled variable. user must handle overflows.")
     *pOutLength += byteLenP;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
     /* Clear PKC workarea. */
+    const uint32_t bufferSize = operandSize + MCUXCLPKC_WORDSIZE;
     MCUXCLPKC_PS1_SETLENGTH(0u, bufferSize * ECC_KEYAGREEMENT_NO_OF_BUFFERS);
     pOperands[ECC_P] = MCUXCLPKC_PTR2OFFSET(pPkcWorkarea);
     MCUXCLPKC_FP_CALC_OP1_CONST(ECC_P, 0u);
@@ -250,5 +246,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     mcuxClSession_freeWords_cpuWa(pSession, pCpuWorkarea->wordNumCpuWa);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_ECDH_KeyAgreement,
-        MCUXCLECC_FP_ECDH_KEYAGREEMENT_FINAL);
+        MCUXCLECC_FP_ECDH_KEYAGREEMENT_FINAL(key, otherKey));
 }

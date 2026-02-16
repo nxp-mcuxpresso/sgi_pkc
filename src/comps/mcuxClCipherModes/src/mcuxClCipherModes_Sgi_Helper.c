@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -35,7 +35,6 @@
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_copyOut_toPtr, mcuxClSgi_copyOut_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
-  mcuxClSession_Handle_t session UNUSED_PARAM,
   void* pWa,
   mcuxCl_Buffer_t outBuf,
   uint32_t offset,
@@ -72,8 +71,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
 
 
 
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_loadMaskedKeyAndIvtoSgi)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_loadMaskedKeyAndIvtoSgi(
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_loadKeyAndIvtoSgi)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_loadKeyAndIvtoSgi(
   mcuxClSession_Handle_t session,
   mcuxClCipherModes_Context_Aes_Sgi_t * pCtx,
   mcuxClCipherModes_WorkArea_t * pWa,
@@ -81,23 +80,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_loadMaskedKeyAndIvtoSgi(
   mcuxClKey_KeyChecksum_t** pKeyChecksum
 )
 {
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_loadMaskedKeyAndIvtoSgi);
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_loadKeyAndIvtoSgi);
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("pCtx->common.blockBufferUsed can't be larger than MCUXCLAES_BLOCK_SIZE")
   if((MCUXCLAES_BLOCK_SIZE - pCtx->common.blockBufferUsed) <= inLength)
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
   {
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadMaskedKeyFromCtx_Sgi));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadMaskedKeyFromCtx_Sgi(session, &(pCtx->keyContext), &pWa->sgiWa, MCUXCLSGI_DRV_KEY0_OFFSET, MCUXCLAES_MASKED_KEY_SIZE));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKeyFromCtx_Sgi(session, &(pCtx->keyContext), &pWa->sgiWa));
     if(pKeyChecksum != NULL)
     {
       *pKeyChecksum = &pCtx->keyContext.keyChecksums;
     }
     MCUXCLBUFFER_INIT_RO(ivBuff, session, pCtx->ivState, MCUXCLAES_BLOCK_SIZE_IN_WORDS);
-    MCUX_CSSL_FP_EXPECT(pCtx->protectionToken_setupIV);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pCtx->setupIV(session, pWa, ivBuff));
   }
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_loadMaskedKeyAndIvtoSgi);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_loadKeyAndIvtoSgi,
+    MCUX_CSSL_FP_CONDITIONAL(((MCUXCLAES_BLOCK_SIZE - pCtx->common.blockBufferUsed) <= inLength),
+                        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKeyFromCtx_Sgi),
+                        pCtx->protectionToken_setupIV));
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext)

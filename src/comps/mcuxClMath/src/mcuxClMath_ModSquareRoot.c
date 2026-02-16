@@ -183,12 +183,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
     /* If number of trailing zero bits exceeds a PKC word, shift pointer in UPTR table. */
     uint32_t noOfShiftBytes = noOfTrailingZeroPkcWords * MCUXCLPKC_WORDSIZE;
     /* ASSERT: given p > 1, number of trailing zeros of (p-1) does not exceed length of p. */
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(noOfShiftBytes, 0u, byteLengthP - 1u, /* void */)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(noOfShiftBytes, 0u, byteLengthP - 1u)
 
     uint32_t byteLenStmp = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLengthP - noOfShiftBytes);
     uint16_t backupS = pOperands[MODSQRT_S];
     /* ASSERT: operand S (length = byteLengthP) is within PKC workarea. */
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(backupS, MCUXCLPKC_RAM_OFFSET_MIN, MCUXCLPKC_RAM_OFFSET_MAX - byteLengthP, /* void */)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(backupS, MCUXCLPKC_RAM_OFFSET_MIN, MCUXCLPKC_RAM_OFFSET_MAX - byteLengthP)
     pOperands[MODSQRT_S] = (uint16_t) (backupS + noOfShiftBytes);
 
     /* Shift number of bits, which are less than one PKC word. */
@@ -204,7 +204,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
     {
         /* ASSERT: when there is 1 or more PKC words of leading zeros in S, */
         /*         length of the nonzero S is >= 2 * MCUXCLPKC_WORDSIZE.     */
-        MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenStmp, 2u * MCUXCLPKC_WORDSIZE, MCUXCLPKC_RAM_SIZE, /* void */)
+        MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(byteLenStmp, 2u * MCUXCLPKC_WORDSIZE, MCUXCLPKC_RAM_SIZE)
         byteLenStmp -= MCUXCLPKC_WORDSIZE;
     }
 
@@ -220,7 +220,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
 
     uint32_t *pS = MCUXCLPKC_OFFSET2PTRWORD(pOperands[MODSQRT_S]);
     MCUXCLPKC_WAITFORFINISH();
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenStmp, 0u, UINT32_MAX - 1u, /* void */)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(byteLenStmp, 0u, UINT32_MAX - 1u)
     MCUXCLPKC_FP_SWITCHENDIANNESS(pS, byteLenStmp);
     /* DI protect pExp param for call to MCUXCLMATH_FP_MODEXP_SQRMULTL2R */
     MCUX_CSSL_DI_RECORD(protectExpPointer, pS);
@@ -384,7 +384,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint
     uint32_t zeroFlag = MCUXCLPKC_WAITFORFINISH_GETZERO();
     if (MCUXCLPKC_FLAG_ZERO == zeroFlag)
     {
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMath_LegendreSymbol, 0,
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMath_LegendreSymbol, 0u,
             MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
             MCUXCLPKC_FP_CALLED_CALC_MC1_MS);
     }
@@ -394,7 +394,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint
 
     uint16_t offsetV = pOperands[iV];
     /* ASSERT: operand V (length = operandSize + MCUXCLPKC_WORDSIZE) is within PKC workarea. */
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(offsetV, MCUXCLPKC_RAM_OFFSET_MIN, MCUXCLPKC_RAM_OFFSET_MAX - (2u*MCUXCLPKC_WORDSIZE), 0u)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(offsetV, MCUXCLPKC_RAM_OFFSET_MIN, MCUXCLPKC_RAM_OFFSET_MAX - (2u*MCUXCLPKC_WORDSIZE))
 
     /* Shift operand V to reserve 1 PKC word for NDash. */
     offsetV += MCUXCLPKC_WORDSIZE;
@@ -402,7 +402,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint
     const uint8_t *pV = MCUXCLPKC_OFFSET2PTR(offsetV);
 
     uint32_t isQuadraticResidue = 0u;
-    uint32_t loopIterations = 0u;
 
     /* Copy p to v. */
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(iV, iP, 0u);
@@ -410,11 +409,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint
     /* Compute the Legendre symbol in the style of the Euclidean algorithm. */
     /* According to theory this loop won't exceed O(ln(A+P)) iterations. */
     MCUX_CSSL_FP_LOOP_DECL(quadraticResLoop);
+    MCUX_CSSL_FP_COUNTER_STMT(uint32_t loopIterations = 0u);
     do
     {
-        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("This won't wrap for any prime p with p < ~e^(2^32) .")
-        loopIterations++;
-        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
+        MCUX_CSSL_FP_COUNTER_STMT(loopIterations++);
 
         /* Copy v to u. */
         MCUXCLPKC_FP_CALC_OP1_OR_CONST(iU, iV, 0u);
@@ -428,7 +426,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint
         while (63u < noOfTrailingZeroBits)
         {
             MCUXCLPKC_FP_CALC_OP1_SHR(iT, iT, 63u);
-            MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_SHR);
             noOfTrailingZeroBits -= 63u;
         }
         /* Shift t by the remaining number of zeros to make it odd. */
@@ -452,6 +449,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint
         MCUX_CSSL_FP_LOOP_ITERATION(quadraticResLoop,
             MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_TrailingZeros),
+            MCUX_CSSL_FP_CONDITIONAL((63u < result_trailingZeros), (result_trailingZeros / 63u - 1u) * MCUXCLPKC_FP_CALLED_CALC_OP1_SHR),
             MCUXCLPKC_FP_CALLED_CALC_OP1_SHR,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
             MCUXCLPKC_FP_CALLED_CALC_MC1_MR,

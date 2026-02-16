@@ -23,6 +23,23 @@
 #include <mcuxCsslMemory.h>
 
 /**
+ * @brief Memory compare function
+ *
+ * @param    pLhs      Left-hand side.
+ * @param    pRhs      Right-hand side.
+ * @param    length    Length (in bytes). Both Lhs and Rhs should be bounded by this length.
+ *
+ * Data Integrity: Record(status) + Expunge(&pLhs[length] + &pRhs[length])
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxCsslMemory_FastCompare_arm_asm)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t)
+mcuxCsslMemory_FastCompare_arm_asm(
+  const uint8_t* pLhs,
+  const uint8_t* pRhs,
+  uint32_t length
+);
+
+/**
  * @brief Robust memory compare function
  *
  * @param    pLhs      Left-hand side.

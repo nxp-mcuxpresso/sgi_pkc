@@ -18,6 +18,7 @@
 
 #ifndef MCUXCLKEY_CONSTANTS_H_
 #define MCUXCLKEY_CONSTANTS_H_
+#include <ip_platform.h>
 
 #include <mcuxCsslAnalysis.h>
 #include <mcuxClConfig.h> // Exported features flags header
@@ -40,6 +41,7 @@
 #define MCUXCLKEY_STATUS_ERROR                       ((mcuxClKey_Status_t) 0x07775330u)  ///< Error occured during Key operation
 #define MCUXCLKEY_STATUS_FAILURE                     ((mcuxClKey_Status_t) 0x07775334u)  ///< Failure during execution
 #define MCUXCLKEY_STATUS_INVALID_INPUT               ((mcuxClKey_Status_t) 0x07775338u)  ///< Invalid input
+#define MCUXCLKEY_STATUS_KEYSLOT_ERROR               ((mcuxClKey_Status_t) 0x0777533Cu)  ///< Key slot error
 #define MCUXCLKEY_STATUS_FAULT_ATTACK                ((mcuxClKey_Status_t) 0x0777F0F0u)  ///< Fault attack detected
 #define MCUXCLKEY_STATUS_CRC_NOT_OK                  ((mcuxClKey_Status_t) 0x077753FCu)  ///< CRC verification failed
 #define MCUXCLKEY_STATUS_ITERATIONS_EXCEEDED         ((mcuxClKey_Status_t) 0x07775378u)  ///< Maximum interations exceeded, during prime generation for RSA
@@ -52,15 +54,16 @@
  * @brief Load location options
  * @ingroup mcuxClKey_Macros
  * @{ */
-#define MCUXCLKEY_LOADSTATUS_NOTLOADED           (0x0000U)   ///< Key not loaded
+#define MCUXCLKEY_LOADSTATUS_NOTLOADED               (0x0000U)   ///< Key not loaded
+#define MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED   (0x0001U)   ///< Key is not loaded yet, but the HW IP slot is set for the key
 
-#define MCUXCLKEY_LOADSTATUS_LOCATION_MASK       (0x000FU)   ///< Bit mask for the key location
-#define MCUXCLKEY_LOADSTATUS_LOCATION_NONE       (0x0000U)   ///< Key is not loaded to any location
-#define MCUXCLKEY_LOADSTATUS_LOCATION_COPRO      (0x0001U)   ///< Key is loaded to a HW IP slot
+#define MCUXCLKEY_LOADSTATUS_LOCATION_MASK           (0x000EU)   ///< Bit mask for the key location
+#define MCUXCLKEY_LOADSTATUS_LOCATION_NONE           (0x0000U)   ///< Key is not loaded to any location
+#define MCUXCLKEY_LOADSTATUS_LOCATION_COPRO          (0x0002U)   ///< Key is loaded to a HW IP slot
 
-#define MCUXCLKEY_LOADSTATUS_OPTIONS_MASK        (0xFFF0U)   ///< Bit mask for additional option bits of a key load status
-#define MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED  (0x0010U)   ///< Do not flush the key after the operation (for Symmetric keys only)
-#define MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY   (0x0020U)   ///< Key is loaded to a location that is write-only (e.g., SGI WO key slots)
+#define MCUXCLKEY_LOADSTATUS_OPTIONS_MASK            (0xFFF0U)   ///< Bit mask for additional option bits of a key load status
+#define MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED      (0x0010U)   ///< Do not flush the key after the operation (for Symmetric and ECCKI keys only)
+#define MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY       (0x0020U)   ///< Key is loaded to a location that is write-only (e.g., SGI WO key slots)
 /** @} */
 
 
@@ -154,7 +157,6 @@
  */
 
 #define MCUXCLKEY_LOADOPTION_MASK                    (0xffffffffU)
-
 /** Defines for supported key slots */
 #define MCUXCLKEY_LOADOPTION_SLOT_MASK               (0xffU)
 #define MCUXCLKEY_LOADOPTION_SLOT_INVALID            (MCUXCLKEY_LOADOPTION_SLOT_MASK)
@@ -166,6 +168,7 @@
 
 #define MCUXCLKEY_LOADOPTION_SLOT_SLOT_MASK          (0x3fU)
 #define MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT         (0U)
+
 #define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_0          (MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI | ((uint32_t)0U << MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT)) ///< SGI key slot 0. Reserved for CL internal key usage.
 #define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_1          (MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI | ((uint32_t)1U << MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT)) ///< SGI key slot 1. Reserved for CL internal key usage.
 #define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_2          (MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI | ((uint32_t)2U << MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT)) ///< SGI key slot 2
@@ -175,7 +178,7 @@
 #define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6          (MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI | ((uint32_t)6U << MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT)) ///< SGI key slot 6
 #define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_7          (MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI | ((uint32_t)7U << MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT)) ///< SGI key slot 7
 
-#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP      MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_4 ///< Key slot containing an unwrapped key. // TODO CLNS-16195: not the same on all platforms
+#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP     (MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI | ((uint32_t)SGI_UNWRAP_KEY_REGISTER_BANK << MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT)) ///< Sgi key slot containing an RFC3394 unwrapped key.
 
 
 /** Defines for other key options that can be encoded in a slot */

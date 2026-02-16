@@ -18,6 +18,15 @@
 #ifndef IP_PLATFORM_H
 #define IP_PLATFORM_H
 
+#if !(defined(CPU_MCXL253VDF_cm0plus)    || defined(CPU_MCXL253VLL_cm0plus)   \
+     || defined(CPU_MCXL253VDF_cm33)    || defined(CPU_MCXL253VLL_cm33)       \
+     || defined(CPU_MCXL254VDF_cm0plus) || defined(CPU_MCXL254VLL_cm0plus)    \
+     || defined(CPU_MCXL254VDF_cm33)    || defined(CPU_MCXL254VLL_cm33)       \
+     || defined(CPU_MCXL255VDF_cm0plus) || defined(CPU_MCXL255VLL_cm0plus)    \
+     || defined(CPU_MCXL255VDF_cm33)    || defined(CPU_MCXL255VLL_cm33))
+  #define CPU_MCXL255VLL_cm33 1
+#endif
+
 #include <MCXL255_cm33.h>
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
@@ -70,12 +79,9 @@
 /**
  *  Defines/Macros for the CH_MUX (Channel Multiplexor) register fields.
  */
-#define DMA_REQ_SRC_DISABLED  0u //(kDma0RequestDisabled)    ///< DMA handshake source for disabling handshakes
-#define kDma0RequestDisabled  DMA_REQ_SRC_DISABLED
-#define DMA_REQ_SRC_SGI_IN    96u //(kDma0RequestSGI0Datain)  ///< DMA handshake source for SGI DATIN
-#define kDma0RequestSGI0Datain DMA_REQ_SRC_SGI_IN
-#define DMA_REQ_SRC_SGI_OUT   97u //(kDma0RequestSGI0Dataout) ///< DMA handshake source for SGI DATOUT
-#define kDma0RequestSGI0Dataout DMA_REQ_SRC_SGI_OUT
+#define DMA_REQ_SRC_DISABLED  (kDma0RequestDisabled)    ///< DMA handshake source for disabling handshakes
+#define DMA_REQ_SRC_SGI_IN    (kDma0RequestSGI0Datain)  ///< DMA handshake source for SGI DATIN
+#define DMA_REQ_SRC_SGI_OUT   (kDma0RequestSGI0Dataout) ///< DMA handshake source for SGI DATOUT
 
 /**
  * Helper macro for constructing SFR field name constants
@@ -92,6 +98,7 @@
 #define SGI_DATOUT_CNT                4UL
 #define SGI_KEY_CNT                   32UL
 #define SGI_KEY_WRITEONLY_START       16UL  ///< first compile-time WO key index
+#define SGI_UNWRAP_KEY_REGISTER_BANK  4UL   ///< Sgi key register bank where the UNWRAP key will be written to
 #define SGI_SFR_BASE           SGI0                                   ///< base of SGI SFRs
 #define SGI_SFR_MACRO_PREFIX   SGI_SGI_                               ///< sfr macro name prefix
 #define SGI_SFR_PREFIX         SGI_                                   ///< sfr field name prefix
@@ -108,7 +115,7 @@
 // #define SGI_HAS_PRNG_SW_READ         1      ///< "feature" flag for existence of the SGI PRNG
 
 // Define base address of PKC
-#define PKC_SFR_BASE            PKC0__PKC   ///< base of PKC SFRs
+#define PKC_SFR_BASE            PKC0        ///< base of PKC SFRs
 #define PKC_SFR_NAME(sfr)       PKC_ ## sfr ///< full name of SFR
 #define PKC_SFR_PREFIX          PKC_PKC_    ///< sfr field name prefix
 #define PKC_SFR_SUFFIX_MSK      _MASK       ///< sfr field name suffix for mask

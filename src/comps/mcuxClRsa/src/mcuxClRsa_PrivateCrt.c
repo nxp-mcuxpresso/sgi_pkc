@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -94,35 +94,30 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   const uint32_t primeAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPQ);
   const uint32_t modAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenCeilN);
   const uint32_t qInvAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenQInv);
-  const uint32_t blindedPrimeAlignLen = primeAlignLen + blindAlignLen;
-  const uint32_t blindedMessageAlignLen = modAlignLen + blindAlignLen;
+  const uint32_t blindedPrimeAlignLen = MCUXCLRSA_INTERNAL_BLIND_ALIGN_SIZE(byteLenPQ);
+  const uint32_t blindedMessageAlignLen = MCUXCLRSA_INTERNAL_BLIND_ALIGN_SIZE(byteLenCeilN);
   const uint32_t blindedModAlignLen = 2u * blindedPrimeAlignLen;
 
   /* PKC buffer sizes */
   const uint32_t bufferSizePrimeRand = blindAlignLen;  // size of buffer for random multiplicative blinding
-  const uint32_t bufferSizePrimePQb = blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of buffer for blinded P or Q, including PKW word for NDash
-  const uint32_t bufferSizePrimeT0 = blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer primeT0
-  const uint32_t bufferSizePrimeT1 = blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer primeT1
-  const uint32_t bufferSizePrimeT2 = blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer primeT2
-  const uint32_t bufferSizePrimeT3 = blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer primeT3
-  const uint32_t bufferSizePrimeT4 = blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer primeT4
-  const uint32_t bufferSizePrimeTE = 6u*MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer primeTE
-  const uint32_t bufferSizePrimeR = blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer R (result of the internal exponentiation)
-  const uint32_t bufferSizePrimeT5 =  blindedPrimeAlignLen + MCUXCLRSA_PKC_WORDSIZE; // size of temporary buffer primeT5
+  const uint32_t bufferSizePrimePQb = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ);  // size of buffer for blinded P or Q, including PKW word for NDash
+  const uint32_t bufferSizePrimeT0 = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ);  // size of temporary buffer primeT0
+  const uint32_t bufferSizePrimeT1 = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ);  // size of temporary buffer primeT1
+  const uint32_t bufferSizePrimeT2 = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ);  // size of temporary buffer primeT2
+  const uint32_t bufferSizePrimeT3 = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ);  // size of temporary buffer primeT3
+  const uint32_t bufferSizePrimeT4 = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ);  // size of temporary buffer primeT4
+  const uint32_t bufferSizePrimeTE = MCUXCLRSA_INTERNAL_TE_BUFF_SIZE;  // size of temporary buffer primeTE
+  const uint32_t bufferSizePrimeR = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ);  // size of temporary buffer R (result of the internal exponentiation)
+  const uint32_t bufferSizePrimeT5 =  MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenPQ); // size of temporary buffer primeT5
   const uint32_t bufferSizeModM = blindedMessageAlignLen;  // size of buffer for result M
-  const uint32_t bufferSizeModT1 = blindedMessageAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer modT1
+  const uint32_t bufferSizeModT1 = MCUXCLRSA_INTERNAL_BUFF_SIZE(2U * byteLenPQ);  // size of temporary buffer modT1
   const uint32_t bufferSizeModT2 = modAlignLen + 2u * MCUXCLRSA_PKC_WORDSIZE;  // size of temporary buffer modT2
-  const uint32_t bufferSizeModT3 = blindedMessageAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of blinded message modT3: blindedMessageAlignLen=modAlignLen + MCUXCLRSA_PKC_WORDSIZE
+  const uint32_t bufferSizeModT3 = MCUXCLRSA_INTERNAL_BUFF_SIZE(2U * byteLenPQ);  // size of blinded message modT3: blindedMessageAlignLen=modAlignLen + MCUXCLRSA_PKC_WORDSIZE
   const uint32_t bufferSizeModT4 = blindedModAlignLen;  // size of temporary buffer modT4: blindedModAlignLen = 2*blindedPrimeAlignLen = modAlignLen + 2*MCUXCLRSA_PKC_WORDSIZE
-  const uint32_t bufferSizeModN = blindedModAlignLen + MCUXCLRSA_PKC_WORDSIZE;  // size of buffer for modulus N: blindedModAlignLen for the division, and one extra PKW word for NDash
-  const uint32_t bufferSizeModExpTemp = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPQ + 1u); // size of buffer for expTemp - lengths of DP, DQ are not bigger than byteLenPQ
 
   /* Setup session. */
-  const uint32_t bufferSizeTotal = bufferSizePrimeRand +
-          MCUXCLCORE_MAX(bufferSizePrimePQb + bufferSizePrimeT0 + bufferSizePrimeT1 + bufferSizePrimeT2 + bufferSizePrimeT3 + bufferSizePrimeT4 + bufferSizePrimeTE + bufferSizePrimeR + bufferSizePrimeT5 + bufferSizeModExpTemp,
-                       bufferSizeModM + bufferSizeModT1 + bufferSizeModT2 + bufferSizeModT3 + bufferSizeModT4 + bufferSizeModN);
+  const uint32_t bufferSizeTotal = MCUXCLRSA_INTERNAL_PRIVATECRT_WAPKC_SIZE(byteLenPQ);
   const uint32_t pkcWaSizeWord = bufferSizeTotal / (sizeof(uint32_t));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
 
   /* PKC buffers used for operations modulo P,Q and modulo N */
@@ -149,7 +144,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
 
   /* Setup UPTR table */
   uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_PRIVATECRT_WACPU_SIZE_IN_WORDS(byteLenPQ);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pOperands32, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
   uint16_t * pOperands = (uint16_t *) pOperands32;
@@ -251,8 +245,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   uint32_t lenUpper = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(pRsaKeyData->dq.keyEntryLength + 1u) - pRsaKeyData->dq.keyEntryLength;
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, pUpper);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, lenUpper);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pUpper, lenUpper));
+  MCUXCLMEMORY_CLEAR_INT(pUpper, lenUpper);
 
   MCUXCLPKC_PS1_SETLENGTH(blindedPrimeAlignLen, blindedPrimeAlignLen);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_SECMODEXP(
@@ -339,8 +332,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   lenUpper = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(pRsaKeyData->dp.keyEntryLength + 1u) - pRsaKeyData->dp.keyEntryLength;
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, pUpper);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, lenUpper);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(pUpper, lenUpper));
+  MCUXCLMEMORY_CLEAR_INT(pUpper, lenUpper);
 
   MCUXCLPKC_PS1_SETLENGTH(blindedPrimeAlignLen, blindedPrimeAlignLen);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_SECMODEXP(
@@ -361,7 +353,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /* Calculate QDash for p_b                                                                      */
   /************************************************************************************************/
 
-  const uint32_t qDashAlignLen = MCUXCLCORE_MAX(blindedPrimeAlignLen, qInvAlignLen + MCUXCLRSA_PKC_WORDSIZE);
+  const uint32_t qDashAlignLen = blindedPrimeAlignLen; /* actually, qDashAlignLen = MCUXCLCORE_MAX(blindedPrimeAlignLen,
+                                                          qInvAlignLen + MCUXCLRSA_PKC_WORDSIZE). But since
+                                                          blindedPrimeAlignLen >= qInvAlignLen + MCUXCLRSA_PKC_WORDSIZE,
+                                                          because qInvAlignLen <= primeAlignLen, we have
+                                                          qDashAlignLen = blindedPrimeAlignLen */
   MCUXCLMATH_FP_SHIFTMODULUS(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_PRIMET5 /* shifted modulus */, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_PQ_B /* p_b */);
   MCUXCLMATH_FP_QDASH(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_PRIMET4 /* QDash */, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_PRIMET5 /* shifted modulus */,
       MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_PQ_B /* p_b */, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_PRIMET2 /* temp */, (uint16_t)qDashAlignLen);
@@ -518,7 +514,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   {
     uint8_t *pPubExp = NULL;
     MCUX_CSSL_DI_RECORD(Key_load, key);
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ESCAPING_LOCAL_ADDRESS("Address pPubExp is for internal use only and does not escape")
     MCUX_CSSL_DI_RECORD(Key_load, &pPubExp);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ESCAPING_LOCAL_ADDRESS()
     MCUX_CSSL_DI_RECORD(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_E);
 
     MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pPubExp, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_E);  // RSA Key_load function always returns OK
@@ -536,11 +534,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
                                                                         MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_RAND),
                                                                pRsaKeyData->e.keyEntryLength,
                                                                pPubExp));
-
+    mcuxClMemory_Status_t compare_result = MCUXCLMEMORY_STATUS_NOT_EQUAL;
     MCUX_CSSL_DI_RECORD(mcuxClMemory_compare_secure_int, pInput);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_compare_secure_int, pModT2);
     MCUX_CSSL_DI_RECORD(mcuxClMemory_compare_secure_int, keyByteLength);
-    MCUX_CSSL_FP_FUNCTION_CALL(compare_result, mcuxClMemory_compare_secure_int(pInput, pModT2, keyByteLength));
+    MCUXCLMEMORY_COMPARE_SECURE_INT(compare_result, pInput, pModT2, keyByteLength);
     if (MCUXCLMEMORY_STATUS_EQUAL != compare_result)
     {
       MCUXCLSESSION_FAULT(pSession, MCUXCLRSA_STATUS_FAULT_ATTACK);
@@ -553,7 +551,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   else //Clear memory in PRIVCRT_MODT3
   {
     /* Clear buffer pModT3 */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate_Internal(pModT3, keyByteLength));
   }
 
@@ -562,14 +559,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   /************************************************************************************************/
 
   /* Copy result to the output buffer */
-  MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(mcuxClRsa_privateCRT, ret_SecExport, pSession,
-                                                               pOutput,
-                                                               MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_M /* M */,
-                                                               keyByteLength);
-  (void)ret_SecExport;
+  MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(pOutput,
+                                                              MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVCRT_M /* M */,
+                                                              keyByteLength);
 
   /* Clear buffer pM */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate_Internal(pM, keyByteLength));
   /************************************************************************************************/
   /* Function exit                                                                                */
@@ -582,28 +576,36 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privateCRT(
   mcuxClSession_freeWords_cpuWa(pSession, cpuWaSizeWord);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_privateCRT,
-          4u * MCUXCLPKC_FP_CALLED_CALC_OP2_CONST,
-          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate_Internal),
-          6u * MCUXCLKEY_LOAD_FP_CALLED(key),
-          MCUXCLPKC_FP_CALLED_CALC_OP1_MUL,
-          3u * MCUXCLPKC_FP_CALLED_CALC_MC1_PM_PATCH,
-          3u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
-          1u * MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
-          2u * MCUXCLPKC_FP_CALLED_CALC_MC2_MR,
-          4u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
-          4u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QDash),
-          2u * MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
-          2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_SecModExp),
-          4u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
-          MCUXCLPKC_FP_CALLED_CALC_OP1_ADD,
-          MCUXCLPKC_FP_CALLED_CALC_MC2_PM,
-          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivideOdd),
-          MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
-          MCUXCLPKC_FP_CALLED_CALC_OP2_CONST,
-          MCUX_CSSL_FP_CONDITIONAL((MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT != mcuxClKey_getAlgoId(key)),
-                MCUXCLKEY_LOAD_FP_CALLED(key),
-                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_publicExp),
-                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_secure_int)
-          ),
-          MCUXCLPKC_FP_CALLED_SECUREEXPORTBIGENDIANFROMPKC_BUFFER);
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+      4U * MCUXCLPKC_FP_CALLED_CALC_OP2_CONST,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate_Internal),
+      6U * MCUXCLKEY_LOAD_FP_CALLED(key),
+      MCUXCLPKC_FP_CALLED_CALC_OP1_MUL,
+      3U * MCUXCLPKC_FP_CALLED_CALC_MC1_PM_PATCH,
+      3U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash),
+      MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
+      2U * MCUXCLPKC_FP_CALLED_CALC_MC2_MR,
+      4U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ShiftModulus),
+      4U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QDash),
+      2U * MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
+      2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_SecModExp),
+      2U * MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
+      4U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+      MCUXCLPKC_FP_CALLED_CALC_OP1_ADD,
+      MCUXCLPKC_FP_CALLED_CALC_MC2_PM,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivideOdd),
+      MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
+      MCUXCLPKC_FP_CALLED_CALC_OP2_CONST,
+      MCUX_CSSL_FP_CONDITIONAL((MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT != mcuxClKey_getAlgoId(key)),
+          MCUXCLKEY_LOAD_FP_CALLED(key),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_publicExp),
+          MCUXCLMEMORY_COMPARE_SECURE_INT_FP_EXPECT
+      ),
+      MCUX_CSSL_FP_CONDITIONAL((MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT == mcuxClKey_getAlgoId(key)),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal)
+      ),
+      MCUXCLPKC_FP_CALLED_SECUREEXPORTBIGENDIANFROMPKC_BUFFER,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal)
+  );
 }

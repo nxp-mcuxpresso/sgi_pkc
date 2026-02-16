@@ -62,10 +62,10 @@
     ((1024u < (keyBitLength)) ? MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE : \
                                  MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE)))  ///< Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.
 
-#define MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE     (1200u) ///< Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys.
-#define MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE     (2224u) ///< Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys.
-#define MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE     (3248u) ///< Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys.
-#define MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE     (4272u) ///< Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys.
+#define MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE     (1344u) ///< Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys.
+#define MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE     (2496u) ///< Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys.
+#define MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE     (3648u) ///< Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys.
+#define MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE     (4800u) ///< Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys.
 #define MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE(keyBitLength) \
         ((3072u < (keyBitLength)) ? MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE : \
         ((2048u < (keyBitLength)) ? MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE : \
@@ -93,10 +93,10 @@
     ((1024u < (keyBitLength)) ? MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE : \
                                  MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE)))  ///< Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.
 
-#define MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE     (1000u) ///< Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys.
-#define MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE     (1896u) ///< Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys.
-#define MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE     (2792u) ///< Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys.
-#define MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE     (3688u) ///< Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE     (1128u) ///< Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE     (2152u) ///< Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE     (3176u) ///< Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE     (4200u) ///< Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys.
 #define MCUXCLRSA_SIGN_CRT_WAPKC_SIZE(keyBitLength) \
     ((3072u < (keyBitLength)) ? MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE : \
     ((2048u < (keyBitLength)) ? MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE : \

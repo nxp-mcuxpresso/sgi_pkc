@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -46,7 +46,7 @@ static inline mcuxClRandomModes_Context_CtrDrbg_Generic_t* mcuxClRandomModes_cas
  *        Assumes the key is already loaded by the calling function.
  *
  * @param  pSession             Handle for the current CL session
- * @param  mode[in]             Handle for the current Random Mode
+ * @param  securityStrength[in] Security strength parameter for CTR_DRBG
  * @param  pData[in]            Pointer to input data
  * @param  dataLen[in]          Byte length of input data
  * @param  pOut[out]            Pointer to output buffer
@@ -56,14 +56,14 @@ static inline mcuxClRandomModes_Context_CtrDrbg_Generic_t* mcuxClRandomModes_cas
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_CtrDrbg_bcc)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_bcc(
         mcuxClSession_Handle_t pSession,
-        mcuxClRandom_Mode_t mode,
+        uint32_t securityStrength,
         uint32_t * const pData,
         uint32_t dataLen,
         uint32_t *pOut)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_bcc);
 
-    uint32_t keyLen = (uint32_t)(mode->securityStrength) / 8u;
+    uint32_t keyLen = securityStrength / 8u;
 
     /* Initialize buffer in CPU workarea for the input block for the block cipher operations */
     MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pInputBlock, mcuxClSession_allocateWords_cpuWa(pSession, MCUXCLAES_BLOCK_SIZE_IN_WORDS));
@@ -72,7 +72,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_bcc(
     uint32_t *pChainingValue = pOut;
     MCUX_CSSL_DI_RECORD(setDI, pChainingValue);
     MCUX_CSSL_DI_RECORD(setDI, MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int((uint8_t *)pChainingValue, 0u, MCUXCLAES_BLOCK_SIZE));
+    MCUXCLMEMORY_SET_INT((uint8_t *)pChainingValue, 0u, MCUXCLAES_BLOCK_SIZE);
 
     /* Get number of input blocks to be processed */
     uint32_t numBlocks = dataLen / MCUXCLAES_BLOCK_SIZE;
@@ -86,11 +86,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_bcc(
         MCUX_CSSL_DI_RECORD(xorParamsSrc /* Not used */, (pData + (i * blkSizeInWords)));
         MCUX_CSSL_DI_RECORD(xorParamsSrc /* Not used */, pChainingValue);
         MCUX_CSSL_DI_RECORD(xorParamsLength /* Not used */, MCUXCLAES_BLOCK_SIZE);
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XOR_secure_int(
-                                       (uint8_t *) pInputBlock,
-                                       (const uint8_t *) (pData + (i * blkSizeInWords)),
-                                       (const uint8_t *) pChainingValue,
-                                       (uint32_t) MCUXCLAES_BLOCK_SIZE));
+        MCUXCLMEMORY_XOR_SECURE_INT((uint8_t *) pInputBlock,
+                                (const uint8_t *) (pData + (i * blkSizeInWords)),
+                                (const uint8_t *) pChainingValue,
+                                (uint32_t) MCUXCLAES_BLOCK_SIZE);
 
         /* Load input Block for blockcipher operation */
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadInput(pInputBlock));
@@ -109,8 +108,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_bcc(
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(
       mcuxClRandomModes_CtrDrbg_bcc,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int),
-      numBlocks * (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XOR_secure_int) +
+      MCUXCLMEMORY_SET_INT_FP_EXPECT,
+      numBlocks * (MCUXCLMEMORY_XOR_SECURE_INT_FP_EXPECT +
                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadInput) +
                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt) +
                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt))
@@ -133,7 +132,7 @@ static uint32_t const mcuxClRandomModes_CtrDrbg_df_key[8u] = {
  * The function obtains entropy input for the DRBG seed from the TRNG.
  *
  * \param  pSession               Handle for the current CL session
- * \param  mode[in]               Handle for the current Random Mode
+ * \param  securityStrength[in]   Security strength of the derivation function
  * \param  pInputString[in/out]   Pointer to the input string and the output of the derivation function. The length is limited to (UINT32_MAX / 2).
  * \param  inputStringLen[in]     Byte length of the input string
  * \param  outputLen[in]          Byte length of the output
@@ -141,7 +140,7 @@ static uint32_t const mcuxClRandomModes_CtrDrbg_df_key[8u] = {
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandomModes_CtrDrbg_df)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
         mcuxClSession_Handle_t pSession,
-        mcuxClRandom_Mode_t mode,
+        uint32_t securityStrength,
         uint8_t *pInputString,
         uint32_t inputStringLen,
         uint32_t outputLen)
@@ -150,17 +149,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inputStringLen, 0u, UINT32_MAX / 2u, MCUXCLRANDOM_STATUS_ERROR)
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputLen, 1u, UINT32_MAX, MCUXCLRANDOM_STATUS_ERROR)
 
-    const mcuxClRandomModes_DrbgModeDescriptor_t *pDrbgMode = mcuxClRandomModes_castToDrbgModeDescriptor(mode->pDrbgMode);
-
-    uint32_t seedLen = pDrbgMode->pDrbgVariant->seedLen;
-    uint32_t keyLen = (uint32_t)(mode->securityStrength) / 8u;
+    uint32_t keyLen = securityStrength / 8u;
 
     /*
      * Step 1 specified in NIST SP800-90A:
      *
-     * Verify that seedLen is valid. Invalid values should not occur and will trigger a FAULT_ATTACK.
+     * Verify that outputLen is valid. Invalid values should not occur and will trigger a FAULT_ATTACK.
      */
-    if (MCUXCLRANDOM_MAX_DF_BITS < seedLen * 8u)
+    if (MCUXCLRANDOM_MAX_DF_BITS < outputLen * 8u)
     {
         MCUXCLSESSION_FAULT(pSession, MCUXCLRANDOM_STATUS_FAULT_ATTACK);
     }
@@ -198,7 +194,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
     /* Pre-initialize the IV value with zeros to take care of the padding with zeros */
     MCUX_CSSL_DI_RECORD(setDI, pIV);
     MCUX_CSSL_DI_RECORD(setDI, MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int((uint8_t*)pIV, 0u, MCUXCLAES_BLOCK_SIZE));
+    MCUXCLMEMORY_SET_INT((uint8_t*)pIV, 0u, MCUXCLAES_BLOCK_SIZE);
 
     /* Pre-initialize S with zeros to take care of cases where padding with 0 is needed at the end */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pSByte will be in the valid range pS[0 ~ lenOfS].");
@@ -206,7 +202,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     MCUX_CSSL_DI_RECORD(setDI, pSByte);
     MCUX_CSSL_DI_RECORD(setDI, lenOfS);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int(pSByte, 0u, lenOfS));
+    MCUXCLMEMORY_SET_INT(pSByte, 0u, lenOfS);
 
     /* Calculate (big integer) values L and N and initialize value S as specified in NIST SP800-90A */
     uint32_t L = inputStringLen << 24;
@@ -222,7 +218,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
     MCUX_CSSL_DI_RECORD(copySecureDI, (&pS[2]));
     MCUX_CSSL_DI_RECORD(copySecureDI, pInputString);
     MCUX_CSSL_DI_RECORD(copySecureDI, inputStringLen);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int((uint8_t *) &pS[2], (uint8_t const *)pInputString, inputStringLen));
+    MCUXCLMEMORY_COPY_SECURE_INT((uint8_t *) &pS[2], (uint8_t const *)pInputString, inputStringLen);
 
 
     /*
@@ -254,7 +250,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
         /* Call BCC function */
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_bcc(
                                           pSession,
-                                          mode,
+                                          securityStrength,
                                           pIV,
                                           MCUXCLAES_BLOCK_SIZE + lenOfS,
                                           &pTemp1[i*MCUXCLAES_BLOCK_SIZE/sizeof(uint32_t)]));
@@ -311,7 +307,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
     MCUX_CSSL_DI_RECORD(copySecureDI, pIV);
     MCUX_CSSL_DI_RECORD(copySecureDI, pInputString);
     MCUX_CSSL_DI_RECORD(copySecureDI, outputLen);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int(pInputString, (uint8_t const *)pIV, outputLen));
+    MCUXCLMEMORY_COPY_SECURE_INT(pInputString, (uint8_t const *)pIV, outputLen);
 
     /* Free CPU workarea allocated by this function (pTemp1 + pS + pIV) */
     MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(temp1Len, 0u, 48u, MCUXCLRANDOM_STATUS_ERROR) /* Maximum security strength is 32 bytes */
@@ -327,9 +323,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
       /* Steps 2-7 */
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int),
+      MCUXCLMEMORY_SET_INT_FP_EXPECT,
+      MCUXCLMEMORY_SET_INT_FP_EXPECT,
+      MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT,
       MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(ifPadZeros, 0u != (lenOfSIfStmt % MCUXCLAES_BLOCK_SIZE)),
       /* Steps 8-11 */
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
@@ -343,7 +339,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_df(
       (outBlocks - 1u ) * (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadInput) +
                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt) +
                            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt)),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)
+      MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT
     );
 }
 
@@ -397,12 +393,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_instantiateAlgorithm
     MCUX_CSSL_DI_RECORD(copySecureDI, pSeedMaterial);
     MCUX_CSSL_DI_RECORD(copySecureDI, pEntropyInputAndNonce);
     MCUX_CSSL_DI_RECORD(copySecureDI, initSeedSize);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int((uint8_t *)pSeedMaterial, (uint8_t const *)pEntropyInputAndNonce, initSeedSize));
+    MCUXCLMEMORY_COPY_SECURE_INT((uint8_t *)pSeedMaterial, (uint8_t const *)pEntropyInputAndNonce, initSeedSize);
 
     /* pSeedMaterial use as both input and output */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_df(
                     pSession,
-                    mode,
+                    (uint32_t)mode->securityStrength,
                     (uint8_t *)pSeedMaterial,
                     initSeedSize,
                     seedLen));
@@ -414,7 +410,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_instantiateAlgorithm
     uint32_t *pState = pRngCtxGeneric->state;
     MCUX_CSSL_DI_RECORD(setDI, pState);
     MCUX_CSSL_DI_RECORD(setDI, seedLen);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int((uint8_t *)pState, 0u, seedLen));
+    MCUXCLMEMORY_SET_INT((uint8_t *)pState, 0u, seedLen);
 
     /* Load counter V for blockcipher operation */
     uint32_t securityStrength = (uint32_t)(mode->securityStrength);
@@ -442,11 +438,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_instantiateAlgorithm
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_instantiateAlgorithm,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
         /* Securely copy the seed to the seedMaterial buffer */
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int),
+        MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT,
         /* pSeedMaterial use as both input and output */
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_df),
         /* Set to 0 counter V and key K in context */
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int),
+        MCUXCLMEMORY_SET_INT_FP_EXPECT,
         /* Load counter V for blockcipher operation */
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadInput),
         /* Update the CTR_DRBG state */
@@ -490,12 +486,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_reseedAlgorithm(
     MCUX_CSSL_DI_RECORD(copySecureDI, pSeedMaterial);
     MCUX_CSSL_DI_RECORD(copySecureDI, pEntropyInput);
     MCUX_CSSL_DI_RECORD(copySecureDI, reseedSeedSize);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int((uint8_t *)pSeedMaterial, (uint8_t const *)pEntropyInput, reseedSeedSize));
+    MCUXCLMEMORY_COPY_SECURE_INT((uint8_t *)pSeedMaterial, (uint8_t const *)pEntropyInput, reseedSeedSize);
 
     /* pSeedMaterial use as both input and output */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_df(
                 pSession,
-                mode,
+                (uint32_t)mode->securityStrength,
                 (uint8_t *)pSeedMaterial,
                 reseedSeedSize,
                 seedLen));
@@ -525,7 +521,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_reseedAlgorithm(
       mcuxClRandomModes_CtrDrbg_reseedAlgorithm,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
       /* Securely copy the seed to the seedMaterial buffer */
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int),
+      MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT,
       /* pSeedMaterial use as both input and output */
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_df),
       /* Load counter V for blockcipher operation */
@@ -597,7 +593,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
 
     MCUX_CSSL_DI_RECORD(setDI, pAdditionalInput);
     MCUX_CSSL_DI_RECORD(setDI, seedLen);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_set_int((uint8_t *)pAdditionalInput, 0u, seedLen));
+    MCUXCLMEMORY_SET_INT((uint8_t *)pAdditionalInput, 0u, seedLen);
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_UpdateState(
                     pSession,
@@ -616,7 +612,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_BlockEncrypt_LoadInput),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_generateOutput),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_set_int),
+        MCUXCLMEMORY_SET_INT_FP_EXPECT,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_UpdateState));
 }
 
@@ -684,17 +680,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_UpdateState(
     MCUX_CSSL_DI_RECORD(xorParamsSrc /* Not used */, pTemp);
     MCUX_CSSL_DI_RECORD(xorParamsSrc /* Not used */, pProvidedData);
     MCUX_CSSL_DI_RECORD(xorParamsLength /* Not used */, seedLen);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_XOR_secure_int(
-                                    (uint8_t *) pTemp,
-                                    (const uint8_t *) pTemp,
-                                    (const uint8_t *) pProvidedData,
-                                    seedLen));
+    MCUXCLMEMORY_XOR_SECURE_INT((uint8_t *) pTemp,
+                            (const uint8_t *) pTemp,
+                            (const uint8_t *) pProvidedData,
+                            seedLen);
 
     /* update the key V in context */
     MCUX_CSSL_DI_RECORD(copySecureDI, pKey);
     MCUX_CSSL_DI_RECORD(copySecureDI, pTemp);
     MCUX_CSSL_DI_RECORD(copySecureDI, (securityStrength/8u) + MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int((uint8_t *)pKey, (uint8_t const *)pTemp, (securityStrength/8u) + MCUXCLAES_BLOCK_SIZE));
+    MCUXCLMEMORY_COPY_SECURE_INT((uint8_t *)pKey, (uint8_t const *)pTemp, (securityStrength/8u) + MCUXCLAES_BLOCK_SIZE);
 
     /* Free workarea (pTemp) */
     mcuxClSession_freeWords_cpuWa(pSession, MCUXCLRANDOMMODES_ALIGN_TO_AES_BLOCKSIZE(seedLen) / sizeof(uint32_t));
@@ -712,9 +707,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_UpdateState(
         /* if-statement in for-loop V=(V+1) mod 2^Blocklen */
         (seedLenInBlkSize - 1u) * (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_incV)),
         /* Use Secure XOR for pTemp = pTemp ^ pProvidedData */
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_XOR_secure_int),
+        MCUXCLMEMORY_XOR_SECURE_INT_FP_EXPECT,
         /* update the key V in context */
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int));
+        MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT);
 }
 
 /**
@@ -743,7 +738,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
     const uint32_t requestSizeRemainingBytes = outLength % MCUXCLAES_BLOCK_SIZE;
 
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(requestSizeRemainingBytes, 0u, outLength, MCUXCLRANDOM_STATUS_ERROR)
+    MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(requestSizeRemainingBytes, 0u, outLength)
     uint32_t requestSizeFullBlocksBytes = outLength - requestSizeRemainingBytes;
 
     MCUXCLBUFFER_DERIVE_RW(pOutCur, pOut, 0u);
@@ -818,22 +813,26 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt(pSession, keyLength));
 
-        MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outLength, 0u, requestSizeRemainingBytes, MCUXCLRANDOM_STATUS_FAULT_ATTACK)
+        MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(outLength, 0u, requestSizeRemainingBytes)
         MCUX_CSSL_DI_EXPUNGE(sumOfRequestedFullBlockIterations, (outLength - requestSizeRemainingBytes)/MCUXCLAES_BLOCK_SIZE);
 
         uint32_t pXorMaskCopy[MCUXCLAES_BLOCK_SIZE/sizeof(uint32_t)] = {0u};
         /* Copy the mask. */
         if(pXorMask != NULL)
         {
+            MCUX_CSSL_ANALYSIS_START_SUPPRESS_ESCAPING_LOCAL_ADDRESS("Address pXorMaskCopy is for internal use only and does not escape")
             MCUX_CSSL_DI_RECORD(copySecureDI, pXorMaskCopy);
+            MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ESCAPING_LOCAL_ADDRESS()
             MCUX_CSSL_DI_RECORD(copySecureDI, pXorMask);
             MCUX_CSSL_DI_RECORD(copySecureDI, requestSizeRemainingBytes);
-            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_secure_int((uint8_t*) pXorMaskCopy, (const uint8_t*)pXorMask, requestSizeRemainingBytes));
+            MCUXCLMEMORY_COPY_SECURE_INT((uint8_t*) pXorMaskCopy, (const uint8_t*)pXorMask, requestSizeRemainingBytes);
         }
         MCUXCLBUFFER_INIT(requestRemainingBuf, NULL, pRequestRemaining, MCUXCLAES_BLOCK_SIZE);
         /* Copy the remaining bytes from the buffer to output. */
         MCUX_CSSL_DI_RECORD(buffParams, pOut);
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_ESCAPING_LOCAL_ADDRESS("Address pRequestRemaining is for internal use only and does not escape")
         MCUX_CSSL_DI_RECORD(buffParams, pRequestRemaining);
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ESCAPING_LOCAL_ADDRESS()
         MCUX_CSSL_DI_RECORD(buffParams, requestSizeRemainingBytes);
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt(pSession, requestRemainingBuf, pXorMask != NULL ? pXorMaskCopy : NULL, keyLength));
 
@@ -848,7 +847,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
         MCUX_CSSL_FP_CONDITIONAL(requestSizeRemainingBytes > 0u,
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt),
             MCUX_CSSL_FP_CONDITIONAL(pXorMask != NULL,
-                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_secure_int)),
+                MCUXCLMEMORY_COPY_SECURE_INT_FP_EXPECT),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEncrypt),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write_secure)));
 }
@@ -895,11 +894,10 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     );
 
     const uint32_t requestSizeRemainingBytes = outLength % MCUXCLAES_BLOCK_SIZE;
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("outLength cannot be smaller than remaining requestSizeRemainingBytes")
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("requestSizeFullBlocksBytes won't be overflowed")
     const uint32_t requestSizeFullBlocksBytes = outLength - requestSizeRemainingBytes;
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-
     MCUXCLBUFFER_DERIVE_RW(pOutCur, pOut, requestSizeFullBlocksBytes);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(
         mcuxClRandomModes_CtrDrbg_generateRemainingBytesOutput(pSession, keyLength, pOutCur, outLength, pXorMask)

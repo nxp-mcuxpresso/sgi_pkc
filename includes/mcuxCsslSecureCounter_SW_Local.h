@@ -71,7 +71,7 @@
  * \ingroup scSwlCore
  */
 #define MCUX_CSSL_SC_COUNTER_TYPE_IMPL \
-  uint32_t
+  register uint32_t
 
 /**
  * \def MCUX_CSSL_SC_VALUE_TYPE_IMPL

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2023 NXP                                                  */
+/* Copyright 2022-2023, 2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -23,6 +23,7 @@ static inline uint64_t mcuxCl_Core_Swap64(uint64_t value)
 #if defined(__GNUC__) || defined(__clang__)
     return __builtin_bswap64(value);
 #else
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Offset calculations cannot overflow.")
     return ((value >> 56) & 0x00000000000000FFULL) |
            ((value >> 40) & 0x000000000000FF00ULL) |
            ((value >> 24) & 0x0000000000FF0000ULL) |
@@ -31,6 +32,7 @@ static inline uint64_t mcuxCl_Core_Swap64(uint64_t value)
            ((value << 24) & 0x0000FF0000000000ULL) |
            ((value << 40) & 0x00FF000000000000ULL) |
            ((value << 56) & 0xFF00000000000000ULL);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 #endif
 }
 
@@ -40,10 +42,12 @@ static inline uint32_t mcuxCl_Core_Swap32(uint32_t value)
 #if defined(__GNUC__) || defined(__clang__)
     return __builtin_bswap32(value);
 #else
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Offset calculations cannot overflow.")
     return ((value >> 24) & 0x000000FFUL) |
            ((value << 24) & 0xFF000000UL) |
            ((value >>  8) & 0x0000FF00UL) |
            ((value <<  8) & 0x00FF0000UL);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 #endif
 }
 

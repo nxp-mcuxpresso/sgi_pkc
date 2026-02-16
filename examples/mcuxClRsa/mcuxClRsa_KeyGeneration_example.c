@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -126,12 +126,21 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_KeyGeneration_example)
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
 
   MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
-  mcuxClRsa_KeyGeneration_ModeConstructor(
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID_BEGIN(construct_mode_token, mcuxClRsa_KeyGeneration_ModeConstructor(
     /* mcuxClKey_GenerationDescriptor_t * pKeyGenMode: */ pKeyGeneration_RSA_Mode,
     /* const uint8_t * pE:                            */ pubExp,
     /* uint32_t eLength:                              */ sizeof(pubExp)
-    );
+    )
+  );
   MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
+
+  if(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_KeyGeneration_ModeConstructor) != construct_mode_token)
+  {
+    return MCUXCLEXAMPLE_STATUS_ERROR;
+  }
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID_END();
 
   /******************************************************************************/
   /* Key pair generation                                                        */

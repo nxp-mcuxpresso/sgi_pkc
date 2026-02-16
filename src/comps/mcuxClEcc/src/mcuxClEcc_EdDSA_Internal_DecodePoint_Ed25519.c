@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -72,7 +72,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_EdDSA_DecodePoint_Ed25
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
     const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
     const uint32_t encodedLen = (uint32_t) pDomainParams->b / 8u;
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(encodedLen, 1u, (uint32_t) pDomainParams->b / 8u, MCUXCLECC_STATUS_FAULT_ATTACK)
+    /* For EdDSA ED25519, pDomainParams->b is 256u */
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(encodedLen, 1u, 32u, MCUXCLECC_STATUS_FAULT_ATTACK)
     uint8_t *pEncPointLastByte = &MCUXCLPKC_OFFSET2PTR(pOperands[ECC_COORD00])[encodedLen - 1u];
     uint8_t x0 = (*pEncPointLastByte) >> 7u;
     *pEncPointLastByte &= 0x7Fu;

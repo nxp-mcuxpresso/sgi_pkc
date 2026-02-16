@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2024 NXP                                                  */
+/* Copyright 2023-2024, 2026 NXP                                            */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -42,7 +42,7 @@ extern "C" {
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHmac_Engine_Oneshot_Sw, mcuxClHmac_ComputeEngine_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Oneshot_Sw(
     mcuxClSession_Handle_t session,                /* HMAC session handle */
-    mcuxClHmac_Context_Sw_t * const pContext,      /* HMAC context */
+    mcuxClHmac_Context_Sw_t * const pContext,      /* HMAC context (word-aligned) */
     mcuxCl_InputBuffer_t pIn,                      /* HMAC input */
     uint32_t inLength,                            /* Input size */
     mcuxCl_Buffer_t pOut,                          /* HMAC output */
@@ -58,7 +58,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Oneshot_Sw(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHmac_Engine_Init_Sw, mcuxClHmac_InitEngine_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Init_Sw(
     mcuxClSession_Handle_t session,                /*  HMAC session handle */
-    mcuxClHmac_Context_Sw_t * const pContext       /*  HMAC context */
+    mcuxClHmac_Context_Sw_t * const pContext       /*  HMAC context (word-aligned)*/
 );
 
 /**
@@ -71,7 +71,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Init_Sw(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHmac_Engine_Update_Sw, mcuxClHmac_UpdateEngine_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Update_Sw(
     mcuxClSession_Handle_t session,                /* HMAC session handle */
-    mcuxClHmac_Context_Sw_t * const pContext,      /* HMAC context */
+    mcuxClHmac_Context_Sw_t * const pContext,      /* HMAC context (word-aligned)*/
     mcuxCl_InputBuffer_t pIn,                      /* HMAC input */
     uint32_t inLength                             /* Input size */
 );
@@ -87,7 +87,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Update_Sw(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHmac_Engine_Finalize_Sw, mcuxClHmac_FinalizeEngine_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHmac_Engine_Finalize_Sw(
     mcuxClSession_Handle_t session,                /* HMAC session handle */
-    mcuxClHmac_Context_Sw_t * const pContext,      /* HMAC context */
+    mcuxClHmac_Context_Sw_t * const pContext,      /* HMAC context (word-aligned)*/
     mcuxCl_Buffer_t pOut,                          /* HMAC output */
     uint32_t *const pOutLength                    /* Output size */
 );

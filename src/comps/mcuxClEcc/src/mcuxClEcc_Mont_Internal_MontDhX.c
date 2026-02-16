@@ -67,7 +67,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_DecodeScalar(
 
     /* Prepare random mask for scalar decode */
     MCUXCLPKC_WAITFORFINISH();
-    (void)mcuxClPrng_generate_Internal(MCUXCLPKC_OFFSET2PTR(pOperands[ECC_T2]), operandSize);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate_Internal(MCUXCLPKC_OFFSET2PTR(pOperands[ECC_T2]), operandSize));
 
     pOperands[MONT_V0] = c;                   /* c is smaller than 2^16 for Curve25519 and Curve448, Clear c LSbits by right shift */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("The value is used for shifting with the PKC which actually shifts by (c-t) mod PKCWordBitLen, so the casting here doesn't cause any issues.")
@@ -89,6 +89,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_DecodeScalar(
     MCUX_CSSL_DI_EXPUNGE(shiftAmount, (uint32_t)readBackT);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_MontDH_DecodeScalar,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
 }
 
@@ -117,7 +118,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_DecodeCoordinate(
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_MontDH_DecodeCoordinate);
 
     /* Generate a random Z in range [1, (p+1)/2] */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_GenerateRandomModModulus(pSession, ECC_P, MONT_Z0));
 
     /* Import encoded x-coordinate uEnc. */
@@ -134,14 +134,15 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_DecodeCoordinate(
 
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
     pOperands[MONT_V0] = (uint16_t)(leadingZerosP & 0xFFFFu);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX,
                         mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX_LEN);
     MCUX_CSSL_DI_EXPUNGE(shiftAmount, (uint32_t)pOperands[MONT_V0]);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_MontDH_DecodeCoordinate,
+                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateRandomModModulus),
                                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_ImportLittleEndianToPkc),
-                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros));
+                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros),
+                                   MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup));
 }
 
 /**
@@ -192,7 +193,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
     if (MCUXCLECC_STATUS_OK != retGenMulBlind)
     {
         /* GenerateMultiplicativeBlinding is returning only OK or SCALAR_ZERO */
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_X, retGenMulBlind);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_MontDH_X, retGenMulBlind,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_RandomizeUPTRT),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_MontDH_DecodeScalar),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateMultiplicativeBlinding));
 
     }
 
@@ -257,7 +261,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
     }
 
     /* Calculate T1 = Z^(-1) in NR. */
-    MCUXCLMATH_FP_MODINV(ECC_T1, ECC_T0, ECC_P, MONT_Z0);
+    MCUXCLECC_FP_MODINV(ECC_T1, ECC_T0, ECC_P, MONT_Z0, ECC_T2);
     /* Clear bytes using on top of buffer ECC_T2 which is used below to store a random additive blinding rnd */
     uint8_t *pT2 = MCUXCLPKC_OFFSET2PTR(pOperands[ECC_T2]);
     uint32_t pByteLen = pDomainParameters->common.byteLenP;
@@ -265,8 +269,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
     MCUX_CSSL_DI_RECORD(sumOfMemClearParams, operandSize - pByteLen);
     MCUXCLPKC_WAITFORFINISH();
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The pByteLen(byte length of prime p) is less than operandSize.")
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pT2[pByteLen], operandSize - pByteLen));
+    MCUXCLMEMORY_CLEAR_INT(&pT2[pByteLen], operandSize - pByteLen);
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
     /* Generate additive random blinding rnd of size lenP bytes in buffer ECC_T2. rnd is assumed to be generated directly in MR */
     MCUXCLBUFFER_INIT(buffT2, NULL, pT2, pByteLen);
@@ -289,7 +292,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_MontDH_X(
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_Mont_SecureScalarMult_XZMontLadder),
         MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
         MCUXCLPKC_FP_CALLED_CALC_MC1_MS,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModInv),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ModInv),
+        MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRandom_ncGenerate),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup) );
 }

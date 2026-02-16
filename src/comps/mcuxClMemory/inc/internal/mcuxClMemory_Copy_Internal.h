@@ -29,6 +29,7 @@
 #include <mcuxClConfig.h>  // Exported features flags header
 
 #include <mcuxClCore_Platform.h>
+#include <mcuxCsslFlowProtection.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -41,6 +41,8 @@
     MCUX_CSSL_CPP_CAT(c, d), \
     MCUX_CSSL_CPP_CAT(e, f))
 
+#if !defined(__IASMARM__)
+
 #define MCUX_CSSL_CPP_SEQUENCE_64TO0() \
   64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, \
   48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, \
@@ -219,6 +221,8 @@
 /* Else 1, ignore action */
 
 #define MCUX_CSSL_CPP_IFE_BOOL_1_ELSE(...)
+
+#endif /* !defined(__IASMARM__) */
 
 /* Defer macro expansion */
 #define MCUX_CSSL_CPP_EMPTY()

@@ -40,8 +40,8 @@
 #include <mcuxClBuffer.h>
 
 
-/* Shared CMAC DMA-driven helper */
 
+/* Shared CMAC DMA-driven helper */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_handleLastBlock_cmac_oneshot, mcuxClMacModes_handleLastBlock_oneshot_t)
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_handleLastBlock_cmac_oneshot(
@@ -57,12 +57,11 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_handleLastBlock_cmac_oneshot);
 
-  uint32_t *pSubKey = pWa->algoWa.subKeys[0]; /* for full blocks get subKey1 */
+  MCUX_CSSL_DI_RECORD(outputCopy, (uint32_t)MCUXCLSGI_DRV_DATIN0_OFFSET + (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET) + (uint32_t)MCUXCLAES_BLOCK_SIZE);
 
   /* Apply padding to the last block if needed, while SGI is busy */
   uint32_t padOutLen = 0u;
 
-  MCUX_CSSL_FP_EXPECT(pAlgo->protectionToken_addPadding);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->addPadding(
     session,
     MCUXCLAES_BLOCK_SIZE,
@@ -76,60 +75,59 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   /* AUTO mode limitation: SGI will only de-assert the busy flag once the (CBC-)MAC output is read.
      Access the DATOUT once to trigger SGI finish. Otherwise, SGI will be stuck and the last block
      cannot be handled. */
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 0u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 4u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 8u);
-  (void) mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 12u);
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 0U));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 4U));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 8U));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_storeWord(MCUXCLSGI_DRV_DATOUT_OFFSET + 12U));
 
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
      Workaround: wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
   mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
-  mcuxClSgi_Drv_resetAutoMode();
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
+  /* Copy result to DATIN0, to save it while subkeys are generated. */
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, (uint8_t*)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET)));
   /* Load the last block to DATIN0 */
   if(MCUXCLAES_BLOCK_SIZE == padOutLen)
   {
+    /* Generate subkeys, Use subKey2 because padding was added */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_CmacGenerateSubKeys(session, pWa, MCUXCLMACMODES_AES_CMAC_K1_AND_K2));
+
+    /* Enable XOR-on-write to XOR the saved previous output with the last input block. */
+    MCUX_CSSL_FP_FUNCTION_CALL(retXorWrite, mcuxClSgi_Drv_enableXorWrite());
+    (void)retXorWrite;
+
     /* Padding was added - Copy padded input to SGI */
-    MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET)) + ((uint32_t)pWa->sgiWa.paddingBuff) + 16u);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
+    MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET)) + ((uint32_t)pWa->sgiWa.paddingBuff) + 16u);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, pWa->sgiWa.paddingBuff));
-    /* Use subKey2 because padding was added */
-    pSubKey = pWa->algoWa.subKeys[1];
   }
   else
   {
+     /* Generate subkey */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_CmacGenerateSubKeys(session, pWa, MCUXCLMACMODES_AES_CMAC_K1_ONLY));
+
+    /* Enable XOR-on-write to XOR the saved previous output with the last input block. */
+    MCUX_CSSL_FP_FUNCTION_CALL(retXorWrite, mcuxClSgi_Drv_enableXorWrite());
+    (void)retXorWrite;
+
     mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
     MCUXCLBUFFER_DERIVE_RO(pInWithOffset, pIn, inOffset);
 
     /* No padding needed - Copy last input block to SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLBUFFER_GET(pInWithOffset)));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
     /* Wait for data copy to finish and check for errors */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
   }
 
-  /* XOR the last block with the chosen subkey, use SGI XorOnWrite feature */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableXorWrite));
-  MCUX_CSSL_FP_FUNCTION_CALL(retXorWrite, mcuxClSgi_Drv_enableXorWrite());
-  (void)retXorWrite;
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_setByteOrder));
-  MCUX_CSSL_FP_FUNCTION_CALL(retSetByteOrder, mcuxClSgi_Drv_setByteOrder((uint32_t)MCUXCLSGI_DRV_BYTE_ORDER_BE));
-  (void)retSetByteOrder; /* subkeys are in big-endian, so we need to switch the SGI to BE (for the copy only) */
-  MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN0_OFFSET)) + ((uint32_t)pSubKey) + 16u);
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, (uint8_t *)pSubKey));
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableXorWrite));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_disableXorWrite());
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_setByteOrder));
-  MCUX_CSSL_FP_FUNCTION_CALL(retSetByteOrder2, mcuxClSgi_Drv_setByteOrder((uint32_t)MCUXCLSGI_DRV_BYTE_ORDER_LE));
-  (void)retSetByteOrder2;
+
+  /* DATIN0 now contains m_n xor enc(m_n-1). DATOUT contains the subkey.
+   * Use INSEL_DATIN0_XOR_DATOUT to complete the final input computation.
+   */
 
   /* Perform encryption of the last block */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
     pWa->sgiWa.sgiCtrlKey                     |
     MCUXCLSGI_DRV_CTRL_ENC                     |
@@ -138,5 +136,22 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUXCLSGI_DRV_CTRL_OUTSEL_RES));
   mcuxClSgi_Drv_wait();
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_handleLastBlock_cmac_oneshot);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_handleLastBlock_cmac_oneshot,
+          pAlgo->protectionToken_addPadding,
+          4U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_storeWord),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock),
+          MCUX_CSSL_FP_CONDITIONAL( (MCUXCLAES_BLOCK_SIZE == padOutLen),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_CmacGenerateSubKeys),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableXorWrite),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock)),
+          MCUX_CSSL_FP_CONDITIONAL( (MCUXCLAES_BLOCK_SIZE != padOutLen),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_CmacGenerateSubKeys),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableXorWrite),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+              MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone)),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_disableXorWrite),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start)
+  );
 }

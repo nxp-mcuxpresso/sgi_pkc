@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023 NXP                                                       */
+/* Copyright 2023, 2025 NXP                                                 */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -22,6 +22,13 @@
 #include <stdint.h>
 #include <mcuxCsslMemory_Types.h>
 
+/**
+ * @defgroup mcuxCsslMemory_Constants mcuxCsslMemory_Constants
+ * @brief Defines valid function return codes of @ref mcuxCsslMemory
+ * @ingroup mcuxCsslMemory
+ * @{
+ */
+
 /**********************************************
  * CONSTANTS
  **********************************************/
@@ -33,12 +40,14 @@
 
 /**
  * @defgroup MCUXCSSLMEMORY_STATUS_ MCUXCSSLMEMORY_STATUS_
- * @brief Defines valid mcuxCsslMemory function return codes
+ * @brief Defines valid @ref mcuxCsslMemory function return codes
  * @ingroup mcuxCsslMemory_Constants
  * @{
  */
+
 #define MCUXCSSLMEMORY_STATUS_OK                 ((mcuxCsslMemory_Status_t) 0x04242E03u) ///< The operation was successful
 #define MCUXCSSLMEMORY_STATUS_EQUAL              ((mcuxCsslMemory_Status_t) 0x04242E47u) ///< The two contents of the Memory Compare are equal
+#define MCUXCSSLMEMORY_STATUS_ZERO_LENGTH        ((mcuxCsslMemory_Status_t) 0x04242E8Bu) ///< The length passed to Memory Compare is zero
 #define MCUXCSSLMEMORY_STATUS_NOT_EQUAL          ((mcuxCsslMemory_Status_t) 0x042489B8u) ///< The two contents of the Memory Compare are not equal
 #define MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER  ((mcuxCsslMemory_Status_t) 0x0424533Cu) ///< A parameter was invalid
 #define MCUXCSSLMEMORY_STATUS_FAULT              ((mcuxCsslMemory_Status_t) 0x0424F0F0u) ///< A fault occurred in the execution

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2021, 2023-2024 NXP                                       */
+/* Copyright 2020-2021, 2023-2024, 2026 NXP                                 */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -33,7 +33,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  */
 #define mcuxClMath_ModInv_Fup1_LEN  7u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_ModInv_Fup1[7];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_ModInv_Fup1);
 
 /*
  * FUP program declaration mcuxClMath_ModInv_Fup2
@@ -41,16 +41,16 @@ extern const mcuxClPkc_FUPEntry_t mcuxClMath_ModInv_Fup1[7];
 #define mcuxClMath_ModInv_Fup2a_LEN  4u
 #define mcuxClMath_ModInv_Fup2b_LEN  5u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_ModInv_Fup2a[mcuxClMath_ModInv_Fup2a_LEN];
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_ModInv_Fup2b[mcuxClMath_ModInv_Fup2b_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_ModInv_Fup2a);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_ModInv_Fup2b);
 
 /*
  * FUP program declaration mcuxClMath_ModInv_Fup3
  */
 #define mcuxClMath_ModInv_Fup3_LEN 3u
 
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_ModInv_Fup3a[mcuxClMath_ModInv_Fup3_LEN];
-extern const mcuxClPkc_FUPEntry_t mcuxClMath_ModInv_Fup3b[mcuxClMath_ModInv_Fup3_LEN];
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_ModInv_Fup3a);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_ModInv_Fup3b);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

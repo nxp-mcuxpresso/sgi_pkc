@@ -83,7 +83,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedFixScalarMult(m
     if (MCUXCLECC_STATUS_OK != ret_GenMulBlind)
     {
         /* GenerateMultiplicativeBlinding is returning only OK or SCALAR_ZERO */
-        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedFixScalarMult, ret_GenMulBlind);
+        MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedFixScalarMult, ret_GenMulBlind,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateMultiplicativeBlinding));
     }
 
     /*
@@ -91,7 +92,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedFixScalarMult(m
      *         and store the result P' in curve dependent coordinates in MR in buffers ECC_COORD00, ECC_COORD01,....
      */
     /* Copy of blinded scalar sigma = phi^-1*k to ECC_V0, which points to &pS0[MCUXCLPKC_WORDSIZE]*/
-    MCUX_CSSL_FP_EXPECT(MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST);
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(ECC_V0, ECC_S1, 0u);
 
     MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();
@@ -130,6 +130,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedFixScalarMult(m
 
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClEcc_BlindedFixScalarMult, MCUXCLECC_STATUS_OK,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_GenerateMultiplicativeBlinding),
+        MCUXCLPKC_FP_CALLED_CALC_OP1_OR_CONST,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros),
         pCommonDomainParams->pScalarMultFunctions->secFixScalarMultFctFPId,
         pCommonDomainParams->pScalarMultFunctions->secVarScalarMultFctFPId);

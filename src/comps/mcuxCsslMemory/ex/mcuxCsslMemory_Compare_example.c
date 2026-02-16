@@ -45,6 +45,20 @@ MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Compare_example)
                                           0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,
                                           0x76u};
 
+    /* Pass length as zero => Should result in the zero length return code. */
+    MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(compareResultZeroLength, compareTokenZeroLength, mcuxCsslMemory_Compare(
+    /* mcuxCsslParamIntegrity_Checksum_t chk,*/ MCUX_CSSL_PI_PROTECT(arr1, arr1, 0U),
+    /* void const * lhs,                    */ arr1,
+    /* void const * rhs,                    */ arr1,
+    /* uint32_t length                      */ 0U));
+
+    /* Check the return code of mcuxCsslMemory_Compare */
+    if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Compare) != compareTokenZeroLength) || (MCUXCSSLMEMORY_STATUS_ZERO_LENGTH != compareResultZeroLength))
+    {
+        return EXIT_CODE_ERROR;
+    }
+
+    MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     /* Compare arr1 with itself => Should be true */
     MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(compareResult, compareToken, mcuxCsslMemory_Compare(

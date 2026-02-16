@@ -180,7 +180,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_uninit(
     /* Clear the context. ContextSize will never be 0. An error here is considered a fault attack, so no DI or FP balancing is needed. */
     MCUX_CSSL_DI_RECORD(clearSecureDI, pSession->randomCfg.ctx);
     MCUX_CSSL_DI_RECORD(clearSecureDI, sessionMode->contextSize);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_secure_int((uint8_t *) pSession->randomCfg.ctx, sessionMode->contextSize));
+    MCUXCLMEMORY_CLEAR_SECURE_INT((uint8_t *) pSession->randomCfg.ctx, sessionMode->contextSize);
 
     /* Clear pointers stored in the session. */
     pSession->randomCfg.ctx = NULL;
@@ -189,7 +189,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRandom_Status_t) mcuxClRandom_uninit(
     MCUX_CSSL_DI_EXPUNGE(sumOfRandomUninitParams, pSession);
     MCUXCLSESSION_EXIT(pSession, mcuxClRandom_uninit, diRefValue, MCUXCLRANDOM_STATUS_OK, MCUXCLRANDOM_STATUS_FAULT_ATTACK,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_verifyContextCrc),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_secure_int));
+        MCUXCLMEMORY_CLEAR_SECURE_INT_FP_EXPECT);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRandom_selftest)

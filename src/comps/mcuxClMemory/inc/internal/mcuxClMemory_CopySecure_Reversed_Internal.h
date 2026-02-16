@@ -73,6 +73,13 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_secure_reverse
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_secure_reversed_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
 }
 
+#define MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int))
+#define MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDst, pSrc, length)                        \
+  do {                                                                                 \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pDst, pSrc, length)); \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()           \
+  } while(false)                                                                       \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -36,6 +36,7 @@
 #include <internal/mcuxClRsa_Internal_Functions.h>
 #include <internal/mcuxClRsa_Internal_Types.h>
 #include <internal/mcuxClRsa_Internal_Macros.h>
+#include <internal/mcuxClRsa_Internal_MemoryConsumption.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_pkcs1v15Verify, mcuxClRsa_PadVerModeEngine_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
@@ -61,11 +62,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
   const uint32_t emLen = keyByteLength;
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(emLen, MCUXCLRSA_MIN_MODLEN, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
 
-  const uint32_t pkcByteLenEm = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(emLen);
-  const uint32_t wordSizePkcWa = pkcByteLenEm / (sizeof(uint32_t));
+  const uint32_t wordSizePkcWa = MCUXCLRSA_INTERNAL_PKCS1V15VERIFY_ENC_BUFF_WAPKC_SIZE(emLen) / (sizeof(uint32_t));
 
   /* Setup session with buffer for encoding result. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordSizePkcWa));
 
   /*****************************************************/
@@ -102,7 +101,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
   MCUX_CSSL_DI_RECORD(mcuxClMemory_compare_secure_int, emLen);
 
   mcuxClRsa_Status_t verifyStatus1 = MCUXCLRSA_STATUS_FAULT_ATTACK;
-  MCUX_CSSL_FP_FUNCTION_CALL(compare_result, mcuxClMemory_compare_secure_int(pPkcWorkarea, pVerificationInput, emLen));
+  mcuxClMemory_Status_t compare_result = MCUXCLMEMORY_STATUS_NOT_EQUAL;
+  MCUXCLMEMORY_COMPARE_SECURE_INT(compare_result, pPkcWorkarea, pVerificationInput, emLen);
   if (MCUXCLMEMORY_STATUS_EQUAL == compare_result)
   {
     verifyStatus1 = MCUXCLRSA_STATUS_VERIFY_OK;
@@ -125,11 +125,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
   /*****************************************************/
   mcuxClSession_freeWords_pkcWa(pSession, wordSizePkcWa);
 
-#define FP_RSA_PKCS1V15VERIFY_COMPARISON MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_compare_secure_int)
+#define FP_RSA_PKCS1V15VERIFY_COMPARISON MCUXCLMEMORY_COMPARE_SECURE_INT_FP_EXPECT
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pkcs1v15Verify, verifyStatus1,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pkcs1v15Encode_sign), \
-    FP_RSA_PKCS1V15VERIFY_COMPARISON);
-
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pkcs1v15Encode_sign),
+    FP_RSA_PKCS1V15VERIFY_COMPARISON
+  );
 }
 

@@ -131,6 +131,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClResource_request(
             /* Left-shift the original status, and keep the new option in LSBits of status. */
             hw->status = (status << MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS) | option;
         }
+        else
+        {
+            /* Since there is not enough space to store one new request option, perform an early exit. */
+            MCUXCLSESSION_ERROR(session, MCUXCLRESOURCE_STATUS_UNAVAILABLE);
+        }
     }
     else
     {

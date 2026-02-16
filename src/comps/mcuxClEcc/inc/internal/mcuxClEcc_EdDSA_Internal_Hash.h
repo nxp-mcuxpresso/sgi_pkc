@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -30,145 +30,66 @@
 #include <internal/mcuxClHash_Internal.h>
 
 
-/******************************************************************************/
-/* Macro to compute private key hash and store it in PKC workarea.            */
-/* Since the parameter b of both Ed25519 and Ed448 is a multiple of 8,        */
-/* byte length of private key hash (= 2b/8) can be derived from               */
-/* byte length of private key (= b/8).                                        */
-/* Data Integrity: EXPUNGE: buffPrivKey + buffPrivkeyHash + privkeyLen        */
-/******************************************************************************/
-#define MCUXCLECC_FP_EDDSA_KEYGEN_HASH_PRIVKEY(pSession, hashAlg, buffPrivKey, buffPrivKeyHash, privKeyLen)  \
-    do{                                                                                            \
-        uint32_t outLength = 0u;                                                                   \
-        /* DI balancing of Hash_compute_internal */                                                \
-        MCUX_CSSL_DI_RECORD(hashComputeInternalParams, &outLength);                                 \
-        MCUXCLPKC_WAITFORFINISH();                                                                  \
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_compute_internal));               \
-        MCUX_CSSL_FP_FUNCTION_CALL(retHash,                                                         \
-            mcuxClHash_compute_internal(pSession,                                                   \
-                              hashAlg,                                                             \
-                              buffPrivKey,                                                         \
-                              privKeyLen,                                                          \
-                              buffPrivKeyHash,                                                     \
-                              &outLength) );                                                       \
-        if ((pDomainParams->algoHash->hashSize != outLength) || (MCUXCLHASH_STATUS_OK != retHash))  \
-        {                                                                                          \
-            MCUXCLSESSION_FAULT(pSession,                                                           \
-                               MCUXCLECC_STATUS_FAULT_ATTACK);                                      \
-        }                                                                                          \
-MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()                         \
-    } while(false)                                                                                 \
-MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
+/**
+ * @brief Compute private key hash and store it in PKC workarea
+ *        Function to compute private key hash and store it in PKC workarea.
+ *        Since the parameter b of both Ed25519 and Ed448 is a multiple of 8,
+ *        byte length of private key hash (= 2b/8) can be derived from
+ *        byte length of private key (= b/8).
+ *
+ * @param pSession Session handle
+ * @param pDomainParams EdDSA domain parameters
+ * @param buffPrivKey Buffer containing private key
+ * @param buffPrivKeyHash Buffer to store hash result
+ * @param privKeyLen Length of private key in bytes
+ *
+ * @note Data Integrity: EXPUNGE: buffPrivKey + buffPrivkeyHash + privkeyLen
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_KeyGen_HashPrivKey)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_KeyGen_HashPrivKey(
+    mcuxClSession_Handle_t pSession,
+    const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
+    mcuxCl_InputBuffer_t buffPrivKey,
+    mcuxCl_Buffer_t buffPrivKeyHash,
+    uint32_t privKeyLen);
 
 
-/******************************************************************************/
-/* Macro to compute input hash and store it in PKC workarea.                  */
-/* Since the parameter b of both Ed25519 and Ed448 is a multiple of 8,        */
-/* byte length of hash (= 2b/8) can be derived from                           */
-/* byte length of encoded public key (= b/8).                                 */
-/******************************************************************************/
-#define MCUXCLECC_FP_EDDSA_SIGN_VERIFY_CALC_HASH(pSession, pCtx, hashAlg, pHashPrefix, hashPrefixLen, buffSignatureR, signatureRLen, pPubKey, pubKeyLen, buffIn, inSize, buffOutput) \
-    do{                                                                                                  \
-        uint32_t outLength = 0u;                                                                         \
-                                                                                                         \
-        MCUX_CSSL_DI_RECORD(hashProcess1Params, pCtx);                                                    \
-        MCUX_CSSL_DI_RECORD(hashProcess1Params, hashPrefixLen);                                           \
-        MCUX_CSSL_DI_RECORD(hashProcess2Params, pCtx);                                                    \
-        MCUX_CSSL_DI_RECORD(hashProcess2Params, buffSignatureR);                                          \
-        MCUX_CSSL_DI_RECORD(hashProcess2Params, signatureRLen);                                           \
-        MCUX_CSSL_DI_RECORD(hashProcess3Params, pCtx);                                                    \
-        MCUX_CSSL_DI_RECORD(hashProcess3Params, pubKeyLen);                                               \
-        MCUX_CSSL_DI_RECORD(hashProcess4Params, pCtx);                                                    \
-        MCUX_CSSL_DI_RECORD(hashProcess4Params, buffIn);                                                  \
-        MCUX_CSSL_DI_RECORD(hashProcess4Params, inSize);                                                  \
-        MCUX_CSSL_DI_RECORD(hashFinishParams, pCtx);                                                      \
-        MCUX_CSSL_DI_RECORD(hashFinishParams, buffOutput);                                                \
-        MCUX_CSSL_DI_RECORD(hashFinishParams, &outLength);                                                \
-        /* Initialize the hash context */                                                                \
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_init));                                 \
-        MCUX_CSSL_FP_FUNCTION_CALL(retInitHash,                                                           \
-            mcuxClHash_init(pSession,                                                                     \
-                            pCtx,                                                                        \
-                            hashAlg) );                                                                  \
-        if (MCUXCLHASH_STATUS_OK != retInitHash)                                                          \
-        {                                                                                                \
-            MCUXCLSESSION_FAULT(pSession,                                                                 \
-                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
-        }                                                                                                \
-                                                                                                         \
-        /* Update hash context with prefix */                                                            \
-        {                                                                                                \
-            MCUXCLBUFFER_INIT_RO(buffHashPrefix, NULL, pHashPrefix, hashPrefixLen);                       \
-            MCUX_CSSL_DI_RECORD(hashProcess1Params, buffHashPrefix);                                      \
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal));                 \
-            MCUX_CSSL_FP_FUNCTION_CALL(retProcess1Hash,                                                   \
-                mcuxClHash_process_internal(pSession,                                                     \
-                                pCtx,                                                                    \
-                                buffHashPrefix,                                                          \
-                                hashPrefixLen) );                                                        \
-            if (MCUXCLHASH_STATUS_OK != retProcess1Hash)                                                  \
-            {                                                                                            \
-                MCUXCLSESSION_FAULT(pSession,                                                             \
-                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
-            }                                                                                            \
-        }                                                                                                \
-        /* Update hash context with Renc */                                                              \
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal));                     \
-        MCUX_CSSL_FP_FUNCTION_CALL(retProcess2Hash,                                                       \
-            mcuxClHash_process_internal(pSession,                                                         \
-                              pCtx,                                                                      \
-                              buffSignatureR,                                                            \
-                              signatureRLen) );                                                          \
-        if (MCUXCLHASH_STATUS_OK != retProcess2Hash)                                                      \
-        {                                                                                                \
-            MCUXCLSESSION_FAULT(pSession,                                                                 \
-                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
-        }                                                                                                \
-        /* Update hash context with Qenc */                                                              \
-        {                                                                                                \
-            MCUXCLBUFFER_INIT_RO(buffPubKey, NULL, pPubKey, pubKeyLen);                                   \
-            MCUX_CSSL_DI_RECORD(hashProcess3Params, buffPubKey);                                          \
-            MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal));                 \
-            MCUX_CSSL_FP_FUNCTION_CALL(retProcess3Hash,                                                   \
-                mcuxClHash_process_internal(pSession,                                                     \
-                                  pCtx,                                                                  \
-                                  buffPubKey,                                                            \
-                                  pubKeyLen) );                                                          \
-            if (MCUXCLHASH_STATUS_OK != retProcess3Hash)                                                  \
-            {                                                                                            \
-                MCUXCLSESSION_FAULT(pSession,                                                             \
-                                   MCUXCLECC_STATUS_FAULT_ATTACK);                                        \
-            }                                                                                            \
-        }                                                                                                \
-        /* Update hash context with m' */                                                                \
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_process_internal));                     \
-        MCUX_CSSL_FP_FUNCTION_CALL(retProcess4Hash,                                                       \
-            mcuxClHash_process_internal(pSession,                                                         \
-                              pCtx,                                                                      \
-                              buffIn,                                                                    \
-                              inSize) );                                                                 \
-        if (MCUXCLHASH_STATUS_OK != retProcess4Hash)                                                      \
-        {                                                                                                \
-            MCUXCLSESSION_FAULT(pSession,                                                                 \
-                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
-        }                                                                                                \
-                                                                                                         \
-        MCUXCLPKC_WAITFORFINISH();                                                                        \
-        /* Finalize hash computation */                                                                  \
-        MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHash_finish_internal));                      \
-        MCUX_CSSL_FP_FUNCTION_CALL_VOID(                                                                  \
-            mcuxClHash_finish_internal(pSession,                                                          \
-                              pCtx,                                                                      \
-                              buffOutput,                                                                \
-                              &outLength) );                                                             \
-        if (pDomainParams->algoHash->hashSize != outLength)                                              \
-        {                                                                                                \
-            MCUXCLSESSION_FAULT(pSession,                                                                 \
-                               MCUXCLECC_STATUS_FAULT_ATTACK);                                            \
-        }                                                                                                \
-MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()                               \
-    } while(false)                                                                                       \
-MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
-
+/**
+ * @brief Calculate hash for EdDSA sign/verify operations
+ * Function to compute input hash and store it in PKC workarea.
+ * Since the parameter b of both Ed25519 and Ed448 is a multiple of 8,
+ * byte length of hash (= 2b/8) can be derived from
+ * byte length of encoded public key (= b/8).
+ *
+ * Computes hash of: prefix || signatureR || pubKey || input message
+ *
+ * @param pSession Session handle
+ * @param pDomainParams EdDSA domain parameters
+ * @param pCtx Hash context
+ * @param hashAlg Hash algorithm to use
+ * @param pHashPrefix Pointer to hash prefix data
+ * @param hashPrefixLen Length of hash prefix
+ * @param buffSignatureR Buffer containing signature R component
+ * @param signatureRLen Length of signature R
+ * @param pPubKey Pointer to public key
+ * @param pubKeyLen Length of public key
+ * @param buffIn Buffer containing input message
+ * @param inSize Size of input message
+ * @param buffOutput Buffer to store hash output
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_EdDSA_SignVerify_CalcHash)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_EdDSA_SignVerify_CalcHash(
+    mcuxClSession_Handle_t pSession,
+    const mcuxClEcc_EdDSA_DomainParams_t *pDomainParams,
+    mcuxClHash_Context_t pCtx,
+    const uint8_t *pHashPrefix,
+    uint32_t hashPrefixLen,
+    mcuxCl_InputBuffer_t buffSignatureR,
+    uint32_t signatureRLen,
+    const uint8_t *pPubKey,
+    uint32_t pubKeyLen,
+    mcuxCl_InputBuffer_t buffIn,
+    uint32_t inSize,
+    mcuxCl_Buffer_t buffOutput);
 
 #endif /* MCUXCLECC_EDDSA_INTERNAL_HASH_H_ */

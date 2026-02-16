@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -23,7 +23,7 @@
 #include <mcuxCsslMemory.h>
 
 /**
- * @brief Robust memory compare function
+ * @brief Memory compare function
  *
  * @param    pLhs      Left-hand side.
  * @param    pRhs      Right-hand side.
@@ -31,13 +31,12 @@
  *
  * Data Integrity: Record(status) + Expunge(&pLhs[length] + &pRhs[length])
  */
-MCUX_CSSL_FP_FUNCTION_DECL(mcuxCsslMemory_CompareRev_arm_asm)
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxCsslMemory_FastCompareRev_arm_asm)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxCsslMemory_Status_t)
-mcuxCsslMemory_CompareRev_arm_asm(
+mcuxCsslMemory_FastCompareRev_arm_asm(
   const uint8_t* pLhs,
   const uint8_t* pRhs,
   uint32_t length
 );
 
 #endif /* MCUXCSSLMEMORY_INTERNAL_COMPAREREV_ARM_ASM_H_ */
-

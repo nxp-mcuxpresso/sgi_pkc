@@ -50,16 +50,21 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ctr_NonBlocking_Compl
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode);
 
+  /* Record input data for mcuxClSgi_Utils_decrement128Bit() */
+  MCUX_CSSL_DI_RECORD(sgiDecrement128Bit, MCUXCLSGI_DRV_DATIN0_OFFSET);
+  MCUX_CSSL_DI_RECORD(sgiDecrement128Bit, MCUXCLSGI_DRV_DATIN2_OFFSET);
+
   /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
      Workaround: After final result was read, wait for SGI and reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
   mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
-  mcuxClSgi_Drv_resetAutoMode();
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
   /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1u and store it in DATIN2. Then, use DATIN2 when processing the remaining input in normal mode. */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_decrement128Bit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_decrement128Bit(MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLSGI_DRV_DATIN2_OFFSET));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode,
+                        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_decrement128Bit),
+                        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode) );
 }
 
  /**
@@ -103,11 +108,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
 
   uint32_t remainingBlocks = inLength /  MCUXCLAES_BLOCK_SIZE;
   uint32_t lastBlockLength = (0u == remainingBlocks) ? (inLength % MCUXCLAES_BLOCK_SIZE) : MCUXCLAES_BLOCK_SIZE;
-  if((0u == remainingBlocks) && (0u == lastBlockLength))
-  {
-    /* Nothing to do - exit */
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ctr_NonBlocking, MCUXCLCIPHER_STATUS_OK);
-  }
 
   uint8_t *pOutPtr = (uint8_t *) MCUXCLBUFFER_GET(pOut);
   uint8_t *pPaddingPtr = pWa->sgiWa.paddingBuff;
@@ -121,39 +121,35 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
   if(remainingBlocks <= 1u)
   {
     /* For only one block of data, SGI AUTO-mode is not needed. */
+    /* Record input data for mcuxClSgi_Utils_decrement128Bit() */
+    MCUX_CSSL_DI_RECORD(sgiDecrement128Bit, MCUXCLSGI_DRV_DATIN0_OFFSET);
+    MCUX_CSSL_DI_RECORD(sgiDecrement128Bit, MCUXCLSGI_DRV_DATIN2_OFFSET);
 
     /* Stop and disable AUTO mode, as it was started/enabled during setupIV */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
     /* Known bug in SGI AUTO mode: if AUTO_MODE.CMD is not reset to 0 here, subsequent SGI operations will not work.
        Workaround: Reset AUTO_MODE to 0. To be removed in CLNS-7392 once fixed in HW. */
     mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
-    mcuxClSgi_Drv_resetAutoMode();
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
     /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1u and store it in DATIN2. Then, use DATIN2 when processing in normal mode. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_decrement128Bit));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_decrement128Bit(MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLSGI_DRV_DATIN2_OFFSET));
 
     if((inLength < MCUXCLAES_BLOCK_SIZE)  && (pWa->sgiWa.paddingBuff != MCUXCLBUFFER_GET(pIn)))
     {
-      MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATIN1_OFFSET)) + (uint32_t)pIn + (uint32_t)inLength + (uint32_t)pWa->sgiWa.paddingBuff);
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load_notFull128Block_buffer));
+      MCUX_CSSL_DI_RECORD(sgiLoad, ((uint32_t)(MCUXCLSGI_DRV_DATIN1_OFFSET)) + (uint32_t)pIn + (uint32_t)inLength + (uint32_t)pWa->sgiWa.paddingBuff);
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load_notFull128Block_buffer(MCUXCLSGI_DRV_DATIN1_OFFSET, pIn, inLength, pWa->sgiWa.paddingBuff));
     }
     else
     {
       /* Copy full block of input to SGI */
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiInputChannel(session, MCUXCLSGI_DRV_DATIN1_OFFSET, MCUXCLBUFFER_GET(pIn)));
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(inputChannel));
 
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, inputChannel));
     }
 
     /* Perform encryption */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
       MCUXCLSGI_DRV_CTRL_END_UP                  |
       MCUXCLSGI_DRV_CTRL_INSEL_DATIN2            | /* IV stored in DATIN2 */
@@ -161,24 +157,20 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
       sgiCtrl));
 
     /* Increase the counter value "manually" if AUTO mode is not used */
+    MCUX_CSSL_DI_RECORD(inputParam, MCUXCLSGI_DRV_DATIN2_OFFSET);
     MCUX_CSSL_DI_RECORD(incLength, MCUXCLAES_BLOCK_SIZE);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_incrementData));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_incrementData(MCUXCLSGI_DRV_DATIN2_OFFSET, MCUXCLAES_BLOCK_SIZE));
 
     /* Copy output block from SGI */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiOutputChannel(session, MCUXCLSGI_DRV_DATOUT_OFFSET, pPaddingPtr));
     mcuxClSgi_Drv_wait();
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_startTransferOneBlock(outputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_waitForChannelDone(session, outputChannel));
 
     MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_params, pOut);
     MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_params, pPaddingPtr);
     MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_params, lastBlockLength);
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_write(pOut, 0u, pPaddingPtr, lastBlockLength));
 
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("*pOutLength has an upper bound of inLength")
@@ -191,9 +183,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
          Not needed if pIvOut is NULL, as this indicates the last call to the engine. */
 
       /* Known limitation of CTR: Configure and start the SGI in AUTO mode CTR before loading the IV */
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_configureAutoMode(MCUXCLSGI_DRV_CONFIG_AUTO_MODE_ENABLE_CTR_128));
-      MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start));
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(sgiCtrl | MCUXCLSGI_DRV_CTRL_NO_UP));
 
       /* Copy the updated IV to DATIN0.
@@ -208,14 +198,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     /* For multiple blocks, use SGI AUTO mode with handshakes */
 
     /* Configure the DMA channels */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_configureSgiTransferWithHandshakes(
       session,
       MCUXCLSGI_DRV_DATIN1_OFFSET,
       MCUXCLBUFFER_GET(pIn),
       pOutPtr));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
       session,
       remainingBlocks,
@@ -224,14 +212,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     /* Enable interrupts for the completion of the input channel, and for errors.
        As the output channel finishes first, there is not need to additionally enable DONE interrupts for it.
     */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(inputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableErrorInterrupts(outputChannel));
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Drv_enableChannelDoneInterrupts(inputChannel));
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableDmaHandshakes));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_enableDmaHandshakes());
 
     status = MCUXCLCIPHER_STATUS_JOB_STARTED;
@@ -241,7 +225,33 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
        calling setupIV in between, which starts AUTO mode. */
   }
 
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ctr_NonBlocking, status);
+  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ctr_NonBlocking, status,
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks <= 1u),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_decrement128Bit),
+      MCUX_CSSL_FP_CONDITIONAL( (inLength < MCUXCLAES_BLOCK_SIZE)  && (pWa->sgiWa.paddingBuff != MCUXCLBUFFER_GET(pIn)),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load_notFull128Block_buffer)),
+      MCUX_CSSL_FP_CONDITIONAL( (inLength >= MCUXCLAES_BLOCK_SIZE)  || (pWa->sgiWa.paddingBuff == MCUXCLBUFFER_GET(pIn)),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_incrementData),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiOutputChannel),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write),
+      MCUX_CSSL_FP_CONDITIONAL( (NULL != pIvOut),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock))),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1u),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks),
+      2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableDmaHandshakes)));
 }
 
 /**

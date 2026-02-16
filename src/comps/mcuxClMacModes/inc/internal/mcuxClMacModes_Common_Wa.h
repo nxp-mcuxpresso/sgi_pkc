@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -36,7 +36,7 @@ extern "C" {
 typedef struct mcuxClMacModes_nonBlockingWa
 {
   const mcuxClMac_ModeDescriptor_t * pMode;                /* Mode descriptor as provided by the user */
-  mcuxClMacModes_Context_t * pContext;                     /* Context needed to wrap-up multipart flows */
+  mcuxClMacModes_Context_t * pContext;                     /* Context needed to wrap-up multipart flows, which must be word-aligned */
   uint32_t inLength;                                      /* inLength as provided by the user */
   mcuxCl_InputBuffer_t pIn;                                /* Pointer to input data*/
   uint32_t inputOffset;                                   /* Offset for input data*/
@@ -58,15 +58,9 @@ typedef struct mcuxClMacModes_WorkArea
   mcuxClMacModes_nonBlockingWa_t nonBlockingWa;
   union
   {
-    uint32_t subKeys[2][MCUXCLMACMODES_SUBKEY_WORD_SIZE];   /* Buffer to store generated subkeys */
-
-    struct
-    {
-      uint32_t counter0[MCUXCLAES_BLOCK_SIZE_IN_WORDS];     /* Buffer for the first counter for GMAC, J0 */
-      uint32_t maskedPreTag[MCUXCLAES_BLOCK_SIZE_IN_WORDS]; /* Buffer for the masked preTag */
-    } gmac;
-
+    uint32_t subKey[MCUXCLMACMODES_SUBKEY_WORD_SIZE];       /* Buffer to store generated subkey */
   } algoWa;
+
 } mcuxClMacModes_WorkArea_t;
 
 #ifdef __cplusplus

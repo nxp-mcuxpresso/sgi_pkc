@@ -32,17 +32,14 @@
 
 // Test vectors for RFC3394 encoding are taken from https://datatracker.ietf.org/doc/html/rfc3394.
 //  The plain key data is 00112233445566778899AABBCCDDEEFF
-static const uint8_t wrappedKeyData[MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE] = {
-  0x64U, 0xE8U, 0xC3U, 0xF9U, 0xCEU, 0x0FU, 0x5BU, 0xA2U,
-  0x63U, 0xE9U, 0x77U, 0x79U, 0x05U, 0x81U, 0x8AU, 0x2AU,
-  0x93U, 0xC8U, 0x19U, 0x1EU, 0x7DU, 0x6EU, 0x8AU, 0xE7U
+static const uint32_t wrappedKeyData[MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE / 4U] = {
+  0xF9C3E864U, 0xA25B0FCEU, 0x7977E963U, 0x2A8A8105U,
+  0x1E19C893U, 0xE78A6E7DU
 };
 
-static const uint8_t kwk256Data[MCUXCLAES_AES256_KEY_SIZE] = {
-  0x00U, 0x01U, 0x02U, 0x03U, 0x04U, 0x05U, 0x06U, 0x07U,
-  0x08U, 0x09U, 0x0AU, 0x0BU, 0x0CU, 0x0DU, 0x0EU, 0x0FU,
-  0x10U, 0x11U, 0x12U, 0x13U, 0x14U, 0x15U, 0x16U, 0x17U,
-  0x18U, 0x19U, 0x1AU, 0x1BU, 0x1CU, 0x1DU, 0x1EU, 0x1FU
+static const uint32_t kwk256Data[MCUXCLAES_AES256_KEY_SIZE / 4U] = {
+  0x03020100U, 0x07060504U, 0x0B0A0908U, 0x0F0E0D0CU,
+  0x13121110U, 0x17161514U, 0x1B1A1918U, 0x1F1E1D1CU
 };
 
 /* CBC plain data */
@@ -106,7 +103,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ kwk,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes256,
-    /* uint8_t * pKeyData:                   */ kwk256Data,
+    /* uint8_t * pKeyData:                   */ (const uint8_t *)kwk256Data,
     /* uint32_t keyDataLength:               */ sizeof(kwk256Data))
   );
 
@@ -142,7 +139,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
     /* mcuxClSession_Handle_t session:        */ session,
     /* mcuxClKey_Handle_t key:                */ key,
     /* mcuxClKey_Type_t type:                 */ mcuxClKey_Type_Aes128,
-    /* uint8_t * pKeyData:                   */ wrappedKeyData,
+    /* uint8_t * pKeyData:                   */ (const uint8_t *)wrappedKeyData,
     /* uint32_t keyDataLength:               */ sizeof(wrappedKeyData))
   );
 

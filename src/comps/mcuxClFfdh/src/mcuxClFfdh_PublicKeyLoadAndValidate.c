@@ -88,7 +88,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
   /* Clear garbage above pBase */
   MCUXCLPKC_WAITFORFINISH();
   MCUX_CSSL_DI_RECORD(memoryClear, (uint32_t)&pBase[lenP] + expOperandSize - lenP);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pBase[lenP], expOperandSize - lenP));
+  MCUXCLMEMORY_CLEAR_INT(&pBase[lenP], expOperandSize - lenP);
 
   /* The primes in supported RFC7919 finite field groups are all safe primes.
    * This means a prime p is a safe prime when q = (p-1)/2.
@@ -98,7 +98,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
   uint8_t* pExp = MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_EXP]);
   MCUX_CSSL_DI_RECORD(memoryClear, (uint32_t)&pExp[lenP] + expOperandSize - lenP);
   MCUXCLPKC_WAITFORFINISH();
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_clear_int(&pExp[lenP], expOperandSize - lenP));
+  MCUXCLMEMORY_CLEAR_INT(&pExp[lenP], expOperandSize - lenP);
   /* PKV 2) Compute y^q mod p */
   MCUX_CSSL_DI_RECORD(exponentiation, pDomainParameters->lenQ);
   MCUXCLPKC_PS1_SETLENGTH(expOperandSize, expOperandSize);
@@ -133,10 +133,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
     MCUXCLPKC_FP_CALLED_CALC_OP1_SUB_CONST,
     MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
     MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int)
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT
       ,
     MCUXCLPKC_FP_CALLED_CALC_OP1_SHR,
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_clear_int),
+    MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_SecModExp),
     MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
     MCUXCLPKC_FP_CALLED_CALC_MC1_MS,

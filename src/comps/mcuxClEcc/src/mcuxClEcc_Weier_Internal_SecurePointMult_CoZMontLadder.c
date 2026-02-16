@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -172,9 +172,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePointMult(uint8_t iScalar,
     /* FP balance here, to avoid keeping another copy of scalarBitIndex. */
     MCUX_CSSL_FP_LOOP_DECL(MainLoop);
     MCUX_CSSL_FP_LOOP_DECL(RandomizeInMainLoop);  /* This needs to be declared outside the loop. */
-    MCUX_CSSL_FP_EXPECT(
-        MCUX_CSSL_FP_LOOP_ITERATIONS(MainLoop, scalarBitIndex),
-        MCUX_CSSL_FP_LOOP_ITERATIONS(RandomizeInMainLoop, scalarBitIndex/32u) );
+    MCUX_CSSL_FP_COUNTER_STMT(const volatile uint32_t scalarBitIndexBeforeLoop = scalarBitIndex); /* volatile to prevent compiler from re-reading scalarBitIndex */
 
     /* The remaining iteration(s) of Montgomery ladder. */
     while (0u != scalarBitIndex)
@@ -239,5 +237,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePointMult(uint8_t iScalar,
         MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_CoZPointAddSub, mcuxClEcc_FUP_Weier_CoZPointAddSub_LEN);
     }
 
-    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_SecurePointMult);
+    /* Read into non-volatile variable to avoid compile error "undefined behavior: the order of volatile accesses is undefined" */
+    MCUX_CSSL_FP_COUNTER_STMT(uint32_t scalarBitIndexBeforeLoopFP = scalarBitIndexBeforeLoop);
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_SecurePointMult,
+        MCUX_CSSL_FP_LOOP_ITERATIONS(MainLoop, scalarBitIndexBeforeLoopFP),
+        MCUX_CSSL_FP_LOOP_ITERATIONS(RandomizeInMainLoop, scalarBitIndexBeforeLoopFP/32u)
+    );
 }

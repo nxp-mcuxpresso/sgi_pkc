@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -66,10 +66,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit(
   else if(NULL != pContext)
   {
     /* Flush the key(s) in the context, if needed */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInContext(session, &(pContext->keyContext)));
-    // TODO CLNS-17176: for GMAC, flush H-key in context
-    // MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushSubKeyInContext));
-    // MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushSubKeyInContext(session, pContext->HkeyContext));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInSgi(session, &(pContext->keyContext)));
+    /* For GMAC, flush H-key in context. */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushSubKeyInSgi(session, &(pContext->HkeyContext)));
   }
   else
   {
@@ -85,9 +84,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit(
         && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))),
       MCUXCLKEY_FLUSH_FP_CALLED_CHECK_NULL(key)
     ), /* NULL != key */
-    MCUX_CSSL_FP_CONDITIONAL(((NULL == key)
-        && (NULL != pContext)),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInContext)
+    MCUX_CSSL_FP_CONDITIONAL(((NULL == key) && (NULL != pContext)),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushSubKeyInSgi),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInSgi)
     ), /* NULL != pContext */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit)
   );
@@ -106,7 +105,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit_dmaDriven(
   /* Free CPU WA in Session */
   mcuxClSession_freeWords_cpuWa(session, cpuWaSizeInWords);
 
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_release));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_release(session, mcuxClSession_getDmaInputChannel(session)));
 
   /* Flush the given key, if needed */
@@ -116,9 +114,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit_dmaDriven(
   {
     uint32_t numKeyWords = mcuxClKey_getSize(key) / sizeof(uint32_t);
     uint32_t keySlot = mcuxClKey_getLoadedKeySlot(key);
+    /* Record input data for mcuxClSgi_Drv_flushRegisterBanks() */
+    MCUX_CSSL_DI_RECORD(sgiFlush,mcuxClSgi_Drv_keySlotToOffset(keySlot));
+    MCUX_CSSL_DI_RECORD(sgiFlush,mcuxClKey_getSize(key));
     /* Flush the key in use if it is not preloaded.
       * Note that we purposefully don't flush the whole SGI or the whole Key bank to not overwrite other keys. */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_flushRegisterBanks(mcuxClSgi_Drv_keySlotToOffset(keySlot), numKeyWords));
 
     /* Restore the initial state of the key object */
@@ -128,11 +128,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit_dmaDriven(
   else if(NULL != pContext)
   {
     /* Flush the key(s) in the context, if needed */
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInContext));
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInContext(session, &(pContext->keyContext)));
-    // TODO CLNS-17176: for GMAC, flush H-key in context
-    // MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushSubKeyInContext));
-    // MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushSubKeyInContext(session, pContext->HkeyContext));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushKeyInSgi(session, &(pContext->keyContext)));
+    /* for GMAC, flush H-key in context */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_flushSubKeyInSgi(session, &(pContext->HkeyContext)));
   }
   else
   {
@@ -141,9 +139,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_cleanupOnExit_dmaDriven(
 
 
   /* Uninitialize (and release) the SGI hardware */
-  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_Uninit(session));
 
-  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven);
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven,
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_release),
+            MCUX_CSSL_FP_CONDITIONAL( ((NULL != key) &&
+                         (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))),
+                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks)),
+            MCUX_CSSL_FP_CONDITIONAL( (NULL != pContext),
+                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushSubKeyInSgi),
+                    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_flushKeyInSgi)),
+            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit)
+            );
 }
 

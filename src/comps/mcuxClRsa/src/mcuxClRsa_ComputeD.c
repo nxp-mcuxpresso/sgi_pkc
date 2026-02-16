@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
 /* NXP Proprietary. This software is owned or controlled by NXP and may     */
 /* only be used strictly in accordance with the applicable license terms.   */
@@ -13,7 +13,7 @@
 
 /** @file  mcuxClRsa_ComputeD.c
  *  @brief mcuxClRsa: function, which is called to compute private exponent d
- *         compliant with FIPS 186-4.
+ *         compliant with FIPS 186-5.
  */
 #include <stdint.h>
 #include <stddef.h>
@@ -62,24 +62,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
      */
     /* Size definitions */
 
-    const uint32_t blindLen = MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE;  // length in bytes of the random value used for blinding
-    const uint32_t blindAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen);
-
     const uint32_t byteLenPQ = pP->keyEntryLength;  // P and Q have the same byte length
     const uint32_t primePQAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPQ);
-    const uint32_t blindedPrimePQAlignLen = primePQAlignLen + blindAlignLen;
+    const uint32_t blindedPrimePQAlignLen = MCUXCLRSA_INTERNAL_BLIND_ALIGN_SIZE(byteLenPQ);
 
     const uint32_t keyLen = byteLenPQ * 2u;  // LCM have 2 times length of PQ
     const uint32_t keyAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(keyLen);
-    const uint32_t BlindedKeyAlignLen = keyAlignLen + blindAlignLen;
+    const uint32_t BlindedKeyAlignLen = MCUXCLRSA_INTERNAL_BLIND_ALIGN_SIZE(keyLen);
 
-    uint32_t bufferSizeTotal = BlindedKeyAlignLen + 2u*MCUXCLRSA_PKC_WORDSIZE /* Lcm_b, equal to (2u*blindedPrimePQAlignLen + MCUXCLRSA_PKC_WORDSIZE) for mcuxClMath_ExactDivide and mcuxClRsa_ModInv */
-                               + BlindedKeyAlignLen + MCUXCLRSA_PKC_WORDSIZE /* Phi_b, equal to (2u*blindedPrimePQAlignLen) for mcuxClRsa_ComputeD_Steps3_FUP and mcuxClRsa_ModInv */
-                               + MCUXCLRSA_PKC_WORDSIZE /* Rnd */
-                               + 2u * (BlindedKeyAlignLen + MCUXCLRSA_PKC_WORDSIZE); /* T0 and T1. PSub1, QSub1, PSub1_b and QSub1_b will reuse it */
+    uint32_t bufferSizeTotal = MCUXCLRSA_INTERNAL_COMPUTED_WAPKC_SIZE(keyLen);
+    const uint32_t pkcWaSizeWord = MCUXCLRSA_INTERNAL_COMPUTED_WAPKC_SIZE_IN_WORDS(keyLen);
 
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa));
-    MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, bufferSizeTotal / (sizeof(uint32_t))));
+    MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession,pkcWaSizeWord));
 
     uint8_t *pLcm_b = pPkcWorkarea;
     uint8_t *pPhi_b = pLcm_b + 2u*blindedPrimePQAlignLen + MCUXCLRSA_PKC_WORDSIZE;
@@ -89,12 +83,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     uint8_t *pPSub1_b = pQSub1 + primePQAlignLen;
     uint8_t *pQSub1_b = pPSub1_b + blindedPrimePQAlignLen;
     uint8_t *pT0 = pPSub1;
-    uint8_t *pT1 = pPSub1 + BlindedKeyAlignLen + MCUXCLRSA_PKC_WORDSIZE;
+    uint8_t *pT1 = pPSub1 + MCUXCLRSA_INTERNAL_BUFF_SIZE(keyLen);
 
     /* Setup UPTR table */
     const uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_COMPUTED_WACPU_SIZE_IN_WORDS;
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-    MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa));
     MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
@@ -192,7 +185,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     pD->keyEntryLength = keyBitLength >> 3u;
 
     /*
-     * 5. Verify FIPS 186-4 condition on lower bound of d
+     * 5. Verify FIPS 186-5 condition on lower bound of d
      *    If d <= 2^(nlen/2), then function returns MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID error.
      *
      * Used functions: PKC operation.
@@ -217,17 +210,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     MCUXCLPKC_PS1_SETLENGTH_REG(backupPs1LenReg);
     MCUXCLPKC_SETUPTRT(pUptrtBak);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_ComputeD,
-            ((MCUXCLPKC_FLAG_CARRY != MCUXCLPKC_WAITFORFINISH_GETCARRY()) ? MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID : MCUXCLRSA_STATUS_KEYGENERATION_OK),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
-            2u*MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros),
-            MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivide),
-            MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
-            MCUXCLPKC_FP_CALLED_CALC_OP2_OR_CONST,
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_ModInv),
-            MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
-            MCUXCLPKC_FP_CALLED_CALC_OP1_CMP
-            );
+    MCUX_CSSL_FP_FUNCTION_EXIT(
+        mcuxClRsa_ComputeD,
+        ((MCUXCLPKC_FLAG_CARRY != MCUXCLPKC_WAITFORFINISH_GETCARRY()) ? MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID
+                                                                    : MCUXCLRSA_STATUS_KEYGENERATION_OK),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_word),
+        2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_LeadingZeros),
+        MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ExactDivide),
+        MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
+        MCUXCLPKC_FP_CALLED_CALC_OP2_OR_CONST,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_ModInv),
+        MCUXCLPKC_FP_CALLED_CALC_OP1_CONST,
+        MCUXCLPKC_FP_CALLED_CALC_OP1_CMP
+    );
 }

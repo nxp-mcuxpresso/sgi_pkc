@@ -251,7 +251,6 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_secp224r1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_secp224r1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
-
 /***********************************************/
 /* Key types for secp256r1                     */
 /***********************************************/
@@ -288,7 +287,6 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_secp256r1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_secp256r1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
-
 /***********************************************/
 /* Key types for secp384r1                     */
 /***********************************************/
@@ -324,7 +322,6 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp38
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_secp384r1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_secp384r1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
-
 
 /***********************************************/
 /* Key types for secp521r1                     */
@@ -436,7 +433,6 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_NIST_P224_Priv = &mcuxClKey_TypeDescriptor_WeierECC_NIST_P224_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
-
 /***********************************************/
 /* Key types for NIST P-256                    */
 /***********************************************/
@@ -509,7 +505,6 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_NIST_P384_Priv = &mcuxClKey_TypeDescriptor_WeierECC_NIST_P384_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
-
 
 /***********************************************/
 /* Key types for NIST P-521                    */
@@ -1344,21 +1339,6 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
  * @}
  */ /* mcuxClEcc_KeyValidationDescriptors */
 
-/**
- * @}
- */ /* mcuxClEcc_KeyDerivationDescriptors */
-
-/**
- * @defgroup mcuxClEcc_KeyDerivationDescriptors mcuxClEcc_KeyDerivationDescriptors
- * @brief Definitions of ECC related key derivation algorithm descriptors
- * @ingroup mcuxClEcc_Descriptors
- * @{
- */
-
-
-/**
- * @}
- */ /* mcuxClEcc_KeyDerivationDescriptors */
 
 #ifdef __cplusplus
 } /* extern "C" */

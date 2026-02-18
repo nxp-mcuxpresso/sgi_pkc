@@ -50,7 +50,9 @@
     #define ALIGNED __attribute__((aligned(4)))
     #define ALIGNED_N(x) __attribute__((aligned(x)))
     #define NORETURN __attribute__((__noreturn__))
+    #if !defined(ALWAYS_INLINE) /* Zephyr defines this as well */
     #define ALWAYS_INLINE __attribute__((always_inline))
+    #endif
 
 /* for armcc compiler */
 #elif defined ( __CC_ARM )

@@ -6,9 +6,9 @@
 /* By expressly accepting such terms or by downloading, installing,         */
 /* activating and/or otherwise using the software, you are agreeing that    */
 /* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* license terms.  If you do not agree to be bound by the applicable        */
+/* license terms, then you may not retain, install, activate or otherwise   */
+/* use the software.                                                        */
 /*--------------------------------------------------------------------------*/
 
 /** @file  ip_platform.h
@@ -18,17 +18,8 @@
 #ifndef IP_PLATFORM_H
 #define IP_PLATFORM_H
 
+#include "fsl_device_registers.h"
 
-#if !(defined(CPU_MCXA345VLH) || defined(CPU_MCXA345VLL) || defined(CPU_MCXA345VLQ) || defined(CPU_MCXA345VPN) \
-      || defined(CPU_MCXA346VLH) || defined(CPU_MCXA346VLL) || defined(CPU_MCXA346VLQ) || defined(CPU_MCXA346VPN) \
-      || defined(CPU_MCXA355VLH) || defined(CPU_MCXA355VLL) || defined(CPU_MCXA355VLQ) || defined(CPU_MCXA355VPN) \
-      || defined(CPU_MCXA356VLH) || defined(CPU_MCXA356VLL) || defined(CPU_MCXA356VLQ) || defined(CPU_MCXA356VPN) \
-      || defined(CPU_MCXA365VLH) || defined(CPU_MCXA365VLL) || defined(CPU_MCXA365VLQ) || defined(CPU_MCXA365VPN) \
-      || defined(CPU_MCXA366VLH) || defined(CPU_MCXA366VLL) || defined(CPU_MCXA366VLQ) || defined(CPU_MCXA366VPN))
-  #define CPU_MCXA366VLQ 1
-#endif
-
-#include <MCXA366.h>
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
 /* ================================================================================ */
@@ -73,7 +64,11 @@
 #define SGI_IRQ_NUMBER      SGI_IRQn
 #define PKC_IRQ_NUMBER      PKC_IRQn
 
+#if (defined(MCXA266_SERIES) || defined(MCXA366_SERIES))
 #define DMA_CH0_IRQ_NUMBER            ((uint32_t)DMA_CH0_IRQn)
+#else
+#define DMA_CH0_IRQ_NUMBER            ((uint32_t)DMA0_CH0_IRQn)
+#endif
 #define GET_DMA_CHX_IRQ_NUMBER(x)     ((DMA_CH0_IRQ_NUMBER) + (x))
 #define DMA_CH_TOTAL  8u
 
@@ -129,6 +124,7 @@
 #define TRNG_SFR_SUFFIX_POS     _SHIFT      ///< sfr field name suffix for bit position
 #define TRNG_SFR_PREFIX         TRNG_   ///< sfr field name prefix
 
+/*
 #if defined ( __ICCARM__ )
 extern const uint32_t __ICFEDIT_region_RAM_PKC_start__;
 #define PKC_RAM_ADDR  (&__ICFEDIT_region_RAM_PKC_start__)
@@ -139,8 +135,12 @@ extern const uint32_t Image$$PKC_RAM_BUF_ADDRESS$$Base;
 #define PKC_RAM_ADDR ((uint32_t) &Image$$PKC_RAM_BUF_ADDRESS$$Base)
 #define PKC_WORD_SIZE  8u
 
-#endif /* __ICCARM__ */
+#endif  __ICCARM__ */
+
+// PKC_RAM base address is not defined in any header file
+#define PKC_RAM_ADDR  ((uint32_t)0x20002000UL)
 #define PKC_WORD_SIZE  8u
+#define PKC_RAM_SIZE  ((uint32_t)0x1000u)
 
 #define NXPCL_CACHE_FLUSH(addr, len)
 #define NXPCL_CACHE_CLEAR(addr, len)

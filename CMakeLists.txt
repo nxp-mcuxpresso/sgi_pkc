@@ -42,7 +42,12 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxa)
         SOURCES src/platforms/mcxa/platform_specific_headers.h
                 src/platforms/mcxa/mcuxClConfig.h
                 src/platforms/mcxa/inc/ip_platform.h
-				
+
+                src/platforms/mcxa/mcux_sgi.c
+                src/platforms/mcxa/mcux_sgi.h
+                src/platforms/mcxa/mcux_pkc.c
+                src/platforms/mcxa/mcux_pkc.h
+
                 includes/platform/mcxa/mcuxClAeadModes_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClCipherModes_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClEcc_MemoryConsumption.h
@@ -76,7 +81,12 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxl)
         SOURCES src/platforms/mcxl/platform_specific_headers.h
                 src/platforms/mcxl/mcuxClConfig.h
                 src/platforms/mcxl/inc/ip_platform.h
-				
+
+                src/platforms/mcxl/mcux_sgi.c
+                src/platforms/mcxl/mcux_sgi.h
+                src/platforms/mcxl/mcux_pkc.c
+                src/platforms/mcxl/mcux_pkc.h
+
                 includes/platform/mcxl/mcuxClAeadModes_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClCipherModes_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClEcc_MemoryConsumption.h

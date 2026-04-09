@@ -37,15 +37,13 @@ status_t SGI_PowerDownWakeupInit(SGI_Type *base)
 
     CLOCK_EnableClock(kCLOCK_GateTRNG0);
 
-    /* Initialiaze TRNG into dual oscillator mode which is used by SGI PKC crypto library */
+    /* Initialiaze TRNG which is used by SGI PKC crypto library */
     trng_config_t trngcon;
     status = TRNG_GetDefaultConfig(&trngcon);
     if (status != kStatus_Success)
     {
         return status;
     }
-
-    trngcon.oscillatorMode = kTRNG_DualOscillatorMode;
 
     status = TRNG_Init(TRNG0, &trngcon);
     if (status != kStatus_Success)

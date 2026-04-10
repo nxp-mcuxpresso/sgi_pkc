@@ -124,7 +124,7 @@ $(function(){initNavTree('a00722_source.html','',''); });
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a00986.html#ga40b9eff6f42215fc5c98c0513fbd2c79">   32</a></span><span class="preprocessor">#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_SHA2_224               (64u)                       </span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a00986.html#ga727822d4dbe968401c4150feacdcc117">   33</a></span><span class="preprocessor">#define MCUXCLHASH_COMPUTE_NONBLOCKING_CPU_WA_BUFFER_SIZE_SHA2_224   (88u)           </span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a00986.html#ga2ff77f524496774f46c5294dfc7619bf">   34</a></span><span class="preprocessor">#define MCUXCLHASH_PROCESS_CPU_WA_BUFFER_SIZE_SHA2_224               (4u)                       </span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a00986.html#gad9ec19d98d52ab0666be56f2a6adc2f0">   35</a></span><span class="preprocessor">#define MCUXCLHASH_PROCESS_NON_BLOCKING_CPU_WA_BUFFER_SIZE_SHA2_224  (20u)           </span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a00986.html#gae3ed16656c4e1e6b6b5ed842dde0e15a">   35</a></span><span class="preprocessor">#define MCUXCLHASH_PROCESS_NONBLOCKING_CPU_WA_BUFFER_SIZE_SHA2_224   (20u)           </span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a00986.html#gae23cdd9e00a486600ee5b90949f3842f">   36</a></span><span class="preprocessor">#define MCUXCLHASH_FINISH_CPU_WA_BUFFER_SIZE_SHA2_224                (4u)                        </span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a00986.html#gaa814bb20dd8da7c6ab37416c426eac4f">   37</a></span><span class="preprocessor">#define MCUXCLHASH_FINISH_NONBLOCKING_CPU_WA_BUFFER_SIZE_SHA2_224    (4u)            </span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
@@ -161,41 +161,59 @@ $(function(){initNavTree('a00722_source.html','',''); });
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a00986.html#ga3c487f85e4da75215a3683761f58f284">   69</a></span><span class="preprocessor">#define MCUXCLHASH_FINISH_NONBLOCKING_CPU_WA_BUFFER_SIZE_SHA2_512_224    (4u)        </span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a00986.html#gaa826df859c788fb6b4b1cf8c872ca4e6">   70</a></span><span class="preprocessor">#define MCUXCLHASH_FINISH_NONBLOCKING_CPU_WA_BUFFER_SIZE_SHA2_512_256    (4u)        </span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3)</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_SHA3               (4u)                           </span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#define MCUXCLHASH_PROCESS_CPU_WA_BUFFER_SIZE_SHA3               (4u)                           </span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define MCUXCLHASH_FINISH_CPU_WA_BUFFER_SIZE_SHA3                (4u)                            </span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#endif </span><span class="comment">/* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3) */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">/**************************************************************************************************************/</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">/* Definitions of context sizes and state buffer sizes for mcuxClHash_export_state and mcuxClHash_import_state  */</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">/**************************************************************************************************************/</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_224_IN_WORDS                (128u / sizeof(uint32_t))</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a00987.html#ga64ea4a6c44d5714d06cde9c858ca963f">   96</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_224             (40u)  </span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_256_IN_WORDS                (128u / sizeof(uint32_t))</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a00987.html#gac40907ce6e09e87b7931823ad48a50c3">   99</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_256             (40u)  </span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_384_IN_WORDS                (224u / sizeof(uint32_t))</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a00987.html#ga09b5656067c3ab3e89c3d0aaa9f2e5ad">  102</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_384             (80u)  </span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_512_IN_WORDS                (224u / sizeof(uint32_t))</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a00987.html#gad09b3d78d2a33f965308f2e4c34ea0cf">  105</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_512             (80u)  </span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">/**************************************************************************************************************/</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">/* Definitions of context sizes and state buffer sizes for mcuxClHash_export_state and mcuxClHash_import_state  */</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">/**************************************************************************************************************/</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_224_IN_WORDS                (128u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="a00987.html#ga64ea4a6c44d5714d06cde9c858ca963f">  101</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_224             (40u)  </span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_256_IN_WORDS                (128u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a00987.html#gac40907ce6e09e87b7931823ad48a50c3">  104</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_256             (40u)  </span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_384_IN_WORDS                (224u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a00987.html#ga09b5656067c3ab3e89c3d0aaa9f2e5ad">  107</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_384             (80u)  </span></div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA2_512_IN_WORDS                (224u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a00987.html#gad09b3d78d2a33f965308f2e4c34ea0cf">  110</a></span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA2_512             (80u)  </span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLHASHMODES_MEMORYCONSUMPTION_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3)</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA3_224_IN_WORDS                (4u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA3_256_IN_WORDS                (4u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA3_384_IN_WORDS                (4u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA3_512_IN_WORDS                (4u / sizeof(uint32_t))</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA3_SHAKE_128_IN_WORDS          (4u / sizeof(uint32_t)) </span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#define MCUXCLHASH_CONTEXT_SIZE_SHA3_SHAKE_256_IN_WORDS          (4u / sizeof(uint32_t)) </span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA3                 (216u)     </span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#endif </span><span class="comment">/* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3) */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE)</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">/* Algorithm descriptor sizes */</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#define MCUXCLHASH_CUSTOM_ALGORITHM_DESCRIPTOR_SIZE              ($(mcuxClHash_AlgorithmDescriptor_size)u)</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#endif </span><span class="comment">/* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLHASHMODES_MEMORYCONSUMPTION_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

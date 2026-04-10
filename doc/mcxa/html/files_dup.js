@@ -89,7 +89,7 @@ var files_dup =
     [ "mcuxClRandom_MemoryConsumption.h", "a00554.html", null ],
     [ "mcuxClRandom_Types.h", "a00557.html", "a00557" ],
     [ "mcuxClRandomModes.h", "a00536.html", null ],
-    [ "mcuxClRandomModes_Constants.h", "a00539.html", "a00539" ],
+    [ "mcuxClRandomModes_Constants.h", "a00539.html", null ],
     [ "mcuxClRandomModes_Functions_PatchMode.h", "a00542_source.html", null ],
     [ "mcuxClRandomModes_Functions_TestMode.h", "a00545_source.html", null ],
     [ "mcuxClResource.h", "a00560.html", null ],

@@ -1,0 +1,35 @@
+var a01882 =
+[
+    [ "WOR Register Masks", "a01883.html", "a01883" ],
+    [ "WOR_Type", "a03287.html", [
+      [ "CTRL", "a01802.html#ga59d73ca712d50f79f3b50e847d172f46", null ],
+      [ "TIMEOUT", "a01802.html#gaedf46fcd94448d1f335869137337c3bc", null ],
+      [ "TIMESTAMP1", "a01802.html#ga3d496902bf2e7ab8969a7c2596d0de8e", null ],
+      [ "TIMESTAMP2", "a01802.html#ga7b1da97fbf58050bd7a9351d32bbebcf", null ],
+      [ "TIMESTAMP3", "a01802.html#gaba5fcbe10b9dfcf297bdff1af3bdc226", null ],
+      [ "STATUS", "a01802.html#ga36197e63c589235bf8bc8fedd48aa316", null ],
+      [ "WW_CTRL", "a01802.html#gac82476c19899aafcb379c36039b55ae5", null ],
+      [ "HOP_CTRL", "a01802.html#ga5212763bce5c0507e30796eca10f6a7a", null ],
+      [ "SLOT0_DESC0", "a01802.html#ga0df397b98dd1cae1cd347376b8de021b", null ],
+      [ "SLOT0_DESC1", "a01802.html#gaeac0c27d8c314bc49590a9d71c1f66de", null ],
+      [ "SLOT1_DESC0", "a01802.html#ga5ddaca16e601e3f7091aa46ad0fea1e6", null ],
+      [ "SLOT1_DESC1", "a01802.html#ga0cc554d98bfed92cb95400c40bfcc6c9", null ],
+      [ "SLOT2_DESC0", "a01802.html#ga4ada556f6ec22be5090d3b1be512eda0", null ],
+      [ "SLOT2_DESC1", "a01802.html#gaf1f8c2fbd9d55f24cae23167ed0c213b", null ],
+      [ "SLOT3_DESC0", "a01802.html#gaa090cbb4afc6d7b3f31fb07f87fe0882", null ],
+      [ "SLOT3_DESC1", "a01802.html#ga4e0ff4201d92fc0ab076468be58901b6", null ],
+      [ "AUTO_DRIFT1", "a01802.html#ga25544a91238b7d42cd462874222fcc39", null ],
+      [ "AUTO_DRIFT2", "a01802.html#ga6587484b3b4ee7b6229e5473507ffabc", null ],
+      [ "AUTO_DRIFT3", "a01802.html#gafd51e484161f8a1dab97e97b25b86b59", null ],
+      [ "AUTO_DRIFT4", "a01802.html#gaa882b09522f73569368d7d0e44d2be2e", null ],
+      [ "TIME", "a01802.html#ga90178ee99bb67ab2a34546fa70a5140f", null ],
+      [ "ENTER_TIME_CAPT", "a01802.html#ga78aae34f13d99e2bd0b053a9edc2c5ec", null ],
+      [ "WKUP_TIME_CAPT", "a01802.html#ga2f4ced649708f9e14de737601e27de2a", null ],
+      [ "ENTER_TIME", "a01802.html#gad461de5f056f5430a0be5a6c580434f0", null ],
+      [ "WKUP_TIME", "a01802.html#ga0da12acd49583c7e93d75853e817375e", null ]
+    ] ],
+    [ "WOR_REGS_BASE", "a01882.html#gab863f525e08f7790c91b78acec60bdf3", null ],
+    [ "WOR_REGS", "a01882.html#ga973523cd4492d310b337bd74e559f5a9", null ],
+    [ "WOR_BASE_ADDRS", "a01882.html#ga886d834a501284308d83b000cc8a5603", null ],
+    [ "WOR_BASE_PTRS", "a01882.html#gaf35500ef9eb1b71d57180decbdf49454", null ]
+];

@@ -187,7 +187,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status</dd></dl>
 <dl class="section attention"><dt>Attention</dt><dd>When used with RSA modes, the function uses PRNG, which has to be initialized prior to calling the function. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01132.html#a11">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01131.html#a13">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01138.html#a16">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a01136.html#_a24">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a01137.html#_a25">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a01139.html#a21">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, and <a class="el" href="a01168.html#a22">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01093.html#a9">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01092.html#a11">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01099.html#a12">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a01097.html#_a16">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a01098.html#_a17">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a01100.html#a15">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, and <a class="el" href="a01129.html#a22">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -234,7 +234,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01132.html#a13">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01131.html#a15">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01133.html#a9">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, and <a class="el" href="a01170.html#a9">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01093.html#a11">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01092.html#a13">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01094.html#a8">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, and <a class="el" href="a01131.html#a8">mcuxClSession_cleanupOnError_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -299,13 +299,13 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that has been signed. </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pSignature</td><td>Pointer to the buffer that contains the signature that needs to be verified. </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">signatureSize</td><td>Number of bytes of data in the <code class="param">pSignature</code> buffer.</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">signatureSize</td><td>Number of bytes of data in the <code class="param">pSignature</code> buffer. </td></tr>
   </table>
   </dd>
 </dl>
-<p>#if defined(MCUXCL_FEATURE_SIGNATURE_VERIFY_PARAMETER_PROTECTION) &amp;&amp; defined(MCUXCL_FEATURE_ECC_ECDSA_VERIFY) </p><dl class="section note"><dt>Note</dt><dd>When performing ECDSA signature verification: mode, pIn and inSize parameters require additional protection using <a class="el" href="#gad99e79a6c1418cbda0eca0417bd045dd" title="Record signature verification parameters for protection.">mcuxClSignature_verify_recordParam()</a>. This will initialize first word of CPU WA with integrity value required by <a class="el" href="#ga1b7deb8d71deafd479940561123b6a87" title="One-shot verification function.">mcuxClSignature_verify()</a> to validate parameters. #endif</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>When performing ECDSA signature verification: mode, pIn and inSize parameters require additional protection using <a class="el" href="#gad99e79a6c1418cbda0eca0417bd045dd" title="Record signature verification parameters for protection.">mcuxClSignature_verify_recordParam()</a>. This will initialize first word of CPU WA with integrity value required by <a class="el" href="#ga1b7deb8d71deafd479940561123b6a87" title="One-shot verification function.">mcuxClSignature_verify()</a> to validate parameters. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01132.html#a14">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01131.html#a16">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01133.html#a11">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, <a class="el" href="a01138.html#a18">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a01136.html#_a25">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a01137.html#_a26">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a01139.html#a23">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, <a class="el" href="a01168.html#a24">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>, and <a class="el" href="a01170.html#a11">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01093.html#a12">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a01092.html#a14">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a01094.html#a10">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, <a class="el" href="a01099.html#a13">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a01097.html#_a17">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a01098.html#_a18">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a01100.html#a16">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, <a class="el" href="a01129.html#a24">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>, and <a class="el" href="a01131.html#a10">mcuxClSession_cleanupOnError_example.c</a>.</dd>
 </dl>
 
 </div>

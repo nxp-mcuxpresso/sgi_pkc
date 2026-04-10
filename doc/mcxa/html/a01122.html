@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</title>
+<title>MCUX CLNS: mcuxClRandom_PRNG_Patch_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,13 @@ $(function(){initNavTree('a01122.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxClRandom_PRNG_Patch_example.c</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example for the mcuxClCipherModes component.</p>
-<p>Example for the mcuxClCipherModes component</p>
+<p>Example for the mcuxClRandom component.</p>
+<p>Example for the mcuxClRandom component</p>
 <div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2024-2025 NXP                                                  */</span></div>
+<div class="line"><span class="comment">/* Copyright 2023-2025 NXP                                                  */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
 <div class="line"><span class="comment">/* NXP Confidential and Proprietary. This software is owned or controlled   */</span></div>
 <div class="line"><span class="comment">/* by NXP and may only be used strictly in accordance with the applicable   */</span></div>
@@ -122,439 +122,205 @@ $(function(){initNavTree('a01122.html','',''); });
 <div class="line"></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClToolchain.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00533.html">mcuxClRandom.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00584.html">mcuxClSession.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">mcuxClKey.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00311.html">mcuxClAes.h</a>&gt;</span> <span class="comment">// Interface to AES-related definitions and types</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00341.html">mcuxClCipher.h</a>&gt;</span> <span class="comment">// Interface to the entire mcuxClCipher component</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00344.html">mcuxClCipherModes.h</a>&gt;</span> <span class="comment">// Interface to the entire mcuxClCipherModes component</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00326.html">mcuxClBuffer.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00641.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00362.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
-<div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00326.html">mcuxClBuffer.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_Session_Helper.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;mcuxClExample_RNG_Helper.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span> <span class="comment">// Defines and assertions for examples</span></div>
 <div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t randomData[] = {0x8au,0x76u,0x90u,0xd2u,0xd9u,0x55u,0x3cu,0x93u,</div>
+<div class="line">                                             0x03u,0x52u,0x3au,0x3cu,0xbeu,0xe1u,0x39u,0xa4u,</div>
+<div class="line">                                             0xefu,0xf1u,0xc4u,0xbbu,0xa3u,0xc7u,0x09u,0xf3u,</div>
+<div class="line">                                             0xb7u,0x14u,0x07u,0xb2u,0xd8u,0x98u,0xa0u,0xaeu};</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Test vectors for RFC3394 encoding are taken from https://datatracker.ietf.org/doc/html/rfc3394.</span></div>
-<div class="line"><span class="comment">//  The plain key data is 00112233445566778899AABBCCDDEEFF</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t wrappedKeyData[<a id="_a0" name="_a0"></a><a class="code hl_define" href="a00776.html#ga4aed085a8ff1694395af6cad6be38f53">MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</a> / 4U] = {</div>
-<div class="line">  0xF9C3E864U, 0xA25B0FCEU, 0x7977E963U, 0x2A8A8105U,</div>
-<div class="line">  0x1E19C893U, 0xE78A6E7DU</div>
-<div class="line">};</div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t kwk256Data[<a id="_a1" name="_a1"></a><a class="code hl_define" href="a00776.html#gaf85d02f88b56069ada0d2e6eaf184af8">MCUXCLAES_AES256_KEY_SIZE</a> / 4U] = {</div>
-<div class="line">  0x03020100U, 0x07060504U, 0x0B0A0908U, 0x0F0E0D0CU,</div>
-<div class="line">  0x13121110U, 0x17161514U, 0x1B1A1918U, 0x1F1E1D1CU</div>
-<div class="line">};</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/* CBC plain data */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t plain[64] = {</div>
-<div class="line">  0x61U, 0x62U, 0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U,</div>
-<div class="line">  0x69U, 0x6aU, 0x6bU, 0x6cU, 0x6dU, 0x6eU, 0x6fU, 0x70U,</div>
-<div class="line">  0x62U, 0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U,</div>
-<div class="line">  0x6aU, 0x6bU, 0x6cU, 0x6dU, 0x6eU, 0x6fU, 0x70U, 0x71U,</div>
-<div class="line">  0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U, 0x6aU,</div>
-<div class="line">  0x6bU, 0x6cU, 0x6dU, 0x6eU, 0x6fU, 0x70U, 0x71U, 0x72U,</div>
-<div class="line">  0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U, 0x6aU, 0x6bU,</div>
-<div class="line">  0x6cU, 0x6dU, 0x6eU, 0x6fU, 0x70U, 0x71U, 0x72U, 0x73U</div>
-<div class="line">};</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/* CBC IV */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t iv[16] = {</div>
-<div class="line">  0x7aU, 0x79U, 0x78U, 0x77U, 0x76U, 0x75U, 0x74U, 0x73U,</div>
-<div class="line">  0x72U, 0x71U, 0x70U, 0x6fU, 0x6eU, 0x6dU, 0x6cU, 0x6bU</div>
-<div class="line">};</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/* CBC encrypted data - plain data encrypted with the expected unwrapped key material. */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t encryptedRef[64] = {</div>
-<div class="line">  0xd4U, 0x43U, 0xbcU, 0x95U, 0x30U, 0xe2U, 0x2eU, 0x9aU,</div>
-<div class="line">  0xcbU, 0x18U, 0x04U, 0x51U, 0xd1U, 0x08U, 0x95U, 0x80U,</div>
-<div class="line">  0xd6U, 0xfeU, 0x0aU, 0xe6U, 0xfbU, 0x13U, 0xbcU, 0xc1U,</div>
-<div class="line">  0x8cU, 0x0aU, 0x5bU, 0x8aU, 0x1dU, 0x0fU, 0xceU, 0x55U,</div>
-<div class="line">  0xc7U, 0xfcU, 0x1bU, 0xc6U, 0x4eU, 0x2dU, 0xf6U, 0x78U,</div>
-<div class="line">  0x04U, 0x4cU, 0xdfU, 0xccU, 0x82U, 0x9eU, 0x24U, 0x59U,</div>
-<div class="line">  0x99U, 0xcdU, 0x52U, 0xc1U, 0xb0U, 0x0eU, 0x9aU, 0x0eU,</div>
-<div class="line">  0xceU, 0xa4U, 0xfdU, 0x3eU, 0xbeU, 0x3eU, 0x0aU, 0xa5U</div>
-<div class="line">};</div>
-<div class="line"> </div>
-<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example)</div>
+<div class="line"><span class="keyword">static</span> <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a00870.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a> prngPatchFunction(</div>
+<div class="line">    <span class="keywordtype">void</span> *pCustomState,</div>
+<div class="line">    <a id="_a1" name="_a1"></a><a class="code hl_typedef" href="a00784.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut,</div>
+<div class="line">    uint32_t outLength</div>
+<div class="line">)</div>
 <div class="line">{</div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Preparation                                                            */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">    uint32_t *pIndexRandomData = (uint32_t *)pCustomState;</div>
 <div class="line"> </div>
-<div class="line">  mcuxClSession_Descriptor_t sessionDesc;</div>
-<div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_typedef" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
+<div class="line">    <span class="keywordflow">for</span> (uint32_t i = 0u; i &lt; outLength; i++)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">/* Ideally mcuxClBuffer_export should be used on larger chunks of data. Using it on individual bytes is just used to keep the example simple. */</span></div>
+<div class="line">        <a id="a2" name="a2"></a><a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(be_status, be_token, <a id="a3" name="a3"></a><a class="code hl_function" href="a00338.html#adb6f0b9e25f72f6e5b134dea7e2f05bc">mcuxClBuffer_export</a>(pOut, i, (uint8_t <span class="keyword">const</span> *)&amp;randomData[*pIndexRandomData], 1u));</div>
+<div class="line">        <span class="keywordflow">if</span>((<a id="a4" name="a4"></a><a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00338.html#adb6f0b9e25f72f6e5b134dea7e2f05bc">mcuxClBuffer_export</a>) != be_token) || (MCUXCLBUFFER_STATUS_OK != be_status))</div>
+<div class="line">        {</div>
+<div class="line">          <span class="keywordflow">return</span> <a id="_a5" name="_a5"></a><a class="code hl_define" href="a01008.html#ga6d4a0c17c9ec70556936f749305dace8">MCUXCLRANDOM_STATUS_FAULT_ATTACK</a>;</div>
+<div class="line">        }</div>
+<div class="line">        <a id="a6" name="a6"></a><a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;modular arithmetic&quot;</span>)</div>
+<div class="line">        *pIndexRandomData = (*pIndexRandomData + 1u) % <span class="keyword">sizeof</span>(randomData);</div>
+<div class="line">        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
+<div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* Allocate and initialize session */</span></div>
-<div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE,</div>
-<div class="line">                                                          MCUXCLEXAMPLE_MAX_WA(MCUXCLCIPHER_AES_PROCESS_CPU_WA_BUFFER_SIZE,</div>
-<div class="line">                                                            MCUXCLRANDOM_NCINIT_WACPU_SIZE)), 0U);</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Initialize the PRNG */</span></div>
-<div class="line">  MCUXCLEXAMPLE_INITIALIZE_PRNG(session);</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Prepare the key-wrapping key (KWK) in the SGI                          */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  uint32_t kwkDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">  <a id="_a3" name="_a3"></a><a class="code hl_typedef" href="a00840.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> kwk = (<a class="code hl_typedef" href="a00840.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;kwkDesc;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line"> </div>
-<div class="line">  <a id="_a4" name="_a4"></a><a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ki1_status, ki1_token, <a id="_a5" name="_a5"></a><a class="code hl_function" href="a00839.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:        */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:                */</span> kwk,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Type_t type:                 */</span> <a id="_a6" name="_a6"></a><a class="code hl_variable" href="a00778.html#ga1249b014f089397821eceab3fd04ed5c">mcuxClKey_Type_Aes256</a>,</div>
-<div class="line">    <span class="comment">/* uint8_t * pKeyData:                   */</span> (const uint8_t *)kwk256Data,</div>
-<div class="line">    <span class="comment">/* uint32_t keyDataLength:               */</span> sizeof(kwk256Data))</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a id="_a7" name="_a7"></a><a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00839.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != ki1_token) || (<a id="_a8" name="_a8"></a><a class="code hl_define" href="a00833.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != ki1_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a id="a9" name="a9"></a><a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kl_status, kl_token, <a id="a10" name="a10"></a><a class="code hl_function" href="a00839.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:      */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:              */</span> kwk,</div>
-<div class="line">    <span class="comment">/* uint32_t loadOptions:               */</span> <a id="_a11" name="_a11"></a><a class="code hl_define" href="a00837.html#gaaace2a5d7926bb12b4e9cb827bbd355a">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</a>)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00839.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a>) != kl_token) || (<a class="code hl_define" href="a00833.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kl_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Key Init                                                               */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">  <a class="code hl_typedef" href="a00840.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key = (<a class="code hl_typedef" href="a00840.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;keyDesc;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ki2_status, ki2_token, <a class="code hl_function" href="a00839.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:        */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:                */</span> key,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Type_t type:                 */</span> <a id="_a12" name="_a12"></a><a class="code hl_variable" href="a00778.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a>,</div>
-<div class="line">    <span class="comment">/* uint8_t * pKeyData:                   */</span> (const uint8_t *)wrappedKeyData,</div>
-<div class="line">    <span class="comment">/* uint32_t keyDataLength:               */</span> sizeof(wrappedKeyData))</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00839.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != ki2_token) || (<a class="code hl_define" href="a00833.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != ki2_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* As the key data contains an already wrapped key, set the key handle&#39;s encoding accordingly. */</span></div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kse_status, kse_token, <a id="a13" name="a13"></a><a class="code hl_function" href="a00839.html#gaaa4221b7ecf50384d8d461091f4ddf93">mcuxClKey_setEncoding</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:     */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:             */</span> key,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Encoding_t encoding:      */</span> <a id="_a14" name="_a14"></a><a class="code hl_variable" href="a00777.html#ga0a0b95171f3244efecc718424e2dc377">mcuxClAes_Encoding_Rfc3394</a>,</div>
-<div class="line">    <span class="comment">/* const uint8_t * pAuxData:          */</span> (uint8_t*) kwkDesc,</div>
-<div class="line">    <span class="comment">/* uint32_t auxDataLength:            */</span> <span class="keyword">sizeof</span>(kwkDesc))</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00839.html#gaaa4221b7ecf50384d8d461091f4ddf93">mcuxClKey_setEncoding</a>) != kse_token) || (<a class="code hl_define" href="a00833.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kse_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /***************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Because the key in use is not preloaded, the Clib will internally load  */</span></div>
-<div class="line">  <span class="comment">/* the key to the SGI for every stage of the Multipart operation.          */</span></div>
-<div class="line">  <span class="comment">/*                                                                         */</span></div>
-<div class="line">  <span class="comment">/* Due to the key&#39;s RFC3394 encoding, the slot the key will be loaded to   */</span></div>
-<div class="line">  <span class="comment">/* is fixed by HW to MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP.              */</span></div>
-<div class="line"><span class="comment">   /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Encryption                                                             */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  uint32_t outLength = 0U;</div>
-<div class="line">  uint32_t encryptedSize = 0U;</div>
-<div class="line">  uint8_t encryptedData[<span class="keyword">sizeof</span>(encryptedRef)];</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Create a buffer for the context */</span></div>
-<div class="line">  uint32_t ctxBuf[MCUXCLCIPHER_AES_CONTEXT_SIZE_IN_WORDS];</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">  <a id="_a15" name="_a15"></a><a class="code hl_typedef" href="a00788.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a> * const ctx = (<a class="code hl_typedef" href="a00788.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a> *) ctxBuf;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line"> </div>
-<div class="line">  <a id="_a16" name="_a16"></a><a class="code hl_define" href="a00781.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(ivBuf, session, iv, sizeof(iv));</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ei_status, ei_token, <a id="_a17" name="_a17"></a><a class="code hl_function" href="a00787.html#ga4b27dce4ecc47ce6b51467e707afae73">mcuxClCipher_init_encrypt</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    <span class="comment">/* const mcuxClKey_Handle_t key:           */</span> key,</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Mode_t mode:               */</span> <a id="_a18" name="_a18"></a><a class="code hl_variable" href="a00790.html#ga31817e9769bf446360bb3b1713f49785">mcuxClCipher_Mode_AES_CBC_NoPadding</a>,</div>
-<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIv:               */</span> ivBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t ivLength:                     */</span> sizeof(iv))</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#ga4b27dce4ecc47ce6b51467e707afae73">mcuxClCipher_init_encrypt</a>) != ei_token) || (<a id="_a19" name="_a19"></a><a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != ei_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a00781.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(plainBuf, session, plain, <span class="keyword">sizeof</span>(plain));</div>
-<div class="line">  <a id="a20" name="a20"></a><a class="code hl_define" href="a00781.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(encryptedDataBuf, session, encryptedData, <span class="keyword">sizeof</span>(encryptedData));</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ep1_status, ep1_token, <a id="a21" name="a21"></a><a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClCipher_init_encrypt&quot;</span>)</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
-<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn:               */</span> plainBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t inLength:                     */</span> <span class="keyword">sizeof</span>(plain) / 2U,</div>
-<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut:                   */</span> encryptedDataBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t * const outLength:            */</span> &amp;outLength)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>) != ep1_token) || (<a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != ep1_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
-<div class="line">  encryptedSize += outLength;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
-<div class="line"> </div>
-<div class="line">  <a id="_a22" name="_a22"></a><a class="code hl_define" href="a00782.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(plainBuf, sizeof(plain)/2u);</div>
-<div class="line">  <a class="code hl_define" href="a00782.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(encryptedDataBuf, encryptedSize);</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ep2_status, ep2_token, <a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClCipher_init_encrypt&quot;</span>)</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
-<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn:               */</span> plainBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t inLength:                     */</span> sizeof(plain) - sizeof(plain) / 2U,</div>
-<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut:                   */</span> encryptedDataBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t * const outLength:            */</span> &amp;outLength)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>) != ep2_token) || (<a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != ep2_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
-<div class="line">  encryptedSize += outLength;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Using MCUXCLBUFFER_SET instead of MCUXCLBUFFER_UPDATE is needed to properly advance the buffer to the correct offset */</span></div>
-<div class="line">  <a id="_a23" name="_a23"></a><a class="code hl_define" href="a00782.html#gacf99f5b8dd2d32db1d7f7f9912822a2e">MCUXCLBUFFER_SET</a>(encryptedDataBuf, &amp;encryptedData[encryptedSize], sizeof(encryptedData) <span class="comment">/* unused */</span>);</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ef_status, ef_token, <a id="_a24" name="_a24"></a><a class="code hl_function" href="a00787.html#ga90ac41c7d96f333de0708126b0bce4be">mcuxClCipher_finish</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClCipher_init_encrypt&quot;</span>)</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
-<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut:                   */</span> encryptedDataBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t * const outLength:            */</span> &amp;outLength)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#ga90ac41c7d96f333de0708126b0bce4be">mcuxClCipher_finish</a>) != ef_token) || (<a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != ef_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
-<div class="line">  encryptedSize += outLength;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Decryption                                                             */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  uint32_t decryptedSize = 0U;</div>
-<div class="line">  uint8_t decryptedData[sizeof(plain)];</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(di_status, di_token, <a id="_a25" name="_a25"></a><a class="code hl_function" href="a00787.html#gac3fc7d6b4d27c7d69a78ab542d0cbcc4">mcuxClCipher_init_decrypt</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    <span class="comment">/* const mcuxClKey_Handle_t key:           */</span> key,</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Mode_t mode:               */</span> <a class="code hl_variable" href="a00790.html#ga31817e9769bf446360bb3b1713f49785">mcuxClCipher_Mode_AES_CBC_NoPadding</a>,</div>
-<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIv:               */</span> ivBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t ivLength:                     */</span> sizeof(iv))</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#gac3fc7d6b4d27c7d69a78ab542d0cbcc4">mcuxClCipher_init_decrypt</a>) != di_token) || (<a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != di_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Process again from the beginning of encryptedDataBuf */</span></div>
-<div class="line">  <a class="code hl_define" href="a00782.html#gacf99f5b8dd2d32db1d7f7f9912822a2e">MCUXCLBUFFER_SET</a>(encryptedDataBuf, encryptedData, <span class="keyword">sizeof</span>(encryptedData) <span class="comment">/* unused */</span>);</div>
-<div class="line">  <a class="code hl_define" href="a00781.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(decryptedDataBuf, session, decryptedData, <span class="keyword">sizeof</span>(decryptedData));</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(dp1_status, dp1_token, <a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClCipher_init_decrypt&quot;</span>)</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
-<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn:               */</span> (<a id="_a26" name="_a26"></a><a class="code hl_typedef" href="a00784.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a>)encryptedDataBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t inLength:                     */</span> encryptedSize / 3U,</div>
-<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut:                   */</span> decryptedDataBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t * const outLength:            */</span> &amp;outLength)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>) != dp1_token) || (<a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != dp1_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
-<div class="line">  decryptedSize += outLength;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a00782.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(encryptedDataBuf, encryptedSize / 3u);</div>
-<div class="line">  <a class="code hl_define" href="a00782.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(decryptedDataBuf, decryptedSize);</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(dp2_status, dp2_token, <a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClCipher_init_decrypt&quot;</span>)</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
-<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn:               */</span> (<a class="code hl_typedef" href="a00784.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a>)encryptedDataBuf,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not wrap&quot;</span>)</div>
-<div class="line">    <span class="comment">/* uint32_t inLength:                     */</span> encryptedSize - encryptedSize / 3U,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
-<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut:                   */</span> decryptedDataBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t * const outLength:            */</span> &amp;outLength)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a>) != dp2_token) || (<a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != dp2_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
-<div class="line">  decryptedSize += outLength;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Using MCUXCLBUFFER_SET instead of MCUXCLBUFFER_UPDATE is needed to properly advance the buffer to the correct offset */</span></div>
-<div class="line">  <a class="code hl_define" href="a00782.html#gacf99f5b8dd2d32db1d7f7f9912822a2e">MCUXCLBUFFER_SET</a>(decryptedDataBuf, &amp;decryptedData[decryptedSize], sizeof(decryptedData) <span class="comment">/* unused */</span>);</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(df_status, df_token, <a class="code hl_function" href="a00787.html#ga90ac41c7d96f333de0708126b0bce4be">mcuxClCipher_finish</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:         */</span> session,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClCipher_init_decrypt&quot;</span>)</div>
-<div class="line">    <span class="comment">/* mcuxClCipher_Context_t * const pContext:*/</span> ctx,</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
-<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut:                   */</span> decryptedDataBuf,</div>
-<div class="line">    <span class="comment">/* uint32_t * const outLength:            */</span> &amp;outLength)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00787.html#ga90ac41c7d96f333de0708126b0bce4be">mcuxClCipher_finish</a>) != df_token) || (<a class="code hl_define" href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a> != df_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
-<div class="line">  decryptedSize += outLength;</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Flush the loaded key                                                   */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kf1_status, kf1_token, <a id="_a27" name="_a27"></a><a class="code hl_function" href="a00839.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:      */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:              */</span> kwk)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00839.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a>) != kf1_token) || (<a class="code hl_define" href="a00833.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kf1_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Destroy the current session                                            */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Verification                                                           */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(encryptedRef) != encryptedSize)</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>(!mcuxClCore_assertEqual(encryptedRef, encryptedData, <span class="keyword">sizeof</span>(encryptedRef)))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(plain) != decryptedSize)</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>(!mcuxClCore_assertEqual(plain, decryptedData, <span class="keyword">sizeof</span>(plain)))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
+<div class="line">    <span class="keywordflow">return</span> <a id="_a7" name="_a7"></a><a class="code hl_define" href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a>;  </div>
 <div class="line">}</div>
-<div class="ttc" id="aa00311_html"><div class="ttname"><a href="a00311.html">mcuxClAes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClAes component.</div></div>
+<div class="line"></div>
+<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClRandom_PRNG_Patch_example)</div>
+<div class="line">{</div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Preparation                                                            */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">    mcuxClSession_Descriptor_t sessionDesc;</div>
+<div class="line">    <a id="_a8" name="_a8"></a><a class="code hl_typedef" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
+<div class="line">    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLRANDOM_NCINIT_WACPU_SIZE, 0u);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Initialize PRNG. This initializes PRNG in normal / unpatched mode */</span></div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER(<span class="stringliteral">&quot;session-&gt;apiCall is not NULL&quot;</span>)</div>
+<div class="line">    <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(nci_status, nci_token, <a id="_a9" name="_a9"></a><a class="code hl_function" href="a00868.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a>(</div>
+<div class="line">                                        session</div>
+<div class="line">                                   ));</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()</div>
+<div class="line"> </div>
+<div class="line">    if((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00868.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a>) != nci_token) || (<a class="code hl_define" href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != nci_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Start with PRNG in normal mode                                         */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">    uint8_t pPrngData[16u];</div>
+<div class="line">    <a id="a10" name="a10"></a><a class="code hl_define" href="a00781.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(pPrngBuffer, session, pPrngData, <span class="keyword">sizeof</span>(pPrngData));</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Generate non cryptographic random values. */</span></div>
+<div class="line">    <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ncg_status1, ncg_token1, <a id="a11" name="a11"></a><a class="code hl_function" href="a00868.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>(</div>
+<div class="line">                                        session,</div>
+<div class="line">                                        pPrngBuffer,</div>
+<div class="line">                                        <span class="keyword">sizeof</span>(pPrngData)</div>
+<div class="line">    ));</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00868.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>) != ncg_token1) || (<a class="code hl_define" href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ncg_status1))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Check whether unpatched PRNG indeed outputs unexpected data */</span></div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by MCUXCLBUFFER_INIT&quot;</span>)</div>
+<div class="line">    bool outputAsExpected = mcuxClCore_assertEqual((const uint8_t *) pPrngData, (const uint8_t*) randomData, sizeof(pPrngData));</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* Return error if buffers are equal */</span></div>
+<div class="line">    if(outputAsExpected)</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Put PRNG in patch mode                                                 */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Initialize index to be used as custom context. As local variable to avoid DATA section in examples. */</span></div>
+<div class="line">    <span class="keyword">volatile</span> uint32_t indexRandomData = 0u;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(patch_status, patch_token, <a id="a12" name="a12"></a><a class="code hl_function" href="a00868.html#gaf2a93d382af17308266bf687b1e9de27">mcuxClRandom_ncPatch</a>(</div>
+<div class="line">                                        session,</div>
+<div class="line">                                        (<a id="_a13" name="_a13"></a><a class="code hl_typedef" href="a00870.html#ga159d417f0d48eefc2b516bbd77e9a804">mcuxClRandom_CustomNcGenerateAlgorithm_t</a>) prngPatchFunction,</div>
+<div class="line">                                        MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_VOLATILE()</div>
+<div class="line">                                        (<span class="keywordtype">void</span> *) &amp;indexRandomData</div>
+<div class="line">                                        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_VOLATILE()</div>
+<div class="line">    ));</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00868.html#gaf2a93d382af17308266bf687b1e9de27">mcuxClRandom_ncPatch</a>) != patch_token) || (<a class="code hl_define" href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != patch_status))</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Generate patched random values. */</span></div>
+<div class="line">    <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ncg_status2, ncg_token2, <a class="code hl_function" href="a00868.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>(</div>
+<div class="line">                                        session,</div>
+<div class="line">                                        pPrngBuffer,</div>
+<div class="line">                                        <span class="keyword">sizeof</span>(pPrngData)</div>
+<div class="line">    ));</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00868.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>) != ncg_token2) || (<a class="code hl_define" href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ncg_status2))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Check whether patched PRNG indeed outputs expected data */</span></div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by MCUXCLBUFFER_INIT&quot;</span>)</div>
+<div class="line">    outputAsExpected = mcuxClCore_assertEqual((const uint8_t *) pPrngData, (const uint8_t*) randomData, sizeof(pPrngData));</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* Return error if buffers are unequal */</span></div>
+<div class="line">    if(!outputAsExpected)</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Check that the index used by the patch function is updated as expected. */</span></div>
+<div class="line">    <span class="keywordflow">if</span> (indexRandomData != (<span class="keyword">sizeof</span>(pPrngData) % <span class="keyword">sizeof</span>(randomData)))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Return to PRNG in normal mode                                          */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(unpatch_status, unpatch_token, <a class="code hl_function" href="a00868.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a>(</div>
+<div class="line">                                        session</div>
+<div class="line">    ));</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00868.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a>) != unpatch_token) || (<a class="code hl_define" href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != unpatch_status))</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Generate non cryptographic random values. */</span></div>
+<div class="line">    <a class="code hl_define" href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ncg_status3, ncg_token3, <a class="code hl_function" href="a00868.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>(</div>
+<div class="line">                                        session,</div>
+<div class="line">                                        pPrngBuffer,</div>
+<div class="line">                                        <span class="keyword">sizeof</span>(pPrngData)</div>
+<div class="line">    ));</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a00868.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>) != ncg_token3) || (<a class="code hl_define" href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ncg_status3))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Check whether unpatched PRNG indeed outputs unexpected data */</span></div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by MCUXCLBUFFER_INIT&quot;</span>)</div>
+<div class="line">    outputAsExpected = mcuxClCore_assertEqual((const uint8_t *) pPrngData, (const uint8_t*) randomData, sizeof(pPrngData));</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* Return error if buffers are equal */</span></div>
+<div class="line">    if(outputAsExpected)</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
+<div class="line">}</div>
 <div class="ttc" id="aa00326_html"><div class="ttname"><a href="a00326.html">mcuxClBuffer.h</a></div><div class="ttdoc">Top-level include file for the mcuxClBuffer component.</div></div>
-<div class="ttc" id="aa00341_html"><div class="ttname"><a href="a00341.html">mcuxClCipher.h</a></div><div class="ttdoc">Top-level include file for the mcuxClCipher component.</div></div>
-<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">mcuxClCipherModes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClCipherModes component.</div></div>
+<div class="ttc" id="aa00338_html_adb6f0b9e25f72f6e5b134dea7e2f05bc"><div class="ttname"><a href="a00338.html#adb6f0b9e25f72f6e5b134dea7e2f05bc">mcuxClBuffer_export</a></div><div class="ttdeci">mcuxClBuffer_Status_t mcuxClBuffer_export(mcuxCl_Buffer_t bufDst, uint32_t offset, const uint8_t *pSrc, uint32_t byteLength)</div><div class="ttdoc">Perform a write to the buffer.</div></div>
 <div class="ttc" id="aa00362_html"><div class="ttname"><a href="a00362.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">mcuxClKey.h</a></div><div class="ttdoc">Top-level include file for the mcuxClKey component.</div></div>
+<div class="ttc" id="aa00533_html"><div class="ttname"><a href="a00533.html">mcuxClRandom.h</a></div><div class="ttdoc">Top level header of mcuxClRandom component.</div></div>
 <div class="ttc" id="aa00584_html"><div class="ttname"><a href="a00584.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
 <div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa00776_html_ga4aed085a8ff1694395af6cad6be38f53"><div class="ttname"><a href="a00776.html#ga4aed085a8ff1694395af6cad6be38f53">MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</a></div><div class="ttdeci">#define MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</div><div class="ttdoc">RFC3394 encoding of AES-128 key material, encoded key size in bytes.</div><div class="ttdef"><b>Definition</b> mcuxClAes_Constants.h:49</div></div>
-<div class="ttc" id="aa00776_html_gaf85d02f88b56069ada0d2e6eaf184af8"><div class="ttname"><a href="a00776.html#gaf85d02f88b56069ada0d2e6eaf184af8">MCUXCLAES_AES256_KEY_SIZE</a></div><div class="ttdeci">#define MCUXCLAES_AES256_KEY_SIZE</div><div class="ttdoc">AES-256 key size in bytes.</div><div class="ttdef"><b>Definition</b> mcuxClAes_Constants.h:44</div></div>
-<div class="ttc" id="aa00777_html_ga0a0b95171f3244efecc718424e2dc377"><div class="ttname"><a href="a00777.html#ga0a0b95171f3244efecc718424e2dc377">mcuxClAes_Encoding_Rfc3394</a></div><div class="ttdeci">static const mcuxClKey_Encoding_t mcuxClAes_Encoding_Rfc3394</div><div class="ttdoc">Key encoding for RFC3394 key wrap/unwrap.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyEncodingMechanisms.h:47</div></div>
-<div class="ttc" id="aa00778_html_ga1249b014f089397821eceab3fd04ed5c"><div class="ttname"><a href="a00778.html#ga1249b014f089397821eceab3fd04ed5c">mcuxClKey_Type_Aes256</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Aes256</div><div class="ttdoc">Key type pointer for AES-256 based keys.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyTypes.h:63</div></div>
-<div class="ttc" id="aa00778_html_ga8f0a74b8ec63f9bcfff2723f37602d0d"><div class="ttname"><a href="a00778.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Aes128</div><div class="ttdoc">Key type pointer for AES-128 based keys.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyTypes.h:51</div></div>
 <div class="ttc" id="aa00781_html_ga00af3c9893f4c59ec8ac0675c8332da3"><div class="ttname"><a href="a00781.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT(name, info, ptr, size)</div><div class="ttdoc">Initialize an input/output buffer (mcuxCl_Buffer_t).</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:67</div></div>
-<div class="ttc" id="aa00781_html_gaa0ed06160ed0bb21bbef3def4479d9ce"><div class="ttname"><a href="a00781.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RO(name, info, ptr, size)</div><div class="ttdoc">Initialize an input buffer (mcuxCl_InputBuffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:84</div></div>
-<div class="ttc" id="aa00782_html_gabcd0245cf9817151a98ef23a6ff7f99f"><div class="ttname"><a href="a00782.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a></div><div class="ttdeci">#define MCUXCLBUFFER_UPDATE(name, offset)</div><div class="ttdoc">Update the buffer pointer with the given offset.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:201</div></div>
-<div class="ttc" id="aa00782_html_gacf99f5b8dd2d32db1d7f7f9912822a2e"><div class="ttname"><a href="a00782.html#gacf99f5b8dd2d32db1d7f7f9912822a2e">MCUXCLBUFFER_SET</a></div><div class="ttdeci">#define MCUXCLBUFFER_SET(name, ptr, size)</div><div class="ttdoc">Update the buffer pointer the a new memory location.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:240</div></div>
-<div class="ttc" id="aa00784_html_ga43ce32df6cc1da1a27607535551aba6c"><div class="ttname"><a href="a00784.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></div><div class="ttdeci">const uint8_t * mcuxCl_InputBuffer_t</div><div class="ttdoc">Input buffer type.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer_Pointer.h:38</div></div>
-<div class="ttc" id="aa00786_html_ga42278cd4637634ffa6d97b8e0e74c27c"><div class="ttname"><a href="a00786.html#ga42278cd4637634ffa6d97b8e0e74c27c">MCUXCLCIPHER_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLCIPHER_STATUS_OK</div><div class="ttdoc">Blocking operation finished successfully.</div><div class="ttdef"><b>Definition</b> mcuxClCipher_Constants.h:35</div></div>
-<div class="ttc" id="aa00787_html_ga1a5072096f7f82fbce313d414dbb438d"><div class="ttname"><a href="a00787.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a></div><div class="ttdeci">mcuxClCipher_Status_t mcuxClCipher_process(mcuxClSession_Handle_t session, mcuxClCipher_Context_t *const pContext, mcuxCl_InputBuffer_t pIn, uint32_t inLength, mcuxCl_Buffer_t pOut, uint32_t *const pOutLength)</div><div class="ttdoc">Multi-part encryption/decryption processing function.</div></div>
-<div class="ttc" id="aa00787_html_ga4b27dce4ecc47ce6b51467e707afae73"><div class="ttname"><a href="a00787.html#ga4b27dce4ecc47ce6b51467e707afae73">mcuxClCipher_init_encrypt</a></div><div class="ttdeci">mcuxClCipher_Status_t mcuxClCipher_init_encrypt(mcuxClSession_Handle_t session, mcuxClCipher_Context_t *const pContext, mcuxClKey_Handle_t key, mcuxClCipher_Mode_t mode, mcuxCl_InputBuffer_t pIv, uint32_t ivLength)</div><div class="ttdoc">Multi-part encryption initialization function.</div></div>
-<div class="ttc" id="aa00787_html_ga90ac41c7d96f333de0708126b0bce4be"><div class="ttname"><a href="a00787.html#ga90ac41c7d96f333de0708126b0bce4be">mcuxClCipher_finish</a></div><div class="ttdeci">mcuxClCipher_Status_t mcuxClCipher_finish(mcuxClSession_Handle_t session, mcuxClCipher_Context_t *const pContext, mcuxCl_Buffer_t pOut, uint32_t *const pOutLength)</div><div class="ttdoc">Multi-part encryption/decryption finalization function.</div></div>
-<div class="ttc" id="aa00787_html_gac3fc7d6b4d27c7d69a78ab542d0cbcc4"><div class="ttname"><a href="a00787.html#gac3fc7d6b4d27c7d69a78ab542d0cbcc4">mcuxClCipher_init_decrypt</a></div><div class="ttdeci">mcuxClCipher_Status_t mcuxClCipher_init_decrypt(mcuxClSession_Handle_t session, mcuxClCipher_Context_t *const pContext, mcuxClKey_Handle_t key, mcuxClCipher_Mode_t mode, mcuxCl_InputBuffer_t pIv, uint32_t ivLength)</div><div class="ttdoc">Multi-part decryption initialization function.</div></div>
-<div class="ttc" id="aa00788_html_ga9faa78dbb34107f8f28344b36b91c93d"><div class="ttname"><a href="a00788.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a></div><div class="ttdeci">struct mcuxClCipher_Context mcuxClCipher_Context_t</div><div class="ttdoc">Cipher context type.</div><div class="ttdef"><b>Definition</b> mcuxClCipher_Types.h:100</div></div>
-<div class="ttc" id="aa00790_html_ga31817e9769bf446360bb3b1713f49785"><div class="ttname"><a href="a00790.html#ga31817e9769bf446360bb3b1713f49785">mcuxClCipher_Mode_AES_CBC_NoPadding</a></div><div class="ttdeci">static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_NoPadding</div><div class="ttdoc">AES-CBC mode without padding.</div><div class="ttdef"><b>Definition</b> mcuxClCipherModes_Modes.h:199</div></div>
-<div class="ttc" id="aa00833_html_ga3cac3b08cb53d2949698e19319010c49"><div class="ttname"><a href="a00833.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_OK</div><div class="ttdoc">Key operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:40</div></div>
-<div class="ttc" id="aa00837_html_gaaace2a5d7926bb12b4e9cb827bbd355a"><div class="ttname"><a href="a00837.html#gaaace2a5d7926bb12b4e9cb827bbd355a">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</a></div><div class="ttdeci">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</div><div class="ttdoc">SGI key slot 6.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:178</div></div>
-<div class="ttc" id="aa00839_html_ga5faf77a895683e1e7d904bd323abc38d"><div class="ttname"><a href="a00839.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_init(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Type_t type, const uint8_t *pKeyData, uint32_t keyDataLength)</div><div class="ttdoc">Initializes a key handle.</div></div>
-<div class="ttc" id="aa00839_html_ga60cc1680589d37633bf78ad59fedcc43"><div class="ttname"><a href="a00839.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_flush(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key)</div><div class="ttdoc">Flush key from destination which can be a key slot of coprocessor or memory buffer.</div></div>
-<div class="ttc" id="aa00839_html_ga9a0d1cd7e8d8c172394eaeb14cf390ba"><div class="ttname"><a href="a00839.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_loadCopro(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, uint32_t loadOptions)</div><div class="ttdoc">Load key into destination key slot of a coprocessor.</div></div>
-<div class="ttc" id="aa00839_html_gaaa4221b7ecf50384d8d461091f4ddf93"><div class="ttname"><a href="a00839.html#gaaa4221b7ecf50384d8d461091f4ddf93">mcuxClKey_setEncoding</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_setEncoding(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Encoding_t encoding, const uint8_t *pAuxData, uint32_t auxDataLength)</div><div class="ttdoc">Configures the encoding mechanism for the given key handle.</div></div>
-<div class="ttc" id="aa00840_html_gafe84fa2aa66094f542164e0627a54c5d"><div class="ttname"><a href="a00840.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></div><div class="ttdeci">mcuxClKey_Descriptor_t *const mcuxClKey_Handle_t</div><div class="ttdoc">Key handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:91</div></div>
+<div class="ttc" id="aa00784_html_gabe9cd4a1ba45b05e7d09ef0576ea89bb"><div class="ttname"><a href="a00784.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a></div><div class="ttdeci">uint8_t * mcuxCl_Buffer_t</div><div class="ttdoc">Input/output buffer type.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer_Pointer.h:47</div></div>
+<div class="ttc" id="aa00868_html_ga4522b9cfa28cb224b653003d481d7100"><div class="ttname"><a href="a00868.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_ncInit(mcuxClSession_Handle_t pSession)</div><div class="ttdoc">Non-cryptographic PRNG initialization function.</div></div>
+<div class="ttc" id="aa00868_html_gadb8ca3062045564b8f919d40a3da6569"><div class="ttname"><a href="a00868.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_ncGenerate(mcuxClSession_Handle_t pSession, mcuxCl_Buffer_t pOut, uint32_t outLength)</div><div class="ttdoc">Non-cryptographic PRNG data generation function.</div></div>
+<div class="ttc" id="aa00868_html_gaf2a93d382af17308266bf687b1e9de27"><div class="ttname"><a href="a00868.html#gaf2a93d382af17308266bf687b1e9de27">mcuxClRandom_ncPatch</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_ncPatch(mcuxClSession_Handle_t pSession, mcuxClRandom_CustomNcGenerateAlgorithm_t prngPatchFunction, void *pCustomPrngState)</div><div class="ttdoc">Function to enable the PRNG patch mode.</div></div>
+<div class="ttc" id="aa00870_html_ga159d417f0d48eefc2b516bbd77e9a804"><div class="ttname"><a href="a00870.html#ga159d417f0d48eefc2b516bbd77e9a804">mcuxClRandom_CustomNcGenerateAlgorithm_t</a></div><div class="ttdeci">mcuxClRandom_Status_t(* mcuxClRandom_CustomNcGenerateAlgorithm_t)(void *pCustomPrngState, mcuxCl_Buffer_t pOut, uint32_t outLength)</div><div class="ttdoc">Interface definition for custom PRNG functions to be used by PRNG patch mode.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Types.h:99</div></div>
+<div class="ttc" id="aa00870_html_ga768ea9930242003d2a68991684a1e948"><div class="ttname"><a href="a00870.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a></div><div class="ttdeci">uint32_t mcuxClRandom_Status_t</div><div class="ttdoc">Type for status codes of mcuxClRandom component functions.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Types.h:48</div></div>
 <div class="ttc" id="aa00903_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:98</div></div>
 <div class="ttc" id="aa00927_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a00927.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:623</div></div>
 <div class="ttc" id="aa00927_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a00927.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:777</div></div>
 <div class="ttc" id="aa00927_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a00927.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:658</div></div>
+<div class="ttc" id="aa01008_html_ga6d4a0c17c9ec70556936f749305dace8"><div class="ttname"><a href="a01008.html#ga6d4a0c17c9ec70556936f749305dace8">MCUXCLRANDOM_STATUS_FAULT_ATTACK</a></div><div class="ttdeci">#define MCUXCLRANDOM_STATUS_FAULT_ATTACK</div><div class="ttdoc">Random function returned fault attack.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Constants.h:47</div></div>
+<div class="ttc" id="aa01008_html_ga951990ff5179cd6fce7310de16002b20"><div class="ttname"><a href="a01008.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLRANDOM_STATUS_OK</div><div class="ttdoc">Random function returned successfully.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Constants.h:46</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

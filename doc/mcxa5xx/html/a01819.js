@@ -1,0 +1,25 @@
+var a01819 =
+[
+    [ "CIU2_CIU2_BTU_CTRL_BTU_CIPHER_EN", "a01819.html#gacf7331093d4e280ee57b5a56831aad65", null ],
+    [ "CIU2_CIU2_BTU_CTRL_DBUS_HIGH_SPEED_SEL", "a01819.html#ga35cf0d34f8b625d0ba95952df17afdf9", null ],
+    [ "CIU2_CIU2_BTU_CTRL_BT_CLK_SEL", "a01819.html#gac086902f13b332a79e529aa9a02ca057", null ],
+    [ "CIU2_CIU2_BTU_CTRL_BT_IP_SER_SEL", "a01819.html#gac88e0f6c77cf4d6a5c0b175756289b4d", null ],
+    [ "CIU2_CIU2_BTU_CTRL_BTU_MC_WAKEUP", "a01819.html#ga8b1f85ad739aa198d91e905da1ffc3b8", null ],
+    [ "CIU2_CIU2_BTU_ECO_CTRL_ECO_BITS", "a01819.html#ga5efa8709336d49ad3a7a15f6aaba1b85", null ],
+    [ "CIU2_CIU2_INT_MASK_MASK", "a01819.html#gafdc608966f13451b905e341a52c6bdd4", null ],
+    [ "CIU2_CIU2_INT_SELECT_SEL", "a01819.html#ga0f405e7b83f0e075d198c2bde6add5da", null ],
+    [ "CIU2_CIU2_INT_EVENT_MASK_MASK", "a01819.html#ga52f2bb62404f2989bb72994360114e7b", null ],
+    [ "CIU2_CIU2_INT_STATUS_CIU_ISR", "a01819.html#gaa835437dbe3cee6fdcbba20a1d14f838", null ],
+    [ "CIU2_CIU2_TESTBUS_CTRL_TESTBUS_SEL", "a01819.html#gaa6ef59ea6a5b5018a6f56677bafffffb", null ],
+    [ "CIU2_CIU2_LBC_CTRL_LBC_NCO_EN", "a01819.html#gad16a18d1939423fe31f72edc55386e94", null ],
+    [ "CIU2_CIU2_LBC_CTRL_LBC_DEBUG_CTRL", "a01819.html#gae39dca53da5092877ce9218f9d096d71", null ],
+    [ "CIU2_CIU2_LBC_CTRL_DEJIT_EN", "a01819.html#gaac8b436be4a93655c3d3bc21587dd343", null ],
+    [ "CIU2_CIU2_LBC_CTRL_AUTO_DEJIT", "a01819.html#ga80c574ece2c5bd61e5426ab95ac7483a", null ],
+    [ "CIU2_CIU2_LBC_CTRL_MAN_SEL_NCO", "a01819.html#gaecddf4c855e6405295d5b6cf03d89a44", null ],
+    [ "CIU2_CIU2_LBC_CTRL_NCO_LPO_RAMP_DN", "a01819.html#gac028f51be58672bffdeb032d405b075a", null ],
+    [ "CIU2_CIU2_LBC_CTRL_REF_LPO_CLK_GOOD", "a01819.html#ga85aa1c7e076265795547075005a0aa82", null ],
+    [ "CIU2_CIU2_LBC_CTRL_REF_LPO_RAMP_DN", "a01819.html#ga786ac973bcaf6eacbd2e759ad9ea6c5f", null ],
+    [ "CIU2_CIU2_LBC_CTRL_LPO_CLK_SEL_FSM", "a01819.html#gaee6ecd97104a4413273bde3334576804", null ],
+    [ "CIU2_CIU2_LBC_CTRL_LPO_CLK_3K2_CNT", "a01819.html#ga6a951a05d1b1171cbcdcae363e30bbe3", null ],
+    [ "CIU2_CIU2_LBC_SLPCLK_NCO_STEP", "a01819.html#ga0861dfe7b38f6c5cbc2d4fe17978b52f", null ]
+];

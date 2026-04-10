@@ -119,14 +119,6 @@ Variables</h2></td></tr>
 <tr class="memdesc:ga3dc0014c787cc578dfb4712012f5a585"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECDSA Key generation algorithm descriptor.  <br /></td></tr>
 <tr class="memitem:gaf478f6dfe868e5c07e681d879ca15998" id="r_gaf478f6dfe868e5c07e681d879ca15998"><td class="memItemLeft">static <a class="el" href="a00840.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf478f6dfe868e5c07e681d879ca15998">mcuxClKey_Generation_ECDSA</a></td></tr>
 <tr class="memdesc:gaf478f6dfe868e5c07e681d879ca15998"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECDSA Key generation algorithm.  <br /></td></tr>
-<tr class="memitem:gafbd2702715b947923e9324196d92923d" id="r_gafbd2702715b947923e9324196d92923d"><td class="memItemLeft">const <a class="el" href="a00840.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gafbd2702715b947923e9324196d92923d">mcuxClKey_GenerationDescriptor_EdDSA_GeneratePrivKey</a></td></tr>
-<tr class="memdesc:gafbd2702715b947923e9324196d92923d"><td class="mdescLeft">&#160;</td><td class="mdescRight">EdDSA Key generation algorithm descriptor.  <br /></td></tr>
-<tr class="memitem:gab79f0d23a62d358813ba10b4913adbea" id="r_gab79f0d23a62d358813ba10b4913adbea"><td class="memItemLeft">static <a class="el" href="a00840.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gab79f0d23a62d358813ba10b4913adbea">mcuxClKey_Generation_EdDSA_GeneratePrivKey</a></td></tr>
-<tr class="memdesc:gab79f0d23a62d358813ba10b4913adbea"><td class="mdescLeft">&#160;</td><td class="mdescRight">EdDSA Key generation algorithm.  <br /></td></tr>
-<tr class="memitem:ga0a5de06b7cad6f9e8380cea9217c4604" id="r_ga0a5de06b7cad6f9e8380cea9217c4604"><td class="memItemLeft">const <a class="el" href="a00840.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga0a5de06b7cad6f9e8380cea9217c4604">mcuxClKey_GenerationDescriptor_MontDH</a></td></tr>
-<tr class="memdesc:ga0a5de06b7cad6f9e8380cea9217c4604"><td class="mdescLeft">&#160;</td><td class="mdescRight">MontDH Key generation algorithm descriptor.  <br /></td></tr>
-<tr class="memitem:gadda89f0706a0d8cd84b8609068643319" id="r_gadda89f0706a0d8cd84b8609068643319"><td class="memItemLeft">static <a class="el" href="a00840.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gadda89f0706a0d8cd84b8609068643319">mcuxClKey_Generation_MontDH</a></td></tr>
-<tr class="memdesc:gadda89f0706a0d8cd84b8609068643319"><td class="mdescLeft">&#160;</td><td class="mdescRight">MontDH Key generation algorithm.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Definitions of ECC related key pair generation algorithm descriptors. </p>
@@ -225,111 +217,7 @@ Variables</h2></td></tr>
 
 <p>ECDSA Key generation algorithm. </p>
 <p>} </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01131.html#_a10">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, and <a class="el" href="a01125.html#_a30">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="gafbd2702715b947923e9324196d92923d" name="gafbd2702715b947923e9324196d92923d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafbd2702715b947923e9324196d92923d">&#9670;&#160;</a></span>mcuxClKey_GenerationDescriptor_EdDSA_GeneratePrivKey</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00840.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a> mcuxClKey_GenerationDescriptor_EdDSA_GeneratePrivKey</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>EdDSA Key generation algorithm descriptor. </p>
-<p>This key generation algorithm descriptor shall be used for an EdDSA private and public key pair generation. </p>
-
-</div>
-</div>
-<a id="gab79f0d23a62d358813ba10b4913adbea" name="gab79f0d23a62d358813ba10b4913adbea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab79f0d23a62d358813ba10b4913adbea">&#9670;&#160;</a></span>mcuxClKey_Generation_EdDSA_GeneratePrivKey</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00840.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a> mcuxClKey_Generation_EdDSA_GeneratePrivKey</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>EdDSA Key generation algorithm. </p>
-<p>This key generation algorithm shall be used for EdDSA private and public key pair generation. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01138.html#_a12">mcuxClEcc_EdDSA_Ed25519_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="ga0a5de06b7cad6f9e8380cea9217c4604" name="ga0a5de06b7cad6f9e8380cea9217c4604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0a5de06b7cad6f9e8380cea9217c4604">&#9670;&#160;</a></span>mcuxClKey_GenerationDescriptor_MontDH</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00840.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a> mcuxClKey_GenerationDescriptor_MontDH</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>MontDH Key generation algorithm descriptor. </p>
-<p>This key generation algorithm descriptor shall be used for an MontDH private and public key pair generation. </p>
-
-</div>
-</div>
-<a id="gadda89f0706a0d8cd84b8609068643319" name="gadda89f0706a0d8cd84b8609068643319"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadda89f0706a0d8cd84b8609068643319">&#9670;&#160;</a></span>mcuxClKey_Generation_MontDH</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00840.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a> mcuxClKey_Generation_MontDH</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>MontDH Key generation algorithm. </p>
-<p>This key generation algorithm shall be used for MontDH private and public key pair generation. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01134.html#_a10">mcuxClEcc_MontDH_Curve25519_example.c</a>, and <a class="el" href="a01135.html#_a10">mcuxClEcc_MontDH_Curve448_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01092.html#_a8">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, and <a class="el" href="a01086.html#_a30">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
 </dl>
 
 </div>

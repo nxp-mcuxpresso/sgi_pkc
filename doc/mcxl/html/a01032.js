@@ -1,10 +1,9 @@
 var a01032 =
 [
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PRIMEP", "a01032.html#gac14b636a63b6ad2a4ba8edb45d213aea", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_BASEPOINTORDER", "a01032.html#gab9dd06ce9086a33b19e20eba3aed8a7c", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEY", "a01032.html#gab2c2539baf2994a0baae71d5d5c8f9fe", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PRIVATEKEYDATA", "a01032.html#ga550f1830c8403002664123225e0f594f", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_PUBLICKEY", "a01032.html#gaf6cce889f1dc2b213479126d850af09c", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE", "a01032.html#gafd15d3ce72046f505d9763687d1614df", null ],
-    [ "MCUXCLECC_EDDSA_ED25519_DOMPREFIXLEN", "a01032.html#ga4eabea4e6baf9fb98992c3bc83fb6f2d", null ]
+    [ "p", "a01032.html#a4b55563d0da284786a1b3e662c66b96d", null ],
+    [ "q", "a01032.html#ac13a5e5fe06731d349474f7255b64cd5", null ],
+    [ "qInv", "a01032.html#ac4ceb66af5090c787b73ad3ef00d7c43", null ],
+    [ "dp", "a01032.html#a8e07c6eb2d9dd437f560a4aa5854bdde", null ],
+    [ "dq", "a01032.html#a44158636690e1cfb6cef2d56b568c28e", null ],
+    [ "e", "a01032.html#a0d3649f4c45edd2e24e5e0f41029a191", null ]
 ];

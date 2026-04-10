@@ -180,22 +180,22 @@ pointer to key data buffer where the generated public key will be stored. The bu
 <li>
 pointers to key data buffers and key handle must be aligned to CPU word size </li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>There are the following deviations were applied from the algorithm specified in Appendix A.1.3 of FIPS 186-5: </dd>
+<dl class="section note"><dt>Note</dt><dd>There are the following deviations were applied from the algorithm specified in Appendix B.3.3 of FIPS 186-4: </dd>
 <dd>
 <ul>
 <li>Primes p and q are chosen to be congruent \(3\mod4\).<br  />
- Rationale: With this additional restriction on p and q a generated key is still compatible with FIPS 186-5. Such primes and their products have properties that simplify algorithms, for example step 4.5 in Miller-Rabin test described in Appendix B.3.1 can be skipped (due to fact that a=1). This restriction has positive impact on the security, performance, and code size. This approach was also accepted in other products. </li>
+ Rationale: With this additional restriction on p and q a generated key is still compatible with FIPS 186-4. Such primes and their products have properties that simplify algorithms, for example step 4.5 in Miller-Rabin test described in Appendix B.3.1 can be skipped (due to fact that a=1). This restriction has positive impact on the security, performance, and code size. This approach was also accepted in other products. </li>
 </ul>
 </dd>
 <dd>
 <ul>
-<li>Checks performed in steps 4.4 and 5.4 are done using only 64 most significant bits of the value specified by the expression \((\sqrt{2})(2^{(nlen/2)–1})\) and rounded up, it is 0xb504f333f9de6485.<br  />
+<li>Checks performed in steps 4.4 and 5.5 are done using only 64 most significant bits of the value specified by the expression \((\sqrt{2})(2^{(nlen/2)–1})\) and rounded up, it is 0xb504f333f9de6485.<br  />
  Rationale: This deviation is acceptable as it is a stronger condition. </li>
 </ul>
 </dd>
 <dd>
 <ul>
-<li>Check performed in step 5.5 (check if \(|p–q| &lt;= 2^{nlen/2–100}\)) is performed after q is generated, it is after testing that q it probably prime. If p and q does not meet this FIPS requirements, a new prime q number will be generated. </li>
+<li>Check performed in step 5.4 (check if \(|p–q| &lt;= 2^{nlen/2–100}\)) is performed after q is generated, it is after testing that q it probably prime. If p and q does not meet this FIPS requirements, a new prime q number will be generated. </li>
 </ul>
 </dd>
 <dd>
@@ -205,7 +205,7 @@ pointers to key data buffers and key handle must be aligned to CPU word size </l
 </dd>
 <dd>
 If an event occurs that \(d &lt;= 2^{nlen/2}\) then only a new q will be generated. </dd></dl>
-<dl class="section attention"><dt>Attention</dt><dd>To support all required key lengths, this implementation does not verify that key length meets the FIPS 186-5 criteria (i.e., no check whether the key size is less than 2048 bits). User shall ensure that if FIPS 186-5 compliance is claimed, this mode is used to generate keys of length not less than 2048 bits. </dd>
+<dl class="section attention"><dt>Attention</dt><dd>To support all required key lengths, this implementation does not verify that key length meets the FIPS 186-4 criteria (i.e., no check whether the key size is 2048 or 3072 bits). User shall ensure that if FIPS 186-4 compliance is claimed, this mode is used to generate keys of 2048 or 3072 bits only. </dd>
 <dd>
 If the key generation operation returns Error or Fault (through session), the user shall ensure that the generated key is cleared and not used.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -218,7 +218,7 @@ If the key generation operation returns Error or Fault (through session), the us
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>Before calling this function, sufficient space should be allocated for the key mode descriptor and RSA-specific content, using the macro <a class="el" href="a00992.html" title="MCUXCLRSA_KEYGEN_MODE_SIZE">MCUXCLRSA_KEYGEN_MODE_SIZE</a>. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01169.html#_a15">mcuxClRsa_KeyGeneration_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01130.html#_a15">mcuxClRsa_KeyGeneration_example.c</a>.</dd>
 </dl>
 
 </div>

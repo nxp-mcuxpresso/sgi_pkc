@@ -169,26 +169,43 @@ $(function(){initNavTree('a00431_source.html','',''); });
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">#ifdef MCUXCL_FEATURE_HASH_C_SHA3</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="keyword">extern</span> <span class="keyword">const</span> <a class="code hl_typedef" href="a00821.html#gacccec0a811d221d2cb0fd8416da271d8">mcuxClHash_AlgorithmDescriptor_t</a> mcuxClHash_AlgorithmDescriptor_C_Sha3_224;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keyword">static</span> <a class="code hl_typedef" href="a00821.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> mcuxClHash_Algorithm_Sha3_224 = &amp;mcuxClHash_AlgorithmDescriptor_C_Sha3_224;</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLHASHMODES_ALGORITHMS_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keyword">extern</span> <span class="keyword">const</span> <a class="code hl_typedef" href="a00821.html#gacccec0a811d221d2cb0fd8416da271d8">mcuxClHash_AlgorithmDescriptor_t</a> mcuxClHash_AlgorithmDescriptor_C_Sha3_256;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="keyword">static</span> <a class="code hl_typedef" href="a00821.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> mcuxClHash_Algorithm_Sha3_256 = &amp;mcuxClHash_AlgorithmDescriptor_C_Sha3_256;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="keyword">extern</span> <span class="keyword">const</span> <a class="code hl_typedef" href="a00821.html#gacccec0a811d221d2cb0fd8416da271d8">mcuxClHash_AlgorithmDescriptor_t</a> mcuxClHash_AlgorithmDescriptor_C_Sha3_384;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="keyword">static</span> <a class="code hl_typedef" href="a00821.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> mcuxClHash_Algorithm_Sha3_384 = &amp;mcuxClHash_AlgorithmDescriptor_C_Sha3_384;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="keyword">extern</span> <span class="keyword">const</span> <a class="code hl_typedef" href="a00821.html#gacccec0a811d221d2cb0fd8416da271d8">mcuxClHash_AlgorithmDescriptor_t</a> mcuxClHash_AlgorithmDescriptor_C_Sha3_512;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="keyword">static</span> <a class="code hl_typedef" href="a00821.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> mcuxClHash_Algorithm_Sha3_512 = &amp;mcuxClHash_AlgorithmDescriptor_C_Sha3_512;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCL_FEATURE_HASH_C_SHA3 */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLHASHMODES_ALGORITHMS_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aa00443_html"><div class="ttname"><a href="a00443.html">mcuxClHash_Types.h</a></div><div class="ttdoc">Type definitions for the mcuxClHash component.</div></div>
 <div class="ttc" id="aa00821_html_ga0ffeeb89c76da6470176e7621713e1b2"><div class="ttname"><a href="a00821.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a></div><div class="ttdeci">const mcuxClHash_AlgorithmDescriptor_t *const mcuxClHash_Algo_t</div><div class="ttdoc">Hash mode/algorithm type.</div><div class="ttdef"><b>Definition</b> mcuxClHash_Types.h:50</div></div>
 <div class="ttc" id="aa00821_html_gacccec0a811d221d2cb0fd8416da271d8"><div class="ttname"><a href="a00821.html#gacccec0a811d221d2cb0fd8416da271d8">mcuxClHash_AlgorithmDescriptor_t</a></div><div class="ttdeci">struct mcuxClHash_AlgorithmDescriptor mcuxClHash_AlgorithmDescriptor_t</div><div class="ttdoc">Hash mode/algorithm descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClHash_Types.h:42</div></div>

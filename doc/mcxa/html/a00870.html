@@ -111,8 +111,8 @@ $(function(){initNavTree('a00870.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:mcuxClRandom_5FConfig" id="r_mcuxClRandom_5FConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a01063.html">mcuxClRandom_Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random config structure.  <a href="a01063.html#details">More...</a><br /></td></tr>
+<tr class="memitem:mcuxClRandom_5FConfig" id="r_mcuxClRandom_5FConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a01024.html">mcuxClRandom_Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random config structure.  <a href="a01024.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -128,7 +128,7 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:ga2998181a66cbdc063aa08d76e5fdef9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random data generation mode/algorithm type.  <br /></td></tr>
 <tr class="memitem:ga159d417f0d48eefc2b516bbd77e9a804" id="r_ga159d417f0d48eefc2b516bbd77e9a804"><td class="memItemLeft">typedef <a class="el" href="#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a>(*&#160;</td><td class="memItemRight"><a class="el" href="#ga159d417f0d48eefc2b516bbd77e9a804">mcuxClRandom_CustomNcGenerateAlgorithm_t</a>) (void *pCustomPrngState, <a class="el" href="a00784.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t outLength)</td></tr>
 <tr class="memdesc:ga159d417f0d48eefc2b516bbd77e9a804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface definition for custom PRNG functions to be used by PRNG patch mode.  <br /></td></tr>
-<tr class="memitem:gaf1284eaa96ef47c06697f95e74ffc3ee" id="r_gaf1284eaa96ef47c06697f95e74ffc3ee"><td class="memItemLeft">typedef struct <a class="el" href="a01063.html">mcuxClRandom_Config</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf1284eaa96ef47c06697f95e74ffc3ee">mcuxClRandom_Config_t</a></td></tr>
+<tr class="memitem:gaf1284eaa96ef47c06697f95e74ffc3ee" id="r_gaf1284eaa96ef47c06697f95e74ffc3ee"><td class="memItemLeft">typedef struct <a class="el" href="a01024.html">mcuxClRandom_Config</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf1284eaa96ef47c06697f95e74ffc3ee">mcuxClRandom_Config_t</a></td></tr>
 <tr class="memdesc:gaf1284eaa96ef47c06697f95e74ffc3ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random config type.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -148,7 +148,7 @@ Typedefs</h2></td></tr>
 
 <p>Type for status codes of mcuxClRandom component functions. </p>
 <p>This type provides information about the status of the Random operation that has been performed. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01166.html#_a0">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, and <a class="el" href="a01161.html#_a0">mcuxClRandom_PRNG_Patch_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01127.html#_a0">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, and <a class="el" href="a01122.html#_a0">mcuxClRandom_PRNG_Patch_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -184,7 +184,7 @@ Typedefs</h2></td></tr>
 
 <p>Random context type. </p>
 <p>This type is used to refer to a Random context. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01163.html#_a7">mcuxClRandomModes_CtrDrbg_AES256_DRG3_example.c</a>, <a class="el" href="a01165.html#_a8">mcuxClRandomModes_CtrDrbg_AES256_DRG4_example.c</a>, <a class="el" href="a01164.html#_a9">mcuxClRandomModes_Different_Sessions_example.c</a>, <a class="el" href="a01166.html#_a2">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, and <a class="el" href="a01167.html#_a9">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01124.html#_a7">mcuxClRandomModes_CtrDrbg_AES256_DRG3_example.c</a>, <a class="el" href="a01126.html#_a7">mcuxClRandomModes_CtrDrbg_AES256_DRG4_example.c</a>, <a class="el" href="a01125.html#_a9">mcuxClRandomModes_Different_Sessions_example.c</a>, <a class="el" href="a01127.html#_a2">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, and <a class="el" href="a01128.html#_a8">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -203,7 +203,7 @@ Typedefs</h2></td></tr>
 
 <p>Random data generation mode/algorithm descriptor type. </p>
 <p>This type captures all the information that the Random interfaces need to know about a particular Random data generation mode/algorithm. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01166.html#_a10">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, and <a class="el" href="a01167.html#_a1">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01127.html#_a10">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, and <a class="el" href="a01128.html#_a1">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -222,7 +222,7 @@ Typedefs</h2></td></tr>
 
 <p>Random data generation mode/algorithm type. </p>
 <p>This type is used to refer to a Random data generation mode/algorithm. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01164.html#_a0">mcuxClRandomModes_Different_Sessions_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01125.html#_a0">mcuxClRandomModes_Different_Sessions_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -240,7 +240,7 @@ Typedefs</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Interface definition for custom PRNG functions to be used by PRNG patch mode. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01161.html#_a13">mcuxClRandom_PRNG_Patch_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01122.html#_a13">mcuxClRandom_PRNG_Patch_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -252,7 +252,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="a01063.html">mcuxClRandom_Config</a> <a class="el" href="#gaf1284eaa96ef47c06697f95e74ffc3ee">mcuxClRandom_Config_t</a></td>
+          <td class="memname">typedef struct <a class="el" href="a01024.html">mcuxClRandom_Config</a> <a class="el" href="#gaf1284eaa96ef47c06697f95e74ffc3ee">mcuxClRandom_Config_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

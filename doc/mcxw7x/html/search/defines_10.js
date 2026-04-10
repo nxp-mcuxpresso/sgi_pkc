@@ -1,0 +1,17 @@
+var searchData=
+[
+  ['udf0_0',['UDF0',['../a01085.html#a19ad2db6eb0c347569f6130c51135425',1,'UDF0:&#160;MCXA366_COMMON.h'],['../a01268.html#a19ad2db6eb0c347569f6130c51135425',1,'UDF0:&#160;MCXL255_cm33_COMMON.h']]],
+  ['udf0_5fbase_1',['UDF0_BASE',['../a01085.html#af7a9de599472288b2c621f254b63ba9f',1,'UDF0_BASE:&#160;MCXA366_COMMON.h'],['../a01268.html#af7a9de599472288b2c621f254b63ba9f',1,'UDF0_BASE:&#160;MCXL255_cm33_COMMON.h']]],
+  ['udf_5fbase_5faddrs_2',['UDF_BASE_ADDRS',['../a01085.html#a99ba77a7ff72b73ed8f345e4acce71a2',1,'UDF_BASE_ADDRS:&#160;MCXA366_COMMON.h'],['../a01268.html#a99ba77a7ff72b73ed8f345e4acce71a2',1,'UDF_BASE_ADDRS:&#160;MCXL255_cm33_COMMON.h']]],
+  ['udf_5fbase_5fptrs_3',['UDF_BASE_PTRS',['../a01085.html#aec7a8b9c1948135e3a6e4eb9289430c9',1,'UDF_BASE_PTRS:&#160;MCXA366_COMMON.h'],['../a01268.html#aec7a8b9c1948135e3a6e4eb9289430c9',1,'UDF_BASE_PTRS:&#160;MCXL255_cm33_COMMON.h']]],
+  ['usb0_4',['USB0',['../a01085.html#aea56c015ce8ad0cc88464060fde6d87c',1,'MCXA366_COMMON.h']]],
+  ['usb0_5fbase_5',['USB0_BASE',['../a01085.html#aa47acf4992407a85e79d911ca1055d17',1,'MCXA366_COMMON.h']]],
+  ['usb_5fbase_5faddrs_6',['USB_BASE_ADDRS',['../a01085.html#ac3fe38a7a5a01a7da6dfcc4a06f4f721',1,'MCXA366_COMMON.h']]],
+  ['usb_5fbase_5fptrs_7',['USB_BASE_PTRS',['../a01085.html#abb481a231c7c57907377d7ee985f826c',1,'MCXA366_COMMON.h']]],
+  ['usb_5firqs_8',['USB_IRQS',['../a01085.html#a17e92a5c4b8217467adbbc5ab517c72f',1,'MCXA366_COMMON.h']]],
+  ['utick0_9',['UTICK0',['../a01085.html#a27df3377d683e651d70da7a2b934ae01',1,'UTICK0:&#160;MCXA366_COMMON.h'],['../a01268.html#a27df3377d683e651d70da7a2b934ae01',1,'UTICK0:&#160;MCXL255_cm33_COMMON.h']]],
+  ['utick0_5fbase_10',['UTICK0_BASE',['../a01085.html#a8f061d8be59916d8cf7eb85a30fb616a',1,'UTICK0_BASE:&#160;MCXA366_COMMON.h'],['../a01268.html#a8f061d8be59916d8cf7eb85a30fb616a',1,'UTICK0_BASE:&#160;MCXL255_cm33_COMMON.h']]],
+  ['utick_5fbase_5faddrs_11',['UTICK_BASE_ADDRS',['../a01085.html#aebeee370f606f8ac27c40b4248b2623d',1,'UTICK_BASE_ADDRS:&#160;MCXA366_COMMON.h'],['../a01268.html#aebeee370f606f8ac27c40b4248b2623d',1,'UTICK_BASE_ADDRS:&#160;MCXL255_cm33_COMMON.h']]],
+  ['utick_5fbase_5fptrs_12',['UTICK_BASE_PTRS',['../a01085.html#a8121825f0a7b10493b1ce3f4e58723fb',1,'UTICK_BASE_PTRS:&#160;MCXA366_COMMON.h'],['../a01268.html#a8121825f0a7b10493b1ce3f4e58723fb',1,'UTICK_BASE_PTRS:&#160;MCXL255_cm33_COMMON.h']]],
+  ['utick_5firqs_13',['UTICK_IRQS',['../a01085.html#a7a8d9889824b72d3249e0092c4fa8b83',1,'UTICK_IRQS:&#160;MCXA366_COMMON.h'],['../a01268.html#a7a8d9889824b72d3249e0092c4fa8b83',1,'UTICK_IRQS:&#160;MCXL255_cm33_COMMON.h']]]
+];

@@ -1,0 +1,36 @@
+var a01746 =
+[
+    [ "ESPI Register Masks", "a01747.html", "a01747" ],
+    [ "ESPI_Type", "a02575.html", [
+      [ "MCTRL", "a01658.html#ga2cf7bd6f5619137ee58319839adea7b4", null ],
+      [ "MSTAT", "a01658.html#gab208634fb4691e0aa96667c5f7704dbf", null ],
+      [ "INTENSET", "a01658.html#ga106cb4bbd0207399136f3e8a5b82b54a", null ],
+      [ "INTENCLR", "a01658.html#ga1482179fd7d58f9593b585ece3282652", null ],
+      [ "INTSTAT", "a01658.html#ga3067bdbbe83d541585a9d703e18281eb", null ],
+      [ "DMACTRL", "a01658.html#ga2bf28885e357b6a32b63c1daa6283da1", null ],
+      [ "RAMBASE", "a01658.html#ga2b70c91233b68134bde96c97dc7a03d4", null ],
+      [ "MAPBASE", "a01658.html#ga0ef45d726a306ce06b2f0a059c99134f", null ],
+      [ "IRQPUSH", "a01658.html#gad27b4321d8f6bf41e9235d5d253bc975", null ],
+      [ "WIREWO", "a01658.html#gaa5d58b28fccc0bb551f0cc3a16e9702a", null ],
+      [ "WIRERO", "a01658.html#ga2a07eaf1ea4afbdc873b4ee6d98b5ecf", null ],
+      [ "P80STAT", "a01658.html#gaf9cfa4af9d62d502c7579c70bb172eb8", null ],
+      [ "STATADDR", "a01658.html#ga59ca3e796fe28ff007dda9092f64e37a", null ],
+      [ "ESPICAP", "a01658.html#ga8aa0ec873a7e1a7794160c0b191e734c", null ],
+      [ "ESPICFG", "a01658.html#ga3d1b9b80b5867a069123705a3416ec7c", null ],
+      [ "ESPIMISC", "a01658.html#ga4825159e9167bbf35a6f7a710e672c05", null ],
+      [ "BBANG", "a01658.html#ga638698f1e88a573824e607692bd3c6fa", null ],
+      [ "CFG", "a01658.html#gab8a5bc3ccd1f3274fd23d9c9ec8220a0", null ],
+      [ "STAT", "a01658.html#ga0f589f8ef4a6f2b4ba05f3642323affa", null ],
+      [ "IRULESTAT", "a01658.html#gaf21075a444cf1e3f7f27c90ab5d86bf1", null ],
+      [ "ADDR", "a01658.html#gad972991e7d1b4d2e83fd04bf0f5530a5", null ],
+      [ "OMFLEN", "a01658.html#ga4d0129c831630bc57fa44354532b7d67", null ],
+      [ "DATAIN", "a01658.html#ga295572baa008d83de1db4f1a6851ecb5", null ],
+      [ "DATAOUT", "a01658.html#gad79a37b29f89682a58e4f58001512fcc", null ],
+      [ "RAMUSE", "a01658.html#gae4e520f0676b879f7a08a1b75d961349", null ]
+    ] ],
+    [ "ESPI0_BASE", "a01746.html#ga210e3659aada6aabf494f1991f3abbdf", null ],
+    [ "ESPI0", "a01746.html#ga66e80ac9d1f88b889f012a97c554f1d4", null ],
+    [ "ESPI_BASE_ADDRS", "a01746.html#ga5c0e0d7f64cc3c3992f2c2076653d29a", null ],
+    [ "ESPI_BASE_PTRS", "a01746.html#ga7506d09a5f8192dee46a547985157819", null ],
+    [ "ESPI_IRQS", "a01746.html#ga3c81a3502ab4a2ab9d648eab97e7c364", null ]
+];

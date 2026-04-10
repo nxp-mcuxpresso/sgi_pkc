@@ -107,90 +107,9 @@ $(function(){initNavTree('a00872.html','',''); });
 <div class="contents">
 
 <p>Defines all modes of <a class="el" href="a00871.html" title="mcuxClRandomModes">mcuxClRandomModes</a>.  
-<a href="#details">More...</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga3a5c639b5390a87053e4afe76313dbb9" id="r_ga3a5c639b5390a87053e4afe76313dbb9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3a5c639b5390a87053e4afe76313dbb9">mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG4</a></td></tr>
-<tr class="memdesc:ga3a5c639b5390a87053e4afe76313dbb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode for a NIST SP800-90A CTR_DRBG based on AES-256 configured to not provide prediction resistance and realize a DRG.4 at 256 bit security level.  <br /></td></tr>
-<tr class="memitem:ga666380b1403bb1e873899802474c8787" id="r_ga666380b1403bb1e873899802474c8787"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga666380b1403bb1e873899802474c8787">mcuxClRandomModes_Mode_CtrDrbg_AES256</a></td></tr>
-<tr class="memdesc:ga666380b1403bb1e873899802474c8787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode for a NIST SP800-90A CTR_DRBG based on AES-256 configured to not provide prediction resistance.  <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ga9a6dad1896494a4a73045f18ff9d4115" id="r_ga9a6dad1896494a4a73045f18ff9d4115"><td class="memItemLeft">const <a class="el" href="a00870.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga9a6dad1896494a4a73045f18ff9d4115">mcuxClRandomModes_mdCtrDrbg_AES256_DRG3</a></td></tr>
-<tr class="memdesc:ga9a6dad1896494a4a73045f18ff9d4115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode for a NIST SP800-90A CTR_DRBG based on AES-256 configured to not provide prediction resistance and realize a DRG.3 at 256 bit security level.  <br /></td></tr>
-<tr class="memitem:ga9c9ed443b4f5c49367574fc89c95ae9c" id="r_ga9c9ed443b4f5c49367574fc89c95ae9c"><td class="memItemLeft"><a id="ga9c9ed443b4f5c49367574fc89c95ae9c" name="ga9c9ed443b4f5c49367574fc89c95ae9c"></a>
-static const <a class="el" href="a00870.html#ga2998181a66cbdc063aa08d76e5fdef9d">mcuxClRandom_Mode_t</a>&#160;</td><td class="memItemRight"><b>mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3</b></td></tr>
-</table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+</p>
 <div class="textblock"><p>Defines all modes of <a class="el" href="a00871.html" title="mcuxClRandomModes">mcuxClRandomModes</a>. </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga3a5c639b5390a87053e4afe76313dbb9" name="ga3a5c639b5390a87053e4afe76313dbb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3a5c639b5390a87053e4afe76313dbb9">&#9670;&#160;</a></span>mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG4</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG4</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Mode for a NIST SP800-90A CTR_DRBG based on AES-256 configured to not provide prediction resistance and realize a DRG.4 at 256 bit security level. </p>
-<p>This mode realizes a NIST SP800-90A CTR_DRBG based on AES-256 which does not provide prediction resistance. It is designed in a way to comply to FIPS 140-3 on the one hand and realize a DRG.4 at 256 bit security level on the other. For an up to date list of evaluations and certifications one should refer to the product (HW) documentation.</p>
-<p>NOTE: This mode is an alias of mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3 and does not perform any internal reseeding. To realize the desired DRG.4 functionality by on-demand reseeding, the mcuxClRandom_reseed function is provided. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01165.html#_a3">mcuxClRandomModes_CtrDrbg_AES256_DRG4_example.c</a>, and <a class="el" href="a01167.html#_a4">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="ga666380b1403bb1e873899802474c8787" name="ga666380b1403bb1e873899802474c8787"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga666380b1403bb1e873899802474c8787">&#9670;&#160;</a></span>mcuxClRandomModes_Mode_CtrDrbg_AES256</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define mcuxClRandomModes_Mode_CtrDrbg_AES256</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Mode for a NIST SP800-90A CTR_DRBG based on AES-256 configured to not provide prediction resistance. </p>
-<p>This mode realizes a NIST SP800-90A CTR_DRBG based on AES-256 which does not provide prediction resistance and is designed in a way to comply to FIPS 140-3. For an up to date list of evaluations and certifications one should refer to the product (HW) documentation.</p>
-<p>This is an alias of mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3, as both modes offer the same functionality. </p>
-
-</div>
-</div>
-<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="ga9a6dad1896494a4a73045f18ff9d4115" name="ga9a6dad1896494a4a73045f18ff9d4115"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9a6dad1896494a4a73045f18ff9d4115">&#9670;&#160;</a></span>mcuxClRandomModes_mdCtrDrbg_AES256_DRG3</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00870.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> mcuxClRandomModes_mdCtrDrbg_AES256_DRG3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Mode for a NIST SP800-90A CTR_DRBG based on AES-256 configured to not provide prediction resistance and realize a DRG.3 at 256 bit security level. </p>
-<p>This mode realizes a NIST SP800-90A CTR_DRBG based on AES-256 which does not provide prediction resistance. It is designed in a way to comply to FIPS 140-3 on the one hand and realize a DRG.3 at 256 bit security level on the other. For an up to date list of evaluations and certifications one should refer to the product (HW) documentation. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

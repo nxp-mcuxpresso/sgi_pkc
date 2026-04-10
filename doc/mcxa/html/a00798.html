@@ -111,11 +111,7 @@ $(function(){initNavTree('a00798.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga878fb07c7885e8b54facc7dba3690100" id="r_ga878fb07c7885e8b54facc7dba3690100"><td class="memItemLeft"><a class="el" href="a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga878fb07c7885e8b54facc7dba3690100">mcuxClEcc_EdDSA_InitPrivKeyInputMode</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession, <a class="el" href="a00840.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a> *generationMode, const uint8_t *pPrivKey)</td></tr>
-<tr class="memdesc:ga878fb07c7885e8b54facc7dba3690100"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes an EdDSA mode descriptor for EdDSA key pair generation with private key input.  <br /></td></tr>
-<tr class="memitem:ga5a82f1ad8d6418a0cc3ed6632053f5f8" id="r_ga5a82f1ad8d6418a0cc3ed6632053f5f8"><td class="memItemLeft"><a class="el" href="a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga5a82f1ad8d6418a0cc3ed6632053f5f8">mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession, const <a class="el" href="a00803.html#ga365359e63f156889e46845381455b321">mcuxClEcc_EdDSA_DomainParams_t</a> *pDomainParams, <a class="el" href="a00910.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *pSignatureMode, uint32_t phflag, <a class="el" href="a00784.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pContext, uint32_t contextLen)</td></tr>
-<tr class="memdesc:ga5a82f1ad8d6418a0cc3ed6632053f5f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the signature mode descriptor generation for Ed25519ctx, Ed25519ph, Ed448 and Ed448ph.  <br /></td></tr>
-<tr class="memitem:ga1deb22c96b88674a4513e56cdd2dfe3a" id="r_ga1deb22c96b88674a4513e56cdd2dfe3a"><td class="memItemLeft"><a class="el" href="a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga1deb22c96b88674a4513e56cdd2dfe3a">mcuxClEcc_WeierECC_GenerateDomainParams</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession, <a class="el" href="a00803.html#gafe84edad82c8934ef1634e9f29effa55">mcuxClEcc_Weier_DomainParams_t</a> *pEccWeierDomainParams, <a class="el" href="a01055.html">mcuxClEcc_Weier_BasicDomainParams_t</a> *pEccWeierBasicDomainParams, uint32_t options)</td></tr>
+<tr class="memitem:ga1deb22c96b88674a4513e56cdd2dfe3a" id="r_ga1deb22c96b88674a4513e56cdd2dfe3a"><td class="memItemLeft"><a class="el" href="a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga1deb22c96b88674a4513e56cdd2dfe3a">mcuxClEcc_WeierECC_GenerateDomainParams</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession, <a class="el" href="a00803.html#gafe84edad82c8934ef1634e9f29effa55">mcuxClEcc_Weier_DomainParams_t</a> *pEccWeierDomainParams, <a class="el" href="a01016.html">mcuxClEcc_Weier_BasicDomainParams_t</a> *pEccWeierBasicDomainParams, uint32_t options)</td></tr>
 <tr class="memdesc:ga1deb22c96b88674a4513e56cdd2dfe3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC Weierstrass custom domain parameter generation function.  <br /></td></tr>
 <tr class="memitem:gaf5bdc4291b8564a9d6cab3794456b840" id="r_gaf5bdc4291b8564a9d6cab3794456b840"><td class="memItemLeft"><a class="el" href="a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf5bdc4291b8564a9d6cab3794456b840">mcuxClEcc_WeierECC_GenerateCustomKeyType</a> (<a class="el" href="a00840.html#ga4249d6ccc1dab6d15b46270da3c3d6d4">mcuxClKey_CustomType_t</a> customType, <a class="el" href="a00840.html#gaf6b6555b802edd08c36e427a4631979e">mcuxClKey_AlgorithmId_t</a> algoId, <a class="el" href="a00840.html#ga90c030f08081016123496c56021b9bab">mcuxClKey_Size_t</a> size, void *pCustomParams, <a class="el" href="a00840.html#ga3a6dadf6672be586930b9456e152889e">mcuxClKey_Encoding_t</a> plainEncoding)</td></tr>
 <tr class="memdesc:gaf5bdc4291b8564a9d6cab3794456b840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type constructor.  <br /></td></tr>
@@ -125,116 +121,6 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines all functions of <a class="el" href="a00795.html" title="mcuxClEcc">mcuxClEcc</a>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga878fb07c7885e8b54facc7dba3690100" name="ga878fb07c7885e8b54facc7dba3690100"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga878fb07c7885e8b54facc7dba3690100">&#9670;&#160;</a></span>mcuxClEcc_EdDSA_InitPrivKeyInputMode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a> mcuxClEcc_EdDSA_InitPrivKeyInputMode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>pSession</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00840.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>generationMode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t *</td>          <td class="paramname"><span class="paramname"><em>pPrivKey</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function initializes an EdDSA mode descriptor for EdDSA key pair generation with private key input. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pSession</td><td>Handle for the current CL session </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">[in/out]</td><td>generationMode Pointer to mode descriptor to be initialized for EdDSA key pair generation with private key input </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pPrivKey</td><td>Pointer to private key input</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A code-flow protected error code (see MCUXCLECC_STATUS_) </dd></dl>
-<dl class="retval"><dt>Return values</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="a00998.html#gafed6866e44c300e1946713be81aefb9c" title="Operation was successful.">MCUXCLECC_STATUS_OK</a></td><td>EdDSA mode descriptor has been initialized successfully </td></tr>
-    <tr><td class="paramname"><a class="el" href="a00998.html#ga9d53aaec17a413449e5cb6b73702c2c3" title="Fault attack (unexpected behavior) is detected.">MCUXCLECC_STATUS_FAULT_ATTACK</a></td><td>fault attack (unexpected behavior) is detected </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01136.html#a14">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a01137.html#a15">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, and <a class="el" href="a01139.html#a14">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="ga5a82f1ad8d6418a0cc3ed6632053f5f8" name="ga5a82f1ad8d6418a0cc3ed6632053f5f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5a82f1ad8d6418a0cc3ed6632053f5f8">&#9670;&#160;</a></span>mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00803.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a> mcuxClEcc_EdDSA_GenerateSignatureModeDescriptor </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>pSession</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00803.html#ga365359e63f156889e46845381455b321">mcuxClEcc_EdDSA_DomainParams_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pDomainParams</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00910.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pSignatureMode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>phflag</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00784.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>contextLen</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function implements the signature mode descriptor generation for Ed25519ctx, Ed25519ph, Ed448 and Ed448ph. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pSession</td><td>Handle for the current CL session </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pDomainParams</td><td>Pointer to domain parameters of the used curve </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pSignatureMode</td><td>Mode descriptor specifying the EdDSA variant </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">phflag</td><td>Option whether pre-hashing is enabled </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pContext</td><td>User input context for the hash prefix </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">contextLen</td><td>Length of the context</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A code-flow protected error code (see MCUXCLECC_STATUS_) </dd></dl>
-<dl class="retval"><dt>Return values</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="a00998.html#gafed6866e44c300e1946713be81aefb9c" title="Operation was successful.">MCUXCLECC_STATUS_OK</a></td><td>EdDSA signature mode descriptor generated successfully </td></tr>
-    <tr><td class="paramname"><a class="el" href="a00998.html#ga9d53aaec17a413449e5cb6b73702c2c3" title="Fault attack (unexpected behavior) is detected.">MCUXCLECC_STATUS_FAULT_ATTACK</a></td><td>fault attack (unexpected behavior) is detected </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01136.html#_a22">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, and <a class="el" href="a01137.html#_a22">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
 <a id="ga1deb22c96b88674a4513e56cdd2dfe3a" name="ga1deb22c96b88674a4513e56cdd2dfe3a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga1deb22c96b88674a4513e56cdd2dfe3a">&#9670;&#160;</a></span>mcuxClEcc_WeierECC_GenerateDomainParams()</h2>
 
@@ -254,7 +140,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01055.html">mcuxClEcc_Weier_BasicDomainParams_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pEccWeierBasicDomainParams</em></span>, </td>
+          <td class="paramtype"><a class="el" href="a01016.html">mcuxClEcc_Weier_BasicDomainParams_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pEccWeierBasicDomainParams</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -289,7 +175,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01125.html#a13">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01086.html#a13">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -344,7 +230,7 @@ Functions</h2></td></tr>
 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Algorithm based key size. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pCustomParams</td><td>Pointer to algorithm based custom parameters. If algoId &amp; MCUXCLKEY_ALGO_ID_ALGO_MASK equals<ul>
-<li>MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_EPHEMERAL_CUSTOM, a pointer to an <a class="el" href="a01055.html" title="Structure to define basic custom domain parameters for (short) Weierstrass curves with cofactor 1.">mcuxClEcc_Weier_BasicDomainParams_t</a> struct specifying custom ECC Weierstrass domain parameters</li>
+<li>MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_EPHEMERAL_CUSTOM, a pointer to an <a class="el" href="a01016.html" title="Structure to define basic custom domain parameters for (short) Weierstrass curves with cofactor 1.">mcuxClEcc_Weier_BasicDomainParams_t</a> struct specifying custom ECC Weierstrass domain parameters</li>
 <li>MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM, a pointer to an <a class="el" href="a00803.html#gafe84edad82c8934ef1634e9f29effa55" title="Type for Weierstrass ECC domain parameters.">mcuxClEcc_Weier_DomainParams_t</a> struct specifying optimized custom ECC Weierstrass domain parameters In all other cases, the pointer shall be set to NULL </li>
 </ul>
 </td></tr>
@@ -361,7 +247,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01125.html#a18">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01086.html#a18">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -426,7 +312,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01126.html#a4">mcuxClEcc_WeierECC_DecodePoint_brainpoolP384r1_example.c</a>, and <a class="el" href="a01127.html#a4">mcuxClEcc_WeierECC_DecodePoint_secp224r1_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01087.html#a4">mcuxClEcc_WeierECC_DecodePoint_brainpoolP384r1_example.c</a>, and <a class="el" href="a01088.html#a4">mcuxClEcc_WeierECC_DecodePoint_secp224r1_example.c</a>.</dd>
 </dl>
 
 </div>

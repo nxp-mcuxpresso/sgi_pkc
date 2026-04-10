@@ -1,10 +1,10 @@
 var a00870 =
 [
-    [ "mcuxClRandom_Config", "a01063.html", [
-      [ "mode", "a01063.html#ad723b63c438689b0d5c978fceb289506", null ],
-      [ "ctx", "a01063.html#a2869dc5912686dc81c5076587bb83327", null ],
-      [ "prngPatchFunction", "a01063.html#ae75595ff66d30f0ab9c18f9738b80ae1", null ],
-      [ "pCustomPrngState", "a01063.html#a73a7ff5cf8624e067dd09f69c5733d32", null ]
+    [ "mcuxClRandom_Config", "a01024.html", [
+      [ "mode", "a01024.html#ad723b63c438689b0d5c978fceb289506", null ],
+      [ "ctx", "a01024.html#a2869dc5912686dc81c5076587bb83327", null ],
+      [ "prngPatchFunction", "a01024.html#ae75595ff66d30f0ab9c18f9738b80ae1", null ],
+      [ "pCustomPrngState", "a01024.html#a73a7ff5cf8624e067dd09f69c5733d32", null ]
     ] ],
     [ "mcuxClRandom_Status_t", "a00870.html#ga768ea9930242003d2a68991684a1e948", null ],
     [ "mcuxClRandom_ContextDescriptor_t", "a00870.html#gab409cd7b1e5a4da822bf9ae43d00c79c", null ],

@@ -1,8 +1,7 @@
 var a01040 =
 [
-    [ "MCUXCLRANDOM_STATUS_ERROR", "a01040.html#ga1b55e6564466854e9bd070d5bf20c46c", null ],
-    [ "MCUXCLRANDOM_STATUS_LOW_SECURITY_STRENGTH", "a01040.html#ga1318606347b0aa4a477b68572a862552", null ],
-    [ "MCUXCLRANDOM_STATUS_INVALID_PARAM", "a01040.html#ga9b0f869c046d3055dcc6f994c9aa0191", null ],
-    [ "MCUXCLRANDOM_STATUS_OK", "a01040.html#ga951990ff5179cd6fce7310de16002b20", null ],
-    [ "MCUXCLRANDOM_STATUS_FAULT_ATTACK", "a01040.html#ga6d4a0c17c9ec70556936f749305dace8", null ]
+    [ "buffer", "a01040.html#acd3913d2b4adf01d7d95c687c578c752", null ],
+    [ "size", "a01040.html#a372ca932239a945030d51a23913c36e0", null ],
+    [ "used", "a01040.html#ab3280a7d27aa7837287e2fa4376492fb", null ],
+    [ "dirty", "a01040.html#a500aa3a1084704dbd9622a247458b9b1", null ]
 ];

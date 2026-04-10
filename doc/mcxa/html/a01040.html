@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLRANDOM_STATUS_</title>
+<title>MCUX CLNS: mcuxClSession_WorkArea Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,110 +102,90 @@ $(function(){initNavTree('a01040.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLRANDOM_STATUS_ <div class="ingroups"><a class="el" href="a00866.html">mcuxClRandom</a> &raquo; <a class="el" href="a00867.html">mcuxClRandom_Constants</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClSession_WorkArea Struct Reference<div class="ingroups"><a class="el" href="a00900.html">mcuxClSession</a> &raquo; <a class="el" href="a00903.html">mcuxClSession_Types</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>mcuxClRandom return code definitions  
-<a href="#details">More...</a></p>
+<p>Type for mcuxClSession workareas flags.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00590_source.html">mcuxClSession_Types.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga1b55e6564466854e9bd070d5bf20c46c" id="r_ga1b55e6564466854e9bd070d5bf20c46c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1b55e6564466854e9bd070d5bf20c46c">MCUXCLRANDOM_STATUS_ERROR</a></td></tr>
-<tr class="memdesc:ga1b55e6564466854e9bd070d5bf20c46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random function returned error.  <br /></td></tr>
-<tr class="memitem:ga1318606347b0aa4a477b68572a862552" id="r_ga1318606347b0aa4a477b68572a862552"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1318606347b0aa4a477b68572a862552">MCUXCLRANDOM_STATUS_LOW_SECURITY_STRENGTH</a></td></tr>
-<tr class="memdesc:ga1318606347b0aa4a477b68572a862552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Security strength of given RNG lower than requested.  <br /></td></tr>
-<tr class="memitem:ga9b0f869c046d3055dcc6f994c9aa0191" id="r_ga9b0f869c046d3055dcc6f994c9aa0191"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9b0f869c046d3055dcc6f994c9aa0191">MCUXCLRANDOM_STATUS_INVALID_PARAM</a></td></tr>
-<tr class="memdesc:ga9b0f869c046d3055dcc6f994c9aa0191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random function parameter invalid.  <br /></td></tr>
-<tr class="memitem:ga951990ff5179cd6fce7310de16002b20" id="r_ga951990ff5179cd6fce7310de16002b20"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a></td></tr>
-<tr class="memdesc:ga951990ff5179cd6fce7310de16002b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random function returned successfully.  <br /></td></tr>
-<tr class="memitem:ga6d4a0c17c9ec70556936f749305dace8" id="r_ga6d4a0c17c9ec70556936f749305dace8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6d4a0c17c9ec70556936f749305dace8">MCUXCLRANDOM_STATUS_FAULT_ATTACK</a></td></tr>
-<tr class="memdesc:ga6d4a0c17c9ec70556936f749305dace8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random function returned fault attack.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:acd3913d2b4adf01d7d95c687c578c752" id="r_acd3913d2b4adf01d7d95c687c578c752"><td class="memItemLeft">uint32_t *&#160;</td><td class="memItemRight"><a class="el" href="#acd3913d2b4adf01d7d95c687c578c752">buffer</a></td></tr>
+<tr class="memdesc:acd3913d2b4adf01d7d95c687c578c752"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the starting address of the workarea buffer.  <br /></td></tr>
+<tr class="memitem:a372ca932239a945030d51a23913c36e0" id="r_a372ca932239a945030d51a23913c36e0"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a372ca932239a945030d51a23913c36e0">size</a></td></tr>
+<tr class="memdesc:a372ca932239a945030d51a23913c36e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the workarea buffer in words (uint32_t).  <br /></td></tr>
+<tr class="memitem:ab3280a7d27aa7837287e2fa4376492fb" id="r_ab3280a7d27aa7837287e2fa4376492fb"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ab3280a7d27aa7837287e2fa4376492fb">used</a></td></tr>
+<tr class="memdesc:ab3280a7d27aa7837287e2fa4376492fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used portion of the workarea buffer in words (uint32_t).  <br /></td></tr>
+<tr class="memitem:a500aa3a1084704dbd9622a247458b9b1" id="r_a500aa3a1084704dbd9622a247458b9b1"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a500aa3a1084704dbd9622a247458b9b1">dirty</a></td></tr>
+<tr class="memdesc:a500aa3a1084704dbd9622a247458b9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum used portion of the workarea buffer in words (uint32_t).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>mcuxClRandom return code definitions </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga1b55e6564466854e9bd070d5bf20c46c" name="ga1b55e6564466854e9bd070d5bf20c46c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1b55e6564466854e9bd070d5bf20c46c">&#9670;&#160;</a></span>MCUXCLRANDOM_STATUS_ERROR</h2>
+<div class="textblock"><p>Type for mcuxClSession workareas flags. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
+<a id="acd3913d2b4adf01d7d95c687c578c752" name="acd3913d2b4adf01d7d95c687c578c752"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd3913d2b4adf01d7d95c687c578c752">&#9670;&#160;</a></span>buffer</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRANDOM_STATUS_ERROR</td>
+          <td class="memname">uint32_t* mcuxClSession_WorkArea::buffer</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Random function returned error. </p>
+<p>Pointer to the starting address of the workarea buffer. </p>
 
 </div>
 </div>
-<a id="ga1318606347b0aa4a477b68572a862552" name="ga1318606347b0aa4a477b68572a862552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1318606347b0aa4a477b68572a862552">&#9670;&#160;</a></span>MCUXCLRANDOM_STATUS_LOW_SECURITY_STRENGTH</h2>
+<a id="a372ca932239a945030d51a23913c36e0" name="a372ca932239a945030d51a23913c36e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a372ca932239a945030d51a23913c36e0">&#9670;&#160;</a></span>size</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRANDOM_STATUS_LOW_SECURITY_STRENGTH</td>
+          <td class="memname">uint32_t mcuxClSession_WorkArea::size</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Security strength of given RNG lower than requested. </p>
+<p>Size of the workarea buffer in words (uint32_t). </p>
 
 </div>
 </div>
-<a id="ga9b0f869c046d3055dcc6f994c9aa0191" name="ga9b0f869c046d3055dcc6f994c9aa0191"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9b0f869c046d3055dcc6f994c9aa0191">&#9670;&#160;</a></span>MCUXCLRANDOM_STATUS_INVALID_PARAM</h2>
+<a id="ab3280a7d27aa7837287e2fa4376492fb" name="ab3280a7d27aa7837287e2fa4376492fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3280a7d27aa7837287e2fa4376492fb">&#9670;&#160;</a></span>used</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRANDOM_STATUS_INVALID_PARAM</td>
+          <td class="memname">uint32_t mcuxClSession_WorkArea::used</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Random function parameter invalid. </p>
+<p>Used portion of the workarea buffer in words (uint32_t). </p>
 
 </div>
 </div>
-<a id="ga951990ff5179cd6fce7310de16002b20" name="ga951990ff5179cd6fce7310de16002b20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga951990ff5179cd6fce7310de16002b20">&#9670;&#160;</a></span>MCUXCLRANDOM_STATUS_OK</h2>
+<a id="a500aa3a1084704dbd9622a247458b9b1" name="a500aa3a1084704dbd9622a247458b9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a500aa3a1084704dbd9622a247458b9b1">&#9670;&#160;</a></span>dirty</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRANDOM_STATUS_OK</td>
+          <td class="memname">uint32_t mcuxClSession_WorkArea::dirty</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Random function returned successfully. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01163.html#_a4">mcuxClRandomModes_CtrDrbg_AES256_DRG3_example.c</a>, <a class="el" href="a01165.html#_a5">mcuxClRandomModes_CtrDrbg_AES256_DRG4_example.c</a>, <a class="el" href="a01164.html#_a6">mcuxClRandomModes_Different_Sessions_example.c</a>, <a class="el" href="a01166.html#_a9">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, <a class="el" href="a01167.html#_a6">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>, <a class="el" href="a01161.html#_a7">mcuxClRandom_PRNG_Patch_example.c</a>, and <a class="el" href="a01162.html#_a4">mcuxClRandom_PRNG_Seed_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="ga6d4a0c17c9ec70556936f749305dace8" name="ga6d4a0c17c9ec70556936f749305dace8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6d4a0c17c9ec70556936f749305dace8">&#9670;&#160;</a></span>MCUXCLRANDOM_STATUS_FAULT_ATTACK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRANDOM_STATUS_FAULT_ATTACK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Random function returned fault attack. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01166.html#_a7">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>, and <a class="el" href="a01161.html#_a5">mcuxClRandom_PRNG_Patch_example.c</a>.</dd>
-</dl>
+<p>Maximum used portion of the workarea buffer in words (uint32_t). </p>
 
 </div>
 </div>
@@ -222,6 +202,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a href="a01040.html">mcuxClSession_WorkArea</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

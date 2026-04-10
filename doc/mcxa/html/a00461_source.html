@@ -99,7 +99,7 @@ $(function(){initNavTree('a00461_source.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a href="a00461.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2021-2025 NXP                                                  */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2021-2026 NXP                                                  */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* NXP Confidential and Proprietary. This software is owned or controlled   */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/* by NXP and may only be used strictly in accordance with the applicable   */</span></div>
@@ -114,10 +114,10 @@ $(function(){initNavTree('a00461_source.html','',''); });
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef MCUXCLKEY_CONSTANTS_H_</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define MCUXCLKEY_CONSTANTS_H_</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;ip_platform.h&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;mcuxCsslAnalysis.h&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;mcuxCsslAnalysis.h&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;platform_specific_headers.h&gt;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">/**********************************************</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> * CONSTANTS</span></div>
@@ -158,7 +158,7 @@ $(function(){initNavTree('a00461_source.html','',''); });
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a00835.html#gad4879e15a76d3c52e08855d993ba252e">   86</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_SM2                                (0x00809000u)  </span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a00835.html#gad51657624280512bd92719790363d763">   87</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_EPHEMERAL_CUSTOM      (0x00709000u)  </span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a00835.html#ga8de9456ab126f7227b1077462fbca3b4">   88</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM         (0x0060A000u)  </span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a00835.html#ga328e925948239535ffd16507ca850709">   89</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_KYBER                              (0x0050B000u)  </span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a00835.html#gaecba8a09f0fa66f567f0358fa9a8d2a6">   89</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_MLKEM                              (0x0050B000u)  </span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a00835.html#ga46caf00a0a205d8de66cfc5f65e783cc">   90</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_MLDSA                              (0x0040C000u)  </span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a00835.html#gac650c6066ab7e04ef2ea206e411e5e91">   91</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_GMAC                               (0x00601000u)  </span></div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a00835.html#gaebdbc34c8207f9184531eabc96e00620">   92</a></span><span class="preprocessor">#define MCUXCLKEY_ALGO_ID_FFDH                               (0x0020E000u)  </span></div>

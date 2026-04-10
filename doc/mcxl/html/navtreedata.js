@@ -26,8 +26,8 @@ var NAVTREE =
 [
   [ "MCUX CLNS", "index.html", [
     [ "User Manual of Crypto Library Normal Secure (CLNS)", "index.html", "index" ],
-    [ "User Guidance Manual", "a01185.html", null ],
-    [ "General User Security Guidance", "a01186.html", null ],
+    [ "User Guidance Manual", "a01146.html", null ],
+    [ "General User Security Guidance", "a01147.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
@@ -41,7 +41,7 @@ var NAVTREE =
       [ "Globals", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", "globals_vars" ],
+        [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", "globals_defs" ]
       ] ]
@@ -53,13 +53,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "a00284_source.html",
-"a00650.html",
-"a00798.html#ga878fb07c7885e8b54facc7dba3690100",
-"a00819.html#ga5a2f3c25cf99ceb579c18218af5a1269",
-"a00854.html#ga08e000e31df077b27186e532e59c90f9",
-"a00924.html#ga528d28a827727ba460795460a30cccfd",
-"a00967.html#ga09971b594be3d77043145756712bd1bb",
-"a01030.html"
+"a00656.html",
+"a00803.html#gafe84edad82c8934ef1634e9f29effa55",
+"a00839.html#ga5faf77a895683e1e7d904bd323abc38d",
+"a00905.html",
+"a00945.html#gadff057603f2018ef9440b0e981353a48",
+"a00996.html#ga0ceccd500c623d1bd5c3a6353024262b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

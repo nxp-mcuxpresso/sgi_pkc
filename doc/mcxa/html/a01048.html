@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLECC_EDDSA_SIGNATURE_PROTOCOL_DESC_SIZE_</title>
+<title>MCUX CLNS: mcuxClSession_JobContext_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,59 +102,37 @@ $(function(){initNavTree('a01048.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLECC_EDDSA_SIGNATURE_PROTOCOL_DESC_SIZE_ <div class="ingroups"><a class="el" href="a00795.html">mcuxClEcc</a> &raquo; <a class="el" href="a00984.html">mcuxClEcc_MemoryConsumption</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClSession_JobContext_t Struct Reference<div class="ingroups"><a class="el" href="a00900.html">mcuxClSession</a> &raquo; <a class="el" href="a00903.html">mcuxClSession_Types</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Define for the EdDSA signature protocol descriptor size.  
-<a href="#details">More...</a></p>
+<p>Type for mcuxClSession non-blocking job context.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00590_source.html">mcuxClSession_Types.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga045352e805adba9dfc25b087371872a6" id="r_ga045352e805adba9dfc25b087371872a6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga045352e805adba9dfc25b087371872a6">MCUXCLECC_EDDSA_SIGNATURE_PROTOCOL_DESCRIPTOR_SIZE</a></td></tr>
-<tr class="memdesc:ga045352e805adba9dfc25b087371872a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">EdDSA signature generation descriptor size.  <br /></td></tr>
-<tr class="memitem:ga506d1f24af8a6f12335d65ddb6be97fb" id="r_ga506d1f24af8a6f12335d65ddb6be97fb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga506d1f24af8a6f12335d65ddb6be97fb">MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_PROTOCOL_DESCRIPTOR</a>(contextLen)</td></tr>
-<tr class="memdesc:ga506d1f24af8a6f12335d65ddb6be97fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte length of an Ed25519 signature protocol descriptor.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a68f29ea35b081046ad9ff7dd0a7a9b62" id="r_a68f29ea35b081046ad9ff7dd0a7a9b62"><td class="memItemLeft"><a id="a68f29ea35b081046ad9ff7dd0a7a9b62" name="a68f29ea35b081046ad9ff7dd0a7a9b62"></a>
+<a class="el" href="a01044.html">mcuxClSession_Channels_t</a>&#160;</td><td class="memItemRight"><b>dmaChannels</b></td></tr>
+<tr class="memitem:ac153865758bbaaa9efb1e354e5a31abf" id="r_ac153865758bbaaa9efb1e354e5a31abf"><td class="memItemLeft"><a id="ac153865758bbaaa9efb1e354e5a31abf" name="ac153865758bbaaa9efb1e354e5a31abf"></a>
+<a class="el" href="a00903.html#ga42c3a8209ec86638ca74f4a017b1215a">mcuxClSession_Callback_t</a>&#160;</td><td class="memItemRight"><b>pUserCallback</b></td></tr>
+<tr class="memitem:a83fcb8abed80559f52080a4f97a38c62" id="r_a83fcb8abed80559f52080a4f97a38c62"><td class="memItemLeft"><a id="a83fcb8abed80559f52080a4f97a38c62" name="a83fcb8abed80559f52080a4f97a38c62"></a>
+void *&#160;</td><td class="memItemRight"><b>pUserData</b></td></tr>
+<tr class="memitem:ab183d514f2c0b8ff0dea093e4566a705" id="r_ab183d514f2c0b8ff0dea093e4566a705"><td class="memItemLeft"><a id="ab183d514f2c0b8ff0dea093e4566a705" name="ab183d514f2c0b8ff0dea093e4566a705"></a>
+mcuxClSession_HwInterruptHandler_t&#160;</td><td class="memItemRight"><b>pCallBackDMA</b></td></tr>
+<tr class="memitem:a7654dc0d20e15ae80f09545e2c85aa53" id="r_a7654dc0d20e15ae80f09545e2c85aa53"><td class="memItemLeft"><a id="a7654dc0d20e15ae80f09545e2c85aa53" name="a7654dc0d20e15ae80f09545e2c85aa53"></a>
+uint32_t&#160;</td><td class="memItemRight"><b>protectionToken_pCallBackDMA</b></td></tr>
+<tr class="memitem:a3af792229e803e0e038d53f6fc825183" id="r_a3af792229e803e0e038d53f6fc825183"><td class="memItemLeft"><a id="a3af792229e803e0e038d53f6fc825183" name="a3af792229e803e0e038d53f6fc825183"></a>
+mcuxClSession_HwInterruptHandler_t&#160;</td><td class="memItemRight"><b>pCallBackCopro</b></td></tr>
+<tr class="memitem:ac14c735e4028402edf48d4e26979cfcf" id="r_ac14c735e4028402edf48d4e26979cfcf"><td class="memItemLeft"><a id="ac14c735e4028402edf48d4e26979cfcf" name="ac14c735e4028402edf48d4e26979cfcf"></a>
+uint32_t&#160;</td><td class="memItemRight"><b>protectionToken_pCallBackCopro</b></td></tr>
+<tr class="memitem:a9332c1fe32fc6f701f121d9848d5984c" id="r_a9332c1fe32fc6f701f121d9848d5984c"><td class="memItemLeft"><a id="a9332c1fe32fc6f701f121d9848d5984c" name="a9332c1fe32fc6f701f121d9848d5984c"></a>
+void *&#160;</td><td class="memItemRight"><b>pClWorkarea</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Define for the EdDSA signature protocol descriptor size. </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga045352e805adba9dfc25b087371872a6" name="ga045352e805adba9dfc25b087371872a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga045352e805adba9dfc25b087371872a6">&#9670;&#160;</a></span>MCUXCLECC_EDDSA_SIGNATURE_PROTOCOL_DESCRIPTOR_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLECC_EDDSA_SIGNATURE_PROTOCOL_DESCRIPTOR_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>EdDSA signature generation descriptor size. </p>
-
-</div>
-</div>
-<a id="ga506d1f24af8a6f12335d65ddb6be97fb" name="ga506d1f24af8a6f12335d65ddb6be97fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga506d1f24af8a6f12335d65ddb6be97fb">&#9670;&#160;</a></span>MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_PROTOCOL_DESCRIPTOR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLECC_EDDSA_ED25519_SIZE_SIGNATURE_PROTOCOL_DESCRIPTOR</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>contextLen</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Byte length of an Ed25519 signature protocol descriptor. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Type for mcuxClSession non-blocking job context. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -167,6 +145,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a href="a01048.html">mcuxClSession_JobContext_t</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

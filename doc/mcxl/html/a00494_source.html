@@ -139,13 +139,20 @@ $(function(){initNavTree('a00494_source.html','',''); });
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a00846.html#ga55e9279a13efd1dd87affcc88f3eb34a">   75</a></span><span class="keyword">typedef</span> <a class="code hl_typedef" href="a00846.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a> * <span class="keyword">const</span> <a class="code hl_typedef" href="a00846.html#ga55e9279a13efd1dd87affcc88f3eb34a">mcuxClMac_CustomMode_t</a>;</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">struct </span>mcuxClMac_Context;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#ifdef MCUXCL_FEATURE_MAC_SELFTEST</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">struct </span>mcuxClMac_TestDescriptor;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34">   98</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClMac_Context <a class="code hl_typedef" href="a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a>;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> <span class="comment">/* mcuxClMac_Types */</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLMAC_TYPES_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClMac_TestDescriptor mcuxClMac_TestDescriptor_t;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">typedef</span> <span class="keyword">const</span> mcuxClMac_TestDescriptor_t * <span class="keyword">const</span> mcuxClMac_Test_t;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCL_FEATURE_MAC_SELFTEST */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">struct </span>mcuxClMac_Context;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34">  122</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClMac_Context <a class="code hl_typedef" href="a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> <span class="comment">/* mcuxClMac_Types */</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLMAC_TYPES_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aa00362_html"><div class="ttname"><a href="a00362.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
 <div class="ttc" id="aa00590_html"><div class="ttname"><a href="a00590.html">mcuxClSession_Types.h</a></div><div class="ttdoc">Type definitions for the mcuxClSession component.</div></div>
 <div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
@@ -153,7 +160,7 @@ $(function(){initNavTree('a00494_source.html','',''); });
 <div class="ttc" id="aa00846_html_ga8e9aa3b88af43aaf819650568abc471f"><div class="ttname"><a href="a00846.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a></div><div class="ttdeci">const mcuxClMac_ModeDescriptor_t *const mcuxClMac_Mode_t</div><div class="ttdoc">MAC mode/algorithm type.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:67</div></div>
 <div class="ttc" id="aa00846_html_gaad5e6326d43f28d324ef2d98ac3ad2cc"><div class="ttname"><a href="a00846.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a></div><div class="ttdeci">struct mcuxClMac_ModeDescriptor mcuxClMac_ModeDescriptor_t</div><div class="ttdoc">MAC mode/algorithm descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:60</div></div>
 <div class="ttc" id="aa00846_html_gaca63aa917056a18f99a911f329f3971b"><div class="ttname"><a href="a00846.html#gaca63aa917056a18f99a911f329f3971b">mcuxClMac_Status_t</a></div><div class="ttdeci">uint32_t mcuxClMac_Status_t</div><div class="ttdoc">Type for Mac component error codes.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:44</div></div>
-<div class="ttc" id="aa00846_html_gaf804dbff6e0d68d2d877b21995ed5c34"><div class="ttname"><a href="a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a></div><div class="ttdeci">struct mcuxClMac_Context mcuxClMac_Context_t</div><div class="ttdoc">Mac context type.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:98</div></div>
+<div class="ttc" id="aa00846_html_gaf804dbff6e0d68d2d877b21995ed5c34"><div class="ttname"><a href="a00846.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a></div><div class="ttdeci">struct mcuxClMac_Context mcuxClMac_Context_t</div><div class="ttdoc">Mac context type.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:122</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

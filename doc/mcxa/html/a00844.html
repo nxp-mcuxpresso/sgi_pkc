@@ -204,7 +204,7 @@ For GMAC, the H-key is created and always loaded to SGI KEY2. It is caller's res
   </dd>
 </dl>
 <dl class="section attention"><dt>Attention</dt><dd>For non-blocking modes: The <code class="param">inLength</code> has an upper limit of 0x7fff0 bytes. Also, if the <code class="param">inLength</code> is small (only a few blocks of data), this function is not guaranteed to return in a non-blocking matter, but might return after all data was already processed. The status code shall be used as an indicator, where only <a class="el" href="a00842.html#gaa4205233c5a383270d954c792515a935" title="MCUXCLMAC_STATUS_JOB_STARTED">MCUXCLMAC_STATUS_JOB_STARTED</a> indicates that a non-blocking operation has started. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01159.html#a15">mcuxClHmac_Sw_Oneshot_example.c</a>, <a class="el" href="a01157.html#a16">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, <a class="el" href="a01154.html#a12">mcuxClMacModes_Cmac_Aes128_Compute_PreloadedKey_example.c</a>, <a class="el" href="a01155.html#a10">mcuxClMacModes_Cmac_Aes128_Compute_example.c</a>, and <a class="el" href="a01156.html#a10">mcuxClMacModes_Cmac_Aes256_Compute_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01120.html#a15">mcuxClHmac_Sw_Oneshot_example.c</a>, <a class="el" href="a01118.html#a16">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, <a class="el" href="a01115.html#a12">mcuxClMacModes_Cmac_Aes128_Compute_PreloadedKey_example.c</a>, <a class="el" href="a01116.html#a10">mcuxClMacModes_Cmac_Aes128_Compute_example.c</a>, and <a class="el" href="a01117.html#a10">mcuxClMacModes_Cmac_Aes256_Compute_example.c</a>.</dd>
 </dl>
 
 </div>

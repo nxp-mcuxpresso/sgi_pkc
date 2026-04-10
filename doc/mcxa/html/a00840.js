@@ -1,6 +1,6 @@
 var a00840 =
 [
-    [ "mcuxClKey_Agreement_AdditionalInput", "a01059.html", null ],
+    [ "mcuxClKey_Agreement_AdditionalInput", "a01020.html", null ],
     [ "mcuxClKey_Status_t", "a00840.html#gaa19905c3963849a56ee26a9b0e5013f5", null ],
     [ "mcuxClKey_AlgorithmId_t", "a00840.html#gaf6b6555b802edd08c36e427a4631979e", null ],
     [ "mcuxClKey_Size_t", "a00840.html#ga90c030f08081016123496c56021b9bab", null ],

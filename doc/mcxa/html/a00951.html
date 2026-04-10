@@ -166,14 +166,14 @@ Functions</h2></td></tr>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname"><a class="el" href="a00953.html#gab40f0fb87e67df3338f94f6d0f758f1a" title="The length passed to Memory Compare is zero.">MCUXCSSLMEMORY_STATUS_ZERO_LENGTH</a></td><td>If <code class="param">length</code> is zero. </td></tr>
-    <tr><td class="paramname"><a class="el" href="a00953.html#gafaad4a560714fdff8064ba9a50f7d572" title="The two contents of the Memory Compare are equal.">MCUXCSSLMEMORY_STATUS_EQUAL</a></td><td>If the contents of <code class="param">lhs</code> and <code class="param">rhs</code> are equal. </td></tr>
+    <tr><td class="paramname"><a class="el" href="a00953.html#gafaad4a560714fdff8064ba9a50f7d572" title="The two contents of the Memory Compare are equal.">MCUXCSSLMEMORY_STATUS_EQUAL</a></td><td>If the contents of <code class="param">lhs</code> and <code class="param">rhs</code> are equal and <code class="param">lenght</code> is not zero. </td></tr>
     <tr><td class="paramname"><a class="el" href="a00953.html#ga2b5d2b24036bee244a9e7310160b3035" title="The two contents of the Memory Compare are not equal.">MCUXCSSLMEMORY_STATUS_NOT_EQUAL</a></td><td>If the contents of <code class="param">lhs</code> and <code class="param">rhs</code> are not equal. </td></tr>
-    <tr><td class="paramname"><a class="el" href="a00953.html#ga0e60adf6203cb3acb2bdb3ddec166766" title="A parameter was invalid.">MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</a></td><td>If one of the parameters was invalid (i.e. <code class="param">lhs</code> or <code class="param">rhs</code> was NULL). </td></tr>
+    <tr><td class="paramname"><a class="el" href="a00953.html#ga0e60adf6203cb3acb2bdb3ddec166766" title="A parameter was invalid.">MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</a></td><td>If either <code class="param">lhs</code> or <code class="param">rhs</code> was NULL, <code class="param">lhs</code> and <code class="param">rhs</code> are equal. </td></tr>
     <tr><td class="paramname"><a class="el" href="a00953.html#gaf0923b98a5db9fd23732989986d72f4d" title="A fault occurred in the execution.">MCUXCSSLMEMORY_STATUS_FAULT</a></td><td>If a fault was detected. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01180.html#a1">mcuxCsslMemory_Compare_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01141.html#a1">mcuxCsslMemory_Compare_example.c</a>.</dd>
 </dl>
 
 </div>

@@ -115,7 +115,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaf1b8776b0d519136df17f6dd632442cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a Crypto Library session.  <br /></td></tr>
 <tr class="memitem:gade3d6d6bba82f2224685d20e3838cb11" id="r_gade3d6d6bba82f2224685d20e3838cb11"><td class="memItemLeft"><a class="el" href="a00903.html#ga9f2ec672d5a5fe92159f0e6159e04e4e">mcuxClSession_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gade3d6d6bba82f2224685d20e3838cb11">mcuxClSession_setResource</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a00877.html#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a> *pResourceCtx)</td></tr>
 <tr class="memdesc:gade3d6d6bba82f2224685d20e3838cb11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the resource context in a Crypto Library session.  <br /></td></tr>
-<tr class="memitem:gad4f268ebb521716b8d5f8cb8fbf1c08a" id="r_gad4f268ebb521716b8d5f8cb8fbf1c08a"><td class="memItemLeft"><a class="el" href="a00903.html#ga9f2ec672d5a5fe92159f0e6159e04e4e">mcuxClSession_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gad4f268ebb521716b8d5f8cb8fbf1c08a">mcuxClSession_configure_job</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01083.html">mcuxClSession_Channels_t</a> dmaChannels, <a class="el" href="a00903.html#ga42c3a8209ec86638ca74f4a017b1215a">mcuxClSession_Callback_t</a> pUserCallback, void *pUserData)</td></tr>
+<tr class="memitem:gad4f268ebb521716b8d5f8cb8fbf1c08a" id="r_gad4f268ebb521716b8d5f8cb8fbf1c08a"><td class="memItemLeft"><a class="el" href="a00903.html#ga9f2ec672d5a5fe92159f0e6159e04e4e">mcuxClSession_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gad4f268ebb521716b8d5f8cb8fbf1c08a">mcuxClSession_configure_job</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01044.html">mcuxClSession_Channels_t</a> dmaChannels, <a class="el" href="a00903.html#ga42c3a8209ec86638ca74f4a017b1215a">mcuxClSession_Callback_t</a> pUserCallback, void *pUserData)</td></tr>
 <tr class="memdesc:gad4f268ebb521716b8d5f8cb8fbf1c08a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the parameters for non-blocking operations (jobs) in this session.  <br /></td></tr>
 <tr class="memitem:ga1ba3d2c6e561c86e1da8fcc0abfd046c" id="r_ga1ba3d2c6e561c86e1da8fcc0abfd046c"><td class="memItemLeft"><a class="el" href="a00903.html#ga9f2ec672d5a5fe92159f0e6159e04e4e">mcuxClSession_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga1ba3d2c6e561c86e1da8fcc0abfd046c">mcuxClSession_cleanup</a> (<a class="el" href="a00903.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession)</td></tr>
 <tr class="memdesc:ga1ba3d2c6e561c86e1da8fcc0abfd046c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clean up a Crypto Library session.  <br /></td></tr>
@@ -236,7 +236,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01083.html">mcuxClSession_Channels_t</a></td>          <td class="paramname"><span class="paramname"><em>dmaChannels</em></span>, </td>
+          <td class="paramtype"><a class="el" href="a01044.html">mcuxClSession_Channels_t</a></td>          <td class="paramname"><span class="paramname"><em>dmaChannels</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -268,7 +268,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01117.html#a12">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01118.html#a12">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01119.html#a12">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01120.html#a12">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01115.html#a12">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a01114.html#a12">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01116.html#_a12">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01142.html#a8">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a01147.html#a9">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a01157.html#a12">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01158.html#a12">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01078.html#a12">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01079.html#a12">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01080.html#a12">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a01081.html#a12">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01076.html#a12">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a01075.html#a12">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a01077.html#_a12">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a01103.html#a8">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a01108.html#a9">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a01118.html#a12">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01119.html#a12">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -374,7 +374,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01164.html#a11">mcuxClRandomModes_Different_Sessions_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01125.html#a11">mcuxClRandomModes_Different_Sessions_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -411,7 +411,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01170.html#a12">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01131.html#a11">mcuxClSession_cleanupOnError_example.c</a>.</dd>
 </dl>
 
 </div>

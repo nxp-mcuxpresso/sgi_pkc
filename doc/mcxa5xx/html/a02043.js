@@ -1,0 +1,26 @@
+var a02043 =
+[
+    [ "VERID", "a01658.html#ga0aa4b09b1d3726bd58139b675bea10e2", null ],
+    [ "PARAM", "a01658.html#ga17ee744d531a3811ed4df918e557c3c0", null ],
+    [ "CTRL", "a01658.html#ga8d9539bc9f5dd6ca551920364f49eb10", null ],
+    [ "STAT", "a01658.html#ga6f899954b359bc6cf4a261bbae73d7b2", null ],
+    [ "IE", "a01658.html#gaab8a3ffef15c4cbe0fa74ec972be6f31", null ],
+    [ "DE", "a01658.html#gab16b508bc0710d1059c950f1848bec30", null ],
+    [ "CFG", "a01658.html#gafa3d56335aad203f86674b178c30a65a", null ],
+    [ "PAUSE", "a01658.html#ga62be04a022908c8cdb98a3118c75c8df", null ],
+    [ "SWTRIG", "a01658.html#gabe935ffc910c1622dfd7c2523c1aedbe", null ],
+    [ "TSTAT", "a01658.html#ga03adfb71d4b75135f93e2512dc13ad3e", null ],
+    [ "OFSTRIM", "a01658.html#ga6f32a14e3e3672fea5bc3d333b6ecaf9", null ],
+    [ "HSTRIM", "a01658.html#ga9c311654c48355732e35e4310ecdd7fd", null ],
+    [ "TCTRL", "a01658.html#gab0d2bb034bf4ef293c92dba16bcb7f8f", null ],
+    [ "FCTRL", "a01658.html#gaf7caa971190dff5a463d90b678c829be", null ],
+    [ "GCC", "a01658.html#ga33941c8b4640eb4ee52b876503dd6977", null ],
+    [ "GCR", "a01658.html#ga262c793d45d686fd7095a48b5183d20f", null ],
+    [ "CMDL", "a01658.html#ga770eb499e284492d8816bfd1bf19ca44", null ],
+    [ "CMDH", "a01658.html#ga0d0c9ef036749a7aa6e676578ac6f1f9", null ],
+    [ "CV", "a01658.html#gab170104a6a10648ff587bf860128388a", null ],
+    [ "RESFIFO", "a01658.html#ga461ddf18a0df35a15a423c7ebcc01ea3", null ],
+    [ "CAL_GAR", "a01658.html#ga687be7c742a95cdd76755850f795b8bd", null ],
+    [ "CFG2", "a01658.html#ga089c1cc67b67d8cc7ac213a28d317bf8", null ],
+    [ "TST", "a01658.html#ga06c1eb467a327c750ffd35b804ebdea4", null ]
+];

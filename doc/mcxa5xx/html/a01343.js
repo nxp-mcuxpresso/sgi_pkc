@@ -1,0 +1,8 @@
+var a01343 =
+[
+    [ "MCUXCLAEAD_STATUS_ERROR", "a01343.html#ga66d71fdbfe9e95ddd5af2f23466ba44a", null ],
+    [ "MCUXCLAEAD_STATUS_FAULT_ATTACK", "a01343.html#ga85ef5d5dd9baa2ab5001159f6c392d13", null ],
+    [ "MCUXCLAEAD_STATUS_OK", "a01343.html#ga6c761e767eb59aef9aa93a6e05661aa5", null ],
+    [ "MCUXCLAEAD_STATUS_INVALID_PARAM", "a01343.html#ga2f5ed8e86d5c5293e8a456458b5fa5c5", null ],
+    [ "MCUXCLAEAD_STATUS_INVALID_TAG", "a01343.html#gabe8157165ba824fde3b6df4151956c99", null ]
+];

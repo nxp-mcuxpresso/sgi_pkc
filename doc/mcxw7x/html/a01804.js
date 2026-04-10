@@ -1,0 +1,36 @@
+var a01804 =
+[
+    [ "AXBS Register Masks", "a01805.html", "a01805" ],
+    [ "AXBS_Type", "a02959.html", [
+      [ "PRS0", "a01802.html#ga43474fb367f76b44b6f26e3a3c6aca9e", null ],
+      [ "CRS0", "a01802.html#ga9efc655b2e8d69ad823c5952c99ed3ba", null ],
+      [ "PRS1", "a01802.html#ga4a5f3e229a4b3adaef9258b4b2b87133", null ],
+      [ "CRS1", "a01802.html#ga6c54d0b15d16f1416217cfa9103d95f1", null ],
+      [ "PRS2", "a01802.html#ga64a41af69c5559c4fc043fd89749da7e", null ],
+      [ "CRS2", "a01802.html#ga506ac0f70601561ef4b9d57e6df6a531", null ],
+      [ "PRS3", "a01802.html#gad665e5b5ae546bbad4b6755c56ce241d", null ],
+      [ "CRS3", "a01802.html#ga7afbac479fce3d846474acd50e970fa4", null ],
+      [ "PRS4", "a01802.html#ga69df397b292a5389d21608964ecc4f5a", null ],
+      [ "CRS4", "a01802.html#ga4f0482bcabd6ad6830dc24184efcd2ad", null ],
+      [ "PRS5", "a01802.html#ga5c1e9b0d7e9c541861e7981e687a42e5", null ],
+      [ "CRS5", "a01802.html#gaae3a3451b24c3cd737a2528713502ee8", null ],
+      [ "PRS6", "a01802.html#ga19c68ab4cab5e4d9fa784aa7a2932c94", null ],
+      [ "CRS6", "a01802.html#ga9caae9e195e3cc0036f079d81375a693", null ],
+      [ "PRS7", "a01802.html#gacc4a30a9980feac6b6c7c65e835c7263", null ],
+      [ "CRS7", "a01802.html#gaa7e55f036355929db9f80c7cdbeaa38f", null ],
+      [ "MGPCR0", "a01802.html#ga643715e4038413e9612431b95ddadd9a", null ],
+      [ "MGPCR1", "a01802.html#gafe183bfafdb2d0413e52e10d870f7024", null ],
+      [ "MGPCR2", "a01802.html#gaade04fd9f32d87eceee3597d50420f04", null ],
+      [ "MGPCR3", "a01802.html#gae9e660e16d928563b9b2e58f46983504", null ],
+      [ "MGPCR4", "a01802.html#gaaa542cd213d68e28cb53b109ad72d3f8", null ],
+      [ "MGPCR5", "a01802.html#ga2b43d3f715876c1d8a5297f9f401df13", null ],
+      [ "MGPCR6", "a01802.html#gaae1314a7a6d224b3686e40ca4466f0ca", null ],
+      [ "MGPCR7", "a01802.html#ga2971f1aaa7ecd7d733fb630e5b81d6ad", null ]
+    ] ],
+    [ "AXBS_0_BASE", "a01804.html#ga5a419ef594e59c07e0057f0e10df6403", null ],
+    [ "AXBS_0", "a01804.html#ga169173a2f843c1aaf415a510f9c9ff93", null ],
+    [ "AXBS_MAIN_0_BASE", "a01804.html#gaeca49145820595f01e984387495df6d6", null ],
+    [ "AXBS_MAIN_0", "a01804.html#ga50b0dc14330d8bebaefc81c18788985f", null ],
+    [ "AXBS_BASE_ADDRS", "a01804.html#ga401a7e5a8976f1312fd3dcf0ffd7f45e", null ],
+    [ "AXBS_BASE_PTRS", "a01804.html#ga522ab97d5ed3e73f1cb3591c40ecc50e", null ]
+];

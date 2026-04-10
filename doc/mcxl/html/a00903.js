@@ -1,20 +1,21 @@
 var a00903 =
 [
-    [ "mcuxClSession_WorkArea", "a01079.html", [
-      [ "buffer", "a01079.html#acd3913d2b4adf01d7d95c687c578c752", null ],
-      [ "size", "a01079.html#a372ca932239a945030d51a23913c36e0", null ],
-      [ "used", "a01079.html#ab3280a7d27aa7837287e2fa4376492fb", null ],
-      [ "dirty", "a01079.html#a500aa3a1084704dbd9622a247458b9b1", null ]
+    [ "mcuxClSession_WorkArea", "a01040.html", [
+      [ "buffer", "a01040.html#acd3913d2b4adf01d7d95c687c578c752", null ],
+      [ "size", "a01040.html#a372ca932239a945030d51a23913c36e0", null ],
+      [ "used", "a01040.html#ab3280a7d27aa7837287e2fa4376492fb", null ],
+      [ "dirty", "a01040.html#a500aa3a1084704dbd9622a247458b9b1", null ]
     ] ],
-    [ "mcuxClSession_Channels_t", "a01083.html", null ],
-    [ "mcuxClSession_JobContext_t", "a01087.html", null ],
-    [ "mcuxClSession_Descriptor", "a01091.html", [
-      [ "cpuWa", "a01091.html#a8e3448a94cee26e27929d48656dcacb8", null ],
-      [ "pkcWa", "a01091.html#a394996570a6810808bd59d2f9672c76a", null ],
-      [ "randomCfg", "a01091.html#a2f65d28d8feda27432d996be96f41fb4", null ],
-      [ "pResourceCtx", "a01091.html#aeaf29ddb754ceb5e236eea01fc232ad3", null ],
-      [ "jobContext", "a01091.html#a0f47710bcae6873468ffc6c4f3caca8a", null ],
-      [ "apiCall", "a01091.html#ac2a846545594709d93735fec72e6993d", null ]
+    [ "mcuxClSession_Channels_t", "a01044.html", null ],
+    [ "mcuxClSession_JobContext_t", "a01048.html", null ],
+    [ "mcuxClSession_Descriptor", "a01052.html", [
+      [ "cpuWa", "a01052.html#a8e3448a94cee26e27929d48656dcacb8", null ],
+      [ "pkcWa", "a01052.html#a394996570a6810808bd59d2f9672c76a", null ],
+      [ "randomCfg", "a01052.html#a2f65d28d8feda27432d996be96f41fb4", null ],
+      [ "pResourceCtx", "a01052.html#aeaf29ddb754ceb5e236eea01fc232ad3", null ],
+      [ "jobContext", "a01052.html#a0f47710bcae6873468ffc6c4f3caca8a", null ],
+      [ "apiCall", "a01052.html#ac2a846545594709d93735fec72e6993d", null ],
+      [ "pMathUptrt", "a01052.html#af114ae6954e62fa6c451f639a95349ef", null ]
     ] ],
     [ "mcuxClSession_Status_t", "a00903.html#ga9f2ec672d5a5fe92159f0e6159e04e4e", null ],
     [ "mcuxClSession_Status_Protected_t", "a00903.html#ga09bbfe382aac167ec94e8e6e3d2b10f6", null ],

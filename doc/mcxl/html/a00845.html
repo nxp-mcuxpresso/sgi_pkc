@@ -181,7 +181,7 @@ Functions</h2></td></tr>
 <dl class="section attention"><dt>Attention</dt><dd>If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR. </dd>
 <dd>
 For GMAC, the H-key is created and always loaded to SGI KEY2. It is caller's responsibility to not have a preloaded key in SGI KEY2 when calling a GMAC operation. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01160.html#_a16">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01158.html#_a15">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01153.html#_a9">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01121.html#_a16">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01119.html#_a15">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01114.html#_a9">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -244,7 +244,7 @@ For GMAC, the H-key is created and always loaded to SGI KEY2. It is caller's res
   </dd>
 </dl>
 <dl class="section attention"><dt>Attention</dt><dd>For non-blocking modes: The <code class="param">inLength</code> has an upper limit of 0x7fff0 bytes. Also, if the <code class="param">inLength</code> is small (only a few blocks of data), this function is not guaranteed to return in a non-blocking matter, but might return after all data was already processed. The status code shall be used as an indicator, where only <a class="el" href="a00842.html#gaa4205233c5a383270d954c792515a935" title="MCUXCLMAC_STATUS_JOB_STARTED">MCUXCLMAC_STATUS_JOB_STARTED</a> indicates that a non-blocking operation has started. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01160.html#a17">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01158.html#a19">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01153.html#a13">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01121.html#a17">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01119.html#a19">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01114.html#a13">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
 </div>
@@ -307,7 +307,7 @@ For GMAC, the H-key is created and always loaded to SGI KEY2. It is caller's res
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01160.html#a18">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01158.html#a26">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01153.html#a16">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a01121.html#a18">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a01119.html#a26">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, and <a class="el" href="a01114.html#a16">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>.</dd>
 </dl>
 
 </div>

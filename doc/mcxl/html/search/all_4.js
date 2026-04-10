@@ -13,8 +13,8 @@ var searchData=
   ['descriptor_10',['Key Generation RSA mode descriptor',['../a00895.html',1,'']]],
   ['descriptors_11',['Key Type Descriptors',['../a00883.html',1,'']]],
   ['direct_20access_12',['direct access',['../a00970.html',1,'Secure counter direct access'],['../a00976.html',1,'Secure counter direct access'],['../a00981.html',1,'Secure counter direct access']]],
-  ['dirty_13',['dirty',['../a01079.html#a500aa3a1084704dbd9622a247458b9b1',1,'mcuxClSession_WorkArea']]],
+  ['dirty_13',['dirty',['../a01040.html#a500aa3a1084704dbd9622a247458b9b1',1,'mcuxClSession_WorkArea']]],
   ['disabled_14',['Disabled',['../a00919.html',1,'Data Integrity: Disabled'],['../a00933.html',1,'Flow Protection: Disabled'],['../a00972.html',1,'Secure Counter: Disabled']]],
-  ['dp_15',['dp',['../a01071.html#a8e07c6eb2d9dd437f560a4aa5854bdde',1,'mcuxClRsa_KeyData_Crt_t']]],
-  ['dq_16',['dq',['../a01071.html#a44158636690e1cfb6cef2d56b568c28e',1,'mcuxClRsa_KeyData_Crt_t']]]
+  ['dp_15',['dp',['../a01032.html#a8e07c6eb2d9dd437f560a4aa5854bdde',1,'mcuxClRsa_KeyData_Crt_t']]],
+  ['dq_16',['dq',['../a01032.html#a44158636690e1cfb6cef2d56b568c28e',1,'mcuxClRsa_KeyData_Crt_t']]]
 ];

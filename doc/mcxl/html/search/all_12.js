@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['randomcfg_0',['randomCfg',['../a01091.html#a2f65d28d8feda27432d996be96f41fb4',1,'mcuxClSession_Descriptor']]],
+  ['randomcfg_0',['randomCfg',['../a01052.html#a2f65d28d8feda27432d996be96f41fb4',1,'mcuxClSession_Descriptor']]],
   ['record_1',['record',['../a00914.html',1,'Data integrity record'],['../a00921.html',1,'Data integrity record'],['../a00924.html',1,'Data integrity record']]],
   ['request_20hw_20resource_2',['mcuxClResource status of HW resource and option to request HW resource',['../a00880.html',1,'']]],
   ['resource_3',['mcuxClResource status of HW resource and option to request HW resource',['../a00880.html',1,'']]],

@@ -20,7 +20,7 @@ var searchData=
   ['counter_20increment_17',['counter increment',['../a00968.html',1,'Secure counter increment'],['../a00974.html',1,'Secure counter increment'],['../a00979.html',1,'Secure counter increment']]],
   ['counter_3a_20disabled_18',['Secure Counter: Disabled',['../a00972.html',1,'']]],
   ['counter_3a_20sw_20local_19',['Secure Counter: SW Local',['../a00977.html',1,'']]],
-  ['cpuwa_20',['cpuWa',['../a01091.html#a8e3448a94cee26e27929d48656dcacb8',1,'mcuxClSession_Descriptor']]],
+  ['cpuwa_20',['cpuWa',['../a01052.html#a8e3448a94cee26e27929d48656dcacb8',1,'mcuxClSession_Descriptor']]],
   ['crt_20key_20type_20pointers_21',['RSA private CRT key type pointers',['../a00889.html',1,'']]],
   ['crt_20key_20type_20structures_22',['RSA private CRT key type structures',['../a00888.html',1,'']]],
   ['crt_5fdfa_20key_20type_20pointers_20with_23',['RSA private CRT_DFA key type pointers with',['../a00891.html',1,'']]],
@@ -29,5 +29,5 @@ var searchData=
   ['cssl_20ndash_20api_26',['MCUX CSSL &amp;ndash; API',['../a00911.html',1,'']]],
   ['cssl_20ndash_20configurations_27',['MCUX CSSL &amp;ndash; Configurations',['../a00917.html',1,'']]],
   ['cssl_20ndash_20implementations_28',['MCUX CSSL &amp;ndash; Implementations',['../a00915.html',1,'']]],
-  ['ctx_29',['ctx',['../a01063.html#a2869dc5912686dc81c5076587bb83327',1,'mcuxClRandom_Config']]]
+  ['ctx_29',['ctx',['../a01024.html#a2869dc5912686dc81c5076587bb83327',1,'mcuxClRandom_Config']]]
 ];

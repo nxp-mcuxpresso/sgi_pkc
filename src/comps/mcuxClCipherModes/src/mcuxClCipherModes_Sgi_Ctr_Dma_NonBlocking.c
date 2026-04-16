@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClToolchain.h>
@@ -59,7 +59,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Ctr_NonBlocking_Compl
   mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
-  /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1u and store it in DATIN2. Then, use DATIN2 when processing the remaining input in normal mode. */
+  /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1U and store it in DATIN2. Then, use DATIN2 when processing the remaining input in normal mode. */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_decrement128Bit(MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLSGI_DRV_DATIN2_OFFSET));
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Ctr_NonBlocking_CompleteAutoMode,
@@ -107,7 +107,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
   }
 
   uint32_t remainingBlocks = inLength /  MCUXCLAES_BLOCK_SIZE;
-  uint32_t lastBlockLength = (0u == remainingBlocks) ? (inLength % MCUXCLAES_BLOCK_SIZE) : MCUXCLAES_BLOCK_SIZE;
+  uint32_t lastBlockLength = (0U == remainingBlocks) ? (inLength % MCUXCLAES_BLOCK_SIZE) : MCUXCLAES_BLOCK_SIZE;
 
   uint8_t *pOutPtr = (uint8_t *) MCUXCLBUFFER_GET(pOut);
   uint8_t *pPaddingPtr = pWa->sgiWa.paddingBuff;
@@ -118,7 +118,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
                      pWa->sgiWa.sgiCtrlKey;
 
   mcuxClCipher_Status_t status;
-  if(remainingBlocks <= 1u)
+  if(remainingBlocks <= 1U)
   {
     /* For only one block of data, SGI AUTO-mode is not needed. */
     /* Record input data for mcuxClSgi_Utils_decrement128Bit() */
@@ -132,7 +132,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     mcuxClSgi_Drv_wait(); /* Known limitation: wait for SGI busy flag to be de-asserted before overwriting AUTO mode CMD */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
-    /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1u and store it in DATIN2. Then, use DATIN2 when processing in normal mode. */
+    /* The IV in DATIN0 is always incremented "too early" in AUTO-mode. For this reason, decrement DATIN0 by 1U and store it in DATIN2. Then, use DATIN2 when processing in normal mode. */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_decrement128Bit(MCUXCLSGI_DRV_DATIN0_OFFSET, MCUXCLSGI_DRV_DATIN2_OFFSET));
 
     if((inLength < MCUXCLAES_BLOCK_SIZE)  && (pWa->sgiWa.paddingBuff != MCUXCLBUFFER_GET(pIn)))
@@ -171,7 +171,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
     MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_params, pOut);
     MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_params, pPaddingPtr);
     MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_params, lastBlockLength);
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_write(pOut, 0u, pPaddingPtr, lastBlockLength));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_write(pOut, 0U, pPaddingPtr, lastBlockLength));
 
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("*pOutLength has an upper bound of inLength")
     *pOutLength += lastBlockLength;
@@ -193,7 +193,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
 
     status = MCUXCLCIPHER_STATUS_OK;
   }
-  else /* remainingBlocks > 1u */
+  else /* remainingBlocks > 1U */
   {
     /* For multiple blocks, use SGI AUTO mode with handshakes */
 
@@ -226,7 +226,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Ctr_NonBlocking, status,
-    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks <= 1u),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks <= 1U),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_decrement128Bit),
@@ -246,10 +246,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
           MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
           MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
           MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock))),
-    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1u),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1U),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks),
-      2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+      2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableDmaHandshakes)));
 }
@@ -277,6 +277,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Ctr_
    .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_Stream),
    .removePadding                                 = mcuxClPadding_removePadding_Stream,
    .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_Stream),
-   .granularityEnc                                = 1u,
-   .granularityDec                                = 1u
+   .granularityEnc                                = 1U,
+   .granularityDec                                = 1U
  };

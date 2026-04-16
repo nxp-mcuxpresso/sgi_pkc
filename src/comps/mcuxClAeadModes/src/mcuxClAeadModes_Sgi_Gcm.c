@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAeadModes_Sgi_Gcm.c
@@ -96,10 +96,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_GCM_init(
   MCUXCLMEMORY_CLEAR_INT((uint8_t *)pContext->cipherCtx.ivState, MCUXCLAES_BLOCK_SIZE);
 
   /* Set some AEAD context fields to initialize them properly (even if unused) */
-  pContext->adataSize = 0u; // unused for GCM
-  pContext->adataCumulativeSize = 0u; // unused for GCM
-  pContext->inSize = 0u; // unused for GCM
-  pContext->cipherCtx.common.blockBufferUsed = 0u;
+  pContext->adataSize = 0U; // unused for GCM
+  pContext->adataCumulativeSize = 0U; // unused for GCM
+  pContext->inSize = 0U; // unused for GCM
+  pContext->cipherCtx.common.blockBufferUsed = 0U;
   pContext->tagSize = tagSize;
 
   /* Construct the GMAC mode */
@@ -122,7 +122,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_GCM_init(
 
   if(12U == nonceSize)
   {
-    pContext->cipherCtx.ivState[3] = (pContext->cipherCtx.ivState[3] & 0x00ffffffu) | ((uint32_t)0x02u << 24u);
+    pContext->cipherCtx.ivState[3] = (pContext->cipherCtx.ivState[3] & 0x00ffffffU) | ((uint32_t)0x02U << 24U);
   }
   else
   {
@@ -132,7 +132,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_GCM_init(
     {
       MCUXCLSESSION_ERROR(session, MCUXCLAEAD_STATUS_INVALID_PARAM);
     }
-    *pCounter = mcuxCl_Core_Swap32(mcuxCl_Core_Swap32(*pCounter) + 1u);
+    *pCounter = mcuxCl_Core_Swap32(mcuxCl_Core_Swap32(*pCounter) + 1U);
   }
 
   MCUX_CSSL_DI_EXPUNGE(tagSize, pContext->tagSize);
@@ -190,7 +190,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Gcm_process(
    * this indicates that it is the first call to Aead_process, and that the handling of the remaining adata bytes
    * (if any in the blockBuffer) needs to be done first. */
   MCUX_CSSL_FP_COUNTER_STMT(const volatile uint32_t blockBufferUsedRef = pContext->macCtx.blockBufferUsed);
-  if(0u != pContext->macCtx.blockBufferUsed)
+  if(0U != pContext->macCtx.blockBufferUsed)
   {
     mcuxClMacModes_WorkArea_t* macModesWorkArea = mcuxClAeadModes_castToMacModesWorkArea(workArea);
 
@@ -244,7 +244,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Gcm_processFullBlocks(
   }
 
   MCUXCLBUFFER_INIT_RO(counterInputBuf, NULL, (uint8_t *)pContext->cipherCtx.ivState, MCUXCLAES_BLOCK_SIZE);
-  uint32_t outLen = 0u;
+  uint32_t outLen = 0U;
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->cipherAlgo->setupIVEncrypt(
     session,

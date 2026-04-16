@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -18,10 +18,10 @@
 
 #ifndef MCUXCLKEY_CONSTANTS_H_
 #define MCUXCLKEY_CONSTANTS_H_
-#include <ip_platform.h>
 
 #include <mcuxCsslAnalysis.h>
 #include <mcuxClConfig.h> // Exported features flags header
+#include <platform_specific_headers.h>
 
 /**********************************************
  * CONSTANTS
@@ -86,8 +86,8 @@
 #define MCUXCLKEY_ALGO_ID_SM2                                (0x00809000u)  ///< SM2 key
 #define MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_EPHEMERAL_CUSTOM      (0x00709000u)  ///< ECC key using Short Weierstrass Curve over GF(p) with ephemeral custom domain parameters
 #define MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM         (0x0060A000u)  ///< ECC key using Short Weierstrass Curve over GF(p) with static custom domain parameters
-#define MCUXCLKEY_ALGO_ID_KYBER                              (0x0050B000u)  ///< Kyber key
-#define MCUXCLKEY_ALGO_ID_MLDSA                              (0x0040C000u)  ///< MLDSA key
+#define MCUXCLKEY_ALGO_ID_MLKEM                              (0x0050B000u)  ///< ML-KEM key
+#define MCUXCLKEY_ALGO_ID_MLDSA                              (0x0040C000u)  ///< ML-DSA key
 #define MCUXCLKEY_ALGO_ID_GMAC                               (0x00601000u)  ///< GMAC H key
 #define MCUXCLKEY_ALGO_ID_FFDH                               (0x0020E000u)  ///< FFDH key
 #define MCUXCLKEY_ALGO_ID_ALGO_MASK                          (0x00FFF000u)  ///< Mask for Algorithm

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLMACMODES_MODES_H_
@@ -43,7 +43,7 @@ extern const mcuxClMac_ModeDescriptor_t mcuxClMac_ModeDescriptor_CMAC;
  *
  * See @ref mcuxClMac_ModeDescriptor_CMAC.
  *
- * \implements{REQ_788232,REQ_788235}
+ * @implements{REQ_788232,REQ_788235}
  */
 static mcuxClMac_Mode_t mcuxClMac_Mode_CMAC =
   &mcuxClMac_ModeDescriptor_CMAC;
@@ -66,7 +66,7 @@ extern const mcuxClMac_ModeDescriptor_t mcuxClMac_ModeDescriptor_CMAC_NonBlockin
  *
  * See @ref mcuxClMac_ModeDescriptor_CMAC_NonBlocking.
  *
- * \implements{REQ_1550258,REQ_788235}
+ * @implements{REQ_1550258,REQ_788235}
  */
 static mcuxClMac_Mode_t mcuxClMac_Mode_CMAC_NonBlocking =
   &mcuxClMac_ModeDescriptor_CMAC_NonBlocking;
@@ -84,7 +84,7 @@ extern const mcuxClMac_ModeDescriptor_t mcuxClMac_ModeDescriptor_CBCMAC_PaddingI
  *
  * See @ref mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1.
  *
- * \implements{REQ_788237}
+ * @implements{REQ_788237}
  */
 static mcuxClMac_Mode_t mcuxClMac_Mode_CBCMAC_PaddingISO9797_1_Method1 =
   &mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1;

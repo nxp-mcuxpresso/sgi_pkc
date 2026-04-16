@@ -86,10 +86,6 @@ status_t PKC_InitNoZeroize(PKC_Type *base)
     SYSCON->RAM_INTERLEAVE |= SYSCON_RAM_INTERLEAVE_INTERLEAVE_MASK;
 #endif
 
-#if defined(SYSCON_RAM_CASP_CTRL_INTERLEAVE_MASK) && SYSCON_RAM_CASP_CTRL_INTERLEAVE_MASK
-    SYSCON->RAM_CASP_CTRL |= SYSCON_RAM_CASP_CTRL_INTERLEAVE_MASK;
-#endif
-
     /* Reset PKC */
     RESET_ReleasePeripheralReset(kPKC0_RST_SHIFT_RSTn);
     /* Enable PKC clock */
@@ -101,10 +97,6 @@ status_t PKC_InitNoZeroize(PKC_Type *base)
     /* This is needed so PKC can fetch FUP program */
 #if defined(SYSCON_SRAM_XEN_RAMC_XEN_MASK) && SYSCON_SRAM_XEN_RAMC_XEN_MASK
     SYSCON->SRAM_XEN |= SYSCON_SRAM_XEN_RAMC_XEN_MASK;
-#endif
-
-#if defined(SECCON_RAM_XEN_RAMA1_XEN_MASK) && SECCON_RAM_XEN_RAMA1_XEN_MASK
-    SECCON->RAM_XEN |= SECCON_RAM_XEN_RAMA1_XEN_MASK;
 #endif
 
     /* SRAM_XEN is duplicated by SRAM_XEN_DP which is protected by Glikey, SRAM_XEN_DP is protected by Glikey, enable
@@ -125,10 +117,6 @@ status_t PKC_InitNoZeroize(PKC_Type *base)
     /* Write value into SRAM_XEN_DP */
 #if defined(SYSCON_SRAM_XEN_RAMC_XEN_MASK) && SYSCON_SRAM_XEN_RAMC_XEN_MASK
     SYSCON->SRAM_XEN_DP |= SYSCON_SRAM_XEN_DP_RAMC_XEN_MASK;
-#endif
-
-#if defined(SECCON_RAM_XEN_RAMA1_XEN_MASK) && SECCON_RAM_XEN_RAMA1_XEN_MASK
-    SECCON->RAM_XEN_DP |= SECCON_RAM_XEN_RAMA1_XEN_MASK;
 #endif
 
     /* End of write enable */

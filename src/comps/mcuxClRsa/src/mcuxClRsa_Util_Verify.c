@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Util_verify.c
@@ -54,7 +54,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
 #define MCUXCLRSA_UTIL_VERIFY_FP_DEINITIALIZE_RELEASE(session)  \
   do {  \
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pRsa_Signature_ProtocolDescriptor->pPkcDeInitFun()); \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_release(session->pResourceCtx, MCUXCLRESOURCE_HWID_PKC)); \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClResource_release((session)->pResourceCtx, MCUXCLRESOURCE_HWID_PKC)); \
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION() \
   } while (false) \
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
@@ -91,7 +91,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
 
   /* Verify that the passed signatureSize value is as expected. */
   uint32_t keyBitLength = mcuxClKey_getSize(key);
-  const uint32_t keyByteLength = keyBitLength / 8u;
+  const uint32_t keyByteLength = keyBitLength / 8U;
   if (signatureSize != keyByteLength)
   {
       MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
@@ -105,11 +105,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
   const uint32_t saltLength = pRsa_Signature_ProtocolDescriptor->saltLength;
   const uint32_t options = pRsa_Signature_ProtocolDescriptor->options;
 
-  /* Check key type */
-  if((MCUXCLRSA_KEYTYPE_INTERNAL_PUBLIC) != mcuxClKey_getAlgoId(key))
-  {
-    MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
-  }
+  /* The CPU WA layout is:
+  * +-------------+------------------------+
+  * | Math UPTRT  | RSA Allocated Memory   |
+  * +-------------+------------------------+
+  */
+  /* Setup mcuxClMath UPTRT buffer at beginning of PKC/CPU depending on MCUXCL_FEATURE_PKC_UPTRT_IN_PKCRAM and update session info */
+  MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pMathUptrt, mcuxClSession_allocateWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t)));
+  /* Update session info for pMathUptrt location in PKC WA */
+  pSession->pMathUptrt = pMathUptrt;
 
   /* Locate paddedMessage buffer at beginning of PKC WA and update session info */
   /* Note that pPaddedMessage is allocated with more bytes than required, the remaining bytes are used internally by mcuxClRsa_public */
@@ -136,7 +140,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
   MCUX_CSSL_FP_FUNCTION_CALL(retVal_PaddingOperation, pRsa_Signature_ProtocolDescriptor->pVerifyMode(
                               /* mcuxClSession_Handle_t       pSession,           */ pSession,
                               /* mcuxCl_InputBuffer_t         pInput,             */ pMessageOrDigest,
-                              /* const uint32_t              inputLength,        */ 0u,
+                              /* const uint32_t              inputLength,        */ 0U,
                               /* mcuxCl_Buffer_t              pVerificationInput, */ pPaddedMessage,
                               /* mcuxClHash_Algo_t            pHashAlgo,          */ pRsa_Signature_ProtocolDescriptor->pHashAlgo,
                               /* const uint8_t *             pLabel,             */ NULL,
@@ -156,7 +160,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
   mcuxClSession_freeWords_pkcWa(pSession, pkcWaSizeWord);
   MCUXCLRSA_UTIL_VERIFY_FP_DEINITIALIZE_RELEASE(pSession);
 
+  /* Free Math UPTRT allocated WA */
+  mcuxClSession_freeWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t));
+
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_Util_verify, retVal_PaddingOperation,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
       MCUXCLRSA_UTIL_VERIFY_FP_CALLED_REQUEST_INITIALIZE,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
       pRsa_Signature_ProtocolDescriptor->rsaPublicExp_FunId,

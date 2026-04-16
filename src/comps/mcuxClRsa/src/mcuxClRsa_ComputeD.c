@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_ComputeD.c
@@ -52,8 +52,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_ComputeD);
 
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pP->keyEntryLength, MCUXCLRSA_MIN_MODLEN / 2u, MCUXCLRSA_MAX_MODLEN / 2u, MCUXCLRSA_STATUS_INVALID_INPUT)
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pE->keyEntryLength, 3u, 32u, MCUXCLRSA_STATUS_INVALID_INPUT /* e is in the range 2^16 < e < 2^256 */)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pP->keyEntryLength, MCUXCLRSA_MIN_MODLEN / 2U, MCUXCLRSA_MAX_MODLEN / 2U, MCUXCLRSA_STATUS_INVALID_INPUT)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pE->keyEntryLength, 3U, 32U, MCUXCLRSA_STATUS_INVALID_INPUT /* e is in the range 2^16 < e < 2^256 */)
 
     /*
      * Initialization:
@@ -66,7 +66,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     const uint32_t primePQAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPQ);
     const uint32_t blindedPrimePQAlignLen = MCUXCLRSA_INTERNAL_BLIND_ALIGN_SIZE(byteLenPQ);
 
-    const uint32_t keyLen = byteLenPQ * 2u;  // LCM have 2 times length of PQ
+    const uint32_t keyLen = byteLenPQ * 2U;  // LCM have 2 times length of PQ
     const uint32_t keyAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(keyLen);
     const uint32_t BlindedKeyAlignLen = MCUXCLRSA_INTERNAL_BLIND_ALIGN_SIZE(keyLen);
 
@@ -76,8 +76,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession,pkcWaSizeWord));
 
     uint8_t *pLcm_b = pPkcWorkarea;
-    uint8_t *pPhi_b = pLcm_b + 2u*blindedPrimePQAlignLen + MCUXCLRSA_PKC_WORDSIZE;
-    uint8_t *pRnd = pPhi_b + 2u*blindedPrimePQAlignLen;
+    uint8_t *pPhi_b = pLcm_b + 2U*blindedPrimePQAlignLen + MCUXCLRSA_PKC_WORDSIZE;
+    uint8_t *pRnd = pPhi_b + 2U*blindedPrimePQAlignLen;
     uint8_t *pPSub1 = pRnd + MCUXCLRSA_PKC_WORDSIZE;
     uint8_t *pQSub1 = pPSub1 + primePQAlignLen;
     uint8_t *pPSub1_b = pQSub1 + primePQAlignLen;
@@ -104,14 +104,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_QSUB1_B]   = MCUXCLPKC_PTR2OFFSET(pQSub1_b);
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_T0]        = MCUXCLPKC_PTR2OFFSET(pT0);
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_T1]        = MCUXCLPKC_PTR2OFFSET(pT1);
-    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_CONSTANT]  = 1u;
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_CONSTANT]  = 1U;
 
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("pRnd is 32-bit aligned.")
     uint32_t *pR32 = (uint32_t *) pRnd;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
     MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
-    pR32[0] = random32 | 0x1u;
-    pR32[1] = 0u;
+    pR32[0] = random32 | 0x1U;
+    pR32[1] = 0U;
 
     /* Backup Ps1 length and UPTRT to recover in the end */
     uint16_t *pUptrtBak = MCUXCLPKC_GETUPTRT();
@@ -142,47 +142,49 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
 
     MCUXCLPKC_WAITFORFINISH();
     MCUX_CSSL_FP_FUNCTION_CALL(leadingZeroN, mcuxClMath_LeadingZeros(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_QSUB1_B));
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(leadingZeroN, 0u, blindedPrimePQAlignLen, MCUXCLRSA_STATUS_INVALID_INPUT)
-    uint32_t realBlindedGcdByteLen = blindedPrimePQAlignLen - (leadingZeroN >> 3u);
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(leadingZeroN, 0U, blindedPrimePQAlignLen, MCUXCLRSA_STATUS_INVALID_INPUT)
+    uint32_t realBlindedGcdByteLen = blindedPrimePQAlignLen - (leadingZeroN >> 3U);
 
     /*
      * 3.3 Compute lcm(p-1, q-1)*b = phi_b/gcd_b
      *
      * Used functions: mcuxClMath_ExactDivide
      */
-    MCUXCLPKC_PS1_SETLENGTH(0u, 2u*MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindedPrimePQAlignLen));
-    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_LCM_B, 0u);
+    MCUXCLPKC_PS1_SETLENGTH(0U, 2U*MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindedPrimePQAlignLen));
+    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_LCM_B, 0U);
     MCUXCLPKC_WAITFORFINISH();
-    MCUXCLMATH_FP_EXACTDIVIDE(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_LCM_B,
-                        MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B,
-                        MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_QSUB1_B,
-                        MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PSUB1, // as temp buffer
-                        2u*MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindedPrimePQAlignLen),
-                        MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(realBlindedGcdByteLen));
+    MCUXCLMATH_FP_EXACTDIVIDE(pSession,
+                             MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_LCM_B,
+                             MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B,
+                             MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_QSUB1_B,
+                             MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PSUB1, // as temp buffer
+                             2U*MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindedPrimePQAlignLen),
+                             MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(realBlindedGcdByteLen));
 
     /*
      * 4. Compute d := e^(-1) mod lcm(p-1, q-1) in a blinded way
      *
      * Used functions: mcuxClRsa_ModInv
      */
-    MCUXCLPKC_PS1_SETLENGTH(0u, BlindedKeyAlignLen);
+    MCUXCLPKC_PS1_SETLENGTH(0U, BlindedKeyAlignLen);
     const uint32_t eAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(pE->keyEntryLength);
     MCUXCLPKC_PS2_SETLENGTH(0, eAlignLen);
     /* Clear the PHI buffer */
-    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B, 0u);
+    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B, 0U);
     /* Copy e to the PHI buffer (the content pointed by pE should not be destroyed) */
-    MCUXCLPKC_FP_CALC_OP2_OR_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B, MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_E, 0u);
+    MCUXCLPKC_FP_CALC_OP2_OR_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B, MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_E, 0U);
 
     /* Call mcuxClRsa_ModInv. Note that it expunges pD->pKeyEntryData from DI. */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_ModInv(MCUXCLPKC_PACKARGS4(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_D,
-                                                      MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B,
-                                                      MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_LCM_B,
-                                                      MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_RND),
-                                                      MCUXCLPKC_PACKARGS2(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_T1,
-                                                      MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_T0),
-                                                      eAlignLen, BlindedKeyAlignLen));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_ModInv(pSession,
+                                                   MCUXCLPKC_PACKARGS4(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_D,
+                                                   MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B,
+                                                   MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_LCM_B,
+                                                   MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_RND),
+                                                   MCUXCLPKC_PACKARGS2(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_T1,
+                                                   MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_T0),
+                                                   eAlignLen, BlindedKeyAlignLen));
 
-    pD->keyEntryLength = keyBitLength >> 3u;
+    pD->keyEntryLength = keyBitLength >> 3U;
 
     /*
      * 5. Verify FIPS 186-5 condition on lower bound of d
@@ -191,13 +193,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_ComputeD(
      * Used functions: PKC operation.
      */
     /* Clear buffers phi, its length is nlen */
-    MCUXCLPKC_PS1_SETLENGTH(0u, keyAlignLen);
-    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B, 0u);
+    MCUXCLPKC_PS1_SETLENGTH(0U, keyAlignLen);
+    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B, 0U);
     MCUXCLPKC_WAITFORFINISH();
 
-    uint32_t idx = (keyBitLength >> 1u) >> 3u;
-    uint32_t lowBoundByte = ((uint32_t)1u << ((keyBitLength >> 1u) & 7u));
-    pPhi_b[idx] = (uint8_t)(lowBoundByte & 0xFFu);
+    uint32_t idx = (keyBitLength >> 1U) >> 3U;
+    uint32_t lowBoundByte = ((uint32_t)1U << ((keyBitLength >> 1U) & 7U));
+    pPhi_b[idx] = (uint8_t)(lowBoundByte & 0xFFU);
     MCUXCLPKC_FP_CALC_OP1_CMP(MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_PHI_B, MCUXCLRSA_INTERNAL_UPTRTINDEX_COMPD_D);
 
     /* Protect input keyBitLength */

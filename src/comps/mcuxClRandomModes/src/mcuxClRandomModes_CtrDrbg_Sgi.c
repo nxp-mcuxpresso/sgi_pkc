@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClRandom.h>
@@ -136,15 +136,33 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt);
 
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128) || (defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192) && defined(MCUXCL_FEATURE_AES192)) || defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)
     MCUX_CSSL_FP_SWITCH_DECL(switchProtector);
+#endif /* (defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128) && defined(MCUXCL_FEATURE_AES128)) || (defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192) && defined(MCUXCL_FEATURE_AES192)) || (defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256) && defined(MCUXCL_FEATURE_AES256)) */
     MCUX_CSSL_ANALYSIS_START_PATTERN_SWITCH_STATEMENT_RETURN_TERMINATION()
     switch(keyLength)
     {
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128)
+        case MCUXCLAES_AES128_KEY_SIZE:
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES128_ENCRYPT));
+            MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES128_KEY_SIZE);
+            MCUX_CSSL_DI_RECORD(switchKeySize, MCUXCLAES_AES128_KEY_SIZE);
+        break;
+#endif /* defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128) && defined(MCUXCL_FEATURE_AES128) */
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192) && defined(MCUXCL_FEATURE_AES192)
+        case MCUXCLAES_AES192_KEY_SIZE:
+            MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES192_ENCRYPT));
+            MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES192_KEY_SIZE);
+            MCUX_CSSL_DI_RECORD(switchKeySize, MCUXCLAES_AES192_KEY_SIZE);
+        break;
+#endif /* defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192) && defined(MCUXCL_FEATURE_AES192) */
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)
         case MCUXCLAES_AES256_KEY_SIZE:
             MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(MCUXCLRANDOMMODES_CTR_DRBG_MODE_AES256_ENCRYPT));
             MCUX_CSSL_FP_SWITCH_CASE(switchProtector, MCUXCLAES_AES256_KEY_SIZE);
             MCUX_CSSL_DI_RECORD(switchKeySize, MCUXCLAES_AES256_KEY_SIZE);
         break;
+#endif /* defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256) && defined(MCUXCL_FEATURE_AES256) */
         default:
             MCUXCLSESSION_FAULT(pSession, MCUXCLRANDOM_STATUS_FAULT_ATTACK);
     }
@@ -152,7 +170,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_StartBlockEncryp
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRandomModes_CtrDrbg_AES_StartBlockEncrypt,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start) /* Every non-default switch case calls mcuxClSgi_Drv_start */
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128)
+        , MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES128_KEY_SIZE, MCUXCLAES_AES128_KEY_SIZE == keyLength)
+#endif /* defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128) && defined(MCUXCL_FEATURE_AES128) */
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192) && defined(MCUXCL_FEATURE_AES192)
+        , MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES192_KEY_SIZE, MCUXCLAES_AES192_KEY_SIZE == keyLength)
+#endif /* defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192) && defined(MCUXCL_FEATURE_AES192) */
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)
         , MCUX_CSSL_FP_SWITCH_TAKEN(switchProtector, MCUXCLAES_AES256_KEY_SIZE, MCUXCLAES_AES256_KEY_SIZE == keyLength)
+#endif /* defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256) && defined(MCUXCL_FEATURE_AES256) */
         );
 }
 

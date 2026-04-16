@@ -1,16 +1,15 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
-
 /**
  * @file  mcuxClEcc_Weier_Internal_KeyGen.c
  * @brief Weierstrass curve internal key generation
@@ -172,9 +171,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     MCUXCLPKC_WAITFORREADY();
     /* S1 = c" = ReduceModEven(c', n-1). */
     MCUXCLPKC_PS1_SETLENGTH(pkcByteLenN65, opLen);
-    MCUXCLMATH_FP_REDUCEMODEVEN(ECC_S1, ECC_S2, WEIER_Z, WEIER_XA, ECC_S1, WEIER_YA, WEIER_ZA);
+    MCUXCLMATH_FP_REDUCEMODEVEN(pSession, ECC_S1, ECC_S2, WEIER_Z, WEIER_XA, ECC_S1, WEIER_YA, WEIER_ZA);
     /* S2 = s = ReduceModEven(r', n-1). */
-    MCUXCLMATH_FP_REDUCEMODEVEN(ECC_S2, ECC_S0, WEIER_Z, WEIER_XA, ECC_S2, WEIER_YA, WEIER_ZA);
+    MCUXCLMATH_FP_REDUCEMODEVEN(pSession, ECC_S2, ECC_S0, WEIER_Z, WEIER_XA, ECC_S2, WEIER_YA, WEIER_ZA);
 
     /* Expunge the PS1 lengths after used by ReduceModEven */
     MCUX_CSSL_DI_EXPUNGE(EccIntCoreKeyGen_FUPReduceModEven_PS1, MCUXCLPKC_PS1_GETLENGTH_REG());
@@ -203,7 +202,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_
     /* ZA = d0, duplicate because ModInv(d0) will destroy input d0. */
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(WEIER_ZA, ECC_S0, 0u);
     /* T0 = v = ModInv(d0), with temp S3. */
-    MCUXCLECC_FP_MODINV(ECC_T0, WEIER_ZA, ECC_N, ECC_S3, ECC_T3);
+    MCUXCLECC_FP_MODINV(pSession, ECC_T0, WEIER_ZA, ECC_N, ECC_S3, ECC_T3);
     /* Now, S0 = d0 (opLen), T0 = v (opLen), Z = n-1 (opLen), */
     /*      S1 = c" (opLen), S2 = s (opLen).  */
     /**********************************************************/

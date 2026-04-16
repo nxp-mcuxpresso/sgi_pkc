@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2025 NXP                                                       */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLHASHMODES_MODECONSTANTS_H
@@ -362,16 +362,124 @@
  */
 
 
+#ifdef MCUXCL_FEATURE_HASH_C_SHA3
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_NAME                       mcuxClHash_AlgorithmDescriptor_C_Sha3_224
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_224.oneShotSkeleton = mcuxClHashModes_C_oneShot_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_ONESHOT                    mcuxClHashModes_C_oneShot_sha3
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_224.processSkeleton = mcuxClHashModes_C_process_sha3_shake */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_PROCESS                    mcuxClHashModes_C_process_sha3_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_224.finishSkeleton = mcuxClHashModes_C_finish_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_FINISH                     mcuxClHashModes_C_finish_sha3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_LENGTHMASK                 MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_BLOCKSIZE                  MCUXCLHASH_BLOCK_SIZE_SHA3_224
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_HASHSIZE                   MCUXCLHASH_OUTPUT_SIZE_SHA3_224
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_STATESIZE                  MCUXCLHASH_STATE_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_COUNTERSIZE                MCUXCLHASH_COUNTER_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_OID                        mcuxClHash_oidSha3_224
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_MEMORY_ONESHOT             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_MEMORY_PROCESS             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_MEMORY_FINISH              MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_FINISH
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_MEMORY_CONTEXT             MCUXCLHASHMODES_COMPUTE_CONTEXT_SIZE
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_ACTIVE             1
+
+#else
 #define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_224_ACTIVE             0
+#endif
 
 
+#ifdef MCUXCL_FEATURE_HASH_C_SHA3
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_NAME                       mcuxClHash_AlgorithmDescriptor_C_Sha3_256
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_256.oneShotSkeleton = mcuxClHashModes_C_oneShot_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_ONESHOT                    mcuxClHashModes_C_oneShot_sha3
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_256.processSkeleton = mcuxClHashModes_C_process_sha3_shake  */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_PROCESS                    mcuxClHashModes_C_process_sha3_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_256.finishSkeleton = mcuxClHashModes_C_finish_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_FINISH                     mcuxClHashModes_C_finish_sha3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_LENGTHMASK                 MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_BLOCKSIZE                  MCUXCLHASH_BLOCK_SIZE_SHA3_256
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_HASHSIZE                   MCUXCLHASH_OUTPUT_SIZE_SHA3_256
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_STATESIZE                  MCUXCLHASH_STATE_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_COUNTERSIZE                MCUXCLHASH_COUNTER_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_OID                        mcuxClHash_oidSha3_256
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_MEMORY_ONESHOT             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_MEMORY_PROCESS             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_MEMORY_FINISH              MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_FINISH
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_MEMORY_CONTEXT             MCUXCLHASHMODES_COMPUTE_CONTEXT_SIZE
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_ACTIVE             1
+
+#else
 #define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_256_ACTIVE             0
+#endif
 
 
+#ifdef MCUXCL_FEATURE_HASH_C_SHA3
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_NAME                       mcuxClHash_AlgorithmDescriptor_C_Sha3_384
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_384.oneShotSkeleton = mcuxClHashModes_C_oneShot_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_ONESHOT                    mcuxClHashModes_C_oneShot_sha3
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_384.processSkeleton = mcuxClHashModes_C_process_sha3_shake */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_PROCESS                    mcuxClHashModes_C_process_sha3_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_384.finishSkeleton = mcuxClHashModes_C_finish_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_FINISH                     mcuxClHashModes_C_finish_sha3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_LENGTHMASK                 MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_BLOCKSIZE                  MCUXCLHASH_BLOCK_SIZE_SHA3_384
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_HASHSIZE                   MCUXCLHASH_OUTPUT_SIZE_SHA3_384
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_STATESIZE                  MCUXCLHASH_STATE_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_COUNTERSIZE                MCUXCLHASH_COUNTER_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_OID                        mcuxClHash_oidSha3_384
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_MEMORY_ONESHOT             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_MEMORY_PROCESS             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_MEMORY_FINISH              MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_FINISH
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_MEMORY_CONTEXT             MCUXCLHASHMODES_COMPUTE_CONTEXT_SIZE
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_ACTIVE             1
+
+#else
 #define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_384_ACTIVE             0
+#endif
 
 
+#ifdef MCUXCL_FEATURE_HASH_C_SHA3
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_NAME                       mcuxClHash_AlgorithmDescriptor_C_Sha3_512
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_512.oneShotSkeleton = mcuxClHashModes_C_oneShot_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_ONESHOT                    mcuxClHashModes_C_oneShot_sha3
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_512.processSkeleton = mcuxClHashModes_C_process_sha3_shake */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_PROCESS                    mcuxClHashModes_C_process_sha3_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_512.finishSkeleton = mcuxClHashModes_C_finish_sha3 */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_FINISH                     mcuxClHashModes_C_finish_sha3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_LENGTHMASK                 MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_BLOCKSIZE                  MCUXCLHASH_BLOCK_SIZE_SHA3_512
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_HASHSIZE                   MCUXCLHASH_OUTPUT_SIZE_SHA3_512
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_STATESIZE                  MCUXCLHASH_STATE_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_COUNTERSIZE                MCUXCLHASH_COUNTER_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_OID                        mcuxClHash_oidSha3_512
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_MEMORY_ONESHOT             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_MEMORY_PROCESS             MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_MEMORY_FINISH              MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_FINISH
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_MEMORY_CONTEXT             MCUXCLHASHMODES_COMPUTE_CONTEXT_SIZE
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_ACTIVE             1
+
+#else
 #define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_512_ACTIVE             0
+#endif
 
 
 /*
@@ -379,10 +487,64 @@
  */
 
 
+#ifdef MCUXCL_FEATURE_HASH_C_SHA3_SHAKE
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_NAME                     mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_128
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_128.oneShotSkeleton = mcuxClHashModes_C_oneShot_hash_shake */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_ONESHOT                  mcuxClHashModes_C_oneShot_hash_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_128.processSkeleton = mcuxClHashModes_C_process_sha3_shake */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_PROCESS                  mcuxClHashModes_C_process_sha3_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_128.finishSkeleton = mcuxClHashModes_C_finish_hash_shake  */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_FINISH                   mcuxClHashModes_C_finish_hash_shake
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_LENGTHMASK               MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_BLOCKSIZE                MCUXCLHASH_BLOCK_SIZE_SHA3_SHAKE_128
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_HASHSIZE                 MCUXCLHASH_OUTPUT_SIZE_SHA3_SHAKE_128
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_STATESIZE                MCUXCLHASH_STATE_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_COUNTERSIZE              MCUXCLHASH_COUNTER_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_OID                      mcuxClHash_oidSha3_shake_128
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_MEMORY_ONESHOT           MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_MEMORY_PROCESS           MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_MEMORY_FINISH            MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_FINISH
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_MEMORY_CONTEXT           MCUXCLHASHMODES_COMPUTE_CONTEXT_SIZE
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_ACTIVE             1
+
+#else
 #define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_128_ACTIVE             0
+#endif
 
 
+#ifdef MCUXCL_FEATURE_HASH_C_SHA3_SHAKE
+
+/* Descriptor Name: MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256 */
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_NAME                     mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_256
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_256.oneShotSkeleton = mcuxClHashModes_C_oneShot_hash_shake */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_ONESHOT                  mcuxClHashModes_C_oneShot_hash_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_256.processSkeleton = mcuxClHashModes_C_process_sha3_shake */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_PROCESS                  mcuxClHashModes_C_process_sha3_shake
+/* mcuxClHash_AlgorithmDescriptor_C_Sha3_Shake_256.finishSkeleton = mcuxClHashModes_C_finish_hash_shake  */
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_FINISH                   mcuxClHashModes_C_finish_hash_shake
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_LENGTHMASK               MCUXCLHASH_PROCESSED_LENGTH_CHECK_MASK_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_BLOCKSIZE                MCUXCLHASH_BLOCK_SIZE_SHA3_SHAKE_256
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_HASHSIZE                 MCUXCLHASH_OUTPUT_SIZE_SHA3_SHAKE_256
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_STATESIZE                MCUXCLHASH_STATE_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_COUNTERSIZE              MCUXCLHASH_COUNTER_SIZE_SHA3
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_OID                      mcuxClHash_oidSha3_shake_256
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_MEMORY_ONESHOT           MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_ONESHOT
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_MEMORY_PROCESS           MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_PROCESS
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_MEMORY_FINISH            MCUXCLHASHMODES_COMPUTE_MEMORY_C_KECCAK_FINISH
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_MEMORY_CONTEXT           MCUXCLHASHMODES_COMPUTE_CONTEXT_SIZE
+
+#define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_ACTIVE             1
+
+#else
 #define MCUXCLHASHMODES_DESCRIPTOR_C_SHA3_SHAKE_256_ACTIVE             0
+#endif
 
 
 /*

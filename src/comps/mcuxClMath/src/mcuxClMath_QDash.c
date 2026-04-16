@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2024, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -28,7 +28,6 @@
 #include <internal/mcuxClMath_Internal_QDash.h>
 #include <internal/mcuxClMath_Internal_Utils.h>
 #include <internal/mcuxClMath_Internal_Functions.h>
-
 
 /**
  * [DESIGN]
@@ -50,16 +49,21 @@
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_DEFINED("It is indeed defined.")
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEFINED_MORE_THAN_ONCE("It defined only once.")
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_QDash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QDash(uint32_t iQDash_iNShifted_iN_iT, uint16_t length)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QDash(mcuxClSession_Handle_t pSession, uint32_t iQDash_iNShifted_iN_iT, uint16_t length)
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEFINED_MORE_THAN_ONCE()
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_QDash);
 
-    uint16_t pOperands[QDASH_UPTRT_SIZE];
-    const uint16_t *backupPtrUptrt;
+    uint32_t mathLocalUptrtWordOffset = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(QDASH_UPTRT_OFFSET * sizeof(uint16_t));
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Casting 32-bit pointer to 16-bit pointer is 16-bit aligned")
+    uint16_t * const pOperands = (uint16_t*)(pSession->pMathUptrt + mathLocalUptrtWordOffset);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+    const uint16_t *pBackupPtrUptrt;
     /* mcuxClMath_InitLocalUptrt always returns _OK. */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iQDash_iNShifted_iN_iT, 0, pOperands, 4u, &backupPtrUptrt));
+    /* localPtrUptrt parameter of mcuxClMath_InitLocalUptrt starts at pOperands + QDASH_T. */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iQDash_iNShifted_iN_iT, 0U, pOperands, 4u, &pBackupPtrUptrt));
+    /* WAITFORREADY in mcuxClMath_InitLocalUptrt(...). */
     pOperands[QDASH_CONST0] = 0u;
 
     /* Prepare 2Q mod n, which is the Montgomery representation of 2. */
@@ -99,7 +103,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
 
     /* Restore pUptrt. */
     MCUXCLPKC_WAITFORREADY();
-    MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+    MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
 
     MCUX_CSSL_FP_COUNTER_STMT(
         const uint32_t leadingZeroLength = mcuxClMath_CountLeadingZerosWord((uint32_t) length);     \
@@ -122,13 +126,13 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_DEFINED()
  * by calling the above mcuxClMath_QDash.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_QSquared)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QSquared(uint32_t iQSqr_iNShifted_iN_iT)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QSquared(mcuxClSession_Handle_t pSession, uint32_t iQSqr_iNShifted_iN_iT)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_QSquared,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_QDash));
 
     uint16_t len = MCUXCLPKC_PS1_GETOPLEN();
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_QDash(iQSqr_iNShifted_iN_iT, len));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_QDash(pSession, iQSqr_iNShifted_iN_iT, len));
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_QSquared);
 }

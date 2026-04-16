@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -39,15 +39,15 @@
 
 /** NIST-SP800-38B Appendix D.1 test vectors */
 static const uint8_t keyData[16] = {
-  0x2bu, 0x7eu, 0x15u, 0x16u, 0x28u, 0xaeu, 0xd2u, 0xa6u,
-  0xabu, 0xf7u, 0x15u, 0x88u, 0x09u, 0xcfu, 0x4fu, 0x3cu
+  0x2bU, 0x7eU, 0x15U, 0x16U, 0x28U, 0xaeU, 0xd2U, 0xa6U,
+  0xabU, 0xf7U, 0x15U, 0x88U, 0x09U, 0xcfU, 0x4fU, 0x3cU
 };
 
 /************************************************************************************/
 /* Helper code to synchronize example flow with nonBlocking background computation  */
 /************************************************************************************/
 
-#define MCUXCLMAC_STATUS_CALLBACK_NOT_EXECUTED ((uint32_t) 0xDEADBEEFu)
+#define MCUXCLMAC_STATUS_CALLBACK_NOT_EXECUTED ((uint32_t) 0xDEADBEEFU)
 /* This variable is used to keep track of callbacks triggered by the non-blocking API. */
 static volatile uint32_t macStatus_nonBlockingCallback = MCUXCLMAC_STATUS_CALLBACK_NOT_EXECUTED;
 
@@ -58,7 +58,7 @@ static void user_callback(uint32_t status, void * data)
   macStatus_nonBlockingCallback = status;
 }
 
-#define MCUXCLMAC_FLAG_DMA_INTERRUPT_NOT_TRIGGERED ((uint32_t) 0xDEADBEEFu)
+#define MCUXCLMAC_FLAG_DMA_INTERRUPT_NOT_TRIGGERED ((uint32_t) 0xDEADBEEFU)
 /* This variable is a flag to notify the caller that an interrupt happened.
    It will contain the DMA channel ID of the respective channel that had an interrupt. */
 static volatile uint32_t flag_interruptNumber = MCUXCLMAC_FLAG_DMA_INTERRUPT_NOT_TRIGGERED;
@@ -128,23 +128,23 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_exampl
 
   /* Note: All DMA buffer needs to be on the stack because DMA cannot access ROM */
   const uint8_t data[40] = {
-    0x6bu, 0xc1u, 0xbeu, 0xe2u, 0x2eu, 0x40u, 0x9fu, 0x96u,
-    0xe9u, 0x3du, 0x7eu, 0x11u, 0x73u, 0x93u, 0x17u, 0x2au,
-    0xaeu, 0x2du, 0x8au, 0x57u, 0x1eu, 0x03u, 0xacu, 0x9cu,
-    0x9eu, 0xb7u, 0x6fu, 0xacu, 0x45u, 0xafu, 0x8eu, 0x51u,
-    0x30u, 0xc8u, 0x1cu, 0x46u, 0xa3u, 0x5cu, 0xe4u, 0x11u
+    0x6bU, 0xc1U, 0xbeU, 0xe2U, 0x2eU, 0x40U, 0x9fU, 0x96U,
+    0xe9U, 0x3dU, 0x7eU, 0x11U, 0x73U, 0x93U, 0x17U, 0x2aU,
+    0xaeU, 0x2dU, 0x8aU, 0x57U, 0x1eU, 0x03U, 0xacU, 0x9cU,
+    0x9eU, 0xb7U, 0x6fU, 0xacU, 0x45U, 0xafU, 0x8eU, 0x51U,
+    0x30U, 0xc8U, 0x1cU, 0x46U, 0xa3U, 0x5cU, 0xe4U, 0x11U
   };
 
   const uint8_t cmacReference[16] = {
-    0xdfu, 0xa6u, 0x67u, 0x47u, 0xdeu, 0x9au, 0xe6u, 0x30u,
-    0x30u, 0xcau, 0x32u, 0x61u, 0x14u, 0x97u, 0xc8u, 0x27u
+    0xdfU, 0xa6U, 0x67U, 0x47U, 0xdeU, 0x9aU, 0xe6U, 0x30U,
+    0x30U, 0xcaU, 0x32U, 0x61U, 0x14U, 0x97U, 0xc8U, 0x27U
   };
 
   mcuxClSession_Descriptor_t sessionDesc;
   mcuxClSession_Handle_t session = &sessionDesc;
 
   /* Allocate and initialize session */
-  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION_NONBLOCKING(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0u);
+  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION_NONBLOCKING(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLMAC_COMPUTE_CPU_WA_BUFFER_SIZE, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0U);
 
   /* Initialize the PRNG */
   MCUXCLEXAMPLE_INITIALIZE_PRNG(session);
@@ -179,8 +179,8 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_exampl
   /* Configure the DMA channels that should be used. For MAC operations, the two channels will never be used at the same time.
    * Use DMA channel 0 for both HW input and output operations. */
   mcuxClSession_Channels_t dmaChannels = {
-    .input = (mcuxClSession_Channel_t) 0u,
-    .output = (mcuxClSession_Channel_t) 0u
+    .input = (mcuxClSession_Channel_t) 0U,
+    .output = (mcuxClSession_Channel_t) 0U
   };
 
   /* Set DMA channels and user callback function */
@@ -209,7 +209,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_exampl
   /* MAC Computation                                                        */
   /**************************************************************************/
 
-  uint32_t macSize = 0u;
+  uint32_t macSize = 0U;
   uint8_t macData[sizeof(cmacReference)];
 
   MCUXCLBUFFER_INIT_DMA_RO(dataBuf, session, data, sizeof(data));

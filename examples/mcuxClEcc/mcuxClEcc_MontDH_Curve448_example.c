@@ -42,9 +42,13 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve448_example)
     mcuxClSession_Handle_t session = &sessionDesc;
     MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MAX_CPUWA_SIZE, MAX_PKCWA_SIZE);
 
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)
     /* NOTE: Key generation for Curve448 from a DRBG with 128 bit security strength is not recommended. */
     /* Initialize the RNG and Initialize the PRNG */
     MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3);
+#else
+    #error "Feature flags for this example are unavailable."
+#endif /* MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256 && MCUXCL_FEATURE_RANDOMMODES_CTRDRBG && MCUXCL_FEATURE_RANDOMMODES_PR_DISABLED && MCUXCL_FEATURE_RANDOMMODES_NORMALMODE */
 
     /* Prepare input for Alice key generation */
     uint32_t alicePrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];

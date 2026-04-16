@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -40,7 +40,7 @@
  * If p = 1 (mod 4) : Computing a square root modulo p is done via the Tonelli-Shanks algorithm.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_ModSquareRoot)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot(uint32_t iR_iA_iP_iQ, uint32_t iT0_iT1_iT2_iT3, uint32_t byteLengthP)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot(mcuxClSession_Handle_t pSession, uint32_t iR_iA_iP_iQ, uint32_t iT0_iT1_iT2_iT3, uint32_t byteLengthP)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_ModSquareRoot);
 
@@ -91,7 +91,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot(uint32_t iR_iA_iP_iQ,
     /* If p = 1 (mod 4) then call Tonelli-Shanks algorithm for computing the square root. */
     else
     {
-        MCUXCLMATH_FP_MODSQUAREROOT_TONELLISHANKS(iR /* beta */, iA /* alpha */, iP /* mod */, iQ /* Mont Q */,  iT0 /* tmp */, iT1 /* tmp */, iT2 /* tmp */, iT3 /* tmp */, byteLengthP);
+        MCUXCLMATH_FP_MODSQUAREROOT_TONELLISHANKS(pSession, iR /* beta */, iA /* alpha */, iP /* mod */, iQ /* Mont Q */,  iT0 /* tmp */, iT1 /* tmp */, iT2 /* tmp */, iT3 /* tmp */, byteLengthP);
         MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_ModSquareRoot, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_ModSquareRoot_TonelliShanks));
     }
 }
@@ -105,7 +105,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot(uint32_t iR_iA_iP_iQ,
  * modulo a prime number.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_ModSquareRoot_TonelliShanks)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_t iR_iA_iP_iQ, uint32_t iT0_iT1_iT2_iT3, uint32_t byteLengthP)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(mcuxClSession_Handle_t pSession, uint32_t iR_iA_iP_iQ, uint32_t iT0_iT1_iT2_iT3, uint32_t byteLengthP)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_ModSquareRoot_TonelliShanks);
 
@@ -120,12 +120,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
 
     /* Create local UPTR table. */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Create 16-bit UPTR table at CPU word (32-bit) aligned address.")
-    uint32_t pOperands32[(MODSQRT_SIZE + 1u) / 2u];
-    uint16_t *pOperands = (uint16_t *) pOperands32;
-    const uint16_t *backupPtrUptrt;
+    uint32_t * const pOperands32 = pSession->pMathUptrt;
+    uint16_t * const pOperands = (uint16_t*) pOperands32;
+    const uint16_t *pBackupPtrUptrt;
     /* mcuxClMath_InitLocalUptrt always returns _OK. */
     /* Mapping to internal indices:       iR -> Y, iA -> A, iP -> P, iQ -> Q, iT0 -> T, iT1 -> B, iT2 -> M, iT3 -> S */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iA_iP_iQ, iT0_iT1_iT2_iT3, pOperands, MODSQRT_SIZE, &backupPtrUptrt));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iA_iP_iQ, iT0_iT1_iT2_iT3, pOperands, MODSQRT_SIZE, &pBackupPtrUptrt));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
 
     /**************************************************************************/
@@ -154,7 +154,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
 
         /* Compute the Legendre symbol (m/p). */
         MCUX_CSSL_FP_FUNCTION_CALL(result_legendre,
-            MCUXCLMATH_LEGENDRESYMBOL(MODSQRT_M /* A */,
+            MCUXCLMATH_LEGENDRESYMBOL(pSession,
+                                     MODSQRT_M /* A */,
                                      MODSQRT_T /* T1 */,
                                      MODSQRT_Y /* T2 */,
                                      MODSQRT_B /* T3 */,
@@ -176,7 +177,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
     /**************************************************************************/
 
     /* Compute maximum r such that 2^r divides p-1 and make s odd (i.e. p-1 = (2^r)*s). */
-    MCUXCLPKC_PKC_CPU_ARBITRATION_WORKAROUND();
+    MCUXCLPKC_WAITFORFINISH();
     MCUX_CSSL_FP_FUNCTION_CALL(noOfTrailingZeroBits, mcuxClMath_TrailingZeros(MODSQRT_S));
     uint32_t noOfTrailingZeroPkcWords = noOfTrailingZeroBits / (8u * MCUXCLPKC_WORDSIZE);
 
@@ -329,7 +330,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
 
     /* Restore pUptrt. */
     MCUXCLPKC_WAITFORREADY();
-    MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+    MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
     //MCUXCLPKC_PS1_SETLENGTH_REG(backupPs1LenReg);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_ModSquareRoot_TonelliShanks,
@@ -365,7 +366,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(uint32_
  * that the given numbers alpha and p are of the same size, PS1 OPLEN.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_LegendreSymbol)
-MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint32_t iT1_iT2_iT3_iP)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(mcuxClSession_Handle_t pSession, uint8_t iA, uint32_t iT1_iT2_iT3_iP)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_LegendreSymbol);
 
@@ -439,7 +440,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(uint8_t iA, uint
 
         /* Set t = u*R^(-1) (mod v) */
         /* where t is in range [0,v-1] and R is the Montgomery constant. */
-        MCUXCLMATH_FP_NDASH(iV, iT);
+        MCUXCLMATH_FP_NDASH(pSession, iV, iT);
         MCUXCLPKC_FP_CALC_MC1_MR(iT, iU, iV);
         MCUXCLPKC_FP_CALC_MC1_MS(iT, iT, iV, iV);
 

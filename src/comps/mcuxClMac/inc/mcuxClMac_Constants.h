@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -29,15 +29,15 @@
  */
 
 /* Status codes */
-#define MCUXCLMAC_STATUS_ERROR                     ((mcuxClMac_Status_t) 0x08885330u) ///< Functional error detected in MAC operation
-#define MCUXCLMAC_STATUS_FAILURE                   ((mcuxClMac_Status_t) 0x08885334u) ///< Functional failure detected
-#define MCUXCLMAC_STATUS_INVALID_PARAM             ((mcuxClMac_Status_t) 0x088853F8u) ///< Invalid input provided
-#define MCUXCLMAC_STATUS_FAULT_ATTACK              ((mcuxClMac_Status_t) 0x0888F0F0u) ///< Fault attack detected
-#define MCUXCLMAC_STATUS_OK                        ((mcuxClMac_Status_t) 0x08882E03u) ///< Blocking operation finished successfully
-#define MCUXCLMAC_STATUS_COMPARE_NOK               ((mcuxClMac_Status_t) 0x088889FCu) ///< Blocking operation finished, invalid tag detected
-#define MCUXCLMAC_STATUS_JOB_STARTED               ((mcuxClMac_Status_t) 0x08882E47u) ///< Non-blocking operation started successfully
-#define MCUXCLMAC_STATUS_JOB_COMPLETED             ((mcuxClMac_Status_t) 0x08882EFCu) ///< Non-blocking operation finished successfully
-#define MCUXCLMAC_STATUS_JOB_COMPLETED_COMPARE_NOK ((mcuxClMac_Status_t) 0x08888903u) ///< Non-blocking operation finished, invalid tag detected
+#define MCUXCLMAC_STATUS_ERROR                     ((mcuxClMac_Status_t) 0x08885330U) ///< Functional error detected in MAC operation
+#define MCUXCLMAC_STATUS_FAILURE                   ((mcuxClMac_Status_t) 0x08885334U) ///< Functional failure detected
+#define MCUXCLMAC_STATUS_INVALID_PARAM             ((mcuxClMac_Status_t) 0x088853F8U) ///< Invalid input provided
+#define MCUXCLMAC_STATUS_FAULT_ATTACK              ((mcuxClMac_Status_t) 0x0888F0F0U) ///< Fault attack detected
+#define MCUXCLMAC_STATUS_OK                        ((mcuxClMac_Status_t) 0x08882E03U) ///< Blocking operation finished successfully
+#define MCUXCLMAC_STATUS_COMPARE_NOK               ((mcuxClMac_Status_t) 0x088889FCU) ///< Blocking operation finished, invalid tag detected
+#define MCUXCLMAC_STATUS_JOB_STARTED               ((mcuxClMac_Status_t) 0x08882E47U) ///< Non-blocking operation started successfully
+#define MCUXCLMAC_STATUS_JOB_COMPLETED             ((mcuxClMac_Status_t) 0x08882EFCU) ///< Non-blocking operation finished successfully
+#define MCUXCLMAC_STATUS_JOB_COMPLETED_COMPARE_NOK ((mcuxClMac_Status_t) 0x08888903U) ///< Non-blocking operation finished, invalid tag detected
 
 /** @}*/
 

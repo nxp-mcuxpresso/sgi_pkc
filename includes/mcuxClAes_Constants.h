@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022, 2024-2025 NXP                                            */
+/* Copyright 2022, 2024-2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLAES_CONSTANTS_H_
@@ -30,10 +30,10 @@ extern "C" {
  */
 
 /* Status code */
-#define MCUXCLAES_STATUS_OK                 ((mcuxClAes_Status_t) 0x0FF92E03u)
+#define MCUXCLAES_STATUS_OK                 ((mcuxClAes_Status_t) 0x0FF92E03U)
 
 /* Block size */
-#define MCUXCLAES_BLOCK_SIZE                (16u)                                    ///< AES block size in bytes
+#define MCUXCLAES_BLOCK_SIZE                (16U)                                    ///< AES block size in bytes
 #define MCUXCLAES_BLOCK_SIZE_IN_WORDS       (MCUXCLAES_BLOCK_SIZE / sizeof(uint32_t)) ///< AES block size in words
 
 /* Key sizes */
@@ -43,6 +43,7 @@ extern "C" {
 #define MCUXCLAES_AES192_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_192_IN_WORDS)   ///< AES-192 key size in words
 #define MCUXCLAES_AES256_KEY_SIZE           (MCUXCLKEY_SIZE_256)            ///< AES-256 key size in bytes
 #define MCUXCLAES_AES256_KEY_SIZE_IN_WORDS  (MCUXCLKEY_SIZE_256_IN_WORDS)   ///< AES-256 key size in words
+
 
 /* RFC3394 key wrap/unwrap Key container data sizes */
 #define MCUXCLAES_ENCODING_RFC3394_BLOCK_SIZE                (8U)                                                              ///< RFC3394 block size in bytes

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClHash_Types.h
@@ -49,7 +49,33 @@ typedef struct mcuxClHash_AlgorithmDescriptor mcuxClHash_AlgorithmDescriptor_t;
  */
 typedef const mcuxClHash_AlgorithmDescriptor_t * const mcuxClHash_Algo_t;
 
+#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE)
+/**
+ * @brief Hash mode/algorithm type
+ *
+ * This type is used to refer to a custom Hash mode/algorithm that
+ * can be created via a provided constructor.
+ */
+typedef mcuxClHash_AlgorithmDescriptor_t * const mcuxClHash_Algo_Custom_t;
+#endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) */
 
+#ifdef MCUXCL_FEATURE_HASH_SELFTEST
+/**
+ * @brief Hash selftest mode/algorithm descriptor type
+ *
+ * This type captures all the information that the hash selftest interfaces need to
+ * know about a particular Hash selftest mode/algorithm.
+ */
+typedef struct mcuxClHash_TestDescriptor mcuxClHash_TestDescriptor_t;
+
+/**
+ * @brief Hash selftest mode/algorithm type
+ *
+ * This type is used to refer to a Hash selftest mode/algorithm.
+ */
+typedef const mcuxClHash_TestDescriptor_t * const mcuxClHash_Test_t;
+
+#endif /* MCUXCL_FEATURE_HASH_SELFTEST */
 
 /**
  * @brief Hash Context buffer type

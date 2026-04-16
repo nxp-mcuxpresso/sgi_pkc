@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClKey_MemoryConsumption.h
@@ -35,7 +35,7 @@
 #define MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE          (16u)
 #define MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE_IN_WORDS (MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE / sizeof(uint32_t))
 
-#define MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE              (4U)
+#define MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE              (4u)
 #define MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE_IN_WORDS     (MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE / sizeof(uint32_t))
 
 #define MCUXCLKEY_ENCODE_CPU_WA_SIZE                 (4U)

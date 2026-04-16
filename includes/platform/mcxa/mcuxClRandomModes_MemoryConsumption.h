@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2024 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -42,15 +42,35 @@
 #define MCUXCLRANDOMMODES_CREATETESTMODEFROMNORMALMODE_WACPU_SIZE     (0u)
 
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
+#define MCUXCLRANDOMMODES_CTR_DRBG_AES128_CONTEXT_SIZE ($(mcuxClRandomModes_Context_Aes128)u)
+#define MCUXCLRANDOMMODES_CTR_DRBG_AES128_CONTEXT_SIZE_IN_WORDS ((MCUXCLRANDOMMODES_CTR_DRBG_AES128_CONTEXT_SIZE + sizeof(uint32_t) - 1u) / sizeof(uint32_t))
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+#define MCUXCLRANDOMMODES_CTR_DRBG_AES192_CONTEXT_SIZE ($(mcuxClRandomModes_Context_Aes192)u)
+#define MCUXCLRANDOMMODES_CTR_DRBG_AES192_CONTEXT_SIZE_IN_WORDS ((MCUXCLRANDOMMODES_CTR_DRBG_AES192_CONTEXT_SIZE + sizeof(uint32_t) - 1u) / sizeof(uint32_t))
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 #define MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE (72u)
 #define MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE_IN_WORDS ((MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE + sizeof(uint32_t) - 1u) / sizeof(uint32_t))
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
+#define MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES128_INIT_ENTROPY_SIZE     ($(mcuxClRandomModes_TestMode_CtrDrbg_Aes128_Entropy_Input_Init_size)u)
+#define MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES128_RESEED_ENTROPY_SIZE   ($(mcuxClRandomModes_TestMode_CtrDrbg_Aes128_Entropy_Input_Reseed_size)u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+#define MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES192_INIT_ENTROPY_SIZE     ($(mcuxClRandomModes_TestMode_CtrDrbg_Aes192_Entropy_Input_Init_size)u)
+#define MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES192_RESEED_ENTROPY_SIZE   ($(mcuxClRandomModes_TestMode_CtrDrbg_Aes192_Entropy_Input_Reseed_size)u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 #define MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES256_INIT_ENTROPY_SIZE     (64u)
 #define MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES256_RESEED_ENTROPY_SIZE   (48u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 
 
 #define MCUXCLRANDOMMODES_PATCHMODE_CONTEXT_SIZE        (4u)

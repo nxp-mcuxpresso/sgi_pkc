@@ -28,7 +28,7 @@
 /**
  * \implements{REQ_788368}
  */
-#define MCUXCL_VERSION "DCI_SDK_V4.0.0" ///< String literal for the version string of CLNS release that this header is part of
+#define MCUXCL_VERSION "DCI_SDK_V4.1.0" ///< String literal for the version string of CLNS release that this header is part of
 
 /**********************************************
  * FUNCTIONS

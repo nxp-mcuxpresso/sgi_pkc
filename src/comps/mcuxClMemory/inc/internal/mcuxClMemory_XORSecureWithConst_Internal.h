@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2024-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClMemory_XORSecureWithConst_Internal.h
@@ -32,6 +32,9 @@
 #include <mcuxClMemory_Types.h>
 #include <mcuxClToolchain.h>
 #include <mcuxCsslFlowProtection.h>
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_XOR
+#include <internal/mcuxCsslMemory_Internal_SecureXOR.h>
+#endif  /* MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_XOR */
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,6 +72,10 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_XORWithConst_secure
 )
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_XORWithConst_secure_int);
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_XOR
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_SecXORWithConst(pDst, pSrc, byteConstant, length));
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_XORWithConst_secure_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_SecXORWithConst));
+#else
     MCUX_CSSL_DI_EXPUNGE(xorParamsDst /* Not used */, (uint32_t) pDst);
     MCUX_CSSL_DI_EXPUNGE(xorParamsSrc /* Not used */, (uint32_t) pSrc);
     MCUX_CSSL_DI_EXPUNGE(xorParamsLength /* Not used */, (uint32_t) length);
@@ -77,8 +84,18 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_XORWithConst_secure
         pDst[i] = pSrc[i] ^ byteConstant;
     }
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_XORWithConst_secure_int);
+#endif /* MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_XOR */
 }
 
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_XOR
+#define MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT_FP_EXPECT (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_SecXORWithConst))
+#define MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT(pDst, pSrc, byteConstant, length)                          \
+  do {                                                                                                   \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_SecXORWithConst(pDst, pSrc, byteConstant, length)); \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()                             \
+  } while(false)                                                                                         \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
+#else
 #define MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT_FP_EXPECT 0U
 #define MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT(pDst, pSrc, byteConstant, length) \
   do {                                                                          \
@@ -92,6 +109,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_XORWithConst_secure
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()    \
   } while(false)                                                                \
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
+#endif /* MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_XOR */
 
 #ifdef __cplusplus
 } /* extern "C" */

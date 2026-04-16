@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAead.c
@@ -44,7 +44,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_decrypt(
 {
   MCUXCLSESSION_ENTRY(session, mcuxClAead_decrypt, diRefValue, MCUXCLAEAD_STATUS_FAULT_ATTACK);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL(status, mode->decrypt(
     /* mcuxClSession_Handle_t session,        */ session,
     /* mcuxClKey_Handle_t key,                */ key,
@@ -88,7 +88,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_encrypt(
 {
   MCUXCLSESSION_ENTRY(session, mcuxClAead_encrypt, diRefValue, MCUXCLAEAD_STATUS_FAULT_ATTACK);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->encrypt(
     /* mcuxClSession_Handle_t session,        */ session,
     /* mcuxClKey_Handle_t key,                */ key,
@@ -115,6 +115,28 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_encrypt(
 
 
 
+#ifdef MCUXCL_FEATURE_AEAD_SELFTEST
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAead_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClAead_Mode_t mode,
+  mcuxClAead_Test_t test
+)
+{
+  MCUXCLSESSION_ENTRY(session, mcuxClAead_selftest, diRefValue, MCUXCLAEAD_STATUS_FAULT_ATTACK);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(test->pSelfTestFct(
+  /* mcuxClSession_Handle_t            session:             */  session,
+  /* mcuxClSignature_Mode_t            mode:                */  mode));
+
+  MCUXCLSESSION_EXIT(session,
+                    mcuxClAead_selftest,
+                    diRefValue,
+                    MCUXCLAEAD_STATUS_OK,
+                    MCUXCLAEAD_STATUS_FAULT_ATTACK,
+                    test->protection_token_selftest);
+}
+#endif /* MCUXCL_FEATURE_AEAD_SELFTEST */
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClAead_init_encrypt)
@@ -204,7 +226,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_process(
                       MCUXCLAEAD_STATUS_FAULT_ATTACK,
                       pContext->mode->protection_token_process);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pContext->mode->process(
     /* mcuxClSession_Handle_t session,        */ session,
     /* mcuxClAead_Context_t * const pContext, */ pContext,
@@ -256,7 +278,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_finish(
                       MCUXCLAEAD_STATUS_FAULT_ATTACK,
                       pContext->mode->protection_token_finish);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pContext->mode->finish(
     /* mcuxClSession_Handle_t session,        */ session,
     /* mcuxClAead_Context_t * const pContext, */ pContext,
@@ -283,7 +305,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_verify(
                       MCUXCLAEAD_STATUS_FAULT_ATTACK,
                       pContext->mode->protection_token_verify);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL(status, pContext->mode->verify(
     /* mcuxClSession_Handle_t session,        */ session,
     /* mcuxClAead_Context_t * const pContext, */ pContext,

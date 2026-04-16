@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023, 2025 NXP                                            */
+/* Copyright 2020-2023, 2025-2026 NXP                                       */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLSIGNATURE_FUNCTIONS_H_
@@ -51,7 +51,7 @@ extern "C" {
  *  - Output data buffer
  *
  * \param      session        Handle for the current CL session.
- * \param      key            Key to be used to sign the data.
+ * \param      key            Key to be used to sign the data (word-aligned).
  * \param      mode           Signature mode that should be used during the
  *                            signing operation.
  * \param[in]  pIn            Pointer to the input buffer that contains the
@@ -65,7 +65,6 @@ extern "C" {
  * \return status
  *
  * @attention When used with RSA modes, the function uses PRNG, which has to be initialized prior to calling the function.
- *
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSignature_sign)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_sign(
@@ -123,7 +122,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify_rec
  *  - Signature
  *
  * \param      session       Handle for the current CL session.
- * \param      key           Key to be used to verify the \p pSignature.
+ * \param      key           Key to be used to verify the \p pSignature (word-aligned).
  * \param      mode          Signature mode that should be used during the
  *                           verification operation.
  * \param[in]  pIn           Pointer to the input buffer that contains the
@@ -133,14 +132,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify_rec
  *                           that needs to be verified.
  * \param      signatureSize Number of bytes of data in the \p pSignature
  *                           buffer.
- *
-#if defined(MCUXCL_FEATURE_SIGNATURE_VERIFY_PARAMETER_PROTECTION) && defined(MCUXCL_FEATURE_ECC_ECDSA_VERIFY)
- * \note                     When performing ECDSA signature verification: mode, pIn and inSize parameters
+ */
+ /** \note                   When performing ECDSA signature verification: mode, pIn and inSize parameters
  *                           require additional protection using mcuxClSignature_verify_recordParam().
  *                           This will initialize first word of CPU WA with integrity value required by
  *                           mcuxClSignature_verify() to validate parameters.
-#endif
- *
+ */
+ /**
  * \return status
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSignature_verify)
@@ -155,6 +153,32 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify(
 ); /* oneshot verification */
 /** @} */
 
+#ifdef MCUXCL_FEATURE_SIGNATURE_SELFTEST
+/**
+ * \brief Signature selftest function
+ * \api
+ *
+ * This function performs a signature selftest operation.
+ * The algorithm to be used will be determined based on the mode and test types that are provided.
+ *
+ * For example, to perform an SM2 selftest operation with only verify, the following needs to be provided:
+ *  - SM2 mode
+ *  - mcuxClOsccaSm2_Test_VerifyOnly for test descriptor
+ *
+ * \param      session       Handle for the current CL session.
+ * \param      mode          Signature mode that should be used during the
+ *                           selftest operation.
+ * \param      test          Signature selftest type that should be used during the selftest operation.
+ * \return status
+ *
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClSignature_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClSignature_Mode_t mode,
+  mcuxClSignature_Test_t test
+); /* selftest */
+#endif /* MCUXCL_FEATURE_SIGNATURE_SELFTEST */
 
 
 #ifdef __cplusplus

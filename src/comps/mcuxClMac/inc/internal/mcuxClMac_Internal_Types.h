@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClMac_Internal_Types.h
@@ -130,6 +130,26 @@ struct mcuxClMac_ModeDescriptor
   void * pCustom;                           /* additional mode-specific data structure */
 };
 
+#ifdef MCUXCL_FEATURE_MAC_SELFTEST
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClMac_SelfTestFct_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClMac_SelfTestFct_t) (
+  mcuxClSession_Handle_t session,
+  mcuxClMac_Mode_t mode
+));
+
+/**
+ * @brief Mac selftest mode descriptor structure
+ * @ingroup clMacModes
+ *
+ * This structure captures all the information that the Mac selftest interfaces need
+ * to know about a particular Mac selftest mode.
+ */
+struct mcuxClMac_TestDescriptor
+{
+  mcuxClMac_SelfTestFct_t pSelfTestFct;
+  uint32_t               protection_token_selftest;
+};
+#endif /* MCUXCL_FEATURE_MAC_SELFTEST */
 
 #ifdef __cplusplus
 } /* extern "C" */

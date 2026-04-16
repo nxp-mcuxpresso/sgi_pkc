@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -16,15 +16,16 @@
  * @brief defines FUP programs byte arrays
  */
 
-
 #ifndef MCUXCLECC_INTERNAL_FUP_H_
 #define MCUXCLECC_INTERNAL_FUP_H_
 
 #include <mcuxClCore_Platform.h>
+
 #include <mcuxCsslAnalysis.h>
 
-#include <internal/mcuxClPkc_FupMacros.h>
 #include <internal/mcuxClEcc_FeatureConfig.h>
+#include <internal/mcuxClPkc_FupMacros.h>
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,47 +34,69 @@ extern "C" {
 /*
  * FUP program declaration mcuxClEcc_FUP_ConvertHomToAffine
  */
-#define mcuxClEcc_FUP_ConvertHomToAffine_LEN  7u
+#define mcuxClEcc_FUP_ConvertHomToAffine_LEN 7u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_ConvertHomToAffine);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_ConvertHomToAffine,
+  mcuxClEcc_FUP_ConvertHomToAffine_LEN
+);
+
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 /*
  * FUP program declaration mcuxClEcc_FUP_Interleave
  */
-#define mcuxClEcc_FUP_Interleave_LEN  7u
+#define mcuxClEcc_FUP_Interleave_LEN 7u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_Interleave);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_Interleave,
+  mcuxClEcc_FUP_Interleave_LEN
+);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
+#if defined(MCUXCL_FEATURE_ECC_EDDSA) || defined(MCUXCL_FEATURE_ECC_MONTDH)
 /*
  * FUP program declaration mcuxClEcc_FUP_ReduceRandomModModulus
  */
-#define mcuxClEcc_FUP_ReduceRandomModModulus_LEN  4u
+#define mcuxClEcc_FUP_ReduceRandomModModulus_LEN 4u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_ReduceRandomModModulus);
-MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_ReduceRandomModModulus,
+  mcuxClEcc_FUP_ReduceRandomModModulus_LEN
+);
 
+MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
+#endif /* MCUXCL_FEATURE_ECC_EDDSA MCUXCL_FEATURE_ECC_MONTDH */
+
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 /**
  * FUP program declaration mcuxClEcc_FUP_PointComparisonHom
  */
-#define mcuxClEcc_FUP_PointComparisonHom_LEN  16u
+#define mcuxClEcc_FUP_PointComparisonHom_LEN 16u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_PointComparisonHom);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_PointComparisonHom,
+  mcuxClEcc_FUP_PointComparisonHom_LEN
+);
+
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 
 
 /**
  * FUP program declaration mcuxClEcc_FUP_SetupEnvironment_ClearBuffers
  */
-#define mcuxClEcc_FUP_SetupEnvironment_ClearBuffers_LEN  5u
+#define mcuxClEcc_FUP_SetupEnvironment_ClearBuffers_LEN 5u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_SetupEnvironment_ClearBuffers);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_SetupEnvironment_ClearBuffers,
+  mcuxClEcc_FUP_SetupEnvironment_ClearBuffers_LEN
+);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #if defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING)
@@ -81,13 +104,15 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 /**
  * FUP program declaration mcuxClEcc_FUP_SetupEnvironment_ClearBuffers
  */
-#define mcuxClEcc_FUP_GenerateMultiplicativeBlinding_LEN  7u
+#define mcuxClEcc_FUP_GenerateMultiplicativeBlinding_LEN 7u
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_GenerateMultiplicativeBlinding);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_GenerateMultiplicativeBlinding,
+  mcuxClEcc_FUP_GenerateMultiplicativeBlinding_LEN
+);
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 #endif /* defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING) */
-
 
 #ifdef __cplusplus
 } /* extern "C" */

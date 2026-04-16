@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -341,7 +341,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
 
   /* Alice computes the shared key, additionalInputs parameter is not required */
   uint8_t aliceSharedSecret[MCUXCLFFDH_FFDHE6144_SIZE_SHAREDSECRET];
-  uint32_t aliceSharedSecretSize = 0u;
+  uint32_t aliceSharedSecretSize = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(alice_keyagreement_result, alice_keyagreement_token, mcuxClKey_agreement(
     /* mcuxClSession_Handle_t pSession:                          */ session,
     /* mcuxClKey_Agreement_t agreement:                          */ mcuxClKey_Agreement_FFDH,
@@ -362,7 +362,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)
 
   /* Bob computes the shared key, additionalInputs parameter is not required */
   uint8_t bobSharedSecret[MCUXCLFFDH_FFDHE6144_SIZE_SHAREDSECRET];
-  uint32_t bobSharedSecretSize = 0u;
+  uint32_t bobSharedSecretSize = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(bob_keyagreement_result, bob_keyagreement_token, mcuxClKey_agreement(
     /* mcuxClSession_Handle_t pSession:                          */ session,
     /* mcuxClKey_Agreement_t agreement:                          */ mcuxClKey_Agreement_FFDH,

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -19,18 +19,23 @@
 #include <mcuxCsslAnalysis.h>
 #include <mcuxClEcc.h>
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 #include <internal/mcuxClEcc_Mont_Internal.h>
+#endif
 #include <internal/mcuxClEcc_Weier_Internal.h>
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 #include <internal/mcuxClEcc_Internal.h>
 #include <internal/mcuxClEcc_EdDSA_Internal.h>
 #include <internal/mcuxClEcc_TwEd_Internal.h>
 #include <mcuxClHashModes_Algorithms.h>
 #include <internal/mcuxClHashModes_Internal.h>
+#endif
 #include <internal/mcuxClEcc_FeatureConfig.h>
 
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
+#if defined(MCUXCL_FEATURE_ECC_CURVE25519) || defined(MCUXCL_FEATURE_ECC_CURVE448)
 /**
  * @brief Common scalar multiplication functions for MontDH curves
 */
@@ -45,7 +50,9 @@ static const mcuxClEcc_ScalarMultFunctions_t mcuxClEcc_MontDH_ScalarMultFunction
   .plainVarScalarMultFct = NULL,
   .plainVarScalarMultFctFPId = 0u
 };
+#endif /* MCUXCL_FEATURE_ECC_CURVE25519 || MCUXCL_FEATURE_ECC_CURVE448 */
 
+#ifdef MCUXCL_FEATURE_ECC_CURVE25519
 
 /**********************************************************/
 /* MontDH domain parameters                               */
@@ -128,6 +135,8 @@ const mcuxClEcc_MontDH_DomainParams_t mcuxClEcc_MontDH_DomainParams_Curve25519 _
     .t = 254u
 };
 
+#endif /* MCUXCL_FEATURE_ECC_CURVE25519 */
+#ifdef MCUXCL_FEATURE_ECC_CURVE448
 
 /* Curve 448 domain parameters */
 
@@ -226,6 +235,7 @@ const mcuxClEcc_MontDH_DomainParams_t mcuxClEcc_MontDH_DomainParams_Curve448 __a
     .t = 447u
 };
 
+#endif /* MCUXCL_FEATURE_ECC_CURVE448 */
 
 
 #if defined(MCUXCLECC_FEATURE_INTERNAL_WEIERSTRASS_CURVES)
@@ -249,6 +259,7 @@ const mcuxClEcc_ScalarMultFunctions_t mcuxClEcc_Weier_ScalarMultFunctions =
 /**********************************************************/
 /* Weierstrass curve domain parameters                    */
 /**********************************************************/
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 
 
 /**********************************************************/
@@ -851,6 +862,8 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp521r1 __at
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
 
+#endif /* defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES) */
+#ifdef MCUXCL_FEATURE_ECC_SECPK1_CURVES
 
 /**********************************************************/
 /* secp160k1 Curve parameters (LE)                        */
@@ -1284,6 +1297,8 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp256k1 __at
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
 
+#endif /* MCUXCL_FEATURE_ECC_SECPK1_CURVES */
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES
 
 /**********************************************************/
 /* brainpoolP160r1 Curve parameters (LE)                  */
@@ -2126,6 +2141,8 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512r
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
 
+#endif /* MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES */
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES
 
 /**********************************************************/
 /* brainpoolP160t1 Curve parameters (LE)                  */
@@ -2654,6 +2671,8 @@ const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512t
   .common.pScalarMultFunctions = &mcuxClEcc_Weier_ScalarMultFunctions
 };
 
+#endif /* MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES */
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 
 /**********************************************************/
 /* EdDSA domain parameters                                */
@@ -2804,5 +2823,6 @@ const mcuxClEcc_EdDSA_DomainParams_t mcuxClEcc_EdDSA_DomainParams_Ed25519 __attr
   .domPrefixLen = MCUXCLECC_EDDSA_ED25519_DOMPREFIXLEN
 };
 
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

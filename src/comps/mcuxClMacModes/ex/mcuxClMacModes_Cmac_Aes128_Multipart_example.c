@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -61,7 +61,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_example)
   mcuxClSession_Handle_t session = &sessionDesc;
 
   /* Allocate and initialize session */
-  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLMAC_CPU_WA_BUFFER_SIZE, 0u);
+  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLMAC_CPU_WA_BUFFER_SIZE, 0U);
 
   uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];
   MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()
@@ -116,7 +116,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_example)
     /* mcuxClMac_Context_t * const pContext: */ ctx,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:             */ dataBuff,
-    /* uint32_t inLength:                   */ 5u)
+    /* uint32_t inLength:                   */ 5U)
   );
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMac_process) != mp1_token) || (MCUXCLMAC_STATUS_OK != mp1_status))
@@ -125,7 +125,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_example)
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
-  MCUXCLBUFFER_UPDATE(dataBuff, 5u);
+  MCUXCLBUFFER_UPDATE(dataBuff, 5U);
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mp2_status, mp2_token, mcuxClMac_process(
     /* mcuxClSession_Handle_t session:       */ session,
@@ -133,7 +133,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_example)
     /* mcuxClMac_Context_t * const pContext: */ ctx,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:             */ dataBuff,  /* Only part of input data was processed */
-    /* uint32_t inLength:                   */ sizeof(data) - 5u)
+    /* uint32_t inLength:                   */ sizeof(data) - 5U)
   );
 
   if((MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMac_process) != mp2_token) || (MCUXCLMAC_STATUS_OK != mp2_status))
@@ -142,7 +142,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClMacModes_Cmac_Aes128_Multipart_example)
   }
   MCUX_CSSL_FP_FUNCTION_CALL_END();
 
-  uint32_t macSize = 0u;
+  uint32_t macSize = 0U;
 
   MCUXCLBUFFER_INIT(macDataBuf, session, macData, sizeof(macData));
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(mf_status, mf_token, mcuxClMac_finish(

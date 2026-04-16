@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -105,10 +105,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_MontDH_KeyAgreement(
       MCUXCLKEY_ENCODING_SPEC_ACTION_PTR);
 
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDHx, mcuxClEcc_MontDH_X(pSession, pDomainParameters, (const uint8_t*)pPublicKeyData));
+#if defined(MCUXCL_FEATURE_ECC_CURVE448)
     if(MCUXCLECC_INTSTATUS_SCALAR_ZERO == retCode_MontDHx)
     {
         MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_SCALAR_ZERO);
     } else if(MCUXCLECC_STATUS_NEUTRAL_POINT == retCode_MontDHx)
+#else
+    if(MCUXCLECC_STATUS_NEUTRAL_POINT == retCode_MontDHx)
+#endif /* defined(MCUXCL_FEATURE_ECC_CURVE448) */
     {
         MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_SMALL_SUBGROUP_ATTACK);
     }

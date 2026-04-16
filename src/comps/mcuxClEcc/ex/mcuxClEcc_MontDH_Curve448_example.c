@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -42,9 +42,13 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_MontDH_Curve448_example)
     mcuxClSession_Handle_t session = &sessionDesc;
     MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MAX_CPUWA_SIZE, MAX_PKCWA_SIZE);
 
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)
     /* NOTE: Key generation for Curve448 from a DRBG with 128 bit security strength is not recommended. */
     /* Initialize the RNG and Initialize the PRNG */
     MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3);
+#else
+    #error "Feature flags for this example are unavailable."
+#endif /* MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256 && MCUXCL_FEATURE_RANDOMMODES_CTRDRBG && MCUXCL_FEATURE_RANDOMMODES_PR_DISABLED && MCUXCL_FEATURE_RANDOMMODES_NORMALMODE */
 
     /* Prepare input for Alice key generation */
     uint32_t alicePrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];

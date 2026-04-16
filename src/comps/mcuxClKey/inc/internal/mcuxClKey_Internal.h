@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022, 2024-2025 NXP                                            */
+/* Copyright 2022, 2024-2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLKEY_INTERNAL_H_
@@ -63,12 +63,12 @@ extern "C" {
 #define MCUXCLKEY_ENCODING_SPEC_RSA_DQ                       0x0000000Au
 #define MCUXCLKEY_ENCODING_SPEC_RSA_QINV                     0x0000000Bu
 
-#define MCUXCLKEY_ENCODING_SPEC_KYBER_PK_RHO                 0x00000001u
-#define MCUXCLKEY_ENCODING_SPEC_KYBER_PK_T                   0x00000002u
-#define MCUXCLKEY_ENCODING_SPEC_KYBER_SK_S                   0x00000003u
-#define MCUXCLKEY_ENCODING_SPEC_KYBER_SK_PK                  0x00000004u
-#define MCUXCLKEY_ENCODING_SPEC_KYBER_SK_H_PK                0x00000005u
-#define MCUXCLKEY_ENCODING_SPEC_KYBER_SK_Z                   0x00000006u
+#define MCUXCLKEY_ENCODING_SPEC_MLKEM_PK_RHO                 0x00000001u
+#define MCUXCLKEY_ENCODING_SPEC_MLKEM_PK_T                   0x00000002u
+#define MCUXCLKEY_ENCODING_SPEC_MLKEM_SK_S                   0x00000003u
+#define MCUXCLKEY_ENCODING_SPEC_MLKEM_SK_PK                  0x00000004u
+#define MCUXCLKEY_ENCODING_SPEC_MLKEM_SK_H_PK                0x00000005u
+#define MCUXCLKEY_ENCODING_SPEC_MLKEM_SK_Z                   0x00000006u
 
 #define MCUXCLKEY_ENCODING_SPEC_MLDSA_PK_RHO                 0x00000001u
 #define MCUXCLKEY_ENCODING_SPEC_MLDSA_PK_T                   0x00000002u

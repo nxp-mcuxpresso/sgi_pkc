@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2024 NXP                                                  */
+/* Copyright 2021-2024, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAeadModes_Common_Constants.h
@@ -24,26 +24,26 @@
 #include <internal/mcuxClMacModes_Common_Constants.h>
 
 
-#define MCUXCLAEADMODES_ENCRYPTION (1u)
-#define MCUXCLAEADMODES_DECRYPTION (2u)
+#define MCUXCLAEADMODES_ENCRYPTION (1U)
+#define MCUXCLAEADMODES_DECRYPTION (2U)
 
-#define MCUXCLAEADMODES_CCM (0x55555555u)
-#define MCUXCLAEADMODES_GCM (0xAAAAAAAAu)
+#define MCUXCLAEADMODES_CCM (0x55555555U)
+#define MCUXCLAEADMODES_GCM (0xAAAAAAAAU)
 
 /* GCM uses a 32-bit big-endian counter */
 #define MCUXCLAEADMODES_GCM_CTR_SIZE             (sizeof(uint32_t))
 #define MCUXCLAEADMODES_GCM_CTR_SIZE_IN_WORDS    (MCUXCLAEADMODES_GCM_CTR_SIZE / sizeof(uint32_t))
 
 /* Buffer B0 contains the first block B0, l(a), and the first AAD bytes */
-#define MCUXCLAEADMODES_CCM_B0_SIZE     (16u)
+#define MCUXCLAEADMODES_CCM_B0_SIZE     (16U)
 
 /* The maximum lengths for tag and nonce are given by the limitations from CCM:
  * The only possible lengths are:
  *    nonce: 7,8,9,10,11,12,13
  *    tag: 4,6,8,10,12,14,16
  */
-#define MCUXCLAEADMODES_TAGLEN_MAX           (16u)
-#define MCUXCLAEADMODES_NONCELEN_MAX         (13u)
+#define MCUXCLAEADMODES_TAGLEN_MAX           (16U)
+#define MCUXCLAEADMODES_NONCELEN_MAX         (13U)
 
 /* For DI protection of the comparison status and the AEAD return code */
 #define MCUXCLAEADMODES_INTERNAL_COMP_OK     \

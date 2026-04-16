@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021, 2024-2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_VerifyE.c
@@ -34,7 +34,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyE(mcuxClSession_Handle_t pSess
   /* Determine the exact length of e */
   uint32_t eLength = pE->keyEntryLength;
 
-  while(eLength > 0u)
+  while(eLength > 0U)
   {
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pE->keyEntryLength >= e, so pE->keyEntryLength - eLength can't be negatie")
     if(0u != pE->pKeyEntryData[pE->keyEntryLength - eLength])
@@ -46,11 +46,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyE(mcuxClSession_Handle_t pSess
   }
 
   /* Check if it is the range 2^16 < e < 2^256 */
-  if((eLength > 2u)  && (eLength < 33u))
+  if((eLength > 2U)  && (eLength < 33U))
   {
     /* Check if E is odd */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("pE->keyEntryLength must be bigger than 1u when enter this branch")
-    if(0x1u == (pE->pKeyEntryData[pE->keyEntryLength - 1u] % 2u))
+    if(0x1u == (pE->pKeyEntryData[pE->keyEntryLength - 1U] % 2U))
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     {
       /* Set exact length of E */

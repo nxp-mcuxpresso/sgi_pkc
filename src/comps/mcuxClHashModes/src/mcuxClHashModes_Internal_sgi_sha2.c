@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClToolchain.h>
@@ -206,15 +206,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
 
     /* Set expectations and exit */
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClHashModes_Sgi_oneShot_Sha2, MCUXCLHASH_STATUS_OK,
+        /* Step 1 */
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHashModes_HwRequest),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
         algorithmDetails->protectionToken_sgiUtilsInitHash,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableHashCounter),
+        /* Step 2 */
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
         MCUX_CSSL_FP_CONDITIONAL((0U < numberOfFullBlocks),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadFifo_buffer)
         ),
+        /* Step 3 */
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
         MCUX_CSSL_FP_CONDITIONAL((algorithm->counterSize > numZeroBytes),
             MCUXCLMEMORY_SET_INT_FP_EXPECT,
@@ -223,7 +227,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_Sgi_oneShot_Sha
         MCUXCLMEMORY_SET_INT_FP_EXPECT,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_loadFifo),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopSha2),
-        (2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait)),
+        /* Step 4 */
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_Sha2_wait),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_checkHashCounter),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_storeHashResult),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close),

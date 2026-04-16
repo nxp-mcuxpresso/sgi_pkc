@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2023-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClMemory_CopySecure_Reversed_Internal.h
@@ -69,10 +69,24 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_secure_reverse
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMemory_copy_secure_reversed_int);
 
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_COPY
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_SecCopyRev(pDst, pSrc, length));
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_secure_reversed_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_SecCopyRev));
+#else
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_reversed_int(pDst, pSrc, length));
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMemory_copy_secure_reversed_int, MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int));
+#endif  /* MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_COPY */
 }
 
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_COPY
+#define MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_Int_SecCopyRev))
+#define MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDst, pSrc, length)                       \
+  do {                                                                                \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxCsslMemory_Int_SecCopyRev(pDst, pSrc, length)); \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()          \
+  } while(false)                                                                      \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
+#else
 #define MCUXCLMEMORY_COPY_SECURE_REVERSE_INT_FP_EXPECT (MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int))
 #define MCUXCLMEMORY_COPY_SECURE_REVERSE_INT(pDst, pSrc, length)                        \
   do {                                                                                 \
@@ -80,6 +94,7 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_secure_reverse
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()           \
   } while(false)                                                                       \
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_BOOLEAN_TYPE_FOR_CONDITIONAL_EXPRESSION()
+#endif /* MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_COPY */
 
 #ifdef __cplusplus
 } /* extern "C" */

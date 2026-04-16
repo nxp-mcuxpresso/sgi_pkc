@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClToolchain.h>
@@ -64,7 +64,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CopyOutNormal(
 
   MCUX_CSSL_DI_RECORD(sgiStoreBuffer, (uint32_t)(MCUXCLSGI_DRV_DATOUT_OFFSET));
   MCUX_CSSL_DI_RECORD(sgiStoreBuffer, (uint32_t)pMac);
-  MCUX_CSSL_DI_RECORD(sgiStoreBuffer, 16u);
+  MCUX_CSSL_DI_RECORD(sgiStoreBuffer, 16U);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, pMac));
 
  *pOutLength = MCUXCLAES_BLOCK_SIZE;
@@ -118,7 +118,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_initMaskedPreTag(
   uint32_t *pDst_maskedPreTag = pContext->maskedPreTag;
   MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pDst_maskedPreTag);
   MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pSrc_sgiDatin0);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16U);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
     pDst_maskedPreTag,
     pSrc_sgiDatin0,
@@ -142,8 +142,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_process_preTag_calculation(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_process_preTag_calculation);
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inputLength, 0u, UINT32_MAX - MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pContext->blockBufferUsed, 0u, MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inputLength, 0U, UINT32_MAX - MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pContext->blockBufferUsed, 0U, MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
 
   uint32_t totalInputSize = (pContext->blockBufferUsed + inputLength);
   uint32_t numFullRemainingInputBlocks = 0U;
@@ -151,7 +151,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_process_preTag_calculation(
 
   if (totalInputSize >= MCUXCLAES_BLOCK_SIZE)
   {
-    uint32_t inputOffset = 0u;
+    uint32_t inputOffset = 0U;
     uint32_t remainingInputLength = inputLength;
 
     /* use bytes in blockBuffer and fill it up with input */
@@ -173,7 +173,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_process_preTag_calculation(
     uint32_t *pDst_sgiDatout = (uint32_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, pDst_sgiDatout);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t)pSrc_maskedPreTag);
-    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16U);
     /* Load pSrc_maskedPreTag to DATOUT. */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
       pDst_sgiDatout,
@@ -187,14 +187,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_process_preTag_calculation(
       pWa,
       pContext,
       paddingBuf,
-      0u,
+      0U,
       MCUXCLAES_BLOCK_SIZE,
       pContext->keyContext.sfrSeed,
       operation,
       mcuxClMacModes_updateEngine,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_updateEngine)));
 
-    pContext->blockBufferUsed = 0u;
+    pContext->blockBufferUsed = 0U;
 
     numFullRemainingInputBlocks = remainingInputLength;
     if (numFullRemainingInputBlocks >= MCUXCLAES_BLOCK_SIZE)
@@ -226,7 +226,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_process_preTag_calculation(
     uint32_t *pDst_maskedPreTag = pContext->maskedPreTag;
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t)pDst_maskedPreTag);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t)pSrc_sgiDatout);
-    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16U);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
       pDst_maskedPreTag,
       pSrc_sgiDatout,
@@ -257,7 +257,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_process_preTag_calculation(
     MCUX_CSSL_DI_RECORD(mcuxClBuffer_read_secure, inputLength);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read_secure(
       pInput,
-      0u,
+      0U,
       &((uint8_t *)pContext->blockBuffer)[pContext->blockBufferUsed],
       inputLength));
 
@@ -335,10 +335,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeEngine(
 
   /* Record sgi processing blocks */
   MCUX_CSSL_FP_FUNCTION_CALL(currCount, mcuxClSgi_Drv_getCount());
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("1u + mcuxClSgi_Drv_getCount() doesn't wrap")
-  const uint32_t sgiCount = 1u + currCount;
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("1U + mcuxClSgi_Drv_getCount() doesn't wrap")
+  const uint32_t sgiCount = 1U + currCount;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-  const uint32_t sgiCountOverflow = sgiCount & 0xFFFF0000u; // since SGI_COUNT is 16-bit register, save the possibly overflowed value and use it in DI_EXPUNGE at the end
+  const uint32_t sgiCountOverflow = sgiCount & 0xFFFF0000U; // since SGI_COUNT is 16-bit register, save the possibly overflowed value and use it in DI_EXPUNGE at the end
   MCUX_CSSL_DI_RECORD(sgiCount, sgiCount);
 
   operation |= MCUXCLSGI_DRV_CTRL_INSEL_DATIN0_XOR_DATOUT;
@@ -381,14 +381,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_updateEngine(
   const uint32_t sgiCount = numFullBlocks + currCount;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
   // since SGI_COUNT is 16-bit register, save the possibly overflowed value and use it in DI_EXPUNGE at the end
-  const uint32_t sgiCountOverflow = sgiCount & 0xFFFF0000u;
+  const uint32_t sgiCountOverflow = sgiCount & 0xFFFF0000U;
   MCUX_CSSL_DI_RECORD(sgiCount, sgiCount);
 
   /* Record load buffer */
   // sumOfOffsets = MCUXCLAES_BLOCK_SIZE * (0 + 1 + 2 + .. + (numFullBlocks-1)) + inputOffset * numFullBlocks
   //              = MCUXCLAES_BLOCK_SIZE * ((numFullBlocks-1) * numFullBlocks) / 2 + inputOffset * numFullBlocks
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("value used for SC balancing which supports unsigned overflow behaviour")
-  uint32_t sumOfOffsets = (MCUXCLAES_BLOCK_SIZE / 2u) * (numFullBlocks - 1u) * numFullBlocks + inOffset * numFullBlocks;
+  uint32_t sumOfOffsets = (MCUXCLAES_BLOCK_SIZE / 2U) * (numFullBlocks - 1U) * numFullBlocks + inOffset * numFullBlocks;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
   MCUX_CSSL_DI_RECORD(sgiLoadBuffer, sumOfOffsets);
   MCUX_CSSL_DI_RECORD(sgiLoadBuffer, (numFullBlocks) * (uint32_t)pInput);

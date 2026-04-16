@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -104,12 +104,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(m
 
     /* Prepare NQSQR for upcoming FUP program*/
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("the result of operandSize + bufferSize is in range of uint16")
-    MCUXCLMATH_FP_QDASH(ECC_NQSQR, ECC_NS, ECC_N, ECC_T0, (uint16_t) (operandSize + bufferSize));
+    MCUXCLMATH_FP_QDASH(pSession, ECC_NQSQR, ECC_NS, ECC_N, ECC_T0, (uint16_t) (operandSize + bufferSize));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
 
     /* T0 = ModInv(d0), with temp T1. */
     MCUXCLPKC_FP_CALC_OP1_OR_CONST(ECC_S1, ECC_S0, 0u);
-    MCUXCLECC_FP_MODINV(ECC_T0, ECC_S1, ECC_N, ECC_T1, ECC_S3);
+    MCUXCLECC_FP_MODINV(pSession, ECC_T0, ECC_S1, ECC_N, ECC_T1, ECC_S3);
 
     /* Generate buffer size random number d' in buffer S3. */
     {

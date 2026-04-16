@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Internal_Functions.h
@@ -28,6 +28,9 @@
 #include <internal/mcuxClKey_Types_Internal.h>
 
 #include <mcuxClSignature.h>
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+#include <mcuxClCipher.h>
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) */
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,16 +44,16 @@ extern "C" {
  */
 
 /**
- * \brief RSA public operation
+ * @brief RSA public operation
  *
  * This function performs an RSA public key operation according to PKCS #1 v2.2.
  * The supported bit-lengths of the modulus range from 512 to 8192 in multiples of 8.
  * The public exponent is limited to 2 <= e < N.
  *
- * \param[in]  pSession             Pointer to #mcuxClSession_Descriptor
- * \param[in]  key                  Key handle for the input key (word-aligned)
- * \param[in]  pInput               Buffer which contains the input
- * \param[out] pOutput              Pointer to result
+ * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
+ * @param[in]  key                  Key handle for the input key (word-aligned)
+ * @param[in]  pInput               Buffer which contains the input
+ * @param[out] pOutput              Pointer to result
  *
  * <dl>
  *  <dt>Parameter properties</dt>
@@ -70,7 +73,7 @@ extern "C" {
  *      <dt>pOutput:</dt>
  *          <dd>The output meets the following conditions:
  *               - It is located in PKC RAM;
- *               - A buffer of MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(modulus length) + 2u * MCUXCLRSA_PKC_WORDSIZE bytes has to be allocated;
+ *               - A buffer of MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(modulus length) + 2U * MCUXCLRSA_PKC_WORDSIZE bytes has to be allocated;
  *               - The result is stored in little-endian byte order in the buffer pointed to by pOutput with modulus length.
  *  </dl></dd>
  * </dl>
@@ -89,15 +92,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
 );
 
 /**
- * \brief RSA Public key operation with blinding applied to the modulus
+ * @brief RSA Public key operation with blinding applied to the modulus
  *
  * Data Integrity: Expunge(byteLenExp + pExp), due to the call to mcuxClMath_ModExp_SqrMultL2R
  *
- * \param[in]  pSession             Pointer to #mcuxClSession_Descriptor
- * \param[in]  iR_iX_iN_iT1         PKC operand index
- * \param[in]  iT2_iT3_iT4          PKC operand index
- * \param[in]  byteLenExp           length of the exponent
- * \param[in]  pExp                 Pointer to the exponent
+ * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
+ * @param[in]  iR_iX_iN_iT1         PKC operand index
+ * @param[in]  iT2_iT3_iT4          PKC operand index
+ * @param[in]  byteLenExp           length of the exponent
+ * @param[in]  pExp                 Pointer to the exponent
  *
  * <dl>
  *  <dt>Parameter properties</dt>
@@ -107,7 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
  *          <dd>The session pointed to by pSession has to be initialized prior to a call to this function.
  *      <dt>iR_iX_iN_iT1:</dt>
  *        <dd><code>iR</code> (bits 24~31): index of result (PKC operand).
- *        <br>Its size shall be at least operandSize + 2u * MCUXCLRSA_PKC_WORDSIZE
+ *        <br>Its size shall be at least operandSize + 2U * MCUXCLRSA_PKC_WORDSIZE
  *        <dd><code>iN</code> (bits 16~23): index of modulus, will be destroy (PKC operand).
  *        <br>Its size shall be at least operandSize + MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindingSize=4), reserve one MCUXCLRSA_PKC_WORDSIZE before it
  *        <dd><code>iX</code> (bits 8~15): index of base number in Normal representation (PKC operand).
@@ -155,7 +158,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
 
 
 /**
- * \brief RSA private plain operation
+ * @brief RSA private plain operation
  *
  * This function performs an RSA private plain key operation according to PKCS #1 v2.2.
  * The supported bit-lengths of the modulus range from 512 to 8192 in multiples of 8.
@@ -163,10 +166,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
  *
  * Data Integrity: Expunge(MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATEPLAIN)
  *
- * \param[in]  pSession             Pointer to #mcuxClSession_Descriptor
- * \param[in]  key                  Key handle for the input key (word-aligned)
- * \param[in]  pInput               Pointer to input
- * \param[out] pOutput              Buffer to hold the result
+ * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
+ * @param[in]  key                  Key handle for the input key (word-aligned)
+ * @param[in]  pInput               Pointer to input
+ * @param[out] pOutput              Buffer to hold the result
  *
  * <dl>
  *  <dt>Parameter properties</dt>
@@ -211,7 +214,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
 
 
 /**
- * \brief RSA private CRT operation
+ * @brief RSA private CRT operation
  *
  * This function performs an RSA private CRT key operation according to PKCS #1 v2.2.
  * The supported bit-lengths of the modulus range from 512 to 8192 in multiples of 8.
@@ -221,10 +224,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
  * Data Integrity: Expunge(MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT) for pKey->keyType == MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT,
  *              or Expunge(MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRTDFA) for pKey->keyType == MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRTDFA.
  *
- * \param[in]  pSession             Pointer to #mcuxClSession_Descriptor
- * \param[in]  key                  Key handle for the input key (word-aligned)
- * \param[in]  pInput               Pointer to input
- * \param[out] pOutput              Buffer to hold the result
+ * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
+ * @param[in]  key                  Key handle for the input key (word-aligned)
+ * @param[in]  pInput               Pointer to input
+ * @param[out] pOutput              Buffer to hold the result
  *
  ** <dl>
  *  <dt>Parameter properties</dt>
@@ -590,6 +593,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
  *
  * This function removes modulus blinding from the result of the exponentiation.
  *
+ * @param[in] pSession            pointer to #mcuxClSession_Descriptor
  * @param[in] iR_iX_iNb_iB        indices of PKC operands
  * @param[in] iT2_iT1             indices of PKC operands
  * @param[in] nbPkcByteLength     length of Nb aligned to PKC word
@@ -640,15 +644,277 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Verify(
  *
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_RemoveBlinding)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(uint32_t iR_iX_iNb_iB,
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_RemoveBlinding(
+     mcuxClSession_Handle_t pSession,
+     uint32_t iR_iX_iNb_iB,
      uint16_t iT2_iT1,
      uint32_t nbPkcByteLength,
      uint32_t bPkcByteLength);
 
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) && defined(MCUXCL_FEATURE_RSA_RSAES_OAEP)
+/**
+ * @brief RSA OAEP Encoding operation
+ *
+ * This function performs an RSA OAEP Encoding operation according to PKCS #1 v2.2.
+ *
+ * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
+ * @param[in]  pInput               Input-Buffer, which contains the message
+ * @param[in]  inputLength          Size of Input
+ * @param[in]  pVerificationInput   RFU: please set to NULL
+ * @param[in]  pHashAlgo            Pointer to hash algorithm information
+ * @param[in]  pLabel               Buffer, which contains the input label
+ * @param[in]  saltlabelLength      Length of the input label
+ * @param[in]  keyBitLength         Bit-length of key (bit-length of encoded message). Note: This function only supports moduli, whose bit-length is a multiple of 8
+ * @param[in]  options              RFU: please set to zero.
+ * @param[out] pOutput              Buffer to hold the output encoded message
+ * @param[out] pOutLength           RFU: please set to NULL
+ *
+ *
+ * <dl>
+ *  <dt>Parameter properties</dt>
+ *
+ *  <dd><dl>
+ *      <dt>pSession:</dt>
+ *          <dd>The session pointed to by pSession has to be initialized prior to a call to this function.
+ *      <dt>pInput:</dt>
+ *          <dd>The input meets the following conditions:
+ *               - It is provided in big-endian byte order.
+ *      <dt>inputLength:</dt>
+ *          <dd>Specifies the size of the buffer pointed to by pInput. It meets the following condition:
+ *               - inputLength <= (8*keyBitLength) - (2*hLen) - 2
+ *      <dt>pHashAlgo:</dt>
+ *          <dd>Specifies the targeted hash algorithm, to be used for the MGF1 and the lHash.
+ *      <dt>pLabel:</dt>
+ *          <dd>The label meets the following conditions:
+ *               - It is provided in big-endian byte order.
+ *      <dt>saltlabelLength:</dt>
+ *          <dd>Specifies the size of the buffer pointed to by label.
+ *      <dt>keyBitLength:</dt>
+ *          <dd>The key bit-length meets the following conditions:
+ *               - This function only supports moduli, whose bit-length is a multiple of 8.
+ *      <dt>pOutput:</dt>
+ *          <dd>The output meets the following conditions:
+ *               - The result is stored in big-endian byte order in the buffer pointed to by pOutput.
+ *
+ *  </dl></dd>
+ * </dl>
+ *
+ * @return Status of the mcuxClRsa_oaepEncode operation (see @ref MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t))
+ * @retval #MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK          The function executed successfully.
+ * @retval #MCUXCLRSA_STATUS_INVALID_INPUT               The function failed due to invalid input parameters.
+ * @retval #MCUXCLRSA_STATUS_ERROR                       An error occurred during the execution. In that case, expectations for the flow protection are not balanced.
+ *
+ * @attention DRBG and PKC have to be initialized prior to calling the function because DRBG and PKC RAM are used.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_oaepEncode, mcuxClRsa_PadVerModeEngine_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_oaepEncode(
+  mcuxClSession_Handle_t       pSession,
+  mcuxCl_InputBuffer_t         pInput,
+  const uint32_t              inputLength,
+  uint8_t *                   pVerificationInput,
+  mcuxClHash_Algo_t            pHashAlgo,
+  mcuxCl_InputBuffer_t         pLabel,
+  const uint32_t              saltlabelLength,
+  const uint32_t              keyBitLength,
+  const uint32_t              options,
+  mcuxCl_Buffer_t              pOutput,
+  uint32_t * const            pOutLength
+);
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) && defined(MCUXCL_FEATURE_RSA_RSAES_OAEP) */
+
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) && defined(MCUXCL_FEATURE_RSA_RSAES_OAEP)
+/**
+ * @brief RSA OAEP Decoding operation
+ *
+ * This function performs an RSA OAEP Decoding operation according to PKCS #1 v2.2.
+ *
+ * @param[in]  pSession             Pointer to #mcuxClSession_Descriptor
+ * @param[in]  pInput               Input-Buffer, which contains the encoded message to be decoded
+ * @param[in]  inputLength          Size of Input
+ * @param[in]  pVerificationInput   RFU: please set to NULL.
+ * @param[in]  pHashAlgo            Pointer to hash algorithm information
+ * @param[in]  pLabel               Buffer, which contains the input label
+ * @param[in]  saltlabelLength      Length of the input label
+ * @param[in]  keyBitLength         Bit-length of key (bit-length of encoded message). Note: This function only supports moduli, whose bit-length is a multiple of 8
+ * @param[in]  options              RFU: please set to zero.
+ * @param[out] pOutput              Buffer to hold output decoded plaintext
+ * @param[out] pOutLength           Length of output in bytes.
+ *
+ *
+ * <dl>
+ *  <dt>Parameter properties</dt>
+ *
+ *  <dd><dl>
+ *      <dt>pSession:</dt>
+ *          <dd>The session pointed to by pSession has to be initialized prior to a call to this function.
+ *      <dt>pInput:</dt>
+ *          <dd>The input meets the following conditions:
+ *               - It is provided in big-endian byte order.
+ *      <dt>inputLength:</dt>
+ *          <dd>Specifies the size of the buffer pointed to by pInput.
+ *      <dt>pHashAlgo:</dt>
+ *          <dd>Specifies the targeted hash algorithm, to be used for the mask generation function operation.
+ *      <dt>pLabel:</dt>
+ *          <dd>The label meets the following conditions:
+ *               - It is provided in big-endian byte order.
+ *      <dt>saltlabelLength:</dt>
+ *          <dd>Specifies the size of the buffer pointed to by label.
+ *      <dt>keyBitLength:</dt>
+ *          <dd>The key bit-length meets the following conditions:
+ *               - This function only supports moduli, whose bit-length is a multiple of 8.
+ *      <dt>pOutput:</dt>
+ *          <dd>The output meets the following conditions:
+ *               - The result is stored in big-endian byte order in the buffer pointed to by pOutput.
+ *
+ *  </dl></dd>
+ * </dl>
+ *
+ * @return Status of the mcuxClRsa_oaepDecode operation (see @ref MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t))
+ * @retval #MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK          The function executed successfully.
+ * @retval #MCUXCLRSA_STATUS_INVALID_INPUT               The decoding failed due to invalid input parameters or invalid encoding.
+ * @retval #MCUXCLRSA_STATUS_ERROR                       An error occurred during the execution. In that case, expectations for the flow protection are not balanced.
+ *
+ * @attention PKC has to be initialized prior to calling the function because PKC RAM is used.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_oaepDecode, mcuxClRsa_PadVerModeEngine_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_oaepDecode(
+  mcuxClSession_Handle_t       pSession,
+  mcuxCl_InputBuffer_t         pInput,
+  const uint32_t              inputLength,
+  uint8_t *                   pVerificationInput,
+  mcuxClHash_Algo_t            pHashAlgo,
+  mcuxCl_InputBuffer_t         pLabel,
+  const uint32_t              saltlabelLength,
+  const uint32_t              keyBitLength,
+  const uint32_t              options,
+  mcuxCl_Buffer_t              pOutput,
+  uint32_t * const            pOutLength
+);
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) && defined(MCUXCL_FEATURE_RSA_RSAES_OAEP) */
+
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT)
+/**
+ * @brief RSA PKCS1-v1_5 Encoding operation for encryption
+ *
+ * This function performs an RSA PKCS1-v1_5 Encoding operation for encryption (EME-PKCS1-v1_5 encoding
+ * inlcuding length checking of the input message) according to PKCS #1 v2.2.
+ *
+ * @param[in]  pSession             Not used
+ * @param[in]  pInput               Input-Buffer, which contains the message
+ * @param[in]  inputLength          Size of Input
+ * @param[in]  pVerificationInput   Not used
+ * @param[in]  pHashAlgo            Not used
+ * @param[in]  pLabel               Not used
+ * @param[in]  saltlabelLength      Not used
+ * @param[in]  keyBitLength         Bit-length of key (bit-length of encoded message). Note: This function only supports moduli, whose bit-length is a multiple of 8
+ * @param[in]  options              Not used
+ * @param[out] pOutput              Buffer to hold the output encoded message
+ * @param[out] pOutLength           Not used
+ *
+ *
+ * <dl>
+ *  <dt>Parameter properties</dt>
+ *
+ *  <dd><dl>
+ *      <dt>pInput:</dt>
+ *          <dd>The input meets the following conditions:
+ *               - It is provided in big-endian byte order.
+ *      <dt>inputLength:</dt>
+ *          <dd>Specifies the size of the buffer pointed to by pInput. It meets the following condition:
+ *               - inputLength <= (8*keyBitLength) - 11
+ *      <dt>keyBitLength:</dt>
+ *          <dd>The key bit-length meets the following conditions:
+ *               - This function only supports moduli, whose bit-length is a multiple of 8.
+ *      <dt>pOutput:</dt>
+ *          <dd>The output meets the following conditions:
+ *               - The result is stored in big-endian byte order in the buffer pointed to by pOutput.
+ *  </dl></dd>
+ * </dl>
+ *
+ * @return Status of the mcuxClRsa_pkcs1v15Encode_encrypt operation (see @ref MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t))
+ * @retval #MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK        The function executed successfully.
+ * @retval #MCUXCLRSA_STATUS_INVALID_INPUT             The function failed due to invalid input parameters.
+ * @retval #MCUXCLRSA_STATUS_ERROR                     An error occurred during the execution. In that case, expectations for the flow protection are not balanced.
+ *
+ * @attention This function uses DRBG which has to be initialized prior to calling the function.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_pkcs1v15Encode_encrypt, mcuxClRsa_PadVerModeEngine_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_encrypt(
+  mcuxClSession_Handle_t       pSession,
+  mcuxCl_InputBuffer_t         pInput,
+  const uint32_t              inputLength,
+  uint8_t *                   pVerificationInput,
+  mcuxClHash_Algo_t            pHashAlgo,
+  mcuxCl_InputBuffer_t         pLabel,
+  const uint32_t              saltlabelLength,
+  const uint32_t              keyBitLength,
+  const uint32_t              options,
+  mcuxCl_Buffer_t              pOutput,
+  uint32_t * const            pOutLength
+);
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) && defined(MCUXCL_FEATURE_RSA_RSAES_PKCS1v15) */
 
 
-
-
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+/**
+ * @brief RSA PKCS1-v1_5 Decoding operation for decryption
+ *
+ * This function performs an RSA PKCS1-v1_5 Decoding operation for decryption (EME-PKCS1-v1_5 decoding)
+ * according to PKCS #1 v2.2.
+ *
+ * @param[in]  pSession             Not used
+ * @param[in]  pInput               Input-Buffer, which contains the encoded message to be decoded
+ * @param[in]  inputLength          Not used
+ * @param[in]  pVerificationInput   Not used
+ * @param[in]  pHashAlgo            Not used
+ * @param[in]  pLabel               Not used
+ * @param[in]  saltlabelLength      Not used
+ * @param[in]  keyBitLength         Bit-length of key (bit-length of encoded message). Note: This function only supports moduli, whose bit-length is a multiple of 8
+ * @param[in]  options              Not used
+ * @param[out] pOutput              Buffer to hold the output decoded plaintext
+ * @param[out] pOutLength           Length of output in bytes.
+ *
+ *
+ * <dl>
+ *  <dt>Parameter properties</dt>
+ *
+ *  <dd><dl>
+ *      <dt>pInput:</dt>
+ *          <dd>The input meets the following conditions:
+ *               - It is provided in big-endian byte order.
+ *      <dt>keyBitLength:</dt>
+ *          <dd>The key bit-length meets the following conditions:
+ *               - This function only supports moduli, whose bit-length is a multiple of 8.
+ *      <dt>pOutput:</dt>
+ *          <dd>The output meets the following conditions:
+ *               - The result is stored in big-endian byte order in the buffer pointed to by pOutput.
+ *      <dt>pOutLength:</dt>
+ *          <dd>Length of output in bytes.
+ *  </dl></dd>
+ * </dl>
+ *
+ * @return Status of the mcuxClRsa_pkcs1v15Decode_decrypt operation (see @ref MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t))
+ * @retval #MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK          The function executed successfully.
+ * @retval #MCUXCLRSA_STATUS_INVALID_INPUT               The function failed due to invalid input parameters.
+ * @retval #MCUXCLRSA_STATUS_ERROR                       An error occurred during the execution. In that case, expectations for the flow protection are not balanced.
+ *
+ * @attention PRNG and PKC have to be initialized prior to calling the function because PRNG and PKC RAM are used.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_pkcs1v15Decode_decrypt, mcuxClRsa_PadVerModeEngine_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Decode_decrypt(
+  mcuxClSession_Handle_t       pSession,
+  mcuxCl_InputBuffer_t         pInput,
+  const uint32_t              inputLength,
+  uint8_t *                   pVerificationInput,
+  mcuxClHash_Algo_t            pHashAlgo,
+  mcuxCl_InputBuffer_t         pLabel,
+  const uint32_t              saltlabelLength,
+  const uint32_t              keyBitLength,
+  const uint32_t              options,
+  mcuxCl_Buffer_t              pOutput,
+  uint32_t * const            pOutLength
+);
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) && defined(MCUXCL_FEATURE_RSA_RSAES_PKCS1v15) */
 
 
 
@@ -930,6 +1196,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPQDistance(uint32_
  *
  * Data Integrity: Expunge(pR), where pR is the pointer corresponding to the index of PKC operand iR
  *
+ * @param[in]  pSession       pointer to #mcuxClSession_Descriptor
  * @param[in] iR_iX_iNb_iRnd  indices of PKC operands
  * @param[in] iT1_iT0         indices of PKC operands
  * @param[in] lenX            byte length of X
@@ -965,7 +1232,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPQDistance(uint32_
  *
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_ModInv)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint32_t iT1_iT0, uint32_t lenX, uint32_t lenNb);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iNb_iRnd, uint32_t iT1_iT0, uint32_t lenX, uint32_t lenNb);
 
 /**
  * @brief RSA function which verifies whether RSA public exponent is FIPS compliant (i.e., is odd value
@@ -1419,7 +1686,110 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_verify(
   uint32_t                        signatureSize
 );
 
+#ifdef MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT
+/**
+ * @brief RSA Encrypt operation
+ *
+ * This function performs an RSA encryption according to RSAES-OAEP-ENCRYPT or RSAES-PKCS1-V1_5-ENCRYPT of PKCS #1 v2.2.
+ * Based on the selection of the padding mode and hash function, one of the supported encoding operations is performed.
+ *
+ * @param[in]  pSession                  Pointer to #mcuxClSession_Descriptor
+ * @param[in]  key                       Key handle for the input key (word-aligned)
+ * @param[in]  mode                      Cipher mode descriptor
+ * @param[in]  pLabel                    Pointer to the label.
+ * @param[in]  labelLength               Byte length of the label.
+ * @param[in]  pIn                       Pointer to the input buffer that contains the plain data that needs to be encrypted.
+ * @param[in]  inLength                  Number of bytes of plain data in the pIn buffer.
+ * @param[in]  pOut                      Pointer to the output buffer where the encrypted data needs to be written.
+ * @param[out] pOutLength                Will contain the number of bytes of encrypted data that have been written to the pOut buffer.
+ *
+ *  <dd><dl>
+ *      <dt>pSession:</dt>
+ *          <dd>The session pointed to by pSession has to be initialized prior to a call to this function.
+ *      <dt>key:</dt>
+ *          <dd>The key handle should be properly set up before calling the RSA function.
+ *              The following bit-lengths of the modulus are supported: 1024, 2048, 3072, 4096, 6144 and 8192.
+ *      <dt>mode:</dt>
+ *          <dd>The mode should be properly set up before calling the RSA function, and contain a pointer to a valid protocol descriptor.
+ *      <dt>pLabel:</dt>
+ *          <dd>The label is used only used for OAEP encoding.
+ *      <dt>inLength:</dt>
+ *          <dd>The input length should be compliant with the limitations of the selected encoding mode (PKCS#1v1.5 or OAEP)
+ *      <dt>pOutLength:</dt>
+ *          <dd>Always equal to the modulus byte length.
+ *  </dl></dd>
+ * </dl>
+ *
+ * @return Status of the mcuxClRsa_Util_encrypt operation.
+ * The return codes should match those of @ref mcuxClCipher
+ *
+ * @attention This function uses DRBG and PRNG which have to be initialized prior to calling the function.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_Util_encrypt, mcuxClCipher_CryptFunc_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClRsa_Util_encrypt(
+    mcuxClSession_Handle_t           pSession,
+    mcuxClKey_Handle_t               key,
+    mcuxClCipher_Mode_t              mode,
+    mcuxCl_InputBuffer_t             pLabel,
+    uint32_t                        labelLength,
+    mcuxCl_InputBuffer_t             pIn,
+    uint32_t                        inLength,
+    mcuxCl_Buffer_t                  pOut,
+    uint32_t * const                pOutLength
+);
+#endif /* MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT */
 
+#ifdef MCUXCL_FEATURE_CIPHER_RSA_DECRYPT
+/**
+ * @brief RSA Decrypt operation
+ *
+ * This function performs an RSA decryption according to RSAES-OAEP-DECRYPT or RSAES-PKCS1-V1_5-DECRYPT of PKCS #1 v2.2.
+ * Based on the selection of the padding mode and hash function, one of the supported decoding operations is performed.
+ *
+ * @param[in]  pSession                  Pointer to #mcuxClSession_Descriptor
+ * @param[in]  key                       Key handle for the input key (word-aligned)
+ * @param[in]  mode                      Cipher mode descriptor
+ * @param[in]  pLabel                    Pointer to the label.
+ * @param[in]  labelLength               Byte length of the label.
+ * @param[in]  pIn                       Pointer to the input buffer that contains the encrypted data that needs to be decrypted.
+ * @param[in]  inLength                  RFU
+ * @param[in]  pOut                      Pointer to the output buffer where the plain data needs to be written.
+ * @param[out] pOutLength                Will contain the number of bytes of encrypted data that have been written to the pOut buffer.
+ *
+ *  <dd><dl>
+ *      <dt>pSession:</dt>
+ *          <dd>The session pointed to by pSession has to be initialized prior to a call to this function.
+ *      <dt>key:</dt>
+ *          <dd>The key handle should be properly set up before calling the RSA function.
+ *              The following bit-lengths of the modulus are supported: 1024, 2048, 3072, 4096, 6144 and 8192.
+ *      <dt>mode:</dt>
+ *          <dd>The mode should be properly set up before calling the RSA function, and contain a pointer to a valid protocol descriptor.
+ *      <dt>pLabel:</dt>
+ *          <dd>The label is used only used for OAEP encoding.
+ *      <dt>inLength:</dt>
+ *          <dd>RFU: Number of bytes of encrypted data in the pIn buffer. For RSA this is ignored, and it is considered that this
+ *              is always equal to the modulus byte length.
+ *  </dl></dd>
+ * </dl>
+ *
+ * @return Status of the mcuxClRsa_Util_decrypt operation.
+ * The return codes should match those of @ref mcuxClCipher
+ *
+ * @attention This function uses PRNG which has to be initialized prior to calling the function.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_Util_decrypt, mcuxClCipher_CryptFunc_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClRsa_Util_decrypt(
+    mcuxClSession_Handle_t           pSession,
+    mcuxClKey_Handle_t               key,
+    mcuxClCipher_Mode_t              mode,
+    mcuxCl_InputBuffer_t             pLabel,
+    uint32_t                        labelLength,
+    mcuxCl_InputBuffer_t             pIn,
+    uint32_t                        inLength,
+    mcuxCl_Buffer_t                  pOut,
+    uint32_t * const                pOutLength
+);
+#endif /* MCUXCL_FEATURE_CIPHER_RSA_DECRYPT  */
 
 
 /**

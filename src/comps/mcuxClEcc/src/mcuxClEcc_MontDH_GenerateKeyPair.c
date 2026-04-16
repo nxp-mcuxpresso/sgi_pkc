@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -99,10 +99,14 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     /* Call mcuxClEcc_MontDH_X to calculate the public key q=MontDH_X(d,Gx) and store it in buffer MONT_X0. If the function returns
        SCALAR_ZERO or NEUTRAL_POINT, return MCUXCLKEY_STATUS_FAULT_ATTACK */
     MCUX_CSSL_FP_FUNCTION_CALL(retCode_MontDHx, mcuxClEcc_MontDH_X(pSession, pDomainParameters, pDomainParameters->common.pGx));
+#if defined(MCUXCL_FEATURE_ECC_CURVE448)
     if(MCUXCLECC_INTSTATUS_SCALAR_ZERO == retCode_MontDHx)
     {
         MCUXCLSESSION_ERROR(pSession, MCUXCLECC_STATUS_SCALAR_ZERO);
     } else if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
+#else
+    if(MCUXCLECC_STATUS_OK != retCode_MontDHx)
+#endif /* MCUXCL_FEATURE_ECC_CURVE448 */
     {
         MCUXCLSESSION_FAULT(pSession, MCUXCLKEY_STATUS_FAULT_ATTACK);
     }

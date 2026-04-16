@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2025 NXP                                                       */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -45,9 +45,11 @@
  * It is currently only used if the public Key_Flush API is enabled, or for AES internal key flush. */
 #define MCUXCLKEY_FEATURE_INTERNAL_FLUSH_FUNC
 
+#if ( defined(MCUXCL_FEATURE_ECC_MONTDH) || defined(MCUXCL_FEATURE_ECC_EDDSA)) || defined(MCUXCL_FEATURE_KEY_DERIVATION)
 /* Inclusion of the internal Key plain store functionality that's associated to a key object.
  * It is used when plain key data is stored in the key object after key generation or derivation for certain modes. */
 #define MCUXCLKEY_FEATURE_INTERNAL_STOREPLAIN_FUNC
+#endif /* (defined(MCUXCL_FEATURE_KEY_GENERATION) && (defined(MCUXCL_FEATURE_ECC_MONTDH) || defined(MCUXCL_FEATURE_ECC_EDDSA))) || defined(MCUXCL_FEATURE_KEY_DERIVATION) */
 
 /* Inclusion of the internal Key HandleKeyChecksums_None functionality that's associated to a key object.
  * It is currently only used if AES keys are enabled, and is needed for default functionality in case key checksums are not required. */

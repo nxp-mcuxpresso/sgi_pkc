@@ -30,3 +30,6 @@ const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes128                
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes256                 = {.algoId = MCUXCLKEY_ALGO_ID_AES + MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY, .size = MCUXCLAES_AES256_KEY_SIZE, .info = NULL, .plainEncoding = &mcuxClKey_EncodingDescriptor_Plain};
 
 
+#ifdef MCUXCL_FEATURE_AES192
+const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes192                 = {.algoId = MCUXCLKEY_ALGO_ID_AES + MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY, .size = MCUXCLAES_AES192_KEY_SIZE, .info = NULL, .plainEncoding = &mcuxClKey_EncodingDescriptor_Plain};
+#endif /* MCUXCL_FEATURE_AES192 */

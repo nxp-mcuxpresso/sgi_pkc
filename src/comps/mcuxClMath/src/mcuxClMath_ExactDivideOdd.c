@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -49,22 +49,25 @@
  * needs to calculate only the least significant (rPkcWord - (i+1)) PKC words of X{i+1}.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_ExactDivideOdd)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivideOdd(uint32_t iR_iX_iY_iT, uint32_t xPkcByteLength, uint32_t yPkcByteLength)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivideOdd(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iY_iT, uint32_t xPkcByteLength, uint32_t yPkcByteLength)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_ExactDivideOdd);
 
     uint32_t backupPs1LenReg = MCUXCLPKC_PS1_GETLENGTH_REG();
 
     /* Prepare local UPTRT. */
-    uint16_t pOperands[DivOdd_UPTRT_SIZE];
-    const uint16_t *backupPtrUptrt;
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Casting 32-bit pointer to 16-bit pointer is 16-bit aligned")
+    uint16_t * const pOperands = (uint16_t*)pSession->pMathUptrt;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+    const uint16_t *pBackupPtrUptrt;
     /* mcuxClMath_InitLocalUptrt always returns _OK. */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iY_iT, 0u, pOperands, 4u, &backupPtrUptrt));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iY_iT, 0u, pOperands, 4u, &pBackupPtrUptrt));
 
     const uint16_t offsetT = pOperands[DivOdd_T];
     /* ASSERT: operand T (length >= 3*MCUXCLPKC_WORDSIZE) is within PKC workarea. */
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(offsetT, MCUXCLPKC_RAM_OFFSET_MIN, MCUXCLPKC_RAM_OFFSET_MAX - (3u * MCUXCLPKC_WORDSIZE))
 
+    /* WAITFORREADY in mcuxClMath_InitLocalUptrt(...). */
     pOperands[DivOdd_T1] = (uint16_t) (offsetT + MCUXCLPKC_WORDSIZE);
     pOperands[DivOdd_Ri] = 2u;  /* for _Fup_ExactDivideOdd_NDashY */
     pOperands[DivOdd_CONST0] = 0u;
@@ -163,7 +166,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivideOdd(uint32_t iR_iX_iY_iT
 
     /* Restore pUptrt. */
     MCUXCLPKC_WAITFORREADY();
-    MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+    MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
     MCUXCLPKC_PS1_SETLENGTH_REG(backupPs1LenReg);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_ExactDivideOdd,

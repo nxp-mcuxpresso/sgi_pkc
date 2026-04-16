@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -28,6 +28,8 @@
 #include <mcuxCsslMemory_Constants.h>
 #include <mcuxCsslMemory_Types.h>
 
+#include <mcuxClConfig.h> // Exported features flags header
+
 
 #include <mcuxCsslMemory_Compare.h>
 
@@ -37,11 +39,19 @@
 
 #include <mcuxCsslMemory_Set.h>
 
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_COPY
+#include <mcuxCsslMemory_SecureCopy.h>
+#endif
 
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_XOR
+#include <mcuxCsslMemory_SecureXOR.h>
+#endif
 
 #include <mcuxCsslMemory_SecureSet.h>
 
 
-
+#ifdef MCUXCL_FEATURE_CSSL_MEMORY_ARM_SECURE_COMPARE
+#include <mcuxCsslMemory_SecureCompare.h>
+#endif
 
 #endif /* MCUXCSSLMEMORY_H */

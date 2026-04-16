@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClAes_Constants.h>
@@ -375,7 +375,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_store128BitBlock);
 
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(sgisfrDatOffset, 0U, MCUXCLSGI_DRV_DATIN2_OFFSET);
-    
+
     /* Record to balance the pointer increments in pDst and sgisfrDatOffset*/
     MCUX_CSSL_DI_RECORD(inputParam, 32U);
 
@@ -459,7 +459,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_loadFifo(const uint8_t *pData,
       const uint32_t* pDataWord = (const uint32_t*)pData;
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
       MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
-      
+
       /* Load data to FIFO word-wise */
       for(uint32_t i = 0U; i < (length / sizeof(uint32_t)); i++)
       {
@@ -715,7 +715,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_copySfrMasked(uint32_t *pDst, 
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_copySfrMasked);
 
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
   uint32_t sfrSeedBackup = mcuxClSgi_Sfr_readSfrSeed();
+#endif
 
   MCUX_CSSL_FP_FUNCTION_CALL(ctrl2Backup, mcuxClSgi_Drv_enableMasking(MCUXCLSGI_DRV_MASKING_SFR, sfrSeed));
 
@@ -732,7 +734,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_copySfrMasked(uint32_t *pDst, 
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_setCtrl2(ctrl2Backup));
 
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
   mcuxClSgi_Sfr_writeSfrSeed(sfrSeedBackup);
+#endif
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_copySfrMasked,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableMasking),
@@ -744,7 +748,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_copyBlockSfrMasked(uint32_t *p
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSgi_Utils_copyBlockSfrMasked);
 
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
   uint32_t sfrSeedBackup = mcuxClSgi_Sfr_readSfrSeed();
+#endif
 
   MCUX_CSSL_FP_FUNCTION_CALL(ctrl2Backup, mcuxClSgi_Drv_enableMasking(MCUXCLSGI_DRV_MASKING_SFR, sfrSeed));
 
@@ -763,7 +769,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_copyBlockSfrMasked(uint32_t *p
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_setCtrl2(ctrl2Backup));
 
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
   mcuxClSgi_Sfr_writeSfrSeed(sfrSeedBackup);
+#endif
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_copyBlockSfrMasked,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableMasking),
@@ -771,6 +779,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_copyBlockSfrMasked(uint32_t *p
 }
 
 
+#if defined(MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING)
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_decrement128Bit)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_decrement128Bit(uint32_t srcSfrDatOffset, uint32_t dstSfrDatOffset)
 {
@@ -822,6 +831,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_decrement128Bit(uint32_t srcSf
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClSgi_Utils_decrement128Bit);
 }
+#endif /* defined(MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING) && defined(MCUXCL_FEATURE_CIPHERMODES_CTR) */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Utils_keyUnwrapRfc3394)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClSgi_Utils_keyUnwrapRfc3394(

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_PssEncode.c
@@ -78,7 +78,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
    * Note: The additional check on salt-length for FIPS 186-5 compliance is also done here.
    */
 
-  if((hLen < sLen) || (emLen < (hLen + sLen + 2u)))
+  if((hLen < sLen) || (emLen < (hLen + sLen + 2U)))
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
   }
@@ -86,12 +86,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   /* Length of M' */
   const uint32_t mprimLen = padding1Length + hLen + sLen;
   /* Length of DB (and maskedDB). */
-  const uint32_t dbLen = emLen - hLen - 1u;
+  const uint32_t dbLen = emLen - hLen - 1U;
   /* Length of PS padding */
-  const uint32_t padding2Length = emLen - hLen - sLen - 2u;
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(padding2Length, 0u, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+  const uint32_t padding2Length = emLen - hLen - sLen - 2U;
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(padding2Length, 0U, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
   /* Length of PS padding plus one 0x01 byte */
-  const uint32_t padding3Length = padding2Length + 1u;
+  const uint32_t padding3Length = padding2Length + 1U;
 
   /*
    * Set buffers in the PKC workarea
@@ -120,7 +120,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pInput);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pMHash);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, hLen);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pInput, 0u, pMHash, hLen));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pInput, 0U, pMHash, hLen));
 
   /* Step 4: Generate a random octet string salt of length sLen; if sLen = 0, then salt is the empty string. */
   MCUXCLBUFFER_INIT(pBufSalt, NULL, pSalt, sLen);
@@ -136,7 +136,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   MCUXCLMEMORY_CLEAR_INT(pMprim, padding1Length);
 
   /* Step 6: Let H = Hash(M'), an octet string of length hLen. */
-  uint32_t hashOutputSize = 0u;
+  uint32_t hashOutputSize = 0U;
 
   MCUXCLBUFFER_INIT_RO(pMprimBuf, NULL, pMprim, padding1Length);
   MCUXCLBUFFER_INIT(pHBuf, NULL, pH, hLen);
@@ -167,7 +167,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
    */
 
   /* XOR 0x01 to the output buffer at the corresponding position. */
-  *(pEm + padding2Length) ^= 0x01u;
+  *(pEm + padding2Length) ^= 0x01U;
 
   /* XOR the salt to the output buffer at the corresponding positions. */
   MCUX_CSSL_DI_RECORD(memXORintParams, pEm + padding3Length);
@@ -179,11 +179,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssEncode(
   /* Step 11:  Set the leftmost 8emLen - emBits bits of the leftmost octet in maskedDB to zero. */
   /* Since we assume the key length to be a multiple of 8, this becomes simply the leftmost bit. */
 
-  *(pEm) &= 0x7fu;
+  *(pEm) &= 0x7fU;
 
   /* Step 12:  Let EM = maskedDB || H || 0xbc. */
 
-  *(pEm + emLen - 1U) = 0xbcu;
+  *(pEm + emLen - 1U) = 0xbcU;
 
   /* Step 13:  Output EM. */
   /* Write pEm in little-endian byte order to pOutput. */

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClCipherModes_Modes.h
@@ -46,7 +46,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_N
  * @brief AES-ECB mode without padding.
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_NoPadding.
- * \implements{REQ_788210,REQ_788217}
+ * @implements{REQ_788210,REQ_788217}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_NoPadding =
   &mcuxClCipher_ModeDescriptor_AES_ECB_NoPadding;
@@ -61,7 +61,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method1.
  *
- * \implements{REQ_788210,REQ_788217,REQ_788211}
+ * @implements{REQ_788210,REQ_788217,REQ_788211}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method1 =
   &mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method1;
@@ -76,7 +76,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method2.
  *
- * \implements{REQ_788210,REQ_788217,REQ_788212}
+ * @implements{REQ_788210,REQ_788217,REQ_788212}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method2 =
   &mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method2;
@@ -91,11 +91,12 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_PaddingPKCS7.
  *
- * \implements{REQ_788210,REQ_788217,REQ_788213}
+ * @implements{REQ_788210,REQ_788217,REQ_788213}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_PaddingPKCS7 =
   &mcuxClCipher_ModeDescriptor_AES_ECB_PaddingPKCS7;
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @brief AES-ECB mode descriptor without padding, non-blocking API, using the DMA for I/O operations.
  * @note Interrupts must be enabled on both involved DMA channels with properly installed handlers.
@@ -113,7 +114,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_N
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_NoPadding_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550251}
+ * @implements{REQ_788210,REQ_1550251}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_NoPadding_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_ECB_NoPadding_NonBlocking;
@@ -135,7 +136,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method1_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550251,REQ_788211}
+ * @implements{REQ_788210,REQ_1550251,REQ_788211}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method1_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method1_NonBlocking;
@@ -157,7 +158,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method2_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550251,REQ_788212}
+ * @implements{REQ_788210,REQ_1550251,REQ_788212}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method2_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method2_NonBlocking;
@@ -179,11 +180,12 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_ECB_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_ECB_PaddingPKCS7_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550251,REQ_788213}
+ * @implements{REQ_788210,REQ_1550251,REQ_788213}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_ECB_PaddingPKCS7_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_ECB_PaddingPKCS7_NonBlocking;
 
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 /**
  * @brief AES-CBC mode descriptor without padding
  */
@@ -194,7 +196,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_N
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_NoPadding.
  *
- * \implements{REQ_788210,REQ_788219}
+ * @implements{REQ_788210,REQ_788219}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_NoPadding =
   &mcuxClCipher_ModeDescriptor_AES_CBC_NoPadding;
@@ -209,7 +211,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method1.
  *
- * \implements{REQ_788210,REQ_788219,REQ_788211}
+ * @implements{REQ_788210,REQ_788219,REQ_788211}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_PaddingISO9797_1_Method1 =
   &mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method1;
@@ -224,7 +226,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method2.
  *
- * \implements{REQ_788210,REQ_788219,REQ_788212}
+ * @implements{REQ_788210,REQ_788219,REQ_788212}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_PaddingISO9797_1_Method2 =
   &mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method2;
@@ -239,11 +241,12 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_PaddingPKCS7.
  *
- * \implements{REQ_788210,REQ_788219,REQ_788213}
+ * @implements{REQ_788210,REQ_788219,REQ_788213}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_PaddingPKCS7 =
   &mcuxClCipher_ModeDescriptor_AES_CBC_PaddingPKCS7;
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @brief AES-CBC mode descriptor without padding, non-blocking API, using the DMA for I/O operations
  * @note Interrupts must be enabled on both involved DMA channels with properly installed handlers.
@@ -261,7 +264,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_N
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_NoPadding_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550252}
+ * @implements{REQ_788210,REQ_1550252}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_NoPadding_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_CBC_NoPadding_NonBlocking;
@@ -283,7 +286,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method1_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550252,REQ_788211}
+ * @implements{REQ_788210,REQ_1550252,REQ_788211}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_PaddingISO9797_1_Method1_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method1_NonBlocking;
@@ -305,7 +308,7 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method2_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550252,REQ_788212}
+ * @implements{REQ_788210,REQ_1550252,REQ_788212}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_PaddingISO9797_1_Method2_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method2_NonBlocking;
@@ -327,11 +330,12 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CBC_P
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CBC_PaddingPKCS7_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550252,REQ_788213}
+ * @implements{REQ_788210,REQ_1550252,REQ_788213}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CBC_PaddingPKCS7_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_CBC_PaddingPKCS7_NonBlocking;
 
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 /**
  * @brief AES-CTR mode descriptor
  */
@@ -342,11 +346,12 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CTR;
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CTR.
  *
- * \implements{REQ_788210,REQ_788223}
+ * @implements{REQ_788210,REQ_788223}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CTR =
   &mcuxClCipher_ModeDescriptor_AES_CTR;
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @brief AES-CTR mode descriptor, non-blocking API, using the DMA for I/O operations
  * @note Interrupts must be enabled on both involved DMA channels with properly installed handlers.
@@ -364,10 +369,13 @@ extern const mcuxClCipher_ModeDescriptor_t mcuxClCipher_ModeDescriptor_AES_CTR_N
  *
  * See @ref mcuxClCipher_ModeDescriptor_AES_CTR_NonBlocking.
  *
- * \implements{REQ_788210,REQ_1550253}
+ * @implements{REQ_788210,REQ_1550253}
  */
 static mcuxClCipher_Mode_t mcuxClCipher_Mode_AES_CTR_NonBlocking =
   &mcuxClCipher_ModeDescriptor_AES_CTR_NonBlocking;
+
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
+
 
 
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()

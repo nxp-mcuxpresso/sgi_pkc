@@ -1,42 +1,36 @@
-DCI_SDK (4.0.0) Release Notes
+DCI_SDK (4.1.0) Release Notes
 
-- Release: DCI_SDK RFP
-- Version: DCI_SDK_V4.0.0
-- Date:    2026-02-09
+- Release: DCI_SDK
+- Version: V4.1.0
+- Date:    2026-03-30
 - Compiler: IAR C/C++ Compiler V9.60.2.399 for ARM
 - Code size: 
-    -delivery/mcxa2xx_release/static_library/mcxa2xx/libclns.a
-        TEXT     RO    RW    ZI    TOTAL_CONSUMPTION
-        124600         0     0     124600
+    -delivery/mcxa2tsSdk_cosim_release/static_library/mcxa5xx/libclns.a
+        TEXT   RO RW ZI TOTAL_CONSUMPTION
+        149330 0  0  0  149330
 
+    -delivery/mcxa2xx_release/static_library/mcxa2xx/libclns.a
+        TEXT   RO RW ZI TOTAL_CONSUMPTION
+        134960 0  0  0  134960
+        
     -delivery/mcxl2xx_release/static_library/mcxl2xx/libclns.a
-        TEXT     RO    RW    ZI    TOTAL_CONSUMPTION
-        124226         0     0     124226	
+        TEXT   RO RW ZI TOTAL_CONSUMPTION
+        134746 0  0  0  134746
+
+    -delivery/mcxw7x_release/static_library/mcxw7x/libclns.a
+        TEXT   RO RW ZI TOTAL_CONSUMPTION
+        150208 0  0  0  150208
 
 
 --- Test Targets: 
-   - MCX A276 sample
+   - MCX A20 sample A0
    - MCX L20 sample
-   - CCCS FPGA v2 using A20 CoSim v2 bitfile r1785
+   - CCCS FPGA v2 using A20 CoSim v3 bitfile
+   - CCCS FPGA v2 using W70 (V3 r1789) bitfile
+   - CCCS FPGA v2 using A2TS (V3 r1787) bitfile
 
---- New Features 
-   - Optimized code size across the entire library.
-   - Improved test coverage throughout the library.
-   - Security hardenings to EL500 level
-   - Symmetric performance improvements
-   - Coverage improvements
-   - Zero Hash fix for ECDSA
+--- New Features in V4.1.0:
+    - The initial A2TS/W70 SDK release
 
-
-
---- Features:
-   - Components included: mcuxClAead, mcuxClAeadModes, mcuxClAes, mcuxClBuffer, mcuxClCipher, mcuxClCipherModes, mcuxClCore, mcuxClCrc,
-                          mcuxClDma, mcuxClEcc, mcuxClExample, mcuxClFfdh, mcuxClGlikey, mcuxClHash, mcuxClHashModes, mcuxClHmac, mcuxClKey,
-                          mcuxClMac, mcuxClMacModes, mcuxClMath, mcuxClMemory, mcuxClPadding, mcuxClPkc, mcuxClPrng, mcuxClRandom,
-                          mcuxClRandomModes, mcuxClResource, mcuxClRsa, mcuxClSession, mcuxClSgi, mcuxClSignature, mcuxClTrng,
-                          mcuxCsslCPreProcessor, mcuxCsslDataIntegrity, mcuxCsslFlowProtection, mcuxCsslMemory, mcuxCsslParamIntegrity, 
-                          mcuxCsslPrng, mcuxCsslSecureCounter
-
---- Known Issues/Limitations:
-   - To use any Asymmetric Cryptographic Operations the RAM_INTERLEAVE flag in SYSCON must be enabled before invoking any CLib Asymmetric Cryptographic Functionality.
-   - Key descriptor buffers must be 4-bytes aligned
+--- Known Issues/Limitations V4.1.0:
+   None

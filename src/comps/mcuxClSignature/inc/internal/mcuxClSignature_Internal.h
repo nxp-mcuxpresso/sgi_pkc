@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2024 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClSignature_Internal.h
@@ -84,6 +84,26 @@ struct mcuxClSignature_Context
   const mcuxClSignature_ModeDescriptor_t * pMode;
 };
 
+#ifdef MCUXCL_FEATURE_SIGNATURE_SELFTEST
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClSignature_SelfTestFct_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) (*mcuxClSignature_SelfTestFct_t) (
+  mcuxClSession_Handle_t session,
+  mcuxClSignature_Mode_t mode
+));
+
+/**
+ * \brief Signature selftest mode descriptor structure
+ * \ingroup clSignatureModes
+ *
+ * This structure captures all the information that the Signature selftest interfaces need
+ * to know about a particular Signature selftest mode.
+ */
+struct mcuxClSignature_TestDescriptor
+{
+  mcuxClSignature_SelfTestFct_t pSelfTestFct;
+  uint32_t                     protection_token_selftest;
+};
+#endif /* MCUXCL_FEATURE_SIGNATURE_SELFTEST */
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClAes.h>
@@ -69,7 +69,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCBCMac(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMacModes_updateCBCMac);
 
-  if(0u < inLength)
+  if(0U < inLength)
   {
     pContext->dataProcessed = MCUXCLMACMODES_TRUE;
 
@@ -96,7 +96,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCBCMac(
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_updateCBCMac, MCUXCLMAC_STATUS_OK,
-        MCUX_CSSL_FP_CONDITIONAL((0u < inLength),
+        MCUX_CSSL_FP_CONDITIONAL((0U < inLength),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_process_preTag_calculation)));
 }
 
@@ -112,18 +112,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCBCMac(
 
   /* Determine length of last block of input data */
   uint32_t noOfBytesToProcess = pContext->blockBufferUsed;
-  if((0u != (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE)) && (mcuxClPadding_addPadding_None == pAlgo->addPadding))
+  if((0U != (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE)) && (mcuxClPadding_addPadding_None == pAlgo->addPadding))
   {
     MCUXCLSESSION_ERROR(session, MCUXCLMAC_STATUS_INVALID_PARAM);
   }
 
   const uint32_t *pSrc_maskedPreTag = (const uint32_t *)pContext->maskedPreTag;
     uint32_t *pDst_sgiDatout = (uint32_t *)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET);
-    
+
     /* Load pSrc_maskedPreTag to DATOUT. */
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, pDst_sgiDatout);
     MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t)pSrc_maskedPreTag);
-    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+    MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16U);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
       pDst_sgiDatout,
       pSrc_maskedPreTag,
@@ -131,7 +131,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCBCMac(
 
   /* Do padding if need */
   MCUXCLBUFFER_INIT_RO(paddingInBuffer, NULL, (uint8_t *)pContext->blockBuffer, pContext->blockBufferUsed);
-  uint32_t pOutLen = 0u;
+  uint32_t pOutLen = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->addPadding(
     session,
     MCUXCLAES_BLOCK_SIZE,
@@ -153,7 +153,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCBCMac(
     /* Record load input */
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET));
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)workArea->sgiWa.paddingBuff);
-    MCUX_CSSL_DI_RECORD(sgiLoad, 16u);
+    MCUX_CSSL_DI_RECORD(sgiLoad, 16U);
 
     /* Copy input to SGI */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN0_OFFSET, workArea->sgiWa.paddingBuff));
@@ -163,8 +163,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCBCMac(
       workArea,
       pContext,
       NULL,
-      0u,
-      0u,
+      0U,
+      0U,
       pContext->keyContext.sfrSeed,
       operation,
       mcuxClMacModes_finalizeEngine,

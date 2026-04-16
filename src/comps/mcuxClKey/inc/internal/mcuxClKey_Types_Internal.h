@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -25,6 +25,10 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxClCore_FunctionIdentifiers.h>
 
+#ifdef MCUXCL_FEATURE_KEY_DERIVATION
+#include <mcuxClMac_Types.h>
+#include <mcuxClHash_Types.h>
+#endif /* MCUXCL_FEATURE_KEY_DERIVATION */
 
 #ifdef __cplusplus
 extern "C" {
@@ -81,6 +85,16 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClKey_FlushFuncPtr_t)(mcuxClSess
 MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClKey_HandleKeyChecksums_t,
 typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClKey_HandleKeyChecksums_t)(mcuxClSession_Handle_t session, mcuxClKey_KeyChecksum_t * pKeyChecksums, uint8_t* pKey));
 
+#ifdef MCUXCL_FEATURE_KEY_DERIVATION
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClKey_DerivationEngine_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClKey_DerivationEngine_t)(
+  mcuxClSession_Handle_t session,
+  mcuxClKey_Derivation_t derivationMode,
+  mcuxClKey_Handle_t derivationKey,
+  mcuxClKey_DerivationInput_t inputs[],
+  uint32_t numberOfInputs,
+  mcuxClKey_Handle_t derivedKey));
+#endif /* MCUXCL_FEATURE_KEY_DERIVATION */
 
 /**********************************************
  * DATA TYPE DEFINITIONS
@@ -187,6 +201,30 @@ struct mcuxClKey_GenerationDescriptor
   const void *pProtocolDescriptor;    ///< Pointer to additional parameters for the protocol specific key generation function
 };
 
+#ifdef MCUXCL_FEATURE_KEY_DERIVATION
+/**
+ * @brief Struct of derivation algorithm descriptor
+ */
+struct mcuxClKey_DerivationAlgorithmDescriptor {
+  mcuxClKey_DerivationEngine_t pDerivationEngine;   ///< Pointer to the key derivation engine
+  uint32_t protectionTokenDerivationEngine;        ///< Protection token of the key derivation engine
+};
+
+/**
+ * @brief Generic key derivation function descriptor structure.
+ *
+ * @param    derivationAlgorithm     Function pointer to the key derivation algorithm function
+ * @param    macMode                 Mac mode type, in case a Mac mode is used within the key derivation algorithm
+ * @param    hashFunction            Hash algorithm type, in case a hash algorithm is used within the key derivation algorithm (note that for HMAC modes the hash algorithm is determined by the macMode)
+ * @param    options                 Generic options field containing algorithm-specific parameters (e.g., counter length or iteration count)
+ */
+struct mcuxClKey_DerivationMode {
+  const mcuxClKey_DerivationAlgorithmDescriptor_t * derivationAlgorithm;
+  const mcuxClMac_ModeDescriptor_t * macMode;
+  const mcuxClHash_AlgorithmDescriptor_t * hashFunction;
+  uint32_t options;
+};
+#endif /* MCUXCL_FEATURE_KEY_DERIVATION */
 
 /**
  * Generic key validate function descriptor structure.
@@ -229,7 +267,20 @@ struct mcuxClKey_AgreementDescriptor {
   const void *pProtocolDescriptor;          ///< Pointer to additional parameters for the protocol specific key agreement function
 };
 
+#ifdef MCUXCL_FEATURE_KEY_SELFTEST
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClKey_Agreement_SelfTestFct_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClKey_Agreement_SelfTestFct_t) (
+  mcuxClSession_Handle_t  session,
+  mcuxClKey_Agreement_t   agreement
+));
+#endif /* MCUXCL_FEATURE_KEY_SELFTEST */
 
+#ifdef MCUXCL_FEATURE_KEY_SELFTEST
+struct mcuxClKey_TestDescriptor {
+  mcuxClKey_Agreement_SelfTestFct_t pSelfTestFct;
+  uint32_t               protectionTokenSelfTestFct;
+};
+#endif /* MCUXCL_FEATURE_KEY_SELFTEST */
 
 #ifdef __cplusplus
 } /* extern "C" */

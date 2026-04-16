@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_ModeConstructors.c
@@ -18,6 +18,10 @@
 #include <mcuxClSignature.h>
 #include <internal/mcuxClSignature_Internal.h>
 
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+#include <mcuxClCipher.h>
+#include <internal/mcuxClCipher_Internal.h>
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) */
 
 #include <internal/mcuxClPkc_Internal_Functions.h>
 
@@ -33,7 +37,7 @@
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
 /**
- * \brief Initialize PKC hardware
+ * @brief Initialize PKC hardware
  *
  * @param[in]   pIn      session handle for the current CL session.
  *
@@ -115,7 +119,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS
   pProtocolDescriptor->sign_FunId = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pkcs1v15Encode_sign);
   pProtocolDescriptor->pVerifyMode = mcuxClRsa_pkcs1v15Verify;
   pProtocolDescriptor->verify_FunId = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pkcs1v15Verify);
-  pProtocolDescriptor->saltLength = 0u; /* there is no salt for PKCS#1 */
+  pProtocolDescriptor->saltLength = 0U; /* there is no salt for PKCS#1 */
   pProtocolDescriptor->options = options;
 
   {
@@ -138,6 +142,76 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS
 }
 
 
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+/* Cipher encrypt/decrypt mode functions for RSA encrypt and decrypt operations */
+static const mcuxClRsa_Cipher_ModeFunctions_t mcuxClRsa_Cipher_ModeFunctions_Rsa = {
+  .encrypt = mcuxClRsa_Util_encrypt,
+  .decrypt = mcuxClRsa_Util_decrypt,
+  .protection_token_encrypt = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_Util_encrypt),
+  .protection_token_decrypt = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_Util_decrypt)
+};
+
+#ifdef MCUXCL_FEATURE_RSA_RSAES_OAEP
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_CipherModeConstructor_RSAES_OAEP)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_CipherModeConstructor_RSAES_OAEP(
+  mcuxClCipher_ModeDescriptor_t * pCipherMode,
+  mcuxClHash_Algo_t hashAlgorithm
+)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_CipherModeConstructor_RSAES_OAEP);
+
+  /* Create RSA algorithm descriptor after the cipher mode.
+   * It is assumed that sufficient space was allocated by users, with the macro MCUXCLRSA_CIPHER_MODE_SIZE */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Explicit cast to reinterpret memory, to initialize pAlgorithmDescriptor at word-aligned location after pCipherMode")
+  mcuxClRsa_Cipher_AlgorithmDescriptor_t *pAlgorithmDescriptor = (mcuxClRsa_Cipher_AlgorithmDescriptor_t *) ((uint8_t*)pCipherMode + sizeof(mcuxClCipher_ModeDescriptor_t));
+
+  /* Fill cipher algorithm parameters for RSA with OAEP encoding */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER("Const must be discarded to initialize the cipher algorithm parameters.")
+  pAlgorithmDescriptor->pHashAlgo = (mcuxClHash_AlgorithmDescriptor_t *)hashAlgorithm;
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()
+  pAlgorithmDescriptor->pEncryptMode = mcuxClRsa_oaepEncode;
+  pAlgorithmDescriptor->pDecryptMode = mcuxClRsa_oaepDecode;
+  pAlgorithmDescriptor->encrypt_FunId = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_oaepEncode);
+  pAlgorithmDescriptor->decrypt_FunId = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_oaepDecode);
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+
+  /* Fill cipher mode parameters for RSA */
+  pCipherMode->pModeFunctions = (const void *) &mcuxClRsa_Cipher_ModeFunctions_Rsa;
+  pCipherMode->pAlgorithm = pAlgorithmDescriptor;
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_CipherModeConstructor_RSAES_OAEP);
+}
+#endif /* MCUXCL_FEATURE_RSA_RSAES_OAEP */
+
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_CipherModeConstructor_RSAES_PKCS1_v1_5)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_CipherModeConstructor_RSAES_PKCS1_v1_5(
+  mcuxClCipher_ModeDescriptor_t * pCipherMode
+)
+{
+  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_CipherModeConstructor_RSAES_PKCS1_v1_5);
+
+  /* Create RSA algorithm descriptor after the cipher mode.
+   * It is assumed that sufficient space was allocated by users, with the macro MCUXCLRSA_CIPHER_MODE_SIZE */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Explicit cast to reinterpret memory, to initialize pAlgorithmDescriptor at word-aligned location after pCipherMode")
+  mcuxClRsa_Cipher_AlgorithmDescriptor_t *pAlgorithmDescriptor = (mcuxClRsa_Cipher_AlgorithmDescriptor_t *) ((uint8_t*)pCipherMode + sizeof(mcuxClCipher_ModeDescriptor_t));
+
+  /* Fill cipher algorithm parameters for RSA with PKCS#1 v1.5 encoding */
+  pAlgorithmDescriptor->pHashAlgo = NULL; /* No hash algorithm is used for RSAES-PKCS1-v1_5 */
+  pAlgorithmDescriptor->pEncryptMode = mcuxClRsa_pkcs1v15Encode_encrypt;
+  pAlgorithmDescriptor->pDecryptMode = mcuxClRsa_pkcs1v15Decode_decrypt;
+  pAlgorithmDescriptor->encrypt_FunId = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pkcs1v15Encode_encrypt);
+  pAlgorithmDescriptor->decrypt_FunId = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pkcs1v15Decode_decrypt);
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+
+  /* Fill cipher mode parameters for RSA */
+  pCipherMode->pModeFunctions = (const void *) &mcuxClRsa_Cipher_ModeFunctions_Rsa;
+  pCipherMode->pAlgorithm = pAlgorithmDescriptor;
+
+  MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_CipherModeConstructor_RSAES_PKCS1_v1_5);
+}
+
+
+#endif /* MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT || MCUXCL_FEATURE_CIPHER_RSA_DECRYPT */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_KeyGeneration_ModeConstructor)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyGeneration_ModeConstructor(

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2024 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClTrng_Internal_SA_TRNG.h
@@ -27,6 +27,12 @@
 #define MCUXCLTRNG_ERROR_LIMIT                          (3u)
 #define MCUXCLTRNG_SA_TRNG_HW_DUAL_OSCILLATOR_MODE      (1u)
 
+#ifdef MCUXCL_FEATURE_TRNG_SA_TRNG_256
 #define MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS         (8u)
+#elif defined(MCUXCL_FEATURE_TRNG_SA_TRNG_512)
+#define MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS        (8u)
+#else
+#error "Build configuration issue: SA_TRNG component included but neither SA_TRNG_256 nor SA_TRNG_512 are defined"
+#endif
 
 #endif /* MCUXCLTRNG_INTERNAL_SA_TRNG_H_ */

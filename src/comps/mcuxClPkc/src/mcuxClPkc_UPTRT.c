@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2021, 2023-2025 NXP                                       */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -71,7 +71,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPkc_RandomizeUPTRT(
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPkc_RandomizeUPTRT, MCUX_CSSL_FP_LOOP_ITERATIONS(randomizationLoop, ((uint32_t)noOfBuffer - 1U)));
 
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID((uint32_t) noOfBuffer, 0u, 255u)
-    
+
     /* Randomize entries in UPTRT by Knuth shuffle. */
     for (uint32_t idx = (uint32_t) noOfBuffer; idx > 1u; idx--)
     {

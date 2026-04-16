@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Mgf1.c
@@ -47,8 +47,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_mgf1(
 
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_mgf1);
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputLength, 1u, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inputLength, 1u, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputLength, 1U, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inputLength, 1U, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
 
   const uint32_t hLen = pHashAlgo->hashSize;
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(hLen, MCUXCLRSA_HASH_MIN_SIZE, MCUXCLRSA_HASH_MAX_SIZE, MCUXCLRSA_STATUS_INVALID_INPUT)
@@ -78,15 +78,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_mgf1(
   for(uint32_t counter = 0U; counter < mxCounter; counter++)
   {
     /* Convert counter to a big endian byte string C of length 4. */
-    pHashInput[inputLength]      = (uint8_t)((counter >> 24) & 0xFFu);
-    pHashInput[inputLength + 1U] = (uint8_t)((counter >> 16) & 0xFFu);
-    pHashInput[inputLength + 2U] = (uint8_t)((counter >> 8) & 0xFFu);
-    pHashInput[inputLength + 3U] = (uint8_t)(counter & 0xFFu);
+    pHashInput[inputLength]      = (uint8_t)((counter >> 24) & 0xFFU);
+    pHashInput[inputLength + 1U] = (uint8_t)((counter >> 16) & 0xFFU);
+    pHashInput[inputLength + 2U] = (uint8_t)((counter >> 8) & 0xFFU);
+    pHashInput[inputLength + 3U] = (uint8_t)(counter & 0xFFU);
 
     /* Append Hash(pInput || C) to T */
 
     /* Compute Hash */
-    uint32_t hashOutputSize = 0u;
+    uint32_t hashOutputSize = 0U;
 
     MCUXCLBUFFER_INIT(pHashInputBuf, pSession, pHashInput, inputLength);
     MCUXCLBUFFER_INIT(pHashOutputBuf, pSession, pHashOutput, hLen);

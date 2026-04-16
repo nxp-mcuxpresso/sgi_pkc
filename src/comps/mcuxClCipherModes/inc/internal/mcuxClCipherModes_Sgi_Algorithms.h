@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClCipherModes_Sgi_Algorithms.h
@@ -60,6 +60,7 @@ extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_A
 extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_ECB_PaddingPKCS7_Sgi;
 
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @brief Blocking ECB algorithm descriptor for non-blocking operations, using SGI, performing I/O operations with the DMA
  */
@@ -80,6 +81,7 @@ extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_A
  */
 extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_ECB_PaddingPKCS7_Sgi_NonBlocking;
 
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 /**
  * @brief CBC algorithm descriptor without padding, using SGI
@@ -106,6 +108,7 @@ extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_A
 extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_CBC_PaddingPKCS7_Sgi;
 
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @brief Non blocking CBC algorithm descriptor for non-blocking operations, using SGI, performing I/O operations with the DMA
  */
@@ -126,6 +129,7 @@ extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_A
  */
 extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_CBC_PaddingPKCS7_Sgi_NonBlocking;
 
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 /**
  * @brief CTR algorithm descriptor, using SGI
@@ -133,11 +137,13 @@ extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_A
  */
 extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_CTR_Sgi;
 
+#if defined(MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING)
 /**
  * @brief CTR algorithm descriptor, using SGI, for non-blocking operations, performing I/O operations with the DMA
  */
 extern const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_AlgorithmDescriptor_CTR_Sgi_NonBlocking;
 
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 
 

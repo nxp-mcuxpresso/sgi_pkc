@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_PrivatePlain.c
@@ -70,7 +70,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   MCUX_CSSL_DI_RECORD(privatePlain_SecModExp, byteLenD);
 
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenN, MCUXCLRSA_MIN_MODLEN, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenD, 1u, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenD, 1U, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
 
   /************************************************************************************************/
   /* Initialization                                                                               */
@@ -115,6 +115,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   uint16_t * pOperands = (uint16_t *) pOperands32;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
+  MCUXCLPKC_WAITFORREADY();
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_X] = MCUXCLPKC_PTR2OFFSET(pInput);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_R] = MCUXCLPKC_PTR2OFFSET(pR);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_N] = MCUXCLPKC_PTR2OFFSET(pN);
@@ -134,15 +135,26 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   MCUXCLMEMORY_CLEAR_INT(pInput + byteLenN, MCUXCLRSA_INTERNAL_PRIVATEPLAIN_INPUT_SIZE(byteLenN) - byteLenN);
 
   // TODO CLNS-13225: analyze what should be cleared
-  MCUXCLPKC_PS1_SETLENGTH(0u, bufferSizeTotal);
-  MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_R, 0u);
+  MCUXCLPKC_PS1_SETLENGTH(0U, bufferSizeTotal);
+  MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_R, 0U);
 
   uint32_t * pExpTemp = NULL;
+  /* Feature flag based on PKC_RAM and key size. */
+#if defined(MCUXCL_FEATURE_PKC_RAM_4KB) || defined(MCUXCL_FEATURE_RSA_8K_KEYS)
   if (byteLenN <= MCUXCLRSA_MAX_MODLEN_EXPTEMP_IN_PKCRAM)
   {
     /* Prepare expTemp buffer in PKC workarea. It will be used in mcuxClMath_SecModExp */
     pExpTemp = pPkcWorkarea + ((bufferSizeTotal - bufferSizeModExpTemp) / sizeof(uint32_t));
   }
+  else
+  {
+    /* Prepare expTemp buffer in CPU workarea - aligned to CPU word, length=MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(byteLenD) - byteLenD is not bigger than byteLenN */
+    pExpTemp = pOperands32 + MCUXCLRSA_INTERNAL_PRIVATEPLAIN_UPTRT_SIZE_IN_WORDS;
+  }
+#else
+  /* Prepare expTemp buffer in PKC workarea. It will be used in mcuxClMath_SecModExp */
+  pExpTemp = pPkcWorkarea + ((bufferSizeTotal - bufferSizeModExpTemp) / sizeof(uint32_t));
+#endif /* defined(MCUXCL_FEATURE_PKC_RAM_4KB) || defined(MCUXCL_FEATURE_RSA_8K_KEYS) */
 
   /************************************************************************************************/
   /* Import in LE the modulus to target buffer in PKC workarea                                    */
@@ -159,7 +171,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pT0, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_N );  // RSA Key_load function always returns OK
 
   /* Check that the modulus is odd */
-  if(0U == (pT0[0u] & 0x01U))
+  if(0U == (pT0[0U] & 0x01U))
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
   }
@@ -169,7 +181,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   /* If input is zero or one, return zero or one respectively                                     */
   /************************************************************************************************/
 
-  MCUXCLPKC_PS1_SETLENGTH(0u, operandSize);
+  MCUXCLPKC_PS1_SETLENGTH(0U, operandSize);
   MCUXCLPKC_FP_CALC_OP1_CMP(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_X, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T0);
   MCUXCLPKC_WAITFORFINISH();
 
@@ -181,7 +193,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   }
 
   /* Compare input to 1. Note that in order to do that in one operation, result has to be written to a temporary buffer */
-  MCUXCLPKC_FP_CALC_OP1_SUB_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T2, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_X, 1u);
+  MCUXCLPKC_FP_CALC_OP1_SUB_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T2, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_X, 1U);
   MCUXCLPKC_WAITFORFINISH();
 
   carryFlag = MCUXCLPKC_GETCARRY();
@@ -220,7 +232,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   pBlind[0] = mcuxClRandom_ncGenerateWord_Internal(pSession);
 
   /* Make it odd */
-  pBlind[0] |= 0x1u;
+  pBlind[0] |= 0x1U;
 
   /* Blind modulus n */
   MCUXCLPKC_FP_CALC_OP1_MUL( MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_N /* n_b */, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_RAND /* blind */, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T0 /* n */);
@@ -232,11 +244,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   /* Calculate Ndash of N */
   MCUXCLPKC_WAITFORREADY();
   MCUXCLPKC_PS1_SETLENGTH(blindOperandSize, blindOperandSize);
-  MCUXCLMATH_FP_NDASH(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_N, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T0);
+  MCUXCLMATH_FP_NDASH(pSession, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_N, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T0);
 
   /* Calculate QSquared */
   MCUXCLMATH_FP_SHIFTMODULUS(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T3, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_N); //shift modulus
-  MCUXCLMATH_FP_QSQUARED(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_R /* QSquared */, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T3,
+  MCUXCLMATH_FP_QSQUARED(pSession, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_R /* QSquared */, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T3,
       MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_N, MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_T0);
 
   /* Convert input to Montgomery representation i.e. M*QSquared mod N */
@@ -256,7 +268,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
 
   /* Clear upper bytes that were not overwritten by the copy in Key_load */
   uint8_t *pUpper = pR + byteLenD;
-  uint32_t lenUpper = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLenD + 1u) - byteLenD;
+  uint32_t lenUpper = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLenD + 1U) - byteLenD;
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, pUpper);
   MCUX_CSSL_DI_RECORD(mcuxClMemory_clear_int, lenUpper);
   MCUXCLMEMORY_CLEAR_INT(pUpper, lenUpper);
@@ -280,6 +292,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
   /* Convert result back to normal representation and store result in pOutput.                    */
   /************************************************************************************************/
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_RemoveBlinding(
+    pSession,
     MCUXCLPKC_PACKARGS4(MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_X /* R */,
                        MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_R /* Rb */,
                        MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_N /* Nb */,
@@ -291,7 +304,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_privatePlain(
 
   /* Copy result to the output buffer */
   MCUXCLPKC_WAITFORREADY();
-  MCUXCLPKC_PS1_SETLENGTH(0u, operandSize);
+  MCUXCLPKC_PS1_SETLENGTH(0U, operandSize);
   MCUXCLPKC_FP_SECUREEXPORTBIGENDIANFROMPKC_BUFFER_DI_BALANCED(pOutput,
                                                               MCUXCLRSA_INTERNAL_UPTRTINDEX_PRIVPLAIN_X,
                                                               byteLenN);

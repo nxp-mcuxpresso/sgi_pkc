@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUX_CSSL_ANALYSIS_H_
@@ -201,19 +201,6 @@
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_MISSING_EXPLICIT_PARANTHESIS() \
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INVALID_WIDTH_IN_SHIFT_OPERATIONS()
 
-#define MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_MACRO() \
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_CONTROLLING_EXPRESSION_IS_INVARIANT("External macro outside our control, operation is safe on target platform given correct arguments according to an API are provided") \
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE("External macro outside our control, operation is safe on target platform given correct arguments according to an API are provided") \
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_CONVERSIONS_WITH_INAPPROPRIATE_TYPE("External macro outside our control, operation is safe on target platform given correct arguments according to an API are provided") \
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_MISSING_EXPLICIT_PARANTHESIS("External macro outside our control, operation is safe on target platform given correct arguments according to an API are provided") \
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INVALID_WIDTH_IN_SHIFT_OPERATIONS("External macro outside our control, operation is safe on target platform given correct arguments according to an API are provided")
-#define MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_MACRO() \
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CONTROLLING_EXPRESSION_IS_INVARIANT() \
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE() \
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CONVERSIONS_WITH_INAPPROPRIATE_TYPE() \
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_MISSING_EXPLICIT_PARANTHESIS() \
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INVALID_WIDTH_IN_SHIFT_OPERATIONS()
-
 #define MCUX_CSSL_ANALYSIS_START_PATTERN_OBJ_SIZES() \
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_UNUSED_VARIABLE("Variables used to determine object sizes") \
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_MISSING_VARIABLE_DECLARATION("Variables used to determine object sizes")
@@ -314,8 +301,10 @@
 
 #if defined(MCUX_CSSL_COMPILER_ARM_COMPILER)
 #define MCUX_CSSL_ANALYSIS_START_PATTERN_SIGNED_TRUNCATION() \
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("Truncated upper bits are not needed. Operation is implementation defined and documented in arm compiler user guide. If a value of integral type is truncated to a shorter signed integral type, the result is obtained by discarding an appropriate number of most significant bits. If the original number is too large, positive or negative, for the new type, there is no guarantee that the sign of the result is going to be the same as the original. On target ARM architecture two's complement representation is used and a sign will be derived from most significant bit of data remaining after truncation. This operation allows efficient implementation of signed numbers modular arithmetic.")
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("Truncated upper bits are not needed. Operation is implementation defined and documented in arm compiler user guide. If a value of integral type is truncated to a shorter signed integral type, the result is obtained by discarding an appropriate number of most significant bits. If the original number is too large, positive or negative, for the new type, there is no guarantee that the sign of the result is going to be the same as the original. On target ARM architecture two's complement representation is used and a sign will be derived from most significant bit of data remaining after truncation. This operation allows efficient implementation of signed numbers modular arithmetic.") \
+  MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE(MISRA_C_2012_Rule_10_3, "Truncated upper bits are not needed. Operation is implementation defined and documented in arm compiler user guide. If a value of integral type is truncated to a shorter signed integral type, the result is obtained by discarding an appropriate number of most significant bits. If the original number is too large, positive or negative, for the new type, there is no guarantee that the sign of the result is going to be the same as the original. On target ARM architecture two's complement representation is used and a sign will be derived from most significant bit of data remaining after truncation. This operation allows efficient implementation of signed numbers modular arithmetic.")
 #define MCUX_CSSL_ANALYSIS_STOP_PATTERN_SIGNED_TRUNCATION() \
+  MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(MISRA_C_2012_Rule_10_3) \
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
 
 #define MCUX_CSSL_ANALYSIS_START_PATTERN_SIGNED_SHIFT() \
@@ -352,14 +341,18 @@
 
 #elif defined(MCUX_CSSL_COMPILER_IAR)
 #define MCUX_CSSL_ANALYSIS_START_PATTERN_SIGNED_TRUNCATION() \
-  /* Intentionally empty */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("Truncated upper bits are not needed. Operation is implementation defined and documented in arm compiler user guide. If a value of integral type is truncated to a shorter signed integral type, the result is obtained by discarding an appropriate number of most significant bits. If the original number is too large, positive or negative, for the new type, there is no guarantee that the sign of the result is going to be the same as the original. On target ARM architecture two's complement representation is used and a sign will be derived from most significant bit of data remaining after truncation. This operation allows efficient implementation of signed numbers modular arithmetic.") \
+  MCUX_CSSL_ANALYSIS_COVERITY_START_DEVIATE(MISRA_C_2012_Rule_10_3, "Truncated upper bits are not needed. Operation is implementation defined and documented in arm compiler user guide. If a value of integral type is truncated to a shorter signed integral type, the result is obtained by discarding an appropriate number of most significant bits. If the original number is too large, positive or negative, for the new type, there is no guarantee that the sign of the result is going to be the same as the original. On target ARM architecture two's complement representation is used and a sign will be derived from most significant bit of data remaining after truncation. This operation allows efficient implementation of signed numbers modular arithmetic.")
 #define MCUX_CSSL_ANALYSIS_STOP_PATTERN_SIGNED_TRUNCATION() \
-  /* Intentionally empty */
+  MCUX_CSSL_ANALYSIS_COVERITY_STOP_DEVIATE(MISRA_C_2012_Rule_10_3) \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
 
 #define MCUX_CSSL_ANALYSIS_START_PATTERN_SIGNED_SHIFT() \
-  /* Intentionally empty, right shift is not supported on IAR target due to compiler bug (i.e. use mcuxClMlDsa_SSHR32/mcuxClMlDsa_SignedHi64_ToLo32) */
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE("Shift operation on signed numbers is implementation defined and documented in arm compiler user guide. Right shifts on signed quantities are arithmetic (sign extension is performed). Left shifs are logical. This operation allows sign extensions and efficient implementation of signed numbers arithmetic.") \
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_SIGNED_SHIFT_AMOUNT("Shift operation on signed numbers is implementation defined and documented in arm compiler user guide. Right shifts on signed quantities are arithmetic (sign extension is performed). Left shifs are logical. This operation allows sign extensions and efficient implementation of signed numbers arithmetic.")
 #define MCUX_CSSL_ANALYSIS_STOP_PATTERN_SIGNED_SHIFT() \
-  /* Intentionally empty, right shift is not supported on IAR target due to compiler bug (i.e. use mcuxClMlDsa_SSHR32/mcuxClMlDsa_SignedHi64_ToLo32) */
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_SIGNED_SHIFT_AMOUNT() \
+  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_OPERATIONS_ON_INAPPROPRIATE_TYPE()
 
 #define MCUX_CSSL_ANALYSIS_START_PATTERN_TWOS_COMPLEMENT_REPRESENTATION() \
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("Algoritihm works correctly assuming two's complement representation of signed numbers. This is true for target ARM platform.") \

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -50,7 +50,9 @@ extern "C" {
 #define MCUXCLECC_STATUS_NEUTRAL_POINT             ((mcuxClEcc_Status_t) 0x04448934u)  ///< The result of the point operation is the neutral point.
 #define MCUXCLECC_STATUS_FAULT_ATTACK              ((mcuxClEcc_Status_t) 0x0444F0F0u)  ///< Fault attack (unexpected behavior) is detected.
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 #define MCUXCLECC_STATUS_SMALL_SUBGROUP_ATTACK     ((mcuxClEcc_Status_t) 0x04445374u)  ///< MONTDH public key lies in small subgroup.
+#endif /* MCUXCL_FEATURE_ECC_MONTDH */
 /** @} */  /* MCUXCLECC_STATUS_ */
 
 
@@ -70,6 +72,7 @@ extern "C" {
 
 
 
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 
 /**********************************************************/
 /* Options for EdDsa                                      */
@@ -79,6 +82,7 @@ extern "C" {
 #define MCUXCLECC_EDDSA_PHFLAG_ZERO    0u
 #define MCUXCLECC_EDDSA_PHFLAG_ONE     1u
 
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 /** @} */  /* mcuxClEcc_Options */
 
 /**
@@ -93,6 +97,7 @@ extern "C" {
  * @{
  */
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 
 /**
  * @addtogroup MCUXCLECC_MONTDH_CURVE25519_SIZE_
@@ -115,7 +120,9 @@ extern "C" {
 #define MCUXCLECC_MONTDH_CURVE448_SIZE_PUBLICKEY         (MCUXCLECC_MONTDH_CURVE448_SIZE_PRIMEP)
 #define MCUXCLECC_MONTDH_CURVE448_SIZE_SHAREDSECRET      (MCUXCLECC_MONTDH_CURVE448_SIZE_PRIMEP)
 /** @} */  /* MCUXCLECC_MONTDH_CURVE448_SIZE_ */
+#endif /* MCUXCL_FEATURE_ECC_MONTDH */
 
+#ifdef MCUXCL_FEATURE_ECC_SECPK1_CURVES
 
 /**
  * @addtogroup MCUXCLECC_WEIERECC_SECP160K1_SIZE_
@@ -177,7 +184,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_SECP256K1_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (1u + (2u * MCUXCLECC_WEIERECC_SECP256K1_SIZE_PRIMEP))
 /** @} */  /* MCUXCLECC_WEIERECC_SECP256K1_SIZE_ */
 
+#endif /* MCUXCL_FEATURE_ECC_SECPK1_CURVES */
 
+#ifdef MCUXCL_FEATURE_ECC_SECPR1_CURVES
 /**
  * @addtogroup MCUXCLECC_WEIERECC_SECP192R1_SIZE_
  * WeierECC parameter size definitions for secp192r1
@@ -207,7 +216,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_SECP224R1_SIZE_ENCPOINT_SEC_COMPRESSED    (1u + MCUXCLECC_WEIERECC_SECP224R1_SIZE_PRIMEP)
 #define MCUXCLECC_WEIERECC_SECP224R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (1u + (2u * MCUXCLECC_WEIERECC_SECP224R1_SIZE_PRIMEP))
 /** @} */  /* MCUXCLECC_WEIERECC_SECP224R1_SIZE_ */
+#endif /* MCUXCL_FEATURE_ECC_SECPR1_CURVES */
 
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES)
 /**
  * @addtogroup MCUXCLECC_WEIERECC_SECP256R1_SIZE_
  * WeierECC parameter size definitions for secp256r1
@@ -222,7 +233,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_SECP256R1_SIZE_ENCPOINT_SEC_COMPRESSED    (1u + MCUXCLECC_WEIERECC_SECP256R1_SIZE_PRIMEP)
 #define MCUXCLECC_WEIERECC_SECP256R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (1u + (2u * MCUXCLECC_WEIERECC_SECP256R1_SIZE_PRIMEP))
 /** @} */  /* MCUXCLECC_WEIERECC_SECP256R1_SIZE_ */
+#endif /* defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ECCKI) */
 
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES)
 /**
  * @addtogroup MCUXCLECC_WEIERECC_SECP384R1_SIZE_
  * WeierECC parameter size definitions for secp384r1
@@ -237,7 +250,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_SECP384R1_SIZE_ENCPOINT_SEC_COMPRESSED    (1u + MCUXCLECC_WEIERECC_SECP384R1_SIZE_PRIMEP)
 #define MCUXCLECC_WEIERECC_SECP384R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (1u + (2u * MCUXCLECC_WEIERECC_SECP384R1_SIZE_PRIMEP))
 /** @} */  /* MCUXCLECC_WEIERECC_SECP384R1_SIZE_ */
+#endif /* defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ECCKI) */
 
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES)
 /**
  * @addtogroup MCUXCLECC_WEIERECC_SECP521R1_SIZE_
  * WeierECC parameter size definitions for secp521r1
@@ -253,7 +268,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_SECP521R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (1u + (2u * MCUXCLECC_WEIERECC_SECP521R1_SIZE_PRIMEP))
 /** @} */  /* MCUXCLECC_WEIERECC_SECP521R1_SIZE_ */
 
+#endif /* MCUXCL_FEATURE_ECC_SECPR1_CURVES */
 
+#ifdef MCUXCL_FEATURE_ECC_NISTPR1_CURVES
 
 /**
  * @addtogroup MCUXCLECC_WEIERECC_NIST_P192_SIZE_
@@ -284,7 +301,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_NIST_P224_SIZE_ENCPOINT_SEC_COMPRESSED    (MCUXCLECC_WEIERECC_SECP224R1_SIZE_ENCPOINT_SEC_COMPRESSED)
 #define MCUXCLECC_WEIERECC_NIST_P224_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (MCUXCLECC_WEIERECC_SECP224R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED)
 /** @} */  /* MCUXCLECC_WEIERECC_NIST_P224_SIZE_ */
+#endif /* MCUXCL_FEATURE_ECC_NISTPR1_CURVES */
 
+#if defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES)
 /**
  * @addtogroup MCUXCLECC_WEIERECC_NIST_P256_SIZE_
  * WeierECC parameter size definitions for NIST P-256
@@ -299,7 +318,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_NIST_P256_SIZE_ENCPOINT_SEC_COMPRESSED    (MCUXCLECC_WEIERECC_SECP256R1_SIZE_ENCPOINT_SEC_COMPRESSED)
 #define MCUXCLECC_WEIERECC_NIST_P256_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (MCUXCLECC_WEIERECC_SECP256R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED)
 /** @} */  /* MCUXCLECC_WEIERECC_NIST_P256_SIZE_ */
+#endif /* defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ECCKI) */
 
+#if defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES)
 /**
  * @addtogroup MCUXCLECC_WEIERECC_NIST_P384_SIZE_
  * WeierECC parameter size definitions for NIST P-384
@@ -314,7 +335,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_NIST_P384_SIZE_ENCPOINT_SEC_COMPRESSED    (MCUXCLECC_WEIERECC_SECP384R1_SIZE_ENCPOINT_SEC_COMPRESSED)
 #define MCUXCLECC_WEIERECC_NIST_P384_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (MCUXCLECC_WEIERECC_SECP384R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED)
 /** @} */  /* MCUXCLECC_WEIERECC_NIST_P384_SIZE_ */
+#endif /* defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ECCKI) */
 
+#if defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES)
 /**
  * @addtogroup MCUXCLECC_WEIERECC_NIST_P521_SIZE_
  * WeierECC parameter size definitions for NIST P-521
@@ -330,7 +353,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_NIST_P521_SIZE_ENCPOINT_SEC_UNCOMPRESSED  (MCUXCLECC_WEIERECC_SECP521R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED)
 /** @} */  /* MCUXCLECC_WEIERECC_NIST_P521_SIZE_ */
 
+#endif /* MCUXCL_FEATURE_ECC_NISTPR1_CURVES */
 
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES
 
 /**
  * @addtogroup MCUXCLECC_WEIERECC_BRAINPOOLP160R1_SIZE_
@@ -437,7 +462,9 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_BRAINPOOLP512R1_SIZE_ENCPOINT_SEC_UNCOMPRESSED    (1u + (2u * MCUXCLECC_WEIERECC_BRAINPOOLP512R1_SIZE_PRIMEP))
 /** @} */  /* MCUXCLECC_WEIERECC_BRAINPOOLP512R1_SIZE_ */
 
+#endif /* MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES */
 
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES
 
 /**
  * @addtogroup MCUXCLECC_WEIERECC_BRAINPOOLP160T1_SIZE_
@@ -544,6 +571,7 @@ extern "C" {
 #define MCUXCLECC_WEIERECC_BRAINPOOLP512T1_SIZE_ENCPOINT_SEC_UNCOMPRESSED    (1u + (2u * MCUXCLECC_WEIERECC_BRAINPOOLP512T1_SIZE_PRIMEP))
 /** @} */  /* MCUXCLECC_WEIERECC_BRAINPOOLP512T1_SIZE_ */
 
+#endif /* MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES */
 
 
 /** @addtogroup MCUXCLECC_WEIERECC_MIN_SIZE
@@ -575,6 +603,7 @@ extern "C" {
 /** @} */  /* MCUXCLECC_WEIERECC_MAX_SIZE */
 
 
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 
 #define MCUXCLECC_EDDSA_SIZE_HASH_PREFIX(domPrefixLen, contextLen) ((domPrefixLen) + 2u + (contextLen)) ///< Byte length of a prefix.
 
@@ -591,6 +620,7 @@ extern "C" {
 
 /** @} */  /* MCUXCLECC_EDDSA_ED25519_SIZE_ */
 
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 
 /**
  * @}

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -50,10 +50,6 @@ extern "C" {
  * @retval #MCUXCLSIGNATURE_STATUS_OK     if signature is generated successfully;
  *
  * @attention This function uses DRBG and PRNG. Caller needs to check if DRBG and PRNG are ready.
-#if defined(MCUXCL_FEATURE_ECC_ECCKI)
- *
- * @note The ECKCKI DRBG has to be seeded with mcuxClEccki_SeedDRBG before mcuxClEcc_ECDSA_GenerateSignature
-#endif defined(MCUXCL_FEATURE_ECC_ECCKI)
  */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ECDSA_GenerateSignature, mcuxClSignature_SignFct_t)

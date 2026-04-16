@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_publicExp.c
@@ -48,13 +48,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_publicExp);
 
-  uint8_t iT1 = (uint8_t)(iR_iX_iN_iT1 & 0xFFu);
-  uint8_t iN = (uint8_t)((iR_iX_iN_iT1 >> 8) & 0xFFu);
-  uint8_t iX = (uint8_t)((iR_iX_iN_iT1 >> 16) & 0xFFu);
-  uint8_t iR = (uint8_t)((iR_iX_iN_iT1 >> 24) & 0xFFu);
-  uint8_t iRnd = (uint8_t)(iT2_iT3_iT4 & 0xFFu);
-  uint8_t iT3 = (uint8_t)((iT2_iT3_iT4 >> 8) & 0xFFu);
-  uint8_t iT2 = (uint8_t)((iT2_iT3_iT4 >> 16) & 0xFFu);
+  uint8_t iT1 = (uint8_t)(iR_iX_iN_iT1 & 0xFFU);
+  uint8_t iN = (uint8_t)((iR_iX_iN_iT1 >> 8) & 0xFFU);
+  uint8_t iX = (uint8_t)((iR_iX_iN_iT1 >> 16) & 0xFFU);
+  uint8_t iR = (uint8_t)((iR_iX_iN_iT1 >> 24) & 0xFFU);
+  uint8_t iRnd = (uint8_t)(iT2_iT3_iT4 & 0xFFU);
+  uint8_t iT3 = (uint8_t)((iT2_iT3_iT4 >> 8) & 0xFFU);
+  uint8_t iT2 = (uint8_t)((iT2_iT3_iT4 >> 16) & 0xFFU);
 
   const uint16_t *pUptrt = MCUXCLPKC_GETUPTRT();
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("operand buffer is always word aligned in PKC workarea.")
@@ -69,7 +69,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
   pBlind[0] = mcuxClRandom_ncGenerateWord_Internal(pSession);
 
   /* Make it odd */
-  pBlind[0] |= 0x1u;
+  pBlind[0] |= 0x1U;
 
   /* Blind modulus n */
   MCUXCLPKC_FP_CALC_OP1_MUL( iN/* n_b */, iRnd/* blind */, iN/* n */);
@@ -81,11 +81,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
   /* Calculate Ndash of N */
   MCUXCLPKC_WAITFORREADY();
   MCUXCLPKC_PS1_SETLENGTH(blindOperandSize, blindOperandSize);
-  MCUXCLMATH_FP_NDASH(iN, iT3);
+  MCUXCLMATH_FP_NDASH(pSession, iN, iT3);
 
   /* Calculate QSquared */
   MCUXCLMATH_FP_SHIFTMODULUS(iT3, iN); //shift modulus
-  MCUXCLMATH_FP_QSQUARED(iT1/* QSquared */, iT3, iN, iR);
+  MCUXCLMATH_FP_QSQUARED(pSession, iT1/* QSquared */, iT3, iN, iR);
 
   /* Convert input to Montgomery representation i.e. M*QSquared mod N */
   MCUXCLPKC_FP_CALC_MC1_MM(iT3/* Mm */, iX/* M */, iT1/* QSquared */, iN);
@@ -108,6 +108,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_publicExp(
   /* Convert result back to normal representation and store result in pOutput.                    */
   /************************************************************************************************/
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_RemoveBlinding(
+    pSession,
     MCUXCLPKC_PACKARGS4(iR/* R */,
                        iT2/* Rb */,
                        iN/* Nb */,

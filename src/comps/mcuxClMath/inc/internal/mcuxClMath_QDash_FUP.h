@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2021, 2023, 2026 NXP                                      */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -33,21 +33,33 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  */
 #define mcuxClMath_QDash_Fup_Init_LEN  3u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_QDash_Fup_Init);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_QDash_Fup_Init,
+  mcuxClMath_QDash_Fup_Init_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_QDash_Fup_Loop0
  */
 #define mcuxClMath_QDash_Fup_Loop0_LEN  3u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_QDash_Fup_Loop0);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_QDash_Fup_Loop0,
+  mcuxClMath_QDash_Fup_Loop0_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_QDash_Fup_Loop1
  */
 #define mcuxClMath_QDash_Fup_Loop1_LEN  3u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_QDash_Fup_Loop1);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_QDash_Fup_Loop1,
+  mcuxClMath_QDash_Fup_Loop1_LEN
+);
+
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

@@ -233,7 +233,13 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example)
     MCUX_CSSL_FP_FUNCTION_CALL_END();
 
     /* Initialize the RNG context and Initialize the PRNG */
+  #if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)
     MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3);
+  #elif defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128)
+    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES128_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES128_DRG3);
+  #else
+    #error "Example not supported for target"
+  #endif
 
     /**************************************************************************/
     /* Key pair generation for ECDSA on BN_P256                               */

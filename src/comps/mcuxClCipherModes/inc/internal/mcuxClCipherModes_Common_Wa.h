@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLCIPHERMODES_COMMON_WA_H_
@@ -30,6 +30,7 @@
 #include <mcuxCsslFlowProtection.h>
 #include <internal/mcuxClKey_Types_Internal.h>
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /* Forward declaration for type */
 struct mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi;
 struct mcuxClCipherModes_Context_Aes_Sgi;
@@ -50,6 +51,7 @@ typedef struct mcuxClCipherModes_nonBlockingWa
   mcuxCl_Buffer_t pOut;              /* User output buffer */
   uint32_t outOffset;               /* Offset of output buffer */
 } mcuxClCipherModes_nonBlockingWa_t;
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 
 typedef struct mcuxClCipherModes_WorkArea
@@ -57,7 +59,9 @@ typedef struct mcuxClCipherModes_WorkArea
   mcuxClAes_Workarea_Sgi_t sgiWa;
   uint32_t *pIV;
   uint32_t ctrSize;
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
   mcuxClCipherModes_nonBlockingWa_t nonBlockingWa;
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 } mcuxClCipherModes_WorkArea_t;
 
 

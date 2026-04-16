@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClSession.h>
@@ -51,7 +51,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_encrypt(
 
   const mcuxClCipher_ModeFunctions_t *pModeFunctions = mcuxClCipher_castToCipherModeFunctions(mode->pModeFunctions);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL(status, pModeFunctions->encrypt(
     session,
     key,
@@ -83,7 +83,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
 
   const mcuxClCipher_ModeFunctions_t *pModeFunctions = mcuxClCipher_castToCipherModeFunctions(mode->pModeFunctions);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL(status, pModeFunctions->decrypt(
     session,
     key,
@@ -98,12 +98,27 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
   /* Only STATUS_OK is protected */
   if(MCUXCLCIPHER_STATUS_OK == status)
   {
-    MCUX_CSSL_DI_EXPUNGE(cipherDecryptRetCode , status);
+    MCUX_CSSL_DI_EXPUNGE(cipherDecryptRetCode, status);
   }
 
   MCUXCLSESSION_EXIT(session, mcuxClCipher_decrypt, diRefValue, status, MCUXCLCIPHER_STATUS_FAULT_ATTACK, pModeFunctions->protection_token_decrypt);
 }
 
+#ifdef MCUXCL_FEATURE_CIPHER_SELFTEST
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipher_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClCipher_Mode_t mode,
+  mcuxClCipher_Test_t test
+)
+{
+  MCUXCLSESSION_ENTRY(session, mcuxClCipher_selftest, diRefValue, MCUXCLCIPHER_STATUS_FAULT_ATTACK);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(test->selftest(session, mode));
+
+  MCUXCLSESSION_EXIT(session, mcuxClCipher_selftest, diRefValue, MCUXCLCIPHER_STATUS_OK, MCUXCLCIPHER_STATUS_FAULT_ATTACK, test->protection_token_selftest);
+}
+#endif /* MCUXCL_FEATURE_CIPHER_SELFTEST */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipher_init_encrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_encrypt(
@@ -119,8 +134,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_encrypt(
 
   /* Store mode in common context */
   pContext->pMode = mode;
-  pContext->blockBufferUsed = 0u;
-  pContext->totalInputLength = 0u;
+  pContext->blockBufferUsed = 0U;
+  pContext->totalInputLength = 0U;
 
   const mcuxClCipher_ModeFunctions_t *pModeFunctions = mcuxClCipher_castToCipherModeFunctions(pContext->pMode->pModeFunctions);
 
@@ -148,8 +163,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_decrypt(
 
   /* Store mode in common context */
   pContext->pMode = mode;
-  pContext->blockBufferUsed = 0u;
-  pContext->totalInputLength = 0u;
+  pContext->blockBufferUsed = 0U;
+  pContext->totalInputLength = 0U;
 
   const mcuxClCipher_ModeFunctions_t *pModeFunctions = mcuxClCipher_castToCipherModeFunctions(pContext->pMode->pModeFunctions);
 
@@ -178,7 +193,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_process(
 
   const mcuxClCipher_ModeFunctions_t *pModeFunctions = mcuxClCipher_castToCipherModeFunctions(pContext->pMode->pModeFunctions);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL(status, pModeFunctions->process(
     session,
     pContext,
@@ -202,7 +217,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_finish(
 
   const mcuxClCipher_ModeFunctions_t *pModeFunctions = mcuxClCipher_castToCipherModeFunctions(pContext->pMode->pModeFunctions);
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pModeFunctions->finish(
     session,
     pContext,

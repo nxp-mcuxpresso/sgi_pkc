@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2024-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUX_CSSL_ASSEMBLY_H_
@@ -31,6 +31,9 @@
 
 #define MCUX_CSSL_ASM_FUNC_SECTION(name) \
   .section MCUX_CSSL_CPP_CAT(.text.,name)
+
+#define MCUX_CSSL_ASM_FUNC_SYMBOL_GLOBAL(name) \
+  .global name
 
 #define MCUX_CSSL_ASM_FUNC_SYMBOL(name) \
   .type name,"function"
@@ -57,6 +60,9 @@
 #define MCUX_CSSL_ASM_FUNC_SECTION(name) \
   .section MCUX_CSSL_CPP_CAT(.text.,name)
 
+#define MCUX_CSSL_ASM_FUNC_SYMBOL_GLOBAL(name) \
+  .global name
+
 #define MCUX_CSSL_ASM_FUNC_SYMBOL(name) \
   .type name,"function"
 
@@ -80,6 +86,9 @@
 
 #define MCUX_CSSL_ASM_FUNC_SECTION(name) \
   .section MCUX_CSSL_CPP_CAT(.text.,name)
+
+#define MCUX_CSSL_ASM_FUNC_SYMBOL_GLOBAL(name) \
+  .global name
 
 #define MCUX_CSSL_ASM_FUNC_SYMBOL(name) \
   .type name,"function"
@@ -129,6 +138,9 @@
 #define MCUX_CSSL_ASM_FUNC_SECTION(name) \
   .section MCUX_CSSL_CPP_CAT(.text.,name), "ax"
 
+#define MCUX_CSSL_ASM_FUNC_SYMBOL_GLOBAL(name) \
+  .global name
+
 #define MCUX_CSSL_ASM_FUNC_SYMBOL(name) \
   .type name, $function
 
@@ -161,6 +173,8 @@
   MCUX_CSSL_ASM_LABEL(name)
 
 #define MCUX_CSSL_ASM_FUNC_END(name)
+
+#define MCUX_CSSL_ASM_FUNC_SYMBOL_GLOBAL(name)
 
 #else
 #error Unsupported assembler

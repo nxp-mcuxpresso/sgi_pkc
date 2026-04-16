@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2024-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -49,6 +49,7 @@ extern const mcuxClKey_EncodingDescriptor_t mcuxClEcc_EncodingDescriptor_WeierEC
  */
 #define mcuxClEcc_Encoding_WeierECC_PublicKey_Plain &mcuxClEcc_EncodingDescriptor_WeierECC_PublicKey_Plain
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 /**********************************************************/
 /* MontDH key encoding                                    */
 /**********************************************************/
@@ -70,6 +71,7 @@ extern const mcuxClKey_EncodingDescriptor_t mcuxClEcc_EncodingDescriptor_MontDH_
  * @brief Key encoding for a MontDH public key.
  */
 #define mcuxClEcc_Encoding_MontDH_PublicKey_Plain &mcuxClEcc_EncodingDescriptor_MontDH_PublicKey_Plain
+#endif /* MCUXCL_FEATURE_ECC_MONTDH */
 
 /**********************************************************/
 /* EdDSA key encoding                                    */

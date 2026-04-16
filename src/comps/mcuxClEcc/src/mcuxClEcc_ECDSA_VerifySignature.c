@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -269,7 +269,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ECDSA_VerifySig
     /* Convert P1 + P2 (or P2 if u1 == 0) to (X0,Y0), affine NR. */
     /* Calculate R = x mod n, in X1. */
     MCUXCLPKC_FP_CALC_MC1_MM(ECC_T0, WEIER_Z, WEIER_ZA, ECC_P);  // t0 = z*z' * 256^LEN         = z*z' in MR
-    MCUXCLECC_FP_MODINV(ECC_T1, ECC_T0, ECC_P, ECC_T2, ECC_T3);     // t1 = (z*z')^(-1) * 256^(-LEN), use T2, T3 as temp
+    MCUXCLECC_FP_MODINV(pSession, ECC_T1, ECC_T0, ECC_P, ECC_T2, ECC_T3);     // t1 = (z*z')^(-1) * 256^(-LEN), use T2, T3 as temp
     /* MISRA Ex. 22, while(0) is allowed */
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_Fup_Verify_Convert_P1plusP2_toAffineNR_CalcR,
                         mcuxClEcc_Fup_Verify_Convert_P1plusP2_toAffineNR_CalcR_LEN);
@@ -488,7 +488,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClEcc_ECDSA_VerifySign
 
     /* Calculate s^(-1) * 256^LEN mod n. */
     MCUXCLPKC_FP_CALC_MC1_MR(ECC_T2, ECC_T1, ECC_N);      // t2 = s * (256^LEN)^(-1)
-    MCUXCLECC_FP_MODINV(ECC_T1, ECC_T2, ECC_N, ECC_T3, ECC_T0);  // t1 = t2^(-1) = s^(-1) * 256^LEN, using T3, T0 as temp
+    MCUXCLECC_FP_MODINV(pSession, ECC_T1, ECC_T2, ECC_N, ECC_T3, ECC_T0);  // t1 = t2^(-1) = s^(-1) * 256^LEN, using T3, T0 as temp
 
     /* Initialize z coordinate, z = 1 in MR, in Z. */
     /* Calculate u1 and u2, store result in S0 and S1. */

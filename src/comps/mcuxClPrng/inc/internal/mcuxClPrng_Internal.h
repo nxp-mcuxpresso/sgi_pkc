@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022, 2024-2025 NXP                                            */
+/* Copyright 2022, 2024-2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -22,21 +22,27 @@
 #ifndef MCUXCLPRNG_INTERNAL_H_
 #define MCUXCLPRNG_INTERNAL_H_
 
+#include <mcuxClConfig.h> // Exported features flags header
+
 #include <internal/mcuxClPrng_Internal_Types.h>
 #include <internal/mcuxClPrng_Internal_Functions.h>
-
-
 
 #include <mcuxClCore_Platform.h>
 #include <platform_specific_headers.h>
 #include <mcuxCsslFlowProtection.h>
+#include <mcuxCsslAnalysis.h>
 
+#if defined(MCUXCL_FEATURE_PRNG_SGI_SFRSEED) || defined(MCUXCL_FEATURE_PRNG_SGI)
 #include <internal/mcuxClSgi_Drv.h>
+#endif
+
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#if defined(MCUXCL_FEATURE_PRNG_SGI_SFRSEED)
 
 /*
  * In case of SGi SFRSEED based PRNG, first we must backup SGI_CTRL and SGI_CTRL2.
@@ -65,6 +71,19 @@ extern "C" {
   MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getSfrSeed)); \
   MCUX_CSSL_FP_FUNCTION_CALL(ret, mcuxClSgi_Drv_getSfrSeed())
 
+#elif defined(MCUXCL_FEATURE_PRNG_SGI)
+
+#define MCUXCLPRNG_INIT()
+#define MCUXCLPRNG_RESTORE()
+
+#define MCUXCLPRNG_GET_WORD(ret) \
+  MCUX_CSSL_FP_EXPECT(MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_getPrngWord)); \
+  MCUX_CSSL_FP_FUNCTION_CALL(ret, mcuxClSgi_Drv_getPrngWord())
+
+
+#else
+#error Please ensure that the PRNG flags are properly configured
+#endif
 
 /**
  * @brief Non-cryptographic PRNG data word generation function.

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2025 NXP                                                       */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -47,12 +47,14 @@
 /* DMA-SGI input-handshake functionality is only needed by MAC NonBlocking modes */
 #define MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_HANDSHAKES            1U
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 
 /* DMA-SGI input-output-handshake functionality is only needed by Cipher NonBlocking modes */
 #define MCUXCLDMA_FEATURE_INTERNAL_SGI_INPUT_OUTPUT_HANDSHAKES     1U
 
 /* Reading the BITER field is only needed by Cipher NonBlocking modes */
 #define MCUXCLDMA_FEATURE_INTERNAL_READ_CITER                      1U
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 #define MCUXCLDMA_FEATURE_INTERNAL_HARDCODED_COPY                  1U
 

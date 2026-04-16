@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021, 2023-2025 NXP                                            */
+/* Copyright 2021, 2023-2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_ModInv.c
@@ -37,10 +37,11 @@
 #include <internal/mcuxClRsa_Internal_PkcDefs.h>
 #include <internal/mcuxClRsa_Internal_Macros.h>
 #include <internal/mcuxClRsa_ModInv_FUP.h>
+#include <internal/mcuxClSession_Internal.h>
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_ModInv)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint32_t iT1_iT0, uint32_t lenX, uint32_t lenNb)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iNb_iRnd, uint32_t iT1_iT0, uint32_t lenX, uint32_t lenNb)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_ModInv);
 
@@ -49,10 +50,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint
 
   /* Prepare local UPTRT. */
   uint16_t pOperands[MCUXCLRSA_INTERNAL_MODINV_UPTRT_SIZE];
-  const uint16_t *backupPtrUptrt;
+  const uint16_t *pBackupPtrUptrt;
 
   /* Mapping to internal indices:                         R  X  Nb  RND   NB_ODD_SHIFT NB_ODD */
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iNb_iRnd, iT1_iT0, pOperands, 6u, &backupPtrUptrt));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iNb_iRnd, iT1_iT0, pOperands, 6U, &pBackupPtrUptrt));
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Caller shall provide the buffer for Ndsah.")
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD] += MCUXCLRSA_PKC_WORDSIZE; /* offset for Ndsah */
@@ -69,15 +70,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint
    * Compute odd part of the Nb
    *    Nb_odd = Nb >> 1
    */
-  MCUXCLPKC_FP_CALC_OP1_SHR(MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD, MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB, 1u);
+  MCUXCLPKC_FP_CALC_OP1_SHR(MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD, MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB, 1U);
 
   /* Compute NDash of Nb_odd */
-  MCUXCLMATH_FP_NDASH(MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD, MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB); // MODINV_NB as temp buffer
+  MCUXCLMATH_FP_NDASH(pSession, MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD, MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB); // MODINV_NB as temp buffer
 
   MCUXCLMATH_FP_SHIFTMODULUS(MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD_SHIFT, MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD);
 
   /* Compute QDash (in MODINV_R) for Nb_odd, with length = length(xb) = lenX + MCUXCLRSA_PKC_WORDSIZE */
-  MCUXCLMATH_FP_QDASH(MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_R,
+  MCUXCLMATH_FP_QDASH(pSession,
+                     MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_R,
                      MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD_SHIFT,
                      MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD,
                      MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB, // as temp buffer
@@ -100,6 +102,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint
    */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(
     mcuxClMath_ModInv(
+      pSession,
       MCUXCLPKC_PACKARGS4(
         MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_X,
         MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB,
@@ -108,7 +111,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint
         MCUXCLMATH_XN_NOT_COPRIME));
 
   /* Compute the new QDash (in MODINV_R), with length = length(Yodd_b_b) = lenNb + MCUXCLRSA_PKC_WORDSIZE */
-  MCUXCLMATH_FP_QDASH(MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_R,
+  MCUXCLMATH_FP_QDASH(pSession,
+                     MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_R,
                      MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD_SHIFT,
                      MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB_ODD,
                      MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB, // as temp buffer
@@ -144,7 +148,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint
   }
 
   /* Compute R = T / Rnd */
-  MCUXCLMATH_FP_EXACTDIVIDE(MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_R,
+  MCUXCLMATH_FP_EXACTDIVIDE(
+    pSession,
+    MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_R,
     MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_NB,
     MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_RND,
     MCUXCLRSA_INTERNAL_UPTRTINDEX_MODINV_X,
@@ -157,7 +163,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_ModInv(uint32_t iR_iX_iNb_iRnd, uint
   /* Recover Ps1, Ps2 length and Uptrt */
   MCUXCLPKC_PS1_SETLENGTH_REG(bakPs1LenReg);
   MCUXCLPKC_PS2_SETLENGTH_REG(bakPs2LenReg);
-  MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+  MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_ModInv,
                             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_InitLocalUptrt),

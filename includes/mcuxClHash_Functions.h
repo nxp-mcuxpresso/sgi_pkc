@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClHash_Functions.h
@@ -83,6 +83,37 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_compute(
 ); /* oneshot compute */
 
 
+#ifdef MCUXCL_FEATURE_HASH_SELFTEST
+/**
+ * @brief hash selftest function
+ * @api
+ *
+ * This function performs hash selftest operation.
+ * The operation to be used will be determined based on the algorithm and test that is
+ * provided.
+ *
+ * For example, to perform an SM3 hash selftest operation, the
+ * following needs to be provided:
+ *  - SM3 algorithm
+ *  - mcuxClHash_Test_SM3 for selftest mode
+ *
+ * @param      session    Handle for the current CL session.
+ * @param      algorithm  Hash algorithm that should be used during the selftest
+ * @param      test       Hash selftest mode that should be used during the selftest
+ *                        operation.
+ * @return status
+ * @retval MCUXCLHASH_STATUS_OK               Hash operation successful
+ * @retval MCUXCLHASH_STATUS_FAILURE          Error occured during Hash operation
+ * @retval MCUXCLHASH_STATUS_INVALID_PARAMS   The provided function parameters do not fulfill requirements
+ * @retval MCUXCLHASH_STATUS_FAULT_ATTACK     A fault attack was detected
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHash_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClHash_Algo_t algorithm,
+  mcuxClHash_Test_t test
+);
+#endif /* MCUXCL_FEATURE_HASH_SELFTEST */
 
 /**********************************************************************/
 /* MULTIPART                                                          */
@@ -95,7 +126,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_compute(
  *
  * @param[in/out]   session    Handle for the current CL session.
  * @param[out]      pContext   Hash context which is used to maintain the state and
- *                             store other relevant information about the operation.
+ *                             store other relevant information about the operation (word-aligned).
  * @param[in]       algorithm  Hash algorithm that should be used during the
  *                             computation operation.
  *
@@ -121,7 +152,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_init(
  *
  * @param[in/out]   session    Handle for the current CL session.
  * @param[in/out]   pContext   Hash context which is used to maintain the state and
- *                             store other relevant information about the operation.
+ *                             store other relevant information about the operation (word-aligned).
  * @param[in]       pIn        Pointer to the input buffer that contains the data that
  *                             needs to be processed.
  * @param[in]       inSize     Number of bytes of data in the \p pIn buffer.
@@ -151,7 +182,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_process(
  *
  * @param[in/out]   session    Handle for the current CL session.
  * @param[in/out]   pContext   Hash context which is used to maintain the state and
- *                             store other relevant information about the operation.
+ *                             store other relevant information about the operation (word-aligned).
  * @param[out]      pOut       Pointer to the output buffer where the computed hash
  *                             value needs to be written.
  * @param[out]      pOutSize   Will be set to the number of bytes of data

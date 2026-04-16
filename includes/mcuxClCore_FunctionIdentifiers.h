@@ -1,16 +1,16 @@
+
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
-
 
 /**
  * @file  mcuxClCore_FunctionIdentifiers.h
@@ -468,46 +468,54 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 #define MCUX_CSSL_FP_FUNCID_mcuxClMlDsa_Sign_ComputeWPacked                               (0x4ED8u)
 #define MCUX_CSSL_FP_FUNCID_mcuxClMlDsa_Sign_ComputeTildeC                                (0x599Au)
 #define MCUX_CSSL_FP_FUNCID_mcuxClMlDsa_Sign_Derandomized                                 (0x6E2Cu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Indcpa_Generate_Keys                              (0x7711u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Encrypt                                           (0x5B34u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Decrypt                                           (0x749Cu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_KeyGen                                            (0x38DCu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Encaps                                            (0x0E9Bu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Decaps                                            (0x7632u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Montgomery_Reduce                                 (0x6633u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Barrett_Reduce                                    (0x5E0Du)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_NTT                                               (0x253Eu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Basemul                                           (0x1D39u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_InvNTT_To_Mont                               (0x06CFu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Rej_Uniform                                       (0x3A4Du)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Mul_Streamed_Matrix                          (0x7C0Bu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Mul_Streamed_Skpk                            (0x7172u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Csubq                                        (0x2B56u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Compress                                     (0x24DEu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Decompress                                   (0x46F1u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_To_Bytes                                          (0x3C9Cu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_From_Msg                                          (0x731Cu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_To_Msg                                            (0x5A2Du)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Cbd2                                              (0x117Du)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Cbd3                                              (0x6785u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Get_Noise_Eta1                               (0x53E8u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Get_Noise_Eta2                               (0x3596u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_NTT                                          (0x03BBu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_To_Mont                                      (0x3CE1u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Reduce                                       (0x54D3u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Add                                          (0x362Bu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Sub                                          (0x530Fu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Compress_Gen                                 (0x7A32u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Decompress_Gen                               (0x3475u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Compress_Eta1                                (0x61CEu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Poly_Decompress_Eta1                              (0x668Bu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Shake128_Absorb                                   (0x5876u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Shake128_Squeeze                                  (0x549Bu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Stream128_Absorb                                  (0x721Eu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Stream128_Squeeze                                 (0x3578u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Shake256_PRF                                      (0x2A3Eu)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_PRF                                               (0x63C5u)
-#define MCUX_CSSL_FP_FUNCID_mcuxClKyber_Cmov                                              (0x2ABCu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Indcpa_Generate_Keys                              (0x7711u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Encrypt                                           (0x5B34u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Decrypt                                           (0x749Cu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_KeyGen                                            (0x38DCu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Encaps                                            (0x0E9Bu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Decaps                                            (0x7632u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Montgomery_Reduce                                 (0x6633u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Barrett_Reduce                                    (0x5E0Du)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_NTT                                               (0x253Eu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Basemul                                           (0x1D39u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_InvNTT_To_Mont                               (0x06CFu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Rej_Uniform                                       (0x3A4Du)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Mul_Streamed_Matrix                          (0x7C0Bu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Mul_Streamed_Skpk                            (0x7172u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Csubq                                        (0x2B56u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Compress                                     (0x24DEu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Decompress                                   (0x46F1u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_To_Bytes                                          (0x3C9Cu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_From_Msg                                          (0x731Cu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_To_Msg                                            (0x5A2Du)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Cbd2                                              (0x117Du)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Cbd3                                              (0x6785u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Get_Noise_Eta1                               (0x53E8u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Get_Noise_Eta2                               (0x3596u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_NTT                                          (0x03BBu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_To_Mont                                      (0x3CE1u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Reduce                                       (0x54D3u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Add                                          (0x362Bu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Sub                                          (0x530Fu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Compress_Gen                                 (0x7A32u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Decompress_Gen                               (0x3475u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Compress_Eta1                                (0x61CEu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Decompress_Eta1                              (0x668Bu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Shake128_Absorb                                   (0x5876u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Shake128_Squeeze                                  (0x549Bu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Stream128_Absorb                                  (0x721Eu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Stream128_Squeeze                                 (0x3578u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Shake256_PRF                                      (0x2A3Eu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_PRF                                               (0x63C5u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Cmov                                              (0x2ABCu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_KeyGen_Internal                                   (0x32C7u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_KeyStore_Plain                                    (0x03AFu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Encaps_CheckInputs                                (0x6E61u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Encaps_Internal                                   (0x097Bu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Decaps_CheckInputs                                (0x33E2u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Decaps_Rej_Key                                    (0x12DEu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Compress_Cmp                                 (0x721Du)
+#define MCUX_CSSL_FP_FUNCID_mcuxClMlKem_Poly_Compress_Write                               (0x1D65u)
 #define MCUX_CSSL_FP_FUNCID_mcuxClSgi_Backup                                              (0x4F15u)
 #define MCUX_CSSL_FP_FUNCID_mcuxClSgi_Restore                                             (0x7D60u)
 #define MCUX_CSSL_FP_FUNCID_mcuxClMemory_copy_int                                         (0x1C9Eu)
@@ -907,7 +915,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 #define MCUX_CSSL_FP_FUNCID_mcuxClHashModes_Sha2Sgi_ISR_Oneshot                           (0x256Eu)
 #define MCUX_CSSL_FP_FUNCID_mcuxClHashModes_Sha2Sgi_ISR_Multipart                         (0x39C5u)
 #define MCUX_CSSL_FP_FUNCID_mcuxClFfdh_PublicKeyLoadAndValidate                           (0x368Du)
-#define MCUX_CSSL_FP_FUNCID_mcuxClRsa_pssVerify_sizeAndBytes_check                        (0x32C7u)
 #define MCUX_CSSL_FP_FUNCID_mcuxClPkc_getCFGSettings                                      (0x785Au)
 #define MCUX_CSSL_FP_FUNCID_mcuxClSession_allocateWords_cpuWa                             (0x3879u)
 #define MCUX_CSSL_FP_FUNCID_mcuxClSession_allocateWords_pkcWa                             (0x46E6u)
@@ -1030,7 +1037,15 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 #define MCUX_CSSL_FP_FUNCID_mcuxClHashModes_Sgi_process_Sha2_DmaNonBlocking_balanceFP_lessThanBlockSize  (0x0B6Du)
 #define MCUX_CSSL_FP_FUNCID_mcuxClEcc_EdDSA_KeyGen_HashPrivKey                            (0x0ABEu)
 #define MCUX_CSSL_FP_FUNCID_mcuxClEcc_EdDSA_SignVerify_CalcHash                           (0x7554u)
-
+#define MCUX_CSSL_FP_FUNCID_mcuxClSession_allocateWords_uptrt                             (0x5639u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClEcc_InitializeEnvironment                               (0x5DA2u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClEccki_RobustSecureImportBigEndianToEccki                (0x2736u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClAes_keyLoad_twoShares                                   (0x29D3u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClAes_keyStore_sfrMasking                                 (0x1CDCu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClAes_keyLoad_sfrMasking                                  (0x1D1Eu)
+#define MCUX_CSSL_FP_FUNCID_mcuxClKey_export                                              (0x29D9u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClAes_ReadMaskedKeyWithGfmul                              (0x5D64u)
+#define MCUX_CSSL_FP_FUNCID_mcuxClAes_keyStore_twoShares                                  (0x2973u)
 /* ------------------------------------------------------------------------------------------ */
 /* Kindly archive here --> The function identifiers that are removed in develop,              */
 /* but that are still used in the ROM includes (.\external\DCI_ROM_V1.0.1\includes\).         */
@@ -1048,21 +1063,6 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 /* ------------------------------------------------------------------------------------------ */
 /* Unused Function Identifiers                                                                */
 /* ------------------------------------------------------------------------------------------ */
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_741                                             (0x5639u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_742                                             (0x5DA2u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_743                                             (0x03AFu)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_744                                             (0x6E61u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_745                                             (0x097Bu)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_746                                             (0x33E2u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_747                                             (0x12DEu)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_748                                             (0x721Du)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_749                                             (0x1D65u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_750                                             (0x2736u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_751                                             (0x29D3u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_752                                             (0x1CDCu)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_753                                             (0x1D1Eu)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_754                                             (0x29D9u)
-#define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_755                                             (0x5D64u)
 #define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_756                                             (0x2973u)
 #define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_757                                             (0x7370u)
 #define MCUX_CSSL_FP_FUNCID_mcuxCl_unused_758                                             (0x325Du)

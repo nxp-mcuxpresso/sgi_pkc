@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef NXPCL_CONFIG_H_
@@ -197,6 +197,23 @@
 //#define MCUXCL_FEATURE_TRNG_SA_TRNG_DUAL_OSCILLATOR_MODE
 
 //defines for exported features
+#define MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING 1
+#define MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB 1
+#define MCUXCL_FEATURE_ECC_ANSIX9P_CURVES 1
+#define MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES 1
+#define MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES 1
+#define MCUXCL_FEATURE_ECC_CURVE25519 1
+#define MCUXCL_FEATURE_ECC_CURVE448 1
+#define MCUXCL_FEATURE_ECC_EDDSA 1
+#define MCUXCL_FEATURE_ECC_MONTDH 1
+#define MCUXCL_FEATURE_ECC_NISTPR1_CURVES 1
+#define MCUXCL_FEATURE_ECC_SECPK1_CURVES 1
+#define MCUXCL_FEATURE_ECC_SECPR1_CURVES 1
 #define MCUXCL_FEATURE_HASH_OIDS 1
+#define MCUXCL_FEATURE_PKC_RAM_8KB 1
+#define MCUXCL_FEATURE_PRNG_SGI_SFRSEED 1
+#define MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256 1
+#define MCUXCL_FEATURE_TRNG_SA_TRNG 1
+#define MCUXCL_FEATURE_TRNG_SA_TRNG_256 1
 
 #endif

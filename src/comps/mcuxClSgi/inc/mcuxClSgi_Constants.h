@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClSgi_Constants.h
@@ -20,6 +20,9 @@
  *
  * */
 
+#ifndef MCUXCLSGI_CONSTANTS_H_
+#define MCUXCLSGI_CONSTANTS_H_
+
 #include <mcuxClSgi_Types.h>
 
 /**
@@ -28,9 +31,6 @@
  * @ingroup mcuxClSgi
  * @{
  */
-
-#ifndef MCUXCLSGI_CONSTANTS_H
-#define MCUXCLSGI_CONSTANTS_H
 
 /**********************************************
  * CONSTANTS
@@ -54,7 +54,7 @@
  * @}
  */
 
-#endif  /* MCUXCLSGI_CONSTANTS_H */
+#endif  /* MCUXCLSGI_CONSTANTS_H_ */
 
 /**
  * @}

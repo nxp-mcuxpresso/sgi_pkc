@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2023, 2025 NXP                                            */
+/* Copyright 2022-2023, 2025-2026 NXP                                       */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClMac.c
@@ -36,7 +36,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
 {
   MCUXCLSESSION_ENTRY(session, mcuxClMac_compute, diRefValue, MCUXCLMAC_STATUS_FAULT_ATTACK, mode->common.protectionToken_compute);
 
-  *pMacLength = 0u;
+  *pMacLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL(result, mode->common.compute(
     session,
     key,
@@ -51,6 +51,23 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
 }
 
 
+#ifdef MCUXCL_FEATURE_MAC_SELFTEST
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMac_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClMac_Mode_t mode,
+  mcuxClMac_Test_t test
+)
+{
+  MCUXCLSESSION_ENTRY(session, mcuxClMac_selftest, diRefValue, MCUXCLMAC_STATUS_FAULT_ATTACK, test->protection_token_selftest);
+
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(test->pSelfTestFct(
+  /* mcuxClSession_Handle_t            session:             */  session,
+  /* mcuxClSignature_Mode_t            mode:                */  mode));
+
+  MCUXCLSESSION_EXIT(session, mcuxClMac_selftest, diRefValue, MCUXCLMAC_STATUS_OK, MCUXCLMAC_STATUS_FAULT_ATTACK);
+}
+#endif /* MCUXCL_FEATURE_MAC_SELFTEST */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMac_init)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_init(
@@ -99,7 +116,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_finish(
 {
   MCUXCLSESSION_ENTRY(session, mcuxClMac_finish, diRefValue, MCUXCLMAC_STATUS_FAULT_ATTACK, pContext->pMode->common.protectionToken_finish);
 
-  *pMacLength = 0u;
+  *pMacLength = 0U;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pContext->pMode->common.finish(
     session,
     pContext,

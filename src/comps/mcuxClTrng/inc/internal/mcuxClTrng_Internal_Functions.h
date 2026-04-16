@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2023, 2025 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -71,6 +71,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_getEntropyInput(
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClTrng_Init)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_Init(mcuxClSession_Handle_t pSession);
 
+#ifdef MCUXCL_FEATURE_TRNG_SA_TRNG
 /**
  * @brief Function to check that TRNG is properly configured.
  * @deprecated This function is deprecated, kept only for backward compatibility.
@@ -82,6 +83,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_Init(mcuxClSession_Handle_t pSessio
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClTrng_checkConfig)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClTrng_checkConfig(mcuxClSession_Handle_t pSession);
+#endif
 
 #ifdef __cplusplus
 } /* extern "C" */

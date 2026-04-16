@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClSession.c
@@ -25,7 +25,9 @@
 #include <internal/mcuxClPkc_Macros.h>
 #include <mcuxClResource.h>
 #include <internal/mcuxClResource_Internal_Types.h>
+#if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
 #include <internal/mcuxClTrng_SfrAccess.h>
+#endif /* HW_TRNG */
 #include <internal/mcuxClSgi_Drv.h>
 #include <mcuxCsslDataIntegrity.h>
 #include <internal/mcuxClMemory_Clear_Internal.h>
@@ -104,6 +106,20 @@ MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t*) mcuxClSession_allocateWords_pkcWa(
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSession_allocateWords_pkcWa, pPkcBuffer);
 }
 
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_allocateWords_uptrt)
+MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t*) mcuxClSession_allocateWords_uptrt(
+    mcuxClSession_Handle_t pSession,
+    uint32_t wordsToAllocate)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClSession_allocateWords_uptrt);
+
+    MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pUptrtBuffer, mcuxClSession_allocateWords_cpuWa(pSession, wordsToAllocate));
+
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClSession_allocateWords_uptrt, pUptrtBuffer,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa)
+    );
+}
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_freeWords_cpuWa)
 void mcuxClSession_freeWords_cpuWa(
     mcuxClSession_Handle_t pSession,
@@ -132,6 +148,14 @@ void mcuxClSession_freeWords_pkcWa(
     {
         pSession->pkcWa.used -= wordsToFree;
     }
+}
+
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_freeWords_uptrt)
+void mcuxClSession_freeWords_uptrt(
+    mcuxClSession_Handle_t pSession,
+    uint32_t wordsToFree)
+{
+    mcuxClSession_freeWords_cpuWa(pSession, wordsToFree);
 }
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSession_init)
@@ -386,7 +410,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
                 /* Record input data for mcuxClSgi_Drv_flushRegisterBanks() */
                 MCUX_CSSL_DI_RECORD(sgiFlush, MCUXCLSGI_DRV_KEY0_OFFSET);
                 MCUX_CSSL_DI_RECORD(sgiFlush, 8U * sizeof(uint32_t));
-                
+
 #ifdef SGI_HAS_AES_AUTO_MODE
                 /* Stop Cipher/MAC operation in SGI AUTO mode */
                 MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
@@ -469,17 +493,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSession_Status_t) mcuxClSession_cleanupOnError
 
 /* Consolidate expected FP function calls based on the enabled modes. */
 /* This is done outside the SESSION_EXIT to avoid violations (of #if def inside macro) */
-    MCUX_CSSL_FP_EXPECT(
-        MCUX_CSSL_FP_CONDITIONAL( (0U < isHwSgiUsed),
-#ifdef SGI_HAS_AES_AUTO_MODE
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopSha2),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
-#endif /* SGI_HAS_AES_AUTO_MODE */
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks),
-            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
-        )
-    );
+    #ifdef SGI_HAS_AES_AUTO_MODE
+        MCUX_CSSL_FP_EXPECT(
+            MCUX_CSSL_FP_CONDITIONAL( (0U < isHwSgiUsed),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopSha2),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
+            )
+        );
+    #else
+        MCUX_CSSL_FP_EXPECT(
+            MCUX_CSSL_FP_CONDITIONAL( (0U < isHwSgiUsed),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_flushRegisterBanks),
+                MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_close)
+            )
+        );
+    #endif /* SGI_HAS_AES_AUTO_MODE */
 
     MCUX_CSSL_FP_EXPECT(
         MCUX_CSSL_FP_CONDITIONAL( (0U < isHwPkcUsed),

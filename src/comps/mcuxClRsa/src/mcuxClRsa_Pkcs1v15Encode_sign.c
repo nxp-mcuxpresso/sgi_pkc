@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Pkcs1v15Encode_sign.c
@@ -62,7 +62,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   /*****************************************************/
 
   /* Length of the encoded message. */
-  const uint32_t emLen = keyBitLength / 8u;  /* only byte-level granularity of keys is supported, thus keyBitLength is a multiple of 8 */
+  const uint32_t emLen = keyBitLength / 8U;  /* only byte-level granularity of keys is supported, thus keyBitLength is a multiple of 8 */
   /* Length of the output of hash function. */
   const uint32_t hLength = pHashAlgo->hashSize;
 
@@ -78,7 +78,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   /*****************************************************/
   /* If emLen < tLen + 11, return 'invalid input'.     */
   /*****************************************************/
-  if(emLen < (hashAlgorithmIdentifierLength + hLength + 11u))
+  if(emLen < (hashAlgorithmIdentifierLength + hLength + 11U))
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
   }
@@ -87,7 +87,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   /* Prepare the padding                               */
   /*****************************************************/
   /* Number of required padding bytes */
-  const uint32_t paddingLength = emLen - hashAlgorithmIdentifierLength - hLength - 3u;
+  const uint32_t paddingLength = emLen - hashAlgorithmIdentifierLength - hLength - 3U;
 
   /* Setup session. */
   const uint32_t wordSizePkcWa = MCUXCLRSA_INTERNAL_PKCS1V15ENCODE_SIGN_WAPKC_SIZE(emLen) / sizeof(uint32_t);
@@ -100,9 +100,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   /* General pointer to encoded message at the beginning of the buffer */
   uint8_t *pEm = pPkcWorkarea;
   /* Pointer to the buffer for the padding bytes PS */
-  uint8_t *pPs = pEm + 2u;
+  uint8_t *pPs = pEm + 2U;
   /* Pointer to the buffer for the algorithm identifier T */
-  uint8_t *pT = pPs + paddingLength + 1u;
+  uint8_t *pT = pPs + paddingLength + 1U;
 
   /* Pointer to the buffer for the hash H */
   uint8_t *pH = pT + hashAlgorithmIdentifierLength;
@@ -110,7 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
 
   /* Write 0x00 0x01 prefix */
   *(pEm)     = (uint8_t) 0x00;
-  *(pEm + 1u) = (uint8_t) 0x01;
+  *(pEm + 1U) = (uint8_t) 0x01;
 
   /* Write padding bytes */
   MCUX_CSSL_DI_RECORD(mcuxClMemory_set_int_ps, pPs);
@@ -133,7 +133,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pInput);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pH);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, hLength);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pInput, 0u, pH, hLength));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pInput, 0U, pH, hLength));
 
   /*****************************************************/
   /* Prepare the encoded message for output            */
@@ -143,7 +143,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pkcs1v15Encode_sign(
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_secure_reverse, pOutput);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_secure_reverse, pPkcWorkarea);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_write_secure_reverse, emLen);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_write_secure_reverse(pOutput, 0u, pPkcWorkarea, emLen));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_write_secure_reverse(pOutput, 0U, pPkcWorkarea, emLen));
 
   mcuxClSession_freeWords_pkcWa(pSession, wordSizePkcWa);
 

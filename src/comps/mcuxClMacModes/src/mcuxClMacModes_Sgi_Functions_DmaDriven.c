@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClSession.h>
@@ -118,11 +118,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
   pWa->nonBlockingWa.pMode = mode;
   pWa->nonBlockingWa.inLength = inLength;
   pWa->nonBlockingWa.pIn = pIn;
-  pWa->nonBlockingWa.inputOffset = 0u;
+  pWa->nonBlockingWa.inputOffset = 0U;
   pWa->nonBlockingWa.pMac.output = pMac;
   pWa->nonBlockingWa.pOutputLength = pMacLength;
   pWa->nonBlockingWa.macLength = mode->common.macByteSize;
-  pWa->nonBlockingWa.processedBytes = 0u;
+  pWa->nonBlockingWa.processedBytes = 0U;
 
   /* Perform MAC operation */
   MCUX_CSSL_FP_FUNCTION_CALL(status, pAlgo->compute(
@@ -148,7 +148,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
   }
 
   /* Continue operation in case no non-blocking operation was started*/
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(processedBytes, 0u, inLength, MCUXCLMAC_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(processedBytes, 0U, inLength, MCUXCLMAC_STATUS_ERROR)
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->handleLastBlock_oneshot(
     session, pWa, pAlgo,
     /* pIn, inOffset    */  pIn, processedBytes,
@@ -156,7 +156,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute_dmaDriven
     /* remainingBytes   */  (inLength - processedBytes)));
 
   /* Output result of MAC operation to result buffer */
-  uint32_t dataProcessed = (0u < inLength) ? MCUXCLMACMODES_TRUE : MCUXCLMACMODES_FALSE;
+  uint32_t dataProcessed = (0U < inLength) ? MCUXCLMACMODES_TRUE : MCUXCLMACMODES_FALSE;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->copyOut(session, dataProcessed, pMac, pMacLength));
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_cleanupOnExit_dmaDriven(session, NULL, key, cpuWaSizeInWords));
@@ -260,7 +260,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
   /* Check context CRC */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLMACMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-  if(0u == inLength)
+  if(0U == inLength)
   {
     /* Nothing to do */
     MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_process_dmaDriven, MCUXCLMAC_STATUS_OK
@@ -293,9 +293,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
   pWa->nonBlockingWa.pMode = pCtx->common.pMode;
   pWa->nonBlockingWa.pContext = pCtx;
   pWa->nonBlockingWa.pIn = pIn;
-  pWa->nonBlockingWa.inputOffset = 0u;
+  pWa->nonBlockingWa.inputOffset = 0U;
   pWa->nonBlockingWa.inLength = inLength;
-  pWa->nonBlockingWa.processedBytes = 0u;
+  pWa->nonBlockingWa.processedBytes = 0U;
 
   /* Call update function */
   MCUX_CSSL_FP_FUNCTION_CALL(status, pAlgo->update(
@@ -323,7 +323,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_process_dmaDriven
 
 
   /* Continue operation in case no non-blocking operation was started */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(processedBytes, 0u, inLength, MCUXCLMAC_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(processedBytes, 0U, inLength, MCUXCLMAC_STATUS_ERROR)
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_handleLastBlock_update(
     session,
     pCtx,
@@ -439,7 +439,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   uint32_t *pDst_maskedPreTag = pContext->maskedPreTag;
   MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pDst_maskedPreTag);
   MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, (uint32_t) pSrc_sgiDatout);
-  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16u);
+  MCUX_CSSL_DI_RECORD(mcuxClSgi_Utils_copyBlockSfrMasked, 16U);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_copyBlockSfrMasked(
     pDst_maskedPreTag,
     pSrc_sgiDatout,
@@ -451,7 +451,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_resetAutoMode());
 
   /* Fill context buffer with remaining input bytes */
-  if(remainingBytes > 0u)
+  if(remainingBytes > 0U)
   {
     mcuxClSession_Channel_t inputChannel = mcuxClSession_getDmaInputChannel(session);
     MCUXCLBUFFER_DERIVE_RO(pInWithOffset, pIn, inOffset);
@@ -474,7 +474,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_copyBlockSfrMasked),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_resetAutoMode),
     MCUX_CSSL_FP_CONDITIONAL(
-      (remainingBytes > 0u),
+      (remainingBytes > 0U),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureDataTransfer),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_startChannel),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone)

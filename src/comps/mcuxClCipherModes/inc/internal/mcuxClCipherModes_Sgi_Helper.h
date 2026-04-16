@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLCIPHERMODES_SGI_HELPER_H_
@@ -17,7 +17,9 @@
 #include <mcuxClSession_Types.h>
 #include <internal/mcuxClCipherModes_Common_Wa.h>
 #include <mcuxClSgi_Types.h>
+#if defined(MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING)
 #include <mcuxClDma_Types.h>
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 /**
  * @brief Function used to copy data from SGI to user
@@ -40,6 +42,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_copyOut_toPtr(
   uint32_t byteLength);
 
 
+#if defined(MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING)
 /**
  * @brief Function to request DMA input and output channels and to write the workarea into the session job context.
  *
@@ -55,6 +58,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_requestDmaChannelsAndConfigu
   mcuxClSession_HwInterruptHandler_t callbackFunction,
   uint32_t protectionToken_callbackFunction
 );
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 /**
  * @brief Internal function to load the key (SFR-masked) from the AES key context and IV to the SGI.

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2023-2024, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -41,19 +41,31 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  * FUP program declaration mcuxClEcc_FUP_TwEd_PointDoubleEd25519
  */
 #define mcuxClEcc_FUP_TwEd_PointDoubleEd25519_LEN  16u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_PointDoubleEd25519);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_PointDoubleEd25519,
+  mcuxClEcc_FUP_TwEd_PointDoubleEd25519_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_TwEd_MixedPointAddEd25519
  */
 #define mcuxClEcc_FUP_TwEd_MixedPointAddEd25519_LEN  19u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_MixedPointAddEd25519);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_MixedPointAddEd25519,
+  mcuxClEcc_FUP_TwEd_MixedPointAddEd25519_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_TwEd_PointAddEd25519
  */
 #define mcuxClEcc_FUP_TwEd_PointAddEd25519_LEN  20u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_PointAddEd25519);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_PointAddEd25519,
+  mcuxClEcc_FUP_TwEd_PointAddEd25519_LEN
+);
+
 
 
 /**********************************************************/
@@ -64,13 +76,21 @@ MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_PointAddEd25519);
  * FUP program declaration mcuxClEcc_FUP_VarScalarMult_YZMontLadder_LadderStep
  */
 #define mcuxClEcc_FUP_VarScalarMult_YZMontLadder_LadderStep_LEN  29u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_VarScalarMult_YZMontLadder_LadderStep);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_VarScalarMult_YZMontLadder_LadderStep,
+  mcuxClEcc_FUP_VarScalarMult_YZMontLadder_LadderStep_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate
  */
 #define mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate_LEN  15u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate,
+  mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate_LEN
+);
+
 
 
 /**********************************************************/
@@ -82,47 +102,71 @@ MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_VarScalarMult_Recover_X_Coordinate);
  */
 #define mcuxClEcc_FUP_TwEd_PointDouble_LEN  16u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_PointDouble);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_PointDouble,
+  mcuxClEcc_FUP_TwEd_PointDouble_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_TwEd_PointValidation_AffineNR
  */
 #define mcuxClEcc_FUP_TwEd_PointValidation_AffineNR_LEN  14u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_PointValidation_AffineNR);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_PointValidation_AffineNR,
+  mcuxClEcc_FUP_TwEd_PointValidation_AffineNR_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_TwEd_PointValidation
  */
 #define mcuxClEcc_FUP_TwEd_PointValidation_HomMR_LEN  13u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_PointValidation_HomMR);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_PointValidation_HomMR,
+  mcuxClEcc_FUP_TwEd_PointValidation_HomMR_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_TwEd_PointSubtraction
  */
 #define mcuxClEcc_FUP_TwEd_PointSubtraction_LEN  22u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_PointSubtraction);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_PointSubtraction,
+  mcuxClEcc_FUP_TwEd_PointSubtraction_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_TwEd_UpdateExtHomCoords
  */
 #define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XT_LEN  5u
 #define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Y_LEN  3u
-#define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XYT_LEN  (mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XT_LEN + mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Y_LEN)
+#define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XYT_LEN  (mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XT_LEN + mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Y_LEN )
 #define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Z_LEN  3u
-#define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_YZ_LEN  (mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Y_LEN + mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Z_LEN)
-#define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_LEN  (mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XYT_LEN + mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Z_LEN)
+#define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_YZ_LEN  (mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Y_LEN + mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Z_LEN )
+#define mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_LEN  (mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_XYT_LEN + mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_Z_LEN )
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_UpdateExtHomCoords);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_UpdateExtHomCoords,
+  mcuxClEcc_FUP_TwEd_UpdateExtHomCoords_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClEcc_FUP_TwEd_ConvertAffineToExtHom
  */
 #define mcuxClEcc_FUP_TwEd_ConvertAffineToExtHom_LEN  8u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_TwEd_ConvertAffineToExtHom);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_TwEd_ConvertAffineToExtHom,
+  mcuxClEcc_FUP_TwEd_ConvertAffineToExtHom_LEN
+);
+
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

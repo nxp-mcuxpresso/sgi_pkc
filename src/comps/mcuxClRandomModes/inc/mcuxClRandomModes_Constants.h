@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2023 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -45,8 +45,65 @@ extern "C" {
 MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_API_DECLARATIONS()
 
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+/**
+ * @brief Mode for a NIST SP800-90A CTR_DRBG based on AES-128 configured to not provide prediction resistance and realize a DRG.3 at 128 bit security level.
+ *
+ * This mode realizes a NIST SP800-90A CTR_DRBG based on AES-128 which does not provide prediction resistance. It is designed in a way
+ * to comply to FIPS 140-3 on the one hand and realize a DRG.3 at 128 bit security level on the other.
+ * For an up to date list of evaluations and certifications one should refer to the product (HW) documentation.
+ * 
+ * \implements{REQ_788317,REQ_788318,REQ_788319}
+ */
+extern const mcuxClRandom_ModeDescriptor_t mcuxClRandomModes_mdCtrDrbg_AES128_DRG3;
+static const mcuxClRandom_Mode_t mcuxClRandomModes_Mode_CtrDrbg_AES128_DRG3 =
+    &mcuxClRandomModes_mdCtrDrbg_AES128_DRG3;
 
+/**
+ * @brief Mode for a NIST SP800-90A CTR_DRBG based on AES-128 configured to not provide prediction resistance and realize a DRG.4 at 128 bit security level.
+ *
+ * This mode realizes a NIST SP800-90A CTR_DRBG based on AES-128 which does not provide prediction resistance. It is designed in a way
+ * to comply to FIPS 140-3 on the one hand and realize a DRG.4 at 128 bit security level on the other.
+ * For an up to date list of evaluations and certifications one should refer to the product (HW) documentation.
+ *
+ * NOTE: This mode is an alias of mcuxClRandomModes_Mode_CtrDrbg_AES128_DRG3 and does not perform any internal reseeding.
+ * To realize the desired DRG.4 functionality by on-demand reseeding, the mcuxClRandom_reseed function is provided.
+ */
+#define mcuxClRandomModes_Mode_CtrDrbg_AES128_DRG4 mcuxClRandomModes_Mode_CtrDrbg_AES128_DRG3
+
+#endif /* MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128 */
+
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+
+/**
+ * @brief Mode for a NIST SP800-90A CTR_DRBG based on AES-192 configured to not provide prediction resistance and realize a DRG.3 at 192 bit security level.
+ *
+ * This mode realizes a NIST SP800-90A CTR_DRBG based on AES-192 which does not provide prediction resistance. It is designed in a way
+ * to comply to FIPS 140-3 on the one hand and realize a DRG.3 at 192 bit security level on the other.
+ * For an up to date list of evaluations and certifications one should refer to the product (HW) documentation.
+ * 
+ * \implements{REQ_788317,REQ_788318,REQ_788319}
+ */
+extern const mcuxClRandom_ModeDescriptor_t mcuxClRandomModes_mdCtrDrbg_AES192_DRG3;
+static const mcuxClRandom_Mode_t mcuxClRandomModes_Mode_CtrDrbg_AES192_DRG3 =
+    &mcuxClRandomModes_mdCtrDrbg_AES192_DRG3;
+
+/**
+ * @brief Mode for a NIST SP800-90A CTR_DRBG based on AES-192 configured to not provide prediction resistance and realize a DRG.4 at 192 bit security level.
+ *
+ * This mode realizes a NIST SP800-90A CTR_DRBG based on AES-192 which does not provide prediction resistance. It is designed in a way
+ * to comply to FIPS 140-3 on the one hand and realize a DRG.4 at 192 bit security level on the other.
+ * For an up to date list of evaluations and certifications one should refer to the product (HW) documentation.
+ *
+ * NOTE: This mode is an alias of mcuxClRandomModes_Mode_CtrDrbg_AES192_DRG3 and does not perform any internal reseeding.
+ * To realize the desired DRG.4 functionality by on-demand reseeding, the mcuxClRandom_reseed function is provided.
+ */
+#define mcuxClRandomModes_Mode_CtrDrbg_AES192_DRG4 mcuxClRandomModes_Mode_CtrDrbg_AES192_DRG3
+
+#endif /* MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192 */
+
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 
 /**
  * @brief Mode for a NIST SP800-90A CTR_DRBG based on AES-256 configured to not provide prediction resistance and realize a DRG.3 at 256 bit security level.
@@ -84,6 +141,7 @@ static const mcuxClRandom_Mode_t mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3 =
  */
 #define mcuxClRandomModes_Mode_CtrDrbg_AES256 mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3
 
+#endif /* MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256 */
 
 
 

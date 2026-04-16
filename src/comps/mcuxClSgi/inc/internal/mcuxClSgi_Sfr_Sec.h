@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2023, 2025 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLSGI_SFR_SEC_H_
@@ -65,6 +65,25 @@ static inline void mcuxClSgi_Sfr_writeKeyChk(uint32_t value)
 }
 
 
+#ifdef MCUXCL_FEATURE_PRNG_SGI
+/**
+ * Read the SGI PRNG SW READ register
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Sfr_readPrngSwRead)
+static inline uint32_t mcuxClSgi_Sfr_readPrngSwRead(void)
+{
+  return MCUXCLSGI_SFR_READ(PRNG_SW_READ);
+}
+
+/**
+ * Write to the SGI PRNG SW SEED register
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSgi_Sfr_writePrngSwSeed)
+static inline void mcuxClSgi_Sfr_writePrngSwSeed(uint32_t value)
+{
+  MCUXCLSGI_SFR_WRITE(PRNG_SW_SEED, value);
+}
+#endif /* MCUXCL_FEATURE_PRNG_SGI*/
 
 /**
  * Read the SGI SEED register

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Util_KeyGeneration_Plain.c
@@ -37,6 +37,7 @@
 #include <internal/mcuxClPrng_Internal.h>
 #include <internal/mcuxClMemory_Internal.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
+#include <internal/mcuxClMath_Internal.h>
 
 #include <mcuxClRsa.h>
 #include <internal/mcuxClRsa_Internal_Functions.h>
@@ -65,19 +66,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    * Step 2: Initialization process to Check entropy provided by RNG and if E is FIPS compliant
    */
   const uint32_t bitLenKey = mcuxClKey_getSize(pubKey);
-  const uint32_t byteLenKey = bitLenKey / 8u;
+  const uint32_t byteLenKey = bitLenKey / 8U;
 
   const mcuxClRsa_KeyGeneration_ProtocolDescriptor_t * pProtocolDescriptor = (const mcuxClRsa_KeyGeneration_ProtocolDescriptor_t *) generation->pProtocolDescriptor;
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DISCARD_CONST_QUALIFIER("Const must be discarded to set the generic pointer.")
     mcuxClRsa_KeyEntry_t * pPublicExponent = (mcuxClRsa_KeyEntry_t *) &pProtocolDescriptor->pubExp;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()
 
-  uint32_t byteLenE = 0u;
+  uint32_t byteLenE = 0U;
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_Util_KeyGeneration_Init_PlainKey(pSession, pubKey, generation, &byteLenE, privKey));
 
   /* Initialize PKC. */
   MCUXCLPKC_FP_REQUEST_INITIALIZE(pSession, mcuxClRsa_Util_KeyGeneration_Plain);
+
+  /* Setup mcuxClMath UPTRT buffer at beginning of PKC/CPU depending on MCUXCL_FEATURE_PKC_UPTRT_IN_PKCRAM and update session info */
+  MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pMathUptrt, mcuxClSession_allocateWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t)));
+  /* Update session info for pMathUptrt location in PKC WA */
+  pSession->pMathUptrt = pMathUptrt;
 
   /*
    * Step 3: Allocate buffers in PKC RAM
@@ -86,11 +92,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    * Memory layout: | nDash (FW) | P (pkcByteLenPrime) | nDash (FW) | Q (pkcByteLenPrime) | E (pkcByteLenKey) |
    */
   const uint32_t pkcByteLenKey = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenKey);
-  const uint32_t byteLenPrime = byteLenKey / 2u;
+  const uint32_t byteLenPrime = byteLenKey / 2U;
   const uint32_t pkcByteLenPrime = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPrime);
 
   /* Allocate space in session for p, q and e for now */
-  uint32_t pkcWaSizeWord = (2u * (pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE) + pkcByteLenKey) / (sizeof(uint32_t));
+  uint32_t pkcWaSizeWord = (2U * (pkcByteLenPrime + MCUXCLRSA_PKC_WORDSIZE) + pkcByteLenKey) / (sizeof(uint32_t));
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
 
   uint8_t *pPkcBufferP = pPkcWorkarea + MCUXCLRSA_PKC_WORDSIZE; /* offset for NDash */
@@ -100,7 +106,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
   /* Protect the lengths and pointers to the prime candidates, that will be balanced when calling mcuxClRsa_GenerateProbablePrime */
   MCUX_CSSL_DI_RECORD(generateProbablePrimeParams, pPkcBufferP);
   MCUX_CSSL_DI_RECORD(generateProbablePrimeParams, pPkcBufferQ);
-  MCUX_CSSL_DI_RECORD(generateProbablePrimeParams, 2u * byteLenPrime);
+  MCUX_CSSL_DI_RECORD(generateProbablePrimeParams, 2U * byteLenPrime);
 
   /* Setup UPTR table. */
   const uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_KEYGENERATION_PLAIN_UPTRT_SIZE_IN_WORDS;
@@ -121,7 +127,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    */
   MCUXCLPKC_PS1_SETLENGTH(pkcByteLenPrime, pkcByteLenPrime);
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_INCOMPATIBLE("The pointer pPublicExponent has a compatible type and the access to keyEntryLength is valid")
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenE, 0u, pPublicExponent->keyEntryLength, MCUXCLRSA_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(byteLenE, 0U, pPublicExponent->keyEntryLength, MCUXCLRSA_STATUS_INVALID_INPUT)
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_INCOMPATIBLE()
   uint32_t leadingZerosE = pPublicExponent->keyEntryLength - byteLenE;
   MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_DI_BALANCED(MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_E, pPublicExponent->pKeyEntryData + leadingZerosE, byteLenE, pkcByteLenPrime);
@@ -148,7 +154,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
   MCUX_CSSL_FP_COUNTER_STMT(uint32_t computeDCounter = 0;)
   mcuxClRsa_KeyEntry_t d;
   d.keyEntryLength = 0; /* it will be computed by mcuxClRsa_ComputeD */
-  const uint32_t pkcWaSizeWordD = (pkcByteLenKey + 2u * MCUXCLRSA_PKC_WORDSIZE) / sizeof(uint32_t);
+  const uint32_t pkcWaSizeWordD = (pkcByteLenKey + 2U * MCUXCLRSA_PKC_WORDSIZE) / sizeof(uint32_t);
 
   do
   {
@@ -260,9 +266,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pkcByteLenPrime, MCUXCLRSA_MIN_MODLEN / 2U, MCUXCLRSA_MAX_MODLEN / 2U, MCUXCLRSA_STATUS_INVALID_INPUT)
   const uint32_t blindLen = MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE;  // length in bytes of the random value used for blinding
   const uint32_t blindAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen);
-  const uint32_t blindSquaredAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen * 2u);
+  const uint32_t blindSquaredAlignLen = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(blindLen * 2U);
   const uint32_t blindedPrimeAlignLen = pkcByteLenPrime + blindAlignLen;
-  const uint32_t blindedModAlignLen = 2u * blindedPrimeAlignLen;
+  const uint32_t blindedModAlignLen = 2U * blindedPrimeAlignLen;
 
   const uint32_t pkcWaSizeWord2 = (pkcByteLenKey - MCUXCLRSA_PKC_WORDSIZE // N, the 2 FWs of D will be used for N
                                   + blindAlignLen // Rand
@@ -277,7 +283,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
 
   pkcWaSizeWord += (pkcWaSizeWordD + pkcWaSizeWord2);
 
-  uint8_t *pPkcBufferN = pPkcWorkarea2 - 2u * MCUXCLRSA_PKC_WORDSIZE; // the 2 FWs of D will be used for N
+  uint8_t *pPkcBufferN = pPkcWorkarea2 - 2U * MCUXCLRSA_PKC_WORDSIZE; // the 2 FWs of D will be used for N
   uint8_t *pPkcBufferRand = pPkcBufferN + pkcByteLenKey + MCUXCLRSA_PKC_WORDSIZE;
   uint8_t *pPkcBufferPb = pPkcBufferRand + blindAlignLen;
   uint8_t *pPkcBufferQb = pPkcBufferPb + blindedPrimeAlignLen;
@@ -299,8 +305,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
   uint32_t *pR32 = (uint32_t *) pPkcBufferRand;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
   MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
-  pR32[0] = random32 | 0x1u;
-  pR32[1] = 0u;
+  pR32[0] = random32 | 0x1U;
+  pR32[1] = 0U;
 
   /* Step 9: Compute pb = p * r32 and qb = q * r32 */
   MCUXCLPKC_FP_CALCFUP(mcuxClRsa_Util_KeyGeneration_Plain_BlindPQ_FUP,
@@ -311,13 +317,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
    */
   /* Compute blinded modulus: Nb = pb * qb and square of blinding value:  (r32)^2 */
   MCUXCLPKC_WAITFORREADY();
-  MCUXCLPKC_PS1_SETLENGTH(0u, blindAlignLen);
+  MCUXCLPKC_PS1_SETLENGTH(0U, blindAlignLen);
   MCUXCLPKC_PS2_SETLENGTH(blindedPrimeAlignLen, blindedPrimeAlignLen);
   MCUXCLPKC_FP_CALCFUP(mcuxClRsa_Util_KeyGeneration_Plain_ComputeNbAndRandSquare_FUP,
           mcuxClRsa_Util_KeyGeneration_Plain_ComputeNbAndRandSquare_FUP_LEN);
 
   /* Compute modulus N = Nb / ((r32)^2). Note that (r32)^2 is non-null and odd. */
-  MCUXCLMATH_FP_EXACTDIVIDEODD(MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_N,
+  MCUXCLMATH_FP_EXACTDIVIDEODD(pSession,
+                              MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_N,
                               MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_N_B,
                               MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_RAND_SQUARE,
                               MCUXCLRSA_INTERNAL_UPTRTINDEX_KEYGENERATION_PLAIN_P_B /* as temp buffer */,
@@ -340,7 +347,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
                               .exponent.pKeyEntryData = pPkcBufferE,
                               .exponent.keyEntryLength = byteLenE
   };
-  MCUXCLKEY_STORE_FP(pSession, pubKey, (uint8_t*)&rsaPubKeySrc, 0u);  // RSA Key_store function always returns OK
+  MCUXCLKEY_STORE_FP(pSession, pubKey, (uint8_t*)&rsaPubKeySrc, 0U);  // RSA Key_store function always returns OK
 
   /*
    * Step 12: Write RSA plain key (d, n) to the buffer pointed by pPrivData.
@@ -356,7 +363,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
                               .exponent.pKeyEntryData = d.pKeyEntryData,
                               .exponent.keyEntryLength = d.keyEntryLength
   };
-  MCUXCLKEY_STORE_FP(pSession, privKey, (uint8_t*)&rsaPrivKeySrc, 0u);  // RSA Key_store function always returns OK
+  MCUXCLKEY_STORE_FP(pSession, privKey, (uint8_t*)&rsaPrivKeySrc, 0U);  // RSA Key_store function always returns OK
 
   /* Step 13: Create link between private and public key handles */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_linkKeyPair(pSession, privKey, pubKey));
@@ -383,11 +390,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_Util_KeyGeneration_Plain(
   MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);
   mcuxClSession_freeWords_cpuWa(pSession, cpuWaSizeWord);
 
+  /* Free Math UPTRT allocated WA */
+  mcuxClSession_freeWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t));
+
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_Util_KeyGeneration_Plain,
     /* Step 2 */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_Util_KeyGeneration_Init_PlainKey),
-    /* Step 3 */
     MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
+    /* Step 3 */
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
     /* Step 4 */

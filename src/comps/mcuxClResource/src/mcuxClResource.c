@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -63,7 +63,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClResource_Status_t) mcuxClResource_handle_inter
         MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClResource_handle_interrupt, MCUXCLRESOURCE_STATUS_ERROR);
     }
 
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("pResourceCtx->hwTable of type mcuxClResource_hwAllocation_t ( const *)[9] is cast to type mcuxClResource_hwAllocation_t const * is needed")
     mcuxClSession_Handle_t session = pResourceCtx->hwTable[hwId].session;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
 
     /* We have a proper session associated to the HW:
          *   - wrap-up the CLib operation for which the interrupt was triggered

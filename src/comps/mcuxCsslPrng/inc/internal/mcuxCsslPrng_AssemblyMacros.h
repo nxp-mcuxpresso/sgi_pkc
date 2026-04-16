@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023 NXP                                                       */
+/* Copyright 2023, 2026 NXP                                                 */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -30,13 +30,39 @@
  */
 #if defined(__IASMARM__) || defined(__ICCARM__)
 MCUXCSSLPRNG_INIT_ADDR macro regPrngAddr
+#if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
   /* No init needed for stub*/
+#else
+  ldr   regPrngAddr, =MCUXCSSLPRNG_PRNG_ADDR
+#endif
   endm
-#else 
+#elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
 .macro MCUXCSSLPRNG_INIT_ADDR  regPrngAddr
+#if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
   /* No init needed for stub*/
+#else
+  ldr   \regPrngAddr, =MCUXCSSLPRNG_PRNG_ADDR
+#endif
 .endmacro
-#endif /* defined (__IASMARM__) || defined(__ICCARM__) */
+#elif MCUXCL_FEATURE_CSSL_SC_RISCV_ASM
+.macro MCUXCSSLPRNG_INIT_ADDR  regPrngAddr
+#if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
+  /* No init needed for stub*/
+#else
+  lui   \regPrngAddr, %hi(MCUXCSSLPRNG_PRNG_ADDR)
+#endif
+.endmacro
+#elif defined(__GNUC__)
+.macro MCUXCSSLPRNG_INIT_ADDR  regPrngAddr
+#if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
+  /* No init needed for stub*/
+#else
+  ldr   \regPrngAddr, =MCUXCSSLPRNG_PRNG_ADDR
+#endif
+.endm
+#else
+  #error "Unsupported compiler for MCUXCSSLPRNG_INIT_ADDR macro"
+#endif
 
 #ifdef MCUXCL_FEATURE_CSSL_SC_RISCV_ASM
 /**
@@ -57,6 +83,12 @@ MCUXCSSLPRNG_INIT_ADDR macro regPrngAddr
  * addressOtherHw: a constant, which is an address of another hardware SFR
  */
 .macro MCUXCSSLPRNG_INIT_ADDR_COND  regPrngAddr, addressOtherHw
+#if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
+#else
+.if (((\addressOtherHw) >> 11) != (MCUXCSSLPRNG_PRNG_ADDR >> 11))
+  MCUXCSSLPRNG_INIT_ADDR  \regPrngAddr
+.endif
+#endif
 .endmacro
 #endif /* MCUXCL_FEATURE_CSSL_SC_RISCV_ASM */
 
@@ -68,12 +100,36 @@ MCUXCSSLPRNG_INIT_ADDR macro regPrngAddr
  */
 #if defined(__IASMARM__) || defined(__ICCARM__)
 MCUXCSSLPRNG_GET_PRNG macro regPrngAddr, regRandom
+  #if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
   ldr regRandom, =0xDEADBEEF
+  #else
+  ldr regRandom, [regPrngAddr]
+  #endif /* MCUXCL_FEATURE_CSSL_SC_RISCV_ASM */
   endm
-#else
+#elif defined(MCUXCL_FEATURE_CSSL_SC_RISCV_ASM)
 .macro MCUXCSSLPRNG_GET_PRNG  regPrngAddr, regRandom
-  ldr \regRandom, =0xDEADBEEF
+  #if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
+  lw  \regRandom, =0xDEADBEEF
+  #else
+  lw  \regRandom, %lo(MCUXCSSLPRNG_PRNG_ADDR) (\regPrngAddr)
+  #endif
 .endmacro
+#elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+.macro MCUXCSSLPRNG_GET_PRNG  regPrngAddr, regRandom
+  #if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
+  ldr \regRandom, =0xDEADBEEF
+  #else
+  ldr \regRandom, [\regPrngAddr]
+  #endif
+.endmacro
+#elif defined(__GNUC__)
+.macro MCUXCSSLPRNG_GET_PRNG  regPrngAddr, regRandom
+  #if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
+  ldr \regRandom, =0xDEADBEEF
+  #else
+  ldr \regRandom, [\regPrngAddr]
+  #endif
+.endm
 #endif
 
 #endif /* MCUXCSSLPRNG_ASSEMBLYMACROS_H_ */

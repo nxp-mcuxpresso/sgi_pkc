@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClCore_FunctionIdentifiers.h>
@@ -24,7 +24,9 @@
 #include <internal/mcuxClMemory_CopyWords_Internal.h>
 #include <internal/mcuxClSgi_Drv.h>
 #include <internal/mcuxClSgi_Utils.h>
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 #include <internal/mcuxClDma_Resource.h>
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 #include <internal/mcuxClCrc_Internal_Functions.h>
 
@@ -91,6 +93,7 @@
    );
 }
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_DESCRIPTIVE_IDENTIFIER()
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_cleanupOnExit_dmaDriven)
@@ -107,21 +110,23 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   /* Free CPU WA in Session */
   mcuxClSession_freeWords_cpuWa(session, cpuWaSizeInWords);
 
-  if(0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_DMA))
+  if(0U != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_DMA))
   {
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_releaseInputAndOutput(session));
   }
 
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
   /* The SGI AUTO-mode might still be running if no input was processed so far
    * (can be the case, e.g., for CTR-NonBlocking mode, as it is started during the
    * pAlgo->setupIV step for this mode). We need to stop AUTO-mode here to bring the
    * SGI in non-busy state because the KEY_FLUSH (PRNG) uses the SGI.
    * If AUTO-mode is not running anymore, stopping it will do no harm. */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
+#endif /* MCUXCL_FEATURE_PRNG_SGI_SFRSEED */
 
-  MCUX_CSSL_FP_COUNTER_STMT(uint32_t flush_FP_tag = 0u);
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t flush_FP_tag = 0U);
 
-  if(0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_SGI))
+  if(0U != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_SGI))
   {
     /* Flush the given key, if needed */
     if((NULL != key)
@@ -155,12 +160,14 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_cleanupOnExit_dmaDriven,
-                                MCUX_CSSL_FP_CONDITIONAL( (0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_DMA)),
+                                MCUX_CSSL_FP_CONDITIONAL( (0U != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_DMA)),
                                                        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_releaseInputAndOutput)),
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
                                 MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+#endif /* MCUXCL_FEATURE_PRNG_SGI_SFRSEED */
                                 MCUX_CSSL_FP_CONDITIONAL( (NULL != pContext),
                                                        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCrc_computeContextCrc)),
-                                MCUX_CSSL_FP_CONDITIONAL( (0u != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_SGI)),
+                                MCUX_CSSL_FP_CONDITIONAL( (0U != (cleanupDmaSgi & MCUXCLCIPHERMODES_CLEANUP_HW_SGI)),
                                                        MCUX_CSSL_FP_CONDITIONAL(((NULL != key)
                                && (MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED != (mcuxClKey_getLoadStatus(key) & MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED))),
                                                        flush_FP_tag),
@@ -169,3 +176,4 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
                                                        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_Uninit))
                                 );
 }
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */

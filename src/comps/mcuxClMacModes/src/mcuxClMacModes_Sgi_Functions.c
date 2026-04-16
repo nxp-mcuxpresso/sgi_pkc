@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClMacModes_Sgi_Functions.c
@@ -93,7 +93,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_compute(
   (void) retCode; /* Blocking compute functions only return OK */
 
   /* Output result of MAC operation to result buffer */
-  uint32_t dataProcessed = (0u < inLength) ? MCUXCLMACMODES_TRUE : MCUXCLMACMODES_FALSE;
+  uint32_t dataProcessed = (0U < inLength) ? MCUXCLMACMODES_TRUE : MCUXCLMACMODES_FALSE;
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->copyOut(session, dataProcessed, pMac, pMacLength));
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_cleanupOnExit(session, NULL, key, cpuWaSizeInWords));
@@ -140,8 +140,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_init(
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAes_loadKey_Sgi(session, key, &pWa->sgiWa, MCUXCLSGI_DRV_KEY0_OFFSET));
 
   /* Store configuration data in context */
-  pCtx->blockBufferUsed = 0u;
-  pCtx->totalInput = 0u;
+  pCtx->blockBufferUsed = 0U;
+  pCtx->totalInput = 0U;
   pCtx->dataProcessed = MCUXCLMACMODES_FALSE;
 
   /* Store key SFR masked in context */

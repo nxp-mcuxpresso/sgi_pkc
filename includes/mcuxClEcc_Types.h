@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -51,9 +51,12 @@ typedef uint32_t mcuxClEcc_Status_t;
 typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Status_Protected_t;
 
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 /** Type for MontDH domain parameters */
 typedef struct mcuxClEcc_MontDH_DomainParams mcuxClEcc_MontDH_DomainParams_t;
+#endif /* MCUXCL_FEATURE_ECC_MONTDH */
 
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 
 /** Type for EdDSA domain parameters */
 typedef struct mcuxClEcc_EdDSA_DomainParams mcuxClEcc_EdDSA_DomainParams_t;
@@ -77,7 +80,24 @@ struct mcuxClEcc_EdDSA_SignatureProtocolDescriptor;
  * @brief EdDSA SignatureProtocol variant descriptor type
  */
 typedef struct mcuxClEcc_EdDSA_SignatureProtocolDescriptor mcuxClEcc_EdDSA_SignatureProtocolDescriptor_t;
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
+/**
+ * @brief Forward declaration for ECC arithmetic operation structure
+ */
+struct mcuxClEcc_ArithmeticOperationDescriptor;
+
+/**
+ * @brief ECC arithmetic operation descriptor type
+ */
+typedef struct mcuxClEcc_ArithmeticOperationDescriptor mcuxClEcc_ArithmeticOperationDescriptor_t;
+
+/**
+ * @brief ECC arithmetic operation type
+ */
+typedef const mcuxClEcc_ArithmeticOperationDescriptor_t * mcuxClEcc_ArithmeticOperation_t;
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */
 
 /** Type for Weierstrass ECC domain parameters */
 typedef struct mcuxClEcc_Weier_DomainParams mcuxClEcc_Weier_DomainParams_t;
@@ -139,6 +159,7 @@ typedef struct {
  * @{
  */
 
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 
 /** @addtogroup mcuxClEcc_EdDsaDescriptors
  * mcuxClEcc definitions of EdDSA variant descriptors
@@ -178,6 +199,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /** @} */  /* mcuxClEcc_EdDsaDescriptors */
 
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 
 
 /** @addtogroup mcuxClEcc_ECDSADescriptors
@@ -187,18 +209,9 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 /**
  * \brief ECDSA Signature mode descriptor
- *
-#ifdef MCUXCL_FEATURE_SIGNATURE_VERIFY_PARAMETER_PROTECTION
- * This mode requires that mcuxClSignature_verify is called with additional protection on pIn and inSize parameters.
+ */
+ /** This mode requires that mcuxClSignature_verify is called with additional protection on pIn and inSize parameters.
  * mode, pIn and inSize parameters must be protected using mcuxClSignature_verify_recordParam function before executing mcuxClSignature_verify.
-#endif
- *
-#ifdef MCUXCL_FEATURE_SESSION_SECURITYOPTIONS_CRC
- * When the MCUXCLSESSION_SECURITYOPTIONS_SAVE_CRC_FOR_EXTERNAL_VERIFICATION_ENABLE security option is active,
- * the mcuxClSignature_verify function saves the CRC32 of the R value of the computed signature in the session for extra verification.
- * The CRC on user side can be computed with the function mcuxClCrc_computeCRC32 and with the function
- * mcuxClSession_getCrcForExternalVerification, the user can obtain the reference CRC for the verification.
-#endif
  */
 extern const mcuxClSignature_ModeDescriptor_t mcuxClSignature_ModeDescriptor_ECDSA;
 
@@ -224,6 +237,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
  * @ingroup mcuxClEcc_Descriptors
  * @{
  */
+#ifdef MCUXCL_FEATURE_ECC_SECPK1_CURVES
 
 /**
  * \brief secp160k1 domain parameters
@@ -284,6 +298,8 @@ extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp224
 #endif
  */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp256k1;
+#endif /* MCUXCL_FEATURE_ECC_SECPK1_CURVES */
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 
 /**
  * \brief secp192r1 (nistp192r1, ansix9p192r1) domain parameters
@@ -366,6 +382,8 @@ extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp384
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_secp521r1;
 #define mcuxClEcc_Weier_DomainParams_NIST_P521 mcuxClEcc_Weier_DomainParams_secp521r1
 #define mcuxClEcc_Weier_DomainParams_ansix9p521r1 mcuxClEcc_Weier_DomainParams_secp521r1
+#endif /* defined(SECPR1_CURVES) || defined(NISTPR1_CURVES) || defined(ANSIX9P_CURVES) */
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES
 
 /**
  * \brief brainpoolP160r1 domain parameters
@@ -471,6 +489,8 @@ extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpo
 #endif
  */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512r1;
+#endif /* MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES */
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES
 
 /**
  * \brief brainpoolP160t1 domain parameters
@@ -576,6 +596,7 @@ extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpo
 #endif
  */
 extern const mcuxClEcc_Weier_DomainParams_t mcuxClEcc_Weier_DomainParams_brainpoolP512t1;
+#endif /* MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES */
 
 
 /* Ed25519 domain parameters */
@@ -638,12 +659,164 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
  * @{
  */
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTADD
+/**
+ * \brief ECC Arithmetic operation descriptor for full point addition on a short Weierstrass curve not secured against side-channel attacks
+ */
+extern const mcuxClEcc_ArithmeticOperationDescriptor_t mcuxClEcc_ArithOpDesc_PointAdd;
+
+/**
+ * \brief ECC Arithmetic operation type for full point addition on a short Weierstrass curve not secured against side-channel attacks
+ *
+ * This type shall be passed to function mcuxClEcc_ArithmeticOperation in order to perform a full point addition P1 + P2
+ * on a short Weierstrass curve over prime p with base point order n. The function is not secured against side-channel attacks.
+ *
+ * The parameters of the function shall be chosen as follows:
+ *
+ *  - pDomainParams:  Pointer to the domain parameters of the Weierstrass curve (of type mcuxClEcc_Weier_DomainParams_t)
+ *  - pOp1:           Pointer to buffer storing the coordinates x1 and y1 of P1 concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= x1,y1 < p, and given by byteLen(p) bytes in big endian format.
+ *                    The passed parameter size op1Size must be 2*byteLen(p).
+ *  - pOp2:           Pointer to buffer storing the coordinates x2 and y2 of P2 concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= x2,y2 < p, and given by byteLen(p) bytes in big endian format.
+ *                    The passed parameter size op2Size must be 2*byteLen(p).
+ *  - pResult:        Point to buffer in which the coordinates xRes and yRes of the result P1 + P2 shall be stored concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= xRes,yRes < p, and given by byteLen(p) bytes in big endian format.
+ *                    This buffer will only be written if #MCUXCLECC_STATUS_OK is returned.
+ *
+ * The function returns
+ *
+ *  - #MCUXCLECC_STATUS_OK               if the operation was successful.
+ *  - #MCUXCLECC_STATUS_INVALID_PARAMS   if the input parameters are invalid.
+ *  - #MCUXCLECC_STATUS_NEUTRAL_POINT    if P1 + P2 is the neutral point.
+ *
+ * \implements{REQ_788270}
+ */
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by user / customer. Hence, it is declared but never referenced.")
+static mcuxClEcc_ArithmeticOperation_t mcuxClEcc_ArithmeticOperation_PointAdd =
+  &mcuxClEcc_ArithOpDesc_PointAdd;
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTADD */
 
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTSUB
+/**
+ * \brief ECC Arithmetic operation descriptor for full point subtraction on a short Weierstrass curve not secured against side-channel attacks
+ */
+extern const mcuxClEcc_ArithmeticOperationDescriptor_t mcuxClEcc_ArithOpDesc_PointSub;
+
+/**
+ * \brief ECC Arithmetic operation type for full point subtraction on a short Weierstrass curve not secured against side-channel attacks
+ *
+ * This type shall be passed to function mcuxClEcc_ArithmeticOperation in order to perform a full point subtraction P1 - P2
+ * on a short Weierstrass curve over prime p with base point order n. The function is not secured against side-channel attacks.
+ *
+ * The parameters of the function shall be chosen as follows:
+ *
+ *  - pDomainParams:  Pointer to the domain parameters of the Weierstrass curve (of type mcuxClEcc_Weier_DomainParams_t)
+ *  - pOp1:           Pointer to buffer storing the coordinates x1 and y1 of P1 concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= x1,y1 < p, and given by byteLen(p) bytes in big endian format.
+ *                    The passed parameter size op1Size must be 2*byteLen(p).
+ *  - pOp2:           Pointer to buffer storing the coordinates x2 and y2 of P2 concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= x2,y2 < p, and given by byteLen(p) bytes in big endian format.
+ *                    The passed parameter size op2Size must be 2*byteLen(p).
+ *  - pResult:        Point to buffer in which the coordinates xRes and yRes of the result P1 - P2 shall be stored concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= xRes,yRes < p, and given by byteLen(p) bytes in big endian format.
+ *                    This buffer will only be written if #MCUXCLECC_STATUS_OK is returned.
+ *
+ * The function returns
+ *
+ *  - #MCUXCLECC_STATUS_OK               if the operation was successful.
+ *  - #MCUXCLECC_STATUS_INVALID_PARAMS   if the input parameters are invalid.
+ *  - #MCUXCLECC_STATUS_NEUTRAL_POINT    if P1 - P2 is the neutral point.
+ *
+ * \implements{REQ_788271}
+ */
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by user / customer. Hence, it is declared but never referenced.")
+static mcuxClEcc_ArithmeticOperation_t mcuxClEcc_ArithmeticOperation_PointSub =
+  &mcuxClEcc_ArithOpDesc_PointSub;
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTSUB */
 
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SCALARMULT
+/**
+ * \brief ECC Arithmetic operation descriptor for scalar multiplication on a short Weierstrass curve not secured against side-channel attacks
+ */
+extern const mcuxClEcc_ArithmeticOperationDescriptor_t mcuxClEcc_ArithOpDesc_ScalarMult;
+
+/**
+ * \brief ECC Arithmetic operation type for scalar multiplication on a short Weierstrass curve not secured against side-channel attacks
+ *
+ * This type shall be passed to function mcuxClEcc_ArithmeticOperation in order to perform a scalar multiplication k*P
+ * on a short Weierstrass curve over prime p with base point order n. The function is not secured against side-channel attacks.
+ *
+ * The parameters of the function shall be chosen as follows:
+ *
+ *  - pDomainParams:  Pointer to the domain parameters of the Weierstrass curve (of type mcuxClEcc_Weier_DomainParams_t)
+ *  - pOp1:           Pointer to buffer storing the scalar k.
+ *                    The scalar is an element of GF(n), i.e. 0 <= k < n, and given in big endian format.
+ *                    The passed parameter size op1Size must be smaller than or equal to byteLen(n).
+ *  - pOp2:           Pointer to buffer storing the coordinates x and y of P concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= x,y < p, and given by byteLen(p) bytes in big endian format.
+ *                    The passed parameter size op2Size must be 2*byteLen(p).
+ *  - pResult:        Point to buffer in which the coordinates xRes and yRes of the result k*P shall be stored concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= xRes,yRes < p, and given by byteLen(p) bytes in big endian format.
+ *                    This buffer will only be written if #MCUXCLECC_STATUS_OK is returned.
+ *
+ * The function returns
+ *
+ *  - #MCUXCLECC_STATUS_OK               if the operation was successful.
+ *  - #MCUXCLECC_STATUS_INVALID_PARAMS   if the input parameters are invalid.
+ *  - #MCUXCLECC_STATUS_NEUTRAL_POINT    if k*P is the neutral point, i.e. k = 0.
+ *
+ * \implements{REQ_788268}
+ */
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by user / customer. Hence, it is declared but never referenced.")
+static mcuxClEcc_ArithmeticOperation_t mcuxClEcc_ArithmeticOperation_ScalarMult =
+  &mcuxClEcc_ArithOpDesc_ScalarMult;
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SCALARMULT */
 
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SECURESCALARMULT
+/**
+ * \brief ECC Arithmetic operation descriptor for scalar multiplication on a short Weierstrass curve secured against side-channel attacks
+ */
+extern const mcuxClEcc_ArithmeticOperationDescriptor_t mcuxClEcc_ArithOpDesc_SecureScalarMult;
+
+/**
+ * \brief ECC Arithmetic operation type for scalar multiplication on a short Weierstrass curve secured against side-channel attacks
+ *
+ * This type shall be passed to function mcuxClEcc_ArithmeticOperation in order to perform a scalar multiplication k*P secured against side-channel attacks
+ * on a short Weierstrass curve over prime p with base point order n.
+ *
+ * The parameters of the function shall be chosen as follows:
+ *
+ *  - pDomainParams:  Pointer to the domain parameters of the Weierstrass curve over p (of type mcuxClEcc_Weier_DomainParams_t)
+ *  - pOp1:           Pointer to buffer storing the scalar k.
+ *                    The scalar is an element of GF(n), i.e. 0 <= k < n, and given in big endian format.
+ *                    The passed parameter size op1Size must be smaller than or equal to byteLen(n).
+ *  - pOp2:           Pointer to buffer storing the coordinates x and y of P concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= x,y < p, and given by byteLen(p) bytes in big endian format.
+ *                    The passed parameter size op2Size must be 2*byteLen(p).
+ *  - pResult:        Point to buffer in which the coordinates xRes and yRes of the result k*P shall be stored concatenated.
+ *                    Both coordinates are elements of GF(p), i.e. 0 <= xRes,yRes < p, and given by byteLen(p) bytes in big endian format.
+ *                    This buffer will only be written if #MCUXCLECC_STATUS_OK is returned.
+ *
+ * The function returns
+ *
+ *  - #MCUXCLECC_STATUS_OK               if the operation was successful.
+ *  - #MCUXCLECC_STATUS_INVALID_PARAMS   if the input parameters are invalid.
+ *  - #MCUXCLECC_STATUS_NEUTRAL_POINT    if k*P is the neutral point, i.e. k = 0.
+ *
+ * \implements{REQ_788268}
+ */
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by user / customer. Hence, it is declared but never referenced.")
+static mcuxClEcc_ArithmeticOperation_t mcuxClEcc_ArithmeticOperation_SecureScalarMult =
+  &mcuxClEcc_ArithOpDesc_SecureScalarMult;
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SECURESCALARMULT */
 
 /** @} */ /* mcuxClEcc_ArithmeticOperation */
 

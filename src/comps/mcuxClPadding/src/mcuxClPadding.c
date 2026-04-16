@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClPadding.c
@@ -27,7 +27,7 @@
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 #include <internal/mcuxClPrng_Internal.h>
 
-#define MCUXCLPADDING_ISO_PADDING_BYTE (0x80u)
+#define MCUXCLPADDING_ISO_PADDING_BYTE (0x80U)
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClPadding_addPadding_None, mcuxClPadding_addPaddingMode_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_addPadding_None(
@@ -42,12 +42,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_addPadding_None(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPadding_addPadding_None);
 
-  if(0u != lastBlockLength)
+  if(0U != lastBlockLength)
   {
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
-  *pOutLength = 0u;
+  *pOutLength = 0U;
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPadding_addPadding_None);
 }
 
@@ -117,21 +117,21 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPadding_addPadding_ISO9797_1_Method1);
 
-  if((0u != totalInputLength) /* special case for zero-padding: add a padding block if totalInputLength is 0 */
-       && (0u == lastBlockLength))
+  if((0U != totalInputLength) /* special case for zero-padding: add a padding block if totalInputLength is 0 */
+       && (0U == lastBlockLength))
   {
     /* No padding needed */
     *pOutLength = 0;
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPadding_addPadding_ISO9797_1_Method1);
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1u, 16u, MCUXCLPADDING_STATUS_ERROR)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0u, blockLength - 1u, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1U, 16U, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0U, blockLength - 1U, MCUXCLPADDING_STATUS_ERROR)
   uint32_t paddingBytes = blockLength - lastBlockLength;
 
   MCUX_CSSL_DI_RECORD(memorySet, pOut + lastBlockLength);
   MCUX_CSSL_DI_RECORD(memorySet, paddingBytes);
-  MCUXCLMEMORY_SET_INT(pOut + lastBlockLength, 0x00u, paddingBytes);
+  MCUXCLMEMORY_SET_INT(pOut + lastBlockLength, 0x00U, paddingBytes);
 
   MCUX_CSSL_DI_RECORD(bufferRead, (uint32_t) pIn);
   MCUX_CSSL_DI_RECORD(bufferRead, inOffset);
@@ -198,18 +198,18 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   uint8_t *pOutPtr = (uint8_t *) pOut;
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1u, 16u, MCUXCLPADDING_STATUS_ERROR)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0u, blockLength - 1u, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1U, 16U, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0U, blockLength - 1U, MCUXCLPADDING_STATUS_ERROR)
 
   pOutPtr += lastBlockLength;
   *pOutPtr = MCUXCLPADDING_ISO_PADDING_BYTE;
   pOutPtr++;
 
-  uint32_t paddingBytes = blockLength - lastBlockLength - 1u;
+  uint32_t paddingBytes = blockLength - lastBlockLength - 1U;
 
   MCUX_CSSL_DI_RECORD(memorySet, pOutPtr);
   MCUX_CSSL_DI_RECORD(memorySet, paddingBytes);
-  MCUXCLMEMORY_SET_INT((uint8_t *) pOutPtr, 0x00u, paddingBytes);
+  MCUXCLMEMORY_SET_INT((uint8_t *) pOutPtr, 0x00U, paddingBytes);
   MCUX_CSSL_DI_RECORD(bufferRead, (uint32_t) pIn);
   MCUX_CSSL_DI_RECORD(bufferRead, inOffset);
   MCUX_CSSL_DI_RECORD(bufferRead, (uint32_t) pOut);
@@ -273,7 +273,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   /* DI balance the calls to the memory functions */
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, (uint32_t)pOut);
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, outOffset);
-  MCUX_CSSL_DI_RECORD(memoryFunctionCalls, 5u * (uint32_t)pIn);
+  MCUX_CSSL_DI_RECORD(memoryFunctionCalls, 5U * (uint32_t)pIn);
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(blockLength));
 
   if(lastBlockLength != blockLength)
@@ -281,17 +281,17 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1u, 16u, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1U, 16U, MCUXCLPADDING_STATUS_ERROR)
   MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
-  const uint8_t randomMaskByte = (uint8_t)(random32 & 0xFFu);
+  const uint8_t randomMaskByte = (uint8_t)(random32 & 0xFFU);
 
   MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT(pIn, pIn, randomMaskByte, MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(blockLength));
 
   /* check the last bytes of the block, there must be all zero bytes until we reach the padding byte */
   uint32_t remainingBytes = blockLength;
-  for(; remainingBytes > 0u; --remainingBytes)
+  for(; remainingBytes > 0U; --remainingBytes)
   {
-    uint8_t currentByte = pIn[remainingBytes - 1u];
+    uint8_t currentByte = pIn[remainingBytes - 1U];
     if((MCUXCLPADDING_ISO_PADDING_BYTE ^ randomMaskByte) == currentByte)
     {
       break;
@@ -304,13 +304,13 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     }
   }
 
-  if(0u == remainingBytes)
+  if(0U == remainingBytes)
   {
     /* padding error detected - padding byte not found */
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("the remainingBytes does not overflow as 1u <= remainingBytes <= blockLength")
+  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("the remainingBytes does not overflow as 1U <= remainingBytes <= blockLength")
   /* one more decrease for the padding byte */
   remainingBytes--;
   /* DI balance the use remainingBytes in the called memory functions*/
@@ -345,18 +345,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void)  mcuxClPadding_addPadding_PKCS7 (
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPadding_addPadding_PKCS7);
 
-  if((blockLength <= 1u) || (blockLength > 255u))
+  if((blockLength <= 1U) || (blockLength > 255U))
   {
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0u, blockLength, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0U, blockLength, MCUXCLPADDING_STATUS_ERROR)
   uint32_t paddingBytes = blockLength - lastBlockLength;
 
   /*The value of paddingBytes is between 0 and 255, so that it always fits in a uint8_t data type*/
   MCUX_CSSL_DI_RECORD(memorySet, pOut + lastBlockLength);
   MCUX_CSSL_DI_RECORD(memorySet, paddingBytes);
-  MCUXCLMEMORY_SET_INT(pOut + lastBlockLength, (uint8_t)(paddingBytes & 0xFFu), paddingBytes);
+  MCUXCLMEMORY_SET_INT(pOut + lastBlockLength, (uint8_t)(paddingBytes & 0xFFU), paddingBytes);
   MCUX_CSSL_DI_RECORD(bufferRead, (uint32_t) pIn);
   MCUX_CSSL_DI_RECORD(bufferRead, inOffset);
   MCUX_CSSL_DI_RECORD(bufferRead, (uint32_t) pOut);
@@ -385,7 +385,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_removePadding_PKCS7(
   /* DI balance the calls to the memory functions */
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, (uint32_t)pOut);
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, outOffset);
-  MCUX_CSSL_DI_RECORD(memoryFunctionCalls, 5u * (uint32_t)pIn);
+  MCUX_CSSL_DI_RECORD(memoryFunctionCalls, 5U * (uint32_t)pIn);
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(blockLength));
 
   if(lastBlockLength != blockLength)
@@ -393,24 +393,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_removePadding_PKCS7(
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1u, 16u, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(blockLength, 1U, 16U, MCUXCLPADDING_STATUS_ERROR)
   MCUX_CSSL_FP_FUNCTION_CALL(random32, mcuxClPrng_generate_word());
-  const uint8_t randomMaskByte = (uint8_t) (random32 & 0xFFu);
+  const uint8_t randomMaskByte = (uint8_t) (random32 & 0xFFU);
 
   MCUXCLMEMORY_SECURE_XOR_WITH_CONST_INT(pIn, pIn, randomMaskByte, MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(blockLength));
 
   /* last byte of the block - the amount of padding bytes to remove. Masked with mask. */
-  uint8_t byteCheckMasked = pIn[blockLength - 1u];
+  uint8_t byteCheckMasked = pIn[blockLength - 1U];
   uint8_t byteCheck = byteCheckMasked ^ randomMaskByte;
 
   /* Padding byte must be in [1, blockLength] as PKCS7 padding adds at least one byte, and at most one block of padding. */
-  if((0u == byteCheck) || (byteCheck > blockLength))
+  if((0U == byteCheck) || (byteCheck > blockLength))
   {
     MCUXCLSESSION_ERROR(session, MCUXCLPADDING_STATUS_ERROR);
   }
 
   /* check that the last byteCheck bytes in the last block are equal to byteCheck */
-  for(uint8_t i = byteCheck; i > 0u; i--)
+  for(uint8_t i = byteCheck; i > 0U; i--)
   {
     if(pIn[blockLength - i] != byteCheckMasked)
     {
@@ -420,7 +420,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_removePadding_PKCS7(
 
   /* copy remaining bytes to output */
   uint32_t remainingBytes = blockLength - (uint32_t)byteCheck;
-  MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(remainingBytes, 0u, blockLength, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(remainingBytes, 0U, blockLength, MCUXCLPADDING_STATUS_ERROR)
   /* DI balance the use remainingBytes in the called memory functions*/
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, remainingBytes);
   MCUX_CSSL_DI_RECORD(memoryFunctionCalls, MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(remainingBytes));
@@ -452,16 +452,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_addPadding_Random(
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPadding_addPadding_Random);
 
   /* Empty input - return */
-  if(0u == totalInputLength)
+  if(0U == totalInputLength)
   {
-    *pOutLength = 0u;
+    *pOutLength = 0U;
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPadding_addPadding_Random);
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0u, blockLength, MCUXCLPADDING_STATUS_ERROR)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockLength, 0U, blockLength, MCUXCLPADDING_STATUS_ERROR)
   uint32_t paddingBytes = blockLength - lastBlockLength;
 
-  if(0u != paddingBytes)
+  if(0U != paddingBytes)
   {
     MCUXCLBUFFER_INIT(pOutBuf, NULL, pOut + lastBlockLength, paddingBytes);
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate(session, pOutBuf, paddingBytes));
@@ -519,9 +519,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPadding_addPadding_Stream(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPadding_addPadding_Stream);
 
-  if(0u == lastBlockLength)
+  if(0U == lastBlockLength)
   {
-    *pOutLength = 0u;
+    *pOutLength = 0U;
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPadding_addPadding_Stream);
   }
 

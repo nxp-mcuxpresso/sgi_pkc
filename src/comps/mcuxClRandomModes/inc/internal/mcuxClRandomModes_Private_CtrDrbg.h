@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLRANDOMMODES_PRIVATE_CTRDRBG_H_
@@ -27,13 +27,26 @@ extern "C" {
 #define MCUXCLRANDOMMODES_BITSIZE_OF_WORD (sizeof(uint32_t) * 8u)
 
 /* Security strengths for CTR_DRBGs */
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
+#define MCUXCLRANDOMMODES_SECURITYSTRENGTH_CTR_DRBG_AES128 (128u)
+#define MCUXCLRANDOMMODES_SEEDLEN_CTR_DRBG_AES128 (32u)
+#define MCUXCLRANDOMMODES_RESEED_INTERVAL_CTR_DRBG_AES128 (0x0001000000000000u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+#define MCUXCLRANDOMMODES_SECURITYSTRENGTH_CTR_DRBG_AES192 (192u)
+#define MCUXCLRANDOMMODES_SEEDLEN_CTR_DRBG_AES192 (40u)
+#define MCUXCLRANDOMMODES_RESEED_INTERVAL_CTR_DRBG_AES192 (0x0001000000000000u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 #define MCUXCLRANDOMMODES_SECURITYSTRENGTH_CTR_DRBG_AES256 (256u)
 #define MCUXCLRANDOMMODES_SEEDLEN_CTR_DRBG_AES256 (48u)
 #define MCUXCLRANDOMMODES_RESEED_INTERVAL_CTR_DRBG_AES256 (0x0001000000000000u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 
 
+#ifdef MCUXCL_FEATURE_TRNG_SA_TRNG
 /*
  * Seed sizes for CTR_DRBGs chosen as follows:
  *  - Let the initial min seed size values be given by
@@ -46,18 +59,71 @@ extern "C" {
  *      - require the same number of TRNG entropy generation windows, and
  *      - result in the same number of AES block operations during the block cipher derivation function
  *      - ensure that the difference between INIT and RESEED seed sizes is at least 0.5 * security strength to ensure CAVP compatibility. */
+#if defined(MCUXCL_FEATURE_TRNG_SA_TRNG_512)
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_INIT_CTR_DRBG_AES128 (39u)
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_RESEED_CTR_DRBG_AES128  (23u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_INIT_CTR_DRBG_AES192 (55u)
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_RESEED_CTR_DRBG_AES192  (39u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 #define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_INIT_CTR_DRBG_AES256 (64u)
 #define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_RESEED_CTR_DRBG_AES256  (48u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 
+#elif defined(MCUXCL_FEATURE_TRNG_SA_TRNG_256)
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_INIT_CTR_DRBG_AES128 (32u)
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_RESEED_CTR_DRBG_AES128  (23u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_INIT_CTR_DRBG_AES192 (55u)
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_RESEED_CTR_DRBG_AES192  (32u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_INIT_CTR_DRBG_AES256 (64u)
+#define MCUXCLRANDOMMODES_ENTROPYINPUT_SIZE_RESEED_CTR_DRBG_AES256  (48u)
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
+
+#else // MCUXCL_FEATURE_TRNG_SA_TRNG_256 || MCUXCL_FEATURE_TRNG_SA_TRNG_512
+#error "When feature TRNG_SA_TRNG is included in the makefile, a variant TRNG_SA_TRNG_256 or TRNG_SA_TRNG_512 needs to be chosen."
+#endif // MCUXCL_FEATURE_TRNG_SA_TRNG_256 || MCUXCL_FEATURE_TRNG_SA_TRNG_512
+
+#else  // MCUXCL_FEATURE_TRNG_SA_TRNG || MCUXCL_FEATURE_TRNG_DIGI_TRNG
+#error "No supported TRNG variant is included in the makefile."
+#endif // MCUXCL_FEATURE_TRNG_SA_TRNG
 
 
 
 /* Internal context structures for CTR_DRBGs */
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
+/* Internal structure of a CTR_DRBG AES128 random context */
+typedef struct
+{
+    MCUXCLRANDOMMODES_CONTEXT_DRBG_ENTRIES
+    uint32_t key[MCUXCLAES_AES128_KEY_SIZE_IN_WORDS];
+    uint32_t counterV[MCUXCLAES_BLOCK_SIZE_IN_WORDS];
+} mcuxClRandomModes_Context_CtrDrbg_Aes128_t;
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+/* Internal structure of a CTR_DRBG AES192 random context */
+#define MCUXCLRANDOMMODES_CONTEXT_CTR_DRBG_AES192_SIZE_KEY_IN_WORDS (6u)
+typedef struct
+{
+    MCUXCLRANDOMMODES_CONTEXT_DRBG_ENTRIES
+    uint32_t key[MCUXCLRANDOMMODES_CONTEXT_CTR_DRBG_AES192_SIZE_KEY_IN_WORDS];
+    uint32_t counterV[MCUXCLAES_BLOCK_SIZE_IN_WORDS];
+} mcuxClRandomModes_Context_CtrDrbg_Aes192_t;
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 /* Internal structure of a CTR_DRBG AES256 random context */
 #define MCUXCLRANDOMMODES_CONTEXT_CTR_DRBG_AES256_SIZE_KEY_IN_WORDS (8u)
 typedef struct
@@ -66,6 +132,7 @@ typedef struct
     uint32_t key[MCUXCLRANDOMMODES_CONTEXT_CTR_DRBG_AES256_SIZE_KEY_IN_WORDS];
     uint32_t counterV[MCUXCLAES_BLOCK_SIZE_IN_WORDS];
 } mcuxClRandomModes_Context_CtrDrbg_Aes256_t;
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 
 #define MCUXCLRANDOMMODES_CONTEXT_CTR_DRBG_MAX_SIZE_KEY_IN_WORDS (8u)
 typedef struct
@@ -270,9 +337,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_AES_CompleteBlockEnc
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRandomModes_CtrDrbg_incV)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRandomModes_CtrDrbg_incV(mcuxClSession_Handle_t pSession);
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
+extern const mcuxClRandomModes_DrbgVariantDescriptor_t mcuxClRandomModes_DrbgVariantDescriptor_CtrDrbg_AES128;
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
+extern const mcuxClRandomModes_DrbgVariantDescriptor_t mcuxClRandomModes_DrbgVariantDescriptor_CtrDrbg_AES192;
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_192
 
+#ifdef MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 extern const mcuxClRandomModes_DrbgVariantDescriptor_t mcuxClRandomModes_DrbgVariantDescriptor_CtrDrbg_AES256;
+#endif // MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256
 
 #ifdef __cplusplus
 } /* extern "C" */

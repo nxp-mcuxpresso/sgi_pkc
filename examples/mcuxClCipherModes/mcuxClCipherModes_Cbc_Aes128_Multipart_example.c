@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -30,36 +30,36 @@
 #include <mcuxClExample_RNG_Helper.h>
 
 static const uint8_t plain[64] = {
-    0x61u, 0x62u, 0x63u, 0x64u, 0x65u, 0x66u, 0x67u, 0x68u,
-    0x69u, 0x6Au, 0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u,
-    0x62u, 0x63u, 0x64u, 0x65u, 0x66u, 0x67u, 0x68u, 0x69u,
-    0x6Au, 0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u,
-    0x63u, 0x64u, 0x65u, 0x66u, 0x67u, 0x68u, 0x69u, 0x6Au,
-    0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u, 0x72u,
-    0x64u, 0x65u, 0x66u, 0x67u, 0x68u, 0x69u, 0x6Au, 0x6Bu,
-    0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u, 0x72u, 0x73u,
+    0x61U, 0x62U, 0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U,
+    0x69U, 0x6AU, 0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U,
+    0x62U, 0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U,
+    0x6AU, 0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U,
+    0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U, 0x6AU,
+    0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U, 0x72U,
+    0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U, 0x6AU, 0x6BU,
+    0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U, 0x72U, 0x73U,
 };
 
 /* CBC encrypted data */
 static const uint8_t encryptedRef[64] = {
-    0xe6u, 0xd4u, 0xe7u, 0xdau, 0x9eu, 0x63u, 0xc6u, 0x67u,
-    0xfbu, 0xa0u, 0x43u, 0x2au, 0xadu, 0x45u, 0x4bu, 0x7du,
-    0xf2u, 0xb7u, 0x91u, 0x4eu, 0x89u, 0xe1u, 0x07u, 0xe1u,
-    0xa0u, 0x0eu, 0xe2u, 0x52u, 0xccu, 0xbau, 0xbbu, 0x1fu,
-    0x69u, 0x4au, 0x00u, 0xe4u, 0x2eu, 0x89u, 0xfbu, 0x43u,
-    0x79u, 0x8bu, 0x28u, 0x38u, 0x6bu, 0x7cu, 0xecu, 0x7fu,
-    0x64u, 0xa0u, 0x83u, 0xedu, 0xccu, 0xc7u, 0x70u, 0x70u,
-    0x2du, 0xaeu, 0xc9u, 0x28u, 0xd7u, 0x9du, 0x77u, 0x43u
+    0xe6U, 0xd4U, 0xe7U, 0xdaU, 0x9eU, 0x63U, 0xc6U, 0x67U,
+    0xfbU, 0xa0U, 0x43U, 0x2aU, 0xadU, 0x45U, 0x4bU, 0x7dU,
+    0xf2U, 0xb7U, 0x91U, 0x4eU, 0x89U, 0xe1U, 0x07U, 0xe1U,
+    0xa0U, 0x0eU, 0xe2U, 0x52U, 0xccU, 0xbaU, 0xbbU, 0x1fU,
+    0x69U, 0x4aU, 0x00U, 0xe4U, 0x2eU, 0x89U, 0xfbU, 0x43U,
+    0x79U, 0x8bU, 0x28U, 0x38U, 0x6bU, 0x7cU, 0xecU, 0x7fU,
+    0x64U, 0xa0U, 0x83U, 0xedU, 0xccU, 0xc7U, 0x70U, 0x70U,
+    0x2dU, 0xaeU, 0xc9U, 0x28U, 0xd7U, 0x9dU, 0x77U, 0x43U
 };
 
 static const uint8_t iv[16] = {
-    0x7Au, 0x79u, 0x78u, 0x77u, 0x76u, 0x75u, 0x74u, 0x73u,
-    0x72u, 0x71u, 0x70u, 0x6Fu, 0x6Eu, 0x6Du, 0x6Cu, 0x6Bu,
+    0x7AU, 0x79U, 0x78U, 0x77U, 0x76U, 0x75U, 0x74U, 0x73U,
+    0x72U, 0x71U, 0x70U, 0x6FU, 0x6EU, 0x6DU, 0x6CU, 0x6BU,
 };
 
 static const uint8_t keyBytes[16] = {
-    0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u, 0x72u,
-    0x73u, 0x74u, 0x75u, 0x76u, 0x77u, 0x78u, 0x79u, 0x7Au,
+    0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U, 0x72U,
+    0x73U, 0x74U, 0x75U, 0x76U, 0x77U, 0x78U, 0x79U, 0x7AU,
 };
 
 MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
@@ -76,7 +76,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
 
 
   /* Allocate and initialize session */
-  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLCIPHERMODES_CPU_WA, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0u);
+  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLCIPHERMODES_CPU_WA, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0U);
 
   /* Initialize the PRNG */
   MCUXCLEXAMPLE_INITIALIZE_PRNG(session);
@@ -104,8 +104,8 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
   /* Encryption                                                             */
   /**************************************************************************/
 
-  uint32_t outLength = 0u;
-  uint32_t encryptedSize = 0u;
+  uint32_t outLength = 0U;
+  uint32_t encryptedSize = 0U;
   uint8_t encryptedData[sizeof(encryptedRef)];
 
   /* Create a buffer for the context */
@@ -138,7 +138,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
-    /* uint32_t inLength:                     */ sizeof(plain) / 2u,
+    /* uint32_t inLength:                     */ sizeof(plain) / 2U,
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -153,7 +153,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
   encryptedSize += outLength;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
-  MCUXCLBUFFER_UPDATE(plainBuf, sizeof(plain)/2u);
+  MCUXCLBUFFER_UPDATE(plainBuf, sizeof(plain)/2U);
   MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep2_status, ep2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
@@ -161,7 +161,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
-    /* uint32_t inLength:                     */ sizeof(plain) - sizeof(plain) / 2u,
+    /* uint32_t inLength:                     */ sizeof(plain) - sizeof(plain) / 2U,
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -201,7 +201,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
   /* Decryption                                                             */
   /**************************************************************************/
 
-  uint32_t decryptedSize = 0u;
+  uint32_t decryptedSize = 0U;
   uint8_t decryptedData[sizeof(plain)];
 
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(di_status, di_token, mcuxClCipher_init_decrypt(
@@ -228,7 +228,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
     /* mcuxClCipher_Context_t * const pContext:*/ ctx,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ (mcuxCl_InputBuffer_t)encryptedDataBuf,
-    /* uint32_t inLength:                     */ encryptedSize / 3u,
+    /* uint32_t inLength:                     */ encryptedSize / 3U,
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)
   );
@@ -243,7 +243,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
   decryptedSize += outLength;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
-  MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize / 3u);
+  MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize / 3U);
   MCUXCLBUFFER_UPDATE(decryptedDataBuf, decryptedSize);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp2_status, dp2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
@@ -252,7 +252,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_example)
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()
     /* mcuxCl_InputBuffer_t pIn:               */ (mcuxCl_InputBuffer_t)encryptedDataBuf,
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("Calculation does not wrap")
-    /* uint32_t inLength:                     */ encryptedSize - encryptedSize / 3u,
+    /* uint32_t inLength:                     */ encryptedSize - encryptedSize / 3U,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
     /* mcuxCl_Buffer_t pOut:                   */ decryptedDataBuf,
     /* uint32_t * const outLength:            */ &outLength)

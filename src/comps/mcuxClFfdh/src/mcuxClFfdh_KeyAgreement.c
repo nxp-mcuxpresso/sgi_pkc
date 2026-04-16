@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -84,7 +84,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
 
   /* mcuxClFfdh_CpuWa_t will be allocated and placed in the beginning of CPU workarea free space by SetupEnvironment. */
   mcuxClFfdh_CpuWa_t *pCpuWorkarea = mcuxClFfdh_castToFfdhCpuWorkArea(mcuxClSession_getEndOfUsedBuffer_Internal(pSession));
-  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, 0u));
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, 0U));
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClFfdh_SetupEnvironment(pSession, pDomainParameters));
 
   const uint32_t lenP = pDomainParameters->lenP;
@@ -147,10 +147,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_KeyAgreement(
 
   /* Clear PKC workarea. */
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("wordNumCpuWa is limited by FFDH_WAPKC_SIZE define and does not overflow")
-  MCUXCLPKC_PS1_SETLENGTH(0u, pCpuWorkarea->wordNumPkcWa * sizeof(uint32_t));
+  MCUXCLPKC_PS1_SETLENGTH(0U, pCpuWorkarea->wordNumPkcWa * sizeof(uint32_t));
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
   pOperands[FFDH_UPTRTINDEX_P] = MCUXCLPKC_PTR2OFFSET(pPkcWorkarea);
-  MCUXCLPKC_FP_CALC_OP1_CONST(FFDH_UPTRTINDEX_P, 0u);
+  MCUXCLPKC_FP_CALC_OP1_CONST(FFDH_UPTRTINDEX_P, 0U);
 
   mcuxClSession_freeWords_pkcWa(pSession, pCpuWorkarea->wordNumPkcWa);
   MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);

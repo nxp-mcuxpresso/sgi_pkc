@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClToolchain.h>
@@ -29,7 +29,9 @@
 #include <mcuxCsslDataIntegrity.h>
 #include <mcuxClCore_FunctionIdentifiers.h>
 #include <mcuxClBuffer.h>
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 #include <internal/mcuxClDma_Resource.h>
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 #include <internal/mcuxClAes_Internal_Functions.h>
 
 
@@ -100,6 +102,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_loadKeyAndIvtoSgi(
                         pCtx->protectionToken_setupIV));
 }
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_requestDmaChannelsAndConfigureJobContext(
   mcuxClSession_Handle_t session,
@@ -130,4 +133,5 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_requestDmaChannelsAndConfigu
     2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_request)
   );
 }
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 

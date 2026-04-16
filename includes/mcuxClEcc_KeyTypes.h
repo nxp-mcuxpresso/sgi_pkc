@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -35,6 +35,7 @@ extern "C" {
  * @{
  */
 
+#ifdef MCUXCL_FEATURE_ECC_SECPK1_CURVES
 /***********************************************/
 /* Key types for secp160k1                     */
 /***********************************************/
@@ -178,6 +179,8 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_secp256k1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_secp256k1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#endif /* MCUXCL_FEATURE_ECC_SECPK1_CURVES */
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 /***********************************************/
 /* Key types for secp192r1                     */
 /***********************************************/
@@ -250,8 +253,9 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp22
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_secp224r1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_secp224r1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* defined(ECC_SECPR1_CURVES) || defined(ECC_NISTPR1_CURVES) || defined(ECC_ANSIX9P_CURVES) */
 
-
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 /***********************************************/
 /* Key types for secp256r1                     */
 /***********************************************/
@@ -287,8 +291,9 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp25
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_secp256r1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_secp256r1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* defined(ECC_SECPR1_CURVES) || defined(ECC_NISTPR1_CURVES) || defined(ECC_ANSIX9P_CURVES) || defined(ECC_ECCKI) */
 
-
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 /***********************************************/
 /* Key types for secp384r1                     */
 /***********************************************/
@@ -324,8 +329,9 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_WeierECC_secp38
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_secp384r1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_secp384r1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* defined(ECC_SECPR1_CURVES) || defined(ECC_NISTPR1_CURVES) || defined(ECC_ANSIX9P_CURVES) || defined(ECC_ECCKI) */
 
-
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 /***********************************************/
 /* Key types for secp521r1                     */
 /***********************************************/
@@ -435,8 +441,9 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_NIST_P224_Priv = &mcuxClKey_TypeDescriptor_WeierECC_NIST_P224_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES) */
 
-
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 /***********************************************/
 /* Key types for NIST P-256                    */
 /***********************************************/
@@ -472,7 +479,9 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_NIST_P256_Priv = &mcuxClKey_TypeDescriptor_WeierECC_NIST_P256_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* defined(ECC_SECPR1_CURVES) || defined(ECC_NISTPR1_CURVES) || defined(ECC_ANSIX9P_CURVES) || defined(ECC_ECCKI) */
 
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 
 /***********************************************/
 /* Key types for NIST P-384                    */
@@ -509,8 +518,9 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_NIST_P384_Priv = &mcuxClKey_TypeDescriptor_WeierECC_NIST_P384_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES) || defined(MCUXCL_FEATURE_ECC_ECCKI) */
 
-
+#if defined(MCUXCL_FEATURE_ECC_SECPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_NISTPR1_CURVES) || defined(MCUXCL_FEATURE_ECC_ANSIX9P_CURVES)
 /***********************************************/
 /* Key types for NIST P-521                    */
 /***********************************************/
@@ -547,6 +557,8 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_NIST_P521_Priv = &mcuxClKey_TypeDescriptor_WeierECC_NIST_P521_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#endif /* defined(SECPR1_CURVES) || defined(NISTPR1_CURVES) || defined(ANSIX9P_CURVES) */
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES
 
 /***********************************************/
 /* Key types for brainpoolP160r1               */
@@ -806,6 +818,8 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_brainpoolP512r1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_brainpoolP512r1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#endif /* MCUXCL_FEATURE_ECC_BRAINPOOLR1_CURVES */
+#ifdef MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES
 
 /***********************************************/
 /* Key types for brainpoolP160t1               */
@@ -1065,6 +1079,7 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_WeierECC_brainpoolP512t1_Priv = &mcuxClKey_TypeDescriptor_WeierECC_brainpoolP512t1_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#endif /* #ifdef MCUXCL_FEATURE_ECC_BRAINPOOLT1_CURVES */
 
 /***********************************************/
 /* Key types for Ed25519                       */
@@ -1098,6 +1113,7 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_EdDSA_Ed25519_Pub = &mcuxClKey_TypeDescriptor_EdDSA_Ed25519_Pub;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#ifdef MCUXCL_FEATURE_ECC_CURVE25519
 
 /***********************************************/
 /* Key types for Curve25519                    */
@@ -1136,6 +1152,8 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static const mcuxClKey_Type_t mcuxClKey_Type_Ecc_MontDH_Curve25519_PublicKey = &mcuxClKey_TypeDescriptor_Ecc_MontDH_Curve25519_PublicKey;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#endif /* MCUXCL_FEATURE_ECC_CURVE25519 */
+#ifdef MCUXCL_FEATURE_ECC_CURVE448
 
 /***********************************************/
 /* Key types for Curve448                      */
@@ -1172,6 +1190,7 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_Ecc_MontDH_Curve448_PublicKey = &mcuxClKey_TypeDescriptor_Ecc_MontDH_Curve448_PublicKey;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_ECC_CURVE448 */
 
 /**
  * @}
@@ -1213,6 +1232,7 @@ static mcuxClKey_Generation_t mcuxClKey_Generation_ECDSA =
   &mcuxClKey_GenerationDescriptor_ECDSA;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 /**
  * @brief EdDSA Key generation algorithm descriptor
  *
@@ -1231,7 +1251,9 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static mcuxClKey_Generation_t mcuxClKey_Generation_EdDSA_GeneratePrivKey =
   &mcuxClKey_GenerationDescriptor_EdDSA_GeneratePrivKey;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 /**
  * @brief MontDH Key generation algorithm descriptor
  *
@@ -1253,6 +1275,7 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcu
 static mcuxClKey_Generation_t mcuxClKey_Generation_MontDH =
   &mcuxClKey_GenerationDescriptor_MontDH;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_ECC_MONTDH */
 
 /**
  * @}
@@ -1283,6 +1306,7 @@ static mcuxClKey_Agreement_t mcuxClKey_Agreement_ECDH =
   &mcuxClKey_AgreementDescriptor_ECDH;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 /**
  * @brief MontDH Key agreement algorithm descriptor
  */
@@ -1298,6 +1322,7 @@ static mcuxClKey_Agreement_t mcuxClKey_Agreement_MontDH =
   &mcuxClKey_AgreementDescriptor_MontDH;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
+#endif /* MCUXCL_FEATURE_ECC_MONTDH */
 
 /**
  * @}
@@ -1344,21 +1369,6 @@ MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
  * @}
  */ /* mcuxClEcc_KeyValidationDescriptors */
 
-/**
- * @}
- */ /* mcuxClEcc_KeyDerivationDescriptors */
-
-/**
- * @defgroup mcuxClEcc_KeyDerivationDescriptors mcuxClEcc_KeyDerivationDescriptors
- * @brief Definitions of ECC related key derivation algorithm descriptors
- * @ingroup mcuxClEcc_Descriptors
- * @{
- */
-
-
-/**
- * @}
- */ /* mcuxClEcc_KeyDerivationDescriptors */
 
 #ifdef __cplusplus
 } /* extern "C" */

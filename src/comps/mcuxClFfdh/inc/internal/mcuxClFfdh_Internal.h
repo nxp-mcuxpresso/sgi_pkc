@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -101,13 +101,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(
  * @brief This function loads and validates public key.
  *
  * @param[in] pSession        Handle for the current CL session
- * @param[in] publicKey       Public key handle
+ * @param[in] publicKey       Public key handle (word-aligned)
  * @param[in] pCpuWorkarea    Pointer to initialized Ffdh CPU workarea (via mcuxClFfdh_SetupEnvironment).
  * @param[in] pExpTemp        Pointer to the temporary buffer can be in either CPU or PKC workarea:
  *                            - If it is in CPU workarea: It shall be CPU word aligned, and its length
  *                              shall be a multiple of CPU word and greater than operandLength
  *                            - If it is in PKC workarea: It shall be PKC word aligned, and its length shall be
- *                              MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(operandLength + 1u)
+ *                              MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(operandLength + 1U)
  *
  * Prerequisites:
  * - ps1Len = (operandSize, operandSize)

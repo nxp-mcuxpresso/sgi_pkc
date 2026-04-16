@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021, 2023-2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_TestPQDistance.c
@@ -52,7 +52,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPQDistance(uint32_
   mcuxClRsa_Status_t status = MCUXCLRSA_STATUS_INVALID_INPUT;
 
   /* Backup Uptrt to recover in the end */
-  const uint16_t *backupPtrUptrt = MCUXCLPKC_GETUPTRT();
+  const uint16_t *pBackupPtrUptrt = MCUXCLPKC_GETUPTRT();
 
   /* Backup Ps1 length to recover in the end */
   uint32_t backupPs1LenReg = MCUXCLPKC_PS1_GETLENGTH_REG();
@@ -60,22 +60,22 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPQDistance(uint32_
   /* Create and set local Uptrt table. */
   uint16_t pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_UPTRT_SIZE];
 
-  const uint32_t pkcOperandLen = 128u / 8u;
+  const uint32_t pkcOperandLen = 128U / 8U;
   const uint32_t pkcPrimeLen = primeByteLength;
   MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pkcPrimeLen, MCUXCLRSA_MIN_MODLEN / 2U, MCUXCLRSA_MAX_MODLEN / 2U, MCUXCLRSA_STATUS_INVALID_INPUT)
 
   /* Get iP, iQ and iT indices */
-  uint32_t uptrtIndexP = (iP_iQ_iT >> 16) & 0xFFu;
-  uint32_t uptrtIndexQ = (iP_iQ_iT >> 8) & 0xFFu;
-  uint32_t uptrtIndexT = (iP_iQ_iT) & 0xFFu;
+  uint32_t uptrtIndexP = (iP_iQ_iT >> 16) & 0xFFU;
+  uint32_t uptrtIndexQ = (iP_iQ_iT >> 8) & 0xFFU;
+  uint32_t uptrtIndexT = (iP_iQ_iT) & 0xFFU;
 
-  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_P128MSB] = (uint16_t)((backupPtrUptrt[uptrtIndexP] + pkcPrimeLen - pkcOperandLen) & 0xFFFFu); /* offset to the 128 MSbits */
-  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_Q128MSB] = (uint16_t)((backupPtrUptrt[uptrtIndexQ] + pkcPrimeLen - pkcOperandLen) & 0xFFFFu); /* offset to the 128 MSbits */
-  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1] = backupPtrUptrt[uptrtIndexT];
-  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T2] = (uint16_t)((pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1] + pkcOperandLen) & 0xFFFFu);
-  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_RAND] = (uint16_t)((pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T2] + pkcOperandLen) & 0xFFFFu);
+  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_P128MSB] = (uint16_t)((pBackupPtrUptrt[uptrtIndexP] + pkcPrimeLen - pkcOperandLen) & 0xFFFFU); /* offset to the 128 MSbits */
+  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_Q128MSB] = (uint16_t)((pBackupPtrUptrt[uptrtIndexQ] + pkcPrimeLen - pkcOperandLen) & 0xFFFFU); /* offset to the 128 MSbits */
+  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1] = pBackupPtrUptrt[uptrtIndexT];
+  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T2] = (uint16_t)((pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1] + pkcOperandLen) & 0xFFFFU);
+  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_RAND] = (uint16_t)((pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T2] + pkcOperandLen) & 0xFFFFU);
   /* Set shift value (128b-100b = 27b) */
-  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_CONSTANT28] = 28u;
+  pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_CONSTANT28] = 28U;
 
   uint8_t * pRand = MCUXCLPKC_OFFSET2PTR(pOperands[MCUXCLRSA_INTERNAL_TESTPQDISTANCE_RAND]);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPrng_generate_Internal(pRand, pkcOperandLen));
@@ -99,7 +99,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPQDistance(uint32_
 
   /* Recover Ps1 length and Uptrt*/
   MCUXCLPKC_PS1_SETLENGTH_REG(backupPs1LenReg);
-  MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+  MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_TestPQDistance, status,
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal),

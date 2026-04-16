@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClCipher_Functions.h
@@ -54,6 +54,7 @@ extern "C" {
  *  - Output data buffer, with the same size as the input data
  *  - Output size buffer, to store the amount of written bytes
  */
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * This function supports non-blocking operation modes. If a non-blocking mode
  * is used, this function starts the operation and returns while coprocessors
@@ -62,9 +63,10 @@ extern "C" {
  * coprocessors finished processing the data.
  * Call @ref mcuxClResource_handle_interrupt to complete this operation.
  */
+#endif
 /**
  * @param      session    Handle for the current CL session.
- * @param      key        Key to be used to encrypt the data.
+ * @param      key        Key to be used to encrypt the data (word-aligned).
  * @param      mode       Cipher mode that should be used during the encryption
  *                        operation.
  * @param[in]  pIv        Pointer to the buffer that contains the IV or salt,
@@ -90,6 +92,7 @@ extern "C" {
  * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
  */
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @retval MCUXCLCIPHER_STATUS_JOB_STARTED     Non-blocking Cipher operation started successfully
  * @retval MCUXCLCIPHER_STATUS_JOB_COMPLETED   Non-blocking Cipher operation successful
@@ -102,9 +105,10 @@ extern "C" {
  * be used as an indicator, where only @ref MCUXCLCIPHER_STATUS_JOB_STARTED
  * indicates that a non-blocking operation has started.
  */
+#endif
 /**
  * @attention When used with stream modes or RSA modes, the function uses PRNG, which has to be initialized prior to calling the function.
- * \implements{REQ_788206}
+ * @implements{REQ_788206}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipher_encrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_encrypt(
@@ -135,6 +139,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_encrypt(
  *  - Output data buffer, with the same size as the input data
  *  - Output size buffer, to store the amount of written bytes
  */
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * This function supports non-blocking operation modes. If a non-blocking mode
  * is used, this function starts the operation and returns while coprocessors
@@ -143,9 +148,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_encrypt(
  * coprocessors finished processing the data.
  * Call @ref mcuxClResource_handle_interrupt to complete this operation.
  */
+#endif
 /**
  * @param      session    Handle for the current CL session.
- * @param      key        Key to be used to decrypt the data.
+ * @param      key        Key to be used to decrypt the data (word-aligned).
  * @param      mode       Cipher mode that should be used during the decryptionu
  *                        operation.
  * @param[in]  pIv        Pointer to the buffer that contains the IV or salt,
@@ -171,6 +177,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_encrypt(
  * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
  */
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @retval MCUXCLCIPHER_STATUS_JOB_STARTED     Non-blocking Cipher operation started successfully
  * @retval MCUXCLCIPHER_STATUS_JOB_COMPLETED   Non-blocking Cipher operation successful
@@ -183,9 +190,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_encrypt(
  * be used as an indicator, where only @ref MCUXCLCIPHER_STATUS_JOB_STARTED
  * indicates that a non-blocking operation has started.
  */
+#endif
 /**
  * @attention When used with stream modes or RSA modes, the function uses PRNG, which has to be initialized prior to calling the function.
- * \implements{REQ_788206}
+ * @implements{REQ_788206}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipher_decrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
@@ -200,6 +208,33 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
   uint32_t * const pOutLength
 );
 
+#ifdef MCUXCL_FEATURE_CIPHER_SELFTEST
+/**
+ * @brief encryption and decryption selftest function
+ * @api
+ *
+ * This function performs encryption and decryption selftest operation.
+ * The algorithm to be used will be determined based on the mode and test that is
+ * provided.
+ *
+ * For example, to perform an SM2 encryption and decryption selftest operation, the
+ * following needs to be provided:
+ *  - SM2 mode
+ *  - mcuxClOsccaSm2_Test for selftest mode
+ *
+ * @param      session    Handle for the current CL session.
+ * @param      mode       Cipher mode that should be used during the selftest
+ * @param      test       Cipher selftest mode that should be used during the selftest
+ *                        operation.
+ * @return A code-flow protected error code (see @ref mcuxCsslFlowProtection)
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipher_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClCipher_Mode_t mode,
+  mcuxClCipher_Test_t test
+);
+#endif /* MCUXCL_FEATURE_CIPHER_SELFTEST */
 
 
 /**
@@ -214,8 +249,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
  *
  * @param      session  Handle for the current CL session.
  * @param      pContext Cipher context which is used to maintain the state and
- *                      store other relevant information about the operation.
- * @param      key      Key to be used to encrypt the data.
+ *                      store other relevant information about the operation (word-aligned).
+ * @param      key      Key to be used to encrypt the data (word-aligned).
  * @param      mode     Cipher mode that should be used during the encryption
  *                      operation.
  * @param[in]  pIv      Pointer to the buffer that contains the IV, if needed
@@ -237,7 +272,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_decrypt(
  */
 /**
  * 
- * \implements{REQ_788203,REQ_788205}
+ * @implements{REQ_788203,REQ_788205}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipher_init_encrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_encrypt(
@@ -261,8 +296,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_encrypt(
  *
  * @param      session  Handle for the current CL session.
  * @param      pContext Cipher context which is used to maintain the state and
- *                      store other relevant information about the operation.
- * @param      key      Key to be used to encrypt the data.
+ *                      store other relevant information about the operation (word-aligned).
+ * @param      key      Key to be used to encrypt the data (word-aligned).
  * @param      mode     Cipher mode that should be used during the encryption
  *                      operation.
  * @param[in]  pIv      Pointer to the buffer that contains the IV, if needed
@@ -284,7 +319,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_encrypt(
  */
 /**
  * 
- * \implements{REQ_788203,REQ_788205}
+ * @implements{REQ_788203,REQ_788205}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipher_init_decrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_decrypt(
@@ -308,6 +343,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_decrypt(
  * Data is processed in full blocks only. Remaining data is stored in the context
  * to be handled in later process or finish calls.
  */
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * This function supports non-blocking operation modes. If a non-blocking mode
  * was used during @ref mcuxClCipher_init, this function starts the operation
@@ -316,10 +352,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_decrypt(
  * the information that the coprocessors finished processing the data.
  * Call @ref mcuxClResource_handle_interrupt to complete this operation.
  */
+#endif
 /**
  * @param      session    Handle for the current CL session.
  * @param      pContext   Cipher context which is used to maintain the state and
- *                        store other relevant information about the operation.
+ *                        store other relevant information about the operation (word-aligned).
  * @param[in]  pIn        Pointer to the input buffer that contains the data that
  *                        needs to be processed.
  * @param      inLength   Number of bytes of data in the @p pIn buffer.
@@ -334,6 +371,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_decrypt(
  * @retval MCUXCLCIPHER_STATUS_FAILURE         Functional failure ocurred during Cipher operation
  * @retval MCUXCLCIPHER_STATUS_INVALID_INPUT   An invalid parameter was given to the function
  * @retval MCUXCLCIPHER_STATUS_FAULT_ATTACK    Fault attack detected */
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @retval MCUXCLCIPHER_STATUS_JOB_STARTED     Non-blocking Cipher operation started successfully
  * @retval MCUXCLCIPHER_STATUS_JOB_COMPLETED   Non-blocking Cipher operation successful
@@ -346,8 +384,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_init_decrypt(
  * be used as an indicator, where only @ref MCUXCLCIPHER_STATUS_JOB_STARTED
  * indicates that a non-blocking operation has started.
  * 
- * \implements{REQ_788203,REQ_788205}
+ * @implements{REQ_788203,REQ_788205}
  */
+#endif
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipher_process)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_process(
   mcuxClSession_Handle_t session,
@@ -370,7 +409,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_process(
  *
  * @param      session    Handle for the current CL session.
  * @param      pContext   Cipher context which is used to maintain the state and
- *                        store other relevant information about the operation.
+ *                        store other relevant information about the operation (word-aligned).
  * @param[out] pOut       Pointer to the output buffer where the processed data
  *                        needs to be written.
  * @param[out] pOutLength Will be set to the number of bytes of processed
@@ -385,7 +424,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_process(
  *
  * @attention When used with stream modes, the function uses PRNG, which has to be initialized prior to calling the function.
  * 
- * \implements{REQ_788203,REQ_788205}
+ * @implements{REQ_788203,REQ_788205}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClCipher_finish)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipher_finish(

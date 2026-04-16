@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClToolchain.h>
@@ -61,6 +61,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
 /* Helper functions */
 
+#ifndef MCUXCL_FEATURE_MACMODES_SGI_CMAC_SUB_KEYS
 /**
  * @brief Internal function, which shifts the buffer pointed to by pSrc by one bit to the left, conditionally
  * XORs MCUXCLMACMODES_AES_CMAC_RB_CONST and stores the result in a buffer pointed to by pDst.
@@ -77,7 +78,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_ShiftLeftXorRb(uint32_t*
   /* multiplication GF(2) */
   /* Dst = Src << 1  */
 
-  uint8_t constRB = 0u;
+  uint8_t constRB = 0U;
 
   /* Test MSB of L := AES-128(K, const_zero); if it is one, XOR with MCUXCLMACMODES_AES_CMAC_RB_CONST  */
   if(MCUXCLMACMODES_AES_CMAC_MSB_MASK == (pSrc[0] & MCUXCLMACMODES_AES_CMAC_MSB_MASK))
@@ -86,18 +87,19 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_ShiftLeftXorRb(uint32_t*
   }
 
   MCUX_CSSL_FP_LOOP_DECL(loopShiftLeftXorRb);
-  for(uint32_t i = 0u; i < 3u ; ++i)
+  for(uint32_t i = 0U; i < 3U ; ++i)
   {
-    pDst[i] = (pSrc[i] << 1u) | (pSrc[i + 1u] >> ((sizeof(uint32_t) * 8u) - 1u));
+    pDst[i] = (pSrc[i] << 1U) | (pSrc[i + 1U] >> ((sizeof(uint32_t) * 8U) - 1U));
     MCUX_CSSL_FP_LOOP_ITERATION(loopShiftLeftXorRb);
   }
 
-  pDst[3] = (pSrc[3]  << 1u) ^ constRB;
+  pDst[3] = (pSrc[3]  << 1U) ^ constRB;
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMacModes_ShiftLeftXorRb,
     MCUX_CSSL_FP_LOOP_ITERATIONS(loopShiftLeftXorRb, 3U)
   );
 }
+#endif
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMacModes_CmacGenerateSubKeys)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CmacGenerateSubKeys(mcuxClSession_Handle_t session, mcuxClMacModes_WorkArea_t* pWa, uint32_t option)
@@ -125,9 +127,33 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CmacGenerateSubKeys(mcuxClSessi
   /* wait for finish */
   mcuxClSgi_Drv_wait();
 
+#ifdef MCUXCL_FEATURE_MACMODES_SGI_CMAC_SUB_KEYS
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
+    MCUXCLSGI_DRV_CTRL_END_UP                  |
+    MCUXCLSGI_DRV_CTRL_ENC                     |
+    MCUXCLSGI_DRV_CTRL_INSEL_DATOUT            |
+    MCUXCLSGI_DRV_CTRL_OUTSEL_RES              |
+    MCUXCLSGI_DRV_CTRL_CMAC));
+
+  /* wait for finish */
+  mcuxClSgi_Drv_wait();
+
+  if(MCUXCLMACMODES_AES_CMAC_K1_AND_K2 == option)
+  {
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_start(
+      MCUXCLSGI_DRV_CTRL_END_UP                |
+      MCUXCLSGI_DRV_CTRL_ENC                   |
+      MCUXCLSGI_DRV_CTRL_INSEL_DATOUT          |
+      MCUXCLSGI_DRV_CTRL_OUTSEL_RES            |
+      MCUXCLSGI_DRV_CTRL_CMAC));
+
+    /* wait for finish */
+    mcuxClSgi_Drv_wait();
+  }
+#else /* MCUXCL_FEATURE_MACMODES_SGI_CMAC_SUB_KEYS */
   uint32_t *subKey = (uint32_t *)pWa->algoWa.subKey; /* temporary buffer for shift subkey*/
 
-  MCUX_CSSL_DI_RECORD(sgiStore, 2u * ((uint32_t)(MCUXCLSGI_DRV_DATOUT_OFFSET) + (uint32_t)(subKey) + 16u) );
+  MCUX_CSSL_DI_RECORD(sgiStore, 2U * ((uint32_t)(MCUXCLSGI_DRV_DATOUT_OFFSET) + (uint32_t)(subKey) + 16U) );
 
   /* Store result of encryption to temp buffer */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, (uint8_t *)(subKey)));
@@ -143,6 +169,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CmacGenerateSubKeys(mcuxClSessi
 
   /* Store subkey back to DATOUT */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATOUT_OFFSET, (uint8_t *)(subKey)));
+#endif // MCUXCL_FEATURE_MACMODES_SGI_CMAC_SUB_KEYS
 
   MCUX_CSSL_FP_FUNCTION_CALL(retSetByteOrder2, mcuxClSgi_Drv_setByteOrder(MCUXCLSGI_DRV_BYTE_ORDER_LE));
   (void)retSetByteOrder2;
@@ -152,11 +179,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_CmacGenerateSubKeys(mcuxClSessi
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_setByteOrder),
     (4U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_loadWord)),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+#ifdef MCUXCL_FEATURE_MACMODES_SGI_CMAC_SUB_KEYS
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start),
+    MCUX_CSSL_FP_CONDITIONAL((MCUXCLMACMODES_AES_CMAC_K1_AND_K2 == option),
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_start)),
+#else
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_ShiftLeftXorRb),
     MCUX_CSSL_FP_CONDITIONAL((MCUXCLMACMODES_AES_CMAC_K1_AND_K2 == option),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_ShiftLeftXorRb)),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock),
+#endif // MCUXCL_FEATURE_MACMODES_SGI_CMAC_SUB_KEYS
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_setByteOrder)
   );
 }
@@ -177,13 +210,13 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_computeCMAC_balancingFP(
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_loadZeroIV),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_engine),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock)),
-    MCUX_CSSL_FP_CONDITIONAL(((0u != noOfBytesToProcess) && (0u == (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE))),
+    MCUX_CSSL_FP_CONDITIONAL(((0U != noOfBytesToProcess) && (0U == (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE))),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_CmacGenerateSubKeys),
       MCUX_CSSL_FP_CONDITIONAL((MCUXCLAES_BLOCK_SIZE != noOfBytesToProcess),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableXorWrite)),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock)),
 
-    MCUX_CSSL_FP_CONDITIONAL(((0u == noOfBytesToProcess) || (0u != (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE))),
+    MCUX_CSSL_FP_CONDITIONAL(((0U == noOfBytesToProcess) || (0U != (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE))),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_CmacGenerateSubKeys),
       MCUX_CSSL_FP_CONDITIONAL((MCUXCLAES_BLOCK_SIZE < noOfBytesToProcess),
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_enableXorWrite)),
@@ -223,7 +256,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
 
   uint32_t inputOffset = 0U;
   uint32_t noOfBytesToProcess = inLength;
-  uint32_t inLengthInBlocks = (inLength + (MCUXCLAES_BLOCK_SIZE - 1u)) / MCUXCLAES_BLOCK_SIZE;
+  uint32_t inLengthInBlocks = (inLength + (MCUXCLAES_BLOCK_SIZE - 1U)) / MCUXCLAES_BLOCK_SIZE;
   MCUX_CSSL_FP_FUNCTION_CALL(sfrSeed, mcuxClPrng_generate_word());
 
   /* processing full blocks without last block*/
@@ -231,7 +264,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
   {
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET));
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)mcuxClSgi_Drv_getAddr(MCUXCLSGI_DRV_DATOUT_OFFSET));
-    MCUX_CSSL_DI_RECORD(sgiLoad, 16u);
+    MCUX_CSSL_DI_RECORD(sgiLoad, 16U);
 
     uint32_t lenInBlocksLocal = (inLengthInBlocks-1U);
     /* Load all-zero IV to DATOUT */
@@ -262,12 +295,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
    * 3) Xor (potentially padded) last input block onto DATIN0 using SGI XorWrite.
    * 4) Start SGI operation, xoring subkey from DATOUT onto DATIN0 using INSEL_DATIN0_XOR_DATOUT.
    */
-  if((0u != noOfBytesToProcess) && (0u == (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE))) /* Remaining data is a single AES block. No padding needed. */
+  if((0U != noOfBytesToProcess) && (0U == (noOfBytesToProcess % MCUXCLAES_BLOCK_SIZE))) /* Remaining data is a single AES block. No padding needed. */
   {
     /* Record load input */
     MCUX_CSSL_DI_RECORD(sgiLoad, MCUXCLSGI_DRV_DATIN0_OFFSET);
     MCUX_CSSL_DI_RECORD(sgiLoad, (pIn + inputOffset));
-    MCUX_CSSL_DI_RECORD(sgiLoad, 16u);
+    MCUX_CSSL_DI_RECORD(sgiLoad, 16U);
     /* Generate subkey */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_CmacGenerateSubKeys(session, workArea, MCUXCLMACMODES_AES_CMAC_K1_ONLY));
 
@@ -287,7 +320,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
     /* Record load input */
     MCUX_CSSL_DI_RECORD(sgiLoad, (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET));
     MCUX_CSSL_DI_RECORD(sgiLoad, workArea->sgiWa.paddingBuff);
-    MCUX_CSSL_DI_RECORD(sgiLoad, 16u);
+    MCUX_CSSL_DI_RECORD(sgiLoad, 16U);
     /* Generate subkeys */
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_CmacGenerateSubKeys(session,workArea, MCUXCLMACMODES_AES_CMAC_K1_AND_K2));
 
@@ -303,8 +336,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_computeCMAC(
     * the final input computation.
     */
 
-    uint32_t pOutLen = 0u;
-    uint32_t remainingBytes = (uint32_t)(noOfBytesToProcess & (MCUXCLAES_BLOCK_SIZE - 1u));
+    uint32_t pOutLen = 0U;
+    uint32_t remainingBytes = (uint32_t)(noOfBytesToProcess & (MCUXCLAES_BLOCK_SIZE - 1U));
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->addPadding(session,
                                                      MCUXCLAES_BLOCK_SIZE,
                                                      pIn,
@@ -365,11 +398,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC(
 
   /* Determine input size (including data accumulated in context). */
   uint32_t blockBufferUsed = pContext->blockBufferUsed;
-  MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(inputLen, 0u, UINT32_MAX - blockBufferUsed, MCUXCLMAC_STATUS_INVALID_PARAM)
+  MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(inputLen, 0U, UINT32_MAX - blockBufferUsed, MCUXCLMAC_STATUS_INVALID_PARAM)
   uint32_t inLengthFullBlocks = (inputLen + blockBufferUsed) / MCUXCLAES_BLOCK_SIZE;
-  uint32_t inLengthRemainder = (inputLen + blockBufferUsed) & (MCUXCLAES_BLOCK_SIZE - 1u);
+  uint32_t inLengthRemainder = (inputLen + blockBufferUsed) & (MCUXCLAES_BLOCK_SIZE - 1U);
 
-  if (0u < inLength)
+  if (0U < inLength)
   {
     if(pContext->totalInput > (UINT32_MAX - inLength))
     {
@@ -377,16 +410,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC(
     }
     pContext->totalInput += inLength;
 
-    uint32_t inputOffset = 0u;
+    uint32_t inputOffset = 0U;
     /*
      * The last block has to be XORed with subkey.
      * Thus do not process a full last block but put it to accumulation buffer to be processed in finalize step.
      */
-    if (0u == inLengthRemainder)
+    if (0U == inLengthRemainder)
     {
-      inLengthFullBlocks = (inLengthFullBlocks - 1u);
+      inLengthFullBlocks = (inLengthFullBlocks - 1U);
       inLengthRemainder = MCUXCLAES_BLOCK_SIZE;
-      if (0u < inLengthFullBlocks)
+      if ((0U < inLengthFullBlocks) && (MCUXCLAES_BLOCK_SIZE <= inLength))
       {
         inLength -= MCUXCLAES_BLOCK_SIZE;
       }
@@ -398,7 +431,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC(
                          MCUXCLSGI_DRV_CTRL_ENC                     |
                          pContext->keyContext.sgiCtrlKey;
 
-    if (0u < inLengthFullBlocks)
+    if (0U < inLengthFullBlocks)
     {
       MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_process_preTag_calculation(
         session,
@@ -412,10 +445,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC(
     }
 
     /* Save the last full block to context buffer */
-    if ((MCUXCLAES_BLOCK_SIZE == inLengthRemainder) || (0u == inLengthFullBlocks))
+    if ((MCUXCLAES_BLOCK_SIZE == inLengthRemainder) || (0U == inLengthFullBlocks))
     {
-      MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(pContext->blockBufferUsed, 0u, MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
-      MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(inLengthRemainder - pContext->blockBufferUsed, 0u, MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
+      MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(pContext->blockBufferUsed, 0U, MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
+      MCUX_CSSL_ANALYSIS_COVERITY_ASSERT(inLengthRemainder - pContext->blockBufferUsed, 0U, MCUXCLAES_BLOCK_SIZE, MCUXCLMAC_STATUS_INVALID_PARAM)
       MCUX_CSSL_DI_RECORD(mcuxClBuffer_read_secure, pIn);
       MCUX_CSSL_DI_RECORD(mcuxClBuffer_read_secure, inputOffset);
       MCUX_CSSL_DI_RECORD(mcuxClBuffer_read_secure, &((uint8_t *)pContext->blockBuffer)[pContext->blockBufferUsed]);
@@ -432,11 +465,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMacModes_updateCMAC(
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClMacModes_updateCMAC, MCUXCLMAC_STATUS_OK,
     MCUX_CSSL_FP_CONDITIONAL(
-      ((0u < inputLen) && (0u < inLengthFullBlocks)),
+      ((0U < inputLen) && (0U < inLengthFullBlocks)),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMacModes_process_preTag_calculation)
     ),
     MCUX_CSSL_FP_CONDITIONAL(
-      ((0u < inputLen) && ((MCUXCLAES_BLOCK_SIZE == inLengthRemainder) || (0u == inLengthFullBlocks))),
+      ((0U < inputLen) && ((MCUXCLAES_BLOCK_SIZE == inLengthRemainder) || (0U == inLengthFullBlocks))),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read_secure)
     )
   );
@@ -496,7 +529,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMacModes_finalizeCMAC(
     /* Record load input */
     MCUX_CSSL_DI_RECORD(sgiLoad, workArea->sgiWa.paddingBuff);
 
-    uint32_t pOutLen = 0u;
+    uint32_t pOutLen = 0U;
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->addPadding(session,
                                                      MCUXCLAES_BLOCK_SIZE,
                                                      paddingInBuffer,

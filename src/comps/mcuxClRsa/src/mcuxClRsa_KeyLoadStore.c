@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_KeyLoadStore.c
@@ -60,7 +60,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_PlainKey_Plain(mcuxClSession
   else
   {
     uint8_t const * pSrc = NULL;
-    uint32_t length = 0u;
+    uint32_t length = 0U;
     uint8_t * pDst = *ppDest;
     MCUX_CSSL_DI_EXPUNGE(inputParamsPpDest, ppDest);
 
@@ -225,7 +225,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyLoad_CrtKey_Plain(mcuxClSession_H
   else
   {
     uint8_t const * pSrc = NULL;
-    uint32_t length = 0u;
+    uint32_t length = 0U;
     uint8_t * pDst = *ppDest;
     MCUX_CSSL_DI_EXPUNGE(inputParamsPpDest, ppDest);
 
@@ -390,7 +390,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_KeyStore_PrivCrtKey_Plain(mcuxClSess
   else
   {
     pRsaPrivCrtKeyDst->e.pKeyEntryData = NULL;
-    pRsaPrivCrtKeyDst->e.keyEntryLength = 0u;
+    pRsaPrivCrtKeyDst->e.keyEntryLength = 0U;
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_KeyStore_PrivCrtKey_Plain,
@@ -411,8 +411,8 @@ const mcuxClKey_EncodingDescriptor_t mcuxClRsa_EncodingDescriptor_PrivPlainKey_P
                                                                          NULL,
                                                                          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_KeyLoad_PlainKey_Plain),
                                                                          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_KeyStore_PrivPlainKey_Plain),
-                                                                         0u,
-                                                                         0u};
+                                                                         0U,
+                                                                         0U};
 
 /**
  * @brief Plain encoding descriptor for RSA public keys.
@@ -423,8 +423,8 @@ const mcuxClKey_EncodingDescriptor_t mcuxClRsa_EncodingDescriptor_PublicKey_Plai
                                                                          NULL,
                                                                          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_KeyLoad_PlainKey_Plain),
                                                                          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_KeyStore_PublicKey_Plain),
-                                                                         0u,
-                                                                         0u};
+                                                                         0U,
+                                                                         0U};
 /**
  * @brief Plain encoding descriptor for RSA private CRT keys.
  */
@@ -434,6 +434,6 @@ const mcuxClKey_EncodingDescriptor_t mcuxClRsa_EncodingDescriptor_PrivCrtKey_Pla
                                                                          NULL,
                                                                          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_KeyLoad_CrtKey_Plain),
                                                                          MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_KeyStore_PrivCrtKey_Plain),
-                                                                         0u,
-                                                                         0u};
+                                                                         0U,
+                                                                         0U};
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

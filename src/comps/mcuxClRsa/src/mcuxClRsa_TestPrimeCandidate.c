@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_TestPrimeCandidate.c
@@ -51,7 +51,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
 
     mcuxClRsa_Status_t status = MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_CMP_FAILED;
 
-    const uint32_t primeByteLength = keyBitLength/8u/2u;
+    const uint32_t primeByteLength = keyBitLength/8U/2U;
     const uint32_t pkcOperandSize = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(primeByteLength);
 
     /* Backup Ps1 length and UPTRT, resore them when returning */
@@ -60,8 +60,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
     uint32_t bakPs2LenReg = MCUXCLPKC_PS2_GETLENGTH_REG();
 
     /* Get iNumToCmp and iA0 indices */
-    const uint32_t uptrtIndexNumToCmp = (iNumToCmp_iA0 >> 8u) & 0xFFu;
-    const uint32_t uptrtIndexA0 = iNumToCmp_iA0 & 0xFFu;
+    const uint32_t uptrtIndexNumToCmp = (iNumToCmp_iA0 >> 8U) & 0xFFU;
+    const uint32_t uptrtIndexA0 = iNumToCmp_iA0 & 0xFFU;
 
     /* Share the area with mcuxClRsa_MillerRabinTest*/
     const uint32_t pkcWaSizeWord = MCUXCLRSA_INTERNAL_TESTPRIMECANDIDATE_WAPKC_SIZE(primeByteLength) / (sizeof(uint32_t));
@@ -76,6 +76,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
     MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
+    MCUXCLPKC_WAITFORREADY();
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_E] = MCUXCLPKC_PTR2OFFSET(pE->pKeyEntryData);
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CANDIDATE] = MCUXCLPKC_PTR2OFFSET(pPrimeCandidate->pKeyEntryData);
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CANDIDATE_64MOST] = MCUXCLPKC_PTR2OFFSET(pPrimeCandidate->pKeyEntryData + pkcOperandSize - MCUXCLRSA_PKC_WORDSIZE);
@@ -83,16 +84,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_A0] = bakUPTRT[uptrtIndexA0];
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1] = MCUXCLPKC_PTR2OFFSET(pGCD1);
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2] = MCUXCLPKC_PTR2OFFSET(pGCD2);
-    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT0] = 0u;
-    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT1] = 1u;
-    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT2] = 2u;
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT0] = 0U;
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT1] = 1U;
+    pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT2] = 2U;
 
     /* Set UPTRT table */
-    MCUXCLPKC_WAITFORREADY();
     MCUXCLPKC_SETUPTRT(pOperands);
 
     MCUXCLPKC_PS1_SETLENGTH(pkcOperandSize, pkcOperandSize);
-    MCUXCLPKC_PS2_SETLENGTH(0u, MCUXCLRSA_PKC_WORDSIZE);
+    MCUXCLPKC_PS2_SETLENGTH(0U, MCUXCLRSA_PKC_WORDSIZE);
 
     MCUX_CSSL_FP_COUNTER_STMT(uint32_t primeCandidateChecks = 0U); /* flag for prime candidate checks */
 
@@ -145,7 +145,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_TestPrimeCandidate(
         *
         * Used functions: mcuxClRsa_MillerRabinTest
         */
-        uint32_t  iP_iT = (MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CANDIDATE << 8u) | MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1;
+        uint32_t  iP_iT = (MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CANDIDATE << 8U) | MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1;
         MCUX_CSSL_FP_FUNCTION_CALL(retTest, mcuxClRsa_MillerRabinTest(pSession, iP_iT, keyBitLength, numberTestIterations));
         status = (mcuxClRsa_Status_t) retTest;
     }while (false);

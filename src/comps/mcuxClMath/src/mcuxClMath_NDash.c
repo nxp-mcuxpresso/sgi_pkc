@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2024, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -30,7 +30,6 @@
 #include <internal/mcuxClMath_Internal_Functions.h>
 
 
-
 /**
  * [Design]
  * This function calculates NDash = (-n)^(-1) mod 256^(MCUXCLPKC_WORDSIZE),
@@ -42,15 +41,19 @@
  * x_{i+1} \equiv 2*xi + xi^2 * n = (xi * n + 2) * xi (mod 2^(2^(i+1))).
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_NDash)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_NDash(uint16_t iN_iT)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_NDash(mcuxClSession_Handle_t pSession, uint16_t iN_iT)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_NDash);
 
     /* Prepare local UPTRT. */
-    uint16_t pOperands[NDASH_UPTRT_SIZE];
-    const uint16_t *backupPtrUptrt;
+    uint32_t mathLocalUptrtWordOffset = MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(NDASH_UPTRT_OFFSET * sizeof(uint16_t));
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Casting 32-bit pointer to 16-bit pointer is 16-bit aligned")
+    uint16_t * const pOperands = (uint16_t*)(pSession->pMathUptrt + mathLocalUptrtWordOffset);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+    const uint16_t *pBackupPtrUptrt;
     /* mcuxClMath_InitLocalUptrt always returns _OK. */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt((uint32_t) iN_iT, 0, pOperands, 2u, &backupPtrUptrt));
+    /* localPtrUptrt parameter of mcuxClMath_InitLocalUptrt starts at pOperands + NDASH_T. */
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt((uint32_t) iN_iT, 0U, pOperands, 2u, &pBackupPtrUptrt));
 
     const uint16_t offsetN = pOperands[NDASH_N];
     /* ASSERT: operand N (length >= MCUXCLPKC_WORDSIZE) is within PKC workarea, and 1 PKC word is reserved before N. */
@@ -74,8 +77,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_NDash(uint16_t iN_iT)
 
     /* Restore pUptrt. */
     MCUXCLPKC_WAITFORREADY();
-    MCUXCLPKC_SETUPTRT(backupPtrUptrt);
-
+    MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
 
 #if (16u == MCUXCLPKC_WORDSIZE)
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_NDash,

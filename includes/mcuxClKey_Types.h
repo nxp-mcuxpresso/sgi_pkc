@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2024, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -86,7 +86,7 @@ typedef struct mcuxClKey_Descriptor mcuxClKey_Descriptor_t;
 /**
  * @brief Key handle type
  *
- * This type is used to refer to the opaque key descriptor.
+ * This type is used to refer to the opaque key descriptor, the pointer must be word-aligned.
  */
 typedef mcuxClKey_Descriptor_t * const mcuxClKey_Handle_t;
 
@@ -177,6 +177,31 @@ typedef struct mcuxClKey_AgreementDescriptor mcuxClKey_AgreementDescriptor_t;
 typedef const mcuxClKey_AgreementDescriptor_t * const mcuxClKey_Agreement_t;
 
 
+#ifdef MCUXCL_FEATURE_KEY_SELFTEST
+
+/**
+ * @brief Key selftest descriptor structure
+ *
+ * This structure captures all the information that the Key interfaces need to
+ * know about a particular Key selftest algorithm.
+ */
+struct mcuxClKey_TestDescriptor;
+
+/**
+ * @brief Key selftest descriptor type
+ *
+ * This type captures all the information that the Key interfaces need to know
+ * about a particular Key selftest algorithm.
+ */
+typedef struct mcuxClKey_TestDescriptor mcuxClKey_TestDescriptor_t;
+
+/**
+ * @brief Key selftest type
+ *
+ * This type is used to refer to a Key selftest algorithm.
+ */
+typedef const mcuxClKey_TestDescriptor_t * const mcuxClKey_Test_t;
+#endif /* MCUXCL_FEATURE_KEY_SELFTEST */
 /**
  * @brief Key generation descriptor structure
  *
@@ -200,6 +225,73 @@ typedef struct mcuxClKey_GenerationDescriptor mcuxClKey_GenerationDescriptor_t;
  */
 typedef const mcuxClKey_GenerationDescriptor_t * const mcuxClKey_Generation_t;
 
+#ifdef MCUXCL_FEATURE_KEY_DERIVATION
+/**
+ * @brief Key derivation algorithm descriptor structure
+ */
+struct mcuxClKey_DerivationAlgorithmDescriptor;
+
+/**
+ * @brief Key derivation algorithm descriptor type
+ */
+typedef struct mcuxClKey_DerivationAlgorithmDescriptor mcuxClKey_DerivationAlgorithmDescriptor_t;
+
+/**
+ * @brief Key derivation algorithm type
+ */
+typedef const mcuxClKey_DerivationAlgorithmDescriptor_t * const mcuxClKey_DerivationAlgorithm_t;
+
+/**
+ * @brief Generic key derivation input.
+ */
+struct mcuxClKey_DerivationInput {
+  mcuxCl_InputBuffer_t input;
+  uint32_t size;
+};
+
+/**
+ * @brief Type of generic key derivation input.
+ */
+typedef struct mcuxClKey_DerivationInput mcuxClKey_DerivationInput_t;
+
+/**
+ * @brief Forward declaration for generic key derivation function descriptor structure.
+ *
+ * This structure captures all the information that the Key interfaces need to
+ * know about a particular Key derivation algorithm.
+ */
+struct mcuxClKey_DerivationMode;
+
+/**
+ * @brief Generic key derivation function descriptor type.
+ *
+ * This descriptor captures all the information that the Key interfaces need to know
+ * about a particular Key derivation algorithm.
+ */
+typedef struct mcuxClKey_DerivationMode mcuxClKey_DerivationMode_t;
+
+/**
+ * @brief Generic key derivation function type.
+ *
+ * This type captures all the information that the Key interfaces need to know
+ * about a particular Key derivation algorithm.
+ */
+typedef const mcuxClKey_DerivationMode_t * mcuxClKey_Derivation_t;
+
+/**
+ * \brief Key type structure for keys with variable length.
+ *
+ */
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_derivationKey_variableLength;
+
+/**
+ * \brief Key type pointer for keys with variable length.
+ */
+
+MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by user / customer. Hence, it is declared but never referenced. ")
+static const mcuxClKey_Type_t mcuxClKey_Type_derivationKey_variableLength = &mcuxClKey_TypeDescriptor_derivationKey_variableLength;
+MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_KEY_DERIVATION */
 
 /**
  * @brief Forward declaration for generic key validation descriptor structure.

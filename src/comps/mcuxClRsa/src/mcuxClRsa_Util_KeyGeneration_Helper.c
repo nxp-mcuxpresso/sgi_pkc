@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Util_KeyGeneration_Helper.c
@@ -55,7 +55,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_Util_KeyGeneration_Init_Common);
 
   const uint32_t bitLenKey = mcuxClKey_getSize(pubKey);
-  const uint32_t byteLenKey = bitLenKey / 8u;
+  const uint32_t byteLenKey = bitLenKey / 8U;
 
   /*
    * Check entropy provided by RNG
@@ -85,7 +85,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
    * Check whether the public key data container has enough space.
   */
   const uint32_t pubKeyContainerSize = mcuxClKey_getKeyContainerSize(pubKey);
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pByteLenE, 3u, 32u, MCUXCLRSA_STATUS_INVALID_INPUT /* e is in the range 2^16 < e < 2^256 */)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pByteLenE, 3U, 32U, MCUXCLRSA_STATUS_INVALID_INPUT /* e is in the range 2^16 < e < 2^256 */)
   if(MCUXCLRSA_KEYGENERATION_PUBLIC_KEY_DATA_SIZE(byteLenKey, *pByteLenE) > pubKeyContainerSize)
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
@@ -126,7 +126,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
    * Check whether the private key data container has enough space.
    */
   const uint32_t bitLenKey = mcuxClKey_getSize(pubKey);
-  const uint32_t byteLenKey = bitLenKey / 8u;
+  const uint32_t byteLenKey = bitLenKey / 8U;
   const uint32_t privKeyContainerSize = mcuxClKey_getKeyContainerSize(privKey);
   const mcuxClKey_AlgorithmId_t privKeyUsage = mcuxClKey_getKeyUsage(privKey);
 
@@ -179,7 +179,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
    * Check whether the private key data container has enough space.
    */
   const uint32_t bitLenKey = mcuxClKey_getSize(pubKey);
-  const uint32_t byteLenKey = bitLenKey / 8u;
+  const uint32_t byteLenKey = bitLenKey / 8U;
   const uint32_t privKeyContainerSize = mcuxClKey_getKeyContainerSize(privKey);
 
   if(MCUXCLRSA_INTERNAL_KEYGENERATION_KEYPAIR_PLAIN_DATA_SIZE(byteLenKey) > privKeyContainerSize)
@@ -208,10 +208,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_VerifyKey(
     uint32_t pkcWaSize = (MCUXCLKEY_ALGO_ID_PRIVATE_KEY == privKeyUsage) ?
                           MCUXCLRSA_KEYGENERATION_PLAIN_WAPKC_SIZE(bitLenKey) :
                           MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE(bitLenKey);
-    MCUXCLPKC_PS1_SETLENGTH(0u, pkcWaSize);
+    MCUXCLPKC_PS1_SETLENGTH(0U, pkcWaSize);
     uint16_t *pOperands = MCUXCLPKC_GETUPTRT();
     pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_VERIFYKEY_PKCWA] = MCUXCLPKC_PTR2OFFSET(pPkcWorkarea);
-    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_VERIFYKEY_PKCWA, 0u);
+    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_VERIFYKEY_PKCWA, 0U);
 
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_VerifyKey,

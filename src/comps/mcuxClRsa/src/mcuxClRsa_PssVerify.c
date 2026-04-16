@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_PssVerify.c
@@ -41,46 +41,6 @@
 #include <internal/mcuxClRsa_Internal_Macros.h>
 #include <internal/mcuxClRsa_Internal_MemoryConsumption.h>
 
-
-/**
- * @brief This function checks the lengths of pssVerify inputs, as well as the value of the first and the last padding bytes.
- *
- * @param       keyBitLength        Key length in bit
- * @param[in]   hLen                Hash function output length
- * @param[out]  sLen                EMSA-PSS salt length
- * @param[in]   emLen               Encoded message length
- * @param[in]   pEm                 Pointer to encoded message
- *
- * @return statusCode
- * @retval MCUXCLRSA_STATUS_OK             Is returned when checks are passing.
- * @retval MCUXCLRSA_STATUS_VERIFY_FAILED  Is returned when checks are not passing.
- */
-MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_pssVerify_sizeAndBytes_check)
-static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify_sizeAndBytes_check(
-  uint32_t keyBitLength,
-  uint32_t hLen,
-  uint32_t sLen,
-  uint32_t emLen,
-  uint8_t * pEm
-)
-{
-  MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClRsa_pssVerify_sizeAndBytes_check);
-
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(hLen, MCUXCLRSA_HASH_MIN_SIZE, MCUXCLRSA_HASH_MAX_SIZE, MCUXCLRSA_STATUS_INVALID_INPUT)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(emLen, hLen + 1U, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
-  /* Step 3: If BYTE_LENGTH(keyBitLength) < (pHashAlgo->hashSize + saltlabelLength + 2)
-   * return MCUXCLRSA_STATUS_VERIFY_FAILED else continue operation. */
-  /* The constraint on sLen for FIPS186-5 is always met, so no additional check is needed. In step 10, we check that the zero-padding has the expected length w.r.t. sLen. */
-  /* Step 4: Check if the rightmost octet of Em (after endianness switch) has hexadecimal value 0xbc.*/
-  /* Step 6: Check if 8*emLen-emBits leftmost bits (after endianness switch) equal to zero. Note that, as keyBitLength is a multiple of 8, 8 * emLen - emBits = 1 bit.*/
-
-  if(((hLen < sLen)) || (emLen < (hLen + sLen + 2U)) || (0xbcU != pEm[emLen - 1U]) || (0U != (*pEm & 0x80u)))
-  {
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pssVerify_sizeAndBytes_check, MCUXCLRSA_STATUS_VERIFY_FAILED);
-  }
-
-  MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pssVerify_sizeAndBytes_check, MCUXCLRSA_STATUS_OK);
-}
 
   #define FP_RSA_PSSVERIFY_COMPARISON MCUXCLMEMORY_COMPARE_SECURE_INT_FP_EXPECT
 
@@ -153,15 +113,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify(
    * Copy pInput to buffer mHash. */
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pMHash);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, hLen);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pInput, 0u, pMHash, hLen));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pInput, 0U, pMHash, hLen));
 
-  /* Steps 3, 4 and 6:
-   * - Check sizes, including for FIPS compliance
-   * - Check if the rightmost octet of EM has hexadecimal value 0xbc
-   * - Check if the leftmost 8*emLen-emBits bits of maskedDB are equal to zero */
+  /* Step 3: If BYTE_LENGTH(keyBitLength) < (pHashAlgo->hashSize + saltlabelLength + 2)
+   * return MCUXCLRSA_STATUS_VERIFY_FAILED else continue operation. */
+  /* The constraint on sLen for FIPS186-5 is always met, so no additional check is needed. In step 10, we check that the zero-padding has the expected length w.r.t. sLen. */
+  /* Step 4: Check if the rightmost octet of Em (after endianness switch) has hexadecimal value 0xbc.*/
+  /* Step 6: Check if 8*emLen-emBits leftmost bits (after endianness switch) equal to zero. Note that, as keyBitLength is a multiple of 8, 8 * emLen - emBits = 1 bit.*/
 
-  MCUX_CSSL_FP_FUNCTION_CALL(internalRetStatus, mcuxClRsa_pssVerify_sizeAndBytes_check(keyBitLength, hLen, sLen, emLen, pEm));
-  if(MCUXCLRSA_STATUS_OK != internalRetStatus)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(hLen, MCUXCLRSA_HASH_MIN_SIZE, MCUXCLRSA_HASH_MAX_SIZE, MCUXCLRSA_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(emLen, hLen + 1U, MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+
+  if(((hLen < sLen)) || (emLen < (hLen + sLen + 2U)) || (0xbcU != pEm[emLen - 1U]) || (0U != (pEm[0] & 0x80u)))
   {
     /* Normal exit with MCUXCLRSA_STATUS_VERIFY_FAILED */
     mcuxClSession_freeWords_pkcWa(pSession, wordSizePkcWa);
@@ -169,11 +132,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify(
     MCUX_CSSL_DI_EXPUNGE(verifyPadMsg, pVerificationInput);
     MCUX_CSSL_DI_RECORD(verifyRetCode, MCUXCLRSA_STATUS_VERIFY_FAILED);
 
-    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pssVerify, internalRetStatus,
+    MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_pssVerify, MCUXCLRSA_STATUS_VERIFY_FAILED,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pssVerify_sizeAndBytes_check)
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read)
     );
   }
 
@@ -197,26 +159,26 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify(
   MCUX_CSSL_DI_EXPUNGE(verifyMaskedDB, (uint32_t) maskedDB);
 
   /* Step 9: Set the leftmost 8emLen - emBits bits of the leftmost octet in DB to zero. */
-  pDB[0] &= 0x7Fu;
+  pDB[0] &= 0x7FU;
 
   /* Step 10 */
   /* Check (DB(0 : BYTE_LENGTH(keyBitLength) - pHashAlgo->hashSize - saltlabelLength - 2) == [0x00, ..., 0x00])
    * and that (DB(BYTE_LENGTH(keyBitLength) - pHashAlgo->hashSize - saltlabelLength - 1) == 0x01) ? */
-  uint32_t counterZeros = 0u;
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(emLen, (hLen + sLen + 2u), MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
-  const uint32_t padding2Length = emLen - hLen - sLen - 2u;
+  uint32_t counterZeros = 0U;
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(emLen, (hLen + sLen + 2U), MCUXCLRSA_MAX_MODLEN, MCUXCLRSA_STATUS_INVALID_INPUT)
+  const uint32_t padding2Length = emLen - hLen - sLen - 2U;
   MCUX_CSSL_FP_LOOP_DECL(loop2);
-  for(uint32_t i = 0u; i < padding2Length; ++i)
+  for(uint32_t i = 0U; i < padding2Length; ++i)
   {
-    if(0u == pDB[i])
+    if(0U == pDB[i])
     {
-      MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(counterZeros, 0u, padding2Length, MCUXCLRSA_STATUS_INVALID_INPUT)
+      MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(counterZeros, 0U, padding2Length, MCUXCLRSA_STATUS_INVALID_INPUT)
       ++counterZeros;
     }
     MCUX_CSSL_FP_LOOP_ITERATION(loop2);
-    MCUX_CSSL_DI_RECORD(verifyPaddingLoop, 1u);
+    MCUX_CSSL_DI_RECORD(verifyPaddingLoop, 1U);
   }
-  if((counterZeros != padding2Length) || (0x01u != pDB[padding2Length]))
+  if((counterZeros != padding2Length) || (0x01U != pDB[padding2Length]))
   {
     /* Normal exit with MCUXCLRSA_STATUS_VERIFY_FAILED */
     mcuxClSession_freeWords_pkcWa(pSession, wordSizePkcWa);
@@ -230,7 +192,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify(
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pssVerify_sizeAndBytes_check),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_mgf1),
         MCUXCLMEMORY_XOR_INT_FP_EXPECT,
         MCUX_CSSL_FP_LOOP_ITERATIONS(loop2, padding2Length)
@@ -249,7 +210,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify(
   MCUXCLMEMORY_CLEAR_INT(pMprim, padding1Length);
 
   /* Step 13: HPrime = Hash(mPrime) */
-  uint32_t hashOutputSize = 0u;
+  uint32_t hashOutputSize = 0U;
   MCUXCLBUFFER_INIT_RO(pMprimBuf, NULL, pMprim, padding1Length);
   MCUXCLBUFFER_INIT(pHprimBuf, NULL, pHprim, hLen);
   MCUX_CSSL_FP_FUNCTION_CALL(
@@ -297,7 +258,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_pssVerify(
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_reversed_int),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_pssVerify_sizeAndBytes_check),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClRsa_mgf1),
       MCUXCLMEMORY_XOR_INT_FP_EXPECT,
       MCUX_CSSL_FP_LOOP_ITERATIONS(loop2, padding2Length),

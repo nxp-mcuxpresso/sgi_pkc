@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Public.c
@@ -77,10 +77,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   const uint32_t bufferSizeT1 = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenN);
   const uint32_t bufferSizeT2 = MCUXCLRSA_INTERNAL_BUFF_SIZE(byteLenN);
 
-  /* Setup session. */
-  const uint32_t bufferSizeTotal = MCUXCLRSA_INTERNAL_PUBLIC_WAPKC_SIZE(byteLenN);
-  const uint32_t pkcWaSizeWord = MCUXCLRSA_INTERNAL_PUBLIC_WAPKC_SIZE(byteLenN) / (sizeof(uint32_t));
-  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaSizeWord));
+  /* The CPU WA layout is:
+  * +-------------+------------------------+
+  * | Math UPTRT  | RSA Allocated Memory   |
+  * +-------------+------------------------+
+  */
+  /* Setup UPTR table. */
+  const uint32_t uptrtSizeWord = MCUXCLRSA_INTERNAL_PUBLIC_UPTRT_BYTESIZE / sizeof(uint32_t);
+  MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_uptrt(pSession, uptrtSizeWord));
+
+  /* Setup PKC workarea */
+  const uint32_t bufferSizeTotal = MCUXCLRSA_INTERNAL_PUBLIC_OPERANDS_WAPKC_SIZE(byteLenN);
+  const uint32_t bufferWordSizeTotal = MCUXCLRSA_INTERNAL_PUBLIC_OPERANDS_WAPKC_SIZE(byteLenN) / sizeof(uint32_t);
+  MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, bufferWordSizeTotal));
 
   /* Prepare buffers in PKC workarea */
   uint8_t *pX = pPkcWorkarea;
@@ -89,12 +98,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   uint8_t *pT2 = pT1 + bufferSizeT1;
   uint8_t *pBlind = pT2 + bufferSizeT2;
 
-  /* Setup UPTR table. */
-  const uint32_t cpuWaSizeWord = MCUXCLRSA_INTERNAL_PUBLIC_WACPU_SIZE_IN_WORDS;
-  MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-  MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_cpuWa(pSession, cpuWaSizeWord));
-  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-
+  MCUXCLPKC_WAITFORREADY();
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_PUBLIC_X] = MCUXCLPKC_PTR2OFFSET(pX);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_PUBLIC_N] = MCUXCLPKC_PTR2OFFSET(pN);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_PUBLIC_T1] = MCUXCLPKC_PTR2OFFSET(pT1);
@@ -122,13 +126,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   MCUX_CSSL_DI_RECORD(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_N  + MCUXCLKEY_ENCODING_SPEC_RSA_E);
 
   /* Import the modulus N */
-  MCUXCLPKC_PS1_SETLENGTH(0u, operandSize);
+  MCUXCLPKC_PS1_SETLENGTH(0U, operandSize);
   MCUX_CSSL_DI_RECORD(Key_load, key);
   MCUX_CSSL_DI_RECORD(Key_load, &pN);
   MCUXCLKEY_LOAD_FP(pSession, key, (uint8_t**)&pN, NULL, MCUXCLKEY_ENCODING_SPEC_RSA_N );  // RSA Key_load function always returns OK
 
   /* Check that the modulus is odd */
-  if(0U == (pN[0u] & 0x01U))
+  if(0U == (pN[0U] & 0x01U))
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
   }
@@ -158,19 +162,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   /* CARRY=1 ==> input=0, return input */
   if(MCUXCLPKC_FLAG_CARRY == carryFlag)
   {
-    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_PUBLIC_OUTPUT, 0u);
+    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_PUBLIC_OUTPUT, 0U);
 
     MCUXCLPKC_WAITFORFINISH();
-    mcuxClSession_freeWords_pkcWa(pSession, pkcWaSizeWord);
-    mcuxClSession_freeWords_cpuWa(pSession, cpuWaSizeWord);
+    mcuxClSession_freeWords_pkcWa(pSession, bufferWordSizeTotal);
+    mcuxClSession_freeWords_uptrt(pSession, uptrtSizeWord);
 
     /* Expunge parameters added outside this branch */
     MCUX_CSSL_DI_EXPUNGE(protectExpLength, pRsaKeyData->exponent.keyEntryLength);
     MCUX_CSSL_DI_EXPUNGE(Key_load, MCUXCLKEY_ENCODING_SPEC_RSA_E);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_public,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
         MCUXCLMEMORY_SET_INT_FP_EXPECT,
         MCUXCLKEY_LOAD_FP_CALLED(key),
         MCUXCLPKC_FP_CALLED_SECUREIMPORTBIGENDIANTOPKC_BUFFER,
@@ -202,12 +206,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClRsa_public(
   /* Function exit                                                                                */
   /************************************************************************************************/
 
-  mcuxClSession_freeWords_pkcWa(pSession, pkcWaSizeWord);
-  mcuxClSession_freeWords_cpuWa(pSession, cpuWaSizeWord);
+  mcuxClSession_freeWords_pkcWa(pSession, bufferWordSizeTotal);
+  mcuxClSession_freeWords_uptrt(pSession, uptrtSizeWord);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClRsa_public,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
-      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
       MCUXCLMEMORY_SET_INT_FP_EXPECT,
       MCUXCLKEY_LOAD_FP_CALLED(key),
       MCUXCLPKC_FP_CALLED_SECUREIMPORTBIGENDIANTOPKC_BUFFER,

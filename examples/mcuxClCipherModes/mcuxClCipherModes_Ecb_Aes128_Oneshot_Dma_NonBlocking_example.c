@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -38,25 +38,25 @@
 
 /* ECB encrypted data */
 static const uint8_t encryptedRef[64] = {
-    0x82u, 0x4fu, 0x7au, 0xb3u, 0xdfu, 0x5eu, 0x73u, 0x42u,
-    0x35u, 0xbbu, 0xcfu, 0xeau, 0xdau, 0x7eu, 0x74u, 0xc1u,
-    0x7au, 0x08u, 0x34u, 0x2du, 0x49u, 0xacu, 0xadu, 0x72u,
-    0x0eu, 0xb3u, 0x23u, 0xb6u, 0x49u, 0x42u, 0x01u, 0xf2u,
-    0x06u, 0x87u, 0x58u, 0xcfu, 0x41u, 0xb0u, 0xd6u, 0x63u,
-    0x66u, 0x50u, 0x1bu, 0xe8u, 0x05u, 0x66u, 0xa8u, 0xfbu,
-    0xa9u, 0xc3u, 0x3fu, 0x14u, 0xcau, 0x96u, 0xb0u, 0x5cu,
-    0xbfu, 0x0eu, 0x0au, 0x07u, 0x90u, 0xa9u, 0x1bu, 0xbau
+    0x82U, 0x4fU, 0x7aU, 0xb3U, 0xdfU, 0x5eU, 0x73U, 0x42U,
+    0x35U, 0xbbU, 0xcfU, 0xeaU, 0xdaU, 0x7eU, 0x74U, 0xc1U,
+    0x7aU, 0x08U, 0x34U, 0x2dU, 0x49U, 0xacU, 0xadU, 0x72U,
+    0x0eU, 0xb3U, 0x23U, 0xb6U, 0x49U, 0x42U, 0x01U, 0xf2U,
+    0x06U, 0x87U, 0x58U, 0xcfU, 0x41U, 0xb0U, 0xd6U, 0x63U,
+    0x66U, 0x50U, 0x1bU, 0xe8U, 0x05U, 0x66U, 0xa8U, 0xfbU,
+    0xa9U, 0xc3U, 0x3fU, 0x14U, 0xcaU, 0x96U, 0xb0U, 0x5cU,
+    0xbfU, 0x0eU, 0x0aU, 0x07U, 0x90U, 0xa9U, 0x1bU, 0xbaU
 };
 
 static const uint8_t keyBytes[16] = {
-    0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u, 0x72u,
-    0x73u, 0x74u, 0x75u, 0x76u, 0x77u, 0x78u, 0x79u, 0x7Au,
+    0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U, 0x72U,
+    0x73U, 0x74U, 0x75U, 0x76U, 0x77U, 0x78U, 0x79U, 0x7AU,
 };
 
 /************************************************************************************/
 /* Helper code to synchronize example flow with nonBlocking background computation  */
 /************************************************************************************/
-#define MCUXCLCIPHER_STATUS_CALLBACK_NOT_EXECUTED ((uint32_t) 0xDEADBEEFu)
+#define MCUXCLCIPHER_STATUS_CALLBACK_NOT_EXECUTED ((uint32_t) 0xDEADBEEFU)
 /* This variable is used to keep track of callbacks triggered by the non-blocking API. */
 static volatile uint32_t cipherStatus_nonBlockingCallback = MCUXCLCIPHER_STATUS_CALLBACK_NOT_EXECUTED;
 
@@ -67,7 +67,7 @@ static void user_callback(uint32_t status, void * data)
   cipherStatus_nonBlockingCallback = status;
 }
 
-#define MCUXCLCIPHER_FLAG_DMA_INTERRUPT_NOT_TRIGGERED ((uint32_t) 0xDEADBEEFu)
+#define MCUXCLCIPHER_FLAG_DMA_INTERRUPT_NOT_TRIGGERED ((uint32_t) 0xDEADBEEFU)
 /* This variable is a flag to notify the caller that an interrupt happened.
    It will contain the DMA channel ID of the respective channel that had an interrupt. */
 static volatile uint32_t flag_interruptNumber = MCUXCLCIPHER_FLAG_DMA_INTERRUPT_NOT_TRIGGERED;
@@ -171,21 +171,21 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
 
   /* Note: input buffer needs to be on the stack because DMA cannot access ROM */
   const uint8_t plain[64] = {
-    0x61u, 0x62u, 0x63u, 0x64u, 0x65u, 0x66u, 0x67u, 0x68u,
-    0x69u, 0x6Au, 0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u,
-    0x62u, 0x63u, 0x64u, 0x65u, 0x66u, 0x67u, 0x68u, 0x69u,
-    0x6Au, 0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u,
-    0x63u, 0x64u, 0x65u, 0x66u, 0x67u, 0x68u, 0x69u, 0x6Au,
-    0x6Bu, 0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u, 0x72u,
-    0x64u, 0x65u, 0x66u, 0x67u, 0x68u, 0x69u, 0x6Au, 0x6Bu,
-    0x6Cu, 0x6Du, 0x6Eu, 0x6Fu, 0x70u, 0x71u, 0x72u, 0x73u
+    0x61U, 0x62U, 0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U,
+    0x69U, 0x6AU, 0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U,
+    0x62U, 0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U,
+    0x6AU, 0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U,
+    0x63U, 0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U, 0x6AU,
+    0x6BU, 0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U, 0x72U,
+    0x64U, 0x65U, 0x66U, 0x67U, 0x68U, 0x69U, 0x6AU, 0x6BU,
+    0x6CU, 0x6DU, 0x6EU, 0x6FU, 0x70U, 0x71U, 0x72U, 0x73U
   };
 
   mcuxClSession_Descriptor_t sessionDesc;
   mcuxClSession_Handle_t session = &sessionDesc;
 
   /* Allocate and initialize session */
-  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION_NONBLOCKING(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLCIPHER_MAX_AES_CPU_WA_BUFFER_SIZE, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0u);
+  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION_NONBLOCKING(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLCIPHER_MAX_AES_CPU_WA_BUFFER_SIZE, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0U);
 
   /* Initialize the PRNG */
   MCUXCLEXAMPLE_INITIALIZE_PRNG(session);
@@ -217,8 +217,8 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
   /* Configure the DMA channels that should be used.
    * Use DMA channel 0 for HW input operations, and DMA channel 1 for HW output operations */
   mcuxClSession_Channels_t dmaChannels = {
-    .input = (mcuxClSession_Channel_t) 0u,
-    .output = (mcuxClSession_Channel_t) 1u
+    .input = (mcuxClSession_Channel_t) 0U,
+    .output = (mcuxClSession_Channel_t) 1U
   };
 
   /* Set DMA channels and user callback function */
@@ -249,7 +249,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
   /* Encryption                                                             */
   /**************************************************************************/
 
-  uint32_t encryptedSize = 0u;
+  uint32_t encryptedSize = 0U;
   uint8_t encryptedData[sizeof(encryptedRef)];
 
   MCUXCLBUFFER_INIT_DMA_RO(plainBuf, session, plain, sizeof(plain));
@@ -262,7 +262,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxCl_InputBuffer_t pIv:               */ NULL,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
-    /* uint32_t ivLength:                     */ 0u,
+    /* uint32_t ivLength:                     */ 0U,
     /* mcuxCl_InputBuffer_t pIn:               */ plainBuf,
     /* uint32_t inLength:                     */ sizeof(plain),
     /* mcuxCl_Buffer_t pOut:                   */ encryptedDataBuf,
@@ -309,7 +309,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
   /* Decryption                                                             */
   /**************************************************************************/
 
-  uint32_t decryptedSize = 0u;
+  uint32_t decryptedSize = 0U;
   uint8_t decryptedData[sizeof(plain)];
 
   MCUXCLBUFFER_INIT_DMA(decryptedDataBuf, session, decryptedData, sizeof(decryptedData));
@@ -322,7 +322,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_exam
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT("NULL is used in code")
     /* mcuxCl_InputBuffer_t pIv:              */ NULL,
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()
-    /* uint32_t ivLength:                    */ 0u,
+    /* uint32_t ivLength:                    */ 0U,
     /* const mcuxCl_Buffer_t pIn:             */ (mcuxCl_Buffer_t) encryptedDataBuf,
     /* uint32_t inLength:                    */ encryptedSize,
     /* mcuxCl_Buffer_t pOut:                  */ decryptedDataBuf,

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -217,7 +217,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     /**********************************************************/
     /* Securely convert resulting point to affine coordinates */
     /**********************************************************/
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Weier_SecureConvertPoint_JacToAffine());
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_Weier_SecureConvertPoint_JacToAffine(pSession));
 
     /**********************************************************/
     /* Check n and p and export the resulting point.          */
@@ -235,8 +235,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ECDH_KeyAgreement(
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
     /* Clear PKC workarea. */
-    const uint32_t bufferSize = operandSize + MCUXCLPKC_WORDSIZE;
-    MCUXCLPKC_PS1_SETLENGTH(0u, bufferSize * ECC_KEYAGREEMENT_NO_OF_BUFFERS);
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("pCpuWorkarea->wordNumPkcWa * sizeof(uint32_t) won't wrap because pkcWaSize < MAX_PKCRAM_SIZE < UINT32_MAX")
+    MCUXCLPKC_PS1_SETLENGTH(0u, pCpuWorkarea->wordNumPkcWa * sizeof(uint32_t));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
     pOperands[ECC_P] = MCUXCLPKC_PTR2OFFSET(pPkcWorkarea);
     MCUXCLPKC_FP_CALC_OP1_CONST(ECC_P, 0u);
 

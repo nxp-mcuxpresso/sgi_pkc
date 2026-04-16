@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2023-2025 NXP                                                  */
+/* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClToolchain.h>
@@ -78,9 +78,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_Cbc_NonBlocking_Compl
 
     MCUX_CSSL_FP_FUNCTION_CALL(uint32_t, blocksRead, mcuxClDma_Drv_readMajorBeginningLoopCount(inputChannel));
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("Blocksread must be at least one as otherwise the automode would not have been executed")
-    uint32_t ivOffset = ((blocksRead - 1u) % 3u) * 4u;
+    uint32_t ivOffset = ((blocksRead - 1U) % 3U) * 4U;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-    MCUXCLSGI_UTILS_STORE128BITBLOCK_DI_BALANCED(MCUXCLSGI_DRV_DATIN0_OFFSET + (4u*ivOffset), (uint8_t *)pWa->pIV);
+    MCUXCLSGI_UTILS_STORE128BITBLOCK_DI_BALANCED(MCUXCLSGI_DRV_DATIN0_OFFSET + (4U*ivOffset), (uint8_t *)pWa->pIV);
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_Cbc_NonBlocking_CompleteAutoMode,
@@ -121,8 +121,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Cbc_NonBlocking_Enc);
 
   /* Higher level caller is responsible for bound checking */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0u, UINT32_MAX - inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inLength, 1u, UINT32_MAX - *pOutLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0U, UINT32_MAX - inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inLength, 1U, UINT32_MAX - *pOutLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
 
   if(inLength > MCUXCLDMA_UTILS_SGI_AUTOMODE_MAX_INPUT_SIZE)
   {
@@ -131,7 +131,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
 
   uint32_t remainingBlocks = inLength / MCUXCLAES_BLOCK_SIZE;
   /* Caller ensures inLength is a non-zero multiple of MCUXCLAES_BLOCK_SIZE. */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(remainingBlocks, 1u, UINT32_MAX, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(remainingBlocks, 1U, UINT32_MAX, MCUXCLCIPHER_STATUS_INVALID_INPUT)
 
   uint8_t *pOutPtr = (uint8_t *) MCUXCLBUFFER_GET(pOut);
 
@@ -143,7 +143,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
 
   mcuxClCipher_Status_t status;
 
-  if(1u == remainingBlocks)
+  if(1U == remainingBlocks)
   {
     /* For only one block of data, SGI AUTO-mode is not needed. */
 
@@ -179,7 +179,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
       MCUXCLSGI_UTILS_STORE128BITBLOCK_DI_BALANCED(MCUXCLSGI_DRV_DATOUT_OFFSET, (uint8_t *)pIvOut);
     }
   }
-  else /* remainingBlocks > 1u */
+  else /* remainingBlocks > 1U */
   {
     /* For multiple blocks, use SGI AUTO mode with handshakes, non-blocking */
 
@@ -193,7 +193,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
       session,
       remainingBlocks,
-      (remainingBlocks - 1u) /* for CBC, the last output block needs to be copied seperately after SGI is stopped */));
+      (remainingBlocks - 1U) /* for CBC, the last output block needs to be copied seperately after SGI is stopped */));
 
     /* Enable interrupts for the completion of the input channel, and for errors.
        As the output channel finishes first, there is not need to additionally enable DONE interrupts for it.
@@ -212,7 +212,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Cbc_NonBlocking_Enc, status,
-    MCUX_CSSL_FP_CONDITIONAL( (1u == remainingBlocks),
+    MCUX_CSSL_FP_CONDITIONAL( (1U == remainingBlocks),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
@@ -222,10 +222,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
       MCUX_CSSL_FP_CONDITIONAL( (NULL != pIvOut),
            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock))),
-    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1u),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1U),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks),
-      2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+      2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes))
@@ -264,7 +264,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
 
   uint32_t remainingBlocks = inLength / MCUXCLAES_BLOCK_SIZE;
   /* Caller ensures inLength is a non-zero multiple of MCUXCLAES_BLOCK_SIZE. */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(remainingBlocks, 1u, UINT32_MAX, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(remainingBlocks, 1U, UINT32_MAX, MCUXCLCIPHER_STATUS_INVALID_INPUT)
 
   uint8_t *pOutPtr = (uint8_t *) MCUXCLBUFFER_GET(pOut);
 
@@ -276,7 +276,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
 
   mcuxClCipher_Status_t status;
 
-  if(1u == remainingBlocks)
+  if(1U == remainingBlocks)
   {
     /* For only one block of data, SGI AUTO-mode is not needed. */
 
@@ -315,7 +315,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
       MCUXCLSGI_UTILS_STORE128BITBLOCK_DI_BALANCED(MCUXCLSGI_DRV_DATIN1_OFFSET, (uint8_t *)pIvOut);
     }
   }
-  else /* remainingBlocks > 1u */
+  else /* remainingBlocks > 1U */
   {
     /* For multiple blocks, use SGI AUTO mode with handshakes, non-blocking */
 
@@ -329,7 +329,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks(
       session,
       remainingBlocks,
-      (remainingBlocks - 1u) /* for CBC, the last output block needs to be copied seperately after SGI is stopped */));
+      (remainingBlocks - 1U) /* for CBC, the last output block needs to be copied seperately after SGI is stopped */));
 
     /* Enable interrupts for the completion of the input channel, and for errors.
        As the output channel finishes first, there is not need to additionally enable DONE interrupts for it.
@@ -348,7 +348,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
   }
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_Cbc_NonBlocking_Dec, status,
-    MCUX_CSSL_FP_CONDITIONAL( (1u == remainingBlocks),
+    MCUX_CSSL_FP_CONDITIONAL( (1U == remainingBlocks),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiInputChannel),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
@@ -358,10 +358,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone),
       MCUX_CSSL_FP_CONDITIONAL( (NULL != pIvOut),
            MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_store128BitBlock))),
-    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1u),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBlocks > 1U),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_configureSgiTransferWithHandshakes),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_SgiHandshakes_writeNumberOfBlocks),
-      2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
+      2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableErrorInterrupts),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_enableChannelDoneInterrupts),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_configureAutoMode),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_startAutoModeWithHandshakes))
@@ -409,7 +409,7 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_ISO9797_1_Method1),
   .removePadding                                 = mcuxClPadding_removePadding_ISO9797_1_Method1,
   .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_ISO9797_1_Method1),
-  .granularityEnc                                = 1u,
+  .granularityEnc                                = 1U,
   .granularityDec                                = MCUXCLAES_BLOCK_SIZE
 };
 
@@ -431,7 +431,7 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_ISO9797_1_Method2),
   .removePadding                                 = mcuxClPadding_removePadding_ISO9797_1_Method2,
   .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_ISO9797_1_Method2),
-  .granularityEnc                                = 1u,
+  .granularityEnc                                = 1U,
   .granularityDec                                = MCUXCLAES_BLOCK_SIZE
 };
 
@@ -453,7 +453,7 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_PKCS7),
   .removePadding                                 = mcuxClPadding_removePadding_PKCS7,
   .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_PKCS7),
-  .granularityEnc                                = 1u,
+  .granularityEnc                                = 1U,
   .granularityDec                                = MCUXCLAES_BLOCK_SIZE
 };
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

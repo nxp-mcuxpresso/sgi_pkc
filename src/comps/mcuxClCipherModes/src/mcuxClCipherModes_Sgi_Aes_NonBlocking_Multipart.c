@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClCore_Macros.h>
@@ -50,7 +50,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven_balancingFP,
-    MCUX_CSSL_FP_CONDITIONAL( (0u != blockBufferUsed_FP ||
+    MCUX_CSSL_FP_CONDITIONAL( (0U != blockBufferUsed_FP ||
                             (MCUXCLAES_BLOCK_SIZE  > (inLength + blockBufferUsed_FP))),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_read),
       MCUX_CSSL_FP_CONDITIONAL( ((MCUXCLAES_BLOCK_SIZE == blockBufferUsed_FP_2) &&
@@ -101,14 +101,14 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
 
   MCUX_CSSL_FP_COUNTER_STMT(uint32_t bytesToCopy_FP = MCUXCLCORE_MIN(MCUXCLAES_BLOCK_SIZE - pCtx->common.blockBufferUsed, inLength));
   MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsed_FP = pCtx->common.blockBufferUsed);
-  MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsed_FP_2 = 0u);
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t blockBufferUsed_FP_2 = 0U);
   /* Move data from inputBuffer to blockBuffer if:
    *   1. blockBuffer is not empty
    *   2. inputBuffer has too little data to fill an entire block
    */
-  if(0u != pCtx->common.blockBufferUsed || (MCUXCLAES_BLOCK_SIZE  > (inLength + pCtx->common.blockBufferUsed)))
+  if(0U != pCtx->common.blockBufferUsed || (MCUXCLAES_BLOCK_SIZE  > (inLength + pCtx->common.blockBufferUsed)))
   {
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pCtx->common.blockBufferUsed, 0u, MCUXCLAES_BLOCK_SIZE, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(pCtx->common.blockBufferUsed, 0U, MCUXCLAES_BLOCK_SIZE, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
     /* Store bytes in context */
     uint32_t bytesToCopy = MCUXCLCORE_MIN(MCUXCLAES_BLOCK_SIZE - pCtx->common.blockBufferUsed, inLength);
 
@@ -154,7 +154,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_fillAndProcessBlockBu
         *pOutOffset += MCUXCLAES_BLOCK_SIZE;
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
-        pCtx->common.blockBufferUsed = 0u;
+        pCtx->common.blockBufferUsed = 0U;
         /*
          * This check ensures that mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven has processed exactly
          * one block. This is important due to the behaviour of the counter mode. When no block would have been
@@ -221,9 +221,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
   mcuxClCipherModes_Context_Aes_Sgi_t * pCtx = mcuxClCipherModes_castToCipherModesContextAesSgi(pContext);
   mcuxClCipherModes_Algorithm_Aes_Sgi_t pAlgo = (mcuxClCipherModes_Algorithm_Aes_Sgi_t) pCtx->common.pMode->pAlgorithm;
 
-  uint32_t lastBlockRemainingBytes = 0u;
+  uint32_t lastBlockRemainingBytes = 0U;
   if((pCtx->direction == MCUXCLSGI_DRV_CTRL_ENC)
-    || (((pAlgo->granularityDec == 1u) || (NULL == pAlgo->removePadding)) && (pCtx->direction == MCUXCLSGI_DRV_CTRL_DEC)))
+    || (((pAlgo->granularityDec == 1U) || (NULL == pAlgo->removePadding)) && (pCtx->direction == MCUXCLSGI_DRV_CTRL_DEC)))
   {
     /* In case of encryption / streamcipher-like decryption(granularityDec == 1) or no padding, we can process all full blocks immediately. */
     lastBlockRemainingBytes = remainingBytes % MCUXCLAES_BLOCK_SIZE;
@@ -231,12 +231,12 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
   else
   {
     /* Process remaining full blocks (excluding last block!) from input buffer */
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("remainingBytes can't be less than 1u")
-    lastBlockRemainingBytes = (remainingBytes - 1u) % MCUXCLAES_BLOCK_SIZE + 1u; /* "lazy" processing */
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("remainingBytes can't be less than 1U")
+    lastBlockRemainingBytes = (remainingBytes - 1U) % MCUXCLAES_BLOCK_SIZE + 1U; /* "lazy" processing */
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockRemainingBytes, 0u, remainingBytes, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(lastBlockRemainingBytes, 0U, remainingBytes, MCUXCLCIPHER_STATUS_INVALID_INPUT)
   uint32_t fullBlocksRemainingBytes = remainingBytes - lastBlockRemainingBytes;
 
   /* Update workarea with information for callback function */
@@ -257,7 +257,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
     pWa->nonBlockingWa.direction = MCUXCLCIPHERMODES_ENCRYPT;
   }
 
-  if (0u != fullBlocksRemainingBytes)
+  if (0U != fullBlocksRemainingBytes)
   {
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW("inOffset has an upper bound of inLength")
     MCUXCLBUFFER_DERIVE_RO(pInCur, pIn, inOffset);
@@ -282,7 +282,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
     }
 
       /* Update input offset after call to processEngine */
-    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(fullBlocksRemainingBytes, 0u, UINT32_MAX - inOffset, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
+    MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(fullBlocksRemainingBytes, 0U, UINT32_MAX - inOffset, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
     inOffset += fullBlocksRemainingBytes;
   }
 
@@ -298,7 +298,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_hand
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_handleRemainingInput_dmaDriven, MCUXCLCIPHER_STATUS_OK,
-    MCUX_CSSL_FP_CONDITIONAL( (0u != fullBlocksRemainingBytes),
+    MCUX_CSSL_FP_CONDITIONAL( (0U != fullBlocksRemainingBytes),
       pCtx->protectionToken_processEngine),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_process)
   );
@@ -321,7 +321,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
   /* Check context CRC */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClCrc_verifyContextCrc(session, pContext, MCUXCLCIPHERMODES_INTEGRITY_PROTECTED_CONTEXT_SIZE));
 
-  if(0u == inLength)
+  if(0U == inLength)
   {
     /* Nothing to do */
       MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClCipherModes_process_Sgi_dmaDriven, MCUXCLCIPHER_STATUS_OK
@@ -356,8 +356,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
     NULL));
 
   uint32_t remainingBytes = inLength;
-  uint32_t inOffset = 0u;
-  uint32_t outOffset = 0u;
+  uint32_t inOffset = 0U;
+  uint32_t outOffset = 0U;
 
   /* Move data from inputBufer to blockBuffer if:
    *   1. blockBuffer is not empty. After that if blockBuffer is full and there is remaining data in inputBuffer, process blockBuffer.
@@ -374,12 +374,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
     &outOffset,
     pOutLength));
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inOffset, 0u, remainingBytes, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inOffset, 0U, remainingBytes, MCUXCLCIPHER_STATUS_FAULT_ATTACK)
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("We have at least one block of data to process, therefore remainingBytes is greater than inOffset")
   remainingBytes -= inOffset;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
-  if (remainingBytes > 0u)
+  if (remainingBytes > 0U)
   {
     MCUX_CSSL_FP_FUNCTION_CALL(handleStatus, mcuxClCipherModes_handleRemainingInput_dmaDriven(
       session,
@@ -402,7 +402,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_loadKeyAndIvtoSgi),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven),
-      MCUX_CSSL_FP_CONDITIONAL( (remainingBytes > 0u),
+      MCUX_CSSL_FP_CONDITIONAL( (remainingBytes > 0U),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleRemainingInput_dmaDriven)));
     }
   }
@@ -416,7 +416,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_process_Sgi
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_loadKeyAndIvtoSgi),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_fillAndProcessBlockBuffer_dmaDriven),
-    MCUX_CSSL_FP_CONDITIONAL( (remainingBytes > 0u),
+    MCUX_CSSL_FP_CONDITIONAL( (remainingBytes > 0U),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleRemainingInput_dmaDriven)),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_cleanupOnExit_dmaDriven)
   );

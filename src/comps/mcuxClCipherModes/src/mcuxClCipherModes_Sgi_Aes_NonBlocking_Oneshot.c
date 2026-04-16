@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClCore_Macros.h>
@@ -76,10 +76,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->setupIVEncrypt(session, pWa, pIv)); /* Load IV if needed, do nothing otherwise */
 
-  uint32_t outputBytesWritten = 0u;
+  uint32_t outputBytesWritten = 0U;
 
-  uint32_t inOffset = 0u;
-  uint32_t outOffset = 0u;
+  uint32_t inOffset = 0U;
+  uint32_t outOffset = 0U;
 
   /* Process all full blocks */
   if(MCUXCLAES_BLOCK_SIZE <= inLength)
@@ -90,9 +90,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_encrypt_Sgi
     pWa->nonBlockingWa.pAlgo = (const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t *) pAlgo;
     pWa->nonBlockingWa.direction = MCUXCLCIPHERMODES_ENCRYPT;
     pWa->nonBlockingWa.pOut = pOut;
-    pWa->nonBlockingWa.outOffset = 0u;
+    pWa->nonBlockingWa.outOffset = 0U;
     pWa->nonBlockingWa.pIn = pIn;
-    pWa->nonBlockingWa.inOffset = 0u;
+    pWa->nonBlockingWa.inOffset = 0U;
 
     MCUX_CSSL_FP_FUNCTION_CALL(encStatus, pAlgo->encryptEngine(
       session,
@@ -171,8 +171,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
 
   /* Return INVALID_INPUT if inLength is zero for block cipher decryption or doesn't meet the required granularity */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->checkIvLength(session, ivLength));
-  if(((0u == inLength) && (1u != pAlgo->granularityDec)) ||
-      (0u != inLength % pAlgo->granularityDec))
+  if(((0U == inLength) && (1U != pAlgo->granularityDec)) ||
+      (0U != inLength % pAlgo->granularityDec))
   {
     MCUXCLSESSION_ERROR(session, MCUXCLCIPHER_STATUS_INVALID_INPUT);
   }
@@ -199,12 +199,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->setupIVDecrypt(session, pWa, pIv)); /* Load IV if needed, do nothing otherwise */
 
-  uint32_t inOffset = 0u;
-  uint32_t outOffset = 0u;
-  uint32_t outputBytesWritten = 0u;
+  uint32_t inOffset = 0U;
+  uint32_t outOffset = 0U;
+  uint32_t outputBytesWritten = 0U;
 
   uint32_t size;
-  if((1u == pAlgo->granularityDec) || (NULL == pAlgo->removePadding))
+  if((1U == pAlgo->granularityDec) || (NULL == pAlgo->removePadding))
   {
     /* In the case of stream ciphers or when padding is set to "none", all full blocks can be processed immediately */
     /* TODO CLNS-14107 : update decryptEngine to handle all blocks at once for CTR*/
@@ -213,11 +213,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
   else
   {
     /* Round down to block size, if the last block is full it will not be considered here to be able to remove the padding later. */
-    size = (inLength - 1u) & ~(MCUXCLAES_BLOCK_SIZE - 1u);
+    size = (inLength - 1U) & ~(MCUXCLAES_BLOCK_SIZE - 1U);
   }
 
   /* Process the considered full blocks */
-  if(size > 0u)
+  if(size > 0U)
   {
     /* Update workarea with information for callback function */
     pWa->nonBlockingWa.totalInputLength = inLength;
@@ -225,9 +225,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
     pWa->nonBlockingWa.pAlgo = (const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t *) pAlgo;
     pWa->nonBlockingWa.direction = MCUXCLCIPHERMODES_DECRYPT;
     pWa->nonBlockingWa.pOut = pOut;
-    pWa->nonBlockingWa.outOffset = 0u;
+    pWa->nonBlockingWa.outOffset = 0U;
     pWa->nonBlockingWa.pIn = pIn;
-    pWa->nonBlockingWa.inOffset = 0u;
+    pWa->nonBlockingWa.inOffset = 0U;
 
     MCUX_CSSL_FP_FUNCTION_CALL(status, pAlgo->decryptEngine(
       session,
@@ -282,7 +282,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_decrypt_Sgi
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_init),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClAes_loadKey_Sgi),
     pAlgo->protectionToken_setupIVDecrypt,
-    MCUX_CSSL_FP_CONDITIONAL( (size > 0u),
+    MCUX_CSSL_FP_CONDITIONAL( (size > 0U),
         pAlgo->protectionToken_decryptEngine),
     MCUX_CSSL_FP_CONDITIONAL( (NULL != pAlgo->removePadding),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_dec)),
@@ -369,7 +369,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_ISR_completeNonBlocking_oneshot,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForHandshakeChannelsDone),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_stopAutoModeWithDmaHandshakes),
-    2u * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount),
+    2U * MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_readMajorBeginningLoopCount),
     pAlgo->protectionToken_completeAutoModeEngine,
     MCUX_CSSL_FP_CONDITIONAL( (MCUXCLCIPHERMODES_ENCRYPT == direction_FP),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_handleLastBlock_enc)),
@@ -401,14 +401,16 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   uint32_t lastBlockLength = totalInputLength % MCUXCLAES_BLOCK_SIZE;
 
   /* Check if padding needs to be applied, and if yes store the padded last block in the padding buffer */
-  uint32_t paddingOutputSize = 0u;
+  uint32_t paddingOutputSize = 0U;
 
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
   /* The SGI AUTO-mode might still be running if no input was processed so far
    * (can be the case, e.g., for CTR-NonBlocking mode, as it is started during the
    * pAlgo->setupIV step for this mode). We need to stop AUTO-mode here to bring the
    * SGI in non-busy state, because the PRNG (during certain padding modes) uses the SGI.
    * If AUTO-mode is not running anymore, stopping it will do no harm. */
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Drv_stopAndDisableAutoMode());
+#endif /* MCUXCL_FEATURE_PRNG_SGI_SFRSEED */
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->addPadding(
     session,
@@ -420,15 +422,17 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     pWa->sgiWa.paddingBuff,
     &paddingOutputSize));
 
-  if(0u == paddingOutputSize)
+  if(0U == paddingOutputSize)
   {
     /* Nothing to do - exit */
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_handleLastBlock_enc,
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+#endif /* MCUXCL_FEATURE_PRNG_SGI_SFRSEED */
       pAlgo->protectionToken_addPadding);
   }
 
-  uint32_t outputBytesWritten = 0u;
+  uint32_t outputBytesWritten = 0U;
   /* Move input and output pointers */
   MCUXCLBUFFER_DERIVE_RW(pOutCur, pOut, outOffset);
   MCUXCLBUFFER_INIT(paddingBuf, session, pWa->sgiWa.paddingBuff, paddingOutputSize);
@@ -448,7 +452,9 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_handleLastBlock_enc,
+#ifdef MCUXCL_FEATURE_PRNG_SGI_SFRSEED
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Drv_stopAndDisableAutoMode),
+#endif /* MCUXCL_FEATURE_PRNG_SGI_SFRSEED */
       pAlgo->protectionToken_addPadding,
       pAlgo->protectionToken_encryptEngine);
 
@@ -473,11 +479,11 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 
   uint32_t lastBlockLength;
 
-  if(pAlgo->granularityDec == 1u)
+  if(pAlgo->granularityDec == 1U)
   {
     /* In case of stream ciphers or no padding, all full blocks have already been processed. Handle remaining bytes. */
     lastBlockLength = totalInputLength % MCUXCLAES_BLOCK_SIZE;
-    if(0u == lastBlockLength)
+    if(0U == lastBlockLength)
     {
       /* Nothing to do - exit */
       MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_handleLastBlock_dec);
@@ -487,11 +493,11 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
   {
     /* For modes with the need for padding removal, a full block might still be left to process. */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("pCtx->common.totalInputLength has an upper bound of inLength")
-    lastBlockLength = ((totalInputLength + (MCUXCLAES_BLOCK_SIZE - 1u)) % MCUXCLAES_BLOCK_SIZE) +  1u;
+    lastBlockLength = ((totalInputLength + (MCUXCLAES_BLOCK_SIZE - 1U)) % MCUXCLAES_BLOCK_SIZE) +  1U;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
   }
 
-  uint32_t outputBytesWritten = 0u;
+  uint32_t outputBytesWritten = 0U;
   /* Move input and output pointers */
   MCUXCLBUFFER_DERIVE_RO(pInCur, pIn, inOffset);
   MCUXCLBUFFER_INIT_RW(ptempBuf, session, pWa->sgiWa.paddingBuff, lastBlockLength);
@@ -507,7 +513,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
     &outputBytesWritten));
   (void) status; /* One-block processing is blocking -  decryptEngine only returns OK */
 
-  uint32_t paddingOutputSize = 0u;
+  uint32_t paddingOutputSize = 0U;
   /* Remove the padding and copy the decrypted last block to the output buffer */
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("pAlgo->removePadding will never be NULL when mcuxClCipherModes_handleLastBlock_dec is called")
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->removePadding(

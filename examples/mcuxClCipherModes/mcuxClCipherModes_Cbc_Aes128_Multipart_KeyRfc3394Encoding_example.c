@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -225,7 +225,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   encryptedSize += outLength;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
-  MCUXCLBUFFER_UPDATE(plainBuf, sizeof(plain)/2u);
+  MCUXCLBUFFER_UPDATE(plainBuf, sizeof(plain)/2U);
   MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(ep2_status, ep2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,
@@ -316,7 +316,7 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding
   decryptedSize += outLength;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
-  MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize / 3u);
+  MCUXCLBUFFER_UPDATE(encryptedDataBuf, encryptedSize / 3U);
   MCUXCLBUFFER_UPDATE(decryptedDataBuf, decryptedSize);
   MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(dp2_status, dp2_token, mcuxClCipher_process(
     /* mcuxClSession_Handle_t session:         */ session,

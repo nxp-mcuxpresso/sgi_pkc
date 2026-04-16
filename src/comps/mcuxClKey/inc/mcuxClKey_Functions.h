@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -25,6 +25,9 @@
 #include <mcuxClSession_Types.h>
 
 #include <mcuxClKey_Types.h>
+#ifdef MCUXCL_FEATURE_KEY_DERIVATION
+#include <mcuxClMac_Types.h>
+#endif /* MCUXCL_FEATURE_KEY_DERIVATION */
 
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxClCore_FunctionIdentifiers.h>
@@ -132,9 +135,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_setEncoding(
  *                          The slot shall be a provided constant in @ref MCUXCLKEY_LOADOPTION_SLOT_.
  *                          Additional options in @ref  MCUXCLKEY_LOADOPTION_ can be provided.
  */
-/* To delete a key again from the key slot, call @ref mcuxClKey_flush.
+/** To delete a key again from the key slot, call @ref mcuxClKey_flush.
  */
-/* @attention In case the key is already loaded to a key slot that differs from the @p slot,
+/** @attention In case the key is already loaded to a key slot that differs from the @p slot,
  * the previous slot will be flushed before loading the key to the given new slot.
  *
  * @if (MCUXCL_FEATURE_CSSL_FP_USE_SECURE_COUNTER && MCUXCL_FEATURE_CSSL_SC_USE_SW_LOCAL)
@@ -148,10 +151,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_setEncoding(
  * @retval #MCUXCLKEY_STATUS_FAULT_ATTACK   if a fault attack was detected
  */
 /**
- * @retval MCUXCLSGI_STATUS_UNWRAP_ERROR    Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
+ * @retval #MCUXCLSGI_STATUS_UNWRAP_ERROR    Error during RFC3394 Key Unwrap detected. An SGI reset or FULL_FLUSH needs to be performed.
  *
  * @attention If the given key handle contains an RFC3394 wrapped key, this operation will unwrap the key material.
- * This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ * This can potentially lead to a #MCUXCLSGI_STATUS_UNWRAP_ERROR.
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClKey_loadCopro)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_loadCopro(
@@ -181,6 +184,38 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_flush(
     mcuxClKey_Handle_t key
 );
 
+#ifdef MCUXCL_FEATURE_KEY_DERIVATION
+
+/**
+ * @brief Execute a key derivation function (KDF) to derive a cryptographic key from several inputs,
+ * or a public key from a private key for asymmetric cryptographic algorithms.
+ *
+ * @param      session                Handle for the current CL session.
+ * @param      derivationMode         Structure which contains information on which algorithm(s) to be used (Hash, HMac-hash, CMac-mode, RSA, ECC)
+ * @param      derivationKey          Key handle to a key derivation key (word-aligned)
+ * @param[in]  inputs[]               Array of multiple inputs to the key derivation function, such as IV, label, context, salt, seed
+ * @param      numberOfInputs         Number of different inputs given in inputs
+ * @param      derivedKey             Key handle for the derived output key (word-aligned)
+ *
+ * @if (MCUXCL_FEATURE_CSSL_FP_USE_SECURE_COUNTER && MCUXCL_FEATURE_CSSL_SC_USE_SW_LOCAL)
+ *  @return A code-flow protected error code (see @ref mcuxCsslFlowProtection). The error code can be any error code in @ref MCUXCLKEY_STATUS_, see individual documentation for more information
+ * @else
+ *  @return An error code that can be any error code in @ref MCUXCLKEY_STATUS_, see individual documentation for more information
+ * @endif
+ *
+ * @retval #MCUXCLKEY_STATUS_ERROR  on unsuccessful operation
+ * @retval #MCUXCLKEY_STATUS_OK     on successful operation
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClKey_derivation)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_derivation(
+    mcuxClSession_Handle_t session,
+    mcuxClKey_Derivation_t derivationMode,
+    mcuxClKey_Handle_t derivationKey,
+    mcuxClKey_DerivationInput_t inputs[],
+    uint32_t numberOfInputs,
+    mcuxClKey_Handle_t derivedKey
+);
+#endif /* MCUXCL_FEATURE_KEY_DERIVATION */
 
 /**
  * @brief Key-pair generation function.
@@ -247,6 +282,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_agreement(
     uint32_t * const pOutLength
 ); /* determine a shared key on based on public and private inputs */
 
+#ifdef MCUXCL_FEATURE_KEY_SELFTEST
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClKey_agreement_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_agreement_selftest(
+    mcuxClSession_Handle_t session,
+    mcuxClKey_Agreement_t agreement,
+    mcuxClKey_Test_t test
+);
+#endif /* MCUXCL_FEATURE_KEY_SELFTEST */
 
 /**
  * @brief Key descriptor initialization function including applying a
@@ -342,6 +385,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_validate(
     mcuxClKey_Validation_t validation,
     mcuxClKey_Handle_t key
 );
+
+
 
 /**
  * @}

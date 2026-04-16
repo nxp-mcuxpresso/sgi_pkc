@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_MillerRabinTest.c
@@ -63,21 +63,21 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
   mcuxClRsa_Status_t status = MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_MRT_FAILED;
 
   /* Backup Uptrt to recover in the end */
-  const uint16_t *backupPtrUptrt = MCUXCLPKC_GETUPTRT();
+  const uint16_t *pBackupPtrUptrt = MCUXCLPKC_GETUPTRT();
 
   /* Create and set local Uptrt table. */
-  uint32_t pOperands32[(MCUXCLRSA_INTERNAL_MILLERRABIN_UPTRT_SIZE + 1u) / 2u];
+  uint32_t pOperands32[(MCUXCLRSA_INTERNAL_MILLERRABIN_UPTRT_SIZE + 1U) / 2U];
 
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
   uint16_t *pOperands = (uint16_t *) pOperands32;
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
 
   /* Get iP and iT indices */
-  uint32_t uptrtIndexTmp = (iP_iT) & 0xFFu;
-  uint32_t uptrtIndexPrimeCandidate = (iP_iT >> 8) & 0xFFu;
+  uint32_t uptrtIndexTmp = (iP_iT) & 0xFFU;
+  uint32_t uptrtIndexPrimeCandidate = (iP_iT >> 8) & 0xFFU;
 
   /* PKC buffer sizes */
-  const uint32_t byteLenPrime = (keyBitLength / 2u) / 8u; /* keyBitLength is multiple of 8 */
+  const uint32_t byteLenPrime = (keyBitLength / 2U) / 8U; /* keyBitLength is multiple of 8 */
   const uint32_t pkcOperandSize = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPrime);
   const uint32_t pkcBlindSize = MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE);
   const uint32_t pkcBlindOperandSize = pkcOperandSize + pkcBlindSize;
@@ -88,10 +88,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
   const uint32_t bufferSizeT1 = pkcBlindOperandSize + MCUXCLRSA_PKC_WORDSIZE;      // size of temp buffer T1
   const uint32_t bufferSizeT2 = pkcBlindOperandSize + MCUXCLRSA_PKC_WORDSIZE;      // size of temp buffer T2
   const uint32_t bufferSizeT3 = pkcBlindOperandSize + MCUXCLRSA_PKC_WORDSIZE;      // size of temp buffer T3
-  const uint32_t bufferSizeTE = 6u * MCUXCLRSA_PKC_WORDSIZE;                       // size of temp buffer TE
+  const uint32_t bufferSizeTE = 6U * MCUXCLRSA_PKC_WORDSIZE;                       // size of temp buffer TE
 
   /* Prepare buffers in PKC workarea */
-  uint8_t *pNb = MCUXCLPKC_OFFSET2PTR(backupPtrUptrt[uptrtIndexTmp]) + MCUXCLRSA_PKC_WORDSIZE /* Offset for nDash */;
+  uint8_t *pNb = MCUXCLPKC_OFFSET2PTR(pBackupPtrUptrt[uptrtIndexTmp]) + MCUXCLRSA_PKC_WORDSIZE /* Offset for nDash */;
   uint8_t *pQSquared = pNb + pkcBlindOperandSize;
   uint8_t *pResult = pQSquared + bufferSizeQSquared;
   uint8_t *pX = pResult + bufferSizeResult;
@@ -107,11 +107,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
   /* Allocate space for the temporary buffers for exponent (aligned to CPU word, length shall be a multiple of CPU word and greater than @p byteLenExp) */
   uint8_t *pExp = pTE + bufferSizeTE;
   MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("PKC buffers are CPU-word aligned")
-  uint32_t * pExpTemp = (uint32_t *) pExp + (pkcOperandSize / sizeof(uint32_t));  /* size MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPrime + 1u) */
+  uint32_t * pExpTemp = (uint32_t *) pExp + (pkcOperandSize / sizeof(uint32_t));  /* size MCUXCLRSA_ALIGN_TO_PKC_WORDSIZE(byteLenPrime + 1U) */
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
 
   /* Setup UPTR table */
-  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_PRIMECANDIDATE] = backupPtrUptrt[uptrtIndexPrimeCandidate];
+  MCUXCLPKC_WAITFORREADY();
+  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_PRIMECANDIDATE] = pBackupPtrUptrt[uptrtIndexPrimeCandidate];
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_NB] = MCUXCLPKC_PTR2OFFSET(pNb);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_QSQUARED] = MCUXCLPKC_PTR2OFFSET(pQSquared);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT] = MCUXCLPKC_PTR2OFFSET(pResult);
@@ -123,10 +124,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_TE] = MCUXCLPKC_PTR2OFFSET(pTE);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_EXP] = MCUXCLPKC_PTR2OFFSET(pExp);
   pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_R32] = MCUXCLPKC_PTR2OFFSET((uint8_t *)pR32);
-  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_CONSTANT] = 1u;
+  pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_CONSTANT] = 1U;
 
   /* Set UPTRT table */
-  MCUXCLPKC_WAITFORREADY();
   MCUXCLPKC_SETUPTRT(pOperands);
 
   /* Set length of operands */
@@ -150,13 +150,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
   pR32[0] = mcuxClRandom_ncGenerateWord_Internal(pSession);
 
   /* Make it odd */
-  pR32[0] |= 0x1u;
+  pR32[0] |= 0x1U;
 
   /* Clear part not overwritten when generating r32. */
-#if !((MCUXCLPKC_WORDSIZE == 8u) && (MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE == 4u))
+#if !((MCUXCLPKC_WORDSIZE == 8U) && (MCUXCLRSA_INTERNAL_MOD_BLINDING_SIZE == 4U))
   #error "This implementation (clearing of B buffer) only supports 64-bit PKC word and 32-bit blinding value."
 #endif
-  pR32[1] = 0u;
+  pR32[1] = 0U;
 
   /* Compute blinded modulus w_b=w*r32 */
   MCUXCLPKC_WAITFORREADY();
@@ -168,25 +168,25 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
   /*****************************************************************/
 
   /* Calculate Ndash of w (it is needed to convert result for exponentiation from Montgomery to normal representation). */
-  MCUXCLMATH_FP_NDASH(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_PRIMECANDIDATE, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T0);
+  MCUXCLMATH_FP_NDASH(pSession, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_PRIMECANDIDATE, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T0);
 
   /* Calculate Ndash of w_b. */
-  MCUXCLMATH_FP_NDASH(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_NB, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T0);
+  MCUXCLMATH_FP_NDASH(pSession, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_NB, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T0);
 
   /* Calculate QSquared */
   MCUXCLMATH_FP_SHIFTMODULUS(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T1, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_NB); //shift modulus
-  MCUXCLMATH_FP_QSQUARED(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_QSQUARED /* QSquared */, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T1,
+  MCUXCLMATH_FP_QSQUARED(pSession, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_QSQUARED /* QSquared */, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T1,
     MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_NB, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_T0);
 
   /* Clear buffer for the witness */
-  MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT, 0u);
+  MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT, 0U);
 
   /***************************************************************************/
   /* Set iteration counter, length of operands and start Miller Rabin test   */
   /***************************************************************************/
   uint32_t counter = 0;
 
-  MCUX_CSSL_FP_COUNTER_STMT(uint32_t witnessLoopCounterMain = 0 /* flow protection: count execution of loops */);
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t witnessLoopCounterMain = 0U /* flow protection: count execution of loops */);
 
   /* Get pointer to the witness */
   uint8_t * pWitness = MCUXCLPKC_OFFSET2PTR(pOperands[MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT]);
@@ -250,8 +250,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
     MCUX_CSSL_DI_RECORD(MillerRabinTest_SecModExp, byteLenPrime);
 
     /* Copy m to the RESULT buffer. SecModExp overwrites the exponent provided in RESULT buffer, but m should be kept. */
-    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT, 0u);
-    MCUXCLPKC_FP_CALC_OP2_OR_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_EXP, 0u);
+    MCUXCLPKC_FP_CALC_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT, 0U);
+    MCUXCLPKC_FP_CALC_OP2_OR_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_RESULT, MCUXCLRSA_INTERNAL_UPTRTINDEX_MILLERRABIN_EXP, 0U);
 
     /*
      * Perform secure exponentiation z_m = b_m^m mod w_b.
@@ -328,7 +328,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
 
   if (counter == numberTestIterations)
   {
-    MCUX_CSSL_FP_FUNCTION_CALL(needNumberTestIterations, mcuxClRsa_getMillerRabinTestIterations(keyBitLength / 2u));
+    MCUX_CSSL_FP_FUNCTION_CALL(needNumberTestIterations, mcuxClRsa_getMillerRabinTestIterations(keyBitLength / 2U));
     if (needNumberTestIterations != executedIterations)
     {
       MCUXCLSESSION_FAULT(pSession, MCUXCLRSA_STATUS_FAULT_ATTACK);
@@ -338,9 +338,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClRsa_Status_t) mcuxClRsa_MillerRabinTest(
   }
 
   /* Recover Uptrt */
-  MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+  MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
 
-  MCUX_CSSL_FP_COUNTER_STMT(uint32_t mainLoopCounter = (counter == numberTestIterations) ? numberTestIterations : (counter + 1u));
+  MCUX_CSSL_FP_COUNTER_STMT(uint32_t mainLoopCounter = (counter == numberTestIterations) ? numberTestIterations : (counter + 1U));
 
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_MillerRabinTest, status,
       MCUXCLPKC_FP_CALLED_CALC_OP2_SHR,

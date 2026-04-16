@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -258,10 +258,7 @@
 /**********************************************************/
 
 #define MCUXCLECC_FP_WEIERECC_GENERATEDOMAINPARAMS_INIT_AND_VERIFY  \
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa), \
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa), \
-    MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE, \
-    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_GenerateUPTRT), \
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_InitializeEnvironment), \
     MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFER, \
     MCUXCLPKC_FP_CALLED_IMPORTBIGENDIANTOPKC_BUFFER, \
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_NDash), \
@@ -304,6 +301,7 @@
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup), \
             MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_PointCheckAffineNR)
 
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 
 /**********************************************************/
 /* mcuxClEcc_EdDSA_VerifySignature                         */
@@ -397,6 +395,7 @@
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_IntegrityCheckPN), \
     MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE
 
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 
 /**********************************************************/
 /* mcuxClEcc_Int_CoreKeyGen                                */
@@ -446,6 +445,7 @@
 #define MCUXCLECC_FP_INT_COREKEYGEN_FINAL \
     MCUXCLECC_FP_INT_COREKEYGEN_STEP6, \
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
+#if defined(MCUXCL_FEATURE_ECC_EDDSA) || defined(MCUXCL_FEATURE_ECC_MONTDH)
 
 /**********************************************************/
 /* mcuxClEcc_GenerateMultiplicativeBlinding                */
@@ -466,6 +466,7 @@
     MCUXCLPKC_FP_CALLED_CALC_OP2_ADD, \
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup)
 
+#endif /* defined(MCUXCL_FEATURE_ECC_EDDSA) || defined(MCUXCL_FEATURE_ECC_MONTDH) || defined(MCUXCL_FEATURE_ECC_WEIERECC_KEYDERIVATION) */
 
 /**********************************************************/
 /* mcuxClEcc_BlindedVarScalarMult                          */

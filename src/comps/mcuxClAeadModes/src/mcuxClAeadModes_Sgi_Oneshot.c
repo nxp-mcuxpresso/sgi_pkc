@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAeadModes_Sgi_Oneshot.c
@@ -59,7 +59,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
 
   /* Assert that inLength + *pOutLength will not overflow.
    * *pOutLength is overwritten to 0 in mcuxClAead.c, so no input can possibly trigger this. */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0u, (UINT32_MAX - inLength), MCUXCLAEAD_STATUS_INVALID_PARAM);
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0U, (UINT32_MAX - inLength), MCUXCLAEAD_STATUS_INVALID_PARAM);
 
   MCUX_CSSL_DI_RECORD(tag, pTag); /* Will be balanced after usage in mode->algorithm->finish() */
   MCUX_CSSL_DI_RECORD(tagLen, tagLength);  /* Will be balanced after usage in mode->algorithm->init() */
@@ -94,15 +94,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
   aeadCtx->macCtx.keyContext.sgiCtrlKey = workArea->sgiWa.sgiCtrlKey;
   aeadCtx->cipherCtx.keyContext.sgiCtrlKey = workArea->sgiWa.sgiCtrlKey;
 
-  uint32_t outputSize = 0u;
+  uint32_t outputSize = 0U;
 
   aeadCtx->common.mode = mode;
   aeadCtx->encDecMode = MCUXCLAEADMODES_ENCRYPTION;
 
   /* Clear mac context fields */
-  aeadCtx->macCtx.blockBufferUsed = 0u;
+  aeadCtx->macCtx.blockBufferUsed = 0U;
   aeadCtx->macCtx.dataProcessed = MCUXCLMACMODES_FALSE;
-  aeadCtx->macCtx.totalInput = 0u;
+  aeadCtx->macCtx.totalInput = 0U;
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->init(
     session,
@@ -122,7 +122,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_encrypt(
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->finish(session, aeadCtx, workArea, outBuf, &outputSize, pTag));
 
   /* outputSize is bounded by inLength */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputSize, 0u, inLength, MCUXCLAEAD_STATUS_INVALID_PARAM)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputSize, 0U, inLength, MCUXCLAEAD_STATUS_INVALID_PARAM)
   *pOutLength += outputSize;
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClAeadModes_cleanupOnOneshotExit(session, key, cpuWaSizeInWords + ctxSizeInWords));
@@ -162,9 +162,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
 
   /* Assert that inLength + *pOutLength will not overflow.
    * *pOutLength is overwritten to 0 in mcuxClAead.c, so no input can possibly trigger this. */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0u, (UINT32_MAX - inLength), MCUXCLAEAD_STATUS_INVALID_PARAM);
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0U, (UINT32_MAX - inLength), MCUXCLAEAD_STATUS_INVALID_PARAM);
 
-  MCUX_CSSL_DI_RECORD(tagSize, 2u * tagLength); /* Will be balanced in mode->algorithm->init() and mcuxClMemory_compare_dpasecure_int() */
+  MCUX_CSSL_DI_RECORD(tagSize, 2U * tagLength); /* Will be balanced in mode->algorithm->init() and mcuxClMemory_compare_dpasecure_int() */
   /* pTag will be protected after mcuxClBuffer_inputBufferToCPU() */
 
   /* Allocate workarea */
@@ -203,15 +203,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
   aeadCtx->macCtx.keyContext.sgiCtrlKey = workArea->sgiWa.sgiCtrlKey;
   aeadCtx->cipherCtx.keyContext.sgiCtrlKey = workArea->sgiWa.sgiCtrlKey;
 
-  uint32_t outputSize = 0u;
+  uint32_t outputSize = 0U;
 
   aeadCtx->common.mode = mode;
   aeadCtx->encDecMode = MCUXCLAEADMODES_DECRYPTION;
 
   /* Clear mac context fields */
-  aeadCtx->macCtx.blockBufferUsed = 0u;
+  aeadCtx->macCtx.blockBufferUsed = 0U;
   aeadCtx->macCtx.dataProcessed = MCUXCLMACMODES_FALSE;
-  aeadCtx->macCtx.totalInput = 0u;
+  aeadCtx->macCtx.totalInput = 0U;
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->init(
     session,
@@ -240,7 +240,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
     &outputSize));
 
   /* outputSize is bounded by inLength */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputSize, 0u, inLength, MCUXCLAEAD_STATUS_INVALID_PARAM)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outputSize, 0U, inLength, MCUXCLAEAD_STATUS_INVALID_PARAM)
   MCUXCLBUFFER_DERIVE_RW(outBuf, pOut, outputSize);
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->finish(
     session,
@@ -256,7 +256,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_decrypt(
 
   /* Prepare the reference tag. For buffer-objects with DMA, this will import the tag to a CPU buffer before comparison. */
   const uint8_t *pReferenceTag;
-  mcuxClBuffer_inputBufferToCPU(pTag, 0u, workArea->cpuWa.tagBuffer, &pReferenceTag, tagLength);
+  mcuxClBuffer_inputBufferToCPU(pTag, 0U, workArea->cpuWa.tagBuffer, &pReferenceTag, tagLength);
   MCUX_CSSL_DI_RECORD(referenceTag, pReferenceTag); /* Will be balanced in mcuxClMemory_compare_dpasecure_int() */
 
   /* Compare authentication tags */

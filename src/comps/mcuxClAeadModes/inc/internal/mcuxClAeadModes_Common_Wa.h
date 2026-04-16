@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAeadModes_Common_Wa.h
@@ -34,8 +34,8 @@
 typedef union mcuxClAeadModes_CpuWorkArea
 {
     uint8_t CCM_B0[MCUXCLAEADMODES_CCM_B0_SIZE];
-    uint8_t tagBuffer[2u * MCUXCLAEADMODES_TAGLEN_MAX];
-    uint8_t lastBlockBuffer[MCUXCLAES_BLOCK_SIZE - 1u];
+    uint8_t tagBuffer[2U * MCUXCLAEADMODES_TAGLEN_MAX];
+    uint8_t lastBlockBuffer[MCUXCLAES_BLOCK_SIZE - 1U];
 } mcuxClAeadModes_CpuWorkArea_t;
 
 

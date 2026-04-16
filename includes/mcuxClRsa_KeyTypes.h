@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2024 NXP                                                  */
+/* Copyright 2022-2024, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -56,6 +56,10 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_Public_1024
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_Public_2048; ///< Key type structure for RSA public key and key size 2048 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_Public_3072; ///< Key type structure for RSA public key and key size 3072 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_Public_4096; ///< Key type structure for RSA public key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_Public_6144; ///< Key type structure for RSA public key and key size 6144 bits.
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_Public_8192; ///< Key type structure for RSA public key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_Public_Structures */
@@ -73,6 +77,13 @@ static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_Public_1024 = &mcuxClKey_TypeDe
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_Public_2048 = &mcuxClKey_TypeDescriptor_Rsa_Public_2048; ///< Key type pointer for RSA public key and key size 2048 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_Public_3072 = &mcuxClKey_TypeDescriptor_Rsa_Public_3072; ///< Key type pointer for RSA public key and key size 3072 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_Public_4096 = &mcuxClKey_TypeDescriptor_Rsa_Public_4096; ///< Key type pointer for RSA public key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+/**
+ * \implements{REQ_788258}
+ */
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_Public_6144 = &mcuxClKey_TypeDescriptor_Rsa_Public_6144; ///< Key type pointer for RSA public key and key size 6144 bits.
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_Public_8192 = &mcuxClKey_TypeDescriptor_Rsa_Public_8192; ///< Key type pointer for RSA public key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_Public_Pointers */
@@ -89,6 +100,10 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivatePlai
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_2048; ///< Key type structure for RSA private plain key and key size 2048 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_3072; ///< Key type structure for RSA private plain key and key size 3072 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_4096; ///< Key type structure for RSA private plain key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_6144; ///< Key type structure for RSA private plain key and key size 6144 bits.
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_8192; ///< Key type structure for RSA private plain key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_PrivatePlain_Structures */
@@ -106,6 +121,13 @@ static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivatePlain_1024 = &mcuxClKey_
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivatePlain_2048 = &mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_2048; ///< Key type pointer for RSA private plain key and key size 2048 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivatePlain_3072 = &mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_3072; ///< Key type pointer for RSA private plain key and key size 3072 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivatePlain_4096 = &mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_4096; ///< Key type pointer for RSA private plain key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+/**
+ * \implements{REQ_788258}
+ */
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivatePlain_6144 = &mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_6144; ///< Key type pointer for RSA private plain key and key size 6144 bits.
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivatePlain_8192 = &mcuxClKey_TypeDescriptor_Rsa_PrivatePlain_8192; ///< Key type pointer for RSA private plain key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_PrivatePlain_Pointers */
@@ -120,6 +142,10 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_2048; ///< Key type structure for RSA private CRT key and key size 2048 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_3072; ///< Key type structure for RSA private CRT key and key size 3072 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_4096; ///< Key type structure for RSA private CRT key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_6144; ///< Key type structure for RSA private CRT key and key size 6144 bits.
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_8192; ///< Key type structure for RSA private CRT key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_PrivateCrt_Structures */
@@ -137,6 +163,13 @@ static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_1024 = &mcuxClKey_Ty
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_2048 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_2048; ///< Key type pointer for RSA private CRT key and key size 2048 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_3072 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_3072; ///< Key type pointer for RSA private CRT key and key size 3072 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_4096 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_4096; ///< Key type pointer for RSA private CRT key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+/**
+ * \implements{REQ_788258}
+ */
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_6144 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_6144; ///< Key type pointer for RSA private CRT key and key size 6144 bits.
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_8192 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_8192; ///< Key type pointer for RSA private CRT key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_PrivateCrt_Pointers */
@@ -151,6 +184,10 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_2048; ///< Key type structure for RSA private CRT_DFA key and key size 2048 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_3072; ///< Key type structure for RSA private CRT_DFA key and key size 3072 bits.
 extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_4096; ///< Key type structure for RSA private CRT_DFA key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_6144; ///< Key type structure for RSA private CRT_DFA key and key size 6144 bits.
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_8192; ///< Key type structure for RSA private CRT_DFA key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_PrivateCrt_DFA_Structures */
@@ -168,6 +205,13 @@ static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_DFA_1024 = &mcuxClKe
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_DFA_2048 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_2048; ///< Key type pointer for RSA private CRT_DFA key and key size 2048 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_DFA_3072 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_3072; ///< Key type pointer for RSA private CRT_DFA key and key size 3072 bits.
 static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_DFA_4096 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_4096; ///< Key type pointer for RSA private CRT_DFA key and key size 4096 bits.
+#ifdef MCUXCL_FEATURE_RSA_8K_KEYS
+/**
+ * \implements{REQ_788258}
+ */
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_DFA_6144 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_6144; ///< Key type pointer for RSA private CRT_DFA key and key size 6144 bits.
+static const mcuxClKey_Type_t mcuxClKey_Type_Rsa_PrivateCRT_DFA_8192 = &mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_8192; ///< Key type pointer for RSA private CRT_DFA key and key size 8192 bits.
+#endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 /**
  * @}
  */ /* mcuxClRsa_KeyTypes_PrivateCrt_DFA_Pointers */

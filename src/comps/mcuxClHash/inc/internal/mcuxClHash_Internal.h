@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClHash_Internal.h
@@ -107,6 +107,24 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void) (*mcuxClHash_AlgoSkeleton_Finish_t)(
                         mcuxCl_Buffer_t pOut,
                         uint32_t *const pOutSize));
 
+#ifdef MCUXCL_FEATURE_HASH_SELFTEST
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClHash_SelfTestFunc_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) (*mcuxClHash_SelfTestFunc_t) (
+                        mcuxClSession_Handle_t session,
+                        mcuxClHash_Algo_t algorithm));
+
+/**
+ * @brief Hash selftest mode/algorithm descriptor structure
+ *
+ * This structure captures all the information that the Hash selftest interfaces need
+ * to know about a particular Hash selftest mode/algorithm.
+ */
+struct mcuxClHash_TestDescriptor
+{
+  mcuxClHash_SelfTestFunc_t    selftest;
+  uint32_t                    protection_token_selftest;
+};
+#endif /* MCUXCL_FEATURE_HASH_SELFTEST */
 
 /**
  * @brief Hash Algorithm OIDs
@@ -122,6 +140,14 @@ extern const uint8_t mcuxClHash_oidSha2_384[MCUXCLHASH_OID_SHA2SHA3_LEN];
 extern const uint8_t mcuxClHash_oidSha2_512[MCUXCLHASH_OID_SHA2SHA3_LEN];
 #endif /*MCUXCL_FEATURE_HASH_OIDS*/
 
+#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3)
+extern const uint8_t mcuxClHash_oidSha3_224[MCUXCLHASH_OID_SHA2SHA3_LEN];
+extern const uint8_t mcuxClHash_oidSha3_256[MCUXCLHASH_OID_SHA2SHA3_LEN];
+extern const uint8_t mcuxClHash_oidSha3_384[MCUXCLHASH_OID_SHA2SHA3_LEN];
+extern const uint8_t mcuxClHash_oidSha3_512[MCUXCLHASH_OID_SHA2SHA3_LEN];
+extern const uint8_t mcuxClHash_oidSha3_shake_128[MCUXCLHASH_OID_SHA2SHA3_LEN];
+extern const uint8_t mcuxClHash_oidSha3_shake_256[MCUXCLHASH_OID_SHA2SHA3_LEN];
+#endif /* MCUXCL_FEATURE_HASH_C_SHA3_SHAKE || MCUXCL_FEATURE_HASH_C_SHA3 */
 
 /**
  * @brief Hash Algorithm structure

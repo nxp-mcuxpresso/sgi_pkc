@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -31,6 +31,7 @@
 #include <internal/mcuxClPkc_Resource.h>
 #include <internal/mcuxClMath_Internal.h>
 
+#include <internal/mcuxClEcc_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal.h>
 #include <internal/mcuxClEcc_Weier_Internal_FP.h>
 #include <internal/mcuxClEcc_Weier_Internal_FUP.h>
@@ -53,53 +54,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     const uint32_t byteLenN = pEccWeierBasicDomainParams->nLen;
     const uint32_t byteLenMax = ((byteLenP > byteLenN) ? byteLenP : byteLenN);
     const uint32_t operandSize = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLenMax);
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The bufferSize can't be larger than UINT32_MAX.")
-    const uint32_t bufferSize = operandSize + MCUXCLPKC_WORDSIZE;
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
 
-    /* Setup CPU workarea and PKC buffer. */
-    const uint32_t byteLenOperandsTable = (sizeof(uint16_t)) * (ECC_NO_OF_VIRTUALS + ECC_GENERATEDOMAINPARAMS_NO_OF_BUFFERS);
-    const uint32_t alignedByteLenCpuWa = MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(mcuxClEcc_CpuWa_t)) + sizeof(uint32_t) /* Reserve 1 word for making UPTR table start from 64-bit aligned address */
-                                          + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(byteLenOperandsTable);
-    const uint32_t wordNumCpuWa = alignedByteLenCpuWa / (sizeof(uint32_t));
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned")
-    MCUX_CSSL_FP_FUNCTION_CALL(mcuxClEcc_CpuWa_t*, pCpuWorkarea, mcuxClSession_allocateWords_cpuWa(pSession, wordNumCpuWa));
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The bufferSize * 22U can't be larger than UINT32_MAX.")
-    const uint32_t wordNumPkcWa = (bufferSize * ECC_GENERATEDOMAINPARAMS_NO_OF_BUFFERS) / (sizeof(uint32_t));
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
-    MCUX_CSSL_FP_FUNCTION_CALL(const uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordNumPkcWa));
-
-    pCpuWorkarea->wordNumCpuWa = wordNumCpuWa;
-    pCpuWorkarea->wordNumPkcWa = wordNumPkcWa;
-
-    MCUXCLPKC_FP_REQUEST_INITIALIZE(pSession, mcuxClEcc_WeierECC_GenerateDomainParams);
-
-    /* Set PS1 MCLEN and LEN. */
-    MCUXCLPKC_PS1_SETLENGTH(operandSize, operandSize);
-
-    /* Setup uptr table. */
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("16-bit UPTRT table is assigned in CPU workarea")
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Arithmetic to align pointers on 2 bytes")
-    uint16_t *pOperands = (uint16_t *)MCUXCLCORE_ALIGN_TO_WORDSIZE(sizeof(uint64_t), (uint32_t)pCpuWorkarea + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(mcuxClEcc_CpuWa_t))); /* Make UPTR table start from 64-bit aligned address */
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER()
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-    MCUXCLPKC_FP_GENERATEUPTRT(& pOperands[ECC_GENERATEDOMAINPARAMS_NO_OF_VIRTUALS],
-                              pPkcWorkarea,
-                              (uint16_t) bufferSize,
-                              ECC_GENERATEDOMAINPARAMS_NO_OF_BUFFERS);
-    MCUXCLPKC_SETUPTRT(pOperands);
-
-    /* Setup virtual offsets to prime p and curve order n. */
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("the result is in range of uint16");
-    pOperands[ECC_P] = (uint16_t) (pOperands[ECC_PFULL] + MCUXCLPKC_WORDSIZE);
-    pOperands[ECC_N] = (uint16_t) (pOperands[ECC_NFULL] + MCUXCLPKC_WORDSIZE);
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA();
-
-    /* Initialize constants ONE = 0x0001 and ZERO = 0x0000 in uptr table. */
-    pOperands[ECC_ONE]  = 0x0001u;
-    pOperands[ECC_ZERO] = 0x0000u;
-
+    /* Initialize CPU and PKC environment */
+    mcuxClEcc_CpuWa_t *pCpuWorkarea;
+    uint8_t *pPkcWorkarea;
+    uint16_t *pOperands;
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_InitializeEnvironment(
+        pSession, operandSize, ECC_GENERATEDOMAINPARAMS_NO_OF_BUFFERS,
+        &pCpuWorkarea, &pPkcWorkarea, &pOperands
+    ));
 
     /**********************************************************/
     /* Import / prepare curve parameters                      */
@@ -127,11 +90,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
     }
 
     /* Calculate NDash of p and n, ShiftModulus of p and n, QSquared of p. */
-    MCUXCLMATH_FP_NDASH(ECC_P, ECC_T0);
-    MCUXCLMATH_FP_NDASH(ECC_N, ECC_T0);
+    MCUXCLMATH_FP_NDASH(pSession, ECC_P, ECC_T0);
+    MCUXCLMATH_FP_NDASH(pSession, ECC_N, ECC_T0);
     MCUXCLMATH_FP_SHIFTMODULUS(ECC_PS, ECC_P);
     MCUXCLMATH_FP_SHIFTMODULUS(ECC_NS, ECC_N);
-    MCUXCLMATH_FP_QSQUARED(ECC_PQSQR, ECC_PS, ECC_P, ECC_T0);
+    MCUXCLMATH_FP_QSQUARED(pSession, ECC_PQSQR, ECC_PS, ECC_P, ECC_T0);
 
     /* Import coefficients a and b, and convert a to MR. */
     MCUXCLPKC_FP_IMPORTBIGENDIANTOPKC_BUFFER_DI_BALANCED(ECC_T0, pEccWeierBasicDomainParams->pA, byteLenP, operandSize);
@@ -154,7 +117,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
 
     /* Calculate R3N, and then reduce R2N < N and R2P < P. */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA("2u * operandSize fits into uint16_t")
-    MCUXCLMATH_FP_QDASH(ECC_T3, ECC_NS, ECC_N, ECC_T0, (uint16_t) (2u * operandSize));
+    MCUXCLMATH_FP_QDASH(pSession, ECC_T3, ECC_NS, ECC_N, ECC_T0, (uint16_t) (2u * operandSize));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_CAST_MAY_RESULT_IN_MISINTERPRETED_DATA()
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_GenerateDomainParams_Reduce_R2N_R2P,
                         mcuxClEcc_FUP_GenerateDomainParams_Reduce_R2N_R2P_LEN);
@@ -197,7 +160,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_WeierECC_GenerateDomai
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()
 
         /* Convert precG to affine coordinates in NR and store them in (WEIER_X0,WEIER_Y0). */
-        MCUXCLECC_FP_MODINV(ECC_T0, WEIER_ZA, ECC_P, ECC_T1, ECC_T3);
+        MCUXCLECC_FP_MODINV(pSession, ECC_T0, WEIER_ZA, ECC_P, ECC_T1, ECC_T3);
         /* MISRA Ex. 22, while(0) is allowed */
         MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_Weier_ConvertJacToAffine,
                             mcuxClEcc_FUP_Weier_ConvertJacToAffine_LEN);

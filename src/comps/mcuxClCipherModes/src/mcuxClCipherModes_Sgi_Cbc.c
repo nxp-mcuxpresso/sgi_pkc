@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClToolchain.h>
@@ -38,8 +38,8 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_Cbc_Enc);
 
   /* Higher level caller is responsible for bound checking */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0u, UINT32_MAX - inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inLength, 1u, UINT32_MAX - *pOutLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(*pOutLength, 0U, UINT32_MAX - inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(inLength, 1U, UINT32_MAX - *pOutLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
 
   const uint32_t numFullBlocks = inLength / MCUXCLAES_BLOCK_SIZE;
 
@@ -64,7 +64,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
   MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks * (uint32_t)pIn);
   MCUX_CSSL_DI_RECORD(sgiLoadBuffer, numFullBlocks * (uint32_t)MCUXCLAES_BLOCK_SIZE);
   MCUX_CSSL_DI_RECORD(sgiLoadBuffer, (uint32_t)(MCUXCLSGI_DRV_DATIN1_OFFSET)); // first iteration load to DATIN1
-  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, (numFullBlocks - 1u) * (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET)); // iterations in the loop load to DATIN0
+  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, (numFullBlocks - 1U) * (uint32_t)(MCUXCLSGI_DRV_DATIN0_OFFSET)); // iterations in the loop load to DATIN0
 
   /* SREQI_BCIPHER_8 - Balance DI for mcuxClSgi_Utils_store128BitBlock calls */
   MCUX_CSSL_DI_RECORD(sgiStoreParam, sumOfOffsets);
@@ -137,7 +137,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
   }
 
   /* outOffset is bounded by inLength */
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outOffset, 0u, inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outOffset, 0U, inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
   *pOutLength += outOffset;
 
   /* Expunge the current value of the SGI COUNT plus the possibly overflowed value for DI protection.
@@ -273,7 +273,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClCipherModes_Cbc_
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_store128BitBlock(sgiInputOffset[(i - 1U) % 3U], (uint8_t *)pIvOut));
   }
 
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outOffset, 0u, inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(outOffset, 0U, inLength, MCUXCLCIPHER_STATUS_INVALID_INPUT)
   *pOutLength += outOffset;
 
   /* Expunge the current value of the SGI COUNT plus the possibly overflowed value for DI protection.
@@ -309,8 +309,10 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_encryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Enc),
   .decryptEngine                                 = mcuxClCipherModes_Cbc_Dec,
   .protectionToken_decryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Dec),
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
   .completeAutoModeEngine                        = NULL,
   .protectionToken_completeAutoModeEngine        = 0U,
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
   .setupIVEncrypt                                = mcuxClCipherModes_IV,
   .protectionToken_setupIVEncrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV),
   .setupIVDecrypt                                = mcuxClCipherModes_IV,
@@ -331,8 +333,10 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_encryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Enc),
   .decryptEngine                                 = mcuxClCipherModes_Cbc_Dec,
   .protectionToken_decryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Dec),
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
   .completeAutoModeEngine                        = NULL,
   .protectionToken_completeAutoModeEngine        = 0U,
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
   .setupIVEncrypt                                = mcuxClCipherModes_IV,
   .protectionToken_setupIVEncrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV),
   .setupIVDecrypt                                = mcuxClCipherModes_IV,
@@ -343,7 +347,7 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_ISO9797_1_Method1),
   .removePadding                                 = mcuxClPadding_removePadding_ISO9797_1_Method1,
   .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_ISO9797_1_Method1),
-  .granularityEnc                                = 1u,
+  .granularityEnc                                = 1U,
   .granularityDec                                = MCUXCLAES_BLOCK_SIZE
 };
 
@@ -353,8 +357,10 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_encryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Enc),
   .decryptEngine                                 = mcuxClCipherModes_Cbc_Dec,
   .protectionToken_decryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Dec),
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
   .completeAutoModeEngine                        = NULL,
   .protectionToken_completeAutoModeEngine        = 0U,
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
   .setupIVEncrypt                                = mcuxClCipherModes_IV,
   .protectionToken_setupIVEncrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV),
   .setupIVDecrypt                                = mcuxClCipherModes_IV,
@@ -365,7 +371,7 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_ISO9797_1_Method2),
   .removePadding                                 = mcuxClPadding_removePadding_ISO9797_1_Method2,
   .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_ISO9797_1_Method2),
-  .granularityEnc                                = 1u,
+  .granularityEnc                                = 1U,
   .granularityDec                                = MCUXCLAES_BLOCK_SIZE
 };
 
@@ -375,8 +381,10 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_encryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Enc),
   .decryptEngine                                 = mcuxClCipherModes_Cbc_Dec,
   .protectionToken_decryptEngine                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_Cbc_Dec),
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
   .completeAutoModeEngine                        = NULL,
   .protectionToken_completeAutoModeEngine        = 0U,
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
   .setupIVEncrypt                                = mcuxClCipherModes_IV,
   .protectionToken_setupIVEncrypt                = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClCipherModes_IV),
   .setupIVDecrypt                                = mcuxClCipherModes_IV,
@@ -387,7 +395,7 @@ const mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi_t mcuxClCipherModes_Algorith
   .protectionToken_addPadding                    = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_addPadding_PKCS7),
   .removePadding                                 = mcuxClPadding_removePadding_PKCS7,
   .protectionToken_removePadding                 = MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPadding_removePadding_PKCS7),
-  .granularityEnc                                = 1u,
+  .granularityEnc                                = 1U,
   .granularityDec                                = MCUXCLAES_BLOCK_SIZE
 };
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

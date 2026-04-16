@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021, 2023, 2026 NXP                                           */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -33,14 +33,22 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  */
 #define mcuxClMath_Fup_ExactDivideOdd_DivideLoop_LEN  5u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_Fup_ExactDivideOdd_DivideLoop);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_Fup_ExactDivideOdd_DivideLoop,
+  mcuxClMath_Fup_ExactDivideOdd_DivideLoop_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_Fup_ExactDivideOdd_NDashY
  */
 #define mcuxClMath_Fup_ExactDivideOdd_NDashY_LEN  4u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_Fup_ExactDivideOdd_NDashY);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_Fup_ExactDivideOdd_NDashY,
+  mcuxClMath_Fup_ExactDivideOdd_NDashY_LEN
+);
+
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

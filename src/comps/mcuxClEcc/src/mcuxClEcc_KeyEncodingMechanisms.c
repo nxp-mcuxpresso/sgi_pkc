@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2024-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -29,7 +29,9 @@
 #include <internal/mcuxClPkc_ImportExport.h>
 #include <internal/mcuxClPkc_Macros.h>
 #include <internal/mcuxClPkc_Operations.h>
+#ifdef MCUXCL_FEATURE_ECC_EDDSA
 #include <internal/mcuxClEcc_EdDSA_Internal.h>
+#endif /* MCUXCL_FEATURE_ECC_EDDSA */
 #include <internal/mcuxClEcc_FeatureConfig.h>
 #include <internal/mcuxClKey_Functions_Internal.h>
 #include <internal/mcuxClKey_Types_Internal.h>
@@ -390,6 +392,7 @@ const mcuxClKey_EncodingDescriptor_t mcuxClEcc_EncodingDescriptor_WeierECC_Publi
                                                                                             0u,
                                                                                             0u};
 
+#ifdef MCUXCL_FEATURE_ECC_MONTDH
 /**
  * @brief Plain key encoding descriptor for MontDH private keys.
  */
@@ -417,6 +420,7 @@ const mcuxClKey_EncodingDescriptor_t mcuxClEcc_EncodingDescriptor_MontDH_PublicK
                                                                                               mcuxClKey_KeyStore_Plain),
                                                                                           0u,
                                                                                           0u};
+#endif /* MCUXCL_FEATURE_ECC_MONTDH */
 
 /**
  * @brief Plain key encoding descriptor for EdDSA private keys.

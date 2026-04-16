@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2024-2025 NXP                                                  */
+/* Copyright 2024-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClEcc_ModInv.c
@@ -29,7 +29,7 @@
 #include <internal/mcuxClPrng_Internal_Functions.h>
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_ModInv)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ModInv(uint32_t iR_iX_iN_iT, uint32_t iRnd)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ModInv(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iN_iT, uint32_t iRnd)
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_ModInv);
 
@@ -62,7 +62,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ModInv(uint32_t iR_iX_iN_iT, uint32_
   MCUXCLPKC_FP_CALC_MC1_MM(iT, iX, iRnd, iN);
   MCUXCLPKC_FP_CALC_MC1_MS(iX, iT, iN, iN);
 
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_ModInv(iR_iX_iN_iT, MCUXCLMATH_XN_COPRIME));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_ModInv(pSession, iR_iX_iN_iT, MCUXCLMATH_XN_COPRIME));
 
   /* Unblinding the X^(-1) */
   MCUXCLPKC_FP_CALC_MC1_MM(iT, iR, iRnd, iN);

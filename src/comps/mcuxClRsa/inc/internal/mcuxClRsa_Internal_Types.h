@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -26,6 +26,9 @@
 
 #include <mcuxClRsa_ModeConstructors.h>
 
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+#include <internal/mcuxClCipher_Internal_Types.h>
+#endif /* MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT || MCUXCL_FEATURE_CIPHER_RSA_DECRYPT */
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,14 +47,14 @@ extern "C" {
  * @ingroup mcuxClRsa_Internal_Macros
  * @{
  */
-#define MCUXCLRSA_STATUS_INTERNAL_KEYOP_OK                 ((mcuxClRsa_Status_t) 0xB2B25A5Au )  ///< RSA key operation successful
-#define MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK                ((mcuxClRsa_Status_t) 0xB2B29A9Au )  ///< RSA encoding operation successful
-#define MCUXCLRSA_STATUS_INTERNAL_MGF_OK                   ((mcuxClRsa_Status_t) 0xB2B2AAAAu )  ///< RSA mask generation function operation successful
-#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_CMP_FAILED     ((mcuxClRsa_Status_t) 0xB2B2ABABu )  ///< RSA key generation test failed at comparison stage
-#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDA0_FAILED   ((mcuxClRsa_Status_t) 0xB2B2ADADu )  ///< RSA key generation test failed at the stage of GCD with A0
-#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDE_FAILED    ((mcuxClRsa_Status_t) 0xB2B2AEAEu )  ///< RSA key generation test failed at the stage of GCD with E
-#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_MRT_FAILED     ((mcuxClRsa_Status_t) 0xB2B2AFAFu )  ///< RSA key generation test failed at the stage of Miller Rabin Test
-#define MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID          ((mcuxClRsa_Status_t) 0xB2B2ACACu )  ///< The private exponent d does not meet the FIPS 186-5 (A.1.1, step 3) requirements
+#define MCUXCLRSA_STATUS_INTERNAL_KEYOP_OK                 ((mcuxClRsa_Status_t) 0xB2B25A5AU )  ///< RSA key operation successful
+#define MCUXCLRSA_STATUS_INTERNAL_ENCODE_OK                ((mcuxClRsa_Status_t) 0xB2B29A9AU )  ///< RSA encoding operation successful
+#define MCUXCLRSA_STATUS_INTERNAL_MGF_OK                   ((mcuxClRsa_Status_t) 0xB2B2AAAAU )  ///< RSA mask generation function operation successful
+#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_CMP_FAILED     ((mcuxClRsa_Status_t) 0xB2B2ABABU )  ///< RSA key generation test failed at comparison stage
+#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDA0_FAILED   ((mcuxClRsa_Status_t) 0xB2B2ADADU )  ///< RSA key generation test failed at the stage of GCD with A0
+#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_GCDE_FAILED    ((mcuxClRsa_Status_t) 0xB2B2AEAEU )  ///< RSA key generation test failed at the stage of GCD with E
+#define MCUXCLRSA_STATUS_INTERNAL_TESTPRIME_MRT_FAILED     ((mcuxClRsa_Status_t) 0xB2B2AFAFU )  ///< RSA key generation test failed at the stage of Miller Rabin Test
+#define MCUXCLRSA_STATUS_INTERNAL_PRIVEXP_INVALID          ((mcuxClRsa_Status_t) 0xB2B2ACACU )  ///< The private exponent d does not meet the FIPS 186-5 (A.1.1, step 3) requirements
 
 /** @} */
 
@@ -162,6 +165,28 @@ struct mcuxClRsa_Signature_ProtocolDescriptor
   uint32_t                      options;            ///< Options.
 };
 
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+/**
+ * @brief RSA-specific algorithm descriptor structure for encryption/decryption with @ref mcuxClCipher
+ */
+typedef struct
+{
+  mcuxClHash_AlgorithmDescriptor_t *  pHashAlgo;   ///< Pointer to hashing functionality.
+  mcuxClRsa_PadVerModeEngine_t   pEncryptMode;     ///< Pointer to padding functionality for the encryption.
+  mcuxClRsa_PadVerModeEngine_t   pDecryptMode;     ///< Pointer to padding functionality for the decryption.
+  uint32_t                      encrypt_FunId;    ///< Flow protection function identifier of encoding function.
+  uint32_t                      decrypt_FunId;    ///< Flow protection function identifier of decoding function.
+} mcuxClRsa_Cipher_AlgorithmDescriptor_t;
+
+/**
+ * @brief This structure captures all the information related to the functions
+ * of the Cipher interfaces.
+ */
+typedef struct mcuxClRsa_Cipher_ModeFunctions
+{
+  MCUXCLCIPHER_ENCRYPT_DECRYPT_ONESHOT_MODEFUNCTIONS
+} mcuxClRsa_Cipher_ModeFunctions_t;
+#endif /* MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT || MCUXCL_FEATURE_CIPHER_RSA_DECRYPT */
 
 /**
  * @brief RSA-specific protocol descriptor structure for key generation with @ref mcuxClKey

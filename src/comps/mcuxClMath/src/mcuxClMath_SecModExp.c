@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -259,11 +259,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
 
     /* Create local UPTR table. */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Create 16-bit UPTR table at CPU word (32-bit) aligned address.")
-    uint32_t pOperands32[(SECMODEXP_UPTRT_SIZE + 1u) / 2u];
-    uint16_t *pOperands = (uint16_t *) pOperands32;
-    const uint16_t *backupPtrUptrt;
+    uint32_t * const pOperands32 = (uint32_t*)session->pMathUptrt;
+    uint16_t * const pOperands = (uint16_t*) pOperands32;
+    const uint16_t *pBackupPtrUptrt;
     /* Mapping to internal indices:                         M3  M1 M2  M0   N  TE  A1  A0 */
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iT3_iX_iT2_iT1, iN_iTE_iT0_iR, pOperands, 8u, &backupPtrUptrt));
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iT3_iX_iT2_iT1, iN_iTE_iT0_iR, pOperands, 8u, &pBackupPtrUptrt));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
 
     /* Set PS1 OPLEN */
@@ -294,6 +294,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
     const uint32_t offsetR1 = offsetR0 + MCUXCLPKC_WORDSIZE;
     const uint32_t offsetR2 = offsetR1 + MCUXCLPKC_WORDSIZE;
     const uint32_t offsetR2H = offsetR2 + MCUXCLPKC_WORDSIZE;
+    MCUXCLPKC_WAITFORREADY();
     pOperands32[SECMODEXP_NDASH / 2u] = (offsetR0 << 16u) + offsetNDASH;
     pOperands32[SECMODEXP_R1 / 2u] = (offsetR2 << 16u) + offsetR1;
     pOperands32[SECMODEXP_R2H / 2u] = offsetR2H;  /* Also initialize SECMODEXP_ZERO */
@@ -323,8 +324,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
 
     /* Calculate NDash and QDash of b.
      * As the MSB of b is set, shifting the modulus is not necessary. */
-    MCUXCLMATH_FP_NDASH(SECMODEXP_R0, SECMODEXP_M2);
-    MCUXCLMATH_FP_QDASH(SECMODEXP_M0, SECMODEXP_R0, SECMODEXP_R0, SECMODEXP_M3, (uint16_t) pkcLenExpPlus);
+    MCUXCLMATH_FP_NDASH(session, SECMODEXP_R0, SECMODEXP_M2);
+    MCUXCLMATH_FP_QDASH(session, SECMODEXP_M0, SECMODEXP_R0, SECMODEXP_R0, SECMODEXP_M3, (uint16_t) pkcLenExpPlus);
 
 //  MCUXCLPKC_WAITFORREADY();  <== there is WAITFORREADY in QDASH
     MCUXCLPKC_PS2_SETLENGTH(pkcLenExpPlus, MCUXCLPKC_WORDSIZE);
@@ -406,7 +407,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
     MCUXCLPKC_WAITFORREADY();
     MCUXCLPKC_PS1_SETLENGTH_REG(ps1LenBackup);
     MCUXCLMATH_FP_SHIFTMODULUS(SECMODEXP_A0, SECMODEXP_N);
-    MCUXCLMATH_FP_QSQUARED(SECMODEXP_A1, SECMODEXP_A0, SECMODEXP_N, SECMODEXP_M3);
+    MCUXCLMATH_FP_QSQUARED(session, SECMODEXP_A1, SECMODEXP_A0, SECMODEXP_N, SECMODEXP_M3);
 
     /* Prepare M2 = m^2.
      * This operation is randomized, by adding a random 16-bit multiple of the modulus to m before squaring: M2 = m + (r16 * N). */
@@ -440,7 +441,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
 
     /* Restore pUptrt. */
     MCUXCLPKC_WAITFORREADY();
-    MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+    MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
 
     /* Clear the local UPTR table on stack. */
     for (uint32_t i = 0u; i < ((SECMODEXP_UPTRT_SIZE + 1u) / 2u); i++)

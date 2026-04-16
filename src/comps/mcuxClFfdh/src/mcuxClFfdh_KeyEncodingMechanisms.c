@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -148,9 +148,9 @@ const mcuxClKey_EncodingDescriptor_t mcuxClFfdh_EncodingDescriptor_PrivateKey_Pl
                                                                                         NULL,
                                                                                         MCUX_CSSL_FP_FUNCTION_CALLED(
                                                                                           mcuxClFfdh_PrivateKeyLoad_Plain),
-                                                                                        0u,
-                                                                                        0u,
-                                                                                        0u};
+                                                                                        0U,
+                                                                                        0U,
+                                                                                        0U};
 /**
  * @brief Plain key encoding descriptor for Ffdh public keys.
  */
@@ -160,8 +160,8 @@ const mcuxClKey_EncodingDescriptor_t mcuxClFfdh_EncodingDescriptor_PublicKey_Pla
                                                                                         NULL,
                                                                                         MCUX_CSSL_FP_FUNCTION_CALLED(
                                                                                           mcuxClFfdh_PublicKeyLoad_Plain),
-                                                                                        0u,
-                                                                                        0u,
-                                                                                        0u};
+                                                                                        0U,
+                                                                                        0U,
+                                                                                        0U};
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

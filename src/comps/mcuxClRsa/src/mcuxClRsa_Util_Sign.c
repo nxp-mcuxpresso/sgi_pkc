@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClRsa_Util_Sign.c
@@ -42,6 +42,7 @@
 #include <internal/mcuxClSignature_Internal.h>
 #include <internal/mcuxClRsa_Internal_MemoryConsumption.h>
 #include <internal/mcuxClRsa_Internal_PkcTypes.h>
+#include <internal/mcuxClMath_Internal.h>
 
 /* TODO CLNS-17683: Align when the Signature component is updated and if the return status for mcuxClSignature_SignFct_t changes */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_Util_sign, mcuxClSignature_SignFct_t)
@@ -68,6 +69,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
   /* Initialize PKC */
   MCUXCLPKC_FP_REQUEST_INITIALIZE(pSession, mcuxClRsa_Util_sign);
 
+  /* The CPU WA layout is:
+  * +-------------+------------------------+
+  * | Math UPTRT  | RSA Allocated Memory   |
+  * +-------------+------------------------+
+  */
+  /* Setup mcuxClMath UPTRT buffer at beginning of PKC/CPU depending on MCUXCL_FEATURE_PKC_UPTRT_IN_PKCRAM and update session info */
+  MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pMathUptrt, mcuxClSession_allocateWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t)));
+  /* Update session info for pMathUptrt location in PKC WA */
+  pSession->pMathUptrt = pMathUptrt;
+
   /*****************************************************/
   /* Perform padding operation                         */
   /*****************************************************/
@@ -85,10 +96,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
 
   /* Get the modulus bit length from the input key */
   uint32_t keyBitLength = mcuxClKey_getSize(key);
-  *pSignatureSize = keyBitLength / 8u;
+  *pSignatureSize = keyBitLength / 8U;
 
   /* Locate paddedMessage buffer at beginning of PKC WA and update session info */
-  uint32_t keyByteLength = keyBitLength / 8u;
+  uint32_t keyByteLength = keyBitLength / 8U;
   uint32_t pkcWaUsedByte = MCUXCLRSA_INTERNAL_SIGN_PADDED_MESSAGE_BUFFER(keyByteLength, mcuxClKey_getAlgoId(key));
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorakarea, mcuxClSession_allocateWords_pkcWa(pSession, pkcWaUsedByte / (sizeof(uint32_t))));
   uint8_t *pPaddedMessage = pPkcWorakarea;
@@ -100,7 +111,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
   MCUX_CSSL_FP_FUNCTION_CALL(retVal_PaddingOperation, pRsa_Signature_ProtocolDescriptor->pSignMode(
                               /* mcuxClSession_Handle_t       pSession,           */ pSession,
                               /* mcuxCl_InputBuffer_t         pInput,             */ pMessageOrDigest,
-                              /* const uint32_t              inputLength,        */ 0u,
+                              /* const uint32_t              inputLength,        */ 0U,
                               /* mcuxCl_Buffer_t              pVerificationInput, */ NULL,
                               /* mcuxClHash_Algo_t            pHashAlgo,          */ pRsa_Signature_ProtocolDescriptor->pHashAlgo,
                               /* const uint8_t *             pLabel,             */ NULL,
@@ -136,14 +147,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
   {
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_privatePlain(pSession, key, pPaddedMessage, pSignature));
   }
-  else if((MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRT == keyAlgoId)
-      || (MCUXCLRSA_KEYTYPE_INTERNAL_PRIVATECRTDFA == keyAlgoId))
-  {
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_privateCRT(pSession, key, pPaddedMessage, pSignature));
-  }
   else
   {
-    MCUXCLSESSION_ERROR(pSession, MCUXCLRSA_STATUS_INVALID_INPUT);
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClRsa_privateCRT(pSession, key, pPaddedMessage, pSignature));
   }
 
   /*****************************************************/
@@ -153,8 +159,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClRsa_Util_sign(
   mcuxClSession_freeWords_pkcWa(pSession, pkcWaUsedByte / (sizeof(uint32_t)));
   MCUXCLPKC_FP_DEINITIALIZE_RELEASE(pSession);
 
+  /* Free Math UPTRT allocated WA */
+  mcuxClSession_freeWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t));
+
   MCUX_CSSL_FP_FUNCTION_EXIT(mcuxClRsa_Util_sign, MCUXCLRSA_STATUS_SIGN_OK,
       MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
+      MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
       MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
       pRsa_Signature_ProtocolDescriptor->sign_FunId,
       MCUX_CSSL_FP_CONDITIONAL(pkcWaUsedByte > keyByteLength, MCUXCLMEMORY_CLEAR_INT_FP_EXPECT),

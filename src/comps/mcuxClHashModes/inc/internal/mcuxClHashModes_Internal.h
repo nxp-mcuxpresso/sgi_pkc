@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2023-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClHashModes_Internal.h
@@ -30,6 +30,9 @@
 #include <internal/mcuxClHashModes_Internal_Memory.h>
 #include <internal/mcuxClHashModes_Internal_sgi_sha2.h>
 #include <internal/mcuxClSgi_Utils.h>
+#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE)
+#include <internal/mcuxClHashModes_Internal_Algorithms.h>
+#endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) */
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -80,6 +83,112 @@ typedef struct mcuxClHashModes_Internal_AlgorithmDescriptor
           (((val) >> 56u) & 0x00000000000000FFu))
 
 
+#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_XOF_C_SHAKE_128) || defined(MCUXCL_FEATURE_XOF_C_SHAKE_256)
+
+#if defined(MCUXCL_FEATURE_HASH_C_SHA3)
+/**
+ * @brief Oneshot Skeleton implementation for Sha3 in SW
+ *
+ * @post
+ *  - Data Integrity: Expunge(pIn + inSize + pOut + pOutSize)
+ *
+ * @param[in]       session    Handle for the current CL session.
+ * @param[in]       algorithm  Hash algorithm that should be used during the computation.
+ * @param[in]       pIn        Pointer to the input buffer that contains the data
+ *                             that needs to be hashed.
+ * @param[in]       inSize     Number of bytes of data in the pIn buffer.
+ * @param[in,out]   pOut       Pointer to the output buffer where the computed hash
+ *                             value is written.
+ * @param[in,out]   pOutSize   Pointer to the number of bytes, which shall be computed.
+ *                             After the function call, it contains the number of bytes written to the pOut buffer.
+ *
+ * @retval #MCUXCLHASH_STATUS_OK                        operation is successful
+ * @return Error code (see @ref mcuxClHashModes, @ref mcuxClBuffer) in case of other failures.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHashModes_C_oneShot_sha3, mcuxClHash_AlgoSkeleton_OneShot_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_C_oneShot_sha3(
+                                mcuxClSession_Handle_t session,
+                                mcuxClHash_Algo_t algorithm,
+                                mcuxCl_InputBuffer_t pIn,
+                                uint32_t inSize,
+                                mcuxCl_Buffer_t pOut,
+                                uint32_t *const pOutSize);
+#endif /* if defined(MCUXCL_FEATURE_HASH_C_SHA3) */
+
+/**
+ * @brief Oneshot Skeleton implementation for Shake in SW
+ *
+ * @post
+ *  - Data Integrity: Expunge(pIn + inSize + pOut + pOutSize)
+ *
+ * @param[in]       session    Handle for the current CL session.
+ * @param[in]       algorithm  Hash algorithm that should be used during the computation.
+ * @param[in]       pIn        Pointer to the input buffer that contains the data
+ *                             that needs to be hashed.
+ * @param[in]       inSize     Number of bytes of data in the pIn buffer.
+ * @param[in,out]   pOut       Pointer to the output buffer where the computed hash
+ *                             value is written.
+ * @param[in,out]   pOutSize   Pointer to the number of bytes, which shall be computed.
+ *                             After the function call, it contains the number of bytes written to the pOut buffer.
+ *
+ * @retval #MCUXCLHASH_STATUS_OK                        operation is successful
+ * @return Error code (see @ref mcuxClHashModes, @ref mcuxClBuffer) in case of other failures.
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHashModes_C_oneShot_xof_shake, mcuxClHash_AlgoSkeleton_OneShot_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_C_oneShot_xof_shake(
+    mcuxClSession_Handle_t session,
+    mcuxClHash_Algo_t algorithm,
+    mcuxCl_InputBuffer_t pIn,
+    uint32_t inSize,
+    mcuxCl_Buffer_t pOut,
+    uint32_t *const pOutSize);
+
+/**
+ * @brief Process Skeleton implementation for SHA3 shake process in SW
+ *
+ * Data Integrity: Expunge(pContext + pIn + inSize)
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHashModes_C_process_sha3_shake, mcuxClHash_AlgoSkeleton_Process_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_C_process_sha3_shake(
+    mcuxClSession_Handle_t session,
+    mcuxClHash_Context_t pContext,
+    mcuxCl_InputBuffer_t pIn,
+    uint32_t inSize);
+
+/**
+ * @brief Process finalize implementation for Shake in SW
+ *
+ * @param[in,out]   pContext     Handle for the current context (word-aligned).
+ * @param[in]       paddingByte  Padding value.
+ *
+ * @return void
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHashModes_C_Sha3_shake_finishAbsorb_core)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_C_Sha3_shake_finishAbsorb_core(
+    mcuxClHash_Context_t pContext,
+    const uint8_t paddingByte);
+
+
+/**
+ * @brief Finish operation for Xof in SW
+ *
+ * @param[in]       session    Handle for the current CL session, it is UNUSED.
+ * @param[in,out]   pContext   Handle for the current context (word-aligned).
+ * @param[in,out]   pOut       Pointer to the input buffer that contains the data
+ *                             that needs to be hashed.
+ * @param[in]       pOutSize   Pointer to the number of bytes, which shall be computed.
+ *                             After the function call, it contains the number of bytes written to the pOut buffer.
+ *
+ * @return void
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClHashModes_C_generate_shake, mcuxClHash_AlgoSkeleton_Finish_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_C_generate_shake(mcuxClSession_Handle_t session,
+                                                        mcuxClHash_Context_t pContext,
+                                                        mcuxCl_Buffer_t pOut,
+                                                        uint32_t *const pOutSize);
+
+
+#endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_XOF_C_SHAKE_128) || defined(MCUXCL_FEATURE_XOF_C_SHAKE_256) */
 
 
 

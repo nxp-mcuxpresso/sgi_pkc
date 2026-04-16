@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -102,13 +102,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClPkc_RandomizeUPTRT(&pOperands[WEIER_X0],
                                                             (WEIER_Y1 - WEIER_X0 + 1u)) );
 
-        MCUXCLMATH_FP_QSQUARED(ECC_NQSQR, ECC_NS, ECC_N, ECC_T0);
+        MCUXCLMATH_FP_QSQUARED(pSession, ECC_NQSQR, ECC_NS, ECC_N, ECC_T0);
 
         MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("32-bit aligned UPTRT table is assigned in CPU workarea")
         uint32_t *pOperands32 = (uint32_t *) pOperands;
         MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
         const uint32_t operandSize = MCUXCLPKC_PS1_GETOPLEN();
-        const uint32_t bufferSize = operandSize + MCUXCLPKC_WORDSIZE;
 
         const uint32_t byteLenP = pDomainParams->common.byteLenP;
         const uint32_t byteLenN = pDomainParams->common.byteLenN;
@@ -182,7 +181,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
         /**********************************************************/
 
         /* T0 = ModInv(Z), where Z = (z * 256^LEN) \equiv z in MR. */
-        MCUXCLECC_FP_MODINV(ECC_T0, WEIER_Z, ECC_P, ECC_T1, ECC_T3);
+        MCUXCLECC_FP_MODINV(pSession, ECC_T0, WEIER_Z, ECC_P, ECC_T1, ECC_T3);
         /* T0 = z^(-1) * 256^(-LEN) \equiv z^(-1) * 256^(-2LEN) in MR. */
 
         /* Convert Q to affine coordinates. */
@@ -227,7 +226,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_WeierECC_GenerateKeyPair(
         MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClKey_linkKeyPair(pSession, privKey, pubKey));
 
         /* Clear PKC workarea. */
-        MCUXCLPKC_PS1_SETLENGTH(0u, bufferSize * ECC_GENERATEKEYPAIR_NO_OF_BUFFERS);
+        MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("pCpuWorkarea->wordNumPkcWa * sizeof(uint32_t) won't wrap because pkcWaSize < MAX_PKCRAM_SIZE < UINT32_MAX")
+        MCUXCLPKC_PS1_SETLENGTH(0u, pCpuWorkarea->wordNumPkcWa * sizeof(uint32_t));
+        MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
         pOperands[ECC_P] = MCUXCLPKC_PTR2OFFSET(pPkcWorkarea);
         MCUXCLPKC_FP_CALC_OP1_CONST(ECC_P, 0u);
 

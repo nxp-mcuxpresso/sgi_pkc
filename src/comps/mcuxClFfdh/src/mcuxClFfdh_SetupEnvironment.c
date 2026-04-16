@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -34,6 +34,7 @@
 #include <internal/mcuxClSession_Internal.h>
 #include <internal/mcuxClMemory_Copy_Internal.h>
 #include <internal/mcuxClMemory_Clear_Internal.h>
+#include <internal/mcuxClMath_Internal.h>
 
 #include <internal/mcuxClFfdh_Internal_PkcDefs.h>
 #include <internal/mcuxClFfdh_Internal.h>
@@ -51,7 +52,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   const uint32_t byteLenP = (uint32_t) pDomainParams->lenP;
   MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(byteLenP, 0U, MCUXCLFFDH_FFDHE8192_SIZE_PRIMEP);
   const uint32_t operandSize = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLenP); /* no need to consider lenQ as lenP > lenQ*/
-  const uint32_t expOperandSize = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLenP + 4u); /* extra word is a requirement for exponentiation */
+  const uint32_t expOperandSize = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLenP + 4U); /* extra word is a requirement for exponentiation */
   const uint32_t bufferSize = expOperandSize + MCUXCLPKC_WORDSIZE;
 
   /* Setup CPU workarea and PKC buffer.
@@ -61,9 +62,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   const uint32_t byteLenOperandsTable = sizeof(uint16_t) * FFDH_UPTRT_COUNT;
   const uint32_t alignedByteLenCpuWa = SIZEOF_FFDHCPUWA_T + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(byteLenOperandsTable);
 
-  const uint32_t wordNumCpuWa = alignedByteLenCpuWa / (sizeof(uint32_t));
+  uint32_t wordNumCpuWa = alignedByteLenCpuWa / (sizeof(uint32_t));
   MCUX_CSSL_FP_FUNCTION_CALL(mcuxClFfdh_CpuWa_t*, pCpuWorkarea, mcuxClSession_allocateWords_cpuWa(pSession, wordNumCpuWa));
   /* TODO: CLNS-17418 error handling */
+
+  /* Setup mcuxClMath UPTRT buffer at beginning of CPU/PKC WA depending on MCUXCL_FEATURE_PKC_UPTRT_IN_PKCRAM and update session info */
+  MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pMathUptrt, mcuxClSession_allocateWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t)));
+  /* Update session info for pMathUptrt location in WA */
+  pSession->pMathUptrt = pMathUptrt;
 
   uint32_t wordNumPkcWa = (bufferSize * FFDH_NO_OF_BUFFERS) / sizeof(uint32_t);  /* PKC bufferSize is a multiple of CPU word size. */
   if(FFDH_EXPTMP_FAME_RAM_ONLY_MAX_LENGTH < byteLenP)
@@ -77,6 +83,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   }
 
   MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordNumPkcWa));
+
+  wordNumCpuWa += (MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t));
 
   /* Initialize CPU */
   pCpuWorkarea->wordNumCpuWa = wordNumCpuWa;
@@ -117,10 +125,11 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_SetupEnvironment(mcuxClSession_Hand
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int(MCUXCLPKC_OFFSET2PTR(pOperands[FFDH_UPTRTINDEX_PFULL]), (const uint8_t *)pDomainParams->pPDash, MCUXCLPKC_WORDSIZE));
 
   /* Calculate Qdash (QSquared w.r.t. expOperandSize) */
-  MCUXCLMATH_FP_QDASH(FFDH_UPTRTINDEX_T1, FFDH_UPTRTINDEX_P, FFDH_UPTRTINDEX_P, FFDH_UPTRTINDEX_T2, (uint16_t)expOperandSize);
+  MCUXCLMATH_FP_QDASH(pSession, FFDH_UPTRTINDEX_T1, FFDH_UPTRTINDEX_P, FFDH_UPTRTINDEX_P, FFDH_UPTRTINDEX_T2, (uint16_t)expOperandSize);
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClFfdh_SetupEnvironment,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+    MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
     MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_GenerateUPTRT),

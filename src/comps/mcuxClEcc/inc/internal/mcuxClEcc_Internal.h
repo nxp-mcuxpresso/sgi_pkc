@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -139,6 +139,38 @@ struct mcuxClEcc_CommonDomainParams
     const mcuxClEcc_ScalarMultFunctions_t *pScalarMultFunctions;  ///< Pointer to struct that contains scalar multiplication function pointers
 };
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
+
+/**********************************************************/
+/*                                                        */
+/* Definitions related to external ECC arithmetic         */
+/* operation function                                     */
+/*                                                        */
+/**********************************************************/
+
+/**
+ * The arithmetic operation function declaration
+ * and structure containing the function pointer and its associated flow protection ID.
+ */
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClEcc_ArithmeticOperationFunction_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) (*mcuxClEcc_ArithmeticOperationFunction_t)(
+    mcuxClSession_Handle_t pSession,                       ///< Handle for the current CL session
+    mcuxClEcc_Weier_DomainParams_t *pEccWeierDomainParams, ///< Pointer to Weierstrass domain parameters of the curve
+    mcuxCl_InputBuffer_t pOp1,                             ///< First input operand
+    uint32_t op1Size,                                     ///< Size of first input operand
+    mcuxCl_InputBuffer_t pOp2,                             ///< Second input operand
+    uint32_t op2Size,                                     ///< Size of second input operand
+    mcuxCl_Buffer_t pResult,                               ///< Result buffer
+    uint32_t * const pResultSize                          ///< Size of result
+    ));
+
+struct mcuxClEcc_ArithmeticOperationDescriptor
+{
+    mcuxClEcc_ArithmeticOperationFunction_t arithOpFct;    ///< arithmetic operation function
+    uint32_t arithOpFct_FP_FuncId;                        ///< FP ID of the arithmetic operation function
+};
+
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */
 
 /**********************************************************/
 /*                                                        */
@@ -185,6 +217,7 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_InterleaveScalar)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InterleaveScalar(uint16_t iScalar, uint32_t scalarBitLength, uint32_t numberOfInterleavings);
 
 
+#if defined(MCUXCL_FEATURE_ECC_EDDSA) || defined(MCUXCL_FEATURE_ECC_MONTDH)
 /**
  * @brief Implements low quality random generation and the value of random is [1, modulus-1].
  *
@@ -200,6 +233,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_GenerateRandomModModulus(
     uint8_t iModulus,
     uint8_t iDst
 );
+#endif /* defined(MCUXCL_FEATURE_ECC_EDDSA) || defined(MCUXCL_FEATURE_ECC_MONTDH) */
 
 #if defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_GenerateMultiplicativeBlinding)
@@ -209,6 +243,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_GenerateMultiplicative
     );
 #endif /* defined(MCUXCLECC_FEATURE_INTERNAL_GENMULTBLINDING) */
 
+#if defined(MCUXCL_FEATURE_ECC_EDDSA)
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_BlindedFixScalarMult)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedFixScalarMult(
@@ -217,6 +252,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedFixScalarMult(
     uint32_t scalarLength
     );
 
+#endif /* defined(MCUXCL_FEATURE_ECC_EDDSA) || defined(MCUXCL_FEATURE_ECC_WEIERECC_KEYDERIVATION) */
 
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_BlindedVarScalarMult)
@@ -226,6 +262,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_BlindedVarScalarMult(
     );
 
 
+/**
+ * @brief Initialize CPU and PKC environment for ECC operations
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_InitializeEnvironment)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InitializeEnvironment(
+    mcuxClSession_Handle_t pSession,
+    uint32_t operandSize,
+    uint8_t noOfBuffers,
+    mcuxClEcc_CpuWa_t **ppCpuWorkarea,
+    uint8_t **ppPkcWorkarea,
+    uint16_t **ppOperands);
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_SetupEnvironment)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SetupEnvironment(
@@ -242,6 +289,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_IntegrityCheckPN(
     );
 #endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_INTEGRITYCHECK_PN) */
 
+#if defined(MCUXCL_FEATURE_ECC_EDDSA)
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_RecodeAndReorderScalar)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_RecodeAndReorderScalar(
     mcuxClSession_Handle_t pSession,
@@ -250,6 +298,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_RecodeAndReorderScalar(
     uint32_t scalarBitLength
     );
 
+#endif /* defined(MCUXCL_FEATURE_ECC_EDDSA) || defined(MCUXCL_FEATURE_ECC_WEIERECC_EXTENDED_PRECOMPUTEDPOINTS) */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_SecurePointSelectML)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SecurePointSelectML(
@@ -293,9 +342,9 @@ static inline mcuxClEcc_CpuWa_t* mcuxClEcc_castToEccCpuWorkArea(uint32_t* pWa)
  * Declaration of function which calculates modular inversion, X^(-1) mod N in a blinded way
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ModInv)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ModInv(uint32_t iR_iX_iN_iT, uint32_t iRnd);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_ModInv(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iN_iT, uint32_t iRnd);
 /** Helper macro for #mcuxClEcc_ModInv */
-#define MCUXCLECC_FP_MODINV(iR, iX, iN, iT, iRnd)   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_ModInv(MCUXCLPKC_PACKARGS4(iR, iX, iN, iT), iRnd))
+#define MCUXCLECC_FP_MODINV(pSession, iR, iX, iN, iT, iRnd)   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_ModInv(pSession, MCUXCLPKC_PACKARGS4(iR, iX, iN, iT), iRnd))
 
 #ifdef __cplusplus
 } /* extern "C" */

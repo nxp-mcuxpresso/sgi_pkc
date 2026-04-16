@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2022-2025 NXP                                                  */
+/* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClSignature.c
@@ -75,7 +75,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_sign(
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSignature_verify_recordParam)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify_recordParam(
-  mcuxClSession_Handle_t session,
+  mcuxClSession_Handle_t pSession,
   mcuxClSignature_Mode_t mode,
   mcuxCl_InputBuffer_t pIn,
   uint32_t inSize
@@ -85,18 +85,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify_rec
 
   if(mcuxClSignature_Mode_ECDSA == mode)
   {
-    /* Verify that the session workspace is available and has sufficient capacity.
+    /* Verify that the pSession workspace is available and has sufficient capacity.
     * As this is helper funtion for mcuxClSignature_verify(), error on insufficient memory
     * will be thrown by the main mcuxClSignature_verify() function. Here is only check
     * to prevent workspace usage in case no workspace availability. */
-    if (session->cpuWa.used < session->cpuWa.size)
+    if (pSession->cpuWa.used < pSession->cpuWa.size)
     {
       /* Calculate parameter sum as and place this in a workspace
       * as a hint for signature verification modes.
       * Mode implementations may leverage this if they are designed to recognize
       * active parameter protection feature. */
       uint32_t paramSum = (uint32_t)mode + (uint32_t)pIn + inSize;
-      uint32_t *currentCpuWord = mcuxClSession_getEndOfUsedBuffer_Internal(session);
+      uint32_t *currentCpuWord = mcuxClSession_getEndOfUsedBuffer_Internal(pSession);
       *currentCpuWord = paramSum;
     }
 
@@ -145,5 +145,27 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_verify(
 
 }
 
+#ifdef MCUXCL_FEATURE_SIGNATURE_SELFTEST
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClSignature_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClSignature_Status_t) mcuxClSignature_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClSignature_Mode_t mode,
+  mcuxClSignature_Test_t test
+)
+{
+  MCUXCLSESSION_ENTRY(session, mcuxClSignature_selftest, diRefValue, MCUXCLSIGNATURE_STATUS_FAULT_ATTACK);
+
+  MCUX_CSSL_FP_FUNCTION_CALL(selftest_status, test->pSelfTestFct(
+    /* mcuxClSession_Handle_t            session:             */  session,
+    /* mcuxClSignature_Mode_t            mode:                */  mode));
+
+  MCUXCLSESSION_EXIT(session,
+      mcuxClSignature_selftest,
+      diRefValue,
+      selftest_status,
+      MCUXCLSIGNATURE_STATUS_FAULT_ATTACK,
+      test->protection_token_selftest);
+}
+#endif /* MCUXCL_FEATURE_SIGNATURE_SELFTEST */
 
 

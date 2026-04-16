@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAeadModes_Sgi_Ccm.c
@@ -66,14 +66,14 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
   MCUXCLMEMORY_CLEAR_INT(workArea->cpuWa.CCM_B0, MCUXCLAES_BLOCK_SIZE);
 
   // Assert that parameters aren't negative
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(tagSize, 4u, 15u, MCUXCLAEAD_STATUS_INVALID_PARAM);
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nonceSize, 7u, 13u, MCUXCLAEAD_STATUS_INVALID_PARAM);
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(tagSize, 4U, 15U, MCUXCLAEAD_STATUS_INVALID_PARAM);
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nonceSize, 7U, 13U, MCUXCLAEAD_STATUS_INVALID_PARAM);
 
   // Get length of auth field from parameter
-  uint8_t t = (uint8_t)((tagSize - 2u) / 2u);
+  uint8_t t = (uint8_t)((tagSize - 2U) / 2U);
 
   // Get q from parameter
-  uint8_t q = (uint8_t)(15u - nonceSize);
+  uint8_t q = (uint8_t)(15U - nonceSize);
 
   //Cast to uint8 to access bytes
   uint8_t *pB = workArea->cpuWa.CCM_B0;
@@ -84,8 +84,8 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
   // | Reserved | Adata | [(t-2)/2]_3 | [q-1]_3 |
   // --------------------------------------------
 
-  uint8_t isheaderLen = (adataSize > 0u) ? 1u : 0u;
-  pB[0u] = (uint8_t)((uint8_t)((isheaderLen << 6u) | (t << 3u)) | (q - 1u));
+  uint8_t isheaderLen = (adataSize > 0U) ? 1U : 0U;
+  pB[0U] = (uint8_t)((uint8_t)((isheaderLen << 6U) | (t << 3U)) | (q - 1U));
 
   // Create B0
   // ----------------------------------
@@ -96,16 +96,16 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
   // Create Q - hex encoded value of inLength, reversed representation
   // Assume Q is 4 bytes long for easier byte-reverse; non-needed bytes (trailing zeros) are overwritting when copying the nonce N
   uint8_t *pInLength = (uint8_t*) &inSize;
-  pB[15] = pInLength[0u];
-  pB[14] = pInLength[1u];
-  pB[13] = pInLength[2u];
-  pB[12] = pInLength[3u];
+  pB[15] = pInLength[0U];
+  pB[14] = pInLength[1U];
+  pB[13] = pInLength[2U];
+  pB[12] = pInLength[3U];
 
   // Copy nonce N
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pNonce);
-  MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, &pB[1u]);
+  MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, &pB[1U]);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, nonceSize);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pNonce, 0u, &pB[1u], nonceSize));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pNonce, 0U, &pB[1U], nonceSize));
 
   // Prepare masked pre-tag in macCtx
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMacModes_initMaskedPreTag(&pContext->macCtx));
@@ -136,26 +136,26 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_FormatFirstB
   MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
 
   // If 0 < a < 2^{16}-2^{8}, then a is encoded as [a]_16, i.e., two octets.
-  if(0u != aadLen && aadLen < ((1UL << 16u) - (1UL << 8u)))
+  if(0U != aadLen && aadLen < ((1UL << 16U) - (1UL << 8U)))
   {
     // a < 2^{16}-2^{8}
-    macBuf[0] = (uint8_t)((aadLen & 0x0000FF00u) >> 8u);
-    macBuf[1] = (uint8_t)((aadLen & 0x000000FFu) >> 0u);
+    macBuf[0] = (uint8_t)((aadLen & 0x0000FF00U) >> 8U);
+    macBuf[1] = (uint8_t)((aadLen & 0x000000FFU) >> 0U);
 
-    pContext->macCtx.blockBufferUsed = 2u;
+    pContext->macCtx.blockBufferUsed = 2U;
   }
   // If 2^{16}-2^{8} <= a < 2^{32}, then a is encoded as 0xff || 0xfe || [a]_32, i.e., six octets.
-  else if(0u != aadLen)
+  else if(0U != aadLen)
   {
     // a >= 2^{16}-2^{8}
-    macBuf[0] = (uint8_t)0xFFu;
-    macBuf[1] = (uint8_t)0xFEu;
-    macBuf[2] = (uint8_t)((aadLen & 0xFF000000u) >> 24u);
-    macBuf[3] = (uint8_t)((aadLen & 0x00FF0000u) >> 16u);
-    macBuf[4] = (uint8_t)((aadLen & 0x0000FF00u) >> 8u);
-    macBuf[5] = (uint8_t)((aadLen & 0x000000FFu) >> 0u);
+    macBuf[0] = (uint8_t)0xFFU;
+    macBuf[1] = (uint8_t)0xFEU;
+    macBuf[2] = (uint8_t)((aadLen & 0xFF000000U) >> 24U);
+    macBuf[3] = (uint8_t)((aadLen & 0x00FF0000U) >> 16U);
+    macBuf[4] = (uint8_t)((aadLen & 0x0000FF00U) >> 8U);
+    macBuf[5] = (uint8_t)((aadLen & 0x000000FFU) >> 0U);
 
-    pContext->macCtx.blockBufferUsed = 6u;
+    pContext->macCtx.blockBufferUsed = 6U;
   }
   else
   {
@@ -186,17 +186,17 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_GenerateCoun
   MCUXCLMEMORY_CLEAR_INT(pCtr, MCUXCLAES_BLOCK_SIZE);
 
   // Assert that parameters aren't negative
-  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nonceSize, 7u, 13u, MCUXCLAEAD_STATUS_INVALID_PARAM);
+  MCUX_CSSL_ANALYSIS_ASSERT_PARAMETER(nonceSize, 7U, 13U, MCUXCLAEAD_STATUS_INVALID_PARAM);
 
   // Get q
-  uint8_t q = (uint8_t)(15u - nonceSize);
+  uint8_t q = (uint8_t)(15U - nonceSize);
 
   // Assemble the flags byte
   // ------------------------------------------
   // |     7    |     6    |  5..3  |   2..0  |
   // | Reserved | Reserved |   000  | [q-1]_3 |
   // ------------------------------------------
-  pCtr[0u] = q - 1u;
+  pCtr[0U] = q - 1U;
 
   // Create CTR0
   // ----------------------------------
@@ -206,9 +206,9 @@ static inline MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_CCM_GenerateCoun
 
   // Copy nonce into counter block
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, pNonce);
-  MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, &pCtr[1u]);
+  MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, &pCtr[1U]);
   MCUX_CSSL_DI_RECORD(mcuxClBuffer_read, nonceSize);
-  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pNonce, 0u, &pCtr[1u], nonceSize));
+  MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClBuffer_read(pNonce, 0U, &pCtr[1U], nonceSize));
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClAeadModes_CCM_GenerateCounterBlockV2,
     MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
@@ -255,10 +255,10 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_init(
   MCUXCLMEMORY_CLEAR_INT((uint8_t*)pContext->cipherCtx.blockBuffer, MCUXCLAES_BLOCK_SIZE);
 
   pContext->adataSize = adataSize;
-  pContext->adataCumulativeSize = 0u;
+  pContext->adataCumulativeSize = 0U;
   pContext->inSize = inSize;
   pContext->tagSize = tagSize;
-  pContext->cipherCtx.common.blockBufferUsed = 0u;
+  pContext->cipherCtx.common.blockBufferUsed = 0U;
 
   /* Set CBC mac mode such that we can use zero-padding (only required after the AAD) */
   pContext->macCtx.common.pMode = &mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1;
@@ -282,7 +282,7 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_init(
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMemory_copy_int((uint8_t *)pContext->cipherCtx.ivState, pContext->counter0, MCUXCLAES_BLOCK_SIZE));
 
   // Last X bytes of pCtxCcm->ivState are always equal zero, set last byte to one for the next computation
-  pContext->cipherCtx.ivState[3] = (pContext->cipherCtx.ivState[3] & 0x00ffffffu) | ((uint32_t)0x01u << 24u);
+  pContext->cipherCtx.ivState[3] = (pContext->cipherCtx.ivState[3] & 0x00ffffffU) | ((uint32_t)0x01U << 24U);
 
   MCUX_CSSL_DI_EXPUNGE(tagSize, pContext->tagSize);
 
@@ -353,26 +353,26 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_process(
 
   /* Compare the adataCumulativeSize against the expected adata size to see if this is the first call to Aead_process.
    * If yes, and if any bytes are left in the blockBuffer, pad and process this last aad block. */
-  if((pContext->adataCumulativeSize == pContext->adataSize) && (0u != pContext->macCtx.blockBufferUsed))
+  if((pContext->adataCumulativeSize == pContext->adataSize) && (0U != pContext->macCtx.blockBufferUsed))
   {
     /* Apply padding and process remaining adata and create pretag */
     mcuxClMacModes_WorkArea_t* macModesWorkArea = mcuxClAeadModes_castToMacModesWorkArea(workArea);
 
-    uint32_t padLen = 0u;
+    uint32_t padLen = 0U;
     MCUXCLBUFFER_INIT_RO(paddingInputBuffer, session, (uint8_t*)pContext->macCtx.blockBuffer, pContext->macCtx.blockBufferUsed);
 
     MCUX_CSSL_FP_FUNCTION_CALL_VOID(alg->macAlgo->addPadding(
       session,
       MCUXCLAES_BLOCK_SIZE,
       paddingInputBuffer,
-      0u,
+      0U,
       pContext->macCtx.blockBufferUsed,
       pContext->macCtx.blockBufferUsed,
       workArea->sgiWa.paddingBuff,
       &padLen));
 
     /* The remaining (padded) data is already in paddedBuf, make sure it doesn't get processed twice */
-    pContext->macCtx.blockBufferUsed = 0u;
+    pContext->macCtx.blockBufferUsed = 0U;
 
     MCUXCLBUFFER_INIT_RO(paddedBuf, NULL, workArea->sgiWa.paddingBuff, MCUXCLAES_BLOCK_SIZE);
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER("this null pointer is unused in this function")
@@ -440,7 +440,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_Ccm_processFullBlocks(
   }
 
   MCUXCLBUFFER_INIT_RO(counterInputBuf, NULL, (uint8_t *)pContext->cipherCtx.ivState, MCUXCLAES_BLOCK_SIZE);
-  uint32_t outLen = 0u;
+  uint32_t outLen = 0U;
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(pAlgo->cipherAlgo->setupIVEncrypt(
     session,

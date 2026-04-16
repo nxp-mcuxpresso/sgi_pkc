@@ -20,7 +20,7 @@
 #define MCUXCLSESSION_MEMORYCONSUMPTION_H_
 
 
-#define MCUXCLSESSION_DESCRIPTOR_SIZE           (88u) ///< Total size (in bytes) needed for session descriptor
+#define MCUXCLSESSION_DESCRIPTOR_SIZE           (92u) ///< Total size (in bytes) needed for session descriptor
 #define MCUXCLSESSION_DESCRIPTOR_SIZE_IN_WORDS  (MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLSESSION_DESCRIPTOR_SIZE)) ///< Total size (in bytes) needed for session descriptor
 
 #endif /* MCUXCLSESSION_MEMORYCONSUMPTION_H_ */

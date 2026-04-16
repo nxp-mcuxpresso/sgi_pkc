@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClPrng_SCM.c
@@ -22,13 +22,16 @@
 #include <internal/mcuxClPrng_Internal.h>
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 
+#if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
 #include <internal/mcuxClTrng_Internal.h>
+#endif /* MCUXCL_FEATURE_TRNG_SA_TRNG */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClPrng_reseed)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_reseed(mcuxClSession_Handle_t pSession)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClPrng_reseed);
 
+    #if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
         /* Generate entropy using the TRNG */
 
         /* Allocate memory for the seed */
@@ -45,13 +48,24 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClPrng_reseed(mcuxClSession_Handle_t pSess
             mcuxClTrng_getEntropyInput(pSession, prngSeed, sizeof(uint32_t))
         );
 
+        #if defined(MCUXCL_FEATURE_PRNG_SGI_SFRSEED)
             /* Set the Sfr seed */
             mcuxClSgi_Sfr_writeSfrSeed(prngSeed[0]);
+        #elif defined(MCUXCL_FEATURE_PRNG_SGI)
+            /* Reseed the PRNG SW Seed */
+            mcuxClSgi_Sfr_writePrngSwSeed(prngSeed[0]);
+        #endif /* MCUXCL_FEATURE_PRNG_SGI_SFRSEED */
+    #else
+        // Put pragmas for compiler if needed to prevent conversion of warning to error
+        #pragma message("PRNG cannot be reseeded. Entropy input for seeding the PRNG is not enabled in the platform.")
+    #endif /* MCUXCL_FEATURE_TRNG_SA_TRNG */
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClPrng_reseed
+    #if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
         ,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_Init),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClTrng_getEntropyInput)
+    #endif /* MCUXCL_FEATURE_TRNG_SA_TRNG */
     );
 }
 

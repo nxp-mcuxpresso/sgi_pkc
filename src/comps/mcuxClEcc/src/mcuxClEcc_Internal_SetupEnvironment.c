@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -33,6 +33,112 @@
 
 #include <internal/mcuxClEcc_Internal.h>
 #include <internal/mcuxClEcc_Internal_FUP.h>
+#include <internal/mcuxClEcc_Internal_MemoryConsumption.h>
+
+/**
+ * This function sets up the CPU and PKC environment for ECC operations.
+ * It allocates CPU and PKC workareas, initializes the UPTRT table, and sets up virtual offsets.
+ *
+ * Input:
+ *  - pSession              Handle for the current CL session
+ *  - operandSize           Size of PKC operand in bytes
+ *  - noOfBuffers           Number of PKC buffers to be allocated
+ *  - ppCpuWorkarea         Pointer to receive the allocated CPU workarea
+ *  - ppPkcWorkarea         Pointer to receive the allocated PKC workarea
+ *  - ppOperands            Pointer to receive the UPTRT table pointer
+ *
+ * Result:
+ *  - CPU and PKC workareas allocated
+ *  - UPTRT table initialized
+ *  - Virtual offsets ECC_P, ECC_N, ECC_ONE, ECC_ZERO set up
+ *  - ps1Len = (operandSize, operandSize)
+ */
+MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_InitializeEnvironment)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_InitializeEnvironment(
+    mcuxClSession_Handle_t pSession,
+    uint32_t operandSize,
+    uint8_t noOfBuffers,
+    mcuxClEcc_CpuWa_t **ppCpuWorkarea,
+    uint8_t **ppPkcWorkarea,
+    uint16_t **ppOperands)
+{
+    MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClEcc_InitializeEnvironment);
+
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The result does not wrap. The bufferSize can't be larger than UINT32_MAX.")
+    const uint32_t bufferSize = operandSize + MCUXCLPKC_WORDSIZE;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
+
+    /* The CPU WA layout is:
+    * +-------------+-------------+------------------------+
+    * | Math UPTRT  | ECC UPTRT   | ECC Allocated Memory   |
+    * +-------------+-------------+------------------------+
+    */
+
+    /* Compute CPU and PKC WA sizes to allocate */
+    const uint32_t byteLenOperandsTable = SIZEOF_ECC_UPTRT_WA((uint32_t)noOfBuffers, ECC_NO_OF_VIRTUALS);
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("bufferSize*noOfBuffers won't wrap because bufferSize < 88 and noOfBuffers < ECC_COORD28(=0x3C)")
+    const uint32_t alignedByteLenEccBuffers = bufferSize * (uint32_t) noOfBuffers;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
+
+    /* Setup CPU workarea. */
+    const uint32_t alignedByteLenCpuWa = SIZEOF_ECCCPUWA_T;
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned")
+    MCUX_CSSL_FP_FUNCTION_CALL(mcuxClEcc_CpuWa_t*, pCpuWorkarea, mcuxClSession_allocateWords_cpuWa(pSession, alignedByteLenCpuWa  / sizeof(uint32_t)));
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
+
+    /* Setup mcuxClMath UPTRT buffer at beginning of CPU/PKC WA depending on MCUXCL_FEATURE_PKC_UPTRT_IN_PKCRAM and update session info */
+    MCUX_CSSL_FP_FUNCTION_CALL(uint32_t*, pMathUptrt, mcuxClSession_allocateWords_uptrt(pSession, MCUXCLMATH_SIZEOF_MATH_UPTRT / sizeof(uint32_t)));
+    /* Update session info for pMathUptrt location in WA */
+    pSession->pMathUptrt = pMathUptrt;
+
+    /* Setup ECC UPTRT buffer after Math UPTRT */
+    MCUX_CSSL_FP_FUNCTION_CALL(uint16_t*, pOperands, mcuxClSession_allocateWords_uptrt(pSession, byteLenOperandsTable / sizeof(uint32_t)));
+
+    /* Setup PKC buffer. */
+    MCUX_CSSL_FP_FUNCTION_CALL(uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, alignedByteLenEccBuffers  / sizeof(uint32_t)));
+
+    const uint32_t wordNumCpuWa = (alignedByteLenCpuWa +
+                                   MCUXCLECC_SIZEOF_UPTRT_CPUWA((uint32_t)noOfBuffers, ECC_NO_OF_VIRTUALS)) / sizeof(uint32_t);
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_WRAP("The addition cannot wrap because wordNumPkcWa < MAX(PKC_RAM) < UINT32_MAX")
+    const uint32_t wordNumPkcWa = (alignedByteLenEccBuffers +
+                                   MCUXCLECC_SIZEOF_UPTRT_PKCWA((uint32_t)noOfBuffers, ECC_NO_OF_VIRTUALS)) / sizeof(uint32_t);
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_WRAP()
+    pCpuWorkarea->wordNumCpuWa = wordNumCpuWa;
+    pCpuWorkarea->wordNumPkcWa = wordNumPkcWa;
+
+    MCUXCLPKC_FP_REQUEST_INITIALIZE(pSession, mcuxClEcc_InitializeEnvironment);
+
+    /* Set PS1 MCLEN and LEN. */
+    MCUXCLPKC_PS1_SETLENGTH(operandSize, operandSize);
+
+    /* MISRA Ex. 22, while(0) is allowed */
+    MCUXCLPKC_FP_GENERATEUPTRT(& pOperands[ECC_NO_OF_VIRTUALS],
+                              pPkcWorkarea,
+                              (uint16_t) (bufferSize & 0xffffU),
+                              noOfBuffers);
+    MCUXCLPKC_SETUPTRT(pOperands);
+
+    /* Setup virtual offsets to prime p and curve order n. */
+    pOperands[ECC_P] = (pOperands[ECC_PFULL] + MCUXCLPKC_WORDSIZE) & 0xFFFFu;
+    pOperands[ECC_N] = (pOperands[ECC_NFULL] + MCUXCLPKC_WORDSIZE) & 0xFFFFU;
+
+    /* Initialize constants ONE = 0x0001 and ZERO = 0x0000 in uptr table. */
+    pOperands[ECC_ONE]  = 0x0001u;
+    pOperands[ECC_ZERO] = 0x0000u;
+
+    /* Return allocated pointers */
+    *ppCpuWorkarea = pCpuWorkarea;
+    *ppPkcWorkarea = pPkcWorkarea;
+    *ppOperands = pOperands;
+
+    MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_InitializeEnvironment,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_uptrt),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
+        MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_GenerateUPTRT));
+}
 
 /**
  * This function sets up the general environment used by ECC functions.
@@ -53,6 +159,8 @@
  *  - Buffers ECC_PQSQR and ECC_NQSQR contain the R^2 values modulo p and n, respectively
  *  - Virtual pointers ECC_P and ECC_N point to the second PKC word of ECC_PFULL and ECC_NFULL, respectively
  *  - Virtual pointers ECC_ZERO and ECC_ONE have been initialized with 0 and 1, respecitvely
+ * - The local UPTRT of Math has been put in the beginning of the PKC/CPU RAM depending on MCUXCL_FEATURE_PKC_UPTRT_IN_PKCRAM.
+ * - Hence, the local UPRTRT of Math (to be used by mcuxClMath_InitLocalUptrt) is setup before the ECC UPTRT in the PKC/CPU WA.
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_SetupEnvironment)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SetupEnvironment(mcuxClSession_Handle_t pSession,
@@ -65,47 +173,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SetupEnvironment(mcuxClSession_Handl
     const uint32_t byteLenN = (uint32_t) pCommonDomainParams->byteLenN;
     const uint32_t byteLenMax = ((byteLenP > byteLenN) ? byteLenP : byteLenN);
     const uint32_t operandSize = MCUXCLPKC_ALIGN_TO_PKC_WORDSIZE(byteLenMax);
-    const uint32_t bufferSize = operandSize + MCUXCLPKC_WORDSIZE;
 
-    /* Setup CPU workarea and PKC buffer. */
-    const uint32_t byteLenOperandsTable = (sizeof(uint16_t)) * (ECC_NO_OF_VIRTUALS + (uint32_t) noOfBuffers);
-    const uint32_t alignedByteLenCpuWa = MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(mcuxClEcc_CpuWa_t)) + sizeof(uint32_t) /* Reserve 1 word for making UPTR table start from 64-bit aligned address */
-                                          + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(byteLenOperandsTable);
-    const uint32_t wordNumCpuWa = alignedByteLenCpuWa / (sizeof(uint32_t));
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 to Rule 11.3 - mcuxClEcc_CpuWa_t is 32 bit aligned")
-    MCUX_CSSL_FP_FUNCTION_CALL(mcuxClEcc_CpuWa_t*, pCpuWorkarea, mcuxClSession_allocateWords_cpuWa(pSession, wordNumCpuWa));
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-    const uint32_t wordNumPkcWa = (bufferSize * (uint32_t) noOfBuffers) / (sizeof(uint32_t));  /* PKC bufferSize is a multiple of CPU word size. */
-    MCUX_CSSL_FP_FUNCTION_CALL(const uint8_t*, pPkcWorkarea, mcuxClSession_allocateWords_pkcWa(pSession, wordNumPkcWa));
-
-    pCpuWorkarea->wordNumCpuWa = wordNumCpuWa;
-    pCpuWorkarea->wordNumPkcWa = wordNumPkcWa;
-
-    MCUXCLPKC_FP_REQUEST_INITIALIZE(pSession, mcuxClEcc_SetupEnvironment);
-
-    /* Set PS1 MCLEN and LEN. */
-    MCUXCLPKC_PS1_SETLENGTH(operandSize, operandSize);
-
-    /* Setup UPTR table. */
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES("MISRA Ex. 9 - Rule 11.3 - Cast to 16-bit pointer table")
-    MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER("Arithmetic to align pointers on 2 bytes")
-    uint16_t *pOperands = (uint16_t *)MCUXCLCORE_ALIGN_TO_WORDSIZE(sizeof(uint64_t), (uint32_t)pCpuWorkarea + MCUXCLCORE_ALIGN_TO_CPU_WORDSIZE(sizeof(mcuxClEcc_CpuWa_t))); /* Make UPTR table start from 64-bit aligned address */
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_BETWEEN_INTEGER_AND_POINTER()
-    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY_BETWEEN_INAPT_ESSENTIAL_TYPES()
-    /* MISRA Ex. 22, while(0) is allowed */
-    MCUXCLPKC_FP_GENERATEUPTRT(& pOperands[ECC_NO_OF_VIRTUALS],
-                              pPkcWorkarea,
-                              (uint16_t) bufferSize,
-                              noOfBuffers);
-    MCUXCLPKC_SETUPTRT(pOperands);
-
-    /* Setup virtual offsets to prime p and curve order n. */
-    pOperands[ECC_P] = (pOperands[ECC_PFULL] + MCUXCLPKC_WORDSIZE) & 0xFFFFu;
-    pOperands[ECC_N] = (pOperands[ECC_NFULL] + MCUXCLPKC_WORDSIZE) & 0xFFFFU;
-
-    /* Initialize constants ONE = 0x0001 and ZERO = 0x0000 in uptr table. */
-    pOperands[ECC_ONE]  = 0x0001u;
-    pOperands[ECC_ZERO] = 0x0000u;
+    /* Initialize CPU and PKC environment */
+    mcuxClEcc_CpuWa_t *pCpuWorkarea;
+    uint8_t *pPkcWorkarea;
+    uint16_t *pOperands;
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClEcc_InitializeEnvironment(
+        pSession, operandSize, noOfBuffers,
+        &pCpuWorkarea, &pPkcWorkarea, &pOperands
+    ));
 
     /* Clear buffers P, N, PQSQR and NQSQR. */
     MCUXCLPKC_FP_CALCFUP(mcuxClEcc_FUP_SetupEnvironment_ClearBuffers,
@@ -161,10 +237,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_SetupEnvironment(mcuxClSession_Handl
     MCUXCLMATH_FP_SHIFTMODULUS(ECC_NS, ECC_N);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClEcc_SetupEnvironment,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_cpuWa),
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSession_allocateWords_pkcWa),
-        MCUXCLPKC_FP_CALLED_REQUEST_INITIALIZE,
-        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_GenerateUPTRT),
+        MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_InitializeEnvironment),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPkc_CalcFup),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMemory_copy_int),

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClCipherModes_Sgi_Types.h
@@ -55,6 +55,7 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t)(*mcuxClCipherModes_En
   uint32_t * const pOutLength
 ));
 
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
 /**
  * @brief Engine function type for SGI modes that handles the wrap-up of AUTO mode (non-blocking)
  */
@@ -63,6 +64,7 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void)(*mcuxClCipherModes_completeAutoModeFun
   mcuxClSession_Handle_t session,
   mcuxClCipherModes_WorkArea_t* pWa
 ));
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 /**
  * @brief Finish function type for SGI modes
@@ -145,8 +147,10 @@ typedef struct mcuxClCipherModes_AlgorithmDescriptor_Aes_Sgi
   uint32_t                             protectionToken_encryptEngine;
   mcuxClCipherModes_EngineFunc_AesSgi_t decryptEngine;
   uint32_t                             protectionToken_decryptEngine;
+#ifdef MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING
   mcuxClCipherModes_completeAutoModeFunc_t completeAutoModeEngine;
   uint32_t                                protectionToken_completeAutoModeEngine;
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
   mcuxClCipherModes_SetupIvFunc_t       setupIVEncrypt;
   uint32_t                             protectionToken_setupIVEncrypt;
   mcuxClCipherModes_SetupIvFunc_t       setupIVDecrypt;

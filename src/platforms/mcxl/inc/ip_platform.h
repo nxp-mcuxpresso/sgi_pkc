@@ -71,12 +71,9 @@
 /**
  *  Defines/Macros for the CH_MUX (Channel Multiplexor) register fields.
  */
-#define DMA_REQ_SRC_DISABLED  0u //(kDma0RequestDisabled)    ///< DMA handshake source for disabling handshakes
-#define kDma0RequestDisabled  DMA_REQ_SRC_DISABLED
-#define DMA_REQ_SRC_SGI_IN    96u //(kDma0RequestSGI0Datain)  ///< DMA handshake source for SGI DATIN
-#define kDma0RequestSGI0Datain DMA_REQ_SRC_SGI_IN
-#define DMA_REQ_SRC_SGI_OUT   97u //(kDma0RequestSGI0Dataout) ///< DMA handshake source for SGI DATOUT
-#define kDma0RequestSGI0Dataout DMA_REQ_SRC_SGI_OUT
+#define DMA_REQ_SRC_DISABLED  (kDma0RequestDisabled)    ///< DMA handshake source for disabling handshakes
+#define DMA_REQ_SRC_SGI_IN    (kDma0RequestSGI0Datain)  ///< DMA handshake source for SGI DATIN
+#define DMA_REQ_SRC_SGI_OUT   (kDma0RequestSGI0Dataout) ///< DMA handshake source for SGI DATOUT
 
 /**
  * Helper macro for constructing SFR field name constants

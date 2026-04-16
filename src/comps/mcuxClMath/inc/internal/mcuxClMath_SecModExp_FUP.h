@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021, 2023, 2026 NXP                                           */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -34,49 +34,77 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  */
 #define mcuxClMath_SecModExp_Fup_Init_LEN  3u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_SecModExp_Fup_Init);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_SecModExp_Fup_Init,
+  mcuxClMath_SecModExp_Fup_Init_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_SecModExp_Fup_Rerandomize
  */
 #define mcuxClMath_SecModExp_Fup_Rerandomize_LEN  5u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_SecModExp_Fup_Rerandomize);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_SecModExp_Fup_Rerandomize,
+  mcuxClMath_SecModExp_Fup_Rerandomize_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_SecModExp_Fup_EuclideanSplit_1
  */
 #define mcuxClMath_SecModExp_Fup_EuclideanSplit_1_LEN  8u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_SecModExp_Fup_EuclideanSplit_1);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_SecModExp_Fup_EuclideanSplit_1,
+  mcuxClMath_SecModExp_Fup_EuclideanSplit_1_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_SecModExp_Fup_EuclideanSplit_2
  */
 #define mcuxClMath_SecModExp_Fup_EuclideanSplit_2_LEN  7u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_SecModExp_Fup_EuclideanSplit_2);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_SecModExp_Fup_EuclideanSplit_2,
+  mcuxClMath_SecModExp_Fup_EuclideanSplit_2_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_SecModExp_Fup_ExactDivideLoop
  */
 #define mcuxClMath_SecModExp_Fup_ExactDivideLoop_LEN  9u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_SecModExp_Fup_ExactDivideLoop);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_SecModExp_Fup_ExactDivideLoop,
+  mcuxClMath_SecModExp_Fup_ExactDivideLoop_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_SecModExp_Fup_CalcQAndInterleave
  */
 #define mcuxClMath_SecModExp_Fup_CalcQAndInterleave_LEN  6u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_SecModExp_Fup_CalcQAndInterleave);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_SecModExp_Fup_CalcQAndInterleave,
+  mcuxClMath_SecModExp_Fup_CalcQAndInterleave_LEN
+);
+
 
 /*
  * FUP program declaration mcuxClMath_SecModExp_Fup_PrepareFirstExp
  */
 #define mcuxClMath_SecModExp_Fup_PrepareFirstExp_LEN  5u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClMath_SecModExp_Fup_PrepareFirstExp);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClMath_SecModExp_Fup_PrepareFirstExp,
+  mcuxClMath_SecModExp_Fup_PrepareFirstExp_LEN
+);
+
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 
 #ifdef __cplusplus

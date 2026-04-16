@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021, 2023-2024, 2026 NXP                                      */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -39,19 +39,31 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_LINKAGE_FUP()
  * FUP program declaration mcuxClEcc_FUP_MontDhDecodeScalar
  */
 #define mcuxClEcc_FUP_MontDhDecodeScalar_LEN  10u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_MontDhDecodeScalar);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_MontDhDecodeScalar,
+  mcuxClEcc_FUP_MontDhDecodeScalar_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_MontDhX_CalcAffineX
  */
 #define mcuxClEcc_FUP_MontDhX_CalcAffineX_LEN  8u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_MontDhX_CalcAffineX);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_MontDhX_CalcAffineX,
+  mcuxClEcc_FUP_MontDhX_CalcAffineX_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX
  */
 #define mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX_LEN  6u
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX,
+  mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX_LEN
+);
+
 
 
 /**********************************************************/
@@ -62,7 +74,11 @@ MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_MontDhX_DecodeAndRandomizeX);
  */
 #define mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords_LEN  9u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords,
+  mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoords_LEN
+);
+
 
 /**
  * FUP program declaration mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep
@@ -70,7 +86,11 @@ MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_Mont_SecureScalarMult_UpdateAccCoord
 #define mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep_Affine_LEN  19u
 #define mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep_Projective_LEN  22u
 
-MCUXCLPKC_FUP_EXT_ROM_DECLARE(mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep);
+MCUXCLPKC_FUP_EXT_ROM_DECLARE(
+  mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep,
+  mcuxClEcc_FUP_SecureScalarMult_XZMontLadder_LadderStep_Projective_LEN
+);
+
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_LINKAGE_FUP()
 

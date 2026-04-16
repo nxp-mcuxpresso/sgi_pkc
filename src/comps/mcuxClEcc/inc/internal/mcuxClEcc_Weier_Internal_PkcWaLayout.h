@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -98,6 +98,27 @@ extern "C" {
 #define ECC_DECODEPOINT_NO_OF_VIRTUALS  ECC_NO_OF_VIRTUALS
 #define ECC_DECODEPOINT_NO_OF_BUFFERS   (WEIER_YA + 1u - ECC_DECODEPOINT_NO_OF_VIRTUALS)
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SCALARMULT
+#define ECC_ARITHMETICOPERATION_SCALARMULT_NO_OF_VIRTUALS  ECC_NO_OF_VIRTUALS
+#define ECC_ARITHMETICOPERATION_SCALARMULT_NO_OF_BUFFERS   (WEIER_Y3 + 1u - ECC_ARITHMETICOPERATION_SCALARMULT_NO_OF_VIRTUALS)
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SCALARMULT */
+
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SECURESCALARMULT
+#define ECC_ARITHMETICOPERATION_SECURESCALARMULT_NO_OF_VIRTUALS  ECC_NO_OF_VIRTUALS
+#define ECC_ARITHMETICOPERATION_SECURESCALARMULT_NO_OF_BUFFERS   (WEIER_Y1 + 1u - ECC_ARITHMETICOPERATION_SCALARMULT_NO_OF_VIRTUALS)
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SECURESCALARMULT */
+
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTADD
+#define ECC_ARITHMETICOPERATION_POINTADD_NO_OF_VIRTUALS  ECC_NO_OF_VIRTUALS
+#define ECC_ARITHMETICOPERATION_POINTADD_NO_OF_BUFFERS   (WEIER_Y2 + 1u - ECC_ARITHMETICOPERATION_POINTADD_NO_OF_VIRTUALS)
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTADD */
+
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTSUB
+#define ECC_ARITHMETICOPERATION_POINTSUB_NO_OF_VIRTUALS  ECC_NO_OF_VIRTUALS
+#define ECC_ARITHMETICOPERATION_POINTSUB_NO_OF_BUFFERS   (WEIER_Y2 + 1u - ECC_ARITHMETICOPERATION_POINTSUB_NO_OF_VIRTUALS)
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTSUB */
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */
 
 #define ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_VIRTUALS  ECC_NO_OF_VIRTUALS
 #define ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_BUFFERS   (ECC_T0 + 1u - ECC_WEIERECC_PRIVATEKEYVALIDATION_NO_OF_VIRTUALS)

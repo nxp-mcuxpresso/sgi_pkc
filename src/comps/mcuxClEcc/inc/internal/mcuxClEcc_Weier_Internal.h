@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -111,7 +111,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_Weier_PointCheckJacMR(
 #endif /* defined(MCUXCLECC_FEATURE_INTERNAL_WEIER_JACOBIAN_POINT_CHECK) */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_SecureConvertPoint_JacToAffine)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_SecureConvertPoint_JacToAffine(void);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_SecureConvertPoint_JacToAffine(mcuxClSession_Handle_t pSession);
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Weier_DomainParamsCheck)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Weier_DomainParamsCheck(mcuxClSession_Handle_t pSession,
@@ -164,6 +164,79 @@ MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_Int_CoreKeyGen)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClEcc_Int_CoreKeyGen(mcuxClSession_Handle_t pSession, uint32_t nByteLength);
 
 
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
+
+/**********************************************************/
+/* Internal function declaration - ArithmeticOperation    */
+/**********************************************************/
+
+#if defined(MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTADD) || defined(MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTSUB)
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ArithOp_PointAddSub)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_PointAddSub(
+    mcuxClSession_Handle_t pSession,
+    mcuxClEcc_Weier_DomainParams_t *pEccWeierDomainParams,
+    mcuxCl_InputBuffer_t pOp1,
+    uint32_t op1Size,
+    mcuxCl_InputBuffer_t pOp2,
+    uint32_t op2Size,
+    mcuxCl_Buffer_t pResult,
+    uint32_t * const pResultSize,
+    mcuxClEcc_ArithmeticOperationFunction_t caller);
+#endif
+
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTADD
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ArithOp_PointAdd, mcuxClEcc_ArithmeticOperationFunction_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_PointAdd(
+    mcuxClSession_Handle_t pSession,
+    mcuxClEcc_Weier_DomainParams_t *pEccWeierDomainParams,
+    mcuxCl_InputBuffer_t pOp1,
+    uint32_t op1Size,
+    mcuxCl_InputBuffer_t pOp2,
+    uint32_t op2Size,
+    mcuxCl_Buffer_t pResult,
+    uint32_t * const pResultSize);
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTADD */
+
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTSUB
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ArithOp_PointSub, mcuxClEcc_ArithmeticOperationFunction_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_PointSub(
+    mcuxClSession_Handle_t pSession,
+    mcuxClEcc_Weier_DomainParams_t *pEccWeierDomainParams,
+    mcuxCl_InputBuffer_t pOp1,
+    uint32_t op1Size,
+    mcuxCl_InputBuffer_t pOp2,
+    uint32_t op2Size,
+    mcuxCl_Buffer_t pResult,
+    uint32_t * const pResultSize);
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_POINTSUB */
+
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SCALARMULT
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ArithOp_ScalarMult, mcuxClEcc_ArithmeticOperationFunction_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_ScalarMult(
+    mcuxClSession_Handle_t pSession,
+    mcuxClEcc_Weier_DomainParams_t *pEccWeierDomainParams,
+    mcuxCl_InputBuffer_t pOp1,
+    uint32_t op1Size,
+    mcuxCl_InputBuffer_t pOp2,
+    uint32_t op2Size,
+    mcuxCl_Buffer_t pResult,
+    uint32_t * const pResultSize);
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SCALARMULT */
+
+#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SECURESCALARMULT
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClEcc_ArithOp_SecureScalarMult, mcuxClEcc_ArithmeticOperationFunction_t)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_SecureScalarMult(
+    mcuxClSession_Handle_t pSession,
+    mcuxClEcc_Weier_DomainParams_t *pEccWeierDomainParams,
+    mcuxCl_InputBuffer_t pOp1,
+    uint32_t op1Size,
+    mcuxCl_InputBuffer_t pOp2,
+    uint32_t op2Size,
+    mcuxCl_Buffer_t pResult,
+    uint32_t * const pResultSize);
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION_SECURESCALARMULT */
+
+#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */
 
 
 /**********************************************************/

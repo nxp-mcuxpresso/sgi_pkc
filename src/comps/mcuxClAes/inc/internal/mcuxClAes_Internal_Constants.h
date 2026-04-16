@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLAES_INTERNAL_CONSTANTS_H_
@@ -24,9 +24,9 @@ extern "C" {
 /**********************************************/
 /* Internal constants for subkeys             */
 /**********************************************/
-#define MCUXCLAES_GCM_H_KEY_SIZE                (16u)
+#define MCUXCLAES_GCM_H_KEY_SIZE                (16U)
 #define MCUXCLAES_GCM_H_KEY_SIZE_IN_WORDS       (MCUXCLAES_GCM_H_KEY_SIZE / sizeof(uint32_t))
-#define MCUXCLAES_MAC_SUB_KEY_SIZE              (16u)
+#define MCUXCLAES_MAC_SUB_KEY_SIZE              (16U)
 
 
 /**********************************************/
@@ -37,7 +37,7 @@ extern "C" {
 
 
 /* default 32-bit SGI SFR mask constant */
-#define MCUXCLAES_KEY_CHECKSUM_SFRMASKING_SEED             (0xF0F0F0F0u)
+#define MCUXCLAES_KEY_CHECKSUM_SFRMASKING_SEED             (0xF0F0F0F0U)
 
 #ifdef __cplusplus
 } /* extern "C" */

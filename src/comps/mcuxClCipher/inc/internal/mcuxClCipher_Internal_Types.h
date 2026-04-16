@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClCipher_Internal_Types.h
@@ -75,6 +75,25 @@ typedef MCUX_CSSL_FP_PROTECTED_TYPE(void)(*mcuxClCipher_FinishFunc_t) (
   uint32_t * const pOutLength
 ));
 
+#ifdef MCUXCL_FEATURE_CIPHER_SELFTEST
+MCUX_CSSL_FP_FUNCTION_POINTER(mcuxClCipher_SelfTestFunc_t,
+typedef MCUX_CSSL_FP_PROTECTED_TYPE(void)(*mcuxClCipher_SelfTestFunc_t) (
+  mcuxClSession_Handle_t session,
+  mcuxClCipher_Mode_t pMode
+));
+
+/**
+ * @brief Cipher selftest mode/algorithm descriptor structure
+ *
+ * This structure captures all the information that the Cipher selftest interfaces need
+ * to know about a particular Cipher selftest mode/algorithm.
+ */
+struct mcuxClCipher_TestDescriptor
+{
+  mcuxClCipher_SelfTestFunc_t    selftest;
+  uint32_t                      protection_token_selftest;
+};
+#endif /* MCUXCL_FEATURE_CIPHER_SELFTEST */
 
 /**
  * @brief Macros for @ref mcuxClCipher_ModeFunctions_t

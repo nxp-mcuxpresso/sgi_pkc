@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -170,7 +170,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ShiftModulus(
  * This function calculates NDash = (-modulus)^(-1) mod 256^(MCUXCLPKC_WORDSIZE)
  * and stores NDash in the PKC word in front of the PKC operand of modulus (iN).
  *
- * @param[in,tmp] iN_iT  indices of PKC operands
+ * @param[in]     pSession  handle for the current CL session
+ * @param[in,tmp] iN_iT     indices of PKC operands
  *
  * @pre
  *  - @p iT (bits 0~7): index of temp (PKC operand).
@@ -189,14 +190,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ShiftModulus(
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_NDash)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_NDash(
+    mcuxClSession_Handle_t pSession,
     uint16_t iN_iT
     );
 /** Helper macro for #mcuxClMath_NDash. */
-#define MCUXCLMATH_NDASH(iN, iT)  \
-    mcuxClMath_NDash(MCUXCLPKC_PACKARGS2(iN, iT))
+#define MCUXCLMATH_NDASH(pSession, iN, iT)  \
+    mcuxClMath_NDash(pSession, MCUXCLPKC_PACKARGS2(iN, iT))
 /** Helper macro for #mcuxClMath_NDash with flow protection. */
-#define MCUXCLMATH_FP_NDASH(iN, iT)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_NDASH(iN, iT))
+#define MCUXCLMATH_FP_NDASH(pSession, iN, iT)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_NDASH(pSession, iN, iT))
 
 
 /**
@@ -205,6 +207,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_NDash(
  * This function computes QDash which can be used to convert a PKC operand
  * (of the size @p length) to its Montgomery representation (of the size operandSize).
  *
+ * @param[in]            pSession                handle for the current CL session
  * @param[out,in,in,tmp] iQDash_iNShifted_iN_iT  indices of PKC operands
  * @param                length                  specify Q' = 256^length mod n
  *
@@ -228,15 +231,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_NDash(
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_QDash)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QDash(
+    mcuxClSession_Handle_t pSession,
     uint32_t iQDash_iNShifted_iN_iT,
     uint16_t length
     );
 /** Helper macro for #mcuxClMath_QDash. */
-#define MCUXCLMATH_QDASH(iQDash, iNShifted, iN, iT, len)  \
-    mcuxClMath_QDash(MCUXCLPKC_PACKARGS4(iQDash, iNShifted, iN, iT), len)
+#define MCUXCLMATH_QDASH(pSession, iQDash, iNShifted, iN, iT, len)  \
+    mcuxClMath_QDash(pSession, MCUXCLPKC_PACKARGS4(iQDash, iNShifted, iN, iT), len)
 /** Helper macro for #mcuxClMath_QDash with flow protection. */
-#define MCUXCLMATH_FP_QDASH(iQDash, iNShifted, iN, iT, len)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_QDASH(iQDash, iNShifted, iN, iT, len))
+#define MCUXCLMATH_FP_QDASH(pSession, iQDash, iNShifted, iN, iT, len)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_QDASH(pSession, iQDash, iNShifted, iN, iT, len))
 
 
 /**
@@ -245,6 +249,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QDash(
  * This function computes QSquared which can be used to convert a PKC operand
  * to its Montgomery representation (both are of the size operandSize).
  *
+ * @param[in]            pSession               handle for the current CL session
  * @param[out,in,in,tmp] iQSqr_iNShifted_iN_iT  indices of PKC operands
  *
  * @pre
@@ -266,14 +271,15 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QDash(
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_QSquared)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QSquared(
+    mcuxClSession_Handle_t pSession,
     uint32_t iQSqr_iNShifted_iN_iT
     );
 /** Helper macro for #mcuxClMath_QSquared. */
-#define MCUXCLMATH_QSQUARED(iQSqr, iNShifted, iN, iT)  \
-    mcuxClMath_QSquared(MCUXCLPKC_PACKARGS4(iQSqr, iNShifted, iN, iT))
+#define MCUXCLMATH_QSQUARED(pSession, iQSqr, iNShifted, iN, iT)  \
+    mcuxClMath_QSquared(pSession, MCUXCLPKC_PACKARGS4(iQSqr, iNShifted, iN, iT))
 /** Helper macro for #mcuxClMath_QSquared with flow protection. */
-#define MCUXCLMATH_FP_QSQUARED(iQSqr, iNShifted, iN, iT)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_QSQUARED(iQSqr, iNShifted, iN, iT))
+#define MCUXCLMATH_FP_QSQUARED(pSession, iQSqr, iNShifted, iN, iT)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_QSQUARED(pSession, iQSqr, iNShifted, iN, iT))
 
 
 /**
@@ -281,6 +287,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QSquared(
  *
  * This function calculates modular inversion, result = X^(-1) mod n.
  *
+ * @param[in]            pSession     handle for the current CL session
  * @param[out,in,in,tmp] iR_iX_iN_iT  indices of PKC operands
  * @param[in]            flagCoprime  coprime flag
  *
@@ -309,14 +316,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_QSquared(
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_ModInv)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModInv(
-    uint32_t iR_iX_iN_iT, uint32_t flagCoprime
+    mcuxClSession_Handle_t pSession, uint32_t iR_iX_iN_iT, uint32_t flagCoprime
     );
 /** Helper macro for #mcuxClMath_ModInv. X and N should be coprime. */
-#define MCUXCLMATH_MODINV(iR, iX, iN, iT)  \
-    mcuxClMath_ModInv(MCUXCLPKC_PACKARGS4(iR, iX, iN, iT), MCUXCLMATH_XN_COPRIME)
+#define MCUXCLMATH_MODINV(pSession, iR, iX, iN, iT)  \
+    mcuxClMath_ModInv(pSession, MCUXCLPKC_PACKARGS4(iR, iX, iN, iT), MCUXCLMATH_XN_COPRIME)
 /** Helper macro for #mcuxClMath_ModInv with flow protection. X and N should be coprime. */
-#define MCUXCLMATH_FP_MODINV(iR, iX, iN, iT)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_MODINV(iR, iX, iN, iT))
+#define MCUXCLMATH_FP_MODINV(pSession, iR, iX, iN, iT)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_MODINV(pSession, iR, iX, iN, iT))
 
 
 /**
@@ -324,6 +331,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModInv(
  *
  * This function calculates modular reduction result = X mod n, where the modulus n is even.
  *
+ * @param[in]              pSession      handle for the current CL session
  * @param[out,in,in,tmp]   iR_iX_iN_iT0  indices of PKC operands
  * @param[tmp,tmp,tmp,tmp] iT1_iT2_iT3   indices of PKC operands
  *
@@ -351,15 +359,16 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModInv(
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_ReduceModEven)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ReduceModEven(
+    mcuxClSession_Handle_t pSession,
     uint32_t iR_iX_iN_iT0,
     uint32_t iT1_iT2_iT3
     );
 /** Helper macro for #mcuxClMath_ReduceModEven. */
-#define MCUXCLMATH_REDUCEMODEVEN(iR, iX, iN, iT0, iT1, iT2, iT3)  \
-    mcuxClMath_ReduceModEven(MCUXCLPKC_PACKARGS4(iR, iX, iN, iT0), MCUXCLPKC_PACKARGS4(0u, iT1, iT2, iT3))
+#define MCUXCLMATH_REDUCEMODEVEN(pSession, iR, iX, iN, iT0, iT1, iT2, iT3)  \
+    mcuxClMath_ReduceModEven(pSession, MCUXCLPKC_PACKARGS4(iR, iX, iN, iT0), MCUXCLPKC_PACKARGS4(0u, iT1, iT2, iT3))
 /** Helper macro for #mcuxClMath_ReduceModEven with flow protection. */
-#define MCUXCLMATH_FP_REDUCEMODEVEN(iR, iX, iN, iT0, iT1, iT2, iT3)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_REDUCEMODEVEN(iR, iX, iN, iT0, iT1, iT2, iT3))
+#define MCUXCLMATH_FP_REDUCEMODEVEN(pSession, iR, iX, iN, iT0, iT1, iT2, iT3)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_REDUCEMODEVEN(pSession, iR, iX, iN, iT0, iT1, iT2, iT3))
 
 
 /**
@@ -476,6 +485,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
  * dividend X shall be exactly a multiple of Y. If X is not a multiple of Y,
  * result will be incorrect.
  *
+ * @param[in]            pSession        handle for the current CL session
  * @param[out,in,in,tmp] iR_iX_iY_iT     indices of PKC operands
  * @param                xPkcByteLength  length of X
  * @param                yPkcByteLength  length of Y
@@ -507,13 +517,13 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_SecModExp(
  * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_ExactDivideOdd)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivideOdd(uint32_t iR_iX_iY_iT, uint32_t xPkcByteLength, uint32_t yPkcByteLength);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivideOdd(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iY_iT, uint32_t xPkcByteLength, uint32_t yPkcByteLength);
 /** Helper macro for #mcuxClMath_ExactDivideOdd. */
-#define MCUXCLMATH_EXACTDIVIDEODD(iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
-    mcuxClMath_ExactDivideOdd(MCUXCLPKC_PACKARGS4(iR, iX, iY, iT), xPkcByteLen, yPkcByteLen)
+#define MCUXCLMATH_EXACTDIVIDEODD(pSession, iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
+    mcuxClMath_ExactDivideOdd(pSession, MCUXCLPKC_PACKARGS4(iR, iX, iY, iT), xPkcByteLen, yPkcByteLen)
 /** Helper macro for #mcuxClMath_ExactDivideOdd with flow protection. */
-#define MCUXCLMATH_FP_EXACTDIVIDEODD(iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_EXACTDIVIDEODD(iR, iX, iY, iT, xPkcByteLen, yPkcByteLen))
+#define MCUXCLMATH_FP_EXACTDIVIDEODD(pSession, iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_EXACTDIVIDEODD(pSession, iR, iX, iY, iT, xPkcByteLen, yPkcByteLen))
 
 
 /**
@@ -527,6 +537,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivideOdd(uint32_t iR_iX_iY_iT
  * It relies on mcuxClMath_ExactDivideOdd to calculate R' = X'/Y', and then calculates
  * R = R' >> (trailingZeros(Y) % (8*MCUXCLPKC_WORDSIZE)).
  *
+ * @param[in]            pSession        handle for the current CL session
  * @param[out,in,in,tmp] iR_iX_iY_iT     Pointer table indices of parameters
  * @param                xPkcByteLength  length of X
  * @param                yPkcByteLength  length of Y
@@ -562,14 +573,14 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivideOdd(uint32_t iR_iX_iY_iT
  * @return void
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_ExactDivide)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivide(uint32_t iR_iX_iY_iT, uint32_t xPkcByteLength, uint32_t yPkcByteLength);
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivide(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iY_iT, uint32_t xPkcByteLength, uint32_t yPkcByteLength);
 /** Helper macro for #mcuxClMath_ExactDivide. */
-#define MCUXCLMATH_EXACTDIVIDE(iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
-    mcuxClMath_ExactDivide(MCUXCLPKC_PACKARGS4(iR, iX, iY, iT), xPkcByteLen, yPkcByteLen)
+#define MCUXCLMATH_EXACTDIVIDE(pSession, iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
+    mcuxClMath_ExactDivide(pSession, MCUXCLPKC_PACKARGS4(iR, iX, iY, iT), xPkcByteLen, yPkcByteLen)
 
 /** Helper macro for #mcuxClMath_ExactDivide with flow protection. */
-#define MCUXCLMATH_FP_EXACTDIVIDE(iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_EXACTDIVIDE(iR, iX, iY, iT, xPkcByteLen, yPkcByteLen))
+#define MCUXCLMATH_FP_EXACTDIVIDE(pSession, iR, iX, iY, iT, xPkcByteLen, yPkcByteLen)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_EXACTDIVIDE(pSession, iR, iX, iY, iT, xPkcByteLen, yPkcByteLen))
 
 
 /**
@@ -581,6 +592,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivide(uint32_t iR_iX_iY_iT, u
  * numbers which satisfy p = 1 (mod 4). For primes with p = 3 (mod 4) there is
  * a faster method to compute square roots.
  *
+ * @param[in]              pSession          handle for the current CL session
  * @param[out,in,in,in]    iR_iA_iP_iQ       Pointer table indices of parameters
  * @param[tmp,tmp,tmp,tmp] iT0_iT1_iT2_iT3   Pointer table indices of temp variables
  * @param                  byteLengthP       length of the prime p
@@ -599,17 +611,18 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ExactDivide(uint32_t iR_iX_iY_iT, u
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_ModSquareRoot_TonelliShanks)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot_TonelliShanks(
+    mcuxClSession_Handle_t pSession,
     uint32_t iR_iA_iP_iQ,
     uint32_t iT0_iT1_iT2_iT3,
     uint32_t byteLengthP);
 
 /** Helper macro for #mcuxClMath_ModSquareRoot_TonelliShanks. */
-#define MCUXCLMATH_MODSQUAREROOT_TONELLISHANKS(iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
-    mcuxClMath_ModSquareRoot_TonelliShanks(MCUXCLPKC_PACKARGS4(iR, iA, iP, iQ), MCUXCLPKC_PACKARGS4(iT0, iT1, iT2, iT3), byteLen)
+#define MCUXCLMATH_MODSQUAREROOT_TONELLISHANKS(pSession, iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
+    mcuxClMath_ModSquareRoot_TonelliShanks(pSession, MCUXCLPKC_PACKARGS4(iR, iA, iP, iQ), MCUXCLPKC_PACKARGS4(iT0, iT1, iT2, iT3), byteLen)
 
 /** Helper macro for #mcuxClMath_ModSquareRoot_TonelliShanks with flow protection. */
-#define MCUXCLMATH_FP_MODSQUAREROOT_TONELLISHANKS(iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_MODSQUAREROOT_TONELLISHANKS(iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen))
+#define MCUXCLMATH_FP_MODSQUAREROOT_TONELLISHANKS(pSession, iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_MODSQUAREROOT_TONELLISHANKS(pSession, iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen))
 
 /**
  * @brief Calculates a square root modulo a prime number p.
@@ -639,17 +652,18 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEFINED_MORE_THAN_ONCE("It declared only once.
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_ModSquareRoot)
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEFINED_MORE_THAN_ONCE()
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot(
+    mcuxClSession_Handle_t pSession,
     uint32_t iR_iA_iP_iQ,
     uint32_t iT0_iT1_iT2_iT3,
     uint32_t byteLengthP);
 
 /** Helper macro for #mcuxClMath_ModSquareRoot. */
-#define MCUXCLMATH_MODSQUAREROOT(iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
-    mcuxClMath_ModSquareRoot(MCUXCLPKC_PACKARGS4(iR, iA, iP, iQ), MCUXCLPKC_PACKARGS4(iT0, iT1, iT2, iT3), byteLen)
+#define MCUXCLMATH_MODSQUAREROOT(pSession, iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
+    mcuxClMath_ModSquareRoot(pSession, MCUXCLPKC_PACKARGS4(iR, iA, iP, iQ), MCUXCLPKC_PACKARGS4(iT0, iT1, iT2, iT3), byteLen)
 
 /** Helper macro for #mcuxClMath_ModSquareRoot with flow protection. */
-#define MCUXCLMATH_FP_MODSQUAREROOT(iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_MODSQUAREROOT(iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen))
+#define MCUXCLMATH_FP_MODSQUAREROOT(pSession, iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen)  \
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(MCUXCLMATH_MODSQUAREROOT(pSession, iR, iA, iP, iQ, iT0, iT1, iT2, iT3, byteLen))
 
 
 /**
@@ -666,6 +680,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModSquareRoot(
  * This implies that the computation of the Legendre symbol is actually done via its
  * generalization, the Jacobi symbol.
  *
+ * @param[in] pSession          Handle for the current CL session
  * @param[in] iA                Pointer table index to alpha, whose symbol (alpha/p) is requested
  * @param[tmp] iT1_iT2_iT3      Pointer table indices of temp variables
  *                              The size of iT2 shall be (operandSize + MCUXCLPKC_WORDSIZE).
@@ -681,12 +696,13 @@ MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEFINED_MORE_THAN_ONCE("It declared only once.
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMath_LegendreSymbol)
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEFINED_MORE_THAN_ONCE()
 MCUX_CSSL_FP_PROTECTED_TYPE(uint32_t) mcuxClMath_LegendreSymbol(
+    mcuxClSession_Handle_t pSession,
     uint8_t iA,
     uint32_t iT1_iT2_iT3_iP);
 
 /** Helper macro for #mcuxClMath_LegendreSymbol. */
-#define MCUXCLMATH_LEGENDRESYMBOL(iA, iT1, iT2, iT3, iP)  \
-    mcuxClMath_LegendreSymbol(iA, MCUXCLPKC_PACKARGS4(iT1, iT2, iT3, iP))
+#define MCUXCLMATH_LEGENDRESYMBOL(pSession, iA, iT1, iT2, iT3, iP)  \
+    mcuxClMath_LegendreSymbol(pSession, iA, MCUXCLPKC_PACKARGS4(iT1, iT2, iT3, iP))
 
 /**
  * @}

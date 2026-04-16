@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -75,7 +75,7 @@ extern "C" {
  */
 /**
  * @param[in]  session     Handle for the current CL session.
- * @param[in]  key         Key to be used to authenticate the data.
+ * @param[in]  key         Key to be used to authenticate the data (word-aligned).
  * @param[in]  mode        Mode that should be used during the MAC operation.
  * @param[in]  pIn         Pointer to the input buffer that contains the data that
  *                         needs to be authenticated.
@@ -96,6 +96,10 @@ extern "C" {
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
  */
 /**
+ * @attention For GMAC, the H-key is created and always loaded to SGI KEY2. 
+ * It is caller's responsibility to not have a preloaded key in SGI KEY2 when calling a GMAC operation. 
+ */
+/**
  * @retval MCUXCLMAC_STATUS_JOB_STARTED    Non-blocking operation started successfully
  * @retval MCUXCLMAC_STATUS_JOB_COMPLETED  Non-blocking operation successful
  *
@@ -108,7 +112,7 @@ extern "C" {
  * indicates that a non-blocking operation has started.
  */
 /**
- * \implements{REQ_788244}
+ * @implements{REQ_788244}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMac_compute)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
@@ -125,6 +129,35 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
  * @}
  */ /* mcuxClMac_OneShot */
 
+#ifdef MCUXCL_FEATURE_MAC_SELFTEST
+/**
+ * @brief message authentication code (MAC) selftest function
+ * @api
+ *
+ * This function performs a mac selftest operation.
+ * The algorithm to be used will be determined based on the mode and test types that are provided.
+ *
+ * For example, to perform an SM4 CBCMAC selftest operation, the following needs to be provided:
+ *  - SM4 CBCMAC mode
+ *  - mcuxClMac_Test_SM4_CBCMAC for test descriptor
+ *
+ * @param[in]      session       Handle for the current CL session.
+ * @param[in]      mode          Mode that should be used during the MAC selftest operation.
+ * @param[in]      test          MAC selftest type that should be used during the selftest operation.
+ *
+ * @return A code-flow protected error code (see @ref mcuxCsslFlowProtection)
+ * @retval MCUXCLMAC_STATUS_OK            Mac operation successful
+ * @retval MCUXCLMAC_STATUS_ERROR         Error occurred during Mac operation
+ * @retval MCUXCLMAC_STATUS_INVALID_PARAM An invalid parameter was given to the function
+ * @retval MCUXCLMAC_STATUS_FAULT_ATTACK  Fault attack detected
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMac_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClMac_Mode_t mode,
+  mcuxClMac_Test_t test
+); /* selftest */
+#endif /* MCUXCL_FEATURE_MAC_SELFTEST */
 
 /****************************************************************************/
 /* MULTIPART                                                                */
@@ -159,8 +192,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
  *
  * @param[in]  session   Handle for the current CL session.
  * @param[in]  pContext  MAC context which is used to maintain the state and
- *                       store other relevant information about the operation.
- * @param[in]  key       Key to be used to MAC the data.
+ *                       store other relevant information about the operation (word-aligned).
+ * @param[in]  key       Key to be used to MAC the data (word-aligned).
  * @param[in]  mode      Mode that should be used during the MAC operation.
  *
  * @return A code-flow protected error code (see @ref mcuxCsslFlowProtection)
@@ -176,8 +209,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_compute(
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
  */
 /**
+ * @attention For GMAC, the H-key is created and always loaded to SGI KEY2. 
+ * It is caller's responsibility to not have a preloaded key in SGI KEY2 when calling a GMAC operation. 
+ */
+/**
  * 
- * \implements{REQ_788243}
+ * @implements{REQ_788243}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMac_init)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_init(
@@ -218,7 +255,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_init(
  *
  * @param      session   Handle for the current CL session.
  * @param[in]  pContext  MAC context which is used to maintain the state and
- *                       store other relevant information about the operation.
+ *                       store other relevant information about the operation (word-aligned).
  * @param[in]  pIn       Pointer to the input buffer that contains the data that
  *                       need to be processed.
  * @param[in]  inLength  Number of bytes of data in the @p in buffer.
@@ -241,7 +278,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_init(
  * indicates that a non-blocking operation has started.
  */
 /**
- * \implements{REQ_788243}
+ * @implements{REQ_788243}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMac_process)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_process(
@@ -275,7 +312,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_process(
  *
  * @param[in]  session     Handle for the current CL session.
  * @param[in]  pContext    MAC context which is used to maintain the state and
- *                         store other relevant information about the operation.
+ *                         store other relevant information about the operation (word-aligned).
  * @param[out] pMac        Pointer to the output buffer where the MAC needs to be written.
  * @param[out] pMacLength  Will be set to the number of bytes of data that
  *                         have been written to the @p pMac buffer.
@@ -286,7 +323,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_process(
  * @retval MCUXCLMAC_STATUS_INVALID_PARAM An invalid parameter was given to the function
  * @retval MCUXCLMAC_STATUS_FAULT_ATTACK  Fault attack detected
  * 
- * \implements{REQ_788243}
+ * @implements{REQ_788243}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClMac_finish)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClMac_Status_t) mcuxClMac_finish(

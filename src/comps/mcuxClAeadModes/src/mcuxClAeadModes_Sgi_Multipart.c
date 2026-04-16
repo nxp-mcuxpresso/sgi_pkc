@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAeadModes_Sgi_Multipart.c
@@ -107,9 +107,9 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClAeadModes_init_encrypt_decrypt(
   pCtx->protectionToken_process = mode->algorithm->protectionToken_processEncDec;
 
   /* Clear mac context fields */
-  pCtx->macCtx.blockBufferUsed = 0u;
+  pCtx->macCtx.blockBufferUsed = 0U;
   pCtx->macCtx.dataProcessed = MCUXCLMACMODES_FALSE;
-  pCtx->macCtx.totalInput = 0u;
+  pCtx->macCtx.totalInput = 0U;
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mode->algorithm->init(
     session,
@@ -449,7 +449,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAeadModes_verify(
 
   /* Prepare the reference tag. For buffer-objects with DMA, this will import the tag to a CPU buffer before comparison. */
   const uint8_t *pReferenceTag;
-  mcuxClBuffer_inputBufferToCPU(pTag, 0u, workArea->cpuWa.tagBuffer, &pReferenceTag, pCtx->tagSize);
+  mcuxClBuffer_inputBufferToCPU(pTag, 0U, workArea->cpuWa.tagBuffer, &pReferenceTag, pCtx->tagSize);
   MCUX_CSSL_DI_RECORD(referenceTag, pReferenceTag); /* Will be balanced in mcuxClMemory_compare_dpasecure_int() */
 
   /* Compare authentication tags */

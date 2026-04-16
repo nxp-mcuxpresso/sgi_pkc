@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /** @file  mcuxClAead_Functions.h
@@ -55,7 +55,7 @@ extern "C" {
  *  - Tag buffer, to store the authentication tag
  *
  * @param      session     Handle for the current CL session.
- * @param      key         Key to be used to encrypt the data.
+ * @param      key         Key to be used to encrypt the data (word-aligned).
  * @param      mode        AEAD mode that should be used during the encryption
  *                         operation.
  * @param[in]  pNonce      Pointer to the buffer that contains the nonce.
@@ -83,6 +83,10 @@ extern "C" {
  *
  * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
+ * @attention For GCM, the GMAC H-key is created and always loaded to SGI KEY2. 
+ * It is caller's responsibility to not have a preloaded key in SGI KEY2 when calling an AEAD-GCM operation. 
  */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_encrypt)
@@ -123,7 +127,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_encrypt(
  *  - Output length buffer
  *
  * @param      session     Handle for the current CL session.
- * @param      key         Key to be used to decrypt the data.
+ * @param      key         Key to be used to decrypt the data (word-aligned).
  * @param      mode        AEAD mode that should be used during the decryption
  *                         operation.
  * @param[in]  pNonce      Pointer to the buffer that contains the nonce.
@@ -150,6 +154,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_encrypt(
  * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
  */
+/**
+ * @attention For GCM, the GMAC H-key is created and always loaded to SGI KEY2. 
+ * It is caller's responsibility to not have a preloaded key in SGI KEY2 when calling an AEAD-GCM operation. 
+ */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_decrypt)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_decrypt(
@@ -168,6 +176,32 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_decrypt(
   uint32_t * const pOutLength
 );
 
+#ifdef MCUXCL_FEATURE_AEAD_SELFTEST
+/**
+ * @brief Aead selftest function
+ * @api
+ *
+ * This function performs an Aead selftest operation.
+ * The algorithm to be used will be determined based on the mode and test types that are provided.
+ *
+ * For example, to perform an SM4 CCM selftest operation, the following needs to be provided:
+ *  - SM4 CCM mode
+ *  - mcuxClAead_Test_SM4_CCM for test descriptor
+ *
+ * @param[in]      session       Handle for the current CL session.
+ * @param[in]      mode          Mode that should be used during the AEAD selftest operation.
+ * @param[in]      test          AEAD selftest type that should be used during the selftest operation.
+
+ * @return status
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_selftest)
+MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_selftest(
+  mcuxClSession_Handle_t session,
+  mcuxClAead_Mode_t mode,
+  mcuxClAead_Test_t test
+); /* selftest */
+
+#endif /* MCUXCL_FEATURE_AEAD_SELFTEST */
 /**
  * @brief Multi-part authenticated encryption initialization function
  * @api
@@ -182,8 +216,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_decrypt(
  *
  * @param      session     Handle for the current CL session.
  * @param      pContext    AEAD context which is used to maintain the state and
- *                         store other relevant information about the operation.
- * @param      key         Key to be used to encrypt the data.
+ *                         store other relevant information about the operation (word-aligned).
+ * @param      key         Key to be used to encrypt the data (word-aligned).
  * @param      mode        AEAD mode that should be used during the encryption
  *                         operation.
  * @param[in]  pNonce      Pointer to the buffer that contains the nonce.
@@ -199,6 +233,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_decrypt(
  *
  * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
+ * @attention For GCM, the GMAC H-key is created and always loaded to SGI KEY2. 
+ * It is caller's responsibility to not have a preloaded key in SGI KEY2 when calling an AEAD-GCM operation. 
  */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_init_encrypt)
@@ -228,8 +266,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_encrypt(
  *
  * @param      session     Handle for the current CL session.
  * @param      pContext    AEAD context which is used to maintain the state and
- *                         store other relevant information about the operation.
- * @param      key         Key to be used to encrypt the data.
+ *                         store other relevant information about the operation (word-aligned).
+ * @param      key         Key to be used to encrypt the data (word-aligned).
  * @param      mode        AEAD mode that should be used during the encryption
  *                         operation.
  * @param[in]  pNonce      Pointer to the buffer that contains the nonce.
@@ -246,6 +284,10 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_encrypt(
  *
  * @attention If the given key handle contains a RFC3394 wrapped key which was not pre-loaded yet, this operation
  * will unwrap the key material. This can potentially lead to a MCUXCLSGI_STATUS_UNWRAP_ERROR.
+ */
+/**
+ * @attention For GCM, the GMAC H-key is created and always loaded to SGI KEY2. 
+ * It is caller's responsibility to not have a preloaded key in SGI KEY2 when calling an AEAD-GCM operation. 
  */
 
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClAead_init_decrypt)
@@ -274,7 +316,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t) mcuxClAead_init_decrypt(
  *
  * @param      session    Handle for the current CL session.
  * @param      pContext   AEAD context which is used to maintain the state and
- *                        store other relevant information about the operation.
+ *                        store other relevant information about the operation (word-aligned).
  * @param[in]  pIn        Pointer to the input buffer that contains the data
  *                        that needs to be processed.
  * @param      inLength   Number of bytes of data in the @p in buffer.
@@ -308,7 +350,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_process(
  *
  * @param      session     Handle for the current CL session.
  * @param      pContext    AEAD context which is used to maintain the state and
- *                         store other relevant information about the operation.
+ *                         store other relevant information about the operation (word-aligned).
  * @param[in]  pAdata      Associated data that needs to be proccessed.
  * @param      adataLength Number of bytes of associated data in the @p adata
  *                         buffer.
@@ -336,7 +378,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_process_adata(
  *
  * @param      session     Handle for the current CL session.
  * @param      pContext    AEAD context which is used to maintain the state and
- *                         store other relevant information about the operation.
+ *                         store other relevant information about the operation (word-aligned).
  * @param[out] pOut        Pointer to the output buffer where the processed data
  *                         needs to be written.
  * @param[out] pOutLength  Will be set to the number of bytes of
@@ -372,7 +414,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClAead_Status_t)  mcuxClAead_finish(
  *
  * @param      session    Handle for the current CL session.
  * @param      pContext   AEAD context which is used to maintain the state and
- *                        store other relevant information about the operation.
+ *                        store other relevant information about the operation (word-aligned).
  * @param[in]  pTag       Pointer to the buffer that contains the tag.
  * @param[out] pOut       Pointer to the output buffer where the authenticated
  *                        decrypted data needs to be written.

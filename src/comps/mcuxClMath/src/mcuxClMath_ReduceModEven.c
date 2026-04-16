@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2020-2024, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -27,7 +27,6 @@
 #include <internal/mcuxClPkc_Operations.h>
 #include <internal/mcuxClMath_Internal_Types.h>
 #include <internal/mcuxClMath_Internal_Functions.h>
-
 
 #define REDUCEMODEVEN_T0   0u
 #define REDUCEMODEVEN_N    1u
@@ -52,7 +51,7 @@
  *   rH = xH mod n'
  */
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_ReduceModEven)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ReduceModEven(uint32_t iR_iX_iN_iT0, uint32_t iT1_iT2_iT3)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ReduceModEven(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iN_iT0, uint32_t iT1_iT2_iT3)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_ReduceModEven);
 
@@ -70,16 +69,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ReduceModEven(uint32_t iR_iX_iN_iT0
 
     /* Prepare local UPTRT. */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_REINTERPRET_MEMORY("Create 16-bit UPTR table at CPU word (32-bit) aligned address.")
-    uint32_t pOperands32[(REDUCEMODEVEN_UPTRT_SIZE + 1u) / 2u];
-    uint16_t *pOperands = (uint16_t *) pOperands32;
-    const uint16_t *backupPtrUptrt;
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iN_iT0, iT1_iT2_iT3, pOperands, 7u, &backupPtrUptrt));
+    uint32_t * const pOperands32 = (uint32_t*)pSession->pMathUptrt;
+    uint16_t *const pOperands = (uint16_t*)pOperands32;
+    const uint16_t *pBackupPtrUptrt;
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iN_iT0, iT1_iT2_iT3, pOperands, 7u, &pBackupPtrUptrt));
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_REINTERPRET_MEMORY()
 
     const uint16_t offsetT0 = pOperands[REDUCEMODEVEN_T0];
     /* ASSERT: operand T0 (length = lenN + MCUXCLPKC_WORDSIZE) is within PKC workarea. */
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(offsetT0, MCUXCLPKC_RAM_OFFSET_MIN, MCUXCLPKC_RAM_OFFSET_MAX - (2u*MCUXCLPKC_WORDSIZE))
 
+    /* WAITFORREADY in mcuxClMath_InitLocalUptrt(...). */
     pOperands[REDUCEMODEVEN_T0H] = (uint16_t) (offsetT0 + MCUXCLPKC_WORDSIZE);
 
 
@@ -122,7 +122,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ReduceModEven(uint32_t iR_iX_iN_iT0
         MCUXCLPKC_FP_CALC_OP1_SHR(REDUCEMODEVEN_T0H, REDUCEMODEVEN_T0H, shiftAmountThisIteration);
     }
 
-    MCUXCLMATH_FP_NDASH(REDUCEMODEVEN_T0H,  /* iN */
+    MCUXCLMATH_FP_NDASH(pSession,
+                       REDUCEMODEVEN_T0H,  /* iN */
                        REDUCEMODEVEN_T3);  /* iT */
 
 
@@ -153,7 +154,8 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ReduceModEven(uint32_t iR_iX_iN_iT0
     /* c. use T3 as temp, size = (pkcLenN + pkcWordSize)            */
     /****************************************************************/
 
-    MCUXCLMATH_FP_QDASH(REDUCEMODEVEN_T2,   /* iQDash */
+    MCUXCLMATH_FP_QDASH(pSession,
+                       REDUCEMODEVEN_T2,   /* iQDash */
                        REDUCEMODEVEN_T1,   /* iNShifted */
                        REDUCEMODEVEN_T0H,  /* iN */
                        REDUCEMODEVEN_T3,   /* iT */
@@ -263,7 +265,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ReduceModEven(uint32_t iR_iX_iN_iT0
 
     /* Restore pUptrt and ps1 OPLEN/MCLEN. */
     MCUXCLPKC_WAITFORREADY();
-    MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+    MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
     MCUXCLPKC_PS1_SETLENGTH_REG(backupPs1LenReg);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_ReduceModEven,

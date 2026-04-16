@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2022-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #ifndef MCUXCLRSA_MODECONSTRUCTORS_H_
@@ -19,6 +19,9 @@
 
 #include <mcuxClSignature_Types.h>
 
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+#include <mcuxClCipher_Types.h>
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) */
 
 #include <mcuxClKey_Types.h>
 #include <mcuxClHash_Types.h>
@@ -38,9 +41,9 @@ extern "C" {
  * @{
  */
 /**
- * \defgroup clRsaSignatureModes Signature RSA mode definitions
- * \brief Modes used by the Signature operations with RSA.
- * \ingroup clSignatureModes
+ * @defgroup clRsaSignatureModes Signature RSA mode definitions
+ * @brief Modes used by the Signature operations with RSA.
+ * @ingroup clSignatureModes
  * @{
  */
 
@@ -54,19 +57,19 @@ struct mcuxClRsa_Signature_ProtocolDescriptor;
 typedef struct mcuxClRsa_Signature_ProtocolDescriptor mcuxClRsa_SignatureProtocolDescriptor_t;
 
 /**
- * \brief Mode constructor for RSASSA-PSS signature generation and verification
+ * @brief Mode constructor for RSASSA-PSS signature generation and verification
  *
- * \param pSignatureMode      Pointer to a mode descriptor that will be updated by this function.
- * \param pProtocolDescriptor Pointer to an RSA protocol descriptor that will be updated by this function.
- * \param hashAlgorithm       Hash algorithm that should be used.
- * \param saltLength          Number of bytes of the salt.
- * \param options             RSA options:
+ * @param pSignatureMode      Pointer to a mode descriptor that will be updated by this function.
+ * @param pProtocolDescriptor Pointer to an RSA protocol descriptor that will be updated by this function.
+ * @param hashAlgorithm       Hash algorithm that should be used.
+ * @param saltLength          Number of bytes of the salt.
+ * @param options             RSA options:
  *                            - MCUXCLRSA_OPTION_VERIFY_NOHWACC: perform pure SW verification, without using HW acceleration
  *
- * \pre
+ * @pre
  * - The RNG context must be initialized before performing an RSA signature generation with RSASSA-PSS.
  *
- * \implements{REQ_788249,REQ_788250,REQ_788253}
+ * @implements{REQ_788249,REQ_788250,REQ_788253}
  */
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_SignatureModeConstructor_RSASSA_PSS)
 MCUX_CSSL_FP_PROTECTED_TYPE (void) mcuxClRsa_SignatureModeConstructor_RSASSA_PSS(
@@ -78,12 +81,12 @@ MCUX_CSSL_FP_PROTECTED_TYPE (void) mcuxClRsa_SignatureModeConstructor_RSASSA_PSS
 );
 
 /**
- * \brief Mode constructor for RSASSA-PKCS1-v1_5 signature generation and verification
+ * @brief Mode constructor for RSASSA-PKCS1-v1_5 signature generation and verification
  *
- * \param pSignatureMode      Pointer to a mode descriptor that will be updated by this function.
- * \param pProtocolDescriptor Pointer to an RSA protocol descriptor that will be updated by this function.
- * \param hashAlgorithm       Hash algorithm that should be used.
- * \param options             RSA options:
+ * @param pSignatureMode      Pointer to a mode descriptor that will be updated by this function.
+ * @param pProtocolDescriptor Pointer to an RSA protocol descriptor that will be updated by this function.
+ * @param hashAlgorithm       Hash algorithm that should be used.
+ * @param options             RSA options:
  *                            - MCUXCLRSA_OPTION_VERIFY_NOHWACC: perform pure SW verification, without using HW acceleration
  *
  * \implements{REQ_788249,REQ_788250,REQ_788252}
@@ -99,21 +102,70 @@ MCUX_CSSL_FP_PROTECTED_TYPE (void) mcuxClRsa_SignatureModeConstructor_RSASSA_PKC
 
 /** @} */
 
+#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
+/**
+ * @defgroup clRsaCipherModes Cipher RSA mode definitions
+ * @brief Modes used by the Cipher operations with RSA.
+ * @ingroup clRsaCipherModes
+ * @{
+ */
+
+#ifdef MCUXCL_FEATURE_RSA_RSAES_OAEP
+/**
+ * @brief Mode constructor for RSAES-OAEP-ENCRYPT and RSAES-OAEP-DECRYPT operation
+ *
+ * @param pCipherMode         Pointer to a mode descriptor that will be updated by this function.
+ * @param hashAlgorithm       Hash algorithm that should be used.
+ *
+ * @pre
+ * - Sufficient space should be allocated for the cipher mode and RSA-specific content,
+ *   using the macro MCUXCLRSA_CIPHER_MODE_SIZE.
+ * - The RNG context must be initialized before performing an RSA encryption with RSAES-OAEP-ENCRYPT.
+ *
+ * @implements{REQ_788246,REQ_788248}
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_CipherModeConstructor_RSAES_OAEP)
+MCUX_CSSL_FP_PROTECTED_TYPE (void) mcuxClRsa_CipherModeConstructor_RSAES_OAEP(
+  mcuxClCipher_ModeDescriptor_t * pCipherMode,
+  mcuxClHash_Algo_t hashAlgorithm
+);
+#endif /* MCUXCL_FEATURE_RSA_RSAES_OAEP */
 
 /**
- * \defgroup mcuxClRsa_KeyGeneration_ModeDescriptor Key Generation RSA mode descriptor
- * \brief RSA key generation mode descriptor.
- * \details RSA key generation related defines used construct the mode descriptor used by @ref mcuxClKey_generate_keypair
+ * @brief Mode constructor for RSAES-PKCS1-V1_5-ENCRYPT and RSAES-PKCS1-V1_5-DECRYPT operation
+ *
+ * @param pCipherMode         Pointer to a mode descriptor that will be updated by this function.
+ *
+ * @pre
+ * - Sufficient space should be allocated for the cipher mode and RSA-specific content,
+ *   using the macro MCUXCLRSA_CIPHER_MODE_SIZE.
+ * - The RNG context must be initialized before performing an RSA encryption with RSAES-PKCS1-V1_5-ENCRYPT.
+ *
+ * @implements{REQ_788246,REQ_788247}
+ */
+MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_CipherModeConstructor_RSAES_PKCS1_v1_5)
+MCUX_CSSL_FP_PROTECTED_TYPE (void) mcuxClRsa_CipherModeConstructor_RSAES_PKCS1_v1_5(
+  mcuxClCipher_ModeDescriptor_t * pCipherMode
+);
+
+
+/** @} */
+#endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) */
+
+/**
+ * @defgroup mcuxClRsa_KeyGeneration_ModeDescriptor Key Generation RSA mode descriptor
+ * @brief RSA key generation mode descriptor.
+ * @details RSA key generation related defines used construct the mode descriptor used by @ref mcuxClKey_generate_keypair
  *  function.
- * \ingroup mcuxClRsa_KeyGeneration_ModeDescriptor
+ * @ingroup mcuxClRsa_KeyGeneration_ModeDescriptor
  * @{
  */
 
 MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
 /**
- * \brief Mode constructor for RSA key generation algorithm.
+ * @brief Mode constructor for RSA key generation algorithm.
  *
- * \details
+ * @details
  *         This function can be used to create mode descriptor used by @ref mcuxClKey_generate_keypair function.
  *         This mode shall be used to realize RSA key generation operation according to FIPS 186-5
  *         (https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf), in particular:
@@ -150,38 +202,38 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_URL_IN_COMMENTS()
  *            <li>pointers to key data buffers and key handle must be aligned to CPU word size</li>
  *         </ul>
  *
- * \note   There are the following deviations were applied from the algorithm specified in Appendix A.1.3 of FIPS 186-5:
- * \note   \li Primes p and q are chosen to be congruent \f$3\mod4\f$.\n
- *             Rationale: With this additional restriction on p and q a generated key is still compatible with FIPS 186-5.
+ * @note   There are the following deviations were applied from the algorithm specified in Appendix B.3.3 of FIPS 186-4:
+ * @note   \li Primes p and q are chosen to be congruent \f$3\mod4\f$.\n
+ *             Rationale: With this additional restriction on p and q a generated key is still compatible with FIPS 186-4.
  *             Such primes and their products have properties that simplify algorithms, for example step 4.5 in Miller-Rabin test
  *             described in Appendix B.3.1 can be skipped (due to fact that a=1). This restriction has positive impact on the security,
  *             performance, and code size. This approach was also accepted in other products.
- * \note   \li Checks performed in steps 4.4 and 5.4 are done using only 64 most significant bits of the value
+ * @note   \li Checks performed in steps 4.4 and 5.5 are done using only 64 most significant bits of the value
  *             specified by the expression \f$(\sqrt{2})(2^{(nlen/2)–1})\f$ and rounded up, it is 0xb504f333f9de6485.\n
  *             Rationale: This deviation is acceptable as it is a stronger condition.
- * \note   \li Check performed in step 5.5 (check if \f$|p–q| <= 2^{nlen/2–100}\f$) is performed after q is generated,
+ * @note   \li Check performed in step 5.4 (check if \f$|p–q| <= 2^{nlen/2–100}\f$) is performed after q is generated,
  *             it is after testing that q it probably prime. If p and q does not meet this FIPS requirements, a new
  *             prime q number will be generated.
- * \note   \li The pre-check against products of small primes is applied before the steps 4.5 and 5.6 respectively.
- * \note       If an event occurs that \f$d <= 2^{nlen/2}\f$ then only a new q will be generated.
- * \attention  To support all required key lengths, this implementation does not verify that key length meets the FIPS 186-5 criteria
- *              (i.e., no check whether the key size is less than 2048 bits).
- *              User shall ensure that if FIPS 186-5 compliance is claimed, this mode is used to generate keys of length not less than 2048 bits.
- * \attention  If the key generation operation returns Error or Fault (through session), the user shall ensure that the generated key is
+ * @note   \li The pre-check against products of small primes is applied before the steps 4.5 and 5.6 respectively.
+ * @note       If an event occurs that \f$d <= 2^{nlen/2}\f$ then only a new q will be generated.
+ * \attention  To support all required key lengths, this implementation does not verify that key length meets the FIPS 186-4 criteria
+ *              (i.e., no check whether the key size is 2048 or 3072 bits).
+ *              User shall ensure that if FIPS 186-4 compliance is claimed, this mode is used to generate keys of 2048 or 3072 bits only.
+ * @attention  If the key generation operation returns Error or Fault (through session), the user shall ensure that the generated key is
  *              cleared and not used.
  *
- * \param [out] pKeyGenMode         Pointer to a mode descriptor to be initialized for RSA key pair generation with public exponent input.
- * \param [in]  pE                  Pointer to the input public exponent e. It must be odd values
+ * @param [out] pKeyGenMode         Pointer to a mode descriptor to be initialized for RSA key pair generation with public exponent input.
+ * @param [in]  pE                  Pointer to the input public exponent e. It must be odd values
  *                                  in the range \f$2^{16}<e<2^{256}\f$.
- * \param [in]  eLength             Length of the public exponent e.
+ * @param [in]  eLength             Length of the public exponent e.
  *
- * \return void
+ * @return void
  *
- * \pre
+ * @pre
  * Before calling this function, sufficient space should be allocated for the key mode descriptor and RSA-specific content,
  * using the macro @ref MCUXCLRSA_KEYGEN_MODE_SIZE.
  *
- * \implements{REQ_788251}
+ * @implements{REQ_788251}
  */
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_URL_IN_COMMENTS()
 MCUX_CSSL_FP_FUNCTION_DECL(mcuxClRsa_KeyGeneration_ModeConstructor)

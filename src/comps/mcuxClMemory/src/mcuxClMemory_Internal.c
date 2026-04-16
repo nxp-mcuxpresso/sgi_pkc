@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2020-2021, 2023-2026 NXP                                       */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClCore_Platform.h>
@@ -19,8 +19,10 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslDataIntegrity.h>
 #include <internal/mcuxClSgi_SfrAccess.h>
+#if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
 #include <internal/mcuxClTrng_SfrAccess.h>
 #include <internal/mcuxClTrng_Internal_SA_TRNG.h>
+#endif /* MCUXCL_FEATURE_TRNG_SA_TRNG */
 #include <internal/mcuxClMemory_Copy_Internal.h>
 #include <internal/mcuxClMemory_Copy_Reversed_Internal.h>
 #include <internal/mcuxCsslMemory_Internal_Copy_arm_asm.h>
@@ -48,15 +50,19 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_int
      * Hence we skip comparing.
      */
     uint32_t SGILastAddr  = (uint32_t) &((SGI_STRUCT_NAME *) SGI_SFR_BASE)->SGI_SFR_NAME(MODULE_ID);
+#if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
     uint32_t TrngEntFirstAddr = (uint32_t) &((TRNG_SFR_BASE->TRNG_SFR_NAME(ENT))[0]);
     uint32_t TrngEntLastAddr  = (uint32_t) &((TRNG_SFR_BASE->TRNG_SFR_NAME(ENT))[MCUXCLTRNG_SA_TRNG_NUMBEROFENTREGISTERS]);
+#endif /* MCUXCL_FEATURE_TRNG_SA_TRNG */
 
     if (
         /* SGI */
           (((((uint32_t) pSrc) < (uint32_t)SGI_SFR_BASE) || (((uint32_t) pSrc) > SGILastAddr))
         && ((((uint32_t) pDst) < (uint32_t)SGI_SFR_BASE) || (((uint32_t) pDst) > SGILastAddr)))
+#if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
         /* TRNG: We never write to entropy, hence only pSrc check */
         && ((((uint32_t) pSrc) < TrngEntFirstAddr) || (((uint32_t) pSrc) > TrngEntLastAddr))
+#endif /* MCUXCL_FEATURE_TRNG_SA_TRNG */
 
     )
     {
@@ -81,7 +87,9 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMemory_copy_int
         MCUX_CSSL_FP_CONDITIONAL(
                                 (((((uint32_t) pSrc) < (uint32_t) SGI_SFR_BASE) || (((uint32_t) pSrc) > SGILastAddr))
                               &&  ((((uint32_t) pDst) < (uint32_t) SGI_SFR_BASE) || (((uint32_t) pDst) > SGILastAddr)))
+#if defined(MCUXCL_FEATURE_TRNG_SA_TRNG)
                               &&  ((((uint32_t) pSrc) < TrngEntFirstAddr) || (((uint32_t) pSrc) > TrngEntLastAddr))
+#endif /* MCUXCL_FEATURE_TRNG_SA_TRNG*/
                               ,
                                 MCUX_CSSL_FP_FUNCTION_CALLED(mcuxCsslMemory_FastCompare_arm_asm))
         );

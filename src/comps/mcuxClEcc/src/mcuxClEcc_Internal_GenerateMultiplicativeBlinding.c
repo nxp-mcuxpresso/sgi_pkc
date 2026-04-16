@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2021-2025 NXP                                                  */
+/* Copyright 2021-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -104,7 +104,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_GenerateMultiplicative
     MCUXCLPKC_FP_CALC_MC2_MR(ECC_T3, ECC_S0, ECC_N);
 
     /* Calculate T0 = phi^(-1)*2^(8*(scalarPkcAlignedSize + MCUXCLPKC_WORDSIZE)) mod n. */
-    MCUXCLECC_FP_MODINV(ECC_T0, ECC_T3, ECC_N, ECC_T1, ECC_S1);
+    MCUXCLECC_FP_MODINV(pSession, ECC_T0, ECC_T3, ECC_N, ECC_T1, ECC_S1);
 
     /* Clean garbage bytes of ECC_S1 and ECC_S2 as preparation for the upcoming blinded computations */
     /* NOTE: Since ECC_S1 will later be the target buffer for the blinded sub-private key, this step also serves as a random pre-initialization. */

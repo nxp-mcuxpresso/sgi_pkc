@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2025 NXP                                                       */
+/* Copyright 2025-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxClCore_FunctionIdentifiers.h>
@@ -33,9 +33,11 @@
 #include <internal/mcuxClSgi_Utils.h>
 
 
+#if defined(MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING)
 #include <internal/mcuxClDma_Utils_Sgi.h>
 #include <internal/mcuxClDma_Utils.h>
 #include <internal/mcuxClDma_Drv.h>
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_No_IV, mcuxClCipherModes_SetupIvFunc_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_No_IV(
@@ -58,7 +60,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_IV);
 
-  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, ((uint32_t)pIv) + (uint32_t)(MCUXCLSGI_DRV_DATIN1_OFFSET) + 16u);
+  MCUX_CSSL_DI_RECORD(sgiLoadBuffer, ((uint32_t)pIv) + (uint32_t)(MCUXCLSGI_DRV_DATIN1_OFFSET) + 16U);
 
   MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClSgi_Utils_load128BitBlock(MCUXCLSGI_DRV_DATIN1_OFFSET, pIv));  /* load the IV in DATIN1 */
 
@@ -70,6 +72,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV(
                                  MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClSgi_Utils_load128BitBlock));
 }
 
+#if defined(MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING)
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_IV_AutoMode_Cbc_Dec, mcuxClCipherModes_SetupIvFunc_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_IV_AutoMode_Cbc_Dec(
   mcuxClSession_Handle_t session,
@@ -159,6 +162,7 @@ MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Utils_startTransferOneBlock),
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClDma_Drv_waitForChannelDone));
 }
+#endif /* MCUXCL_FEATURE_CIPHERMODES_DMA_NONBLOCKING */
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClCipherModes_checkIvLen_noIv, mcuxClCipherModes_CheckIvLength_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_checkIvLen_noIv(
@@ -167,7 +171,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClCipherModes_checkIvLen_noIv(
 {
   MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClCipherModes_checkIvLen_noIv);
 
-  if(0u == ivLength)
+  if(0U == ivLength)
   {
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClCipherModes_checkIvLen_noIv);
   }

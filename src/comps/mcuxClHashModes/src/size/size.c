@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
 /* Copyright 2021-2025 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 #include <mcuxCsslAnalysis.h>
@@ -155,6 +155,10 @@ volatile uint8_t mcuxClHash_export_import_size_secsha_512 [MCUXCLHASH_STATE_SIZE
 volatile uint8_t mcuxClHash_export_import_size_secsha3 [MCUXCLHASH_STATE_SIZE_SECSHA3 + MCUXCLHASH_COUNTER_SIZE_SHA3];
 
 
+#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE)
+/* Algorithm descriptor sizes */
+volatile uint8_t mcuxClHash_AlgorithmDescriptor_size [sizeof(mcuxClHash_AlgorithmDescriptor_t)];
+#endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) */
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_OBJ_SIZES()

@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2023 NXP                                                  */
+/* Copyright 2020-2023, 2026 NXP                                            */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -46,9 +46,23 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes128;
 
 /**
  * @brief Key type pointer for AES-128 based keys.
- * \implements{REQ_788207}
+ * @implements{REQ_788207}
  */
 static const mcuxClKey_Type_t mcuxClKey_Type_Aes128 = &mcuxClKey_TypeDescriptor_Aes128;
+#ifdef MCUXCL_FEATURE_AES192
+
+/**
+ * @brief Key type structure for AES-192 based keys.
+ *
+ */
+extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes192;
+
+/**
+ * @brief Key type pointer for AES-192 based keys.
+ * @implements{REQ_788208}
+ */
+static const mcuxClKey_Type_t mcuxClKey_Type_Aes192 = &mcuxClKey_TypeDescriptor_Aes192;
+#endif /* MCUXCL_FEATURE_AES192 */
 
 /**
  * @brief Key type structure for AES-256 based keys.
@@ -58,7 +72,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Aes256;
 
 /**
  * @brief Key type pointer for AES-256 based keys.
- * \implements{REQ_788209}
+ * @implements{REQ_788209}
  */
 static const mcuxClKey_Type_t mcuxClKey_Type_Aes256 = &mcuxClKey_TypeDescriptor_Aes256;
 

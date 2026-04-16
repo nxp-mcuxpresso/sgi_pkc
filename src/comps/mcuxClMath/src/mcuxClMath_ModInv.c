@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2025 NXP                                                  */
+/* Copyright 2020-2026 NXP                                                  */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* NXP Confidential and Proprietary. This software is owned or controlled   */
+/* by NXP and may only be used strictly in accordance with the applicable   */
+/* license terms.  By expressly accepting such terms or by downloading,     */
+/* installing, activating and/or otherwise using the software, you are      */
+/* agreeing that you have read, and that you agree to comply with and are   */
+/* bound by, such license terms.  If you do not agree to be bound by the    */
+/* applicable license terms, then you may not retain, install, activate or  */
+/* otherwise use the software.                                              */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -32,7 +32,7 @@
 
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClMath_ModInv)
-MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModInv(uint32_t iR_iX_iN_iT, uint32_t flagCoprime)
+MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModInv(mcuxClSession_Handle_t pSession, uint32_t iR_iX_iN_iT, uint32_t flagCoprime)
 {
     MCUX_CSSL_FP_FUNCTION_ENTRY(mcuxClMath_ModInv);
 
@@ -44,14 +44,17 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModInv(uint32_t iR_iX_iN_iT, uint32
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(operandSize, MCUXCLPKC_WORDSIZE, MCUXCLPKC_RAM_SIZE - MCUXCLPKC_WORDSIZE)
 
     /* Prepare local UPTRT. */
-    uint16_t pOperands[MODINV_UPTRT_SIZE];
-    const uint16_t *backupPtrUptrt;
-    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iN_iT, 0u, pOperands, 4u, &backupPtrUptrt));
+    MCUX_CSSL_ANALYSIS_START_SUPPRESS_POINTER_CASTING("Casting 32-bit pointer to 16-bit pointer is 16-bit aligned")
+    uint16_t * const pOperands = (uint16_t*)pSession->pMathUptrt;
+    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_POINTER_CASTING()
+    const uint16_t *pBackupPtrUptrt;
+    MCUX_CSSL_FP_FUNCTION_CALL_VOID(mcuxClMath_InitLocalUptrt(iR_iX_iN_iT, 0u, pOperands, 4u, &pBackupPtrUptrt));
 
     const uint16_t offsetT = pOperands[MODINV_T];
     /* ASSERT: operand T (length >= operandSize + MCUXCLPKC_WORDSIZE) is within PKC workarea. */
     MCUX_CSSL_ANALYSIS_COVERITY_ASSERT_FP_VOID(offsetT, MCUXCLPKC_RAM_OFFSET_MIN, MCUXCLPKC_RAM_OFFSET_MAX - (2u * MCUXCLPKC_WORDSIZE))
 
+    /* WAITFORREADY in mcuxClMath_InitLocalUptrt(...). */
     pOperands[MODINV_T1] = (uint16_t) (offsetT + MCUXCLPKC_WORDSIZE);
     pOperands[MODINV_CONST1] = 0x0001u;
     pOperands[MODINV_CONST0] = 0x0000u;
@@ -107,7 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClMath_ModInv(uint32_t iR_iX_iN_iT, uint32
 
     /* Restore pUptrt. */
     MCUXCLPKC_WAITFORREADY();
-    MCUXCLPKC_SETUPTRT(backupPtrUptrt);
+    MCUXCLPKC_SETUPTRT(pBackupPtrUptrt);
 
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClMath_ModInv,
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClMath_InitLocalUptrt),

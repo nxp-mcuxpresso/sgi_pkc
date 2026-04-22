@@ -10,7 +10,7 @@ config MCUX_COMPONENT_component.sgi_pkc
     select MCUX_COMPONENT_component.sgi_pkc.sgi
     select MCUX_COMPONENT_component.sgi_pkc.pkc
     select MCUX_COMPONENT_component.sgi_pkc.trng
-	
+
 	if MCUX_COMPONENT_component.sgi_pkc
 	  choice
 	    prompt "Target device family - Platform Support"
@@ -126,7 +126,6 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.secure_counter
             select MCUX_COMPONENT_component.sgi_pkc.pre_processor
             select MCUX_COMPONENT_component.sgi_pkc.buffer
-            select MCUX_COMPONENT_component.sgi_pkc.pkc
             select MCUX_COMPONENT_component.sgi_pkc.mac
             select MCUX_COMPONENT_component.sgi_pkc.math
 
@@ -180,7 +179,6 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.secure_counter
             select MCUX_COMPONENT_component.sgi_pkc.pre_processor
             select MCUX_COMPONENT_component.sgi_pkc.buffer
-            select MCUX_COMPONENT_component.sgi_pkc.pkc
 
         config MCUX_COMPONENT_component.sgi_pkc.memory
             bool "Memory"
@@ -198,6 +196,10 @@ config MCUX_COMPONENT_component.sgi_pkc
             bool "PKC"
 
             select MCUX_COMPONENT_driver.glikey
+            select MCUX_COMPONENT_component.sgi_pkc.rsa
+            select MCUX_COMPONENT_component.sgi_pkc.ecc
+            select MCUX_COMPONENT_component.sgi_pkc.signature
+            select MCUX_COMPONENT_component.sgi_pkc.math
 
         config MCUX_COMPONENT_component.sgi_pkc.prng
             bool "PRNG"
@@ -446,4 +448,7 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.session
             select MCUX_COMPONENT_component.sgi_pkc.memory
     endmenu
+
+rsource "pqc/Kconfig"
+
 endmenu

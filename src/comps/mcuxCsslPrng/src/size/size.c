@@ -22,7 +22,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_OBJ_SIZES()
 #elif defined(S3SCM)  /* S401 */
   #define MCUXCSSLPRNG_SCM_PRNG_ADDR  ((uint32_t) S3SCM_BASE + offsetof(S3SCM_Type, S3SCM_PRNG_OUT))
 #elif defined(MCUXCL_FEATURE_PRNG_SGI)
-  #include <internal\mcuxClSgi_SfrAccess.h>
+  #include <internal/mcuxClSgi_SfrAccess.h>
   #define MCUXCSSLPRNG_SGI_PRNG_ADDR ((uint32_t) SGI_SFR_BASE + offsetof(SGI_Type, SGI_PRNG_SW_READ))
 #elif defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB)
 /* Avoid below error if stub is used. */

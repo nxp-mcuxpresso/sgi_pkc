@@ -1,14 +1,34 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2021, 2024 NXP                                            */
+/* Copyright 2020-2021, 2024, 2026 NXP                                      */
 /*                                                                          */
-/* NXP Proprietary. This software is owned or controlled by NXP and may     */
-/* only be used strictly in accordance with the applicable license terms.   */
-/* By expressly accepting such terms or by downloading, installing,         */
-/* activating and/or otherwise using the software, you are agreeing that    */
-/* you have read, and that you agree to comply with and are bound by, such  */
-/* license terms. If you do not agree to be bound by the applicable license */
-/* terms, then you may not retain, install, activate or otherwise use the   */
-/* software.                                                                */
+/* SPDX-License-Identifier: BSD-3-Clause                                    */
+/*                                                                          */
+/* Redistribution and use in source and binary forms, with or without       */
+/* modification, are permitted provided that the following conditions are   */
+/* met:                                                                     */
+/*                                                                          */
+/* 1. Redistributions of source code must retain the above copyright        */
+/*    notice, this list of conditions and the following disclaimer.         */
+/*                                                                          */
+/* 2. Redistributions in binary form must reproduce the above copyright     */
+/*    notice, this list of conditions and the following disclaimer in the   */
+/*    documentation and/or other materials provided with the distribution.  */
+/*                                                                          */
+/* 3. Neither the name of the copyright holder nor the names of its         */
+/*    contributors may be used to endorse or promote products derived from  */
+/*    this software without specific prior written permission.              */
+/*                                                                          */
+/* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS  */
+/* IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    */
+/* TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          */
+/* PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT       */
+/* HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,   */
+/* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED */
+/* TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR   */
+/* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   */
+/* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     */
+/* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       */
+/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */
 /*--------------------------------------------------------------------------*/
 
 /**
@@ -50,8 +70,8 @@
  * <ol>
  *     <li> Generation of an RSA key in CRT format {p, q, dp, dq, qInv} and n.
  *     <li> Generation of an RSA key in Plain format {d, n}.
- *     <li> Primes p and q are generated based on the method specified in the FIPS 186-4, Appendix B.3.3.
- *     <li> Private exponent d is computed with the requirements specified in the FIPS 186-4, Appendix B.3.1.
+ *     <li> Primes p and q are generated based on the method specified in the FIPS 186-5, Appendix A.1.3.
+ *     <li> Private exponent d is computed with the requirements specified in the FIPS 186-5, Appendix A.1.1.
  *     <li> Primes p and q are generated using probabilistic primality test with the probability of not being prime less than 2^(-125).
  * @if (MCUXCL_FEATURE_RSA_8K_KEYS)
  *     <li> The bit-length of the key size is limited to 1024, 2048, 3072, 4096, 6144 and 8192.
@@ -59,7 +79,7 @@
  *     <li> The bit-length of the key size is limited to 1024, 2048, 3072 and 4096.
  * @endif
  *     <li> The public exponent is restricted to (FIPS compliant) odd values in the range 2^16 < e < 2^256 (i.e. including 0x10001).
- *     <li> User shall ensure that if FIPS 186-4 compliance is claimed, the key generation functions are used to generate keys of 2048 or 3072 bits only.
+ *     <li> User shall ensure that if FIPS 186-5 compliance is claimed, the key generation functions are used to generate keys of length greater than or equal to 2048 bits.
  * </ol>
  * @endif
  */

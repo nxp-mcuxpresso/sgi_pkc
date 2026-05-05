@@ -1,5 +1,5 @@
  /*--------------------------------------------------------------------------*/
- /* Copyright 2021-2025 NXP                                                  */
+ /* Copyright 2021-2026 NXP                                                  */
  /*                                                                          */
  /* NXP Confidential and Proprietary. This software is owned or controlled   */
  /* by NXP and may only be used strictly in accordance with the applicable   */

@@ -107,7 +107,7 @@
 // #define SGI_HAS_PRNG_SW_READ         1      ///< "feature" flag for existence of the SGI PRNG
 
 // Define base address of PKC
-#define PKC_SFR_BASE            PKC0   ///< base of PKC SFRs
+#define PKC_SFR_BASE            PKC0        ///< base of PKC SFRs
 #define PKC_SFR_NAME(sfr)       PKC_ ## sfr ///< full name of SFR
 #define PKC_SFR_PREFIX          PKC_PKC_    ///< sfr field name prefix
 #define PKC_SFR_SUFFIX_MSK      _MASK       ///< sfr field name suffix for mask

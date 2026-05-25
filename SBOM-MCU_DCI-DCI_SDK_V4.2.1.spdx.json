@@ -1,0 +1,64 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "creationInfo": {
+    "created": "2026-05-20T19:38:16Z",
+    "creators": [
+      "Organization: NXP"
+    ],
+    "licenseListVersion": "3.26"
+  },
+  "name": "MCU_DCI-DCI_SDK_V4.2.1",
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://nxp.com/spdx/0c27cd0a-80e8-4a6a-b763-25901198c3dd",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-package-0c27cd0a-80e8-4a6a-b763-25901198c3dd",
+      "name": "MCU_DCI",
+      "versionInfo": "DCI_SDK_V4.2.1",
+      "licenseConcluded": "(BSD-3-Clause)",
+      "licenseDeclared": "(BSD-3-Clause)",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: MCU_DCI",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-0c27cd0a-80e8-4a6a-b763-25901198c3dd---bad3c44a-4779-4434-957d-b2139496045e",
+      "name": "CMSIS_5",
+      "versionInfo": "5.5.1",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "homepage": "https://github.com/ARM-software/CMSIS_5",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: arm-software",
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:github/arm-software/cmsis_5@5.5.1",
+          "referenceType": "purl"
+        },
+        {
+          "referenceCategory": "OTHER",
+          "referenceLocator": "71f0e873-ecd3-4474-b29b-7f5b71444738",
+          "referenceType": "BlackDuck-ComponentOrigin"
+        }
+      ],
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-package-0c27cd0a-80e8-4a6a-b763-25901198c3dd"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-0c27cd0a-80e8-4a6a-b763-25901198c3dd",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-0c27cd0a-80e8-4a6a-b763-25901198c3dd---bad3c44a-4779-4434-957d-b2139496045e"
+    }
+  ]
+}

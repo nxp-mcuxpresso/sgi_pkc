@@ -13,7 +13,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxa)
                 doc/mcxa/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.0.spdx.json
+                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -30,7 +30,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxa5xx)
                 doc/mcxa5xx/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.0.spdx.json
+                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -47,7 +47,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxl)
                 doc/mcxl/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.0.spdx.json
+                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -64,7 +64,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxw7x)
                 doc/mcxw7x/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.0.spdx.json
+                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 

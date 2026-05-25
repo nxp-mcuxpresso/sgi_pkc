@@ -10,7 +10,7 @@ var searchData=
   ['hciversion_7',['HCIVERSION',['../a01658.html#gaeb4c67de7a9cceed43d96713181cb937',1,'USBHS_Type']]],
   ['hcsparams_8',['HCSPARAMS',['../a01658.html#ga70ee9050b19ef1fabfac5c09b0c4d239',1,'USBHS_Type']]],
   ['hfsr_9',['HFSR',['../a01596.html#ga14ad254659362b9752c69afe3fd80934',1,'SCB_Type']]],
-  ['hi_10',['HI',['../a01802.html#ga59eb8ed41f670f02d6ad3b8b5deff8c2',1,'SYSPM_Type::HI'],['../a01802.html#ga7567fbbcf468bce895e2b9915e2ec23d',1,'SYSPM_Type::@276::@277::HI']]],
+  ['hi_10',['HI',['../a01802.html#ga59eb8ed41f670f02d6ad3b8b5deff8c2',1,'SYSPM_Type::HI'],['../a01802.html#ga0ee47a00cf5289f50abb86fe87016079',1,'SYSPM_Type::@077115124076202150001141150043365222220235111275::@073024122356377063252251040233030201376321025327::HI']]],
   ['hold_11',['HOLD',['../a02879.html#a3a1bd59b0b1525afb69b248fe6c2b8a2',1,'TMR_Type']]],
   ['hop_5fctrl_12',['HOP_CTRL',['../a01802.html#ga5212763bce5c0507e30796eca10f6a7a',1,'WOR_Type']]],
   ['host2radio_13',['HOST2RADIO',['../a01802.html#ga493209fb8bee07744413b7eb92839b43',1,'XCVR_MISC_Type']]],

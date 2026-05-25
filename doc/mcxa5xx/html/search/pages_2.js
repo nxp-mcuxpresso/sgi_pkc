@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['user_20guidance_20manual_0',['User Guidance Manual',['../a03446.html',1,'']]],
-  ['user_20manual_20of_20crypto_20library_20normal_20secure_20_28clns_29_1',['User Manual of Crypto Library Normal Secure (CLNS)',['../index.html',1,'']]]
+  ['general_20user_20security_20guidance_0',['General User Security Guidance',['../a03447.html',1,'General User Security Guidance'],['../index.html#SDK_SecurityGuidanceManual',1,'General User Security Guidance']]],
+  ['guidance_1',['Guidance',['../a03447.html',1,'General User Security Guidance'],['../index.html#SDK_SecurityGuidanceManual',1,'General User Security Guidance']]],
+  ['guidance_20manual_2',['Guidance Manual',['../a03446.html',1,'User Guidance Manual'],['../index.html#Main_UserGuidanceManual',1,'User Guidance Manual']]]
 ];

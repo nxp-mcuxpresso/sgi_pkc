@@ -1,7 +1,7 @@
 var files_dup =
 [
-    [ "examples", "dir_e0b0c7146670944a1a661866ee9a9223.html", "dir_e0b0c7146670944a1a661866ee9a9223" ],
-    [ "platform", "dir_572762a79876887fdabce41aa791ef24.html", "dir_572762a79876887fdabce41aa791ef24" ],
+    [ "examples", "dir_e0e1980d76a5d984e475182177053913.html", "dir_e0e1980d76a5d984e475182177053913" ],
+    [ "platform", "dir_84dc68461eb0182f610e03a0d731c1da.html", "dir_84dc68461eb0182f610e03a0d731c1da" ],
     [ "mcuxCl_clns.h", "a00887.html", "a00887" ],
     [ "mcuxClAead.h", "a00389.html", null ],
     [ "mcuxClAead_Constants.h", "a00398.html", "a00398" ],

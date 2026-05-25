@@ -16,5 +16,5 @@ var searchData=
   ['espi_20register_20masks_13',['ESPI Register Masks',['../a01747.html',1,'']]],
   ['ewm_20peripheral_20access_20layer_14',['EWM Peripheral Access Layer',['../a01748.html',1,'']]],
   ['ewm_20register_20masks_15',['EWM Register Masks',['../a01749.html',1,'']]],
-  ['expectation_20handling_16',['Expectation handling',['../a01528.html',1,'(Global Namespace)'],['../a01517.html',1,'(Global Namespace)'],['../a01521.html',1,'(Global Namespace)']]]
+  ['expectation_20handling_16',['Expectation handling',['../a01517.html',1,'Expectation handling'],['../a01521.html',1,'Expectation handling'],['../a01528.html',1,'Expectation handling']]]
 ];

@@ -14,7 +14,7 @@ var searchData=
   ['_5f_5fget_5fmsp_11',['__get_MSP',['../a01574.html#ga667e7b8b97b4a30f445ae45d37588e45',1,'cmsis_armcc.h']]],
   ['_5f_5fget_5fprimask_12',['__get_PRIMASK',['../a01574.html#ga4ff59fb9e280d19e79e6875863a65f0a',1,'cmsis_armcc.h']]],
   ['_5f_5fget_5fpsp_13',['__get_PSP',['../a01574.html#ga826c53e30812e350c77f58aac9f42bcb',1,'cmsis_armcc.h']]],
-  ['_5f_5fget_5fxpsr_14',['__get_xPSR',['../a01574.html#ga52ca795dc9429ee0ac64ddd12c034834',1,'cmsis_armcc.h']]],
+  ['_5f_5fget_5fxpsr_14',['__get_xPSR',['../a01574.html#ga94c675a736d4754a5f73d8748b24aa11',1,'cmsis_armcc.h']]],
   ['_5f_5fisb_15',['__ISB',['../a01575.html#gae26c2b3961e702aeabc24d4984ebd369',1,'cmsis_gcc.h']]],
   ['_5f_5fnvic_5fclearpendingirq_16',['__NVIC_ClearPendingIRQ',['../a01592.html#ga562a86dbdf14827d0fee8fdafb04d191',1,'core_cm33.h']]],
   ['_5f_5fnvic_5fdisableirq_17',['__NVIC_DisableIRQ',['../a01592.html#gae016e4c1986312044ee768806537d52f',1,'core_cm33.h']]],

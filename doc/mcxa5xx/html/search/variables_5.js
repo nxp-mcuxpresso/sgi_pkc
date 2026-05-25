@@ -31,7 +31,7 @@ var searchData=
   ['endptctrl_28',['ENDPTCTRL',['../a01658.html#ga061ea9fe8522845a4ea4db760ad3e3e8',1,'USBHS_Type']]],
   ['endptctrl0_29',['ENDPTCTRL0',['../a01658.html#gaa582698662a6420c5ef89274f23097f7',1,'USBHS_Type']]],
   ['endptflush_30',['ENDPTFLUSH',['../a01658.html#gae4353b31eb8dbbcc42ec0fdd7c90aac9',1,'USBHS_Type']]],
-  ['endptlistaddr_31',['ENDPTLISTADDR',['../a01658.html#gaf22869d647641aaeda3626fa6743cce5',1,'USBHS_Type::ENDPTLISTADDR'],['../a01658.html#ga41e387ee0ced6eddf6a64f5e0ba59b40',1,'USBHS_Type::@165::ENDPTLISTADDR']]],
+  ['endptlistaddr_31',['ENDPTLISTADDR',['../a01658.html#gaf22869d647641aaeda3626fa6743cce5',1,'USBHS_Type::ENDPTLISTADDR'],['../a01658.html#ga0ea39117cb5fef9a97dad389c32c3476',1,'USBHS_Type::@350147162041244254032140247105001147057342324021::ENDPTLISTADDR']]],
   ['endptnak_32',['ENDPTNAK',['../a01658.html#gaa44c637864c2bcd12fec69036f771ff3',1,'USBHS_Type']]],
   ['endptnaken_33',['ENDPTNAKEN',['../a01658.html#gad62f1b67f179278d952588ee7fe7180f',1,'USBHS_Type']]],
   ['endptprime_34',['ENDPTPRIME',['../a01658.html#ga3458f660a282b5d4e4557a5126b8a3cc',1,'USBHS_Type']]],

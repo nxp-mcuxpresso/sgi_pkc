@@ -7,7 +7,7 @@ var a03500 =
     [ "__set_CONTROL", "a01574.html#ga0102d0939d9b26c5c792be6bf5fd550f", null ],
     [ "__get_IPSR", "a01574.html#gaf15a71855b9d731d11de92704c82bd18", null ],
     [ "__get_APSR", "a01574.html#gadff4f1e599946e8ae96fba17b5245f04", null ],
-    [ "__get_xPSR", "a01574.html#ga52ca795dc9429ee0ac64ddd12c034834", null ],
+    [ "__get_xPSR", "a01574.html#ga94c675a736d4754a5f73d8748b24aa11", null ],
     [ "__get_PSP", "a01574.html#ga826c53e30812e350c77f58aac9f42bcb", null ],
     [ "__set_PSP", "a01574.html#ga21f50fc02c3927a8ebf0bc3678c06862", null ],
     [ "__get_MSP", "a01574.html#ga667e7b8b97b4a30f445ae45d37588e45", null ],

@@ -31,12 +31,15 @@ target_include_directories(McuxSgiPkc PUBLIC
 
 # Platform MCXA
 if(CONFIG_SGI_PKC_PLATFORM_MCXA)
+    target_sources(McuxSgiPkc PRIVATE
+        ${SGI_PKC_BASE}/src/platforms/mcxa/mcux_sgi.c
+        ${SGI_PKC_BASE}/src/platforms/mcxa/mcux_pkc.c
+    )
     target_include_directories(McuxSgiPkc PUBLIC
         ${SGI_PKC_BASE}/src/platforms/mcxa
         ${SGI_PKC_BASE}/src/platforms/mcxa/inc
         ${SGI_PKC_BASE}/src/comps/mcuxClAeadModes/inc/platform/mcxa2xx
         ${SGI_PKC_BASE}/src/comps/mcuxClCipherModes/inc/platform/mcxa2xx
-        ${SGI_PKC_BASE}/src/comps/mcuxClCrc/inc/platform/mcxa2xx
         ${SGI_PKC_BASE}/src/comps/mcuxClEcc/inc/platform/mcxa2xx
         ${SGI_PKC_BASE}/src/comps/mcuxClFfdh/inc/platform/mcxa2xx
         ${SGI_PKC_BASE}/src/comps/mcuxClHash/inc/platform/mcxa2xx
@@ -50,6 +53,37 @@ if(CONFIG_SGI_PKC_PLATFORM_MCXA)
         ${SGI_PKC_BASE}/src/comps/mcuxClSession/inc/platform/mcxa2xx
         ${SGI_PKC_BASE}/src/comps/mcuxClSignature/inc/platform/mcxa2xx
         ${SGI_PKC_BASE}/src/comps/mcuxCsslMemory/inc/platform/mcxa2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxCsslPrng/inc/platform/mcxa2xx
+
+    )
+endif()
+
+# Platform MCXA5
+if(CONFIG_SGI_PKC_PLATFORM_MCXA5)
+    target_sources(McuxSgiPkc PRIVATE
+        ${SGI_PKC_BASE}/src/platforms/mcxa5/mcux_sgi.c
+        ${SGI_PKC_BASE}/src/platforms/mcxa5/mcux_pkc.c
+    )
+    target_include_directories(McuxSgiPkc PUBLIC
+        ${SGI_PKC_BASE}/src/platforms/mcxa5
+        ${SGI_PKC_BASE}/src/platforms/mcxa5/inc
+        ${SGI_PKC_BASE}/src/comps/mcuxClAeadModes/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClCipherModes/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClEcc/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClHash/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClHashModes/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClHmac/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClKey/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClMacModes/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClRandomModes/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClResource/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClRsa/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClSession/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClSignature/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxCsslMemory/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxCsslPrng/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClKdfModes/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClXofModes/inc/platform/mcxa5xx
 
     )
 endif()
@@ -432,6 +466,42 @@ if(CONFIG_SGI_PKC_TRNG)
     target_include_directories(McuxSgiPkc PUBLIC 
         ${SGI_PKC_BASE}/src/comps/mcuxClTrng/inc
         ${SGI_PKC_BASE}/src/comps/mcuxClTrng/inc/internal
+    )
+endif()
+
+# XOF component
+if(CONFIG_SGI_PKC_XOF)
+    file(GLOB_RECURSE XOF_SOURCES ${SGI_PKC_BASE}/src/comps/mcuxClXof/src/*.c)
+    if(XOF_SOURCES)
+        target_sources(McuxSgiPkc PRIVATE ${XOF_SOURCES})
+    endif()
+    target_include_directories(McuxSgiPkc PUBLIC 
+        ${SGI_PKC_BASE}/src/comps/mcuxClXof/inc
+        ${SGI_PKC_BASE}/src/comps/mcuxClXof/inc/internal
+    )
+endif()
+
+# KDF Modes component
+if(CONFIG_SGI_PKC_KDF_MODES)
+    file(GLOB_RECURSE KDF_MODES_SOURCES ${SGI_PKC_BASE}/src/comps/mcuxClKdfModes/src/*.c)
+    if(KDF_MODES_SOURCES)
+        target_sources(McuxSgiPkc PRIVATE ${KDF_MODES_SOURCES})
+    endif()
+    target_include_directories(McuxSgiPkc PUBLIC
+        ${SGI_PKC_BASE}/src/comps/mcuxClKdfModes/inc
+        ${SGI_PKC_BASE}/src/comps/mcuxClKdfModes/inc/internal
+    )
+endif()
+
+# XOF Modes component
+if(CONFIG_SGI_PKC_XOF_MODES)
+    file(GLOB_RECURSE XOF_MODES_SOURCES ${SGI_PKC_BASE}/src/comps/mcuxClXofModes/src/*.c)
+    if(XOF_MODES_SOURCES)
+        target_sources(McuxSgiPkc PRIVATE ${XOF_MODES_SOURCES})
+    endif()
+    target_include_directories(McuxSgiPkc PUBLIC 
+        ${SGI_PKC_BASE}/src/comps/mcuxClXofModes/inc
+        ${SGI_PKC_BASE}/src/comps/mcuxClXofModes/inc/internal
     )
 endif()
 

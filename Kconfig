@@ -5,8 +5,34 @@
 
 menu "SGI PKC"
 
+# ---------------------------------------------------------------------------
+# Helper configs that check whether the device being built belongs to a given
+# supported device family. Each symbol sums up all devices of a platform
+# family so the device list is defined in a single place instead of being
+# duplicated across every dependent config option. Reference these symbols
+# with "depends on" instead of repeating the MCUX_HW_DEVICE_* OR-chains.
+# The period (.) in the config name excludes these symbols from being placed
+# into the preinclude config header.
+# ---------------------------------------------------------------------------
+config is_device.MCXA
+    bool
+    default y if MCUX_HW_DEVICE_MCXA266 || MCUX_HW_DEVICE_MCXA366
+
+config is_device.MCXA5XX
+    bool
+    default y if MCUX_HW_DEVICE_MCXA286 || MCUX_HW_DEVICE_MCXA287 || MCUX_HW_DEVICE_MCXA456 || MCUX_HW_DEVICE_MCXA457 || MCUX_HW_DEVICE_MCXA536 || MCUX_HW_DEVICE_MCXA537 || MCUX_HW_DEVICE_MCXA556 || MCUX_HW_DEVICE_MCXA566 || MCUX_HW_DEVICE_MCXA567 || MCUX_HW_DEVICE_MCXA577
+
+config is_device.MCXL
+    bool
+    default y if MCUX_HW_DEVICE_MCXL253 || MCUX_HW_DEVICE_MCXL254 || MCUX_HW_DEVICE_MCXL255 || MCUX_HW_DEVICE_MCXL142 || MCUX_HW_DEVICE_MCXL143 || MCUX_HW_DEVICE_MCXL144
+
+config is_device.MCXW7X
+    bool
+    default y if MCUX_HW_DEVICE_KW43B43ZC2 || MCUX_HW_DEVICE_KW43B43ZC3 || MCUX_HW_DEVICE_KW43B43ZC6 || MCUX_HW_DEVICE_KW43B43ZC7 || MCUX_HW_DEVICE_KW43L43Z92 || MCUX_HW_DEVICE_KW43L43Z93 || MCUX_HW_DEVICE_KW43L43Z96 || MCUX_HW_DEVICE_KW43L43Z97 || MCUX_HW_DEVICE_MCXW70AC || MCUX_HW_DEVICE_MCXW70AD || MCUX_HW_DEVICE_MCXW70AA
+
 config MCUX_COMPONENT_component.sgi_pkc
     bool "SGI PKC"
+
     select MCUX_COMPONENT_component.sgi_pkc.sgi
     select MCUX_COMPONENT_component.sgi_pkc.pkc
     select MCUX_COMPONENT_component.sgi_pkc.trng
@@ -16,20 +42,20 @@ config MCUX_COMPONENT_component.sgi_pkc
 	    prompt "Target device family - Platform Support"
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxa
             bool "MCXA"
-			depends on MCUX_HW_DEVICE_MCXA266 || MCUX_HW_DEVICE_MCXA366
+			depends on is_device.MCXA
 
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxa5xx
             bool "MCXA5"
-			depends on MCUX_HW_DEVICE_MCXA286 || MCUX_HW_DEVICE_MCXA287 || MCUX_HW_DEVICE_MCXA456 || MCUX_HW_DEVICE_MCXA457 || MCUX_HW_DEVICE_MCXA536 || MCUX_HW_DEVICE_MCXA537 || MCUX_HW_DEVICE_MCXA556 || MCUX_HW_DEVICE_MCXA566 ||  MCUX_HW_DEVICE_MCXA567 || MCUX_HW_DEVICE_MCXA577
+			depends on is_device.MCXA5XX
             select MCUX_COMPONENT_component.sgi_pkc.kdf_modes
 			
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxl
             bool "MCXL"
-			depends on MCUX_HW_DEVICE_MCXL253 || MCUX_HW_DEVICE_MCXL254 || MCUX_HW_DEVICE_MCXL255 || MCUX_HW_DEVICE_MCXL142 || MCUX_HW_DEVICE_MCXL143 || MCUX_HW_DEVICE_MCXL144
+			depends on is_device.MCXL
 
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxw7x
             bool "MCXW"
-			depends on MCUX_HW_DEVICE_KW43B43ZC2 || MCUX_HW_DEVICE_KW43B43ZC3 || MCUX_HW_DEVICE_KW43B43ZC6 || MCUX_HW_DEVICE_KW43B43ZC7 || MCUX_HW_DEVICE_KW43L43Z92 || MCUX_HW_DEVICE_KW43L43Z93 || MCUX_HW_DEVICE_KW43L43Z96 || MCUX_HW_DEVICE_KW43L43Z97 || MCUX_HW_DEVICE_MCXW70AC || MCUX_HW_DEVICE_MCXW70AD || MCUX_HW_DEVICE_MCXW70AA
+			depends on is_device.MCXW7X
             select MCUX_COMPONENT_component.sgi_pkc.kdf_modes
 	  endchoice
 	endif
@@ -37,38 +63,38 @@ config MCUX_COMPONENT_component.sgi_pkc
     menu "Documentation"
         config MCUX_COMPONENT_component.sgi_pkc.doc.mcxa
             bool "MCXA"
-			depends on MCUX_HW_DEVICE_MCXA266 || MCUX_HW_DEVICE_MCXA366
+			depends on is_device.MCXA
 
         config MCUX_COMPONENT_component.sgi_pkc.doc.mcxa5xx
             bool "MCXA5"
-			depends on MCUX_HW_DEVICE_MCXA286 || MCUX_HW_DEVICE_MCXA287 || MCUX_HW_DEVICE_MCXA456 || MCUX_HW_DEVICE_MCXA457 || MCUX_HW_DEVICE_MCXA536 || MCUX_HW_DEVICE_MCXA537 || MCUX_HW_DEVICE_MCXA556|| MCUX_HW_DEVICE_MCXA566||  MCUX_HW_DEVICE_MCXA567 || MCUX_HW_DEVICE_MCXA577
+			depends on is_device.MCXA5XX
 
         config MCUX_COMPONENT_component.sgi_pkc.doc.mcxl
             bool "MCXL"
-            depends on MCUX_HW_DEVICE_MCXL253 || MCUX_HW_DEVICE_MCXL254 || MCUX_HW_DEVICE_MCXL255 || MCUX_HW_DEVICE_MCXL142 || MCUX_HW_DEVICE_MCXL143 || MCUX_HW_DEVICE_MCXL144
+            depends on is_device.MCXL
 
 		config MCUX_COMPONENT_component.sgi_pkc.doc.mcxw7x
             bool "MCXW"
-			depends on MCUX_HW_DEVICE_KW43B43ZC2 || MCUX_HW_DEVICE_KW43B43ZC3 || MCUX_HW_DEVICE_KW43B43ZC6 || MCUX_HW_DEVICE_KW43B43ZC7 || MCUX_HW_DEVICE_KW43L43Z92 || MCUX_HW_DEVICE_KW43L43Z93 || MCUX_HW_DEVICE_KW43L43Z96 || MCUX_HW_DEVICE_KW43L43Z97 || MCUX_HW_DEVICE_MCXW70AC || MCUX_HW_DEVICE_MCXW70AD || MCUX_HW_DEVICE_MCXW70AA
+			depends on is_device.MCXW7X
 	  
     endmenu
 
     menu "Static Libraries"
         config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxa
             bool "MCXA"
-			depends on MCUX_HW_DEVICE_MCXA266 || MCUX_HW_DEVICE_MCXA366
+			depends on is_device.MCXA
 
         config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxa5xx
             bool "MCXA5"
-			depends on MCUX_HW_DEVICE_MCXA286 || MCUX_HW_DEVICE_MCXA287 || MCUX_HW_DEVICE_MCXA456 || MCUX_HW_DEVICE_MCXA457 || MCUX_HW_DEVICE_MCXA536 || MCUX_HW_DEVICE_MCXA537 || MCUX_HW_DEVICE_MCXA556|| MCUX_HW_DEVICE_MCXA566||  MCUX_HW_DEVICE_MCXA567 || MCUX_HW_DEVICE_MCXA577
+			depends on is_device.MCXA5XX
 
         config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxl
             bool "MCXL"
-            depends on MCUX_HW_DEVICE_MCXL253 || MCUX_HW_DEVICE_MCXL254 || MCUX_HW_DEVICE_MCXL255 || MCUX_HW_DEVICE_MCXL142 || MCUX_HW_DEVICE_MCXL143 || MCUX_HW_DEVICE_MCXL144
+            depends on is_device.MCXL
 		
 		config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxw7x
             bool "MCXW"
-			depends on MCUX_HW_DEVICE_KW43B43ZC2 || MCUX_HW_DEVICE_KW43B43ZC3 || MCUX_HW_DEVICE_KW43B43ZC6 || MCUX_HW_DEVICE_KW43B43ZC7 || MCUX_HW_DEVICE_KW43L43Z92 || MCUX_HW_DEVICE_KW43L43Z93 || MCUX_HW_DEVICE_KW43L43Z96 || MCUX_HW_DEVICE_KW43L43Z97 || MCUX_HW_DEVICE_MCXW70AC || MCUX_HW_DEVICE_MCXW70AD || MCUX_HW_DEVICE_MCXW70AA
+			depends on is_device.MCXW7X
 	  
     endmenu
 

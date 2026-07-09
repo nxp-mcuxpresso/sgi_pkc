@@ -56,8 +56,18 @@ foreach(_option IN ITEMS
   CONFIG_SGI_PKC_CRC
   CONFIG_SGI_PKC_GLIKEY
 )
+
+  if(_option STREQUAL "CONFIG_SGI_PKC_FFDH" AND CONFIG_SGI_PKC_PLATFORM_MCXW)
+    continue()
+  endif()
+
   sgi_pkc_default_on(${_option})
 endforeach()
+
+# MCXW-specific SGI/PKC option
+if(CONFIG_SGI_PKC AND CONFIG_SGI_PKC_PLATFORM_MCXW)
+  sgi_pkc_default_on(CONFIG_SGI_PKC_KDF_MODES)
+endif()
 
 target_compile_options(
     McuxSgiPkc

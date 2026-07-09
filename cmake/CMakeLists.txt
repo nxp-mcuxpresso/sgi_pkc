@@ -95,6 +95,34 @@ if(CONFIG_SGI_PKC_PLATFORM_MCXL)
     )
 endif()
 
+# Platform MCXW
+if(CONFIG_SGI_PKC_PLATFORM_MCXW)
+    target_sources(McuxSgiPkc PRIVATE
+        ${SGI_PKC_BASE}/src/platforms/mcxw/mcux_sgi.c
+        ${SGI_PKC_BASE}/src/platforms/mcxw/mcux_pkc.c
+    )
+    target_include_directories(McuxSgiPkc PUBLIC
+        ${SGI_PKC_BASE}/src/platforms/mcxw
+        ${SGI_PKC_BASE}/src/platforms/mcxw/inc
+        ${SGI_PKC_BASE}/src/comps/mcuxClAeadModes/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClCipherModes/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClEcc/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClHash/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClHashModes/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClHmac/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClKey/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClMacModes/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClRandomModes/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClResource/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClRsa/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClSession/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClSignature/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxCsslMemory/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClKdfModes/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxCsslPrng/inc/platform/mcxw7x
+    )
+endif()
+
 # Core component
 if(CONFIG_SGI_PKC_CORE)
     target_include_directories(McuxSgiPkc PUBLIC ${SGI_PKC_BASE}/src/comps/mcuxClCore/inc)

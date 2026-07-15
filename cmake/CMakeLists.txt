@@ -110,6 +110,7 @@ if(CONFIG_SGI_PKC_PLATFORM_MCXW)
         ${SGI_PKC_BASE}/src/comps/mcuxClHash/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxClHashModes/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxClHmac/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClKdfModes/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxClKey/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxClMacModes/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxClRandomModes/inc/platform/mcxw7x
@@ -117,8 +118,8 @@ if(CONFIG_SGI_PKC_PLATFORM_MCXW)
         ${SGI_PKC_BASE}/src/comps/mcuxClRsa/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxClSession/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxClSignature/inc/platform/mcxw7x
+        ${SGI_PKC_BASE}/src/comps/mcuxClXofModes/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxCsslMemory/inc/platform/mcxw7x
-        ${SGI_PKC_BASE}/src/comps/mcuxClKdfModes/inc/platform/mcxw7x
         ${SGI_PKC_BASE}/src/comps/mcuxCsslPrng/inc/platform/mcxw7x
     )
 endif()

@@ -39,10 +39,8 @@
  #include "mcuxCsslAnalysis.h"
  
  MCUX_CSSL_ANALYSIS_START_PATTERN_EXTERNAL_HEADER()
+ #include "fsl_device_registers.h"
  #include "ip_platform.h" 
- #include "KW43B43ZC7.h" 
- #include "KW43B43ZC7_features.h" 
- #include "system_KW43B43ZC7.h" 
  MCUX_CSSL_ANALYSIS_STOP_PATTERN_EXTERNAL_HEADER()
  
  #endif /*PLATFORM_SPECIFIC_HEADERS_H_*/ 

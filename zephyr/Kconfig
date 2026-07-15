@@ -26,6 +26,12 @@ config SGI_PKC_PLATFORM_MCXL
 	help
 	  Enable support for MCXL platform.
 
+config SGI_PKC_PLATFORM_MCXW
+	def_bool y if SOC_MCXW70AC
+	help
+	  Automatically enabled for MCXW7xx (W70/KW43) SoCs.
+	  Selects mcxw7x platform include directories.
+
 config SGI_PKC_CORE
 	bool
 	default y

@@ -38,26 +38,7 @@
 #ifndef IP_PLATFORM_H
 #define IP_PLATFORM_H
 
-#if !(defined(CPU_KW43B43Z92MFPA) || defined(CPU_KW43B43Z92MFTA) \
-      || defined(CPU_KW43B43Z92MFPA_NBU) || defined(CPU_KW43B43Z92MFTA_NBU) \
-      || defined(CPU_KW43B43Z93MFPA) || defined(CPU_KW43B43Z93MFTA) \
-      || defined(CPU_KW43B43Z93MFPA_NBU) || defined(CPU_KW43B43Z93MFTA_NBU) \
-      || defined(CPU_KW43B43Z96MFPA) || defined(CPU_KW43B43Z96MFTA) \
-      || defined(CPU_KW43B43Z96MFPA_NBU) || defined(CPU_KW43B43Z96MFTA_NBU) \
-      || defined(CPU_KW43B43Z97MFPA) || defined(CPU_KW43B43Z97MFTA) \
-      || defined(CPU_KW43B43Z97MFPA_NBU) || defined(CPU_KW43B43Z97MFTA_NBU) \
-      || defined(CPU_KW43B43ZC2MFPA) || defined(CPU_KW43B43ZC2MFTA) \
-      || defined(CPU_KW43B43ZC2MFPA_NBU) || defined(CPU_KW43B43ZC2MFTA_NBU) \
-      || defined(CPU_KW43B43ZC3MFPA) || defined(CPU_KW43B43ZC3MFTA) \
-      || defined(CPU_KW43B43ZC3MFPA_NBU) || defined(CPU_KW43B43ZC3MFTA_NBU) \
-      || defined(CPU_KW43B43ZC6MFPA) || defined(CPU_KW43B43ZC6MFTA) \
-      || defined(CPU_KW43B43ZC6MFPA_NBU) || defined(CPU_KW43B43ZC6MFTA_NBU) \
-      || defined(CPU_KW43B43ZC7MFPA) || defined(CPU_KW43B43ZC7MFTA) \
-      || defined(CPU_KW43B43ZC7MFPA_NBU) || defined(CPU_KW43B43ZC7MFTA_NBU))
-  #define CPU_KW43B43ZC7MFPA 1
-#endif
-
-#include <KW43B43ZC7.h>
+#include "fsl_device_registers.h"
 
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */

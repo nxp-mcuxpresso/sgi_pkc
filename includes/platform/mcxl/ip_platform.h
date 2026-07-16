@@ -38,16 +38,7 @@
 #ifndef IP_PLATFORM_H
 #define IP_PLATFORM_H
 
-#if !(defined(CPU_MCXL253VDF_cm0plus)    || defined(CPU_MCXL253VLL_cm0plus)   \
-     || defined(CPU_MCXL253VDF_cm33)    || defined(CPU_MCXL253VLL_cm33)       \
-     || defined(CPU_MCXL254VDF_cm0plus) || defined(CPU_MCXL254VLL_cm0plus)    \
-     || defined(CPU_MCXL254VDF_cm33)    || defined(CPU_MCXL254VLL_cm33)       \
-     || defined(CPU_MCXL255VDF_cm0plus) || defined(CPU_MCXL255VLL_cm0plus)    \
-     || defined(CPU_MCXL255VDF_cm33)    || defined(CPU_MCXL255VLL_cm33))
-  #define CPU_MCXL255VLL_cm33 1
-#endif
-
-#include <MCXL255_cm33.h>
+#include "fsl_device_registers.h"
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
 /* ================================================================================ */

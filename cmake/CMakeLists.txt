@@ -90,8 +90,28 @@ endif()
 
 # Platform MCXL
 if(CONFIG_SGI_PKC_PLATFORM_MCXL)
+    target_sources(McuxSgiPkc PRIVATE
+        ${SGI_PKC_BASE}/src/platforms/mcxl/mcux_sgi.c
+        ${SGI_PKC_BASE}/src/platforms/mcxl/mcux_pkc.c
+    )
     target_include_directories(McuxSgiPkc PUBLIC
-        ${SGI_PKC_BASE}/includes/platform/mcxl
+        ${SGI_PKC_BASE}/src/platforms/mcxl
+        ${SGI_PKC_BASE}/src/platforms/mcxl/inc
+        ${SGI_PKC_BASE}/src/comps/mcuxClAeadModes/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClCipherModes/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClEcc/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClHash/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClHashModes/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClHmac/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClKey/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClMacModes/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClRandomModes/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClResource/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClRsa/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClSession/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClSignature/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxCsslMemory/inc/platform/mcxl2xx
+        ${SGI_PKC_BASE}/src/comps/mcuxCsslPrng/inc/platform/mcxl2xx
     )
 endif()
 

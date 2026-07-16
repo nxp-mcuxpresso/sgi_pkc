@@ -22,9 +22,10 @@ config SGI_PKC_PLATFORM_MCXA5
 	  Selects mcxa5xx platform include directories.
 
 config SGI_PKC_PLATFORM_MCXL
-	bool "MCXL Platform"
+	def_bool y if SOC_MCXL255
 	help
-	  Enable support for MCXL platform.
+	  Automatically enabled for MCXL2xx SoCs.
+	  Selects mcxl2xx platform include directories.
 
 config SGI_PKC_PLATFORM_MCXW
 	def_bool y if SOC_MCXW70AC

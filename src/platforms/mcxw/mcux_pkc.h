@@ -11,8 +11,6 @@
 #include "fsl_common.h"
 #include <ip_platform.h>
 
-#include "fsl_glikey.h"
-
 /*!
  * @addtogroup sgi_pkc
  * @{

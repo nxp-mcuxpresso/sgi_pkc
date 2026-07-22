@@ -43,15 +43,18 @@ config MCUX_COMPONENT_component.sgi_pkc
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxa
             bool "MCXA"
 			depends on is_device.MCXA
+			select MCUX_COMPONENT_driver.glikey
 
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxa5xx
             bool "MCXA5"
 			depends on is_device.MCXA5XX
             select MCUX_COMPONENT_component.sgi_pkc.kdf_modes
+			select MCUX_COMPONENT_driver.glikey
 			
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxl
             bool "MCXL"
 			depends on is_device.MCXL
+			select MCUX_COMPONENT_driver.glikey
 
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxw7x
             bool "MCXW"
@@ -222,7 +225,7 @@ config MCUX_COMPONENT_component.sgi_pkc
         config MCUX_COMPONENT_component.sgi_pkc.pkc
             bool "PKC"
 
-            select MCUX_COMPONENT_driver.glikey
+            #select MCUX_COMPONENT_driver.glikey
             select MCUX_COMPONENT_component.sgi_pkc.rsa
             select MCUX_COMPONENT_component.sgi_pkc.ecc
             select MCUX_COMPONENT_component.sgi_pkc.signature
@@ -348,7 +351,7 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.examples_crc
             select MCUX_COMPONENT_component.sgi_pkc.examples_ecc
             # select MCUX_COMPONENT_component.sgi_pkc.examples_ffdh
-            select MCUX_COMPONENT_component.sgi_pkc.examples_glikey
+            # select MCUX_COMPONENT_component.sgi_pkc.examples_glikey
             select MCUX_COMPONENT_component.sgi_pkc.examples_hash_modes
             select MCUX_COMPONENT_component.sgi_pkc.examples_hmac
             # select MCUX_COMPONENT_component.sgi_pkc.examples_kdf_modes

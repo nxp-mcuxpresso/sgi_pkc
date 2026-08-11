@@ -1,6 +1,5 @@
 var a01371 =
 [
-    [ "mcuxClEcc_WeierECC_GenerateDomainParams", "a01371.html#ga1deb22c96b88674a4513e56cdd2dfe3a", null ],
-    [ "mcuxClEcc_WeierECC_GenerateCustomKeyType", "a01371.html#gaf5bdc4291b8564a9d6cab3794456b840", null ],
-    [ "mcuxClEcc_WeierECC_DecodePoint", "a01371.html#gab725139ad08fcd3e5a34ad11c1ae2671", null ]
+    [ "mcuxClKey_AgreementDescriptor_ECDH", "a01371.html#gaa8f7ba354fdad5294ea9cf738b0a5b30", null ],
+    [ "mcuxClKey_Agreement_ECDH", "a01371.html#ga17bcc12a56c33f015f913d6bed36f8cc", null ]
 ];

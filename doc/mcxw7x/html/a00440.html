@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClCipherModes.h File Reference</title>
+<title>MCUX CLNS: mcuxClCipherModes_Modes.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,20 +102,59 @@ $(function(){initNavTree('a00440.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClCipherModes.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClCipherModes_Modes.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Top-level include file for the <a class="el" href="a01362.html" title="mcuxClCipherModes">mcuxClCipherModes</a> component.  
+<p>Supported modes for the mcuxClCipher component.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;mcuxClConfig.h&gt;</code><br />
-<code>#include &lt;mcuxClCipherModes_MemoryConsumption.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00443_source.html">mcuxClCipherModes_Modes.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00449_source.html">mcuxClCipher_Types.h</a>&gt;</code><br />
+<code>#include &lt;mcuxCsslAnalysis.h&gt;</code><br />
+<code>#include &lt;mcuxClConfig.h&gt;</code><br />
 </div>
 <p><a href="a00440_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gaab4df9b199099c17538928f734caa6eb" id="r_gaab4df9b199099c17538928f734caa6eb"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#gaab4df9b199099c17538928f734caa6eb">mcuxClCipher_ModeDescriptor_AES_ECB_NoPadding</a></td></tr>
+<tr class="memdesc:gaab4df9b199099c17538928f734caa6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode descriptor without padding.  <br /></td></tr>
+<tr class="memitem:gac155cd4ecd1534780abbfd37e6c6c2f1" id="r_gac155cd4ecd1534780abbfd37e6c6c2f1"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#gac155cd4ecd1534780abbfd37e6c6c2f1">mcuxClCipher_Mode_AES_ECB_NoPadding</a></td></tr>
+<tr class="memdesc:gac155cd4ecd1534780abbfd37e6c6c2f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode without padding.  <br /></td></tr>
+<tr class="memitem:gade8ba0ecbc341ff86f440528b907ad68" id="r_gade8ba0ecbc341ff86f440528b907ad68"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#gade8ba0ecbc341ff86f440528b907ad68">mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method1</a></td></tr>
+<tr class="memdesc:gade8ba0ecbc341ff86f440528b907ad68"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode descriptor with ISO/IEC 9797-1 padding method 1.  <br /></td></tr>
+<tr class="memitem:ga000a576ea677bdfe290fa4f3122a1005" id="r_ga000a576ea677bdfe290fa4f3122a1005"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga000a576ea677bdfe290fa4f3122a1005">mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method1</a></td></tr>
+<tr class="memdesc:ga000a576ea677bdfe290fa4f3122a1005"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode with ISO/IEC 9797-1 padding method 1.  <br /></td></tr>
+<tr class="memitem:ga0b54a502178ae7cf25ce660ff31c00a0" id="r_ga0b54a502178ae7cf25ce660ff31c00a0"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga0b54a502178ae7cf25ce660ff31c00a0">mcuxClCipher_ModeDescriptor_AES_ECB_PaddingISO9797_1_Method2</a></td></tr>
+<tr class="memdesc:ga0b54a502178ae7cf25ce660ff31c00a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode descriptor with ISO/IEC 9797-1 padding method 2.  <br /></td></tr>
+<tr class="memitem:ga837d5f92926d6139cc96fbb611f0d69e" id="r_ga837d5f92926d6139cc96fbb611f0d69e"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga837d5f92926d6139cc96fbb611f0d69e">mcuxClCipher_Mode_AES_ECB_PaddingISO9797_1_Method2</a></td></tr>
+<tr class="memdesc:ga837d5f92926d6139cc96fbb611f0d69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode with ISO/IEC 9797-1 padding method 2.  <br /></td></tr>
+<tr class="memitem:gaf1ec682fdeaa8ceb59cc1863a35e3d19" id="r_gaf1ec682fdeaa8ceb59cc1863a35e3d19"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#gaf1ec682fdeaa8ceb59cc1863a35e3d19">mcuxClCipher_ModeDescriptor_AES_ECB_PaddingPKCS7</a></td></tr>
+<tr class="memdesc:gaf1ec682fdeaa8ceb59cc1863a35e3d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode descriptor with PKCS#7 padding.  <br /></td></tr>
+<tr class="memitem:ga58d2304d6bccd5749faa12a761881111" id="r_ga58d2304d6bccd5749faa12a761881111"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga58d2304d6bccd5749faa12a761881111">mcuxClCipher_Mode_AES_ECB_PaddingPKCS7</a></td></tr>
+<tr class="memdesc:ga58d2304d6bccd5749faa12a761881111"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-ECB mode with PKCS#7 padding.  <br /></td></tr>
+<tr class="memitem:ga6712e3c6756af5e5a817f657c72ac930" id="r_ga6712e3c6756af5e5a817f657c72ac930"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga6712e3c6756af5e5a817f657c72ac930">mcuxClCipher_ModeDescriptor_AES_CBC_NoPadding</a></td></tr>
+<tr class="memdesc:ga6712e3c6756af5e5a817f657c72ac930"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode descriptor without padding.  <br /></td></tr>
+<tr class="memitem:ga31817e9769bf446360bb3b1713f49785" id="r_ga31817e9769bf446360bb3b1713f49785"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga31817e9769bf446360bb3b1713f49785">mcuxClCipher_Mode_AES_CBC_NoPadding</a></td></tr>
+<tr class="memdesc:ga31817e9769bf446360bb3b1713f49785"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode without padding.  <br /></td></tr>
+<tr class="memitem:ga59f035f03b75fc9c484f0a0f40f9116d" id="r_ga59f035f03b75fc9c484f0a0f40f9116d"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga59f035f03b75fc9c484f0a0f40f9116d">mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method1</a></td></tr>
+<tr class="memdesc:ga59f035f03b75fc9c484f0a0f40f9116d"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode descriptor with ISO/IEC 9797-1 padding method 1.  <br /></td></tr>
+<tr class="memitem:ga51de539bdac11c912b6fb54a2bb1b784" id="r_ga51de539bdac11c912b6fb54a2bb1b784"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga51de539bdac11c912b6fb54a2bb1b784">mcuxClCipher_Mode_AES_CBC_PaddingISO9797_1_Method1</a></td></tr>
+<tr class="memdesc:ga51de539bdac11c912b6fb54a2bb1b784"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode with ISO/IEC 9797-1 padding method 1.  <br /></td></tr>
+<tr class="memitem:gae40dfb60eedabf4106b58ef0b80505c4" id="r_gae40dfb60eedabf4106b58ef0b80505c4"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#gae40dfb60eedabf4106b58ef0b80505c4">mcuxClCipher_ModeDescriptor_AES_CBC_PaddingISO9797_1_Method2</a></td></tr>
+<tr class="memdesc:gae40dfb60eedabf4106b58ef0b80505c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode descriptor with ISO/IEC 9797-1 padding method 2.  <br /></td></tr>
+<tr class="memitem:ga1bcb424335230449512057dd13d53e88" id="r_ga1bcb424335230449512057dd13d53e88"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga1bcb424335230449512057dd13d53e88">mcuxClCipher_Mode_AES_CBC_PaddingISO9797_1_Method2</a></td></tr>
+<tr class="memdesc:ga1bcb424335230449512057dd13d53e88"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode with ISO/IEC 9797-1 padding method 2.  <br /></td></tr>
+<tr class="memitem:ga6e410db164a52493197f05eb60420e18" id="r_ga6e410db164a52493197f05eb60420e18"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga6e410db164a52493197f05eb60420e18">mcuxClCipher_ModeDescriptor_AES_CBC_PaddingPKCS7</a></td></tr>
+<tr class="memdesc:ga6e410db164a52493197f05eb60420e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode descriptor with PKCS#7 padding.  <br /></td></tr>
+<tr class="memitem:ga41f27a26254cd64361d63372a3b8e431" id="r_ga41f27a26254cd64361d63372a3b8e431"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga41f27a26254cd64361d63372a3b8e431">mcuxClCipher_Mode_AES_CBC_PaddingPKCS7</a></td></tr>
+<tr class="memdesc:ga41f27a26254cd64361d63372a3b8e431"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CBC mode with PKCS#7 padding.  <br /></td></tr>
+<tr class="memitem:ga93287cc9cd970f5c9103f1cc597027e0" id="r_ga93287cc9cd970f5c9103f1cc597027e0"><td class="memItemLeft">const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga93287cc9cd970f5c9103f1cc597027e0">mcuxClCipher_ModeDescriptor_AES_CTR</a></td></tr>
+<tr class="memdesc:ga93287cc9cd970f5c9103f1cc597027e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CTR mode descriptor.  <br /></td></tr>
+<tr class="memitem:ga6f1b191b97196025c65851958eb2a700" id="r_ga6f1b191b97196025c65851958eb2a700"><td class="memItemLeft">static <a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga6f1b191b97196025c65851958eb2a700">mcuxClCipher_Mode_AES_CTR</a></td></tr>
+<tr class="memdesc:ga6f1b191b97196025c65851958eb2a700"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES-CTR mode.  <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Top-level include file for the <a class="el" href="a01362.html" title="mcuxClCipherModes">mcuxClCipherModes</a> component. </p>
-<p>This includes headers for all of the functionality provided by the <a class="el" href="a01362.html" title="mcuxClCipherModes">mcuxClCipherModes</a> component. </p>
+<div class="textblock"><p>Supported modes for the mcuxClCipher component. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -129,7 +168,7 @@ $(function(){initNavTree('a00440.html','',''); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00440.html">mcuxClCipherModes.h</a></li>
+    <li class="navelem"><a href="a00440.html">mcuxClCipherModes_Modes.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

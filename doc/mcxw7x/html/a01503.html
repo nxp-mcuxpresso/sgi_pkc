@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUX CSSL – Configurations</title>
+<title>MCUX CLNS: Data integrity core functionality</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,21 +102,150 @@ $(function(){initNavTree('a01503.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUX CSSL &ndash; Configurations </div></div>
+  <div class="headertitle"><div class="title">Data integrity core functionality <div class="ingroups"><a class="el" href="a01498.html">MCUX CSSL &amp;ndash; Implementations</a> &raquo; <a class="el" href="a01502.html">Data Integrity: Disabled</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Data integrity handling core functionality, when data integrity is disabled.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:mcuxCsslDataIntegrity_5FCFG" id="r_mcuxCsslDataIntegrity_5FCFG"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01504.html">Data Integrity Configuration</a></td></tr>
-<tr class="memdesc:a01504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration options for the data integrity mechanism. <br /></td></tr>
-<tr class="memitem:mcuxCsslFlowProtection_5FCFG" id="r_mcuxCsslFlowProtection_5FCFG"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01518.html">Flow Protection Configuration</a></td></tr>
-<tr class="memdesc:a01518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration options for the flow protection mechanism. <br /></td></tr>
-<tr class="memitem:mcuxCsslSecureCounter_5FCFG" id="r_mcuxCsslSecureCounter_5FCFG"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01563.html">Secure Counter Configuration</a></td></tr>
-<tr class="memdesc:a01563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration options for the secure counter mechanism. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga4deb1836544c454f189e5aefe3a16b90" id="r_ga4deb1836544c454f189e5aefe3a16b90"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4deb1836544c454f189e5aefe3a16b90">MCUX_CSSL_DI_CHECK_PASSED_IMPL</a></td></tr>
+<tr class="memdesc:ga4deb1836544c454f189e5aefe3a16b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positive comparison result value.  <br /></td></tr>
+<tr class="memitem:ga381a9c96de77bfc8d099d9ebcc54f71b" id="r_ga381a9c96de77bfc8d099d9ebcc54f71b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga381a9c96de77bfc8d099d9ebcc54f71b">MCUX_CSSL_DI_CHECK_FAILED_IMPL</a></td></tr>
+<tr class="memdesc:ga381a9c96de77bfc8d099d9ebcc54f71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Negative comparison result value.  <br /></td></tr>
+<tr class="memitem:gaa624394a5af7473e531ea46ecb04c763" id="r_gaa624394a5af7473e531ea46ecb04c763"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa624394a5af7473e531ea46ecb04c763">MCUX_CSSL_DI_INIT_IMPL</a>(backupValue)</td></tr>
+<tr class="memdesc:gaa624394a5af7473e531ea46ecb04c763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the backup of the data integrity value to zero.  <br /></td></tr>
+<tr class="memitem:gac19903f4bcc14df44ce3779e82eeec8b" id="r_gac19903f4bcc14df44ce3779e82eeec8b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac19903f4bcc14df44ce3779e82eeec8b">MCUX_CSSL_DI_CHECK_IMPL</a>(reference)</td></tr>
+<tr class="memdesc:gac19903f4bcc14df44ce3779e82eeec8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparison operation implementation for the data integrity.  <br /></td></tr>
+<tr class="memitem:gaafc28614e23ef007041542c3703c8197" id="r_gaafc28614e23ef007041542c3703c8197"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaafc28614e23ef007041542c3703c8197">MCUX_CSSL_DI_CHECK_EXIT_IMPL</a>(id,  reference,  fail)</td></tr>
+<tr class="memdesc:gaafc28614e23ef007041542c3703c8197"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparison operation implementation for the data integrity.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"></div></div><!-- contents -->
+<div class="textblock"><p>Data integrity handling core functionality, when data integrity is disabled. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="ga4deb1836544c454f189e5aefe3a16b90" name="ga4deb1836544c454f189e5aefe3a16b90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4deb1836544c454f189e5aefe3a16b90">&#9670;&#160;</a></span>MCUX_CSSL_DI_CHECK_PASSED_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_DI_CHECK_PASSED_IMPL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Positive comparison result value. </p>
+
+</div>
+</div>
+<a id="ga381a9c96de77bfc8d099d9ebcc54f71b" name="ga381a9c96de77bfc8d099d9ebcc54f71b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga381a9c96de77bfc8d099d9ebcc54f71b">&#9670;&#160;</a></span>MCUX_CSSL_DI_CHECK_FAILED_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_DI_CHECK_FAILED_IMPL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Negative comparison result value. </p>
+
+</div>
+</div>
+<a id="gaa624394a5af7473e531ea46ecb04c763" name="gaa624394a5af7473e531ea46ecb04c763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa624394a5af7473e531ea46ecb04c763">&#9670;&#160;</a></span>MCUX_CSSL_DI_INIT_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_DI_INIT_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>backupValue</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the backup of the data integrity value to zero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">backupValue</td><td>Fresh variable name to store the current DI value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gac19903f4bcc14df44ce3779e82eeec8b" name="gac19903f4bcc14df44ce3779e82eeec8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac19903f4bcc14df44ce3779e82eeec8b">&#9670;&#160;</a></span>MCUX_CSSL_DI_CHECK_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_DI_CHECK_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reference</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comparison operation implementation for the data integrity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reference</td><td>Reference initial value to compare the data integrity value against (ignored). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Always <a class="el" href="a01496.html#gaf795c9830ecd5c53d21ae5efb05716c0" title="Positive comparison result value.">MCUX_CSSL_DI_CHECK_PASSED</a>. </dd></dl>
+
+</div>
+</div>
+<a id="gaafc28614e23ef007041542c3703c8197" name="gaafc28614e23ef007041542c3703c8197"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaafc28614e23ef007041542c3703c8197">&#9670;&#160;</a></span>MCUX_CSSL_DI_CHECK_EXIT_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_DI_CHECK_EXIT_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reference</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>fail</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comparison operation implementation for the data integrity. </p>
+<p>It has no impact on the normal execution of the calling function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the function from which we will exit (ignored). </td></tr>
+    <tr><td class="paramname">reference</td><td>Reference initial value to compare the data integrity value against. </td></tr>
+    <tr><td class="paramname">fail</td><td>Result that should be returned if the data integrity check failed (ignored). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -1,4 +1,4 @@
 var a00953 =
 [
-    [ "mcuxCsslMemory_Copy", "a01541.html#gaee82c726fe1d421446b22af31d2c52ad", null ]
+    [ "mcuxCsslMemory_SecureCompare", "a01540.html#gaaeaea6e90c6eb82adfd84ade13141141", null ]
 ];

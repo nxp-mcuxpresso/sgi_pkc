@@ -1,19 +1,21 @@
 var a01818 =
 [
-    [ "CIU2 Register Masks", "a01819.html", "a01819" ],
-    [ "CIU2_Type", "a03015.html", [
-      [ "CIU2_BTU_CTRL", "a01802.html#gaf87bd571b89e0b3d3e0f9f3dc166fe0d", null ],
-      [ "CIU2_BTU_ECO_CTRL", "a01802.html#gae52c41390eb5177607652d8f70de3f01", null ],
-      [ "CIU2_INT_MASK", "a01802.html#ga46b961bdae42250deb5e86c2572cf51c", null ],
-      [ "CIU2_INT_SELECT", "a01802.html#ga10a256e0b91566719542718a4c54be20", null ],
-      [ "CIU2_INT_EVENT_MASK", "a01802.html#ga9f6d9075d608da553bd57b5579fcb8da", null ],
-      [ "CIU2_INT_STATUS", "a01802.html#ga1a526ff96bf73bdbd0a467ff3b84cb73", null ],
-      [ "CIU2_TESTBUS_CTRL", "a01802.html#ga886fe5dc0a24ef3227936013dc904716", null ],
-      [ "CIU2_LBC_CTRL", "a01802.html#ga8599deec5e460dc0bdc537675894dfb5", null ],
-      [ "CIU2_LBC_SLPCLK_NCO", "a01802.html#ga577059e04187c706b75ad583f34e073c", null ]
-    ] ],
-    [ "CIU2_BASE", "a01818.html#ga58155743c4f95bdeee2250638fc2ec1b", null ],
-    [ "CIU2", "a01818.html#gab46772966df78eefec3c3f455bc8e6c0", null ],
-    [ "CIU2_BASE_ADDRS", "a01818.html#ga4c8759d15be5f9bdeda5aeb9165930c8", null ],
-    [ "CIU2_BASE_PTRS", "a01818.html#gae236cb94f473f2fa6a9db1085a5097c5", null ]
+    [ "DSB_CSR_SFTRST", "a01818.html#gafda9c5abdad7644322a256ca2e26508c", null ],
+    [ "DSB_CSR_DSB_EN", "a01818.html#ga375d2e23f39ec43e7a7b7c378d0bf083", null ],
+    [ "DSB_CSR_DMA_EN", "a01818.html#gae3181f8876e9553bb1086f159c7d5297", null ],
+    [ "DSB_CSR_INT_EN", "a01818.html#gac0edb176510d78acead00006a7734a85", null ],
+    [ "DSB_CSR_ERR_EN", "a01818.html#ga062b1c2025139b2f86e61148e6627333", null ],
+    [ "DSB_CSR_CBT_EN", "a01818.html#ga56b75bd8cb3043c454d3160122e4d674", null ],
+    [ "DSB_INT_DRDY", "a01818.html#gacc124ba3df89e697620f70177d5ecfad", null ],
+    [ "DSB_INT_OVRF", "a01818.html#ga3bfdb091c7b4a242fc55976c3b836a61", null ],
+    [ "DSB_INT_UNDR", "a01818.html#gad0f48b8f5c36fdf41d1bab9f61f3b9d8", null ],
+    [ "DSB_INT_DBE", "a01818.html#ga6c8a1a4907ef5f9c8453a968f79d1b9e", null ],
+    [ "DSB_INT_DONE", "a01818.html#ga35bd84ced5e678268c9fefad5532b732", null ],
+    [ "DSB_WMC_WMRK", "a01818.html#ga6ae8bfcea7ba73b32ff88a2c451a4028", null ],
+    [ "DSB_WMC_CNT", "a01818.html#ga59f85841e1c18961d8b8b88e3acb5539", null ],
+    [ "DSB_WMC_SIZE", "a01818.html#gac06a6bbb908420d924c8ad6e1af00d9a", null ],
+    [ "DSB_RDATA_DATA", "a01818.html#ga13ccb99372f2ec975c0b9a68b8b15a29", null ],
+    [ "DSB_DADDR_DADDR", "a01818.html#gad331b199310f0e2684a6be5e9af45845", null ],
+    [ "DSB_XCR_TCNT", "a01818.html#gaad24d2b17d0b3e623ee2ccc110c43acc", null ],
+    [ "DSB_XCR_CCNT", "a01818.html#ga661b532576d2ac14331fb4dab12556a9", null ]
 ];

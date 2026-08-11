@@ -1,7 +1,7 @@
 var a01461 =
 [
-    [ "mcuxClRsa_Functions", "a01462.html", null ],
-    [ "mcuxClRsa_Descriptors", "a01473.html", "a01473" ],
-    [ "mcuxClRsa_Macros", "a01476.html", "a01476" ],
-    [ "mcuxClRsa_Types", "a01479.html", "a01479" ]
+    [ "mcuxClKey_TypeDescriptor_Rsa_Public_1024", "a01461.html#gaa566fb64a101d8364389439e82cc1144", null ],
+    [ "mcuxClKey_TypeDescriptor_Rsa_Public_2048", "a01461.html#gaf405e689c13526bc2b86188a994f89c6", null ],
+    [ "mcuxClKey_TypeDescriptor_Rsa_Public_3072", "a01461.html#ga2e3fd84d6bd9c36e9346e28f8de6b1b9", null ],
+    [ "mcuxClKey_TypeDescriptor_Rsa_Public_4096", "a01461.html#gadfbf8cc13f218758464f8866deeb5d95", null ]
 ];

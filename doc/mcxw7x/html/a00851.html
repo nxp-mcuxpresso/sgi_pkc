@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClSgi_Constants.h File Reference</title>
+<title>MCUX CLNS: mcuxClSgi_Types.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,34 +102,24 @@ $(function(){initNavTree('a00851.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClSgi_Constants.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClSgi_Types.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>SGI constant header.  
+<p>Type and associated constant definitions of the mcuxClSgi component.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="a00854_source.html">mcuxClSgi_Types.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;mcuxClCore_Platform.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00914_source.html">mcuxCsslFlowProtection.h</a>&gt;</code><br />
 </div>
 <p><a href="a00851_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga3a7f396d056150e6b660e0a1c1411d8a" id="r_ga3a7f396d056150e6b660e0a1c1411d8a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01486.html#ga3a7f396d056150e6b660e0a1c1411d8a">MCUXCLSGI_STATUS_ERROR</a></td></tr>
-<tr class="memdesc:ga3a7f396d056150e6b660e0a1c1411d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">An error occurred during an SGI operation.  <br /></td></tr>
-<tr class="memitem:gae800260950cd588eab670511e2897b01" id="r_gae800260950cd588eab670511e2897b01"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01486.html#gae800260950cd588eab670511e2897b01">MCUXCLSGI_STATUS_UNWRAP_ERROR</a></td></tr>
-<tr class="memdesc:gae800260950cd588eab670511e2897b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">An error occurred during SGI key unwrap, an SGI reset or FULL_FLUSH has to be performed to clear this sticky error.  <br /></td></tr>
-<tr class="memitem:gad238e73fbfbfd66329ec6bdcc869c74d" id="r_gad238e73fbfbfd66329ec6bdcc869c74d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01486.html#gad238e73fbfbfd66329ec6bdcc869c74d">MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED</a></td></tr>
-<tr class="memdesc:gad238e73fbfbfd66329ec6bdcc869c74d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The given key size is not supported for the operation.  <br /></td></tr>
-<tr class="memitem:gac50360c76a049483afe98382c66e56d7" id="r_gac50360c76a049483afe98382c66e56d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01486.html#gac50360c76a049483afe98382c66e56d7">MCUXCLSGI_STATUS_UNALIGNED_ACCESS_NOT_SUPPORTED</a></td></tr>
-<tr class="memdesc:gac50360c76a049483afe98382c66e56d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The given key buffer is not aligned correctly for the operation.  <br /></td></tr>
-<tr class="memitem:ga6943fe8a51be06c7ba75f2db2718beb1" id="r_ga6943fe8a51be06c7ba75f2db2718beb1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01486.html#ga6943fe8a51be06c7ba75f2db2718beb1">MCUXCLSGI_STATUS_OK</a></td></tr>
-<tr class="memdesc:ga6943fe8a51be06c7ba75f2db2718beb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The operation was successful and no SGI error occurred.  <br /></td></tr>
-<tr class="memitem:ga15e56f64900801e09aefc4a6a1501e71" id="r_ga15e56f64900801e09aefc4a6a1501e71"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01486.html#ga15e56f64900801e09aefc4a6a1501e71">MCUXCLSGI_STATUS_FAULT</a></td></tr>
-<tr class="memdesc:ga15e56f64900801e09aefc4a6a1501e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack detected.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga438bf518456bded28bd3285f86b59e71" id="r_ga438bf518456bded28bd3285f86b59e71"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01484.html#ga438bf518456bded28bd3285f86b59e71">mcuxClSgi_Status_t</a></td></tr>
+<tr class="memdesc:ga438bf518456bded28bd3285f86b59e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI status code.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>SGI constant header. </p>
-<p>This header exposes constants used by the <a class="el" href="a01484.html" title="mcuxClSgi">mcuxClSgi</a> functions. </p>
+<div class="textblock"><p>Type and associated constant definitions of the mcuxClSgi component. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -143,7 +133,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00851.html">mcuxClSgi_Constants.h</a></li>
+    <li class="navelem"><a href="a00851.html">mcuxClSgi_Types.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

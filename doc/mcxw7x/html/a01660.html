@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: EIM Register Masks</title>
+<title>MCUX CLNS: ERM Register Masks</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,205 +102,855 @@ $(function(){initNavTree('a01660.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">EIM Register Masks <div class="ingroups"><a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01654.html">Dma_request</a> &raquo; <a class="el" href="a01657.html">Eim_memory_channel</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01654.html">Dma_request</a> &raquo; <a class="el" href="a01657.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01658.html">Eim_error_injection_channel_enable</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01802.html">Edma_request</a> &raquo; <a class="el" href="a01634.html">Device Peripheral Access Layer</a> &raquo; <a class="el" href="a01659.html">EIM Peripheral Access Layer</a></div></div></div>
+  <div class="headertitle"><div class="title">ERM Register Masks <div class="ingroups"><a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01653.html">Eim_error_injection_channel_enable</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01797.html">Edma_request</a> &raquo; <a class="el" href="a01629.html">Device Peripheral Access Layer</a> &raquo; <a class="el" href="a01659.html">ERM Peripheral Access Layer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
-EIMCR - Error Injection Module Configuration Register</h2></td></tr>
-<tr class="memitem:ga2b6d24211a51a3e78d74c1985e971677" id="r_ga2b6d24211a51a3e78d74c1985e971677"><td class="memItemLeft"><a id="ga2b6d24211a51a3e78d74c1985e971677" name="ga2b6d24211a51a3e78d74c1985e971677"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EIMCR_GEIEN_MASK</b></td></tr>
-<tr class="memitem:ga8b3b958a029d31a34d50e765429f3caa" id="r_ga8b3b958a029d31a34d50e765429f3caa"><td class="memItemLeft"><a id="ga8b3b958a029d31a34d50e765429f3caa" name="ga8b3b958a029d31a34d50e765429f3caa"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EIMCR_GEIEN_SHIFT</b></td></tr>
-<tr class="memitem:ga4007b673a29842491c52d6ddd5a69652" id="r_ga4007b673a29842491c52d6ddd5a69652"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4007b673a29842491c52d6ddd5a69652">EIM_EIMCR_GEIEN</a>(x)</td></tr>
-<tr class="memitem:ga2b6d24211a51a3e78d74c1985e971677" id="r_ga2b6d24211a51a3e78d74c1985e971677"><td class="memItemLeft"><a id="ga2b6d24211a51a3e78d74c1985e971677" name="ga2b6d24211a51a3e78d74c1985e971677"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EIMCR_GEIEN_MASK</b></td></tr>
-<tr class="memitem:ga8b3b958a029d31a34d50e765429f3caa" id="r_ga8b3b958a029d31a34d50e765429f3caa"><td class="memItemLeft"><a id="ga8b3b958a029d31a34d50e765429f3caa" name="ga8b3b958a029d31a34d50e765429f3caa"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EIMCR_GEIEN_SHIFT</b></td></tr>
-<tr class="memitem:ga4007b673a29842491c52d6ddd5a69652" id="r_ga4007b673a29842491c52d6ddd5a69652"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4007b673a29842491c52d6ddd5a69652">EIM_EIMCR_GEIEN</a>(x)</td></tr>
+CR0 - ERM Configuration Register 0</h2></td></tr>
+<tr class="memitem:ga2b1156b2b854622930b4f28f136f25c4" id="r_ga2b1156b2b854622930b4f28f136f25c4"><td class="memItemLeft"><a id="ga2b1156b2b854622930b4f28f136f25c4" name="ga2b1156b2b854622930b4f28f136f25c4"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE1_MASK</b></td></tr>
+<tr class="memitem:gabeb3ec6272710bd682dde85dfe2b7ccd" id="r_gabeb3ec6272710bd682dde85dfe2b7ccd"><td class="memItemLeft"><a id="gabeb3ec6272710bd682dde85dfe2b7ccd" name="gabeb3ec6272710bd682dde85dfe2b7ccd"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE1_SHIFT</b></td></tr>
+<tr class="memitem:gad5c00b67ed8da522e212eebc9cd22d04" id="r_gad5c00b67ed8da522e212eebc9cd22d04"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad5c00b67ed8da522e212eebc9cd22d04">ERM_CR0_ENCIE1</a>(x)</td></tr>
+<tr class="memitem:gaceca0944aedb05cfd90f8d86e330b245" id="r_gaceca0944aedb05cfd90f8d86e330b245"><td class="memItemLeft"><a id="gaceca0944aedb05cfd90f8d86e330b245" name="gaceca0944aedb05cfd90f8d86e330b245"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE1_MASK</b></td></tr>
+<tr class="memitem:ga87443905075ee26982c5185f18a8fc2d" id="r_ga87443905075ee26982c5185f18a8fc2d"><td class="memItemLeft"><a id="ga87443905075ee26982c5185f18a8fc2d" name="ga87443905075ee26982c5185f18a8fc2d"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE1_SHIFT</b></td></tr>
+<tr class="memitem:gab9480c8b96e05c809d7c2d7c7cd48864" id="r_gab9480c8b96e05c809d7c2d7c7cd48864"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab9480c8b96e05c809d7c2d7c7cd48864">ERM_CR0_ESCIE1</a>(x)</td></tr>
+<tr class="memitem:ga084b32e8e784a3d6d9c2d1a7b996ad75" id="r_ga084b32e8e784a3d6d9c2d1a7b996ad75"><td class="memItemLeft"><a id="ga084b32e8e784a3d6d9c2d1a7b996ad75" name="ga084b32e8e784a3d6d9c2d1a7b996ad75"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE0_MASK</b></td></tr>
+<tr class="memitem:gac67f0c209626acb9b05bb3a74f2ed3d2" id="r_gac67f0c209626acb9b05bb3a74f2ed3d2"><td class="memItemLeft"><a id="gac67f0c209626acb9b05bb3a74f2ed3d2" name="gac67f0c209626acb9b05bb3a74f2ed3d2"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE0_SHIFT</b></td></tr>
+<tr class="memitem:ga8f11cd50f70122df0c905eb4aeffebe5" id="r_ga8f11cd50f70122df0c905eb4aeffebe5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8f11cd50f70122df0c905eb4aeffebe5">ERM_CR0_ENCIE0</a>(x)</td></tr>
+<tr class="memitem:ga98211653615369e2ed1e6a1a9b733a91" id="r_ga98211653615369e2ed1e6a1a9b733a91"><td class="memItemLeft"><a id="ga98211653615369e2ed1e6a1a9b733a91" name="ga98211653615369e2ed1e6a1a9b733a91"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE0_MASK</b></td></tr>
+<tr class="memitem:ga6538a3a9a7d876b067fc6d99781e4d3d" id="r_ga6538a3a9a7d876b067fc6d99781e4d3d"><td class="memItemLeft"><a id="ga6538a3a9a7d876b067fc6d99781e4d3d" name="ga6538a3a9a7d876b067fc6d99781e4d3d"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE0_SHIFT</b></td></tr>
+<tr class="memitem:gaa7ae8044e8f3abf25c2fd005359bae1f" id="r_gaa7ae8044e8f3abf25c2fd005359bae1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa7ae8044e8f3abf25c2fd005359bae1f">ERM_CR0_ESCIE0</a>(x)</td></tr>
+<tr class="memitem:ga2b1156b2b854622930b4f28f136f25c4" id="r_ga2b1156b2b854622930b4f28f136f25c4"><td class="memItemLeft"><a id="ga2b1156b2b854622930b4f28f136f25c4" name="ga2b1156b2b854622930b4f28f136f25c4"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE1_MASK</b></td></tr>
+<tr class="memitem:gabeb3ec6272710bd682dde85dfe2b7ccd" id="r_gabeb3ec6272710bd682dde85dfe2b7ccd"><td class="memItemLeft"><a id="gabeb3ec6272710bd682dde85dfe2b7ccd" name="gabeb3ec6272710bd682dde85dfe2b7ccd"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE1_SHIFT</b></td></tr>
+<tr class="memitem:gad5c00b67ed8da522e212eebc9cd22d04" id="r_gad5c00b67ed8da522e212eebc9cd22d04"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad5c00b67ed8da522e212eebc9cd22d04">ERM_CR0_ENCIE1</a>(x)</td></tr>
+<tr class="memitem:gaceca0944aedb05cfd90f8d86e330b245" id="r_gaceca0944aedb05cfd90f8d86e330b245"><td class="memItemLeft"><a id="gaceca0944aedb05cfd90f8d86e330b245" name="gaceca0944aedb05cfd90f8d86e330b245"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE1_MASK</b></td></tr>
+<tr class="memitem:ga87443905075ee26982c5185f18a8fc2d" id="r_ga87443905075ee26982c5185f18a8fc2d"><td class="memItemLeft"><a id="ga87443905075ee26982c5185f18a8fc2d" name="ga87443905075ee26982c5185f18a8fc2d"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE1_SHIFT</b></td></tr>
+<tr class="memitem:gab9480c8b96e05c809d7c2d7c7cd48864" id="r_gab9480c8b96e05c809d7c2d7c7cd48864"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab9480c8b96e05c809d7c2d7c7cd48864">ERM_CR0_ESCIE1</a>(x)</td></tr>
+<tr class="memitem:ga084b32e8e784a3d6d9c2d1a7b996ad75" id="r_ga084b32e8e784a3d6d9c2d1a7b996ad75"><td class="memItemLeft"><a id="ga084b32e8e784a3d6d9c2d1a7b996ad75" name="ga084b32e8e784a3d6d9c2d1a7b996ad75"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE0_MASK</b></td></tr>
+<tr class="memitem:gac67f0c209626acb9b05bb3a74f2ed3d2" id="r_gac67f0c209626acb9b05bb3a74f2ed3d2"><td class="memItemLeft"><a id="gac67f0c209626acb9b05bb3a74f2ed3d2" name="gac67f0c209626acb9b05bb3a74f2ed3d2"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE0_SHIFT</b></td></tr>
+<tr class="memitem:ga8f11cd50f70122df0c905eb4aeffebe5" id="r_ga8f11cd50f70122df0c905eb4aeffebe5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8f11cd50f70122df0c905eb4aeffebe5">ERM_CR0_ENCIE0</a>(x)</td></tr>
+<tr class="memitem:ga98211653615369e2ed1e6a1a9b733a91" id="r_ga98211653615369e2ed1e6a1a9b733a91"><td class="memItemLeft"><a id="ga98211653615369e2ed1e6a1a9b733a91" name="ga98211653615369e2ed1e6a1a9b733a91"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE0_MASK</b></td></tr>
+<tr class="memitem:ga6538a3a9a7d876b067fc6d99781e4d3d" id="r_ga6538a3a9a7d876b067fc6d99781e4d3d"><td class="memItemLeft"><a id="ga6538a3a9a7d876b067fc6d99781e4d3d" name="ga6538a3a9a7d876b067fc6d99781e4d3d"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE0_SHIFT</b></td></tr>
+<tr class="memitem:gaa7ae8044e8f3abf25c2fd005359bae1f" id="r_gaa7ae8044e8f3abf25c2fd005359bae1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa7ae8044e8f3abf25c2fd005359bae1f">ERM_CR0_ESCIE0</a>(x)</td></tr>
+<tr class="memitem:ga2b1156b2b854622930b4f28f136f25c4" id="r_ga2b1156b2b854622930b4f28f136f25c4"><td class="memItemLeft"><a id="ga2b1156b2b854622930b4f28f136f25c4" name="ga2b1156b2b854622930b4f28f136f25c4"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE1_MASK</b></td></tr>
+<tr class="memitem:gabeb3ec6272710bd682dde85dfe2b7ccd" id="r_gabeb3ec6272710bd682dde85dfe2b7ccd"><td class="memItemLeft"><a id="gabeb3ec6272710bd682dde85dfe2b7ccd" name="gabeb3ec6272710bd682dde85dfe2b7ccd"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE1_SHIFT</b></td></tr>
+<tr class="memitem:gad5c00b67ed8da522e212eebc9cd22d04" id="r_gad5c00b67ed8da522e212eebc9cd22d04"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad5c00b67ed8da522e212eebc9cd22d04">ERM_CR0_ENCIE1</a>(x)</td></tr>
+<tr class="memitem:gaceca0944aedb05cfd90f8d86e330b245" id="r_gaceca0944aedb05cfd90f8d86e330b245"><td class="memItemLeft"><a id="gaceca0944aedb05cfd90f8d86e330b245" name="gaceca0944aedb05cfd90f8d86e330b245"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE1_MASK</b></td></tr>
+<tr class="memitem:ga87443905075ee26982c5185f18a8fc2d" id="r_ga87443905075ee26982c5185f18a8fc2d"><td class="memItemLeft"><a id="ga87443905075ee26982c5185f18a8fc2d" name="ga87443905075ee26982c5185f18a8fc2d"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE1_SHIFT</b></td></tr>
+<tr class="memitem:gab9480c8b96e05c809d7c2d7c7cd48864" id="r_gab9480c8b96e05c809d7c2d7c7cd48864"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab9480c8b96e05c809d7c2d7c7cd48864">ERM_CR0_ESCIE1</a>(x)</td></tr>
+<tr class="memitem:ga084b32e8e784a3d6d9c2d1a7b996ad75" id="r_ga084b32e8e784a3d6d9c2d1a7b996ad75"><td class="memItemLeft"><a id="ga084b32e8e784a3d6d9c2d1a7b996ad75" name="ga084b32e8e784a3d6d9c2d1a7b996ad75"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE0_MASK</b></td></tr>
+<tr class="memitem:gac67f0c209626acb9b05bb3a74f2ed3d2" id="r_gac67f0c209626acb9b05bb3a74f2ed3d2"><td class="memItemLeft"><a id="gac67f0c209626acb9b05bb3a74f2ed3d2" name="gac67f0c209626acb9b05bb3a74f2ed3d2"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ENCIE0_SHIFT</b></td></tr>
+<tr class="memitem:ga8f11cd50f70122df0c905eb4aeffebe5" id="r_ga8f11cd50f70122df0c905eb4aeffebe5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8f11cd50f70122df0c905eb4aeffebe5">ERM_CR0_ENCIE0</a>(x)</td></tr>
+<tr class="memitem:ga98211653615369e2ed1e6a1a9b733a91" id="r_ga98211653615369e2ed1e6a1a9b733a91"><td class="memItemLeft"><a id="ga98211653615369e2ed1e6a1a9b733a91" name="ga98211653615369e2ed1e6a1a9b733a91"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE0_MASK</b></td></tr>
+<tr class="memitem:ga6538a3a9a7d876b067fc6d99781e4d3d" id="r_ga6538a3a9a7d876b067fc6d99781e4d3d"><td class="memItemLeft"><a id="ga6538a3a9a7d876b067fc6d99781e4d3d" name="ga6538a3a9a7d876b067fc6d99781e4d3d"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CR0_ESCIE0_SHIFT</b></td></tr>
+<tr class="memitem:gaa7ae8044e8f3abf25c2fd005359bae1f" id="r_gaa7ae8044e8f3abf25c2fd005359bae1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa7ae8044e8f3abf25c2fd005359bae1f">ERM_CR0_ESCIE0</a>(x)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
-EICHEN - Error Injection Channel Enable register</h2></td></tr>
-<tr class="memitem:gaae751fbdf5dc3453679d8ffd8dc3f27b" id="r_gaae751fbdf5dc3453679d8ffd8dc3f27b"><td class="memItemLeft"><a id="gaae751fbdf5dc3453679d8ffd8dc3f27b" name="gaae751fbdf5dc3453679d8ffd8dc3f27b"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHEN_EICH0EN_MASK</b></td></tr>
-<tr class="memitem:ga6eb14a633114845729fd88d49d640371" id="r_ga6eb14a633114845729fd88d49d640371"><td class="memItemLeft"><a id="ga6eb14a633114845729fd88d49d640371" name="ga6eb14a633114845729fd88d49d640371"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHEN_EICH0EN_SHIFT</b></td></tr>
-<tr class="memitem:ga9af422a743b9099b529c9c7f938c7ce9" id="r_ga9af422a743b9099b529c9c7f938c7ce9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9af422a743b9099b529c9c7f938c7ce9">EIM_EICHEN_EICH0EN</a>(x)</td></tr>
-<tr class="memitem:gaae751fbdf5dc3453679d8ffd8dc3f27b" id="r_gaae751fbdf5dc3453679d8ffd8dc3f27b"><td class="memItemLeft"><a id="gaae751fbdf5dc3453679d8ffd8dc3f27b" name="gaae751fbdf5dc3453679d8ffd8dc3f27b"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHEN_EICH0EN_MASK</b></td></tr>
-<tr class="memitem:ga6eb14a633114845729fd88d49d640371" id="r_ga6eb14a633114845729fd88d49d640371"><td class="memItemLeft"><a id="ga6eb14a633114845729fd88d49d640371" name="ga6eb14a633114845729fd88d49d640371"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHEN_EICH0EN_SHIFT</b></td></tr>
-<tr class="memitem:ga9af422a743b9099b529c9c7f938c7ce9" id="r_ga9af422a743b9099b529c9c7f938c7ce9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9af422a743b9099b529c9c7f938c7ce9">EIM_EICHEN_EICH0EN</a>(x)</td></tr>
+SR0 - ERM Status Register 0</h2></td></tr>
+<tr class="memitem:gacf7c1c60a0ef11334004a0b9f4efe693" id="r_gacf7c1c60a0ef11334004a0b9f4efe693"><td class="memItemLeft"><a id="gacf7c1c60a0ef11334004a0b9f4efe693" name="gacf7c1c60a0ef11334004a0b9f4efe693"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE1_MASK</b></td></tr>
+<tr class="memitem:gaf529e5eaf5ed7e193a0368e641f6ab45" id="r_gaf529e5eaf5ed7e193a0368e641f6ab45"><td class="memItemLeft"><a id="gaf529e5eaf5ed7e193a0368e641f6ab45" name="gaf529e5eaf5ed7e193a0368e641f6ab45"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE1_SHIFT</b></td></tr>
+<tr class="memitem:ga7b33a37c1229b7e4ecc81a6b99912b17" id="r_ga7b33a37c1229b7e4ecc81a6b99912b17"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7b33a37c1229b7e4ecc81a6b99912b17">ERM_SR0_NCE1</a>(x)</td></tr>
+<tr class="memitem:ga2433c634df5d0013bc249983cd0f95c5" id="r_ga2433c634df5d0013bc249983cd0f95c5"><td class="memItemLeft"><a id="ga2433c634df5d0013bc249983cd0f95c5" name="ga2433c634df5d0013bc249983cd0f95c5"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC1_MASK</b></td></tr>
+<tr class="memitem:ga1bf8361d593f52d0aac8ea87443fe338" id="r_ga1bf8361d593f52d0aac8ea87443fe338"><td class="memItemLeft"><a id="ga1bf8361d593f52d0aac8ea87443fe338" name="ga1bf8361d593f52d0aac8ea87443fe338"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC1_SHIFT</b></td></tr>
+<tr class="memitem:gaa9feea7b48221b380e7218bb6bc68ce9" id="r_gaa9feea7b48221b380e7218bb6bc68ce9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa9feea7b48221b380e7218bb6bc68ce9">ERM_SR0_SBC1</a>(x)</td></tr>
+<tr class="memitem:ga4e49c2072eadd064ccad7b071727b145" id="r_ga4e49c2072eadd064ccad7b071727b145"><td class="memItemLeft"><a id="ga4e49c2072eadd064ccad7b071727b145" name="ga4e49c2072eadd064ccad7b071727b145"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE0_MASK</b></td></tr>
+<tr class="memitem:gaac659d32326687b0e8d04fa8c4bf3fe6" id="r_gaac659d32326687b0e8d04fa8c4bf3fe6"><td class="memItemLeft"><a id="gaac659d32326687b0e8d04fa8c4bf3fe6" name="gaac659d32326687b0e8d04fa8c4bf3fe6"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE0_SHIFT</b></td></tr>
+<tr class="memitem:gaf43e221a72027dae472172433a4aec7c" id="r_gaf43e221a72027dae472172433a4aec7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf43e221a72027dae472172433a4aec7c">ERM_SR0_NCE0</a>(x)</td></tr>
+<tr class="memitem:ga782e8f220ea82500d1fbecc47ed1aa78" id="r_ga782e8f220ea82500d1fbecc47ed1aa78"><td class="memItemLeft"><a id="ga782e8f220ea82500d1fbecc47ed1aa78" name="ga782e8f220ea82500d1fbecc47ed1aa78"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC0_MASK</b></td></tr>
+<tr class="memitem:gacde911c9eb0b33d63e4e356c01093978" id="r_gacde911c9eb0b33d63e4e356c01093978"><td class="memItemLeft"><a id="gacde911c9eb0b33d63e4e356c01093978" name="gacde911c9eb0b33d63e4e356c01093978"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC0_SHIFT</b></td></tr>
+<tr class="memitem:ga4032be3f1ded62496f6d57d5091af6ce" id="r_ga4032be3f1ded62496f6d57d5091af6ce"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4032be3f1ded62496f6d57d5091af6ce">ERM_SR0_SBC0</a>(x)</td></tr>
+<tr class="memitem:gacf7c1c60a0ef11334004a0b9f4efe693" id="r_gacf7c1c60a0ef11334004a0b9f4efe693"><td class="memItemLeft"><a id="gacf7c1c60a0ef11334004a0b9f4efe693" name="gacf7c1c60a0ef11334004a0b9f4efe693"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE1_MASK</b></td></tr>
+<tr class="memitem:gaf529e5eaf5ed7e193a0368e641f6ab45" id="r_gaf529e5eaf5ed7e193a0368e641f6ab45"><td class="memItemLeft"><a id="gaf529e5eaf5ed7e193a0368e641f6ab45" name="gaf529e5eaf5ed7e193a0368e641f6ab45"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE1_SHIFT</b></td></tr>
+<tr class="memitem:ga7b33a37c1229b7e4ecc81a6b99912b17" id="r_ga7b33a37c1229b7e4ecc81a6b99912b17"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7b33a37c1229b7e4ecc81a6b99912b17">ERM_SR0_NCE1</a>(x)</td></tr>
+<tr class="memitem:ga2433c634df5d0013bc249983cd0f95c5" id="r_ga2433c634df5d0013bc249983cd0f95c5"><td class="memItemLeft"><a id="ga2433c634df5d0013bc249983cd0f95c5" name="ga2433c634df5d0013bc249983cd0f95c5"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC1_MASK</b></td></tr>
+<tr class="memitem:ga1bf8361d593f52d0aac8ea87443fe338" id="r_ga1bf8361d593f52d0aac8ea87443fe338"><td class="memItemLeft"><a id="ga1bf8361d593f52d0aac8ea87443fe338" name="ga1bf8361d593f52d0aac8ea87443fe338"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC1_SHIFT</b></td></tr>
+<tr class="memitem:gaa9feea7b48221b380e7218bb6bc68ce9" id="r_gaa9feea7b48221b380e7218bb6bc68ce9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa9feea7b48221b380e7218bb6bc68ce9">ERM_SR0_SBC1</a>(x)</td></tr>
+<tr class="memitem:ga4e49c2072eadd064ccad7b071727b145" id="r_ga4e49c2072eadd064ccad7b071727b145"><td class="memItemLeft"><a id="ga4e49c2072eadd064ccad7b071727b145" name="ga4e49c2072eadd064ccad7b071727b145"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE0_MASK</b></td></tr>
+<tr class="memitem:gaac659d32326687b0e8d04fa8c4bf3fe6" id="r_gaac659d32326687b0e8d04fa8c4bf3fe6"><td class="memItemLeft"><a id="gaac659d32326687b0e8d04fa8c4bf3fe6" name="gaac659d32326687b0e8d04fa8c4bf3fe6"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE0_SHIFT</b></td></tr>
+<tr class="memitem:gaf43e221a72027dae472172433a4aec7c" id="r_gaf43e221a72027dae472172433a4aec7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf43e221a72027dae472172433a4aec7c">ERM_SR0_NCE0</a>(x)</td></tr>
+<tr class="memitem:ga782e8f220ea82500d1fbecc47ed1aa78" id="r_ga782e8f220ea82500d1fbecc47ed1aa78"><td class="memItemLeft"><a id="ga782e8f220ea82500d1fbecc47ed1aa78" name="ga782e8f220ea82500d1fbecc47ed1aa78"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC0_MASK</b></td></tr>
+<tr class="memitem:gacde911c9eb0b33d63e4e356c01093978" id="r_gacde911c9eb0b33d63e4e356c01093978"><td class="memItemLeft"><a id="gacde911c9eb0b33d63e4e356c01093978" name="gacde911c9eb0b33d63e4e356c01093978"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC0_SHIFT</b></td></tr>
+<tr class="memitem:ga4032be3f1ded62496f6d57d5091af6ce" id="r_ga4032be3f1ded62496f6d57d5091af6ce"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4032be3f1ded62496f6d57d5091af6ce">ERM_SR0_SBC0</a>(x)</td></tr>
+<tr class="memitem:gacf7c1c60a0ef11334004a0b9f4efe693" id="r_gacf7c1c60a0ef11334004a0b9f4efe693"><td class="memItemLeft"><a id="gacf7c1c60a0ef11334004a0b9f4efe693" name="gacf7c1c60a0ef11334004a0b9f4efe693"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE1_MASK</b></td></tr>
+<tr class="memitem:gaf529e5eaf5ed7e193a0368e641f6ab45" id="r_gaf529e5eaf5ed7e193a0368e641f6ab45"><td class="memItemLeft"><a id="gaf529e5eaf5ed7e193a0368e641f6ab45" name="gaf529e5eaf5ed7e193a0368e641f6ab45"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE1_SHIFT</b></td></tr>
+<tr class="memitem:ga7b33a37c1229b7e4ecc81a6b99912b17" id="r_ga7b33a37c1229b7e4ecc81a6b99912b17"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7b33a37c1229b7e4ecc81a6b99912b17">ERM_SR0_NCE1</a>(x)</td></tr>
+<tr class="memitem:ga2433c634df5d0013bc249983cd0f95c5" id="r_ga2433c634df5d0013bc249983cd0f95c5"><td class="memItemLeft"><a id="ga2433c634df5d0013bc249983cd0f95c5" name="ga2433c634df5d0013bc249983cd0f95c5"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC1_MASK</b></td></tr>
+<tr class="memitem:ga1bf8361d593f52d0aac8ea87443fe338" id="r_ga1bf8361d593f52d0aac8ea87443fe338"><td class="memItemLeft"><a id="ga1bf8361d593f52d0aac8ea87443fe338" name="ga1bf8361d593f52d0aac8ea87443fe338"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC1_SHIFT</b></td></tr>
+<tr class="memitem:gaa9feea7b48221b380e7218bb6bc68ce9" id="r_gaa9feea7b48221b380e7218bb6bc68ce9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa9feea7b48221b380e7218bb6bc68ce9">ERM_SR0_SBC1</a>(x)</td></tr>
+<tr class="memitem:ga4e49c2072eadd064ccad7b071727b145" id="r_ga4e49c2072eadd064ccad7b071727b145"><td class="memItemLeft"><a id="ga4e49c2072eadd064ccad7b071727b145" name="ga4e49c2072eadd064ccad7b071727b145"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE0_MASK</b></td></tr>
+<tr class="memitem:gaac659d32326687b0e8d04fa8c4bf3fe6" id="r_gaac659d32326687b0e8d04fa8c4bf3fe6"><td class="memItemLeft"><a id="gaac659d32326687b0e8d04fa8c4bf3fe6" name="gaac659d32326687b0e8d04fa8c4bf3fe6"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_NCE0_SHIFT</b></td></tr>
+<tr class="memitem:gaf43e221a72027dae472172433a4aec7c" id="r_gaf43e221a72027dae472172433a4aec7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf43e221a72027dae472172433a4aec7c">ERM_SR0_NCE0</a>(x)</td></tr>
+<tr class="memitem:ga782e8f220ea82500d1fbecc47ed1aa78" id="r_ga782e8f220ea82500d1fbecc47ed1aa78"><td class="memItemLeft"><a id="ga782e8f220ea82500d1fbecc47ed1aa78" name="ga782e8f220ea82500d1fbecc47ed1aa78"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC0_MASK</b></td></tr>
+<tr class="memitem:gacde911c9eb0b33d63e4e356c01093978" id="r_gacde911c9eb0b33d63e4e356c01093978"><td class="memItemLeft"><a id="gacde911c9eb0b33d63e4e356c01093978" name="gacde911c9eb0b33d63e4e356c01093978"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SR0_SBC0_SHIFT</b></td></tr>
+<tr class="memitem:ga4032be3f1ded62496f6d57d5091af6ce" id="r_ga4032be3f1ded62496f6d57d5091af6ce"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4032be3f1ded62496f6d57d5091af6ce">ERM_SR0_SBC0</a>(x)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
-EICHD0_WORD0 - Error Injection Channel Descriptor 0, Word0</h2></td></tr>
-<tr class="memitem:ga31c095c8e172c5b37d9a337eb2a01edc" id="r_ga31c095c8e172c5b37d9a337eb2a01edc"><td class="memItemLeft"><a id="ga31c095c8e172c5b37d9a337eb2a01edc" name="ga31c095c8e172c5b37d9a337eb2a01edc"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD0_CHKBIT_MASK_MASK</b></td></tr>
-<tr class="memitem:ga1f98b975afd9b731996829f4022e485a" id="r_ga1f98b975afd9b731996829f4022e485a"><td class="memItemLeft"><a id="ga1f98b975afd9b731996829f4022e485a" name="ga1f98b975afd9b731996829f4022e485a"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD0_CHKBIT_MASK_SHIFT</b></td></tr>
-<tr class="memitem:ga924b2399dac064d8bbfb085b062962e6" id="r_ga924b2399dac064d8bbfb085b062962e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga924b2399dac064d8bbfb085b062962e6">EIM_EICHD0_WORD0_CHKBIT_MASK</a>(x)</td></tr>
-<tr class="memitem:ga31c095c8e172c5b37d9a337eb2a01edc" id="r_ga31c095c8e172c5b37d9a337eb2a01edc"><td class="memItemLeft"><a id="ga31c095c8e172c5b37d9a337eb2a01edc" name="ga31c095c8e172c5b37d9a337eb2a01edc"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD0_CHKBIT_MASK_MASK</b></td></tr>
-<tr class="memitem:ga1f98b975afd9b731996829f4022e485a" id="r_ga1f98b975afd9b731996829f4022e485a"><td class="memItemLeft"><a id="ga1f98b975afd9b731996829f4022e485a" name="ga1f98b975afd9b731996829f4022e485a"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD0_CHKBIT_MASK_SHIFT</b></td></tr>
-<tr class="memitem:ga924b2399dac064d8bbfb085b062962e6" id="r_ga924b2399dac064d8bbfb085b062962e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga924b2399dac064d8bbfb085b062962e6">EIM_EICHD0_WORD0_CHKBIT_MASK</a>(x)</td></tr>
+EAR0 - ERM Memory 0 Error Address Register</h2></td></tr>
+<tr class="memitem:ga165e508b3ce5eec196f01ef0b0dbc5d3" id="r_ga165e508b3ce5eec196f01ef0b0dbc5d3"><td class="memItemLeft"><a id="ga165e508b3ce5eec196f01ef0b0dbc5d3" name="ga165e508b3ce5eec196f01ef0b0dbc5d3"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_EAR0_EAR_MASK</b></td></tr>
+<tr class="memitem:gad5e541260997df0f94d59532eda276e7" id="r_gad5e541260997df0f94d59532eda276e7"><td class="memItemLeft"><a id="gad5e541260997df0f94d59532eda276e7" name="gad5e541260997df0f94d59532eda276e7"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_EAR0_EAR_SHIFT</b></td></tr>
+<tr class="memitem:ga4f307f3205ac12a30a688db13f33f02b" id="r_ga4f307f3205ac12a30a688db13f33f02b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f307f3205ac12a30a688db13f33f02b">ERM_EAR0_EAR</a>(x)</td></tr>
+<tr class="memitem:ga165e508b3ce5eec196f01ef0b0dbc5d3" id="r_ga165e508b3ce5eec196f01ef0b0dbc5d3"><td class="memItemLeft"><a id="ga165e508b3ce5eec196f01ef0b0dbc5d3" name="ga165e508b3ce5eec196f01ef0b0dbc5d3"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_EAR0_EAR_MASK</b></td></tr>
+<tr class="memitem:gad5e541260997df0f94d59532eda276e7" id="r_gad5e541260997df0f94d59532eda276e7"><td class="memItemLeft"><a id="gad5e541260997df0f94d59532eda276e7" name="gad5e541260997df0f94d59532eda276e7"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_EAR0_EAR_SHIFT</b></td></tr>
+<tr class="memitem:ga4f307f3205ac12a30a688db13f33f02b" id="r_ga4f307f3205ac12a30a688db13f33f02b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f307f3205ac12a30a688db13f33f02b">ERM_EAR0_EAR</a>(x)</td></tr>
+<tr class="memitem:ga165e508b3ce5eec196f01ef0b0dbc5d3" id="r_ga165e508b3ce5eec196f01ef0b0dbc5d3"><td class="memItemLeft"><a id="ga165e508b3ce5eec196f01ef0b0dbc5d3" name="ga165e508b3ce5eec196f01ef0b0dbc5d3"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_EAR0_EAR_MASK</b></td></tr>
+<tr class="memitem:gad5e541260997df0f94d59532eda276e7" id="r_gad5e541260997df0f94d59532eda276e7"><td class="memItemLeft"><a id="gad5e541260997df0f94d59532eda276e7" name="gad5e541260997df0f94d59532eda276e7"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_EAR0_EAR_SHIFT</b></td></tr>
+<tr class="memitem:ga4f307f3205ac12a30a688db13f33f02b" id="r_ga4f307f3205ac12a30a688db13f33f02b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f307f3205ac12a30a688db13f33f02b">ERM_EAR0_EAR</a>(x)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
-EICHD0_WORD1 - Error Injection Channel Descriptor 0, Word1</h2></td></tr>
-<tr class="memitem:ga76713bdfba4d6dd4f9ac712c05b7a614" id="r_ga76713bdfba4d6dd4f9ac712c05b7a614"><td class="memItemLeft"><a id="ga76713bdfba4d6dd4f9ac712c05b7a614" name="ga76713bdfba4d6dd4f9ac712c05b7a614"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD1_B0_3DATA_MASK_MASK</b></td></tr>
-<tr class="memitem:ga081bdee6624fe24225837f69957f6e5e" id="r_ga081bdee6624fe24225837f69957f6e5e"><td class="memItemLeft"><a id="ga081bdee6624fe24225837f69957f6e5e" name="ga081bdee6624fe24225837f69957f6e5e"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD1_B0_3DATA_MASK_SHIFT</b></td></tr>
-<tr class="memitem:ga1fba96b76eec97e662327129c584bf01" id="r_ga1fba96b76eec97e662327129c584bf01"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1fba96b76eec97e662327129c584bf01">EIM_EICHD0_WORD1_B0_3DATA_MASK</a>(x)</td></tr>
-<tr class="memitem:ga76713bdfba4d6dd4f9ac712c05b7a614" id="r_ga76713bdfba4d6dd4f9ac712c05b7a614"><td class="memItemLeft"><a id="ga76713bdfba4d6dd4f9ac712c05b7a614" name="ga76713bdfba4d6dd4f9ac712c05b7a614"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD1_B0_3DATA_MASK_MASK</b></td></tr>
-<tr class="memitem:ga081bdee6624fe24225837f69957f6e5e" id="r_ga081bdee6624fe24225837f69957f6e5e"><td class="memItemLeft"><a id="ga081bdee6624fe24225837f69957f6e5e" name="ga081bdee6624fe24225837f69957f6e5e"></a>
-#define&#160;</td><td class="memItemRight"><b>EIM_EICHD0_WORD1_B0_3DATA_MASK_SHIFT</b></td></tr>
-<tr class="memitem:ga1fba96b76eec97e662327129c584bf01" id="r_ga1fba96b76eec97e662327129c584bf01"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1fba96b76eec97e662327129c584bf01">EIM_EICHD0_WORD1_B0_3DATA_MASK</a>(x)</td></tr>
+SYN0 - ERM Memory 0 Syndrome Register</h2></td></tr>
+<tr class="memitem:gaf4fffd84087371581bfd9792440fe57b" id="r_gaf4fffd84087371581bfd9792440fe57b"><td class="memItemLeft"><a id="gaf4fffd84087371581bfd9792440fe57b" name="gaf4fffd84087371581bfd9792440fe57b"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SYN0_SYNDROME_MASK</b></td></tr>
+<tr class="memitem:gaf2fa3588a69dbcfb42b9b374b4e99557" id="r_gaf2fa3588a69dbcfb42b9b374b4e99557"><td class="memItemLeft"><a id="gaf2fa3588a69dbcfb42b9b374b4e99557" name="gaf2fa3588a69dbcfb42b9b374b4e99557"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SYN0_SYNDROME_SHIFT</b></td></tr>
+<tr class="memitem:ga7d35d19e00348dcd85c3af5d1c891f9e" id="r_ga7d35d19e00348dcd85c3af5d1c891f9e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7d35d19e00348dcd85c3af5d1c891f9e">ERM_SYN0_SYNDROME</a>(x)</td></tr>
+<tr class="memitem:gaf4fffd84087371581bfd9792440fe57b" id="r_gaf4fffd84087371581bfd9792440fe57b"><td class="memItemLeft"><a id="gaf4fffd84087371581bfd9792440fe57b" name="gaf4fffd84087371581bfd9792440fe57b"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SYN0_SYNDROME_MASK</b></td></tr>
+<tr class="memitem:gaf2fa3588a69dbcfb42b9b374b4e99557" id="r_gaf2fa3588a69dbcfb42b9b374b4e99557"><td class="memItemLeft"><a id="gaf2fa3588a69dbcfb42b9b374b4e99557" name="gaf2fa3588a69dbcfb42b9b374b4e99557"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SYN0_SYNDROME_SHIFT</b></td></tr>
+<tr class="memitem:ga7d35d19e00348dcd85c3af5d1c891f9e" id="r_ga7d35d19e00348dcd85c3af5d1c891f9e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7d35d19e00348dcd85c3af5d1c891f9e">ERM_SYN0_SYNDROME</a>(x)</td></tr>
+<tr class="memitem:gaf4fffd84087371581bfd9792440fe57b" id="r_gaf4fffd84087371581bfd9792440fe57b"><td class="memItemLeft"><a id="gaf4fffd84087371581bfd9792440fe57b" name="gaf4fffd84087371581bfd9792440fe57b"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SYN0_SYNDROME_MASK</b></td></tr>
+<tr class="memitem:gaf2fa3588a69dbcfb42b9b374b4e99557" id="r_gaf2fa3588a69dbcfb42b9b374b4e99557"><td class="memItemLeft"><a id="gaf2fa3588a69dbcfb42b9b374b4e99557" name="gaf2fa3588a69dbcfb42b9b374b4e99557"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_SYN0_SYNDROME_SHIFT</b></td></tr>
+<tr class="memitem:ga7d35d19e00348dcd85c3af5d1c891f9e" id="r_ga7d35d19e00348dcd85c3af5d1c891f9e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7d35d19e00348dcd85c3af5d1c891f9e">ERM_SYN0_SYNDROME</a>(x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+CORR_ERR_CNT0 - ERM Memory 0 Correctable Error Count Register</h2></td></tr>
+<tr class="memitem:ga4c73887d8d65169091c100f847f525d4" id="r_ga4c73887d8d65169091c100f847f525d4"><td class="memItemLeft"><a id="ga4c73887d8d65169091c100f847f525d4" name="ga4c73887d8d65169091c100f847f525d4"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT0_COUNT_MASK</b></td></tr>
+<tr class="memitem:gad94b4600b78b5df329ede991320f0c9a" id="r_gad94b4600b78b5df329ede991320f0c9a"><td class="memItemLeft"><a id="gad94b4600b78b5df329ede991320f0c9a" name="gad94b4600b78b5df329ede991320f0c9a"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT0_COUNT_SHIFT</b></td></tr>
+<tr class="memitem:ga481a6707c3d66b14434dae81d9700211" id="r_ga481a6707c3d66b14434dae81d9700211"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga481a6707c3d66b14434dae81d9700211">ERM_CORR_ERR_CNT0_COUNT</a>(x)</td></tr>
+<tr class="memitem:ga4c73887d8d65169091c100f847f525d4" id="r_ga4c73887d8d65169091c100f847f525d4"><td class="memItemLeft"><a id="ga4c73887d8d65169091c100f847f525d4" name="ga4c73887d8d65169091c100f847f525d4"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT0_COUNT_MASK</b></td></tr>
+<tr class="memitem:gad94b4600b78b5df329ede991320f0c9a" id="r_gad94b4600b78b5df329ede991320f0c9a"><td class="memItemLeft"><a id="gad94b4600b78b5df329ede991320f0c9a" name="gad94b4600b78b5df329ede991320f0c9a"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT0_COUNT_SHIFT</b></td></tr>
+<tr class="memitem:ga481a6707c3d66b14434dae81d9700211" id="r_ga481a6707c3d66b14434dae81d9700211"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga481a6707c3d66b14434dae81d9700211">ERM_CORR_ERR_CNT0_COUNT</a>(x)</td></tr>
+<tr class="memitem:ga4c73887d8d65169091c100f847f525d4" id="r_ga4c73887d8d65169091c100f847f525d4"><td class="memItemLeft"><a id="ga4c73887d8d65169091c100f847f525d4" name="ga4c73887d8d65169091c100f847f525d4"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT0_COUNT_MASK</b></td></tr>
+<tr class="memitem:gad94b4600b78b5df329ede991320f0c9a" id="r_gad94b4600b78b5df329ede991320f0c9a"><td class="memItemLeft"><a id="gad94b4600b78b5df329ede991320f0c9a" name="gad94b4600b78b5df329ede991320f0c9a"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT0_COUNT_SHIFT</b></td></tr>
+<tr class="memitem:ga481a6707c3d66b14434dae81d9700211" id="r_ga481a6707c3d66b14434dae81d9700211"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga481a6707c3d66b14434dae81d9700211">ERM_CORR_ERR_CNT0_COUNT</a>(x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+CORR_ERR_CNT1 - ERM Memory 1 Correctable Error Count Register</h2></td></tr>
+<tr class="memitem:ga848da63eeff9ad284d13543e82218694" id="r_ga848da63eeff9ad284d13543e82218694"><td class="memItemLeft"><a id="ga848da63eeff9ad284d13543e82218694" name="ga848da63eeff9ad284d13543e82218694"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT1_COUNT_MASK</b></td></tr>
+<tr class="memitem:ga1ae151c0e69c8e2ceda51d42c5cca4ef" id="r_ga1ae151c0e69c8e2ceda51d42c5cca4ef"><td class="memItemLeft"><a id="ga1ae151c0e69c8e2ceda51d42c5cca4ef" name="ga1ae151c0e69c8e2ceda51d42c5cca4ef"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT1_COUNT_SHIFT</b></td></tr>
+<tr class="memitem:gace759fca85aeadb0f61b07d5698c5d6d" id="r_gace759fca85aeadb0f61b07d5698c5d6d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gace759fca85aeadb0f61b07d5698c5d6d">ERM_CORR_ERR_CNT1_COUNT</a>(x)</td></tr>
+<tr class="memitem:ga848da63eeff9ad284d13543e82218694" id="r_ga848da63eeff9ad284d13543e82218694"><td class="memItemLeft"><a id="ga848da63eeff9ad284d13543e82218694" name="ga848da63eeff9ad284d13543e82218694"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT1_COUNT_MASK</b></td></tr>
+<tr class="memitem:ga1ae151c0e69c8e2ceda51d42c5cca4ef" id="r_ga1ae151c0e69c8e2ceda51d42c5cca4ef"><td class="memItemLeft"><a id="ga1ae151c0e69c8e2ceda51d42c5cca4ef" name="ga1ae151c0e69c8e2ceda51d42c5cca4ef"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT1_COUNT_SHIFT</b></td></tr>
+<tr class="memitem:gace759fca85aeadb0f61b07d5698c5d6d" id="r_gace759fca85aeadb0f61b07d5698c5d6d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gace759fca85aeadb0f61b07d5698c5d6d">ERM_CORR_ERR_CNT1_COUNT</a>(x)</td></tr>
+<tr class="memitem:ga848da63eeff9ad284d13543e82218694" id="r_ga848da63eeff9ad284d13543e82218694"><td class="memItemLeft"><a id="ga848da63eeff9ad284d13543e82218694" name="ga848da63eeff9ad284d13543e82218694"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT1_COUNT_MASK</b></td></tr>
+<tr class="memitem:ga1ae151c0e69c8e2ceda51d42c5cca4ef" id="r_ga1ae151c0e69c8e2ceda51d42c5cca4ef"><td class="memItemLeft"><a id="ga1ae151c0e69c8e2ceda51d42c5cca4ef" name="ga1ae151c0e69c8e2ceda51d42c5cca4ef"></a>
+#define&#160;</td><td class="memItemRight"><b>ERM_CORR_ERR_CNT1_COUNT_SHIFT</b></td></tr>
+<tr class="memitem:gace759fca85aeadb0f61b07d5698c5d6d" id="r_gace759fca85aeadb0f61b07d5698c5d6d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gace759fca85aeadb0f61b07d5698c5d6d">ERM_CORR_ERR_CNT1_COUNT</a>(x)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"></div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga4007b673a29842491c52d6ddd5a69652" name="ga4007b673a29842491c52d6ddd5a69652"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4007b673a29842491c52d6ddd5a69652">&#9670;&#160;</a></span>EIM_EIMCR_GEIEN <span class="overload">[1/2]</span></h2>
+<a id="gad5c00b67ed8da522e212eebc9cd22d04" name="gad5c00b67ed8da522e212eebc9cd22d04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5c00b67ed8da522e212eebc9cd22d04">&#9670;&#160;</a></span>ERM_CR0_ENCIE1 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EIMCR_GEIEN</td>
+          <td class="memname">#define ERM_CR0_ENCIE1</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>GEIEN - Global Error Injection Enable 0b0..Disabled 0b1..Enabled </p>
+<p>ENCIE1 - ENCIE1 0b0..Interrupt notification of Memory 1 non-correctable error events is disabled. 0b1..Interrupt notification of Memory 1 non-correctable error events is enabled. </p>
 
 </div>
 </div>
-<a id="ga9af422a743b9099b529c9c7f938c7ce9" name="ga9af422a743b9099b529c9c7f938c7ce9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9af422a743b9099b529c9c7f938c7ce9">&#9670;&#160;</a></span>EIM_EICHEN_EICH0EN <span class="overload">[1/2]</span></h2>
+<a id="gab9480c8b96e05c809d7c2d7c7cd48864" name="gab9480c8b96e05c809d7c2d7c7cd48864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab9480c8b96e05c809d7c2d7c7cd48864">&#9670;&#160;</a></span>ERM_CR0_ESCIE1 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EICHEN_EICH0EN</td>
+          <td class="memname">#define ERM_CR0_ESCIE1</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>EICH0EN - Error Injection Channel 0 Enable 0b0..Error injection is disabled on Error Injection Channel 0 0b1..Error injection is enabled on Error Injection Channel 0 </p>
+<p>ESCIE1 - ESCIE1 0b0..Interrupt notification of Memory 1 single-bit correction events is disabled. 0b1..Interrupt notification of Memory 1 single-bit correction events is enabled. </p>
 
 </div>
 </div>
-<a id="ga924b2399dac064d8bbfb085b062962e6" name="ga924b2399dac064d8bbfb085b062962e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga924b2399dac064d8bbfb085b062962e6">&#9670;&#160;</a></span>EIM_EICHD0_WORD0_CHKBIT_MASK <span class="overload">[1/2]</span></h2>
+<a id="ga8f11cd50f70122df0c905eb4aeffebe5" name="ga8f11cd50f70122df0c905eb4aeffebe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f11cd50f70122df0c905eb4aeffebe5">&#9670;&#160;</a></span>ERM_CR0_ENCIE0 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EICHD0_WORD0_CHKBIT_MASK</td>
+          <td class="memname">#define ERM_CR0_ENCIE0</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>CHKBIT_MASK - Checkbit Mask </p>
+<p>ENCIE0 - ENCIE0 0b0..Interrupt notification of Memory 0 non-correctable error events is disabled. 0b1..Interrupt notification of Memory 0 non-correctable error events is enabled. </p>
 
 </div>
 </div>
-<a id="ga1fba96b76eec97e662327129c584bf01" name="ga1fba96b76eec97e662327129c584bf01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1fba96b76eec97e662327129c584bf01">&#9670;&#160;</a></span>EIM_EICHD0_WORD1_B0_3DATA_MASK <span class="overload">[1/2]</span></h2>
+<a id="gaa7ae8044e8f3abf25c2fd005359bae1f" name="gaa7ae8044e8f3abf25c2fd005359bae1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa7ae8044e8f3abf25c2fd005359bae1f">&#9670;&#160;</a></span>ERM_CR0_ESCIE0 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EICHD0_WORD1_B0_3DATA_MASK</td>
+          <td class="memname">#define ERM_CR0_ESCIE0</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>B0_3DATA_MASK - Data Mask Field </p>
+<p>ESCIE0 - ESCIE0 0b0..Interrupt notification of Memory 0 single-bit correction events is disabled. 0b1..Interrupt notification of Memory 0 single-bit correction events is enabled. </p>
 
 </div>
 </div>
-<a id="ga4007b673a29842491c52d6ddd5a69652" name="ga4007b673a29842491c52d6ddd5a69652"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4007b673a29842491c52d6ddd5a69652">&#9670;&#160;</a></span>EIM_EIMCR_GEIEN <span class="overload">[2/2]</span></h2>
+<a id="ga7b33a37c1229b7e4ecc81a6b99912b17" name="ga7b33a37c1229b7e4ecc81a6b99912b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b33a37c1229b7e4ecc81a6b99912b17">&#9670;&#160;</a></span>ERM_SR0_NCE1 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EIMCR_GEIEN</td>
+          <td class="memname">#define ERM_SR0_NCE1</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>GEIEN - Global Error Injection Enable 0b0..Disabled 0b1..Enabled </p>
+<p>NCE1 - NCE1 0b0..No non-correctable error event on Memory 1 detected. 0b1..Non-correctable error event on Memory 1 detected. </p>
 
 </div>
 </div>
-<a id="ga9af422a743b9099b529c9c7f938c7ce9" name="ga9af422a743b9099b529c9c7f938c7ce9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9af422a743b9099b529c9c7f938c7ce9">&#9670;&#160;</a></span>EIM_EICHEN_EICH0EN <span class="overload">[2/2]</span></h2>
+<a id="gaa9feea7b48221b380e7218bb6bc68ce9" name="gaa9feea7b48221b380e7218bb6bc68ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa9feea7b48221b380e7218bb6bc68ce9">&#9670;&#160;</a></span>ERM_SR0_SBC1 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EICHEN_EICH0EN</td>
+          <td class="memname">#define ERM_SR0_SBC1</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>EICH0EN - Error Injection Channel 0 Enable 0b0..Error injection is disabled on Error Injection Channel 0 0b1..Error injection is enabled on Error Injection Channel 0 </p>
+<p>SBC1 - SBC1 0b0..No single-bit correction event on Memory 1 detected. 0b1..Single-bit correction event on Memory 1 detected. </p>
 
 </div>
 </div>
-<a id="ga924b2399dac064d8bbfb085b062962e6" name="ga924b2399dac064d8bbfb085b062962e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga924b2399dac064d8bbfb085b062962e6">&#9670;&#160;</a></span>EIM_EICHD0_WORD0_CHKBIT_MASK <span class="overload">[2/2]</span></h2>
+<a id="gaf43e221a72027dae472172433a4aec7c" name="gaf43e221a72027dae472172433a4aec7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf43e221a72027dae472172433a4aec7c">&#9670;&#160;</a></span>ERM_SR0_NCE0 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EICHD0_WORD0_CHKBIT_MASK</td>
+          <td class="memname">#define ERM_SR0_NCE0</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>CHKBIT_MASK - Checkbit Mask </p>
+<p>NCE0 - NCE0 0b0..No non-correctable error event on Memory 0 detected. 0b1..Non-correctable error event on Memory 0 detected. </p>
 
 </div>
 </div>
-<a id="ga1fba96b76eec97e662327129c584bf01" name="ga1fba96b76eec97e662327129c584bf01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1fba96b76eec97e662327129c584bf01">&#9670;&#160;</a></span>EIM_EICHD0_WORD1_B0_3DATA_MASK <span class="overload">[2/2]</span></h2>
+<a id="ga4032be3f1ded62496f6d57d5091af6ce" name="ga4032be3f1ded62496f6d57d5091af6ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4032be3f1ded62496f6d57d5091af6ce">&#9670;&#160;</a></span>ERM_SR0_SBC0 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EIM_EICHD0_WORD1_B0_3DATA_MASK</td>
+          <td class="memname">#define ERM_SR0_SBC0</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>B0_3DATA_MASK - Data Mask Field </p>
+<p>SBC0 - SBC0 0b0..No single-bit correction event on Memory 0 detected. 0b1..Single-bit correction event on Memory 0 detected. </p>
+
+</div>
+</div>
+<a id="ga4f307f3205ac12a30a688db13f33f02b" name="ga4f307f3205ac12a30a688db13f33f02b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f307f3205ac12a30a688db13f33f02b">&#9670;&#160;</a></span>ERM_EAR0_EAR <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_EAR0_EAR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>EAR - EAR </p>
+
+</div>
+</div>
+<a id="ga7d35d19e00348dcd85c3af5d1c891f9e" name="ga7d35d19e00348dcd85c3af5d1c891f9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7d35d19e00348dcd85c3af5d1c891f9e">&#9670;&#160;</a></span>ERM_SYN0_SYNDROME <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SYN0_SYNDROME</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SYNDROME - SYNDROME </p>
+
+</div>
+</div>
+<a id="ga481a6707c3d66b14434dae81d9700211" name="ga481a6707c3d66b14434dae81d9700211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga481a6707c3d66b14434dae81d9700211">&#9670;&#160;</a></span>ERM_CORR_ERR_CNT0_COUNT <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CORR_ERR_CNT0_COUNT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>COUNT - Memory n Correctable Error Count </p>
+
+</div>
+</div>
+<a id="gace759fca85aeadb0f61b07d5698c5d6d" name="gace759fca85aeadb0f61b07d5698c5d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace759fca85aeadb0f61b07d5698c5d6d">&#9670;&#160;</a></span>ERM_CORR_ERR_CNT1_COUNT <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CORR_ERR_CNT1_COUNT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>COUNT - Memory n Correctable Error Count </p>
+
+</div>
+</div>
+<a id="gad5c00b67ed8da522e212eebc9cd22d04" name="gad5c00b67ed8da522e212eebc9cd22d04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5c00b67ed8da522e212eebc9cd22d04">&#9670;&#160;</a></span>ERM_CR0_ENCIE1 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ENCIE1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ENCIE1 - ENCIE1 0b0..Interrupt notification of Memory 1 non-correctable error events is disabled. 0b1..Interrupt notification of Memory 1 non-correctable error events is enabled. </p>
+
+</div>
+</div>
+<a id="gab9480c8b96e05c809d7c2d7c7cd48864" name="gab9480c8b96e05c809d7c2d7c7cd48864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab9480c8b96e05c809d7c2d7c7cd48864">&#9670;&#160;</a></span>ERM_CR0_ESCIE1 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ESCIE1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ESCIE1 - ESCIE1 0b0..Interrupt notification of Memory 1 single-bit correction events is disabled. 0b1..Interrupt notification of Memory 1 single-bit correction events is enabled. </p>
+
+</div>
+</div>
+<a id="ga8f11cd50f70122df0c905eb4aeffebe5" name="ga8f11cd50f70122df0c905eb4aeffebe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f11cd50f70122df0c905eb4aeffebe5">&#9670;&#160;</a></span>ERM_CR0_ENCIE0 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ENCIE0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ENCIE0 - ENCIE0 0b0..Interrupt notification of Memory 0 non-correctable error events is disabled. 0b1..Interrupt notification of Memory 0 non-correctable error events is enabled. </p>
+
+</div>
+</div>
+<a id="gaa7ae8044e8f3abf25c2fd005359bae1f" name="gaa7ae8044e8f3abf25c2fd005359bae1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa7ae8044e8f3abf25c2fd005359bae1f">&#9670;&#160;</a></span>ERM_CR0_ESCIE0 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ESCIE0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ESCIE0 - ESCIE0 0b0..Interrupt notification of Memory 0 single-bit correction events is disabled. 0b1..Interrupt notification of Memory 0 single-bit correction events is enabled. </p>
+
+</div>
+</div>
+<a id="ga7b33a37c1229b7e4ecc81a6b99912b17" name="ga7b33a37c1229b7e4ecc81a6b99912b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b33a37c1229b7e4ecc81a6b99912b17">&#9670;&#160;</a></span>ERM_SR0_NCE1 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_NCE1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>NCE1 - NCE1 0b0..No non-correctable error event on Memory 1 detected. 0b1..Non-correctable error event on Memory 1 detected. </p>
+
+</div>
+</div>
+<a id="gaa9feea7b48221b380e7218bb6bc68ce9" name="gaa9feea7b48221b380e7218bb6bc68ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa9feea7b48221b380e7218bb6bc68ce9">&#9670;&#160;</a></span>ERM_SR0_SBC1 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_SBC1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SBC1 - SBC1 0b0..No single-bit correction event on Memory 1 detected. 0b1..Single-bit correction event on Memory 1 detected. </p>
+
+</div>
+</div>
+<a id="gaf43e221a72027dae472172433a4aec7c" name="gaf43e221a72027dae472172433a4aec7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf43e221a72027dae472172433a4aec7c">&#9670;&#160;</a></span>ERM_SR0_NCE0 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_NCE0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>NCE0 - NCE0 0b0..No non-correctable error event on Memory 0 detected. 0b1..Non-correctable error event on Memory 0 detected. </p>
+
+</div>
+</div>
+<a id="ga4032be3f1ded62496f6d57d5091af6ce" name="ga4032be3f1ded62496f6d57d5091af6ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4032be3f1ded62496f6d57d5091af6ce">&#9670;&#160;</a></span>ERM_SR0_SBC0 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_SBC0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SBC0 - SBC0 0b0..No single-bit correction event on Memory 0 detected. 0b1..Single-bit correction event on Memory 0 detected. </p>
+
+</div>
+</div>
+<a id="ga4f307f3205ac12a30a688db13f33f02b" name="ga4f307f3205ac12a30a688db13f33f02b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f307f3205ac12a30a688db13f33f02b">&#9670;&#160;</a></span>ERM_EAR0_EAR <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_EAR0_EAR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>EAR - EAR </p>
+
+</div>
+</div>
+<a id="ga7d35d19e00348dcd85c3af5d1c891f9e" name="ga7d35d19e00348dcd85c3af5d1c891f9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7d35d19e00348dcd85c3af5d1c891f9e">&#9670;&#160;</a></span>ERM_SYN0_SYNDROME <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SYN0_SYNDROME</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SYNDROME - SYNDROME </p>
+
+</div>
+</div>
+<a id="ga481a6707c3d66b14434dae81d9700211" name="ga481a6707c3d66b14434dae81d9700211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga481a6707c3d66b14434dae81d9700211">&#9670;&#160;</a></span>ERM_CORR_ERR_CNT0_COUNT <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CORR_ERR_CNT0_COUNT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>COUNT - Memory n Correctable Error Count </p>
+
+</div>
+</div>
+<a id="gace759fca85aeadb0f61b07d5698c5d6d" name="gace759fca85aeadb0f61b07d5698c5d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace759fca85aeadb0f61b07d5698c5d6d">&#9670;&#160;</a></span>ERM_CORR_ERR_CNT1_COUNT <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CORR_ERR_CNT1_COUNT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>COUNT - Memory n Correctable Error Count </p>
+
+</div>
+</div>
+<a id="gad5c00b67ed8da522e212eebc9cd22d04" name="gad5c00b67ed8da522e212eebc9cd22d04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5c00b67ed8da522e212eebc9cd22d04">&#9670;&#160;</a></span>ERM_CR0_ENCIE1 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ENCIE1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ENCIE1 - ENCIE1 0b0..Interrupt notification of Memory 1 non-correctable error events is disabled. 0b1..Interrupt notification of Memory 1 non-correctable error events is enabled. </p>
+
+</div>
+</div>
+<a id="gab9480c8b96e05c809d7c2d7c7cd48864" name="gab9480c8b96e05c809d7c2d7c7cd48864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab9480c8b96e05c809d7c2d7c7cd48864">&#9670;&#160;</a></span>ERM_CR0_ESCIE1 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ESCIE1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ESCIE1 - ESCIE1 0b0..Interrupt notification of Memory 1 single-bit correction events is disabled. 0b1..Interrupt notification of Memory 1 single-bit correction events is enabled. </p>
+
+</div>
+</div>
+<a id="ga8f11cd50f70122df0c905eb4aeffebe5" name="ga8f11cd50f70122df0c905eb4aeffebe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f11cd50f70122df0c905eb4aeffebe5">&#9670;&#160;</a></span>ERM_CR0_ENCIE0 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ENCIE0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ENCIE0 - ENCIE0 0b0..Interrupt notification of Memory 0 non-correctable error events is disabled. 0b1..Interrupt notification of Memory 0 non-correctable error events is enabled. </p>
+
+</div>
+</div>
+<a id="gaa7ae8044e8f3abf25c2fd005359bae1f" name="gaa7ae8044e8f3abf25c2fd005359bae1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa7ae8044e8f3abf25c2fd005359bae1f">&#9670;&#160;</a></span>ERM_CR0_ESCIE0 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CR0_ESCIE0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ESCIE0 - ESCIE0 0b0..Interrupt notification of Memory 0 single-bit correction events is disabled. 0b1..Interrupt notification of Memory 0 single-bit correction events is enabled. </p>
+
+</div>
+</div>
+<a id="ga7b33a37c1229b7e4ecc81a6b99912b17" name="ga7b33a37c1229b7e4ecc81a6b99912b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b33a37c1229b7e4ecc81a6b99912b17">&#9670;&#160;</a></span>ERM_SR0_NCE1 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_NCE1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>NCE1 - NCE1 0b0..No non-correctable error event on Memory 1 detected. 0b1..Non-correctable error event on Memory 1 detected. </p>
+
+</div>
+</div>
+<a id="gaa9feea7b48221b380e7218bb6bc68ce9" name="gaa9feea7b48221b380e7218bb6bc68ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa9feea7b48221b380e7218bb6bc68ce9">&#9670;&#160;</a></span>ERM_SR0_SBC1 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_SBC1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SBC1 - SBC1 0b0..No single-bit correction event on Memory 1 detected. 0b1..Single-bit correction event on Memory 1 detected. </p>
+
+</div>
+</div>
+<a id="gaf43e221a72027dae472172433a4aec7c" name="gaf43e221a72027dae472172433a4aec7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf43e221a72027dae472172433a4aec7c">&#9670;&#160;</a></span>ERM_SR0_NCE0 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_NCE0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>NCE0 - NCE0 0b0..No non-correctable error event on Memory 0 detected. 0b1..Non-correctable error event on Memory 0 detected. </p>
+
+</div>
+</div>
+<a id="ga4032be3f1ded62496f6d57d5091af6ce" name="ga4032be3f1ded62496f6d57d5091af6ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4032be3f1ded62496f6d57d5091af6ce">&#9670;&#160;</a></span>ERM_SR0_SBC0 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SR0_SBC0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SBC0 - SBC0 0b0..No single-bit correction event on Memory 0 detected. 0b1..Single-bit correction event on Memory 0 detected. </p>
+
+</div>
+</div>
+<a id="ga4f307f3205ac12a30a688db13f33f02b" name="ga4f307f3205ac12a30a688db13f33f02b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f307f3205ac12a30a688db13f33f02b">&#9670;&#160;</a></span>ERM_EAR0_EAR <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_EAR0_EAR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>EAR - EAR </p>
+
+</div>
+</div>
+<a id="ga7d35d19e00348dcd85c3af5d1c891f9e" name="ga7d35d19e00348dcd85c3af5d1c891f9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7d35d19e00348dcd85c3af5d1c891f9e">&#9670;&#160;</a></span>ERM_SYN0_SYNDROME <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_SYN0_SYNDROME</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SYNDROME - SYNDROME </p>
+
+</div>
+</div>
+<a id="ga481a6707c3d66b14434dae81d9700211" name="ga481a6707c3d66b14434dae81d9700211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga481a6707c3d66b14434dae81d9700211">&#9670;&#160;</a></span>ERM_CORR_ERR_CNT0_COUNT <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CORR_ERR_CNT0_COUNT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>COUNT - Memory n Correctable Error Count </p>
+
+</div>
+</div>
+<a id="gace759fca85aeadb0f61b07d5698c5d6d" name="gace759fca85aeadb0f61b07d5698c5d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace759fca85aeadb0f61b07d5698c5d6d">&#9670;&#160;</a></span>ERM_CORR_ERR_CNT1_COUNT <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERM_CORR_ERR_CNT1_COUNT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>COUNT - Memory n Correctable Error Count </p>
 
 </div>
 </div>

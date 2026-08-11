@@ -1,9 +1,8 @@
 var a01490 =
 [
-    [ "mcuxClSignature_ModeDescriptor_t", "a01490.html#gac7698895768cf6208b4617d6ddf8c180", null ],
-    [ "mcuxClSignature_Mode_t", "a01490.html#ga6ac41432794064bbed527293f3004584", null ],
-    [ "mcuxClSignature_TestDescriptor_t", "a01490.html#ga672adb417c023f01ae78b0819d4d38ee", null ],
-    [ "mcuxClSignature_Test_t", "a01490.html#ga27896a9732ea6f2ed497b26796bf5348", null ],
-    [ "mcuxClSignature_Context_t", "a01490.html#ga3006d0f7ee6302bda8fa5edb1437f04a", null ],
-    [ "mcuxClSignature_Status_t", "a01490.html#ga2fdcf305b7ceacbb173a35887ead78c7", null ]
+    [ "mcuxClXof_compute", "a01490.html#ga9d9dc1e485b0a5251be63d96c4fd5723", null ],
+    [ "mcuxClXof_init", "a01490.html#ga68799488ebfd17e3cdf1d6a212ea7f0e", null ],
+    [ "mcuxClXof_process", "a01490.html#gae4acffc293e8774cf6b52f5e7d67755f", null ],
+    [ "mcuxClXof_generate", "a01490.html#gaaaae29a01783e703c055cdaccf99b0b9", null ],
+    [ "mcuxClXof_finish", "a01490.html#ga64bb8f44359cc8437057f474601ac9d5", null ]
 ];

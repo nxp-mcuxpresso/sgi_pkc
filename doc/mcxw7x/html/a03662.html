@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa5xx/mcuxClKey_MemoryConsumption.h File Reference</title>
+<title>MCUX CLNS: platform/mcxa5xx/mcuxClKdfModes_MemoryConsumption.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,44 +102,48 @@ $(function(){initNavTree('a03662.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClKey_MemoryConsumption.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClKdfModes_MemoryConsumption.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines the memory consumption for the mcuxClKey component All work area sizes in bytes are a multiple of CPU wordsize.  
+<p>Defines the memory consumption for the mcuxClKdfModes component All work area sizes in bytes are a multiple of CPU wordsize.  
 <a href="#details">More...</a></p>
 
 <p><a href="a03662_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga2b9695046f1c43593266896742ce3e8f" id="r_ga2b9695046f1c43593266896742ce3e8f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DESCRIPTOR_SIZE</b></td></tr>
-<tr class="memitem:ga738fd85c6dc17cc4209d08e940d57775" id="r_ga738fd85c6dc17cc4209d08e940d57775"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS</b></td></tr>
-<tr class="memitem:gafa477e27c0893deffea7f8f71ddb8925" id="r_gafa477e27c0893deffea7f8f71ddb8925"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_TYPEDESCRIPTOR_SIZE</b></td></tr>
-<tr class="memitem:ga879c5be1d91cd1c7816fe5b5cefb6549" id="r_ga879c5be1d91cd1c7816fe5b5cefb6549"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_TYPEDESCRIPTOR_SIZE_IN_WORDS</b></td></tr>
-<tr class="memitem:gaef10bc9f41b3b52769460161840fb082" id="r_gaef10bc9f41b3b52769460161840fb082"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE</b></td></tr>
-<tr class="memitem:ga0cc0a564e13bd274c94afa281ed495b7" id="r_ga0cc0a564e13bd274c94afa281ed495b7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE_IN_WORDS</b></td></tr>
-<tr class="memitem:ga03ee4c93ed2232461ac60025cde43c15" id="r_ga03ee4c93ed2232461ac60025cde43c15"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE</b></td></tr>
-<tr class="memitem:gac7c223616a275a3729198a4ff2f8a714" id="r_gac7c223616a275a3729198a4ff2f8a714"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADCOPRO_CPU_WA_SIZE_IN_WORDS</b></td></tr>
-<tr class="memitem:gafe2afb96b905b072a39037415ecbea5b" id="r_gafe2afb96b905b072a39037415ecbea5b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_ENCODE_CPU_WA_SIZE</b></td></tr>
-<tr class="memitem:ga5c190d1244874ee6a39a31f63679ef9a" id="r_ga5c190d1244874ee6a39a31f63679ef9a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_ENCODE_CPU_WA_SIZE_IN_WORDS</b></td></tr>
-<tr class="memitem:gaf09bef5a6a7e91e8e8f79434951c84fc" id="r_gaf09bef5a6a7e91e8e8f79434951c84fc"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_RECODE_CPU_WA_SIZE</b></td></tr>
-<tr class="memitem:ga00ab24d2c09f7561d2fc8ab9ed8cfe4c" id="r_ga00ab24d2c09f7561d2fc8ab9ed8cfe4c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_RECODE_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="memitem:ga3d17e59c1ae86a5256ca6ac6af0e122e" id="r_ga3d17e59c1ae86a5256ca6ac6af0e122e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_MODE_DESCRIPTOR_SIZE</b></td></tr>
+<tr class="memitem:gaac3aa0ebde4f6c7c94b5ca943c92f45b" id="r_gaac3aa0ebde4f6c7c94b5ca943c92f45b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_MODE_DESCRIPTOR_SIZE_IN_WORDS</b></td></tr>
+<tr class="memitem:gaf30cac3b6c14d00cb27e2a3caa9f1840" id="r_gaf30cac3b6c14d00cb27e2a3caa9f1840"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE</b></td></tr>
+<tr class="memitem:ga32878109a96deab625f314f7f75f2176" id="r_ga32878109a96deab625f314f7f75f2176"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="memitem:gab12711f6f6bcce5ea0a30f83fa1816c7" id="r_gab12711f6f6bcce5ea0a30f83fa1816c7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_CM_CPU_WA_SIZE</b></td></tr>
+<tr class="memitem:ga3bb09196a10ebf3d6878f93a43190ae6" id="r_ga3bb09196a10ebf3d6878f93a43190ae6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_CM_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="memitem:gae01c8440ee8f0010a48a6fb9ee06f083" id="r_gae01c8440ee8f0010a48a6fb9ee06f083"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_NIST_SP800_56C_CPU_WA_SIZE</b></td></tr>
+<tr class="memitem:ga65b04c1a7ac8da2bc1c0af470f7d2ffe" id="r_ga65b04c1a7ac8da2bc1c0af470f7d2ffe"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_NIST_SP800_56C_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="memitem:ga61cc2238337b45894a9a90bdbfac2ae9" id="r_ga61cc2238337b45894a9a90bdbfac2ae9"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_HKDF_CPU_WA_SIZE</b></td></tr>
+<tr class="memitem:ga497da3bd84eb1159e8b45234d7d1af37" id="r_ga497da3bd84eb1159e8b45234d7d1af37"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_HKDF_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="memitem:gaa3937c2acaefd9178807bc855afb86df" id="r_gaa3937c2acaefd9178807bc855afb86df"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_PBKDF2_CPU_WA_SIZE</b></td></tr>
+<tr class="memitem:ga6b582d6cd89f53d5aeb484a6ace6d87f" id="r_ga6b582d6cd89f53d5aeb484a6ace6d87f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_PBKDF2_CPU_WA_SIZE_IN_WORDS</b></td></tr>
+<tr class="memitem:ga043310a62b9cdf6a7a2d5cb7d9c487d4" id="r_ga043310a62b9cdf6a7a2d5cb7d9c487d4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_CPU_WA_SIZE</b></td></tr>
+<tr class="memitem:gaa7d534b7208985374f2cb19f9ced90fb" id="r_gaa7d534b7208985374f2cb19f9ced90fb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_DERIVATION_CPU_WA_SIZE_IN_WORDS</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines the memory consumption for the mcuxClKey component All work area sizes in bytes are a multiple of CPU wordsize. </p>
+<div class="textblock"><p>Defines the memory consumption for the mcuxClKdfModes component All work area sizes in bytes are a multiple of CPU wordsize. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -153,7 +157,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa5xx</b></li><li class="navelem"><a href="a03662.html">mcuxClKey_MemoryConsumption.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa5xx</b></li><li class="navelem"><a href="a03662.html">mcuxClKdfModes_MemoryConsumption.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxCssl Memory Secure Compare</title>
+<title>MCUX CLNS: mcuxCsslMemory_SecureCopy Function Definitions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,21 +102,93 @@ $(function(){initNavTree('a01542.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxCssl Memory Secure Compare <div class="ingroups"><a class="el" href="a01497.html">MCUX CSSL &amp;ndash; API</a> &raquo; <a class="el" href="a01533.html">mcuxCsslMemory</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxCsslMemory_SecureCopy Function Definitions <div class="ingroups"><a class="el" href="a01494.html">MCUX CSSL &amp;ndash; API</a> &raquo; <a class="el" href="a01530.html">mcuxCsslMemory</a> &raquo; <a class="el" href="a01541.html">mcuxCssl Memory Secure Copy</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Memory Compare Function protected against SPA and FA.  
+<p>mcuxCsslMemory_SecureCopy Function Definitions  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:mcuxCsslMemory_5FSecureCompare_5FFunctions" id="r_mcuxCsslMemory_5FSecureCompare_5FFunctions"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01543.html">mcuxCsslMemory_SecureCompare Function Definitions</a></td></tr>
-<tr class="memdesc:a01543"><td class="mdescLeft">&#160;</td><td class="mdescRight">mcuxCsslMemory_SecureCompare Function Definitions <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga5b9703e03d0250408a0342755fe575b3" id="r_ga5b9703e03d0250408a0342755fe575b3"><td class="memItemLeft"><a class="el" href="a01550.html#ga19c7a1367cb21d7bcb720607f495d86c">mcuxCsslMemory_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga5b9703e03d0250408a0342755fe575b3">mcuxCsslMemory_SecureCopy</a> (<a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a> chk, void const *pSrc, void *pDst, uint32_t dstLength, uint32_t length, uint32_t order)</td></tr>
+<tr class="memdesc:ga5b9703e03d0250408a0342755fe575b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies <code class="param">length</code> bytes of data from <code class="param">pSrc</code> to <code class="param">pDst</code>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Memory Compare Function protected against SPA and FA. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>mcuxCsslMemory_SecureCopy Function Definitions </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga5b9703e03d0250408a0342755fe575b3" name="ga5b9703e03d0250408a0342755fe575b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5b9703e03d0250408a0342755fe575b3">&#9670;&#160;</a></span>mcuxCsslMemory_SecureCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01550.html#ga19c7a1367cb21d7bcb720607f495d86c">mcuxCsslMemory_Status_t</a> mcuxCsslMemory_SecureCopy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a></td>          <td class="paramname"><span class="paramname"><em>chk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void const *</td>          <td class="paramname"><span class="paramname"><em>pSrc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pDst</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>dstLength</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>order</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies <code class="param">length</code> bytes of data from <code class="param">pSrc</code> to <code class="param">pDst</code>. </p>
+<p>The implementation is secure in the following aspects:</p><ul>
+<li>Random order memory access</li>
+<li>Parameter integrity protection: An incorrect parameter checksum makes the function return immediately.</li>
+<li>Code flow protection: The function call is protected. Additionally, the result depends on all steps of the calculation.</li>
+<li>Buffer overflow protection: No data is written to <code class="param">pDst</code> beyond <code class="param">dstLength</code> bytes.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">chk</td><td>The parameter checksum, generated with #MCUX_CSSL_PI_PROTECT. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pSrc</td><td>The source pointer. Must not be NULL. Must not overlap with <code class="param">pDst</code>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pDst</td><td>The destination pointer. Must not be NULL. Must not overlap with <code class="param">pSrc</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dstLength</td><td>The size of the destination data buffer in bytes. (if dstLength &lt; length, INVALID_PARAMETER is returned). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">length</td><td>The number of bytes to copy. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">order</td><td>The byte order in the destination buffer. This value shall be either <a class="el" href="a01536.html#ga0072c925d0ab8c5b0b071abd1d5218af" title="Data storing in destination buffer in original order.">MCUXCSSLMEMORY_KEEP_ORDER</a> or <a class="el" href="a01536.html#ga9c4cf10d8106eca9894d9e3b131b52f9" title="Data storing in destination buffer with reversed order.">MCUXCSSLMEMORY_REVERSE_ORDER</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A status code encapsulated in a flow-protection type. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01536.html#gab2993c75e7ef98fed36f03946630e41c" title="The operation was successful.">MCUXCSSLMEMORY_STATUS_OK</a></td><td>The operation was successful. </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01536.html#ga0e60adf6203cb3acb2bdb3ddec166766" title="A parameter was invalid.">MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</a></td><td>A parameter was invalid. </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01536.html#gaf0923b98a5db9fd23732989986d72f4d" title="A fault occurred in the execution.">MCUXCSSLMEMORY_STATUS_FAULT</a></td><td>A fault occurred in the execution. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03435.html#a1">mcuxCsslMemory_SecureCopy_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

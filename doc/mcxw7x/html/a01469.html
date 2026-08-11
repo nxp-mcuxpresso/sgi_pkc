@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: RSA private CRT key type pointers</title>
+<title>MCUX CLNS: Rsa Key Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,120 +102,59 @@ $(function(){initNavTree('a01469.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">RSA private CRT key type pointers <div class="ingroups"><a class="el" href="a01461.html">mcuxClRsa</a> &raquo; <a class="el" href="a01473.html">mcuxClRsa_Descriptors</a> &raquo; <a class="el" href="a01463.html">Key Type Descriptors</a></div></div></div>
+  <div class="headertitle"><div class="title">Rsa Key Types <div class="ingroups"><a class="el" href="a01458.html">mcuxClRsa</a> &raquo; <a class="el" href="a01476.html">mcuxClRsa_Types</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines key type pointers for private CRT RSA keys of <a class="el" href="a01461.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>.  
+<p>Struct to supported key data for <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ga2eb6d333b7200ab3b55938960ab6760e" id="r_ga2eb6d333b7200ab3b55938960ab6760e"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga2eb6d333b7200ab3b55938960ab6760e">mcuxClKey_Type_Rsa_PrivateCRT_1024</a></td></tr>
-<tr class="memdesc:ga2eb6d333b7200ab3b55938960ab6760e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT key and key size 1024 bits.  <br /></td></tr>
-<tr class="memitem:ga417a8aadc9087d0ec26758e719037b6b" id="r_ga417a8aadc9087d0ec26758e719037b6b"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga417a8aadc9087d0ec26758e719037b6b">mcuxClKey_Type_Rsa_PrivateCRT_2048</a></td></tr>
-<tr class="memdesc:ga417a8aadc9087d0ec26758e719037b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT key and key size 2048 bits.  <br /></td></tr>
-<tr class="memitem:gaacb885e0b68e89ea002cafcfc98d8319" id="r_gaacb885e0b68e89ea002cafcfc98d8319"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaacb885e0b68e89ea002cafcfc98d8319">mcuxClKey_Type_Rsa_PrivateCRT_3072</a></td></tr>
-<tr class="memdesc:gaacb885e0b68e89ea002cafcfc98d8319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT key and key size 3072 bits.  <br /></td></tr>
-<tr class="memitem:ga86d87a5e8d3c636a5b740aa7e52d67c6" id="r_ga86d87a5e8d3c636a5b740aa7e52d67c6"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga86d87a5e8d3c636a5b740aa7e52d67c6">mcuxClKey_Type_Rsa_PrivateCRT_4096</a></td></tr>
-<tr class="memdesc:ga86d87a5e8d3c636a5b740aa7e52d67c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT key and key size 4096 bits.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyData_5FPlain_5Ft" id="r_mcuxClRsa_5FKeyData_5FPlain_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a01910.html">mcuxClRsa_KeyData_Plain_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure type for Rsa plain key data.  <a href="a01910.html#details">More...</a><br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyData_5FCrt_5Ft" id="r_mcuxClRsa_5FKeyData_5FCrt_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a01914.html">mcuxClRsa_KeyData_Crt_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure type for Rsa CRT key data.  <a href="a01914.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga7cb7e859de58bdf04061a6e726693f96" id="r_ga7cb7e859de58bdf04061a6e726693f96"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7cb7e859de58bdf04061a6e726693f96">MCUXCLRSA_KEYSTRUCT_PLAIN_SIZE</a></td></tr>
+<tr class="memdesc:ga7cb7e859de58bdf04061a6e726693f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of <a class="el" href="a01910.html" title="Structure type for Rsa plain key data.">mcuxClRsa_KeyData_Plain_t</a>.  <br /></td></tr>
+<tr class="memitem:gabe8ea189cf39253f528d52a6346a8510" id="r_gabe8ea189cf39253f528d52a6346a8510"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabe8ea189cf39253f528d52a6346a8510">MCUXCLRSA_KEYSTRUCT_CRT_SIZE</a></td></tr>
+<tr class="memdesc:gabe8ea189cf39253f528d52a6346a8510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of <a class="el" href="a01914.html" title="Structure type for Rsa CRT key data.">mcuxClRsa_KeyData_Crt_t</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines key type pointers for private CRT RSA keys of <a class="el" href="a01461.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>. </p>
-</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="ga2eb6d333b7200ab3b55938960ab6760e" name="ga2eb6d333b7200ab3b55938960ab6760e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2eb6d333b7200ab3b55938960ab6760e">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_1024</h2>
+<div class="textblock"><p>Struct to supported key data for <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="ga7cb7e859de58bdf04061a6e726693f96" name="ga7cb7e859de58bdf04061a6e726693f96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7cb7e859de58bdf04061a6e726693f96">&#9670;&#160;</a></span>MCUXCLRSA_KEYSTRUCT_PLAIN_SIZE</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_1024</td>
+          <td class="memname">#define MCUXCLRSA_KEYSTRUCT_PLAIN_SIZE</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Key type pointer for RSA private CRT key and key size 1024 bits. </p>
+<p>Size of <a class="el" href="a01910.html" title="Structure type for Rsa plain key data.">mcuxClRsa_KeyData_Plain_t</a>. </p>
 
 </div>
 </div>
-<a id="ga417a8aadc9087d0ec26758e719037b6b" name="ga417a8aadc9087d0ec26758e719037b6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga417a8aadc9087d0ec26758e719037b6b">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_2048</h2>
+<a id="gabe8ea189cf39253f528d52a6346a8510" name="gabe8ea189cf39253f528d52a6346a8510"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabe8ea189cf39253f528d52a6346a8510">&#9670;&#160;</a></span>MCUXCLRSA_KEYSTRUCT_CRT_SIZE</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_2048</td>
+          <td class="memname">#define MCUXCLRSA_KEYSTRUCT_CRT_SIZE</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Key type pointer for RSA private CRT key and key size 2048 bits. </p>
-
-</div>
-</div>
-<a id="gaacb885e0b68e89ea002cafcfc98d8319" name="gaacb885e0b68e89ea002cafcfc98d8319"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaacb885e0b68e89ea002cafcfc98d8319">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_3072</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_3072</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Key type pointer for RSA private CRT key and key size 3072 bits. </p>
-
-</div>
-</div>
-<a id="ga86d87a5e8d3c636a5b740aa7e52d67c6" name="ga86d87a5e8d3c636a5b740aa7e52d67c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga86d87a5e8d3c636a5b740aa7e52d67c6">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_4096</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_4096</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Key type pointer for RSA private CRT key and key size 4096 bits. </p>
+<p>Size of <a class="el" href="a01914.html" title="Structure type for Rsa CRT key data.">mcuxClRsa_KeyData_Crt_t</a>. </p>
 
 </div>
 </div>

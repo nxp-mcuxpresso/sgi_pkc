@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa2xx/PERI_SPC.h File Reference</title>
+<title>MCUX CLNS: platform/mcxa2xx/PERI_SMARTDMA.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,320 +102,121 @@ $(function(){initNavTree('a01214.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PERI_SPC.h File Reference</div></div>
+  <div class="headertitle"><div class="title">PERI_SMARTDMA.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>CMSIS Peripheral Access Layer for SPC.  
+<p>CMSIS Peripheral Access Layer for SMARTDMA.  
 <a href="#details">More...</a></p>
 
 <p><a href="a01214_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:SPC_5FType" id="r_SPC_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02335.html">SPC_Type</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPC - Register Layout Typedef.  <a href="a02335.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SMARTDMA_5FType" id="r_SMARTDMA_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02326.html">SMARTDMA_Type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SMARTDMA - Register Layout Typedef.  <a href="a02326.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6b1df0621f7613545dc056c069116b20" id="r_a6b1df0621f7613545dc056c069116b20"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6b1df0621f7613545dc056c069116b20">PERI_SPC_H_</a></td></tr>
-<tr class="memdesc:a6b1df0621f7613545dc056c069116b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
-<tr class="memitem:ga799410bd9043de838740ef1feb528811" id="r_ga799410bd9043de838740ef1feb528811"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01718.html#ga799410bd9043de838740ef1feb528811">SPC_PD_STATUS_COUNT</a></td></tr>
-<tr class="memdesc:ga799410bd9043de838740ef1feb528811"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPC - Size of Registers Arrays.  <br /></td></tr>
-<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">VERID - Version ID</div></td></tr>
-<tr class="memitem:ga0354385979818c89a6cfef1935a8c0a9" id="r_ga0354385979818c89a6cfef1935a8c0a9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VERID_FEATURE_MASK</b></td></tr>
-<tr class="memitem:ga8e2fa7b70c57f16ec20a14eb0c70dbd3" id="r_ga8e2fa7b70c57f16ec20a14eb0c70dbd3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VERID_FEATURE_SHIFT</b></td></tr>
-<tr class="memitem:gaef095f4973f84f962caa86bbfbca2fd9" id="r_gaef095f4973f84f962caa86bbfbca2fd9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gaef095f4973f84f962caa86bbfbca2fd9">SPC_VERID_FEATURE</a>(x)</td></tr>
-<tr class="memitem:gadc5526b6f6c3070310b1fc5f8c4211ee" id="r_gadc5526b6f6c3070310b1fc5f8c4211ee"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VERID_MINOR_MASK</b></td></tr>
-<tr class="memitem:ga28509d74ad48d8add646a315138d0b2f" id="r_ga28509d74ad48d8add646a315138d0b2f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VERID_MINOR_SHIFT</b></td></tr>
-<tr class="memitem:gaaf1d09b014a1959e496bcdd1c6a34704" id="r_gaaf1d09b014a1959e496bcdd1c6a34704"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gaaf1d09b014a1959e496bcdd1c6a34704">SPC_VERID_MINOR</a>(x)</td></tr>
-<tr class="memitem:gab58a8d65d36b3c635900167d5c79467c" id="r_gab58a8d65d36b3c635900167d5c79467c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VERID_MAJOR_MASK</b></td></tr>
-<tr class="memitem:gac9b8e8486fa5a924678768cd5c74696a" id="r_gac9b8e8486fa5a924678768cd5c74696a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VERID_MAJOR_SHIFT</b></td></tr>
-<tr class="memitem:gabc51f517a96faa536e751846c075ce17" id="r_gabc51f517a96faa536e751846c075ce17"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gabc51f517a96faa536e751846c075ce17">SPC_VERID_MAJOR</a>(x)</td></tr>
-<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">SC - Status Control</div></td></tr>
-<tr class="memitem:ga06497a9560106102865c14aefc7761a4" id="r_ga06497a9560106102865c14aefc7761a4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_BUSY_MASK</b></td></tr>
-<tr class="memitem:ga827694317086a91f9597d088f52a6bbb" id="r_ga827694317086a91f9597d088f52a6bbb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_BUSY_SHIFT</b></td></tr>
-<tr class="memitem:ga7380d8ce2dce8be16342bbc01e71aebc" id="r_ga7380d8ce2dce8be16342bbc01e71aebc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga7380d8ce2dce8be16342bbc01e71aebc">SPC_SC_BUSY</a>(x)</td></tr>
-<tr class="memitem:ga3635e6d4876a614803793c01d0cf4b9b" id="r_ga3635e6d4876a614803793c01d0cf4b9b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_SPC_LP_REQ_MASK</b></td></tr>
-<tr class="memitem:ga42d1eb17604a29079a93acb35d71910f" id="r_ga42d1eb17604a29079a93acb35d71910f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_SPC_LP_REQ_SHIFT</b></td></tr>
-<tr class="memitem:ga5528a5bbccc62404fbed7b443857d1e1" id="r_ga5528a5bbccc62404fbed7b443857d1e1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga5528a5bbccc62404fbed7b443857d1e1">SPC_SC_SPC_LP_REQ</a>(x)</td></tr>
-<tr class="memitem:ga44e23deb6c153a92c2bbc1e7ef127ba5" id="r_ga44e23deb6c153a92c2bbc1e7ef127ba5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_SPC_LP_MODE_MASK</b></td></tr>
-<tr class="memitem:ga4f225165d0068ce144add7f3ecd641bb" id="r_ga4f225165d0068ce144add7f3ecd641bb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_SPC_LP_MODE_SHIFT</b></td></tr>
-<tr class="memitem:ga39ae401a13d3ba2d0ead14c1b0deb739" id="r_ga39ae401a13d3ba2d0ead14c1b0deb739"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga39ae401a13d3ba2d0ead14c1b0deb739">SPC_SC_SPC_LP_MODE</a>(x)</td></tr>
-<tr class="memitem:ga6259dc649cf8d7818e6cba1ab6714b76" id="r_ga6259dc649cf8d7818e6cba1ab6714b76"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_ISO_CLR_MASK</b></td></tr>
-<tr class="memitem:ga49a4c88748a2fdf89f1d08dd9eb20345" id="r_ga49a4c88748a2fdf89f1d08dd9eb20345"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SC_ISO_CLR_SHIFT</b></td></tr>
-<tr class="memitem:ga2021dd8b2b7e1bb65ecba4bcee55a66a" id="r_ga2021dd8b2b7e1bb65ecba4bcee55a66a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga2021dd8b2b7e1bb65ecba4bcee55a66a">SPC_SC_ISO_CLR</a>(x)</td></tr>
-<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">CNTRL - SPC Regulator Control</div></td></tr>
-<tr class="memitem:gab5d08e14820a5c476025d8f330afd821" id="r_gab5d08e14820a5c476025d8f330afd821"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_CNTRL_CORELDO_EN_MASK</b></td></tr>
-<tr class="memitem:gab3092ba6573352c51b3f4c60078fa76b" id="r_gab3092ba6573352c51b3f4c60078fa76b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_CNTRL_CORELDO_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga334076d4e7f94b90bead352c03d69265" id="r_ga334076d4e7f94b90bead352c03d69265"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga334076d4e7f94b90bead352c03d69265">SPC_CNTRL_CORELDO_EN</a>(x)</td></tr>
-<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">LPREQ_CFG - Low-Power Request Configuration</div></td></tr>
-<tr class="memitem:gaf5552fe8bc88600ac1f72367ddeadb7d" id="r_gaf5552fe8bc88600ac1f72367ddeadb7d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPREQ_CFG_LPREQOE_MASK</b></td></tr>
-<tr class="memitem:gaa82bc5df07a1306c6f912734b279bd9c" id="r_gaa82bc5df07a1306c6f912734b279bd9c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPREQ_CFG_LPREQOE_SHIFT</b></td></tr>
-<tr class="memitem:gac57314aae1dbbfa525d771a319b19eac" id="r_gac57314aae1dbbfa525d771a319b19eac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gac57314aae1dbbfa525d771a319b19eac">SPC_LPREQ_CFG_LPREQOE</a>(x)</td></tr>
-<tr class="memitem:ga37e373632da1d2086714441311acf16e" id="r_ga37e373632da1d2086714441311acf16e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPREQ_CFG_LPREQPOL_MASK</b></td></tr>
-<tr class="memitem:ga5d3ab5d7cf99d695ae0ed6ed9ee75cbc" id="r_ga5d3ab5d7cf99d695ae0ed6ed9ee75cbc"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPREQ_CFG_LPREQPOL_SHIFT</b></td></tr>
-<tr class="memitem:gaf63903c0aefb8b5a25a552760fedd500" id="r_gaf63903c0aefb8b5a25a552760fedd500"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gaf63903c0aefb8b5a25a552760fedd500">SPC_LPREQ_CFG_LPREQPOL</a>(x)</td></tr>
-<tr class="memitem:ga76ce2a30a08d94b64fbed63452d9eace" id="r_ga76ce2a30a08d94b64fbed63452d9eace"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPREQ_CFG_LPREQOV_MASK</b></td></tr>
-<tr class="memitem:ga80a4e9bf2b6ec00566c4436d4b63bd00" id="r_ga80a4e9bf2b6ec00566c4436d4b63bd00"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPREQ_CFG_LPREQOV_SHIFT</b></td></tr>
-<tr class="memitem:gaf3e2bc4d4e15c83545f2967e0d7df0ee" id="r_gaf3e2bc4d4e15c83545f2967e0d7df0ee"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gaf3e2bc4d4e15c83545f2967e0d7df0ee">SPC_LPREQ_CFG_LPREQOV</a>(x)</td></tr>
-<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">PD_STATUS - SPC Power Domain Mode Status</div></td></tr>
-<tr class="memitem:ga95eef1101f631318e1d5eb420d304d7b" id="r_ga95eef1101f631318e1d5eb420d304d7b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_PD_STATUS_PD_LP_REQ_MASK</b></td></tr>
-<tr class="memitem:ga6cf33992c5160fcdce6892e1ad21da3b" id="r_ga6cf33992c5160fcdce6892e1ad21da3b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_PD_STATUS_PD_LP_REQ_SHIFT</b></td></tr>
-<tr class="memitem:ga3a715807ccb17604b2a628676fa0cf6f" id="r_ga3a715807ccb17604b2a628676fa0cf6f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga3a715807ccb17604b2a628676fa0cf6f">SPC_PD_STATUS_PD_LP_REQ</a>(x)</td></tr>
-<tr class="memitem:gabfa1f1e94a8fcb33cd65b20e1a9e0080" id="r_gabfa1f1e94a8fcb33cd65b20e1a9e0080"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_PD_STATUS_LP_MODE_MASK</b></td></tr>
-<tr class="memitem:ga509c54088b888f0a03828b3c8001eabe" id="r_ga509c54088b888f0a03828b3c8001eabe"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_PD_STATUS_LP_MODE_SHIFT</b></td></tr>
-<tr class="memitem:ga1171e39c42040d4ee98b9c9767c4111d" id="r_ga1171e39c42040d4ee98b9c9767c4111d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga1171e39c42040d4ee98b9c9767c4111d">SPC_PD_STATUS_LP_MODE</a>(x)</td></tr>
-<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">SRAMCTL - SRAM Control</div></td></tr>
-<tr class="memitem:ga2cd03635dd15b3db710bf5a216158752" id="r_ga2cd03635dd15b3db710bf5a216158752"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMCTL_VSM_MASK</b></td></tr>
-<tr class="memitem:ga657934b1c5802cdd54152cd08a9cf689" id="r_ga657934b1c5802cdd54152cd08a9cf689"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMCTL_VSM_SHIFT</b></td></tr>
-<tr class="memitem:gabb5b1e6916c9bcff64ded0c995b5e0b0" id="r_gabb5b1e6916c9bcff64ded0c995b5e0b0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gabb5b1e6916c9bcff64ded0c995b5e0b0">SPC_SRAMCTL_VSM</a>(x)</td></tr>
-<tr class="memitem:gaf8a794743bc1f2a393a19a522a8a2046" id="r_gaf8a794743bc1f2a393a19a522a8a2046"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMCTL_REQ_MASK</b></td></tr>
-<tr class="memitem:gac91fd715ec9a7193531d76fc6b97dc1c" id="r_gac91fd715ec9a7193531d76fc6b97dc1c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMCTL_REQ_SHIFT</b></td></tr>
-<tr class="memitem:ga100902e615868b81c5c18ed3450f7070" id="r_ga100902e615868b81c5c18ed3450f7070"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga100902e615868b81c5c18ed3450f7070">SPC_SRAMCTL_REQ</a>(x)</td></tr>
-<tr class="memitem:ga54746a697183a1d8118996ee385c71d9" id="r_ga54746a697183a1d8118996ee385c71d9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMCTL_ACK_MASK</b></td></tr>
-<tr class="memitem:ga4f8e237889a9b1c50f9731cb18dba23b" id="r_ga4f8e237889a9b1c50f9731cb18dba23b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMCTL_ACK_SHIFT</b></td></tr>
-<tr class="memitem:ga57749c409c6ab20835c3a568b7b199f9" id="r_ga57749c409c6ab20835c3a568b7b199f9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga57749c409c6ab20835c3a568b7b199f9">SPC_SRAMCTL_ACK</a>(x)</td></tr>
-<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">SRAMRETLDO_REFTRIM - SRAM Retention Reference Trim</div></td></tr>
-<tr class="memitem:ga39190dc597d85abcaa7d86c5e4c2dc34" id="r_ga39190dc597d85abcaa7d86c5e4c2dc34"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMRETLDO_REFTRIM_REFTRIM_MASK</b></td></tr>
-<tr class="memitem:ga28e74252770a7252c98983667709d104" id="r_ga28e74252770a7252c98983667709d104"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMRETLDO_REFTRIM_REFTRIM_SHIFT</b></td></tr>
-<tr class="memitem:ga92d8db96c863428ffa8c75d8451adadb" id="r_ga92d8db96c863428ffa8c75d8451adadb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga92d8db96c863428ffa8c75d8451adadb">SPC_SRAMRETLDO_REFTRIM_REFTRIM</a>(x)</td></tr>
-<tr id="define-members-7" class="groupHeader"><td colspan="2"><div class="groupHeader">SRAMRETLDO_CNTRL - SRAM Retention LDO Control</div></td></tr>
-<tr class="memitem:ga6544dd0e7fb8a102f646e59ef28f9f26" id="r_ga6544dd0e7fb8a102f646e59ef28f9f26"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMRETLDO_CNTRL_SRAMLDO_ON_MASK</b></td></tr>
-<tr class="memitem:gabc6c209bbb0df5cdf136339a3d4060f4" id="r_gabc6c209bbb0df5cdf136339a3d4060f4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMRETLDO_CNTRL_SRAMLDO_ON_SHIFT</b></td></tr>
-<tr class="memitem:ga9fba948019c2eed1df6ff2ddd770bc1d" id="r_ga9fba948019c2eed1df6ff2ddd770bc1d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga9fba948019c2eed1df6ff2ddd770bc1d">SPC_SRAMRETLDO_CNTRL_SRAMLDO_ON</a>(x)</td></tr>
-<tr class="memitem:ga16550f80cd0f8f0a7e4bc6b9ea5b6189" id="r_ga16550f80cd0f8f0a7e4bc6b9ea5b6189"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMRETLDO_CNTRL_SRAM_RET_EN_MASK</b></td></tr>
-<tr class="memitem:ga09bf4ef226f9aa3d2114d7233b8bcdfa" id="r_ga09bf4ef226f9aa3d2114d7233b8bcdfa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_SRAMRETLDO_CNTRL_SRAM_RET_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga48d45b9b43f7ee4eb0d913a729aeb770" id="r_ga48d45b9b43f7ee4eb0d913a729aeb770"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga48d45b9b43f7ee4eb0d913a729aeb770">SPC_SRAMRETLDO_CNTRL_SRAM_RET_EN</a>(x)</td></tr>
-<tr id="define-members-8" class="groupHeader"><td colspan="2"><div class="groupHeader">ACTIVE_CFG - Active Power Mode Configuration</div></td></tr>
-<tr class="memitem:gafaa05c5599b21147e6a19397889f1bd5" id="r_gafaa05c5599b21147e6a19397889f1bd5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_CORELDO_VDD_DS_MASK</b></td></tr>
-<tr class="memitem:gaba07d210249129898d46d71ab43abc04" id="r_gaba07d210249129898d46d71ab43abc04"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_CORELDO_VDD_DS_SHIFT</b></td></tr>
-<tr class="memitem:ga2b637a7f2a8bef1d1c06b55ed42a20b9" id="r_ga2b637a7f2a8bef1d1c06b55ed42a20b9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga2b637a7f2a8bef1d1c06b55ed42a20b9">SPC_ACTIVE_CFG_CORELDO_VDD_DS</a>(x)</td></tr>
-<tr class="memitem:ga2709bd6e3e2b2fd52a6d50c2d019be8d" id="r_ga2709bd6e3e2b2fd52a6d50c2d019be8d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_CORELDO_VDD_LVL_MASK</b></td></tr>
-<tr class="memitem:ga37eb2285390a8a0e36b1184cfbfac16e" id="r_ga37eb2285390a8a0e36b1184cfbfac16e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_CORELDO_VDD_LVL_SHIFT</b></td></tr>
-<tr class="memitem:ga5de500cbdf8ff891401bd789c3d84202" id="r_ga5de500cbdf8ff891401bd789c3d84202"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga5de500cbdf8ff891401bd789c3d84202">SPC_ACTIVE_CFG_CORELDO_VDD_LVL</a>(x)</td></tr>
-<tr class="memitem:gaa63c68a92bd8965166e37ffa5ede3d05" id="r_gaa63c68a92bd8965166e37ffa5ede3d05"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_BGMODE_MASK</b></td></tr>
-<tr class="memitem:gac12c1aa807a7047b2b711d7e0145c4eb" id="r_gac12c1aa807a7047b2b711d7e0145c4eb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_BGMODE_SHIFT</b></td></tr>
-<tr class="memitem:gadecec8b14ce6c974ca352c79011208eb" id="r_gadecec8b14ce6c974ca352c79011208eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gadecec8b14ce6c974ca352c79011208eb">SPC_ACTIVE_CFG_BGMODE</a>(x)</td></tr>
-<tr class="memitem:ga86be76eba1b0c091478c9e2d00c51534" id="r_ga86be76eba1b0c091478c9e2d00c51534"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_CORE_LVDE_MASK</b></td></tr>
-<tr class="memitem:ga4f43e1b0d40ea78cb514e87e69829ee0" id="r_ga4f43e1b0d40ea78cb514e87e69829ee0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_CORE_LVDE_SHIFT</b></td></tr>
-<tr class="memitem:ga1f8abe2a780f71c7817bfd553dd90456" id="r_ga1f8abe2a780f71c7817bfd553dd90456"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga1f8abe2a780f71c7817bfd553dd90456">SPC_ACTIVE_CFG_CORE_LVDE</a>(x)</td></tr>
-<tr class="memitem:ga8fa20e358d0c48377700af9c23b25581" id="r_ga8fa20e358d0c48377700af9c23b25581"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_SYS_LVDE_MASK</b></td></tr>
-<tr class="memitem:ga43ae96f5835107b7107d1ebfabd31eaa" id="r_ga43ae96f5835107b7107d1ebfabd31eaa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_SYS_LVDE_SHIFT</b></td></tr>
-<tr class="memitem:gaab5d431af0eb518c207c8f8ab407fa49" id="r_gaab5d431af0eb518c207c8f8ab407fa49"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gaab5d431af0eb518c207c8f8ab407fa49">SPC_ACTIVE_CFG_SYS_LVDE</a>(x)</td></tr>
-<tr class="memitem:gabbe7b6ef69e7e18548539d75e85afb48" id="r_gabbe7b6ef69e7e18548539d75e85afb48"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_SYS_HVDE_MASK</b></td></tr>
-<tr class="memitem:ga6a7b5927afb6de5cf64c3b26215174cf" id="r_ga6a7b5927afb6de5cf64c3b26215174cf"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG_SYS_HVDE_SHIFT</b></td></tr>
-<tr class="memitem:gacc0fba279c830497d8288d352c324d7f" id="r_gacc0fba279c830497d8288d352c324d7f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gacc0fba279c830497d8288d352c324d7f">SPC_ACTIVE_CFG_SYS_HVDE</a>(x)</td></tr>
-<tr id="define-members-9" class="groupHeader"><td colspan="2"><div class="groupHeader">ACTIVE_CFG1 - Active Power Mode Configuration 1</div></td></tr>
-<tr class="memitem:gae0a3420f86f2cb0d78033899a7cfecf0" id="r_gae0a3420f86f2cb0d78033899a7cfecf0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG1_SOC_CNTRL_MASK</b></td></tr>
-<tr class="memitem:gaa4c650113296e20aa318cca8bd54160e" id="r_gaa4c650113296e20aa318cca8bd54160e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_CFG1_SOC_CNTRL_SHIFT</b></td></tr>
-<tr class="memitem:ga91f09eeb135ea19cb1d29279b8a613fd" id="r_ga91f09eeb135ea19cb1d29279b8a613fd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga91f09eeb135ea19cb1d29279b8a613fd">SPC_ACTIVE_CFG1_SOC_CNTRL</a>(x)</td></tr>
-<tr id="define-members-10" class="groupHeader"><td colspan="2"><div class="groupHeader">LP_CFG - Low-Power Mode Configuration</div></td></tr>
-<tr class="memitem:gada5d59b0798a0a40564e1f1b68d7060a" id="r_gada5d59b0798a0a40564e1f1b68d7060a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_CORELDO_VDD_DS_MASK</b></td></tr>
-<tr class="memitem:gaaa1597b8cce4d32de4230fe500a8b0aa" id="r_gaaa1597b8cce4d32de4230fe500a8b0aa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_CORELDO_VDD_DS_SHIFT</b></td></tr>
-<tr class="memitem:gad8f317b17e12383fd3772e124d8328cf" id="r_gad8f317b17e12383fd3772e124d8328cf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gad8f317b17e12383fd3772e124d8328cf">SPC_LP_CFG_CORELDO_VDD_DS</a>(x)</td></tr>
-<tr class="memitem:ga128042563745257b4f1399f0705e4c71" id="r_ga128042563745257b4f1399f0705e4c71"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_CORELDO_VDD_LVL_MASK</b></td></tr>
-<tr class="memitem:ga7f1413c985f8cad005b5e682d59da448" id="r_ga7f1413c985f8cad005b5e682d59da448"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_CORELDO_VDD_LVL_SHIFT</b></td></tr>
-<tr class="memitem:ga6ec2168f12a8dfaa2076604b72de1508" id="r_ga6ec2168f12a8dfaa2076604b72de1508"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga6ec2168f12a8dfaa2076604b72de1508">SPC_LP_CFG_CORELDO_VDD_LVL</a>(x)</td></tr>
-<tr class="memitem:ga7c1b78033e381c2ef8c9cc6e5df497cd" id="r_ga7c1b78033e381c2ef8c9cc6e5df497cd"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_BGMODE_MASK</b></td></tr>
-<tr class="memitem:ga5a80c734b9356c218f43116da1534906" id="r_ga5a80c734b9356c218f43116da1534906"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_BGMODE_SHIFT</b></td></tr>
-<tr class="memitem:ga81696f281a181a2b9462c4c8c97b767a" id="r_ga81696f281a181a2b9462c4c8c97b767a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga81696f281a181a2b9462c4c8c97b767a">SPC_LP_CFG_BGMODE</a>(x)</td></tr>
-<tr class="memitem:ga671585bfbd59acb9d9ca08dc1347187d" id="r_ga671585bfbd59acb9d9ca08dc1347187d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_LP_IREFEN_MASK</b></td></tr>
-<tr class="memitem:gab14cf4f48138f2d95a02f6461153d26a" id="r_gab14cf4f48138f2d95a02f6461153d26a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_LP_IREFEN_SHIFT</b></td></tr>
-<tr class="memitem:ga23913d2586e20b7bce2b17225d3502ca" id="r_ga23913d2586e20b7bce2b17225d3502ca"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga23913d2586e20b7bce2b17225d3502ca">SPC_LP_CFG_LP_IREFEN</a>(x)</td></tr>
-<tr class="memitem:ga310fd7cfcdaf2d0c6edb0e76ce4b9880" id="r_ga310fd7cfcdaf2d0c6edb0e76ce4b9880"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_CORE_LVDE_MASK</b></td></tr>
-<tr class="memitem:gaa0de27674564d00a84cbf8b7d5f70681" id="r_gaa0de27674564d00a84cbf8b7d5f70681"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_CORE_LVDE_SHIFT</b></td></tr>
-<tr class="memitem:gae4445ee106ee341ffd3d44b5721fc937" id="r_gae4445ee106ee341ffd3d44b5721fc937"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gae4445ee106ee341ffd3d44b5721fc937">SPC_LP_CFG_CORE_LVDE</a>(x)</td></tr>
-<tr class="memitem:gadbb1de7002b5c72f434d98a11d33d6d2" id="r_gadbb1de7002b5c72f434d98a11d33d6d2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_SYS_LVDE_MASK</b></td></tr>
-<tr class="memitem:gaf4a87a02b3ea4be4a7d6f43ca6ee6898" id="r_gaf4a87a02b3ea4be4a7d6f43ca6ee6898"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_SYS_LVDE_SHIFT</b></td></tr>
-<tr class="memitem:ga1e2fff5c789cb385a54c48f3e1c58ad7" id="r_ga1e2fff5c789cb385a54c48f3e1c58ad7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga1e2fff5c789cb385a54c48f3e1c58ad7">SPC_LP_CFG_SYS_LVDE</a>(x)</td></tr>
-<tr class="memitem:ga5bd956f491f9bcc1f86aa35b5e2b6b80" id="r_ga5bd956f491f9bcc1f86aa35b5e2b6b80"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_SYS_HVDE_MASK</b></td></tr>
-<tr class="memitem:gab8f3818539af6b7ad6381d0ceebb8ed5" id="r_gab8f3818539af6b7ad6381d0ceebb8ed5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_SYS_HVDE_SHIFT</b></td></tr>
-<tr class="memitem:gabf4cd70a3c8c7ddf89ab40f8fea32ee0" id="r_gabf4cd70a3c8c7ddf89ab40f8fea32ee0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gabf4cd70a3c8c7ddf89ab40f8fea32ee0">SPC_LP_CFG_SYS_HVDE</a>(x)</td></tr>
-<tr id="define-members-11" class="groupHeader"><td colspan="2"><div class="groupHeader">LP_CFG - Low-Power Mode Configuration</div></td></tr>
-<tr class="memitem:gacdaa10681801204acc4e4ae935e3033c" id="r_gacdaa10681801204acc4e4ae935e3033c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_SRAMLDO_DPD_ON_MASK</b></td></tr>
-<tr class="memitem:gae93ce4ed76a23d8d5eca0d8171605032" id="r_gae93ce4ed76a23d8d5eca0d8171605032"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG_SRAMLDO_DPD_ON_SHIFT</b></td></tr>
-<tr class="memitem:ga37b495508f6fff86fa0641c717221668" id="r_ga37b495508f6fff86fa0641c717221668"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga37b495508f6fff86fa0641c717221668">SPC_LP_CFG_SRAMLDO_DPD_ON</a>(x)</td></tr>
-<tr id="define-members-12" class="groupHeader"><td colspan="2"><div class="groupHeader">LP_CFG1 - Low Power Mode Configuration 1</div></td></tr>
-<tr class="memitem:ga57d5622714492733bc353ab712fb0264" id="r_ga57d5622714492733bc353ab712fb0264"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG1_SOC_CNTRL_MASK</b></td></tr>
-<tr class="memitem:ga87a3259fafa1308737ef1a5743065a52" id="r_ga87a3259fafa1308737ef1a5743065a52"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LP_CFG1_SOC_CNTRL_SHIFT</b></td></tr>
-<tr class="memitem:ga49edd4f1a887c75dd6485441e4a3404c" id="r_ga49edd4f1a887c75dd6485441e4a3404c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga49edd4f1a887c75dd6485441e4a3404c">SPC_LP_CFG1_SOC_CNTRL</a>(x)</td></tr>
-<tr id="define-members-13" class="groupHeader"><td colspan="2"><div class="groupHeader">LPWKUP_DELAY - Low Power Wake-Up Delay</div></td></tr>
-<tr class="memitem:ga4e79723e2251cf51e305018fdca53224" id="r_ga4e79723e2251cf51e305018fdca53224"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPWKUP_DELAY_LPWKUP_DELAY_MASK</b></td></tr>
-<tr class="memitem:ga31c44c2b399d4012a84ea4b953716769" id="r_ga31c44c2b399d4012a84ea4b953716769"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_LPWKUP_DELAY_LPWKUP_DELAY_SHIFT</b></td></tr>
-<tr class="memitem:gaa654965f7f8aa1dc6275a0e70c1c4688" id="r_gaa654965f7f8aa1dc6275a0e70c1c4688"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gaa654965f7f8aa1dc6275a0e70c1c4688">SPC_LPWKUP_DELAY_LPWKUP_DELAY</a>(x)</td></tr>
-<tr id="define-members-14" class="groupHeader"><td colspan="2"><div class="groupHeader">ACTIVE_VDELAY - Active Voltage Trim Delay</div></td></tr>
-<tr class="memitem:gada26914a1bbac39e0d5b0038dbc764e1" id="r_gada26914a1bbac39e0d5b0038dbc764e1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_VDELAY_ACTIVE_VDELAY_MASK</b></td></tr>
-<tr class="memitem:ga0197e8e832397a21a5b2aa95b0d9f8f5" id="r_ga0197e8e832397a21a5b2aa95b0d9f8f5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_ACTIVE_VDELAY_ACTIVE_VDELAY_SHIFT</b></td></tr>
-<tr class="memitem:ga03ed4dda6a2e19dfd11dac402b1873b6" id="r_ga03ed4dda6a2e19dfd11dac402b1873b6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga03ed4dda6a2e19dfd11dac402b1873b6">SPC_ACTIVE_VDELAY_ACTIVE_VDELAY</a>(x)</td></tr>
-<tr id="define-members-15" class="groupHeader"><td colspan="2"><div class="groupHeader">VD_STAT - Voltage Detect Status</div></td></tr>
-<tr class="memitem:ga4366469d471563dbcb33cb9760be07ea" id="r_ga4366469d471563dbcb33cb9760be07ea"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_STAT_COREVDD_LVDF_MASK</b></td></tr>
-<tr class="memitem:gaf3ef754d0a4e6217b45bef1895b0193f" id="r_gaf3ef754d0a4e6217b45bef1895b0193f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_STAT_COREVDD_LVDF_SHIFT</b></td></tr>
-<tr class="memitem:ga08d91f7f1003993f688db63baaf749b1" id="r_ga08d91f7f1003993f688db63baaf749b1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga08d91f7f1003993f688db63baaf749b1">SPC_VD_STAT_COREVDD_LVDF</a>(x)</td></tr>
-<tr class="memitem:ga42e5c3a1068f0cbecb302cc34cf3b666" id="r_ga42e5c3a1068f0cbecb302cc34cf3b666"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_STAT_SYSVDD_LVDF_MASK</b></td></tr>
-<tr class="memitem:ga944af04e0aea6d665717b4bee069cbfb" id="r_ga944af04e0aea6d665717b4bee069cbfb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_STAT_SYSVDD_LVDF_SHIFT</b></td></tr>
-<tr class="memitem:ga1768cfefdad6ec8d60a6e6b7e850b318" id="r_ga1768cfefdad6ec8d60a6e6b7e850b318"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga1768cfefdad6ec8d60a6e6b7e850b318">SPC_VD_STAT_SYSVDD_LVDF</a>(x)</td></tr>
-<tr class="memitem:ga179a8485642b182203800e1bb218a7cf" id="r_ga179a8485642b182203800e1bb218a7cf"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_STAT_SYSVDD_HVDF_MASK</b></td></tr>
-<tr class="memitem:ga295a391a2f01ef8f0d57226a1efba514" id="r_ga295a391a2f01ef8f0d57226a1efba514"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_STAT_SYSVDD_HVDF_SHIFT</b></td></tr>
-<tr class="memitem:ga2ae5caccc72def30d3504e1dbce3afaa" id="r_ga2ae5caccc72def30d3504e1dbce3afaa"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga2ae5caccc72def30d3504e1dbce3afaa">SPC_VD_STAT_SYSVDD_HVDF</a>(x)</td></tr>
-<tr id="define-members-16" class="groupHeader"><td colspan="2"><div class="groupHeader">VD_CORE_CFG - Core Voltage Detect Configuration</div></td></tr>
-<tr class="memitem:gac495fbe27fe6162d8463b461e3d98d6a" id="r_gac495fbe27fe6162d8463b461e3d98d6a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_CORE_CFG_LVDRE_MASK</b></td></tr>
-<tr class="memitem:gafa0a2af3a7be6cc51a708caa61539dba" id="r_gafa0a2af3a7be6cc51a708caa61539dba"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_CORE_CFG_LVDRE_SHIFT</b></td></tr>
-<tr class="memitem:ga9e275a2ffe1a3e92c2d6bb55b8617b65" id="r_ga9e275a2ffe1a3e92c2d6bb55b8617b65"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga9e275a2ffe1a3e92c2d6bb55b8617b65">SPC_VD_CORE_CFG_LVDRE</a>(x)</td></tr>
-<tr class="memitem:gaa2a7e262cfdaad72db4001dd3f8ec7ba" id="r_gaa2a7e262cfdaad72db4001dd3f8ec7ba"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_CORE_CFG_LVDIE_MASK</b></td></tr>
-<tr class="memitem:ga464b01e8b4de805c09f3c9fd9c624072" id="r_ga464b01e8b4de805c09f3c9fd9c624072"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_CORE_CFG_LVDIE_SHIFT</b></td></tr>
-<tr class="memitem:ga0fc6ee3fca1c1cf2128764bccb67d2e8" id="r_ga0fc6ee3fca1c1cf2128764bccb67d2e8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga0fc6ee3fca1c1cf2128764bccb67d2e8">SPC_VD_CORE_CFG_LVDIE</a>(x)</td></tr>
-<tr class="memitem:ga64efa7eb0c1c79f02503e9507d05a592" id="r_ga64efa7eb0c1c79f02503e9507d05a592"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_CORE_CFG_LOCK_MASK</b></td></tr>
-<tr class="memitem:gafc812166effabf6ca330dd4eaf3ecc48" id="r_gafc812166effabf6ca330dd4eaf3ecc48"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_CORE_CFG_LOCK_SHIFT</b></td></tr>
-<tr class="memitem:ga72b542e6c27b884d09ee01e89efef92a" id="r_ga72b542e6c27b884d09ee01e89efef92a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga72b542e6c27b884d09ee01e89efef92a">SPC_VD_CORE_CFG_LOCK</a>(x)</td></tr>
-<tr id="define-members-17" class="groupHeader"><td colspan="2"><div class="groupHeader">VD_SYS_CFG - System Voltage Detect Configuration</div></td></tr>
-<tr class="memitem:ga29b5dcc20fcd74243162469efdb7b5e2" id="r_ga29b5dcc20fcd74243162469efdb7b5e2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LVDRE_MASK</b></td></tr>
-<tr class="memitem:gac01d4f02b719f53013632c42a4ff1d66" id="r_gac01d4f02b719f53013632c42a4ff1d66"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LVDRE_SHIFT</b></td></tr>
-<tr class="memitem:ga6dfd95ded8263810ba5f7d26422c5def" id="r_ga6dfd95ded8263810ba5f7d26422c5def"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga6dfd95ded8263810ba5f7d26422c5def">SPC_VD_SYS_CFG_LVDRE</a>(x)</td></tr>
-<tr class="memitem:ga4e2949c48d90825d8e375779066c8f20" id="r_ga4e2949c48d90825d8e375779066c8f20"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LVDIE_MASK</b></td></tr>
-<tr class="memitem:ga14fb5997dd5ebaea8aaf7da9efcf4ccb" id="r_ga14fb5997dd5ebaea8aaf7da9efcf4ccb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LVDIE_SHIFT</b></td></tr>
-<tr class="memitem:ga4260ef7df11ca287670e005dc98d17c4" id="r_ga4260ef7df11ca287670e005dc98d17c4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga4260ef7df11ca287670e005dc98d17c4">SPC_VD_SYS_CFG_LVDIE</a>(x)</td></tr>
-<tr class="memitem:gab3aa86d48d66abcd49f75dd1659ac707" id="r_gab3aa86d48d66abcd49f75dd1659ac707"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_HVDRE_MASK</b></td></tr>
-<tr class="memitem:ga060d3a8463b6a1c7e4289afa69a4ef7c" id="r_ga060d3a8463b6a1c7e4289afa69a4ef7c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_HVDRE_SHIFT</b></td></tr>
-<tr class="memitem:ga8d9c8f4c13b38c8a7fd3dd079c9aa1a3" id="r_ga8d9c8f4c13b38c8a7fd3dd079c9aa1a3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga8d9c8f4c13b38c8a7fd3dd079c9aa1a3">SPC_VD_SYS_CFG_HVDRE</a>(x)</td></tr>
-<tr class="memitem:gad413383f6354485e35fdb2109853f820" id="r_gad413383f6354485e35fdb2109853f820"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_HVDIE_MASK</b></td></tr>
-<tr class="memitem:ga4a77981ef3b27b8d4d56f662ec6019f0" id="r_ga4a77981ef3b27b8d4d56f662ec6019f0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_HVDIE_SHIFT</b></td></tr>
-<tr class="memitem:gad6a9d2bdd1ebf74be31aca78b9a98ec7" id="r_gad6a9d2bdd1ebf74be31aca78b9a98ec7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gad6a9d2bdd1ebf74be31aca78b9a98ec7">SPC_VD_SYS_CFG_HVDIE</a>(x)</td></tr>
-<tr class="memitem:ga348948393d979b06d9253b5e39f7447a" id="r_ga348948393d979b06d9253b5e39f7447a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LVSEL_MASK</b></td></tr>
-<tr class="memitem:ga4b47c2f6fcbced5034cec4d9e193c970" id="r_ga4b47c2f6fcbced5034cec4d9e193c970"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LVSEL_SHIFT</b></td></tr>
-<tr class="memitem:ga2d342f60e5ae15e7aac1590474117fe4" id="r_ga2d342f60e5ae15e7aac1590474117fe4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga2d342f60e5ae15e7aac1590474117fe4">SPC_VD_SYS_CFG_LVSEL</a>(x)</td></tr>
-<tr class="memitem:gaba50d3d86f298cb522b0d4ca648c4431" id="r_gaba50d3d86f298cb522b0d4ca648c4431"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LOCK_MASK</b></td></tr>
-<tr class="memitem:ga57991109eaca54f7a1afdabf5ccae357" id="r_ga57991109eaca54f7a1afdabf5ccae357"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_VD_SYS_CFG_LOCK_SHIFT</b></td></tr>
-<tr class="memitem:ga47789f8734f292a164273273343ecb7a" id="r_ga47789f8734f292a164273273343ecb7a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga47789f8734f292a164273273343ecb7a">SPC_VD_SYS_CFG_LOCK</a>(x)</td></tr>
-<tr id="define-members-18" class="groupHeader"><td colspan="2"><div class="groupHeader">EVD_CFG - External Voltage Domain Configuration</div></td></tr>
-<tr class="memitem:ga221f4d56eb297ff45340a57f37c1ecca" id="r_ga221f4d56eb297ff45340a57f37c1ecca"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_EVD_CFG_EVDISO_MASK</b></td></tr>
-<tr class="memitem:ga6853131799545b8c95e204ac8edb647c" id="r_ga6853131799545b8c95e204ac8edb647c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_EVD_CFG_EVDISO_SHIFT</b></td></tr>
-<tr class="memitem:gafbfec760dbfe9802c9a7d311715f09c2" id="r_gafbfec760dbfe9802c9a7d311715f09c2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gafbfec760dbfe9802c9a7d311715f09c2">SPC_EVD_CFG_EVDISO</a>(x)</td></tr>
-<tr class="memitem:gab65907a5c0cd48e8bcba5589827161b9" id="r_gab65907a5c0cd48e8bcba5589827161b9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_EVD_CFG_EVDLPISO_MASK</b></td></tr>
-<tr class="memitem:gac754ffcfd8a2af6e8d38dc5c2114b795" id="r_gac754ffcfd8a2af6e8d38dc5c2114b795"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_EVD_CFG_EVDLPISO_SHIFT</b></td></tr>
-<tr class="memitem:ga6310df8012fe9b462103edd8fcb2cc7c" id="r_ga6310df8012fe9b462103edd8fcb2cc7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#ga6310df8012fe9b462103edd8fcb2cc7c">SPC_EVD_CFG_EVDLPISO</a>(x)</td></tr>
-<tr class="memitem:ga9ce19d55b842683dc76d100db568c5bc" id="r_ga9ce19d55b842683dc76d100db568c5bc"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_EVD_CFG_EVDSTAT_MASK</b></td></tr>
-<tr class="memitem:ga5d5e6112def985e556c210faea73e190" id="r_ga5d5e6112def985e556c210faea73e190"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SPC_EVD_CFG_EVDSTAT_SHIFT</b></td></tr>
-<tr class="memitem:gac6e334e7e708e005ccacb270f7813246" id="r_gac6e334e7e708e005ccacb270f7813246"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01719.html#gac6e334e7e708e005ccacb270f7813246">SPC_EVD_CFG_EVDSTAT</a>(x)</td></tr>
+<tr class="memitem:a75d612457758593fabcb63f2f79d968b" id="r_a75d612457758593fabcb63f2f79d968b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a75d612457758593fabcb63f2f79d968b">PERI_SMARTDMA_H_</a></td></tr>
+<tr class="memdesc:a75d612457758593fabcb63f2f79d968b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">BOOTADR - Boot Address</div></td></tr>
+<tr class="memitem:gaa78d9f7b468b85ae9c18dddfce9fc091" id="r_gaa78d9f7b468b85ae9c18dddfce9fc091"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_BOOTADR_ADDR_MASK</b></td></tr>
+<tr class="memitem:ga4f85c523e9c3bdf97a2853efe603683a" id="r_ga4f85c523e9c3bdf97a2853efe603683a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_BOOTADR_ADDR_SHIFT</b></td></tr>
+<tr class="memitem:ga789113e130cbf38321b70a3f7e9df5d3" id="r_ga789113e130cbf38321b70a3f7e9df5d3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga789113e130cbf38321b70a3f7e9df5d3">SMARTDMA_BOOTADR_ADDR</a>(x)</td></tr>
+<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">CTRL - Control</div></td></tr>
+<tr class="memitem:gaca7726ade1fa91f1f00ecbe4e874ee85" id="r_gaca7726ade1fa91f1f00ecbe4e874ee85"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_START_MASK</b></td></tr>
+<tr class="memitem:ga51ad4a2652fe132c362e96e466f29460" id="r_ga51ad4a2652fe132c362e96e466f29460"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_START_SHIFT</b></td></tr>
+<tr class="memitem:gacdc4e3ea841f9eb88d5d8432249b34b2" id="r_gacdc4e3ea841f9eb88d5d8432249b34b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#gacdc4e3ea841f9eb88d5d8432249b34b2">SMARTDMA_CTRL_START</a>(x)</td></tr>
+<tr class="memitem:ga7118e359d0e736deda32a26edcbece3f" id="r_ga7118e359d0e736deda32a26edcbece3f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_EXF_MASK</b></td></tr>
+<tr class="memitem:gaf39e09399dba0ffd65bb050216b12e52" id="r_gaf39e09399dba0ffd65bb050216b12e52"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_EXF_SHIFT</b></td></tr>
+<tr class="memitem:ga61bba4a5c29f164bd160d0b49b5e4b72" id="r_ga61bba4a5c29f164bd160d0b49b5e4b72"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga61bba4a5c29f164bd160d0b49b5e4b72">SMARTDMA_CTRL_EXF</a>(x)</td></tr>
+<tr class="memitem:ga3a35c9113c28867ab6b5669fe82a62f3" id="r_ga3a35c9113c28867ab6b5669fe82a62f3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_ERRDIS_MASK</b></td></tr>
+<tr class="memitem:ga2ff1140a6422ab8c70076a24a71223a5" id="r_ga2ff1140a6422ab8c70076a24a71223a5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_ERRDIS_SHIFT</b></td></tr>
+<tr class="memitem:gabea7dde2bb761eea60ec09d6fb3bd8cc" id="r_gabea7dde2bb761eea60ec09d6fb3bd8cc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#gabea7dde2bb761eea60ec09d6fb3bd8cc">SMARTDMA_CTRL_ERRDIS</a>(x)</td></tr>
+<tr class="memitem:ga836409485acd9b4293a1f41f9836b751" id="r_ga836409485acd9b4293a1f41f9836b751"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_BUFEN_MASK</b></td></tr>
+<tr class="memitem:ga556890dad2f4a1ba6f22deec2541cc0e" id="r_ga556890dad2f4a1ba6f22deec2541cc0e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_BUFEN_SHIFT</b></td></tr>
+<tr class="memitem:gabea22020c46217446f75ccccfe312657" id="r_gabea22020c46217446f75ccccfe312657"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#gabea22020c46217446f75ccccfe312657">SMARTDMA_CTRL_BUFEN</a>(x)</td></tr>
+<tr class="memitem:gab9a515806753faaa93e99cb7ea553a26" id="r_gab9a515806753faaa93e99cb7ea553a26"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_SYNCEN_MASK</b></td></tr>
+<tr class="memitem:gae25196d01b4ebfd4206feff6489bf480" id="r_gae25196d01b4ebfd4206feff6489bf480"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_SYNCEN_SHIFT</b></td></tr>
+<tr class="memitem:ga8e2c5ea0f440f4eaab4dc367950b4797" id="r_ga8e2c5ea0f440f4eaab4dc367950b4797"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga8e2c5ea0f440f4eaab4dc367950b4797">SMARTDMA_CTRL_SYNCEN</a>(x)</td></tr>
+<tr class="memitem:ga33b1cfeece6ac2a4bb8f69b35f5d2379" id="r_ga33b1cfeece6ac2a4bb8f69b35f5d2379"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_WKEY_MASK</b></td></tr>
+<tr class="memitem:ga4475e03db762439fedfd3ce5bd331dcd" id="r_ga4475e03db762439fedfd3ce5bd331dcd"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_CTRL_WKEY_SHIFT</b></td></tr>
+<tr class="memitem:ga2213dc69daaa02b0e2b66d242406287d" id="r_ga2213dc69daaa02b0e2b66d242406287d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga2213dc69daaa02b0e2b66d242406287d">SMARTDMA_CTRL_WKEY</a>(x)</td></tr>
+<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">PC - Program Counter</div></td></tr>
+<tr class="memitem:ga85e864bf07c778194febfa69f2e63ea2" id="r_ga85e864bf07c778194febfa69f2e63ea2"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PC_PC_MASK</b></td></tr>
+<tr class="memitem:ga1c7e9a9ee6cd7500cd8e81deed0126ca" id="r_ga1c7e9a9ee6cd7500cd8e81deed0126ca"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PC_PC_SHIFT</b></td></tr>
+<tr class="memitem:ga32a523247b59071fe9f5c6e1c7f44a51" id="r_ga32a523247b59071fe9f5c6e1c7f44a51"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga32a523247b59071fe9f5c6e1c7f44a51">SMARTDMA_PC_PC</a>(x)</td></tr>
+<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">SP - Stack Pointer</div></td></tr>
+<tr class="memitem:ga0740de2a44e385885a66a7f1716cd1ed" id="r_ga0740de2a44e385885a66a7f1716cd1ed"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_SP_SP_MASK</b></td></tr>
+<tr class="memitem:gad7a35dce334d07646813aba0af226c90" id="r_gad7a35dce334d07646813aba0af226c90"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_SP_SP_SHIFT</b></td></tr>
+<tr class="memitem:ga2e93f5c54d215b4efd339a7016056cd2" id="r_ga2e93f5c54d215b4efd339a7016056cd2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga2e93f5c54d215b4efd339a7016056cd2">SMARTDMA_SP_SP</a>(x)</td></tr>
+<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">ARM2EZH - ARM to EZH Interrupt Control</div></td></tr>
+<tr class="memitem:ga934b12c79a840a9dc4431bf53d754ee8" id="r_ga934b12c79a840a9dc4431bf53d754ee8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_ARM2EZH_IE_MASK</b></td></tr>
+<tr class="memitem:ga894669a77ea94f52a0f3195dc36b59c3" id="r_ga894669a77ea94f52a0f3195dc36b59c3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_ARM2EZH_IE_SHIFT</b></td></tr>
+<tr class="memitem:ga1e911846b96a6ef497662deb40cbf430" id="r_ga1e911846b96a6ef497662deb40cbf430"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga1e911846b96a6ef497662deb40cbf430">SMARTDMA_ARM2EZH_IE</a>(x)</td></tr>
+<tr class="memitem:ga9f7bace39ddee228094f9a72704c6e5d" id="r_ga9f7bace39ddee228094f9a72704c6e5d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_ARM2EZH_GP_MASK</b></td></tr>
+<tr class="memitem:gaa07334ae6eb1e4c2438863fbfc40cc9b" id="r_gaa07334ae6eb1e4c2438863fbfc40cc9b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_ARM2EZH_GP_SHIFT</b></td></tr>
+<tr class="memitem:ga96371200b4c6b1aa31901cbe8cfb3470" id="r_ga96371200b4c6b1aa31901cbe8cfb3470"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga96371200b4c6b1aa31901cbe8cfb3470">SMARTDMA_ARM2EZH_GP</a>(x)</td></tr>
+<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">EZH2ARM - EZH to ARM Trigger</div></td></tr>
+<tr class="memitem:ga318d3600307d46d06c82709d6395823f" id="r_ga318d3600307d46d06c82709d6395823f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_EZH2ARM_GP_MASK</b></td></tr>
+<tr class="memitem:ga9c2b90119269899376c1127539139868" id="r_ga9c2b90119269899376c1127539139868"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_EZH2ARM_GP_SHIFT</b></td></tr>
+<tr class="memitem:ga3895cf3ce14ef8348ce114549688616c" id="r_ga3895cf3ce14ef8348ce114549688616c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga3895cf3ce14ef8348ce114549688616c">SMARTDMA_EZH2ARM_GP</a>(x)</td></tr>
+<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">PENDTRAP - Pending Trap Control</div></td></tr>
+<tr class="memitem:gaac77c1868c150908e123bb6494387ccb" id="r_gaac77c1868c150908e123bb6494387ccb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PENDTRAP_STATUS_MASK</b></td></tr>
+<tr class="memitem:ga0738d1f9b9151dab42fb2d897e6cb36f" id="r_ga0738d1f9b9151dab42fb2d897e6cb36f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PENDTRAP_STATUS_SHIFT</b></td></tr>
+<tr class="memitem:ga2b6fa50b5da70ebeb5a13979205162ff" id="r_ga2b6fa50b5da70ebeb5a13979205162ff"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga2b6fa50b5da70ebeb5a13979205162ff">SMARTDMA_PENDTRAP_STATUS</a>(x)</td></tr>
+<tr class="memitem:ga8bb3fcb22c26495f5dfaac56e5a682cd" id="r_ga8bb3fcb22c26495f5dfaac56e5a682cd"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PENDTRAP_POL_MASK</b></td></tr>
+<tr class="memitem:gaacfc8ef7f359af8881b5592aa1f0e87b" id="r_gaacfc8ef7f359af8881b5592aa1f0e87b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PENDTRAP_POL_SHIFT</b></td></tr>
+<tr class="memitem:gafbc2115cc3dc6963a3ada7ce74b311eb" id="r_gafbc2115cc3dc6963a3ada7ce74b311eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#gafbc2115cc3dc6963a3ada7ce74b311eb">SMARTDMA_PENDTRAP_POL</a>(x)</td></tr>
+<tr class="memitem:gabe1ca289837e3e55fb187a0b666b9e45" id="r_gabe1ca289837e3e55fb187a0b666b9e45"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PENDTRAP_EN_MASK</b></td></tr>
+<tr class="memitem:ga36b769ebd8b913b55ee3520b8bcbaa49" id="r_ga36b769ebd8b913b55ee3520b8bcbaa49"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SMARTDMA_PENDTRAP_EN_SHIFT</b></td></tr>
+<tr class="memitem:ga1736771ff17ba43a523ae8e09185ffda" id="r_ga1736771ff17ba43a523ae8e09185ffda"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01712.html#ga1736771ff17ba43a523ae8e09185ffda">SMARTDMA_PENDTRAP_EN</a>(x)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>CMSIS Peripheral Access Layer for SPC. </p>
+<div class="textblock"><p>CMSIS Peripheral Access Layer for SMARTDMA. </p>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-11-21 </dd></dl>
-<p>CMSIS Peripheral Access Layer for SPC </p>
+<p>CMSIS Peripheral Access Layer for SMARTDMA </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a6b1df0621f7613545dc056c069116b20" name="a6b1df0621f7613545dc056c069116b20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b1df0621f7613545dc056c069116b20">&#9670;&#160;</a></span>PERI_SPC_H_</h2>
+<a id="a75d612457758593fabcb63f2f79d968b" name="a75d612457758593fabcb63f2f79d968b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75d612457758593fabcb63f2f79d968b">&#9670;&#160;</a></span>PERI_SMARTDMA_H_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PERI_SPC_H_</td>
+          <td class="memname">#define PERI_SMARTDMA_H_</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -437,7 +238,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a01214.html">PERI_SPC.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a01214.html">PERI_SMARTDMA.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,8 +1,5 @@
 var a01382 =
 [
-    [ "MCUXCLFFDH_FFDHE2048_SIZE", "a01620.html", null ],
-    [ "MCUXCLFFDH_FFDHE3072_SIZE", "a01621.html", null ],
-    [ "MCUXCLFFDH_FFDHE4096_SIZE", "a01622.html", null ],
-    [ "MCUXCLFFDH_FFDHE6144_SIZE", "a01623.html", null ],
-    [ "MCUXCLFFDH_FFDHE8192_SIZE", "a01624.html", null ]
+    [ "mcuxClFfdh_Status_t", "a01382.html#gaf4fa0a42c530653c130f3caaea72ac84", null ],
+    [ "mcuxClFfdh_DomainParams_t", "a01382.html#ga47d7bdce2027e8cd13ee664f0c65f908", null ]
 ];

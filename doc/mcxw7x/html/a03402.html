@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClKdfModes_SP800_56C_example.c</title>
+<title>MCUX CLNS: mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,13 @@ $(function(){initNavTree('a03402.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClKdfModes_SP800_56C_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example.c</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example for the mcuxClKey component, showing a KDF according to the NIST SP800-56C Standard in OneStep mode Using Hmac-Sha512.</p>
-<p>Example for the mcuxClKey component, showing a KDF according to the NIST SP800-56C Standard in OneStep mode Using Hmac-Sha512</p>
+<p>Example for the mcuxClKey component for RFC3394 key rewrap using the SGI coprocessor.</p>
+<p>Example for the mcuxClKey component for RFC3394 key rewrap using the SGI coprocessor.</p>
 <div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2023-2025 NXP                                                  */</span></div>
+<div class="line"><span class="comment">/* Copyright 2024-2025 NXP                                                  */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
 <div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
@@ -141,232 +141,247 @@ $(function(){initNavTree('a03402.html','',''); });
 <div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00674.html">mcuxClKey.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00653.html">mcuxClKdfModes.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">mcuxClHash.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00623.html">mcuxClHashModes.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00641.html">mcuxClHmac.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00839.html">mcuxClSession.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00671.html">mcuxClKey.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00404.html">mcuxClAes.h</a>&gt;</span> <span class="comment">// Interface to AES-related definitions and types</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00419.html">mcuxClBuffer.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00842.html">mcuxClSession.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00407.html">mcuxClAes.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_Session_Helper.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_RNG_Helper.h&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">/* Official test vectors are not available, thus taken from here:</span></div>
-<div class="line"><span class="comment"> * https://github.com/patrickfav/singlestep-kdf/wiki/NIST-SP-800-56C-Rev1:-Non-Official-Test-Vectors</span></div>
-<div class="line"><span class="comment"> */</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/* HMAC-SHA512 with salt */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t sharedSecret[16] = {</div>
-<div class="line">    0x8eu, 0x5cu, 0xd5u, 0xf6u, 0xaeu, 0x55u, 0x8fu, 0xfau,</div>
-<div class="line">    0x04u, 0xcdu, 0xa2u, 0xfau, 0xd9u, 0x4du, 0xd6u, 0x16u</div>
+<div class="line"><span class="comment">// Test vector is taken from https://datatracker.ietf.org/doc/html/rfc3394</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t keyData[<a id="_a0" name="_a0"></a><a class="code hl_define" href="a01346.html#gaf7377746dc3a4ea714c79c17f9ddbdde">MCUXCLAES_AES128_KEY_SIZE</a> / 4U] = {</div>
+<div class="line">  0x33221100U, 0x77665544U, 0xBBAA9988U, 0xFFEEDDCCU</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t fixedInfo[12] = {</div>
-<div class="line">    0x4au, 0x43u, 0x30u, 0x18u, 0xe5u, 0x1cu, 0x09u, 0xbbu,</div>
-<div class="line">    0xd6u, 0x13u, 0x26u, 0xbbu</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t kwk256Data[<a id="_a1" name="_a1"></a><a class="code hl_define" href="a01346.html#gaf85d02f88b56069ada0d2e6eaf184af8">MCUXCLAES_AES256_KEY_SIZE</a> / 4U] = {</div>
+<div class="line">  0x03020100U, 0x07060504U, 0x0B0A0908U, 0x0F0E0D0CU,</div>
+<div class="line">  0x13121110U, 0x17161514U, 0x1B1A1918U, 0x1F1E1D1CU</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t salt[16] = {</div>
-<div class="line">    0x6eu, 0xd9u, 0x3bu, 0x6fu, 0xe5u, 0xb3u, 0x50u, 0x2bu,</div>
-<div class="line">    0xb4u, 0x2bu, 0x4cu, 0x0fu, 0xcbu, 0x13u, 0x36u, 0x62u</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t expectedwrappedKeyData[<a id="_a2" name="_a2"></a><a class="code hl_define" href="a01346.html#ga4aed085a8ff1694395af6cad6be38f53">MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</a> / 4U] = {</div>
+<div class="line">  0xF9C3E864U, 0xA25B0FCEU, 0x7977E963U, 0x2A8A8105U,</div>
+<div class="line">  0x1E19C893U, 0xE78A6E7DU</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t expectedDerivedKey[68] = {</div>
-<div class="line">    0x29u, 0x5du, 0xfbu, 0xebu, 0x54u, 0xecu, 0x0fu, 0xe2u,</div>
-<div class="line">    0x4eu, 0xceu, 0x32u, 0xf5u, 0xb8u, 0x7cu, 0x85u, 0x3eu,</div>
-<div class="line">    0x69u, 0x9au, 0x62u, 0xe3u, 0x9du, 0x9cu, 0x9eu, 0xe6u,</div>
-<div class="line">    0xeeu, 0x78u, 0xf8u, 0xb9u, 0xa0u, 0xeeu, 0x50u, 0xa3u,</div>
-<div class="line">    0x6au, 0x82u, 0xe6u, 0x06u, 0x2cu, 0x95u, 0xedu, 0x53u,</div>
-<div class="line">    0xbcu, 0x36u, 0x67u, 0x00u, 0xe2u, 0xd0u, 0xe0u, 0x93u,</div>
-<div class="line">    0xbfu, 0x75u, 0x2eu, 0xeau, 0x42u, 0x99u, 0x47u, 0x2eu,</div>
-<div class="line">    0xebu, 0x4cu, 0x16u, 0xc0u, 0x65u, 0xa6u, 0x76u, 0x8cu,</div>
-<div class="line">    0x93u, 0xeeu, 0x87u, 0x11u,</div>
-<div class="line">};</div>
 <div class="line"></div>
-<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClKdfModes_SP800_56C_example)</div>
+<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example)</div>
 <div class="line">{</div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Preparation                                                            */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Preparation                                                            */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize session */</span></div>
-<div class="line">    mcuxClSession_Descriptor_t sessionDesc;</div>
-<div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
+<div class="line">  mcuxClSession_Descriptor_t sessionDesc;</div>
+<div class="line">  <a id="_a3" name="_a3"></a><a class="code hl_typedef" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
 <div class="line"> </div>
-<div class="line">    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLKEY_DERIVATION_NIST_SP800_56C_CPU_WA_SIZE, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0u);</div>
+<div class="line">  <span class="comment">/* Allocate and initialize session */</span></div>
+<div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLKEY_ENCODE_CPU_WA_SIZE, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0U);</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the PRNG */</span></div>
-<div class="line">    MCUXCLEXAMPLE_INITIALIZE_PRNG(session);</div>
+<div class="line">  <span class="comment">/* Initialize the PRNG */</span></div>
+<div class="line">  MCUXCLEXAMPLE_INITIALIZE_PRNG(session);</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Key setup                                                              */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Load the Key data of the KWK to mimic that it is already loaded.       */</span></div>
+<div class="line">  <span class="comment">/*                                                                        */</span></div>
+<div class="line">  <span class="comment">/* !! ATTENTION !!                                                        */</span></div>
+<div class="line">  <span class="comment">/*                                                                        */</span></div>
+<div class="line">  <span class="comment">/* This step is only done to have some form of verification in this       */</span></div>
+<div class="line">  <span class="comment">/* example for the end-result. It is never needed to call the             */</span></div>
+<div class="line">  <span class="comment">/* mcuxClKey_loadCopro two times in a row (without a key flush in between) */</span></div>
+<div class="line">  <span class="comment">/* in a real scenario.                                                    */</span></div>
+<div class="line">  <span class="comment">/* The dummy key handle used here will be discarded after the load to SGI.*/</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Create and initialize key descriptor structure. */</span></div>
-<div class="line">    uint32_t sharedSecretDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    <a id="_a1" name="_a1"></a><a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> sharedSecretHandle = (<a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;sharedSecretDesc;</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  uint32_t dummyKwkDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a id="_a4" name="_a4"></a><a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> dummyKwk = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;dummyKwkDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line"> </div>
-<div class="line">    <a id="_a2" name="_a2"></a><a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(resultKeyInit1, tokenKeyInit1, <a id="_a3" name="_a3"></a><a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
-<div class="line">      <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_Handle_t key                 */</span> sharedSecretHandle,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="_a4" name="_a4"></a><a class="code hl_variable" href="a01351.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a>,</div>
-<div class="line">      <span class="comment">/* uint8_t * pKeyData                    */</span> (uint8_t *) sharedSecret,</div>
-<div class="line">      <span class="comment">/* uint32_t keyDataLength                */</span> sizeof(sharedSecret)</div>
-<div class="line">    ));</div>
+<div class="line">  <a id="_a5" name="_a5"></a><a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kid_status, kid_token, <a id="_a6" name="_a6"></a><a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:        */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:                */</span> dummyKwk,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Type_t type:                 */</span> <a id="_a7" name="_a7"></a><a class="code hl_variable" href="a01348.html#ga1249b014f089397821eceab3fd04ed5c">mcuxClKey_Type_Aes256</a>,</div>
+<div class="line">    <span class="comment">/* uint8_t * pKeyData:                   */</span> (const uint8_t*)kwk256Data,</div>
+<div class="line">    <span class="comment">/* uint32_t keyDataLength:               */</span> sizeof(kwk256Data))</div>
+<div class="line">  );</div>
 <div class="line"> </div>
-<div class="line">    if((<a id="_a5" name="_a5"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != tokenKeyInit1) || (<a id="_a6" name="_a6"></a><a class="code hl_define" href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != resultKeyInit1))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a id="a7" name="a7"></a><a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  if((<a id="_a8" name="_a8"></a><a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != kid_token) || (<a id="_a9" name="_a9"></a><a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kid_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a id="a10" name="a10"></a><a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Set up input parameter structures. */</span></div>
-<div class="line">    <a id="a8" name="a8"></a><a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(fixedInfoBuf, session, fixedInfo, <span class="keyword">sizeof</span>(fixedInfo));</div>
-<div class="line">    <a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(saltBuf, session, salt, <span class="keyword">sizeof</span>(salt));</div>
-<div class="line">    <span class="keyword">struct </span>mcuxClKey_DerivationInput inputFixedInfo = {.input=fixedInfoBuf, .size=<span class="keyword">sizeof</span>(fixedInfo)};</div>
-<div class="line">    <span class="keyword">struct </span>mcuxClKey_DerivationInput inputSalt = {.input=saltBuf, .size=<span class="keyword">sizeof</span>(salt)};</div>
+<div class="line">  <span class="comment">/* Load the key data into SGI */</span></div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kld_status, kld_token, <a id="a11" name="a11"></a><a class="code hl_function" href="a01416.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:      */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:              */</span> dummyKwk,</div>
+<div class="line">    <span class="comment">/* uint32_t loadOptions:               */</span> <a id="_a12" name="_a12"></a><a class="code hl_define" href="a01414.html#gaaace2a5d7926bb12b4e9cb827bbd355a">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</a>)</div>
+<div class="line">  );</div>
 <div class="line"> </div>
-<div class="line">    mcuxClKey_DerivationInput_t inputs[] = {inputFixedInfo, inputSalt};</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Set up output structure. */</span></div>
-<div class="line">    uint8_t derivedKeyBuf[<a id="_a9" name="_a9"></a><a class="code hl_define" href="a01349.html#gaf85d02f88b56069ada0d2e6eaf184af8">MCUXCLAES_AES256_KEY_SIZE</a>];</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Create and initialize derivedKey descriptor structure. */</span></div>
-<div class="line">    uint32_t derivedKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    <a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> derivedKey = (<a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;derivedKeyDesc;</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(resultKeyInit2, tokenKeyInit2, <a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
-<div class="line">      <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_Handle_t key                 */</span> derivedKey,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="_a10" name="_a10"></a><a class="code hl_variable" href="a01351.html#ga1249b014f089397821eceab3fd04ed5c">mcuxClKey_Type_Aes256</a>,</div>
-<div class="line">      <span class="comment">/* uint8_t * pKeyData                    */</span> derivedKeyBuf,</div>
-<div class="line">      <span class="comment">/* uint32_t keyDataLength                */</span> sizeof(derivedKeyBuf)</div>
-<div class="line">    ));</div>
-<div class="line"> </div>
-<div class="line">    if((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != tokenKeyInit2) || (<a class="code hl_define" href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != resultKeyInit2))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Create Hmac mode and Derivation mode                                   */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">    uint32_t hmacModeDescBuffer[MCUXCLHMAC_HMAC_MODE_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    <a id="_a11" name="_a11"></a><a class="code hl_typedef" href="a01426.html#ga55e9279a13efd1dd87affcc88f3eb34a">mcuxClMac_CustomMode_t</a> hmacSha512 = (<a class="code hl_typedef" href="a01426.html#ga55e9279a13efd1dd87affcc88f3eb34a">mcuxClMac_CustomMode_t</a>) hmacModeDescBuffer;</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(hashCreateMode_result, hashCreateMode_token, <a id="_a12" name="_a12"></a><a class="code hl_function" href="a01402.html#ga43f6d98b6b3b6a6e62263130e2c95a68">mcuxClHmac_createHmacMode</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClMac_CustomMode_t mode:       */</span> hmacSha512,</div>
-<div class="line">    <span class="comment">/* mcuxClHash_Algo_t hashAlgorithm:   */</span> <a id="_a13" name="_a13"></a><a class="code hl_define" href="a01396.html#ga532fd49321dc205d263147578ac0987c">mcuxClHash_Algorithm_Sha512</a>)</div>
-<div class="line">    );</div>
-<div class="line"> </div>
-<div class="line">    if((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01402.html#ga43f6d98b6b3b6a6e62263130e2c95a68">mcuxClHmac_createHmacMode</a>) != hashCreateMode_token) || (<a id="_a14" name="_a14"></a><a class="code hl_define" href="a01422.html#ga7df50ebdaad50cfe8661c930df6c43df">MCUXCLMAC_STATUS_OK</a> != hashCreateMode_result))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">    uint32_t derivationModeDescBuffer[MCUXCLKEY_DERIVATION_MODE_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    mcuxClKey_DerivationMode_t * pDerivationMode = (mcuxClKey_DerivationMode_t *) derivationModeDescBuffer;</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(resultModeConstruct, tokenModeConstruct, <a id="_a15" name="_a15"></a><a class="code hl_function" href="a01408.html#gab7f621aed5b55861cf1f2aed3bc055d0">mcuxClKey_Derivation_ModeConstructor_NIST_SP800_56C</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClKey_DerivationMode_t *                      */</span> pDerivationMode,</div>
-<div class="line">    <span class="comment">/* const mcuxClKey_DerivationAlgorithmDescriptor_t * */</span> <a id="_a16" name="_a16"></a><a class="code hl_variable" href="a01408.html#ga21a8ecac377e346ab375aa4f60f60d5e">mcuxClKey_DerivationAlgorithm_NIST_SP800_56C_OneStep</a>,</div>
-<div class="line">    <span class="comment">/* mcuxClMac_Mode_t                                  */</span> hmacSha512, <span class="comment">// use this when using mac function as PRF</span></div>
-<div class="line">    <span class="comment">/* mcuxClHash_Algo_t                                 */</span> NULL, <span class="comment">// use this when using hash function as PRF</span></div>
-<div class="line">    <span class="comment">/* uint32_t                                         */</span> 0u <span class="comment">// no options for this mode</span></div>
-<div class="line">    ));</div>
-<div class="line"> </div>
-<div class="line">    if((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01408.html#gab7f621aed5b55861cf1f2aed3bc055d0">mcuxClKey_Derivation_ModeConstructor_NIST_SP800_56C</a>) != tokenModeConstruct) || (<a class="code hl_define" href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != resultModeConstruct))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Key Derivation                                                         */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Call key derivation function. */</span></div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(resultDeriv, tokenDeriv, mcuxClKey_derivation(</div>
-<div class="line">      <span class="comment">/* mcuxClSession_Handle_t pSession         */</span> session,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_Derivation_t derivationMode   */</span> pDerivationMode,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_Handle_t derivationKey        */</span> sharedSecretHandle,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_DerivationInput_t inputs[]    */</span> inputs,</div>
-<div class="line">      <span class="comment">/* uint32_t numberOfInputs                */</span> 2u,</div>
-<div class="line">      <span class="comment">/* mcuxClKey_Handle_t derivedKey           */</span> derivedKey</div>
-<div class="line">    ));</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(mcuxClKey_derivation) != tokenDeriv) || (<a class="code hl_define" href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != resultDeriv))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* The derivedKey could now be used for a cryptographic operation.        */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Verification                                                           */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Compare the derived key to the reference value. */</span></div>
-<div class="line">    <span class="keywordflow">if</span>(!mcuxClCore_assertEqual(derivedKeyBuf, expectedDerivedKey, <a class="code hl_define" href="a01349.html#gaf85d02f88b56069ada0d2e6eaf184af8">MCUXCLAES_AES256_KEY_SIZE</a>))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_FAILURE;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Cleanup                                                                */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a>) != kld_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kld_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Key Init and &quot;load&quot; the key-wrapping key                               */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  uint32_t keyWrappingKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> keyWrappingKey = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;keyWrappingKeyDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kiKwk_status, kiKwk_token, <a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:        */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:                */</span> keyWrappingKey,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Type_t type:                 */</span> <a class="code hl_variable" href="a01348.html#ga1249b014f089397821eceab3fd04ed5c">mcuxClKey_Type_Aes256</a>,</div>
+<div class="line">    <span class="comment">/* uint8_t * pKeyData:                   */</span> (uint8_t *) NULL, <span class="comment">/* not needed, key is already loaded */</span></div>
+<div class="line">    <span class="comment">/* uint32_t keyDataLength:               */</span> 0u <span class="comment">/* not needed, key is already loaded */</span>)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != kiKwk_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kiKwk_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(klKwk_status, klKwk_token, <a class="code hl_function" href="a01416.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:      */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:              */</span> keyWrappingKey,</div>
+<div class="line">    <span class="comment">/* uint32_t loadOptions:               */</span> <a class="code hl_define" href="a01414.html#gaaace2a5d7926bb12b4e9cb827bbd355a">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</a></div>
+<div class="line">                                              | <a id="_a13" name="_a13"></a><a class="code hl_define" href="a01414.html#gace2f11c195c9044f5fa5c4457f65d36b">MCUXCLKEY_LOADOPTION_ALREADYLOADED</a>)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a>) != klKwk_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != klKwk_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Key Init+Wrap using the Key_encode API                                 */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;keyDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  uint8_t wrappedKeyData[<a class="code hl_define" href="a01346.html#ga4aed085a8ff1694395af6cad6be38f53">MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</a>];</div>
+<div class="line">  uint32_t wrappedKeyLen = 0u;</div>
+<div class="line"></div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ke_status, ke_token, <a id="_a14" name="_a14"></a><a class="code hl_function" href="a01416.html#gae683449f5dd4a3cb10a9f9a1f68bf22b">mcuxClKey_encode</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:        */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Encoding_t encoding:         */</span> <a id="_a15" name="_a15"></a><a class="code hl_variable" href="a01347.html#ga0a0b95171f3244efecc718424e2dc377">mcuxClAes_Encoding_Rfc3394</a>,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t encodedKey:         */</span> key,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Type_t type:                 */</span> <a id="_a16" name="_a16"></a><a class="code hl_variable" href="a01348.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a>,</div>
+<div class="line">    <span class="comment">/* const uint8_t * pPlainKeyData:        */</span> (const uint8_t*)keyData,</div>
+<div class="line">    <span class="comment">/* uint32_t plainKeyDataLength:          */</span> sizeof(keyData),</div>
+<div class="line">    <span class="comment">/* const uint8_t * pAuxData:             */</span> (uint8_t*) keyWrappingKeyDesc,</div>
+<div class="line">    <span class="comment">/* uint32_t auxDataLength:               */</span> sizeof(keyWrappingKeyDesc),</div>
+<div class="line">    <span class="comment">/* uint8_t * pEncodedKeyData:            */</span> wrappedKeyData,</div>
+<div class="line">    <span class="comment">/* uint32_t* const pEncodedKeyDataLength:*/</span> &amp;wrappedKeyLen)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#gae683449f5dd4a3cb10a9f9a1f68bf22b">mcuxClKey_encode</a>) != ke_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != ke_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Verification                                                           */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClKey_encode&quot;</span>)</div>
+<div class="line">  if(!mcuxClCore_assertEqual(wrappedKeyData, (const uint8_t*)expectedwrappedKeyData, sizeof(expectedwrappedKeyData)))</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code hl_define" href="a01346.html#ga4aed085a8ff1694395af6cad6be38f53">MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</a> != wrappedKeyLen)</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Crypto Operation                                                       */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Flush the loaded keys                                                  */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kf1_status, kf1_token, <a id="a17" name="a17"></a><a class="code hl_function" href="a01416.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:      */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:              */</span> dummyKwk)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a>) != kf1_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kf1_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(kf2_status, kf2_token, <a class="code hl_function" href="a01416.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session:      */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:              */</span> keyWrappingKey)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a>) != kf2_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != kf2_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Destroy the current session                                            */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
+<div class="line">  {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa00407_html"><div class="ttname"><a href="a00407.html">mcuxClAes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClAes component.</div></div>
-<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">mcuxClHash.h</a></div><div class="ttdoc">Top-level include file for the mcuxClHash component.</div></div>
-<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">mcuxClHashModes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClHashModes component.</div></div>
-<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">mcuxClHmac.h</a></div><div class="ttdoc">Top-level include file for the mcuxClHmac component.</div></div>
-<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">mcuxClKdfModes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClKdfModes component.</div></div>
-<div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">mcuxClKey.h</a></div><div class="ttdoc">Top-level include file for the mcuxClKey component.</div></div>
-<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
-<div class="ttc" id="aa01349_html_gaf85d02f88b56069ada0d2e6eaf184af8"><div class="ttname"><a href="a01349.html#gaf85d02f88b56069ada0d2e6eaf184af8">MCUXCLAES_AES256_KEY_SIZE</a></div><div class="ttdeci">#define MCUXCLAES_AES256_KEY_SIZE</div><div class="ttdoc">AES-256 key size in bytes.</div><div class="ttdef"><b>Definition</b> mcuxClAes_Constants.h:64</div></div>
-<div class="ttc" id="aa01351_html_ga1249b014f089397821eceab3fd04ed5c"><div class="ttname"><a href="a01351.html#ga1249b014f089397821eceab3fd04ed5c">mcuxClKey_Type_Aes256</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Aes256</div><div class="ttdoc">Key type pointer for AES-256 based keys.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyTypes.h:97</div></div>
-<div class="ttc" id="aa01351_html_ga8f0a74b8ec63f9bcfff2723f37602d0d"><div class="ttname"><a href="a01351.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Aes128</div><div class="ttdoc">Key type pointer for AES-128 based keys.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyTypes.h:71</div></div>
-<div class="ttc" id="aa01354_html_gaa0ed06160ed0bb21bbef3def4479d9ce"><div class="ttname"><a href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RO(name, info, ptr, size)</div><div class="ttdoc">Initialize an input buffer (mcuxCl_InputBuffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:104</div></div>
-<div class="ttc" id="aa01396_html_ga532fd49321dc205d263147578ac0987c"><div class="ttname"><a href="a01396.html#ga532fd49321dc205d263147578ac0987c">mcuxClHash_Algorithm_Sha512</a></div><div class="ttdeci">#define mcuxClHash_Algorithm_Sha512</div><div class="ttdoc">Sha-512 algorithm descriptor Sha-512 hash calculation using the Hash functionality SGI.</div><div class="ttdef"><b>Definition</b> mcuxClHashModes_Algorithms.h:190</div></div>
-<div class="ttc" id="aa01402_html_ga43f6d98b6b3b6a6e62263130e2c95a68"><div class="ttname"><a href="a01402.html#ga43f6d98b6b3b6a6e62263130e2c95a68">mcuxClHmac_createHmacMode</a></div><div class="ttdeci">mcuxClMac_Status_t mcuxClHmac_createHmacMode(mcuxClMac_CustomMode_t mode, mcuxClHash_Algo_t hashAlgorithm)</div><div class="ttdoc">This function creates a HMAC mode descriptor for software implementations of HMAC.</div></div>
-<div class="ttc" id="aa01408_html_ga21a8ecac377e346ab375aa4f60f60d5e"><div class="ttname"><a href="a01408.html#ga21a8ecac377e346ab375aa4f60f60d5e">mcuxClKey_DerivationAlgorithm_NIST_SP800_56C_OneStep</a></div><div class="ttdeci">static mcuxClKey_DerivationAlgorithm_t mcuxClKey_DerivationAlgorithm_NIST_SP800_56C_OneStep</div><div class="ttdoc">NIST SP800-56C key derivation algorithm types.</div><div class="ttdef"><b>Definition</b> mcuxClKdfModes_Algorithms_NIST_SP800_56C.h:101</div></div>
-<div class="ttc" id="aa01408_html_gab7f621aed5b55861cf1f2aed3bc055d0"><div class="ttname"><a href="a01408.html#gab7f621aed5b55861cf1f2aed3bc055d0">mcuxClKey_Derivation_ModeConstructor_NIST_SP800_56C</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_Derivation_ModeConstructor_NIST_SP800_56C(mcuxClKey_DerivationMode_t *pDerivationMode, const mcuxClKey_DerivationAlgorithmDescriptor_t *derivationAlgorithm, mcuxClMac_Mode_t macMode, mcuxClHash_Algo_t hashFunction, uint32_t options)</div><div class="ttdoc">Construct a key derivation function (KDF) mode according to NIST SP800-56C.</div></div>
-<div class="ttc" id="aa01413_html_ga3cac3b08cb53d2949698e19319010c49"><div class="ttname"><a href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_OK</div><div class="ttdoc">Key operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:60</div></div>
-<div class="ttc" id="aa01419_html_ga5faf77a895683e1e7d904bd323abc38d"><div class="ttname"><a href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_init(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Type_t type, const uint8_t *pKeyData, uint32_t keyDataLength)</div><div class="ttdoc">Initializes a key handle.</div></div>
-<div class="ttc" id="aa01420_html_gafe84fa2aa66094f542164e0627a54c5d"><div class="ttname"><a href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></div><div class="ttdeci">mcuxClKey_Descriptor_t *const mcuxClKey_Handle_t</div><div class="ttdoc">Key handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:111</div></div>
-<div class="ttc" id="aa01422_html_ga7df50ebdaad50cfe8661c930df6c43df"><div class="ttname"><a href="a01422.html#ga7df50ebdaad50cfe8661c930df6c43df">MCUXCLMAC_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLMAC_STATUS_OK</div><div class="ttdoc">Blocking operation finished successfully.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Constants.h:56</div></div>
-<div class="ttc" id="aa01426_html_ga55e9279a13efd1dd87affcc88f3eb34a"><div class="ttname"><a href="a01426.html#ga55e9279a13efd1dd87affcc88f3eb34a">mcuxClMac_CustomMode_t</a></div><div class="ttdeci">mcuxClMac_ModeDescriptor_t *const mcuxClMac_CustomMode_t</div><div class="ttdoc">MAC custom mode/algorithm type.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:95</div></div>
-<div class="ttc" id="aa01483_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
-<div class="ttc" id="aa01513_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01513_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
+<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">mcuxClAes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClAes component.</div></div>
+<div class="ttc" id="aa00419_html"><div class="ttname"><a href="a00419.html">mcuxClBuffer.h</a></div><div class="ttdoc">Top-level include file for the mcuxClBuffer component.</div></div>
+<div class="ttc" id="aa00455_html"><div class="ttname"><a href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
+<div class="ttc" id="aa00671_html"><div class="ttname"><a href="a00671.html">mcuxClKey.h</a></div><div class="ttdoc">Top-level include file for the mcuxClKey component.</div></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa01346_html_ga4aed085a8ff1694395af6cad6be38f53"><div class="ttname"><a href="a01346.html#ga4aed085a8ff1694395af6cad6be38f53">MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</a></div><div class="ttdeci">#define MCUXCLAES_ENCODING_RFC3394_AES128_KEY_SIZE</div><div class="ttdoc">RFC3394 encoding of AES-128 key material, encoded key size in bytes.</div><div class="ttdef"><b>Definition</b> mcuxClAes_Constants.h:70</div></div>
+<div class="ttc" id="aa01346_html_gaf7377746dc3a4ea714c79c17f9ddbdde"><div class="ttname"><a href="a01346.html#gaf7377746dc3a4ea714c79c17f9ddbdde">MCUXCLAES_AES128_KEY_SIZE</a></div><div class="ttdeci">#define MCUXCLAES_AES128_KEY_SIZE</div><div class="ttdoc">AES-128 key size in bytes.</div><div class="ttdef"><b>Definition</b> mcuxClAes_Constants.h:60</div></div>
+<div class="ttc" id="aa01346_html_gaf85d02f88b56069ada0d2e6eaf184af8"><div class="ttname"><a href="a01346.html#gaf85d02f88b56069ada0d2e6eaf184af8">MCUXCLAES_AES256_KEY_SIZE</a></div><div class="ttdeci">#define MCUXCLAES_AES256_KEY_SIZE</div><div class="ttdoc">AES-256 key size in bytes.</div><div class="ttdef"><b>Definition</b> mcuxClAes_Constants.h:64</div></div>
+<div class="ttc" id="aa01347_html_ga0a0b95171f3244efecc718424e2dc377"><div class="ttname"><a href="a01347.html#ga0a0b95171f3244efecc718424e2dc377">mcuxClAes_Encoding_Rfc3394</a></div><div class="ttdeci">static const mcuxClKey_Encoding_t mcuxClAes_Encoding_Rfc3394</div><div class="ttdoc">Key encoding for RFC3394 key wrap/unwrap.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyEncodingMechanisms.h:67</div></div>
+<div class="ttc" id="aa01348_html_ga1249b014f089397821eceab3fd04ed5c"><div class="ttname"><a href="a01348.html#ga1249b014f089397821eceab3fd04ed5c">mcuxClKey_Type_Aes256</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Aes256</div><div class="ttdoc">Key type pointer for AES-256 based keys.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyTypes.h:97</div></div>
+<div class="ttc" id="aa01348_html_ga8f0a74b8ec63f9bcfff2723f37602d0d"><div class="ttname"><a href="a01348.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Aes128</div><div class="ttdoc">Key type pointer for AES-128 based keys.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyTypes.h:71</div></div>
+<div class="ttc" id="aa01410_html_ga3cac3b08cb53d2949698e19319010c49"><div class="ttname"><a href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_OK</div><div class="ttdoc">Key operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:60</div></div>
+<div class="ttc" id="aa01414_html_gaaace2a5d7926bb12b4e9cb827bbd355a"><div class="ttname"><a href="a01414.html#gaaace2a5d7926bb12b4e9cb827bbd355a">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</a></div><div class="ttdeci">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</div><div class="ttdoc">SGI key slot 6.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:198</div></div>
+<div class="ttc" id="aa01414_html_gace2f11c195c9044f5fa5c4457f65d36b"><div class="ttname"><a href="a01414.html#gace2f11c195c9044f5fa5c4457f65d36b">MCUXCLKEY_LOADOPTION_ALREADYLOADED</a></div><div class="ttdeci">#define MCUXCLKEY_LOADOPTION_ALREADYLOADED</div><div class="ttdoc">Option: the key is already loaded; only set the fields in the key object.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:207</div></div>
+<div class="ttc" id="aa01416_html_ga5faf77a895683e1e7d904bd323abc38d"><div class="ttname"><a href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_init(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Type_t type, const uint8_t *pKeyData, uint32_t keyDataLength)</div><div class="ttdoc">Initializes a key handle.</div></div>
+<div class="ttc" id="aa01416_html_ga60cc1680589d37633bf78ad59fedcc43"><div class="ttname"><a href="a01416.html#ga60cc1680589d37633bf78ad59fedcc43">mcuxClKey_flush</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_flush(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key)</div><div class="ttdoc">Flush key from destination which can be a key slot of coprocessor or memory buffer.</div></div>
+<div class="ttc" id="aa01416_html_ga9a0d1cd7e8d8c172394eaeb14cf390ba"><div class="ttname"><a href="a01416.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba">mcuxClKey_loadCopro</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_loadCopro(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, uint32_t loadOptions)</div><div class="ttdoc">Load key into destination key slot of a coprocessor.</div></div>
+<div class="ttc" id="aa01416_html_gae683449f5dd4a3cb10a9f9a1f68bf22b"><div class="ttname"><a href="a01416.html#gae683449f5dd4a3cb10a9f9a1f68bf22b">mcuxClKey_encode</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_encode(mcuxClSession_Handle_t session, mcuxClKey_Encoding_t encoding, mcuxClKey_Handle_t encodedKey, mcuxClKey_Type_t type, const uint8_t *pPlainKeyData, uint32_t plainKeyDataLength, const uint8_t *pAuxData, uint32_t auxDataLength, uint8_t *pEncodedKeyData, uint32_t *const pEncodedKeyDataLength)</div><div class="ttdoc">Key descriptor initialization function including applying a encoding mechanism.</div></div>
+<div class="ttc" id="aa01417_html_gafe84fa2aa66094f542164e0627a54c5d"><div class="ttname"><a href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></div><div class="ttdeci">mcuxClKey_Descriptor_t *const mcuxClKey_Handle_t</div><div class="ttdoc">Key handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:111</div></div>
+<div class="ttc" id="aa01480_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
+<div class="ttc" id="aa01510_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
+<div class="ttc" id="aa01510_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
+<div class="ttc" id="aa01510_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

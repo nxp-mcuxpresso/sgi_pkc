@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClSignature_Types.h Source File</title>
+<title>MCUX CLNS: mcuxClXof.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a00866_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClSignature_Types.h</div></div>
+  <div class="headertitle"><div class="title">mcuxClXof.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2020-2021, 2023 NXP                                            */</span></div>
+<a href="a00866.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023 NXP                                                       */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -130,55 +130,27 @@ $(function(){initNavTree('a00866_source.html','',''); });
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       */</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#ifndef MCUXCLSIGNATURE_TYPES_H_</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define MCUXCLSIGNATURE_TYPES_H_</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;mcuxClCore_Platform.h&gt;</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">struct </span>mcuxClSignature_ModeDescriptor;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">   65</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClSignature_ModeDescriptor <a class="code hl_typedef" href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a01490.html#ga6ac41432794064bbed527293f3004584">   72</a></span><span class="keyword">typedef</span> <span class="keyword">const</span> <a class="code hl_typedef" href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> * <span class="keyword">const</span> <a class="code hl_typedef" href="a01490.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">struct </span>mcuxClSignature_TestDescriptor;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a01490.html#ga672adb417c023f01ae78b0819d4d38ee">   88</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClSignature_TestDescriptor <a class="code hl_typedef" href="a01490.html#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a01490.html#ga27896a9732ea6f2ed497b26796bf5348">   95</a></span><span class="keyword">typedef</span> <span class="keyword">const</span> <a class="code hl_typedef" href="a01490.html#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a> * <span class="keyword">const</span> <a class="code hl_typedef" href="a01490.html#ga27896a9732ea6f2ed497b26796bf5348">mcuxClSignature_Test_t</a>;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">struct </span>mcuxClSignature_Context;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="a01490.html#ga3006d0f7ee6302bda8fa5edb1437f04a">  111</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClSignature_Context <a class="code hl_typedef" href="a01490.html#ga3006d0f7ee6302bda8fa5edb1437f04a">mcuxClSignature_Context_t</a>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a01490.html#ga2fdcf305b7ceacbb173a35887ead78c7">  119</a></span><span class="keyword">typedef</span> uint32_t <a class="code hl_typedef" href="a01490.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLSIGNATURE_TYPES_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aa01490_html_ga27896a9732ea6f2ed497b26796bf5348"><div class="ttname"><a href="a01490.html#ga27896a9732ea6f2ed497b26796bf5348">mcuxClSignature_Test_t</a></div><div class="ttdeci">const mcuxClSignature_TestDescriptor_t *const mcuxClSignature_Test_t</div><div class="ttdoc">Signature selftest mode/algorithm type.</div><div class="ttdef"><b>Definition</b> mcuxClSignature_Types.h:95</div></div>
-<div class="ttc" id="aa01490_html_ga2fdcf305b7ceacbb173a35887ead78c7"><div class="ttname"><a href="a01490.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a></div><div class="ttdeci">uint32_t mcuxClSignature_Status_t</div><div class="ttdoc">Signature status code.</div><div class="ttdef"><b>Definition</b> mcuxClSignature_Types.h:119</div></div>
-<div class="ttc" id="aa01490_html_ga3006d0f7ee6302bda8fa5edb1437f04a"><div class="ttname"><a href="a01490.html#ga3006d0f7ee6302bda8fa5edb1437f04a">mcuxClSignature_Context_t</a></div><div class="ttdeci">struct mcuxClSignature_Context mcuxClSignature_Context_t</div><div class="ttdoc">Signature context type.</div><div class="ttdef"><b>Definition</b> mcuxClSignature_Types.h:111</div></div>
-<div class="ttc" id="aa01490_html_ga672adb417c023f01ae78b0819d4d38ee"><div class="ttname"><a href="a01490.html#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a></div><div class="ttdeci">struct mcuxClSignature_TestDescriptor mcuxClSignature_TestDescriptor_t</div><div class="ttdoc">Signature selftest mode/algorithm descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClSignature_Types.h:88</div></div>
-<div class="ttc" id="aa01490_html_ga6ac41432794064bbed527293f3004584"><div class="ttname"><a href="a01490.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></div><div class="ttdeci">const mcuxClSignature_ModeDescriptor_t *const mcuxClSignature_Mode_t</div><div class="ttdoc">Signature mode/algorithm type.</div><div class="ttdef"><b>Definition</b> mcuxClSignature_Types.h:72</div></div>
-<div class="ttc" id="aa01490_html_gac7698895768cf6208b4617d6ddf8c180"><div class="ttname"><a href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a></div><div class="ttdeci">struct mcuxClSignature_ModeDescriptor mcuxClSignature_ModeDescriptor_t</div><div class="ttdoc">Signature mode/algorithm descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClSignature_Types.h:65</div></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#ifndef MCUXCLXOF_H_</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define MCUXCLXOF_H_</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;<a class="code" href="a00881.html">mcuxClXof_Types.h</a>&gt;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &lt;<a class="code" href="a00878.html">mcuxClXof_Functions.h</a>&gt;</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#include &lt;<a class="code" href="a00875.html">mcuxClXof_Constants.h</a>&gt;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLXOF_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aa00875_html"><div class="ttname"><a href="a00875.html">mcuxClXof_Constants.h</a></div><div class="ttdoc">Constants for use with the mcuxClXof component.</div></div>
+<div class="ttc" id="aa00878_html"><div class="ttname"><a href="a00878.html">mcuxClXof_Functions.h</a></div><div class="ttdoc">Top-level API of the mcuxClXof component.</div></div>
+<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">mcuxClXof_Types.h</a></div><div class="ttdoc">Type definitions for the mcuxClXof component.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>mcuxClSignature_Types.h</b></li>
+    <li class="navelem"><a href="a00866.html">mcuxClXof.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

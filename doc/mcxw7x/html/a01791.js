@@ -1,15 +1,27 @@
 var a01791 =
 [
-    [ "PMU_PCTRL_VDD_CORE_AON_EN", "a01791.html#gaf1d4cc862d61a41df4c2ef22225fbd0b", null ],
-    [ "PMU_PCTRL_VDD_CORE_MAIN_EN", "a01791.html#ga55c0071babfef8d05707dea9fd3c4928", null ],
-    [ "PMU_PCTRL_VDD_MAIN_LPWR", "a01791.html#ga3764971843fcf4d00ce12fb8dd9b2469", null ],
-    [ "PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_ACONFIG", "a01791.html#ga26ab57094a137004a3882dfc7cd269d3", null ],
-    [ "PMU_VDD_CORE_AON_CONFIG_VDD_CORE_AON_DSCONFIG", "a01791.html#ga0eaff368f731cc9541d99c897ff28118", null ],
-    [ "PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_ACONFIG", "a01791.html#ga6d339e459a31b1f0aa5a378e3524bad3", null ],
-    [ "PMU_VDD_CORE_MAIN_CONFIG_VDD_CORE_MAIN_VOUTSEL_LPWR", "a01791.html#ga85120522d998c9d32cf4d413bd4adcfa", null ],
-    [ "PMU_FRO_CTRL_FRO16K_EN", "a01791.html#gaeae0502c2ab868282f5a606565fbee5f", null ],
-    [ "PMU_FRO_CTRL_CLOCK_SEL", "a01791.html#ga3027473c2c52c9289859884a41f6156d", null ],
-    [ "PMU_PMU_DPD3_CTRL_FRO16KHZ_ACT", "a01791.html#ga2bf16ace4c43010fcfc5819b43baa835", null ],
-    [ "PMU_VDD_CORE_AON_WKUP_WDTC_DCDC_AON_WKUP_WDOG", "a01791.html#ga3c1311d6ed6aa17fe95a0667eebc1799", null ],
-    [ "PMU_AWK_UP_TIME_WKUP_TIME", "a01791.html#ga7544ccca702d23a0a6d4e61f1a6a3346", null ]
+    [ "SMM Register Masks", "a01792.html", "a01792" ],
+    [ "SMM_Type", "a02866.html", [
+      [ "CNFG", "a02866.html#ad6abf1fd8b8fa6fb0ef0d53e3bcf3de4", null ],
+      [ "WKUP_MAIN", "a02866.html#ace1ea5c09f3217b5b22b57bce5a9940f", null ],
+      [ "AON_CPU", "a02866.html#a880a18065b2285359f309fb88cf9de9b", null ],
+      [ "WKUP_STAT", "a02866.html#a5f989c67f0c16450238fdb910a6bc2b6", null ],
+      [ "STAT", "a02866.html#aaa3351c09325bd90fc4b24a2d695f96b", null ],
+      [ "PWDN_CONFIG", "a02866.html#a2f818ba7ce2c7361bbb6ada5fa8e334e", null ],
+      [ "DPSLP_COUNT", "a02866.html#ae8efafd2f1998d46e8b7a2e378ff0adc", null ],
+      [ "RTC_DCDC_CNTRL", "a02866.html#a9e4cfb5036be8a963f34fe2f423c7c93", null ],
+      [ "RTC_XTAL_CONFG1", "a02866.html#add5a9abdab378c2245da248528813266", null ],
+      [ "RTC_XTAL_CONFG2", "a02866.html#a3c17f8951bde81fd8f4abe0d8002c56e", null ],
+      [ "LSB_BCKP1", "a02866.html#a138910d4668a9047d52de97dc1f73c5f", null ],
+      [ "MSB_BCKP1", "a02866.html#a3c16c7e091019c2b683160f9bc9bda83", null ],
+      [ "LSB_BCKP2", "a02866.html#a83a8a73d354a1f3ba87ff0011bbe7afa", null ],
+      [ "MSB_BCKP2", "a02866.html#a2db3b1b41639f88202b00ce02b1ba466", null ],
+      [ "RTC_ANLG_XTAL", "a02866.html#afe4ca351a08128e17b4edbcb037e9678", null ],
+      [ "MEMORY_RTN", "a02866.html#ac1f60def68663f6719fae8eb4c21514d", null ],
+      [ "BIAS_CTRL", "a02866.html#a701f63cffc2c68cdb26e64ed8503f631", null ],
+      [ "XTAL_TRIM", "a02866.html#ab2e990215a8c40fb19f9c39c8451e938", null ],
+      [ "TAMP_CTRL", "a02866.html#adadbe28e873e9352c8e678ead8ecc71b", null ],
+      [ "LATCHED_RTC_COUNTER", "a02866.html#ab1d3e59338af3a95d00b7a23c79652fb", null ]
+    ] ],
+    [ "SMM_LTCHD_CNT_RTC_COUNT", "a01791.html#ga902ac4c35cd2d18da788ad6490cecac4", null ]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxw7x/mcuxClResource_MemoryConsumption.h File Reference</title>
+<title>MCUX CLNS: platform/mcxw7x/mcuxClRandomModes_MemoryConsumption.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,40 +102,47 @@ $(function(){initNavTree('a03704.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClResource_MemoryConsumption.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClRandomModes_MemoryConsumption.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines the memory consumption for the mcuxClResource component.  
+<p>Defines the memory consumption for the mcuxClRandom component.  
 <a href="#details">More...</a></p>
 
 <p><a href="a03704_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a065b8b93c0ca1f9090a57bb30f6a093e" id="r_a065b8b93c0ca1f9090a57bb30f6a093e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a065b8b93c0ca1f9090a57bb30f6a093e">MCUXCLRESOURCE_CONTEXT_SIZE</a></td></tr>
-<tr class="memdesc:a065b8b93c0ca1f9090a57bb30f6a093e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size (in bytes) of mcuxClResource context.  <br /></td></tr>
+<tr class="memitem:ga2e6179f023e993cea2e6d14807f05f50" id="r_ga2e6179f023e993cea2e6d14807f05f50"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_PATCHMODE_DESCRIPTOR_SIZE</b></td></tr>
+<tr class="memitem:ga2d1ea695b3ecfeeee8bf0f5cba2470e9" id="r_ga2d1ea695b3ecfeeee8bf0f5cba2470e9"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_TESTMODE_DESCRIPTOR_SIZE</b></td></tr>
+<tr class="memitem:ga59fbf5778ef6a709439a803f25e01588" id="r_ga59fbf5778ef6a709439a803f25e01588"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_MAX_CPU_WA_BUFFER_SIZE</b></td></tr>
+<tr class="memitem:gaec7b900425ae4a868bc28f07f244e012" id="r_gaec7b900425ae4a868bc28f07f244e012"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_INIT_WACPU_SIZE</b></td></tr>
+<tr class="memitem:ga50a8e0a649ba1eb61230eb08aad49d92" id="r_ga50a8e0a649ba1eb61230eb08aad49d92"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_RESEED_WACPU_SIZE</b></td></tr>
+<tr class="memitem:gaacaa5035a96e553110c4f3b6597a89a0" id="r_gaacaa5035a96e553110c4f3b6597a89a0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_GENERATE_WACPU_SIZE</b></td></tr>
+<tr class="memitem:ga92890503eaf94411a6eceede4bc0804c" id="r_ga92890503eaf94411a6eceede4bc0804c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_SELFTEST_WACPU_SIZE</b></td></tr>
+<tr class="memitem:ga8ce34613a3418be522d9420f2ab49656" id="r_ga8ce34613a3418be522d9420f2ab49656"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_UNINIT_WACPU_SIZE</b></td></tr>
+<tr class="memitem:ga641f79548f72b067cebdca4eff78dd76" id="r_ga641f79548f72b067cebdca4eff78dd76"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_CHECKSECURITYSTRENGTH_WACPU_SIZE</b></td></tr>
+<tr class="memitem:gaa2fb0e4c6985e63daae5e11e4031b2a8" id="r_gaa2fb0e4c6985e63daae5e11e4031b2a8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_CREATEPATCHMODE_WACPU_SIZE</b></td></tr>
+<tr class="memitem:ga34185164de955a9bcda1e71bb3bf281e" id="r_ga34185164de955a9bcda1e71bb3bf281e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_CREATETESTMODEFROMNORMALMODE_WACPU_SIZE</b></td></tr>
+<tr class="memitem:gaa71d8d7f037f248d571ce1335213edea" id="r_gaa71d8d7f037f248d571ce1335213edea"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_PATCHMODE_CONTEXT_SIZE</b></td></tr>
+<tr class="memitem:gab9531d731143f5d6a5e1acd1efd67115" id="r_gab9531d731143f5d6a5e1acd1efd67115"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>MCUXCLRANDOMMODES_PATCHMODE_CONTEXT_SIZE_IN_WORDS</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines the memory consumption for the mcuxClResource component. </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a065b8b93c0ca1f9090a57bb30f6a093e" name="a065b8b93c0ca1f9090a57bb30f6a093e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a065b8b93c0ca1f9090a57bb30f6a093e">&#9670;&#160;</a></span>MCUXCLRESOURCE_CONTEXT_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRESOURCE_CONTEXT_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Size (in bytes) of mcuxClResource context. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Defines the memory consumption for the mcuxClRandom component. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -148,7 +155,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxw7x</b></li><li class="navelem"><a href="a03704.html">mcuxClResource_MemoryConsumption.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxw7x</b></li><li class="navelem"><a href="a03704.html">mcuxClRandomModes_MemoryConsumption.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLHASH_STATUS_</title>
+<title>MCUX CLNS: mcuxClHashModes</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,269 +102,25 @@ $(function(){initNavTree('a01392.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLHASH_STATUS_ <div class="ingroups"><a class="el" href="a01390.html">mcuxClHash</a> &raquo; <a class="el" href="a01391.html">mcuxClHash_Constants</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClHashModes </div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Return code definitions.  
+<p>mcuxClHashModes component  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:gadf29410b02d95357d48a3ba443558da4" id="r_gadf29410b02d95357d48a3ba443558da4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a></td></tr>
-<tr class="memdesc:gadf29410b02d95357d48a3ba443558da4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash operation successful.  <br /></td></tr>
-<tr class="memitem:gaaf06d7932b91cce6e94312a534f61934" id="r_gaaf06d7932b91cce6e94312a534f61934"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaaf06d7932b91cce6e94312a534f61934">MCUXCLHASH_STATUS_COMPARE_EQUAL</a></td></tr>
-<tr class="memdesc:gaaf06d7932b91cce6e94312a534f61934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash operation and comparison of result successful.  <br /></td></tr>
-<tr class="memitem:ga05eaccf399e17f323499f31e764d5173" id="r_ga05eaccf399e17f323499f31e764d5173"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga05eaccf399e17f323499f31e764d5173">MCUXCLHASH_COMPARE_EQUAL</a></td></tr>
-<tr class="memitem:ga377eaddc82740c4c4590688c754f78a0" id="r_ga377eaddc82740c4c4590688c754f78a0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga377eaddc82740c4c4590688c754f78a0">MCUXCLHASH_STATUS_FAILURE</a></td></tr>
-<tr class="memdesc:ga377eaddc82740c4c4590688c754f78a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash operation failed.  <br /></td></tr>
-<tr class="memitem:gaaef282127a4c3c3e8f9a034cba1b70e0" id="r_gaaef282127a4c3c3e8f9a034cba1b70e0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaaef282127a4c3c3e8f9a034cba1b70e0">MCUXCLHASH_FAILURE</a></td></tr>
-<tr class="memitem:ga6cd095f16a5ff26877cc877cecbd0e2b" id="r_ga6cd095f16a5ff26877cc877cecbd0e2b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6cd095f16a5ff26877cc877cecbd0e2b">MCUXCLHASH_STATUS_INVALID_PARAMS</a></td></tr>
-<tr class="memdesc:ga6cd095f16a5ff26877cc877cecbd0e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash function called with invalid parameters.  <br /></td></tr>
-<tr class="memitem:gad39c265fd8728f3287eeef999cfeb599" id="r_gad39c265fd8728f3287eeef999cfeb599"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad39c265fd8728f3287eeef999cfeb599">MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL</a></td></tr>
-<tr class="memdesc:gad39c265fd8728f3287eeef999cfeb599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash operation succeeded, but comparison of result failed.  <br /></td></tr>
-<tr class="memitem:ga647cd722111188a5d028d1f3ab4eb795" id="r_ga647cd722111188a5d028d1f3ab4eb795"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga647cd722111188a5d028d1f3ab4eb795">MCUXCLHASH_COMPARE_NOT_EQUAL</a></td></tr>
-<tr class="memitem:ga9abcd3d90166d6f4fd532d8b7c24931f" id="r_ga9abcd3d90166d6f4fd532d8b7c24931f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9abcd3d90166d6f4fd532d8b7c24931f">MCUXCLHASH_STATUS_FULL</a></td></tr>
-<tr class="memdesc:ga9abcd3d90166d6f4fd532d8b7c24931f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash operation failed because the total input size exceeds the upper limit.  <br /></td></tr>
-<tr class="memitem:gaca3624d074b137e5587052f6ffb1b6f6" id="r_gaca3624d074b137e5587052f6ffb1b6f6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaca3624d074b137e5587052f6ffb1b6f6">MCUXCLHASH_STATUS_FAULT_ATTACK</a></td></tr>
-<tr class="memdesc:gaca3624d074b137e5587052f6ffb1b6f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack (unexpected behavior) detected.  <br /></td></tr>
-<tr class="memitem:ga5a2f3c25cf99ceb579c18218af5a1269" id="r_ga5a2f3c25cf99ceb579c18218af5a1269"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5a2f3c25cf99ceb579c18218af5a1269">MCUXCLHASH_STATUS_JOB_STARTED</a></td></tr>
-<tr class="memdesc:ga5a2f3c25cf99ceb579c18218af5a1269"><td class="mdescLeft">&#160;</td><td class="mdescRight">There is ongoing job in coprocessor which will trigger user callback on exit.  <br /></td></tr>
-<tr class="memitem:ga3719a21b9caf2b9e4fa79ec95f86df58" id="r_ga3719a21b9caf2b9e4fa79ec95f86df58"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3719a21b9caf2b9e4fa79ec95f86df58">MCUXCLHASH_STATUS_JOB_COMPLETED</a></td></tr>
-<tr class="memdesc:ga3719a21b9caf2b9e4fa79ec95f86df58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Job started in coprocessor has completed successfully.  <br /></td></tr>
-<tr class="memitem:ga3f11732d0f83fb0eb93e4b3477d628dc" id="r_ga3f11732d0f83fb0eb93e4b3477d628dc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3f11732d0f83fb0eb93e4b3477d628dc">MCUXCLHASH_STATUS_JOB_COMPLETED_COMPARE_NOT_EQUAL</a></td></tr>
-<tr class="memdesc:ga3f11732d0f83fb0eb93e4b3477d628dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Job started in coprocessor has completed, but comparison of result failed.  <br /></td></tr>
-<tr class="memitem:ga3df3ca09f533ee5e140c774c00e166cf" id="r_ga3df3ca09f533ee5e140c774c00e166cf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3df3ca09f533ee5e140c774c00e166cf">MCUXCLHASH_STATUS_JOB_UNAVAILABLE</a></td></tr>
-<tr class="memdesc:ga3df3ca09f533ee5e140c774c00e166cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Job started in coprocessor is not available.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Topics</h2></td></tr>
+<tr class="memitem:mcuxClHashModes_5FAlgorithms" id="r_mcuxClHashModes_5FAlgorithms"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01393.html">mcuxClHashModes_Algorithms</a></td></tr>
+<tr class="memdesc:a01393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashing algorithms of the <a class="el" href="a01392.html" title="mcuxClHashModes">mcuxClHashModes</a> component. <br /></td></tr>
+<tr class="memitem:mcuxClHashModes_5FConstants" id="r_mcuxClHashModes_5FConstants"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01394.html">mcuxClHashModes_Constants</a></td></tr>
+<tr class="memdesc:a01394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of <a class="el" href="a01392.html" title="mcuxClHashModes">mcuxClHashModes</a> component. <br /></td></tr>
+<tr class="memitem:mcuxClHashModes_5FMemoryConsumption" id="r_mcuxClHashModes_5FMemoryConsumption"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01598.html">mcuxClHashModes_MemoryConsumption</a></td></tr>
+<tr class="memdesc:a01598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of workarea sizes for the mcuxClHashModes functions. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Return code definitions. </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="gadf29410b02d95357d48a3ba443558da4" name="gadf29410b02d95357d48a3ba443558da4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadf29410b02d95357d48a3ba443558da4">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_OK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_OK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hash operation successful. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03378.html#_a9">mcuxClHashModes_sha224_oneshot_example.c</a>, <a class="el" href="a03379.html#_a9">mcuxClHashModes_sha256_longMsgOneshot_example.c</a>, <a class="el" href="a03380.html#_a18">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a03381.html#_a9">mcuxClHashModes_sha256_oneshot_example.c</a>, <a class="el" href="a03382.html#_a17">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03383.html#_a8">mcuxClHashModes_sha256_streaming_example.c</a>, <a class="el" href="a03384.html#_a9">mcuxClHashModes_sha384_oneshot_example.c</a>, <a class="el" href="a03385.html#_a8">mcuxClHashModes_sha3_224_oneshot_example.c</a>, <a class="el" href="a03386.html#_a9">mcuxClHashModes_sha3_224_streaming_example.c</a>, <a class="el" href="a03387.html#_a8">mcuxClHashModes_sha3_256_oneshot_example.c</a>, <a class="el" href="a03388.html#_a9">mcuxClHashModes_sha3_256_streaming_example.c</a>, <a class="el" href="a03389.html#_a8">mcuxClHashModes_sha3_384_oneshot_example.c</a>, <a class="el" href="a03390.html#_a9">mcuxClHashModes_sha3_384_streaming_example.c</a>, <a class="el" href="a03391.html#_a8">mcuxClHashModes_sha3_512_oneshot_example.c</a>, <a class="el" href="a03392.html#_a9">mcuxClHashModes_sha3_512_streaming_example.c</a>, <a class="el" href="a03393.html#_a9">mcuxClHashModes_sha512_oneshot_example.c</a>, <a class="el" href="a03427.html#_a20">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>, and <a class="el" href="a03428.html#_a21">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="gaaf06d7932b91cce6e94312a534f61934" name="gaaf06d7932b91cce6e94312a534f61934"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaaf06d7932b91cce6e94312a534f61934">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_COMPARE_EQUAL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_COMPARE_EQUAL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hash operation and comparison of result successful. </p>
-
-</div>
-</div>
-<a id="ga05eaccf399e17f323499f31e764d5173" name="ga05eaccf399e17f323499f31e764d5173"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga05eaccf399e17f323499f31e764d5173">&#9670;&#160;</a></span>MCUXCLHASH_COMPARE_EQUAL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_COMPARE_EQUAL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ga377eaddc82740c4c4590688c754f78a0" name="ga377eaddc82740c4c4590688c754f78a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga377eaddc82740c4c4590688c754f78a0">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_FAILURE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_FAILURE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hash operation failed. </p>
-
-</div>
-</div>
-<a id="gaaef282127a4c3c3e8f9a034cba1b70e0" name="gaaef282127a4c3c3e8f9a034cba1b70e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaaef282127a4c3c3e8f9a034cba1b70e0">&#9670;&#160;</a></span>MCUXCLHASH_FAILURE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_FAILURE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ga6cd095f16a5ff26877cc877cecbd0e2b" name="ga6cd095f16a5ff26877cc877cecbd0e2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6cd095f16a5ff26877cc877cecbd0e2b">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_INVALID_PARAMS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_INVALID_PARAMS</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hash function called with invalid parameters. </p>
-
-</div>
-</div>
-<a id="gad39c265fd8728f3287eeef999cfeb599" name="gad39c265fd8728f3287eeef999cfeb599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad39c265fd8728f3287eeef999cfeb599">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hash operation succeeded, but comparison of result failed. </p>
-
-</div>
-</div>
-<a id="ga647cd722111188a5d028d1f3ab4eb795" name="ga647cd722111188a5d028d1f3ab4eb795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga647cd722111188a5d028d1f3ab4eb795">&#9670;&#160;</a></span>MCUXCLHASH_COMPARE_NOT_EQUAL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_COMPARE_NOT_EQUAL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ga9abcd3d90166d6f4fd532d8b7c24931f" name="ga9abcd3d90166d6f4fd532d8b7c24931f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9abcd3d90166d6f4fd532d8b7c24931f">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_FULL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_FULL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hash operation failed because the total input size exceeds the upper limit. </p>
-
-</div>
-</div>
-<a id="gaca3624d074b137e5587052f6ffb1b6f6" name="gaca3624d074b137e5587052f6ffb1b6f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaca3624d074b137e5587052f6ffb1b6f6">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_FAULT_ATTACK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_FAULT_ATTACK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fault attack (unexpected behavior) detected. </p>
-
-</div>
-</div>
-<a id="ga5a2f3c25cf99ceb579c18218af5a1269" name="ga5a2f3c25cf99ceb579c18218af5a1269"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5a2f3c25cf99ceb579c18218af5a1269">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_JOB_STARTED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_JOB_STARTED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>There is ongoing job in coprocessor which will trigger user callback on exit. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03380.html#_a17">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, and <a class="el" href="a03382.html#_a20">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="ga3719a21b9caf2b9e4fa79ec95f86df58" name="ga3719a21b9caf2b9e4fa79ec95f86df58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3719a21b9caf2b9e4fa79ec95f86df58">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_JOB_COMPLETED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_JOB_COMPLETED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Job started in coprocessor has completed successfully. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03380.html#_a21">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, and <a class="el" href="a03382.html#_a23">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="ga3f11732d0f83fb0eb93e4b3477d628dc" name="ga3f11732d0f83fb0eb93e4b3477d628dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3f11732d0f83fb0eb93e4b3477d628dc">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_JOB_COMPLETED_COMPARE_NOT_EQUAL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_JOB_COMPLETED_COMPARE_NOT_EQUAL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Job started in coprocessor has completed, but comparison of result failed. </p>
-
-</div>
-</div>
-<a id="ga3df3ca09f533ee5e140c774c00e166cf" name="ga3df3ca09f533ee5e140c774c00e166cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3df3ca09f533ee5e140c774c00e166cf">&#9670;&#160;</a></span>MCUXCLHASH_STATUS_JOB_UNAVAILABLE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLHASH_STATUS_JOB_UNAVAILABLE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Job started in coprocessor is not available. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>mcuxClHashModes component </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

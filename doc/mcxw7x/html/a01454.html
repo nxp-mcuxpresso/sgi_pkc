@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClRandomModes_Functions_TestMode</title>
+<title>MCUX CLNS: mcuxClResource_Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,96 +102,97 @@ $(function(){initNavTree('a01454.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClRandomModes_Functions_TestMode <div class="ingroups"><a class="el" href="a01451.html">mcuxClRandomModes</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClResource_Types <div class="ingroups"><a class="el" href="a01452.html">mcuxClResource</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Random operations in TEST_MODE.  
+<p>Defines all types of <a class="el" href="a01452.html" title="mcuxClResource">mcuxClResource</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga3e1e5c89df4eb0bce8b7f558d8cfb565" id="r_ga3e1e5c89df4eb0bce8b7f558d8cfb565"><td class="memItemLeft"><a class="el" href="a01450.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga3e1e5c89df4eb0bce8b7f558d8cfb565">mcuxClRandomModes_createTestFromNormalMode</a> (<a class="el" href="a01450.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *pTestMode, <a class="el" href="a01450.html#ga2998181a66cbdc063aa08d76e5fdef9d">mcuxClRandom_Mode_t</a> normalMode, const uint32_t *const pCustomSeed)</td></tr>
-<tr class="memdesc:ga3e1e5c89df4eb0bce8b7f558d8cfb565"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function creates a TEST_MODE descriptor from an existing NORMAL_MODE one.  <br /></td></tr>
-<tr class="memitem:gaeb1afe314ca3e55a6c4b3b9620779279" id="r_gaeb1afe314ca3e55a6c4b3b9620779279"><td class="memItemLeft"><a class="el" href="a01450.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaeb1afe314ca3e55a6c4b3b9620779279">mcuxClRandomModes_updateEntropyInput</a> (<a class="el" href="a01450.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *pTestMode, const uint32_t *const pCustomSeed)</td></tr>
-<tr class="memdesc:gaeb1afe314ca3e55a6c4b3b9620779279"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates the custom seed pointer in a TEST_MODE descriptor.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gac97f228ebeeb4983ef932cadb7a1ec08" id="r_gac97f228ebeeb4983ef932cadb7a1ec08"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a></td></tr>
+<tr class="memdesc:gac97f228ebeeb4983ef932cadb7a1ec08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type for mcuxClResource status codes.  <br /></td></tr>
+<tr class="memitem:ga27045c7d3df5d8a5d0d6ba46a28d3c1d" id="r_ga27045c7d3df5d8a5d0d6ba46a28d3c1d"><td class="memItemLeft">typedef struct mcuxClResource_Context&#160;</td><td class="memItemRight"><a class="el" href="#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a></td></tr>
+<tr class="memdesc:ga27045c7d3df5d8a5d0d6ba46a28d3c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource context type.  <br /></td></tr>
+<tr class="memitem:ga79faae48b423d302179cd7f0045ecf23" id="r_ga79faae48b423d302179cd7f0045ecf23"><td class="memItemLeft">typedef uint32_t(*&#160;</td><td class="memItemRight"><a class="el" href="#ga79faae48b423d302179cd7f0045ecf23">mcuxClResource_MutexAcquire_Callback_t</a>) (uint32_t value)</td></tr>
+<tr class="memdesc:ga79faae48b423d302179cd7f0045ecf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for acquiring a mutex.  <br /></td></tr>
+<tr class="memitem:ga2a5336cef83f9f7017bd63a70ab83987" id="r_ga2a5336cef83f9f7017bd63a70ab83987"><td class="memItemLeft">typedef uint32_t(*&#160;</td><td class="memItemRight"><a class="el" href="#ga2a5336cef83f9f7017bd63a70ab83987">mcuxClResource_MutexRelease_Callback_t</a>) (uint32_t value)</td></tr>
+<tr class="memdesc:ga2a5336cef83f9f7017bd63a70ab83987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for releasing a mutex.  <br /></td></tr>
+<tr class="memitem:gaf45a9aed520628954ab550122065a592" id="r_gaf45a9aed520628954ab550122065a592"><td class="memItemLeft"><a id="gaf45a9aed520628954ab550122065a592" name="gaf45a9aed520628954ab550122065a592"></a>
+typedef uint32_t&#160;</td><td class="memItemRight"><b>mcuxClResource_HwId_t</b></td></tr>
+<tr class="memitem:ga9a1271b2a94604920632d597a8faada3" id="r_ga9a1271b2a94604920632d597a8faada3"><td class="memItemLeft"><a id="ga9a1271b2a94604920632d597a8faada3" name="ga9a1271b2a94604920632d597a8faada3"></a>
+typedef uint32_t&#160;</td><td class="memItemRight"><b>mcuxClResource_HwStatus_t</b></td></tr>
+<tr class="memitem:gad1c3c5db596aa5d30b7df0b8e7c4af76" id="r_gad1c3c5db596aa5d30b7df0b8e7c4af76"><td class="memItemLeft"><a id="gad1c3c5db596aa5d30b7df0b8e7c4af76" name="gad1c3c5db596aa5d30b7df0b8e7c4af76"></a>
+typedef uint32_t&#160;</td><td class="memItemRight"><b>mcuxClResource_Interrupt_t</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Random operations in TEST_MODE. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga3e1e5c89df4eb0bce8b7f558d8cfb565" name="ga3e1e5c89df4eb0bce8b7f558d8cfb565"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3e1e5c89df4eb0bce8b7f558d8cfb565">&#9670;&#160;</a></span>mcuxClRandomModes_createTestFromNormalMode()</h2>
+<div class="textblock"><p>Defines all types of <a class="el" href="a01452.html" title="mcuxClResource">mcuxClResource</a>. </p>
+</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="gac97f228ebeeb4983ef932cadb7a1ec08" name="gac97f228ebeeb4983ef932cadb7a1ec08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac97f228ebeeb4983ef932cadb7a1ec08">&#9670;&#160;</a></span>mcuxClResource_Status_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01450.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a> mcuxClRandomModes_createTestFromNormalMode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01450.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pTestMode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01450.html#ga2998181a66cbdc063aa08d76e5fdef9d">mcuxClRandom_Mode_t</a></td>          <td class="paramname"><span class="paramname"><em>normalMode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint32_t *const</td>          <td class="paramname"><span class="paramname"><em>pCustomSeed</em></span>&#160;)</td>
+          <td class="memname">typedef uint32_t <a class="el" href="#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function creates a TEST_MODE descriptor from an existing NORMAL_MODE one. </p>
-<p>This function creates a TEST_MODE descriptor from an existing NORMAL_MODE one. The function expects as input a pointer to a buffer to which the user of the CL shall write a custom seed to be used for (re)seeding the DRBG. The function shall be called prior to an mcuxClRandom_init call.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">testMode[out]</td><td>Pointer to TEST_MODE descriptor to be initialized </td></tr>
-    <tr><td class="paramname">normalMode[in]</td><td>Pointer to NORMAL_MODE descriptor to be used as basis for the initialization </td></tr>
-    <tr><td class="paramname">pCustomSeed[in]</td><td>Pointer to memory buffer containing a custom seed for DRBG (re)seeding</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03423.html#a3">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>.</dd>
-</dl>
+<p>Type for mcuxClResource status codes. </p>
+<p>This type provides information about the status of the Resource operation that has been performed. </p>
 
 </div>
 </div>
-<a id="gaeb1afe314ca3e55a6c4b3b9620779279" name="gaeb1afe314ca3e55a6c4b3b9620779279"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeb1afe314ca3e55a6c4b3b9620779279">&#9670;&#160;</a></span>mcuxClRandomModes_updateEntropyInput()</h2>
+<a id="ga27045c7d3df5d8a5d0d6ba46a28d3c1d" name="ga27045c7d3df5d8a5d0d6ba46a28d3c1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">&#9670;&#160;</a></span>mcuxClResource_Context_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01450.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a> mcuxClRandomModes_updateEntropyInput </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01450.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pTestMode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint32_t *const</td>          <td class="paramname"><span class="paramname"><em>pCustomSeed</em></span>&#160;)</td>
+          <td class="memname">typedef struct mcuxClResource_Context <a class="el" href="#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function updates the custom seed pointer in a TEST_MODE descriptor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">testMode[in]</td><td>Pointer to TEST_MODE descriptor </td></tr>
-    <tr><td class="paramname">pCustomSeed[in]</td><td>Pointer to memory buffer containing custom seed for DRBG (re)seeding</td></tr>
-  </table>
-  </dd>
+<p>Resource context type. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03325.html#_a1">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03327.html#_a1">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03331.html#_a1">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a03333.html#_a1">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03338.html#_a1">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a03337.html#_a1">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03340.html#_a1">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03374.html#_a2">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a03376.html#_a2">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03404.html#_a1">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, and <a class="el" href="a03407.html#_a1">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>.</dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>MCUXCLRANDOM_STATUS_OK if the TEST_MODE descriptor generation was successful </li>
-</ul>
-</dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03423.html#a10">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</a>.</dd>
-</dl>
+
+</div>
+</div>
+<a id="ga79faae48b423d302179cd7f0045ecf23" name="ga79faae48b423d302179cd7f0045ecf23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga79faae48b423d302179cd7f0045ecf23">&#9670;&#160;</a></span>mcuxClResource_MutexAcquire_Callback_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t(* mcuxClResource_MutexAcquire_Callback_t) (uint32_t value)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback type for acquiring a mutex. </p>
+
+</div>
+</div>
+<a id="ga2a5336cef83f9f7017bd63a70ab83987" name="ga2a5336cef83f9f7017bd63a70ab83987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2a5336cef83f9f7017bd63a70ab83987">&#9670;&#160;</a></span>mcuxClResource_MutexRelease_Callback_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t(* mcuxClResource_MutexRelease_Callback_t) (uint32_t value)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback type for releasing a mutex. </p>
 
 </div>
 </div>

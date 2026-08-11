@@ -1,6 +1,8 @@
 var a01435 =
 [
-    [ "MCUXCLMEMORY_STATUS_EQUAL", "a01435.html#gabaa088c030f9f7a12cbdbac0132659bd", null ],
-    [ "MCUXCLMEMORY_STATUS_NOT_EQUAL", "a01435.html#gabde52183de79322bf40674ee07a0bdac", null ],
-    [ "MCUXCLMEMORY_STATUS_FAULT", "a01435.html#gaf8817536a1139834b1b59ee8cf7ad04e", null ]
+    [ "mcuxClMemory_StoreLittleEndian32", "a01435.html#gaef4886d199c2539b209458a8c62378cd", null ],
+    [ "mcuxClMemory_StoreBigEndian32", "a01435.html#ga84f8097975ebea39deaea4ab9306d2ce", null ],
+    [ "mcuxClMemory_LoadLittleEndian32", "a01435.html#gaa3eba98f422623a6a02f15898449c874", null ],
+    [ "mcuxClMemory_LoadBigEndian32", "a01435.html#gabd3fd1c7ee32c2cd202a67bce5036778", null ],
+    [ "MCUXCLMEMORY_SWITCH_4BYTE_ENDIANNESS", "a01435.html#gac426a079f1808ff0183d2851ead720c5", null ]
 ];

@@ -1,5 +1,5 @@
 var a01434 =
 [
-    [ "MCUXCLMEMORY_STATUS_", "a01435.html", "a01435" ],
-    [ "MCUXCLMEMORY_COMPONENT_MASK", "a01434.html#ga08e000e31df077b27186e532e59c90f9", null ]
+    [ "MCUXCLMEMORY_FP_MEMORY_COPY_REVERSED", "a01434.html#ga34f4a48eda22ae64759db5d7893d0c36", null ],
+    [ "mcuxClMemory_copy_reversed", "a01434.html#gafc918d181009c3af7638604e5e4b9281", null ]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: UDF Peripheral Access Layer</title>
+<title>MCUX CLNS: UTICK Register Masks</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,165 +102,1271 @@ $(function(){initNavTree('a01726.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">UDF Peripheral Access Layer <div class="ingroups"><a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01654.html">Dma_request</a> &raquo; <a class="el" href="a01657.html">Eim_memory_channel</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01654.html">Dma_request</a> &raquo; <a class="el" href="a01657.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01658.html">Eim_error_injection_channel_enable</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01802.html">Edma_request</a> &raquo; <a class="el" href="a01634.html">Device Peripheral Access Layer</a></div></div></div>
+  <div class="headertitle"><div class="title">UTICK Register Masks <div class="ingroups"><a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01653.html">Eim_error_injection_channel_enable</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01797.html">Edma_request</a> &raquo; <a class="el" href="a01629.html">Device Peripheral Access Layer</a> &raquo; <a class="el" href="a01725.html">UTICK Peripheral Access Layer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:UDF_5FRegister_5FMasks" id="r_UDF_5FRegister_5FMasks"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01727.html">UDF Register Masks</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
-<tr class="memitem:UDF_5FType" id="r_UDF_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02399.html">UDF_Type</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">UDF - Register Layout Typedef.  <a href="a02399.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaf7a9de599472288b2c621f254b63ba9f" id="r_gaf7a9de599472288b2c621f254b63ba9f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf7a9de599472288b2c621f254b63ba9f">UDF0_BASE</a></td></tr>
-<tr class="memdesc:gaf7a9de599472288b2c621f254b63ba9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral UDF0 base address.  <br /></td></tr>
-<tr class="memitem:ga19ad2db6eb0c347569f6130c51135425" id="r_ga19ad2db6eb0c347569f6130c51135425"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga19ad2db6eb0c347569f6130c51135425">UDF0</a></td></tr>
-<tr class="memdesc:ga19ad2db6eb0c347569f6130c51135425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral UDF0 base pointer.  <br /></td></tr>
-<tr class="memitem:ga99ba77a7ff72b73ed8f345e4acce71a2" id="r_ga99ba77a7ff72b73ed8f345e4acce71a2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga99ba77a7ff72b73ed8f345e4acce71a2">UDF_BASE_ADDRS</a></td></tr>
-<tr class="memdesc:ga99ba77a7ff72b73ed8f345e4acce71a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array initializer of UDF peripheral base addresses.  <br /></td></tr>
-<tr class="memitem:gaec7a8b9c1948135e3a6e4eb9289430c9" id="r_gaec7a8b9c1948135e3a6e4eb9289430c9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaec7a8b9c1948135e3a6e4eb9289430c9">UDF_BASE_PTRS</a></td></tr>
-<tr class="memdesc:gaec7a8b9c1948135e3a6e4eb9289430c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array initializer of UDF peripheral base pointers.  <br /></td></tr>
-<tr class="memitem:ga8ac053d0de72650b4528260a9860d77c" id="r_ga8ac053d0de72650b4528260a9860d77c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8ac053d0de72650b4528260a9860d77c">UDF_0_BASE</a></td></tr>
-<tr class="memdesc:ga8ac053d0de72650b4528260a9860d77c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral UDF_0 base address.  <br /></td></tr>
-<tr class="memitem:ga3fcab638aa47f9f82bc86102b898e896" id="r_ga3fcab638aa47f9f82bc86102b898e896"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3fcab638aa47f9f82bc86102b898e896">UDF_0</a></td></tr>
-<tr class="memdesc:ga3fcab638aa47f9f82bc86102b898e896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral UDF_0 base pointer.  <br /></td></tr>
-<tr class="memitem:ga99ba77a7ff72b73ed8f345e4acce71a2" id="r_ga99ba77a7ff72b73ed8f345e4acce71a2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga99ba77a7ff72b73ed8f345e4acce71a2">UDF_BASE_ADDRS</a></td></tr>
-<tr class="memdesc:ga99ba77a7ff72b73ed8f345e4acce71a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array initializer of UDF peripheral base addresses.  <br /></td></tr>
-<tr class="memitem:gaec7a8b9c1948135e3a6e4eb9289430c9" id="r_gaec7a8b9c1948135e3a6e4eb9289430c9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaec7a8b9c1948135e3a6e4eb9289430c9">UDF_BASE_PTRS</a></td></tr>
-<tr class="memdesc:gaec7a8b9c1948135e3a6e4eb9289430c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array initializer of UDF peripheral base pointers.  <br /></td></tr>
+<tr class="memitem:gae4b51994a939b65a11c3bfc073391c19" id="r_gae4b51994a939b65a11c3bfc073391c19"><td class="memItemLeft"><a id="gae4b51994a939b65a11c3bfc073391c19" name="gae4b51994a939b65a11c3bfc073391c19"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_COUNT</b></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+CTRL - Control</h2></td></tr>
+<tr class="memitem:ga76c4ed878dd78ab58b2c5121a7c8597b" id="r_ga76c4ed878dd78ab58b2c5121a7c8597b"><td class="memItemLeft"><a id="ga76c4ed878dd78ab58b2c5121a7c8597b" name="ga76c4ed878dd78ab58b2c5121a7c8597b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_DELAYVAL_MASK</b></td></tr>
+<tr class="memitem:ga6688e23731431a946ee0652d8e8d261b" id="r_ga6688e23731431a946ee0652d8e8d261b"><td class="memItemLeft"><a id="ga6688e23731431a946ee0652d8e8d261b" name="ga6688e23731431a946ee0652d8e8d261b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_DELAYVAL_SHIFT</b></td></tr>
+<tr class="memitem:ga6834f5c50f8cad49c6fd166032454687" id="r_ga6834f5c50f8cad49c6fd166032454687"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6834f5c50f8cad49c6fd166032454687">UTICK_CTRL_DELAYVAL</a>(x)</td></tr>
+<tr class="memitem:ga08464a5eea3ea9b6b5dc7f97789db1b2" id="r_ga08464a5eea3ea9b6b5dc7f97789db1b2"><td class="memItemLeft"><a id="ga08464a5eea3ea9b6b5dc7f97789db1b2" name="ga08464a5eea3ea9b6b5dc7f97789db1b2"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_REPEAT_MASK</b></td></tr>
+<tr class="memitem:ga0dfe8708daf9e43312ab5c20ad37d990" id="r_ga0dfe8708daf9e43312ab5c20ad37d990"><td class="memItemLeft"><a id="ga0dfe8708daf9e43312ab5c20ad37d990" name="ga0dfe8708daf9e43312ab5c20ad37d990"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_REPEAT_SHIFT</b></td></tr>
+<tr class="memitem:ga701070f53b4ab40ac39095b88d07df07" id="r_ga701070f53b4ab40ac39095b88d07df07"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga701070f53b4ab40ac39095b88d07df07">UTICK_CTRL_REPEAT</a>(x)</td></tr>
+<tr class="memitem:ga76c4ed878dd78ab58b2c5121a7c8597b" id="r_ga76c4ed878dd78ab58b2c5121a7c8597b"><td class="memItemLeft"><a id="ga76c4ed878dd78ab58b2c5121a7c8597b" name="ga76c4ed878dd78ab58b2c5121a7c8597b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_DELAYVAL_MASK</b></td></tr>
+<tr class="memitem:ga6688e23731431a946ee0652d8e8d261b" id="r_ga6688e23731431a946ee0652d8e8d261b"><td class="memItemLeft"><a id="ga6688e23731431a946ee0652d8e8d261b" name="ga6688e23731431a946ee0652d8e8d261b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_DELAYVAL_SHIFT</b></td></tr>
+<tr class="memitem:ga6834f5c50f8cad49c6fd166032454687" id="r_ga6834f5c50f8cad49c6fd166032454687"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6834f5c50f8cad49c6fd166032454687">UTICK_CTRL_DELAYVAL</a>(x)</td></tr>
+<tr class="memitem:ga08464a5eea3ea9b6b5dc7f97789db1b2" id="r_ga08464a5eea3ea9b6b5dc7f97789db1b2"><td class="memItemLeft"><a id="ga08464a5eea3ea9b6b5dc7f97789db1b2" name="ga08464a5eea3ea9b6b5dc7f97789db1b2"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_REPEAT_MASK</b></td></tr>
+<tr class="memitem:ga0dfe8708daf9e43312ab5c20ad37d990" id="r_ga0dfe8708daf9e43312ab5c20ad37d990"><td class="memItemLeft"><a id="ga0dfe8708daf9e43312ab5c20ad37d990" name="ga0dfe8708daf9e43312ab5c20ad37d990"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_REPEAT_SHIFT</b></td></tr>
+<tr class="memitem:ga701070f53b4ab40ac39095b88d07df07" id="r_ga701070f53b4ab40ac39095b88d07df07"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga701070f53b4ab40ac39095b88d07df07">UTICK_CTRL_REPEAT</a>(x)</td></tr>
+<tr class="memitem:ga76c4ed878dd78ab58b2c5121a7c8597b" id="r_ga76c4ed878dd78ab58b2c5121a7c8597b"><td class="memItemLeft"><a id="ga76c4ed878dd78ab58b2c5121a7c8597b" name="ga76c4ed878dd78ab58b2c5121a7c8597b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_DELAYVAL_MASK</b></td></tr>
+<tr class="memitem:ga6688e23731431a946ee0652d8e8d261b" id="r_ga6688e23731431a946ee0652d8e8d261b"><td class="memItemLeft"><a id="ga6688e23731431a946ee0652d8e8d261b" name="ga6688e23731431a946ee0652d8e8d261b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_DELAYVAL_SHIFT</b></td></tr>
+<tr class="memitem:ga6834f5c50f8cad49c6fd166032454687" id="r_ga6834f5c50f8cad49c6fd166032454687"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6834f5c50f8cad49c6fd166032454687">UTICK_CTRL_DELAYVAL</a>(x)</td></tr>
+<tr class="memitem:ga08464a5eea3ea9b6b5dc7f97789db1b2" id="r_ga08464a5eea3ea9b6b5dc7f97789db1b2"><td class="memItemLeft"><a id="ga08464a5eea3ea9b6b5dc7f97789db1b2" name="ga08464a5eea3ea9b6b5dc7f97789db1b2"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_REPEAT_MASK</b></td></tr>
+<tr class="memitem:ga0dfe8708daf9e43312ab5c20ad37d990" id="r_ga0dfe8708daf9e43312ab5c20ad37d990"><td class="memItemLeft"><a id="ga0dfe8708daf9e43312ab5c20ad37d990" name="ga0dfe8708daf9e43312ab5c20ad37d990"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CTRL_REPEAT_SHIFT</b></td></tr>
+<tr class="memitem:ga701070f53b4ab40ac39095b88d07df07" id="r_ga701070f53b4ab40ac39095b88d07df07"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga701070f53b4ab40ac39095b88d07df07">UTICK_CTRL_REPEAT</a>(x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+STAT - Status</h2></td></tr>
+<tr class="memitem:ga41948b8ce7c1bb261de89b3bca3829cf" id="r_ga41948b8ce7c1bb261de89b3bca3829cf"><td class="memItemLeft"><a id="ga41948b8ce7c1bb261de89b3bca3829cf" name="ga41948b8ce7c1bb261de89b3bca3829cf"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_INTR_MASK</b></td></tr>
+<tr class="memitem:ga75559bdf504d45943548a477848308df" id="r_ga75559bdf504d45943548a477848308df"><td class="memItemLeft"><a id="ga75559bdf504d45943548a477848308df" name="ga75559bdf504d45943548a477848308df"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_INTR_SHIFT</b></td></tr>
+<tr class="memitem:ga62a7b26f063030fe8ba04f8d8b9519ef" id="r_ga62a7b26f063030fe8ba04f8d8b9519ef"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga62a7b26f063030fe8ba04f8d8b9519ef">UTICK_STAT_INTR</a>(x)</td></tr>
+<tr class="memitem:ga55b5d139c79dee92feea461494bbda51" id="r_ga55b5d139c79dee92feea461494bbda51"><td class="memItemLeft"><a id="ga55b5d139c79dee92feea461494bbda51" name="ga55b5d139c79dee92feea461494bbda51"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_ACTIVE_MASK</b></td></tr>
+<tr class="memitem:ga5da1bf1bf57ac8b99d5756ae0f2bf43b" id="r_ga5da1bf1bf57ac8b99d5756ae0f2bf43b"><td class="memItemLeft"><a id="ga5da1bf1bf57ac8b99d5756ae0f2bf43b" name="ga5da1bf1bf57ac8b99d5756ae0f2bf43b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_ACTIVE_SHIFT</b></td></tr>
+<tr class="memitem:ga00c225639be4f35f8a7f47b7431b0427" id="r_ga00c225639be4f35f8a7f47b7431b0427"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga00c225639be4f35f8a7f47b7431b0427">UTICK_STAT_ACTIVE</a>(x)</td></tr>
+<tr class="memitem:ga41948b8ce7c1bb261de89b3bca3829cf" id="r_ga41948b8ce7c1bb261de89b3bca3829cf"><td class="memItemLeft"><a id="ga41948b8ce7c1bb261de89b3bca3829cf" name="ga41948b8ce7c1bb261de89b3bca3829cf"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_INTR_MASK</b></td></tr>
+<tr class="memitem:ga75559bdf504d45943548a477848308df" id="r_ga75559bdf504d45943548a477848308df"><td class="memItemLeft"><a id="ga75559bdf504d45943548a477848308df" name="ga75559bdf504d45943548a477848308df"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_INTR_SHIFT</b></td></tr>
+<tr class="memitem:ga62a7b26f063030fe8ba04f8d8b9519ef" id="r_ga62a7b26f063030fe8ba04f8d8b9519ef"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga62a7b26f063030fe8ba04f8d8b9519ef">UTICK_STAT_INTR</a>(x)</td></tr>
+<tr class="memitem:ga55b5d139c79dee92feea461494bbda51" id="r_ga55b5d139c79dee92feea461494bbda51"><td class="memItemLeft"><a id="ga55b5d139c79dee92feea461494bbda51" name="ga55b5d139c79dee92feea461494bbda51"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_ACTIVE_MASK</b></td></tr>
+<tr class="memitem:ga5da1bf1bf57ac8b99d5756ae0f2bf43b" id="r_ga5da1bf1bf57ac8b99d5756ae0f2bf43b"><td class="memItemLeft"><a id="ga5da1bf1bf57ac8b99d5756ae0f2bf43b" name="ga5da1bf1bf57ac8b99d5756ae0f2bf43b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_ACTIVE_SHIFT</b></td></tr>
+<tr class="memitem:ga00c225639be4f35f8a7f47b7431b0427" id="r_ga00c225639be4f35f8a7f47b7431b0427"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga00c225639be4f35f8a7f47b7431b0427">UTICK_STAT_ACTIVE</a>(x)</td></tr>
+<tr class="memitem:ga41948b8ce7c1bb261de89b3bca3829cf" id="r_ga41948b8ce7c1bb261de89b3bca3829cf"><td class="memItemLeft"><a id="ga41948b8ce7c1bb261de89b3bca3829cf" name="ga41948b8ce7c1bb261de89b3bca3829cf"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_INTR_MASK</b></td></tr>
+<tr class="memitem:ga75559bdf504d45943548a477848308df" id="r_ga75559bdf504d45943548a477848308df"><td class="memItemLeft"><a id="ga75559bdf504d45943548a477848308df" name="ga75559bdf504d45943548a477848308df"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_INTR_SHIFT</b></td></tr>
+<tr class="memitem:ga62a7b26f063030fe8ba04f8d8b9519ef" id="r_ga62a7b26f063030fe8ba04f8d8b9519ef"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga62a7b26f063030fe8ba04f8d8b9519ef">UTICK_STAT_INTR</a>(x)</td></tr>
+<tr class="memitem:ga55b5d139c79dee92feea461494bbda51" id="r_ga55b5d139c79dee92feea461494bbda51"><td class="memItemLeft"><a id="ga55b5d139c79dee92feea461494bbda51" name="ga55b5d139c79dee92feea461494bbda51"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_ACTIVE_MASK</b></td></tr>
+<tr class="memitem:ga5da1bf1bf57ac8b99d5756ae0f2bf43b" id="r_ga5da1bf1bf57ac8b99d5756ae0f2bf43b"><td class="memItemLeft"><a id="ga5da1bf1bf57ac8b99d5756ae0f2bf43b" name="ga5da1bf1bf57ac8b99d5756ae0f2bf43b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_STAT_ACTIVE_SHIFT</b></td></tr>
+<tr class="memitem:ga00c225639be4f35f8a7f47b7431b0427" id="r_ga00c225639be4f35f8a7f47b7431b0427"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga00c225639be4f35f8a7f47b7431b0427">UTICK_STAT_ACTIVE</a>(x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+CFG - Capture Configuration</h2></td></tr>
+<tr class="memitem:ga7ea9cd792b1bf12f4ccb40b24743dde7" id="r_ga7ea9cd792b1bf12f4ccb40b24743dde7"><td class="memItemLeft"><a id="ga7ea9cd792b1bf12f4ccb40b24743dde7" name="ga7ea9cd792b1bf12f4ccb40b24743dde7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN0_MASK</b></td></tr>
+<tr class="memitem:ga5f0c7733749ed66d567f0fc43e607450" id="r_ga5f0c7733749ed66d567f0fc43e607450"><td class="memItemLeft"><a id="ga5f0c7733749ed66d567f0fc43e607450" name="ga5f0c7733749ed66d567f0fc43e607450"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN0_SHIFT</b></td></tr>
+<tr class="memitem:ga412884dbcb343a0f100406cfe289a6c0" id="r_ga412884dbcb343a0f100406cfe289a6c0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga412884dbcb343a0f100406cfe289a6c0">UTICK_CFG_CAPEN0</a>(x)</td></tr>
+<tr class="memitem:gaee684ec782222054ad2a88af0420f07b" id="r_gaee684ec782222054ad2a88af0420f07b"><td class="memItemLeft"><a id="gaee684ec782222054ad2a88af0420f07b" name="gaee684ec782222054ad2a88af0420f07b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN1_MASK</b></td></tr>
+<tr class="memitem:ga664977b9a5fdbbf67cb3a12f52bba660" id="r_ga664977b9a5fdbbf67cb3a12f52bba660"><td class="memItemLeft"><a id="ga664977b9a5fdbbf67cb3a12f52bba660" name="ga664977b9a5fdbbf67cb3a12f52bba660"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN1_SHIFT</b></td></tr>
+<tr class="memitem:ga23e28fe7c4036976ad34d226e4b902af" id="r_ga23e28fe7c4036976ad34d226e4b902af"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga23e28fe7c4036976ad34d226e4b902af">UTICK_CFG_CAPEN1</a>(x)</td></tr>
+<tr class="memitem:ga95c2da7684be6809593d83a05d3fceb7" id="r_ga95c2da7684be6809593d83a05d3fceb7"><td class="memItemLeft"><a id="ga95c2da7684be6809593d83a05d3fceb7" name="ga95c2da7684be6809593d83a05d3fceb7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN2_MASK</b></td></tr>
+<tr class="memitem:ga8100b09e77a9abf16353edac8088e67f" id="r_ga8100b09e77a9abf16353edac8088e67f"><td class="memItemLeft"><a id="ga8100b09e77a9abf16353edac8088e67f" name="ga8100b09e77a9abf16353edac8088e67f"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN2_SHIFT</b></td></tr>
+<tr class="memitem:gad8c936d67fe84fa1cdcab6eeabe01513" id="r_gad8c936d67fe84fa1cdcab6eeabe01513"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad8c936d67fe84fa1cdcab6eeabe01513">UTICK_CFG_CAPEN2</a>(x)</td></tr>
+<tr class="memitem:ga32efd68d49c9e9136bfbd4346acb5517" id="r_ga32efd68d49c9e9136bfbd4346acb5517"><td class="memItemLeft"><a id="ga32efd68d49c9e9136bfbd4346acb5517" name="ga32efd68d49c9e9136bfbd4346acb5517"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN3_MASK</b></td></tr>
+<tr class="memitem:ga05c25192a3375698eb4783342fefa8f6" id="r_ga05c25192a3375698eb4783342fefa8f6"><td class="memItemLeft"><a id="ga05c25192a3375698eb4783342fefa8f6" name="ga05c25192a3375698eb4783342fefa8f6"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN3_SHIFT</b></td></tr>
+<tr class="memitem:ga123b2035d005b33ec8a40a45ed252701" id="r_ga123b2035d005b33ec8a40a45ed252701"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga123b2035d005b33ec8a40a45ed252701">UTICK_CFG_CAPEN3</a>(x)</td></tr>
+<tr class="memitem:gaef1ed9a7b68bba25a064556775c7bd79" id="r_gaef1ed9a7b68bba25a064556775c7bd79"><td class="memItemLeft"><a id="gaef1ed9a7b68bba25a064556775c7bd79" name="gaef1ed9a7b68bba25a064556775c7bd79"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL0_MASK</b></td></tr>
+<tr class="memitem:ga598ec817381f5110559f5d6699218fc6" id="r_ga598ec817381f5110559f5d6699218fc6"><td class="memItemLeft"><a id="ga598ec817381f5110559f5d6699218fc6" name="ga598ec817381f5110559f5d6699218fc6"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL0_SHIFT</b></td></tr>
+<tr class="memitem:ga3687b41fe4d8f7fad49e0a51e3b6ad55" id="r_ga3687b41fe4d8f7fad49e0a51e3b6ad55"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3687b41fe4d8f7fad49e0a51e3b6ad55">UTICK_CFG_CAPPOL0</a>(x)</td></tr>
+<tr class="memitem:gaf22915089a6b9444e4f1c9579c9180c2" id="r_gaf22915089a6b9444e4f1c9579c9180c2"><td class="memItemLeft"><a id="gaf22915089a6b9444e4f1c9579c9180c2" name="gaf22915089a6b9444e4f1c9579c9180c2"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL1_MASK</b></td></tr>
+<tr class="memitem:ga2d1879756dcbf1b0203292ef1dfbc645" id="r_ga2d1879756dcbf1b0203292ef1dfbc645"><td class="memItemLeft"><a id="ga2d1879756dcbf1b0203292ef1dfbc645" name="ga2d1879756dcbf1b0203292ef1dfbc645"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL1_SHIFT</b></td></tr>
+<tr class="memitem:ga2f1d0921c524b907b87e5d5201b6a7ce" id="r_ga2f1d0921c524b907b87e5d5201b6a7ce"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2f1d0921c524b907b87e5d5201b6a7ce">UTICK_CFG_CAPPOL1</a>(x)</td></tr>
+<tr class="memitem:ga21b1c225b84a5eb000472d0e687b1d4b" id="r_ga21b1c225b84a5eb000472d0e687b1d4b"><td class="memItemLeft"><a id="ga21b1c225b84a5eb000472d0e687b1d4b" name="ga21b1c225b84a5eb000472d0e687b1d4b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL2_MASK</b></td></tr>
+<tr class="memitem:ga810580a2f32688c918333db969ebffbc" id="r_ga810580a2f32688c918333db969ebffbc"><td class="memItemLeft"><a id="ga810580a2f32688c918333db969ebffbc" name="ga810580a2f32688c918333db969ebffbc"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL2_SHIFT</b></td></tr>
+<tr class="memitem:ga9187f6e2d53315b7281c6d41dbd76bae" id="r_ga9187f6e2d53315b7281c6d41dbd76bae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9187f6e2d53315b7281c6d41dbd76bae">UTICK_CFG_CAPPOL2</a>(x)</td></tr>
+<tr class="memitem:ga63c186b8f719b0f2a7320bb2e3e0182e" id="r_ga63c186b8f719b0f2a7320bb2e3e0182e"><td class="memItemLeft"><a id="ga63c186b8f719b0f2a7320bb2e3e0182e" name="ga63c186b8f719b0f2a7320bb2e3e0182e"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL3_MASK</b></td></tr>
+<tr class="memitem:ga8ad055caefafec4d8d98321cba2b6e1f" id="r_ga8ad055caefafec4d8d98321cba2b6e1f"><td class="memItemLeft"><a id="ga8ad055caefafec4d8d98321cba2b6e1f" name="ga8ad055caefafec4d8d98321cba2b6e1f"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL3_SHIFT</b></td></tr>
+<tr class="memitem:ga0fb13e5378fdda0ad07af9a1dc53214a" id="r_ga0fb13e5378fdda0ad07af9a1dc53214a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0fb13e5378fdda0ad07af9a1dc53214a">UTICK_CFG_CAPPOL3</a>(x)</td></tr>
+<tr class="memitem:ga7ea9cd792b1bf12f4ccb40b24743dde7" id="r_ga7ea9cd792b1bf12f4ccb40b24743dde7"><td class="memItemLeft"><a id="ga7ea9cd792b1bf12f4ccb40b24743dde7" name="ga7ea9cd792b1bf12f4ccb40b24743dde7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN0_MASK</b></td></tr>
+<tr class="memitem:ga5f0c7733749ed66d567f0fc43e607450" id="r_ga5f0c7733749ed66d567f0fc43e607450"><td class="memItemLeft"><a id="ga5f0c7733749ed66d567f0fc43e607450" name="ga5f0c7733749ed66d567f0fc43e607450"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN0_SHIFT</b></td></tr>
+<tr class="memitem:ga412884dbcb343a0f100406cfe289a6c0" id="r_ga412884dbcb343a0f100406cfe289a6c0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga412884dbcb343a0f100406cfe289a6c0">UTICK_CFG_CAPEN0</a>(x)</td></tr>
+<tr class="memitem:gaee684ec782222054ad2a88af0420f07b" id="r_gaee684ec782222054ad2a88af0420f07b"><td class="memItemLeft"><a id="gaee684ec782222054ad2a88af0420f07b" name="gaee684ec782222054ad2a88af0420f07b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN1_MASK</b></td></tr>
+<tr class="memitem:ga664977b9a5fdbbf67cb3a12f52bba660" id="r_ga664977b9a5fdbbf67cb3a12f52bba660"><td class="memItemLeft"><a id="ga664977b9a5fdbbf67cb3a12f52bba660" name="ga664977b9a5fdbbf67cb3a12f52bba660"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN1_SHIFT</b></td></tr>
+<tr class="memitem:ga23e28fe7c4036976ad34d226e4b902af" id="r_ga23e28fe7c4036976ad34d226e4b902af"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga23e28fe7c4036976ad34d226e4b902af">UTICK_CFG_CAPEN1</a>(x)</td></tr>
+<tr class="memitem:ga95c2da7684be6809593d83a05d3fceb7" id="r_ga95c2da7684be6809593d83a05d3fceb7"><td class="memItemLeft"><a id="ga95c2da7684be6809593d83a05d3fceb7" name="ga95c2da7684be6809593d83a05d3fceb7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN2_MASK</b></td></tr>
+<tr class="memitem:ga8100b09e77a9abf16353edac8088e67f" id="r_ga8100b09e77a9abf16353edac8088e67f"><td class="memItemLeft"><a id="ga8100b09e77a9abf16353edac8088e67f" name="ga8100b09e77a9abf16353edac8088e67f"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN2_SHIFT</b></td></tr>
+<tr class="memitem:gad8c936d67fe84fa1cdcab6eeabe01513" id="r_gad8c936d67fe84fa1cdcab6eeabe01513"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad8c936d67fe84fa1cdcab6eeabe01513">UTICK_CFG_CAPEN2</a>(x)</td></tr>
+<tr class="memitem:ga32efd68d49c9e9136bfbd4346acb5517" id="r_ga32efd68d49c9e9136bfbd4346acb5517"><td class="memItemLeft"><a id="ga32efd68d49c9e9136bfbd4346acb5517" name="ga32efd68d49c9e9136bfbd4346acb5517"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN3_MASK</b></td></tr>
+<tr class="memitem:ga05c25192a3375698eb4783342fefa8f6" id="r_ga05c25192a3375698eb4783342fefa8f6"><td class="memItemLeft"><a id="ga05c25192a3375698eb4783342fefa8f6" name="ga05c25192a3375698eb4783342fefa8f6"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN3_SHIFT</b></td></tr>
+<tr class="memitem:ga123b2035d005b33ec8a40a45ed252701" id="r_ga123b2035d005b33ec8a40a45ed252701"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga123b2035d005b33ec8a40a45ed252701">UTICK_CFG_CAPEN3</a>(x)</td></tr>
+<tr class="memitem:gaef1ed9a7b68bba25a064556775c7bd79" id="r_gaef1ed9a7b68bba25a064556775c7bd79"><td class="memItemLeft"><a id="gaef1ed9a7b68bba25a064556775c7bd79" name="gaef1ed9a7b68bba25a064556775c7bd79"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL0_MASK</b></td></tr>
+<tr class="memitem:ga598ec817381f5110559f5d6699218fc6" id="r_ga598ec817381f5110559f5d6699218fc6"><td class="memItemLeft"><a id="ga598ec817381f5110559f5d6699218fc6" name="ga598ec817381f5110559f5d6699218fc6"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL0_SHIFT</b></td></tr>
+<tr class="memitem:ga3687b41fe4d8f7fad49e0a51e3b6ad55" id="r_ga3687b41fe4d8f7fad49e0a51e3b6ad55"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3687b41fe4d8f7fad49e0a51e3b6ad55">UTICK_CFG_CAPPOL0</a>(x)</td></tr>
+<tr class="memitem:gaf22915089a6b9444e4f1c9579c9180c2" id="r_gaf22915089a6b9444e4f1c9579c9180c2"><td class="memItemLeft"><a id="gaf22915089a6b9444e4f1c9579c9180c2" name="gaf22915089a6b9444e4f1c9579c9180c2"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL1_MASK</b></td></tr>
+<tr class="memitem:ga2d1879756dcbf1b0203292ef1dfbc645" id="r_ga2d1879756dcbf1b0203292ef1dfbc645"><td class="memItemLeft"><a id="ga2d1879756dcbf1b0203292ef1dfbc645" name="ga2d1879756dcbf1b0203292ef1dfbc645"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL1_SHIFT</b></td></tr>
+<tr class="memitem:ga2f1d0921c524b907b87e5d5201b6a7ce" id="r_ga2f1d0921c524b907b87e5d5201b6a7ce"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2f1d0921c524b907b87e5d5201b6a7ce">UTICK_CFG_CAPPOL1</a>(x)</td></tr>
+<tr class="memitem:ga21b1c225b84a5eb000472d0e687b1d4b" id="r_ga21b1c225b84a5eb000472d0e687b1d4b"><td class="memItemLeft"><a id="ga21b1c225b84a5eb000472d0e687b1d4b" name="ga21b1c225b84a5eb000472d0e687b1d4b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL2_MASK</b></td></tr>
+<tr class="memitem:ga810580a2f32688c918333db969ebffbc" id="r_ga810580a2f32688c918333db969ebffbc"><td class="memItemLeft"><a id="ga810580a2f32688c918333db969ebffbc" name="ga810580a2f32688c918333db969ebffbc"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL2_SHIFT</b></td></tr>
+<tr class="memitem:ga9187f6e2d53315b7281c6d41dbd76bae" id="r_ga9187f6e2d53315b7281c6d41dbd76bae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9187f6e2d53315b7281c6d41dbd76bae">UTICK_CFG_CAPPOL2</a>(x)</td></tr>
+<tr class="memitem:ga63c186b8f719b0f2a7320bb2e3e0182e" id="r_ga63c186b8f719b0f2a7320bb2e3e0182e"><td class="memItemLeft"><a id="ga63c186b8f719b0f2a7320bb2e3e0182e" name="ga63c186b8f719b0f2a7320bb2e3e0182e"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL3_MASK</b></td></tr>
+<tr class="memitem:ga8ad055caefafec4d8d98321cba2b6e1f" id="r_ga8ad055caefafec4d8d98321cba2b6e1f"><td class="memItemLeft"><a id="ga8ad055caefafec4d8d98321cba2b6e1f" name="ga8ad055caefafec4d8d98321cba2b6e1f"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL3_SHIFT</b></td></tr>
+<tr class="memitem:ga0fb13e5378fdda0ad07af9a1dc53214a" id="r_ga0fb13e5378fdda0ad07af9a1dc53214a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0fb13e5378fdda0ad07af9a1dc53214a">UTICK_CFG_CAPPOL3</a>(x)</td></tr>
+<tr class="memitem:ga7ea9cd792b1bf12f4ccb40b24743dde7" id="r_ga7ea9cd792b1bf12f4ccb40b24743dde7"><td class="memItemLeft"><a id="ga7ea9cd792b1bf12f4ccb40b24743dde7" name="ga7ea9cd792b1bf12f4ccb40b24743dde7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN0_MASK</b></td></tr>
+<tr class="memitem:ga5f0c7733749ed66d567f0fc43e607450" id="r_ga5f0c7733749ed66d567f0fc43e607450"><td class="memItemLeft"><a id="ga5f0c7733749ed66d567f0fc43e607450" name="ga5f0c7733749ed66d567f0fc43e607450"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN0_SHIFT</b></td></tr>
+<tr class="memitem:ga412884dbcb343a0f100406cfe289a6c0" id="r_ga412884dbcb343a0f100406cfe289a6c0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga412884dbcb343a0f100406cfe289a6c0">UTICK_CFG_CAPEN0</a>(x)</td></tr>
+<tr class="memitem:gaee684ec782222054ad2a88af0420f07b" id="r_gaee684ec782222054ad2a88af0420f07b"><td class="memItemLeft"><a id="gaee684ec782222054ad2a88af0420f07b" name="gaee684ec782222054ad2a88af0420f07b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN1_MASK</b></td></tr>
+<tr class="memitem:ga664977b9a5fdbbf67cb3a12f52bba660" id="r_ga664977b9a5fdbbf67cb3a12f52bba660"><td class="memItemLeft"><a id="ga664977b9a5fdbbf67cb3a12f52bba660" name="ga664977b9a5fdbbf67cb3a12f52bba660"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN1_SHIFT</b></td></tr>
+<tr class="memitem:ga23e28fe7c4036976ad34d226e4b902af" id="r_ga23e28fe7c4036976ad34d226e4b902af"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga23e28fe7c4036976ad34d226e4b902af">UTICK_CFG_CAPEN1</a>(x)</td></tr>
+<tr class="memitem:ga95c2da7684be6809593d83a05d3fceb7" id="r_ga95c2da7684be6809593d83a05d3fceb7"><td class="memItemLeft"><a id="ga95c2da7684be6809593d83a05d3fceb7" name="ga95c2da7684be6809593d83a05d3fceb7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN2_MASK</b></td></tr>
+<tr class="memitem:ga8100b09e77a9abf16353edac8088e67f" id="r_ga8100b09e77a9abf16353edac8088e67f"><td class="memItemLeft"><a id="ga8100b09e77a9abf16353edac8088e67f" name="ga8100b09e77a9abf16353edac8088e67f"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN2_SHIFT</b></td></tr>
+<tr class="memitem:gad8c936d67fe84fa1cdcab6eeabe01513" id="r_gad8c936d67fe84fa1cdcab6eeabe01513"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad8c936d67fe84fa1cdcab6eeabe01513">UTICK_CFG_CAPEN2</a>(x)</td></tr>
+<tr class="memitem:ga32efd68d49c9e9136bfbd4346acb5517" id="r_ga32efd68d49c9e9136bfbd4346acb5517"><td class="memItemLeft"><a id="ga32efd68d49c9e9136bfbd4346acb5517" name="ga32efd68d49c9e9136bfbd4346acb5517"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN3_MASK</b></td></tr>
+<tr class="memitem:ga05c25192a3375698eb4783342fefa8f6" id="r_ga05c25192a3375698eb4783342fefa8f6"><td class="memItemLeft"><a id="ga05c25192a3375698eb4783342fefa8f6" name="ga05c25192a3375698eb4783342fefa8f6"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPEN3_SHIFT</b></td></tr>
+<tr class="memitem:ga123b2035d005b33ec8a40a45ed252701" id="r_ga123b2035d005b33ec8a40a45ed252701"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga123b2035d005b33ec8a40a45ed252701">UTICK_CFG_CAPEN3</a>(x)</td></tr>
+<tr class="memitem:gaef1ed9a7b68bba25a064556775c7bd79" id="r_gaef1ed9a7b68bba25a064556775c7bd79"><td class="memItemLeft"><a id="gaef1ed9a7b68bba25a064556775c7bd79" name="gaef1ed9a7b68bba25a064556775c7bd79"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL0_MASK</b></td></tr>
+<tr class="memitem:ga598ec817381f5110559f5d6699218fc6" id="r_ga598ec817381f5110559f5d6699218fc6"><td class="memItemLeft"><a id="ga598ec817381f5110559f5d6699218fc6" name="ga598ec817381f5110559f5d6699218fc6"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL0_SHIFT</b></td></tr>
+<tr class="memitem:ga3687b41fe4d8f7fad49e0a51e3b6ad55" id="r_ga3687b41fe4d8f7fad49e0a51e3b6ad55"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3687b41fe4d8f7fad49e0a51e3b6ad55">UTICK_CFG_CAPPOL0</a>(x)</td></tr>
+<tr class="memitem:gaf22915089a6b9444e4f1c9579c9180c2" id="r_gaf22915089a6b9444e4f1c9579c9180c2"><td class="memItemLeft"><a id="gaf22915089a6b9444e4f1c9579c9180c2" name="gaf22915089a6b9444e4f1c9579c9180c2"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL1_MASK</b></td></tr>
+<tr class="memitem:ga2d1879756dcbf1b0203292ef1dfbc645" id="r_ga2d1879756dcbf1b0203292ef1dfbc645"><td class="memItemLeft"><a id="ga2d1879756dcbf1b0203292ef1dfbc645" name="ga2d1879756dcbf1b0203292ef1dfbc645"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL1_SHIFT</b></td></tr>
+<tr class="memitem:ga2f1d0921c524b907b87e5d5201b6a7ce" id="r_ga2f1d0921c524b907b87e5d5201b6a7ce"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2f1d0921c524b907b87e5d5201b6a7ce">UTICK_CFG_CAPPOL1</a>(x)</td></tr>
+<tr class="memitem:ga21b1c225b84a5eb000472d0e687b1d4b" id="r_ga21b1c225b84a5eb000472d0e687b1d4b"><td class="memItemLeft"><a id="ga21b1c225b84a5eb000472d0e687b1d4b" name="ga21b1c225b84a5eb000472d0e687b1d4b"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL2_MASK</b></td></tr>
+<tr class="memitem:ga810580a2f32688c918333db969ebffbc" id="r_ga810580a2f32688c918333db969ebffbc"><td class="memItemLeft"><a id="ga810580a2f32688c918333db969ebffbc" name="ga810580a2f32688c918333db969ebffbc"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL2_SHIFT</b></td></tr>
+<tr class="memitem:ga9187f6e2d53315b7281c6d41dbd76bae" id="r_ga9187f6e2d53315b7281c6d41dbd76bae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9187f6e2d53315b7281c6d41dbd76bae">UTICK_CFG_CAPPOL2</a>(x)</td></tr>
+<tr class="memitem:ga63c186b8f719b0f2a7320bb2e3e0182e" id="r_ga63c186b8f719b0f2a7320bb2e3e0182e"><td class="memItemLeft"><a id="ga63c186b8f719b0f2a7320bb2e3e0182e" name="ga63c186b8f719b0f2a7320bb2e3e0182e"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL3_MASK</b></td></tr>
+<tr class="memitem:ga8ad055caefafec4d8d98321cba2b6e1f" id="r_ga8ad055caefafec4d8d98321cba2b6e1f"><td class="memItemLeft"><a id="ga8ad055caefafec4d8d98321cba2b6e1f" name="ga8ad055caefafec4d8d98321cba2b6e1f"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CFG_CAPPOL3_SHIFT</b></td></tr>
+<tr class="memitem:ga0fb13e5378fdda0ad07af9a1dc53214a" id="r_ga0fb13e5378fdda0ad07af9a1dc53214a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0fb13e5378fdda0ad07af9a1dc53214a">UTICK_CFG_CAPPOL3</a>(x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+CAPCLR - Capture Clear</h2></td></tr>
+<tr class="memitem:ga44ada98e1688f6314037db2303dd0261" id="r_ga44ada98e1688f6314037db2303dd0261"><td class="memItemLeft"><a id="ga44ada98e1688f6314037db2303dd0261" name="ga44ada98e1688f6314037db2303dd0261"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR0_MASK</b></td></tr>
+<tr class="memitem:ga4158b145ec3977c6cfcbdc8a97975515" id="r_ga4158b145ec3977c6cfcbdc8a97975515"><td class="memItemLeft"><a id="ga4158b145ec3977c6cfcbdc8a97975515" name="ga4158b145ec3977c6cfcbdc8a97975515"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR0_SHIFT</b></td></tr>
+<tr class="memitem:ga81a108df56a75dc90d8576ff5adaca4a" id="r_ga81a108df56a75dc90d8576ff5adaca4a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga81a108df56a75dc90d8576ff5adaca4a">UTICK_CAPCLR_CAPCLR0</a>(x)</td></tr>
+<tr class="memitem:ga3e77352626410a0038863d52d0b3e4aa" id="r_ga3e77352626410a0038863d52d0b3e4aa"><td class="memItemLeft"><a id="ga3e77352626410a0038863d52d0b3e4aa" name="ga3e77352626410a0038863d52d0b3e4aa"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR1_MASK</b></td></tr>
+<tr class="memitem:ga5b28d7a97f6ce59d98b8b2182cdb5041" id="r_ga5b28d7a97f6ce59d98b8b2182cdb5041"><td class="memItemLeft"><a id="ga5b28d7a97f6ce59d98b8b2182cdb5041" name="ga5b28d7a97f6ce59d98b8b2182cdb5041"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR1_SHIFT</b></td></tr>
+<tr class="memitem:gab70e37a1da977afd3f8670c2ea842e89" id="r_gab70e37a1da977afd3f8670c2ea842e89"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab70e37a1da977afd3f8670c2ea842e89">UTICK_CAPCLR_CAPCLR1</a>(x)</td></tr>
+<tr class="memitem:ga9a1cba8b60e01cc0680f832fe0cd85a7" id="r_ga9a1cba8b60e01cc0680f832fe0cd85a7"><td class="memItemLeft"><a id="ga9a1cba8b60e01cc0680f832fe0cd85a7" name="ga9a1cba8b60e01cc0680f832fe0cd85a7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR2_MASK</b></td></tr>
+<tr class="memitem:gaf1e3df739b3ef16f61140a2bdc7f2a7a" id="r_gaf1e3df739b3ef16f61140a2bdc7f2a7a"><td class="memItemLeft"><a id="gaf1e3df739b3ef16f61140a2bdc7f2a7a" name="gaf1e3df739b3ef16f61140a2bdc7f2a7a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR2_SHIFT</b></td></tr>
+<tr class="memitem:ga636625ea7172f2656d3c2cf9bcd60a84" id="r_ga636625ea7172f2656d3c2cf9bcd60a84"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga636625ea7172f2656d3c2cf9bcd60a84">UTICK_CAPCLR_CAPCLR2</a>(x)</td></tr>
+<tr class="memitem:ga625ea22bcbab2fa609ca62cd34f936b0" id="r_ga625ea22bcbab2fa609ca62cd34f936b0"><td class="memItemLeft"><a id="ga625ea22bcbab2fa609ca62cd34f936b0" name="ga625ea22bcbab2fa609ca62cd34f936b0"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR3_MASK</b></td></tr>
+<tr class="memitem:gac281fc66db683f70a5b6e262addb2895" id="r_gac281fc66db683f70a5b6e262addb2895"><td class="memItemLeft"><a id="gac281fc66db683f70a5b6e262addb2895" name="gac281fc66db683f70a5b6e262addb2895"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR3_SHIFT</b></td></tr>
+<tr class="memitem:ga1374ef9284f18c7a2e73caa1d6817dd0" id="r_ga1374ef9284f18c7a2e73caa1d6817dd0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1374ef9284f18c7a2e73caa1d6817dd0">UTICK_CAPCLR_CAPCLR3</a>(x)</td></tr>
+<tr class="memitem:ga44ada98e1688f6314037db2303dd0261" id="r_ga44ada98e1688f6314037db2303dd0261"><td class="memItemLeft"><a id="ga44ada98e1688f6314037db2303dd0261" name="ga44ada98e1688f6314037db2303dd0261"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR0_MASK</b></td></tr>
+<tr class="memitem:ga4158b145ec3977c6cfcbdc8a97975515" id="r_ga4158b145ec3977c6cfcbdc8a97975515"><td class="memItemLeft"><a id="ga4158b145ec3977c6cfcbdc8a97975515" name="ga4158b145ec3977c6cfcbdc8a97975515"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR0_SHIFT</b></td></tr>
+<tr class="memitem:ga81a108df56a75dc90d8576ff5adaca4a" id="r_ga81a108df56a75dc90d8576ff5adaca4a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga81a108df56a75dc90d8576ff5adaca4a">UTICK_CAPCLR_CAPCLR0</a>(x)</td></tr>
+<tr class="memitem:ga3e77352626410a0038863d52d0b3e4aa" id="r_ga3e77352626410a0038863d52d0b3e4aa"><td class="memItemLeft"><a id="ga3e77352626410a0038863d52d0b3e4aa" name="ga3e77352626410a0038863d52d0b3e4aa"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR1_MASK</b></td></tr>
+<tr class="memitem:ga5b28d7a97f6ce59d98b8b2182cdb5041" id="r_ga5b28d7a97f6ce59d98b8b2182cdb5041"><td class="memItemLeft"><a id="ga5b28d7a97f6ce59d98b8b2182cdb5041" name="ga5b28d7a97f6ce59d98b8b2182cdb5041"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR1_SHIFT</b></td></tr>
+<tr class="memitem:gab70e37a1da977afd3f8670c2ea842e89" id="r_gab70e37a1da977afd3f8670c2ea842e89"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab70e37a1da977afd3f8670c2ea842e89">UTICK_CAPCLR_CAPCLR1</a>(x)</td></tr>
+<tr class="memitem:ga9a1cba8b60e01cc0680f832fe0cd85a7" id="r_ga9a1cba8b60e01cc0680f832fe0cd85a7"><td class="memItemLeft"><a id="ga9a1cba8b60e01cc0680f832fe0cd85a7" name="ga9a1cba8b60e01cc0680f832fe0cd85a7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR2_MASK</b></td></tr>
+<tr class="memitem:gaf1e3df739b3ef16f61140a2bdc7f2a7a" id="r_gaf1e3df739b3ef16f61140a2bdc7f2a7a"><td class="memItemLeft"><a id="gaf1e3df739b3ef16f61140a2bdc7f2a7a" name="gaf1e3df739b3ef16f61140a2bdc7f2a7a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR2_SHIFT</b></td></tr>
+<tr class="memitem:ga636625ea7172f2656d3c2cf9bcd60a84" id="r_ga636625ea7172f2656d3c2cf9bcd60a84"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga636625ea7172f2656d3c2cf9bcd60a84">UTICK_CAPCLR_CAPCLR2</a>(x)</td></tr>
+<tr class="memitem:ga625ea22bcbab2fa609ca62cd34f936b0" id="r_ga625ea22bcbab2fa609ca62cd34f936b0"><td class="memItemLeft"><a id="ga625ea22bcbab2fa609ca62cd34f936b0" name="ga625ea22bcbab2fa609ca62cd34f936b0"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR3_MASK</b></td></tr>
+<tr class="memitem:gac281fc66db683f70a5b6e262addb2895" id="r_gac281fc66db683f70a5b6e262addb2895"><td class="memItemLeft"><a id="gac281fc66db683f70a5b6e262addb2895" name="gac281fc66db683f70a5b6e262addb2895"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR3_SHIFT</b></td></tr>
+<tr class="memitem:ga1374ef9284f18c7a2e73caa1d6817dd0" id="r_ga1374ef9284f18c7a2e73caa1d6817dd0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1374ef9284f18c7a2e73caa1d6817dd0">UTICK_CAPCLR_CAPCLR3</a>(x)</td></tr>
+<tr class="memitem:ga44ada98e1688f6314037db2303dd0261" id="r_ga44ada98e1688f6314037db2303dd0261"><td class="memItemLeft"><a id="ga44ada98e1688f6314037db2303dd0261" name="ga44ada98e1688f6314037db2303dd0261"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR0_MASK</b></td></tr>
+<tr class="memitem:ga4158b145ec3977c6cfcbdc8a97975515" id="r_ga4158b145ec3977c6cfcbdc8a97975515"><td class="memItemLeft"><a id="ga4158b145ec3977c6cfcbdc8a97975515" name="ga4158b145ec3977c6cfcbdc8a97975515"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR0_SHIFT</b></td></tr>
+<tr class="memitem:ga81a108df56a75dc90d8576ff5adaca4a" id="r_ga81a108df56a75dc90d8576ff5adaca4a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga81a108df56a75dc90d8576ff5adaca4a">UTICK_CAPCLR_CAPCLR0</a>(x)</td></tr>
+<tr class="memitem:ga3e77352626410a0038863d52d0b3e4aa" id="r_ga3e77352626410a0038863d52d0b3e4aa"><td class="memItemLeft"><a id="ga3e77352626410a0038863d52d0b3e4aa" name="ga3e77352626410a0038863d52d0b3e4aa"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR1_MASK</b></td></tr>
+<tr class="memitem:ga5b28d7a97f6ce59d98b8b2182cdb5041" id="r_ga5b28d7a97f6ce59d98b8b2182cdb5041"><td class="memItemLeft"><a id="ga5b28d7a97f6ce59d98b8b2182cdb5041" name="ga5b28d7a97f6ce59d98b8b2182cdb5041"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR1_SHIFT</b></td></tr>
+<tr class="memitem:gab70e37a1da977afd3f8670c2ea842e89" id="r_gab70e37a1da977afd3f8670c2ea842e89"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab70e37a1da977afd3f8670c2ea842e89">UTICK_CAPCLR_CAPCLR1</a>(x)</td></tr>
+<tr class="memitem:ga9a1cba8b60e01cc0680f832fe0cd85a7" id="r_ga9a1cba8b60e01cc0680f832fe0cd85a7"><td class="memItemLeft"><a id="ga9a1cba8b60e01cc0680f832fe0cd85a7" name="ga9a1cba8b60e01cc0680f832fe0cd85a7"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR2_MASK</b></td></tr>
+<tr class="memitem:gaf1e3df739b3ef16f61140a2bdc7f2a7a" id="r_gaf1e3df739b3ef16f61140a2bdc7f2a7a"><td class="memItemLeft"><a id="gaf1e3df739b3ef16f61140a2bdc7f2a7a" name="gaf1e3df739b3ef16f61140a2bdc7f2a7a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR2_SHIFT</b></td></tr>
+<tr class="memitem:ga636625ea7172f2656d3c2cf9bcd60a84" id="r_ga636625ea7172f2656d3c2cf9bcd60a84"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga636625ea7172f2656d3c2cf9bcd60a84">UTICK_CAPCLR_CAPCLR2</a>(x)</td></tr>
+<tr class="memitem:ga625ea22bcbab2fa609ca62cd34f936b0" id="r_ga625ea22bcbab2fa609ca62cd34f936b0"><td class="memItemLeft"><a id="ga625ea22bcbab2fa609ca62cd34f936b0" name="ga625ea22bcbab2fa609ca62cd34f936b0"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR3_MASK</b></td></tr>
+<tr class="memitem:gac281fc66db683f70a5b6e262addb2895" id="r_gac281fc66db683f70a5b6e262addb2895"><td class="memItemLeft"><a id="gac281fc66db683f70a5b6e262addb2895" name="gac281fc66db683f70a5b6e262addb2895"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAPCLR_CAPCLR3_SHIFT</b></td></tr>
+<tr class="memitem:ga1374ef9284f18c7a2e73caa1d6817dd0" id="r_ga1374ef9284f18c7a2e73caa1d6817dd0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1374ef9284f18c7a2e73caa1d6817dd0">UTICK_CAPCLR_CAPCLR3</a>(x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+CAP - Capture</h2></td></tr>
+<tr class="memitem:ga1f1e4a8f25e1a72df1bf40ff380e2e0d" id="r_ga1f1e4a8f25e1a72df1bf40ff380e2e0d"><td class="memItemLeft"><a id="ga1f1e4a8f25e1a72df1bf40ff380e2e0d" name="ga1f1e4a8f25e1a72df1bf40ff380e2e0d"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_CAP_VALUE_MASK</b></td></tr>
+<tr class="memitem:ga40cd56784911ccfc116e131bcc783b46" id="r_ga40cd56784911ccfc116e131bcc783b46"><td class="memItemLeft"><a id="ga40cd56784911ccfc116e131bcc783b46" name="ga40cd56784911ccfc116e131bcc783b46"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_CAP_VALUE_SHIFT</b></td></tr>
+<tr class="memitem:gabcf6749a8a028bae2e057529c69e0d8e" id="r_gabcf6749a8a028bae2e057529c69e0d8e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabcf6749a8a028bae2e057529c69e0d8e">UTICK_CAP_CAP_VALUE</a>(x)</td></tr>
+<tr class="memitem:ga8808f09f4d50bd9e887f2cbe123e815a" id="r_ga8808f09f4d50bd9e887f2cbe123e815a"><td class="memItemLeft"><a id="ga8808f09f4d50bd9e887f2cbe123e815a" name="ga8808f09f4d50bd9e887f2cbe123e815a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_VALID_MASK</b></td></tr>
+<tr class="memitem:ga7742edc7be05cfe5fc62706626053b3a" id="r_ga7742edc7be05cfe5fc62706626053b3a"><td class="memItemLeft"><a id="ga7742edc7be05cfe5fc62706626053b3a" name="ga7742edc7be05cfe5fc62706626053b3a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_VALID_SHIFT</b></td></tr>
+<tr class="memitem:ga832c05adba94a26846e29fedc4b22bb5" id="r_ga832c05adba94a26846e29fedc4b22bb5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga832c05adba94a26846e29fedc4b22bb5">UTICK_CAP_VALID</a>(x)</td></tr>
+<tr class="memitem:ga1f1e4a8f25e1a72df1bf40ff380e2e0d" id="r_ga1f1e4a8f25e1a72df1bf40ff380e2e0d"><td class="memItemLeft"><a id="ga1f1e4a8f25e1a72df1bf40ff380e2e0d" name="ga1f1e4a8f25e1a72df1bf40ff380e2e0d"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_CAP_VALUE_MASK</b></td></tr>
+<tr class="memitem:ga40cd56784911ccfc116e131bcc783b46" id="r_ga40cd56784911ccfc116e131bcc783b46"><td class="memItemLeft"><a id="ga40cd56784911ccfc116e131bcc783b46" name="ga40cd56784911ccfc116e131bcc783b46"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_CAP_VALUE_SHIFT</b></td></tr>
+<tr class="memitem:gabcf6749a8a028bae2e057529c69e0d8e" id="r_gabcf6749a8a028bae2e057529c69e0d8e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabcf6749a8a028bae2e057529c69e0d8e">UTICK_CAP_CAP_VALUE</a>(x)</td></tr>
+<tr class="memitem:ga8808f09f4d50bd9e887f2cbe123e815a" id="r_ga8808f09f4d50bd9e887f2cbe123e815a"><td class="memItemLeft"><a id="ga8808f09f4d50bd9e887f2cbe123e815a" name="ga8808f09f4d50bd9e887f2cbe123e815a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_VALID_MASK</b></td></tr>
+<tr class="memitem:ga7742edc7be05cfe5fc62706626053b3a" id="r_ga7742edc7be05cfe5fc62706626053b3a"><td class="memItemLeft"><a id="ga7742edc7be05cfe5fc62706626053b3a" name="ga7742edc7be05cfe5fc62706626053b3a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_VALID_SHIFT</b></td></tr>
+<tr class="memitem:ga832c05adba94a26846e29fedc4b22bb5" id="r_ga832c05adba94a26846e29fedc4b22bb5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga832c05adba94a26846e29fedc4b22bb5">UTICK_CAP_VALID</a>(x)</td></tr>
+<tr class="memitem:ga1f1e4a8f25e1a72df1bf40ff380e2e0d" id="r_ga1f1e4a8f25e1a72df1bf40ff380e2e0d"><td class="memItemLeft"><a id="ga1f1e4a8f25e1a72df1bf40ff380e2e0d" name="ga1f1e4a8f25e1a72df1bf40ff380e2e0d"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_CAP_VALUE_MASK</b></td></tr>
+<tr class="memitem:ga40cd56784911ccfc116e131bcc783b46" id="r_ga40cd56784911ccfc116e131bcc783b46"><td class="memItemLeft"><a id="ga40cd56784911ccfc116e131bcc783b46" name="ga40cd56784911ccfc116e131bcc783b46"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_CAP_VALUE_SHIFT</b></td></tr>
+<tr class="memitem:gabcf6749a8a028bae2e057529c69e0d8e" id="r_gabcf6749a8a028bae2e057529c69e0d8e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabcf6749a8a028bae2e057529c69e0d8e">UTICK_CAP_CAP_VALUE</a>(x)</td></tr>
+<tr class="memitem:ga8808f09f4d50bd9e887f2cbe123e815a" id="r_ga8808f09f4d50bd9e887f2cbe123e815a"><td class="memItemLeft"><a id="ga8808f09f4d50bd9e887f2cbe123e815a" name="ga8808f09f4d50bd9e887f2cbe123e815a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_VALID_MASK</b></td></tr>
+<tr class="memitem:ga7742edc7be05cfe5fc62706626053b3a" id="r_ga7742edc7be05cfe5fc62706626053b3a"><td class="memItemLeft"><a id="ga7742edc7be05cfe5fc62706626053b3a" name="ga7742edc7be05cfe5fc62706626053b3a"></a>
+#define&#160;</td><td class="memItemRight"><b>UTICK_CAP_VALID_SHIFT</b></td></tr>
+<tr class="memitem:ga832c05adba94a26846e29fedc4b22bb5" id="r_ga832c05adba94a26846e29fedc4b22bb5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga832c05adba94a26846e29fedc4b22bb5">UTICK_CAP_VALID</a>(x)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"></div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="gaf7a9de599472288b2c621f254b63ba9f" name="gaf7a9de599472288b2c621f254b63ba9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf7a9de599472288b2c621f254b63ba9f">&#9670;&#160;</a></span>UDF0_BASE</h2>
+<a id="ga6834f5c50f8cad49c6fd166032454687" name="ga6834f5c50f8cad49c6fd166032454687"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6834f5c50f8cad49c6fd166032454687">&#9670;&#160;</a></span>UTICK_CTRL_DELAYVAL <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF0_BASE</td>
+          <td class="memname">#define UTICK_CTRL_DELAYVAL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Peripheral UDF0 base address. </p>
+<p>DELAYVAL - Tick Interval 0b0000000000000000000000000000000.. *..Clock cycles as defined in the description </p>
 
 </div>
 </div>
-<a id="ga19ad2db6eb0c347569f6130c51135425" name="ga19ad2db6eb0c347569f6130c51135425"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga19ad2db6eb0c347569f6130c51135425">&#9670;&#160;</a></span>UDF0</h2>
+<a id="ga701070f53b4ab40ac39095b88d07df07" name="ga701070f53b4ab40ac39095b88d07df07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga701070f53b4ab40ac39095b88d07df07">&#9670;&#160;</a></span>UTICK_CTRL_REPEAT <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF0</td>
+          <td class="memname">#define UTICK_CTRL_REPEAT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Peripheral UDF0 base pointer. </p>
+<p>REPEAT - Repeat Delay 0b0..One-time delay 0b1..Delay repeats continuously </p>
 
 </div>
 </div>
-<a id="ga99ba77a7ff72b73ed8f345e4acce71a2" name="ga99ba77a7ff72b73ed8f345e4acce71a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga99ba77a7ff72b73ed8f345e4acce71a2">&#9670;&#160;</a></span>UDF_BASE_ADDRS <span class="overload">[1/2]</span></h2>
+<a id="ga62a7b26f063030fe8ba04f8d8b9519ef" name="ga62a7b26f063030fe8ba04f8d8b9519ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga62a7b26f063030fe8ba04f8d8b9519ef">&#9670;&#160;</a></span>UTICK_STAT_INTR <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF_BASE_ADDRS</td>
+          <td class="memname">#define UTICK_STAT_INTR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Array initializer of UDF peripheral base addresses. </p>
+<p>INTR - Interrupt Flag 0b0..Not pending 0b1..Pending </p>
 
 </div>
 </div>
-<a id="gaec7a8b9c1948135e3a6e4eb9289430c9" name="gaec7a8b9c1948135e3a6e4eb9289430c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaec7a8b9c1948135e3a6e4eb9289430c9">&#9670;&#160;</a></span>UDF_BASE_PTRS <span class="overload">[1/2]</span></h2>
+<a id="ga00c225639be4f35f8a7f47b7431b0427" name="ga00c225639be4f35f8a7f47b7431b0427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga00c225639be4f35f8a7f47b7431b0427">&#9670;&#160;</a></span>UTICK_STAT_ACTIVE <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF_BASE_PTRS</td>
+          <td class="memname">#define UTICK_STAT_ACTIVE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Array initializer of UDF peripheral base pointers. </p>
+<p>ACTIVE - Timer Active Flag 0b0..Inactive (stopped) 0b1..Active </p>
 
 </div>
 </div>
-<a id="ga8ac053d0de72650b4528260a9860d77c" name="ga8ac053d0de72650b4528260a9860d77c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8ac053d0de72650b4528260a9860d77c">&#9670;&#160;</a></span>UDF_0_BASE</h2>
+<a id="ga412884dbcb343a0f100406cfe289a6c0" name="ga412884dbcb343a0f100406cfe289a6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga412884dbcb343a0f100406cfe289a6c0">&#9670;&#160;</a></span>UTICK_CFG_CAPEN0 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF_0_BASE</td>
+          <td class="memname">#define UTICK_CFG_CAPEN0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Peripheral UDF_0 base address. </p>
+<p>CAPEN0 - Enable Capture 0 0b0..Disable 0b1..Enable </p>
 
 </div>
 </div>
-<a id="ga3fcab638aa47f9f82bc86102b898e896" name="ga3fcab638aa47f9f82bc86102b898e896"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3fcab638aa47f9f82bc86102b898e896">&#9670;&#160;</a></span>UDF_0</h2>
+<a id="ga23e28fe7c4036976ad34d226e4b902af" name="ga23e28fe7c4036976ad34d226e4b902af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga23e28fe7c4036976ad34d226e4b902af">&#9670;&#160;</a></span>UTICK_CFG_CAPEN1 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF_0</td>
+          <td class="memname">#define UTICK_CFG_CAPEN1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Peripheral UDF_0 base pointer. </p>
+<p>CAPEN1 - Enable Capture 1 0b0..Disable 0b1..Enable </p>
 
 </div>
 </div>
-<a id="ga99ba77a7ff72b73ed8f345e4acce71a2" name="ga99ba77a7ff72b73ed8f345e4acce71a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga99ba77a7ff72b73ed8f345e4acce71a2">&#9670;&#160;</a></span>UDF_BASE_ADDRS <span class="overload">[2/2]</span></h2>
+<a id="gad8c936d67fe84fa1cdcab6eeabe01513" name="gad8c936d67fe84fa1cdcab6eeabe01513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8c936d67fe84fa1cdcab6eeabe01513">&#9670;&#160;</a></span>UTICK_CFG_CAPEN2 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF_BASE_ADDRS</td>
+          <td class="memname">#define UTICK_CFG_CAPEN2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Array initializer of UDF peripheral base addresses. </p>
+<p>CAPEN2 - Enable Capture 2 0b0..Disable 0b1..Enable </p>
 
 </div>
 </div>
-<a id="gaec7a8b9c1948135e3a6e4eb9289430c9" name="gaec7a8b9c1948135e3a6e4eb9289430c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaec7a8b9c1948135e3a6e4eb9289430c9">&#9670;&#160;</a></span>UDF_BASE_PTRS <span class="overload">[2/2]</span></h2>
+<a id="ga123b2035d005b33ec8a40a45ed252701" name="ga123b2035d005b33ec8a40a45ed252701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga123b2035d005b33ec8a40a45ed252701">&#9670;&#160;</a></span>UTICK_CFG_CAPEN3 <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UDF_BASE_PTRS</td>
+          <td class="memname">#define UTICK_CFG_CAPEN3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>CAPEN3 - Enable Capture 3 0b0..Disable 0b1..Enable </p>
 
-<p>Array initializer of UDF peripheral base pointers. </p>
+</div>
+</div>
+<a id="ga3687b41fe4d8f7fad49e0a51e3b6ad55" name="ga3687b41fe4d8f7fad49e0a51e3b6ad55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3687b41fe4d8f7fad49e0a51e3b6ad55">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL0 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL0 - Capture Polarity 0 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga2f1d0921c524b907b87e5d5201b6a7ce" name="ga2f1d0921c524b907b87e5d5201b6a7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f1d0921c524b907b87e5d5201b6a7ce">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL1 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL1 - Capture-Polarity 1 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga9187f6e2d53315b7281c6d41dbd76bae" name="ga9187f6e2d53315b7281c6d41dbd76bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9187f6e2d53315b7281c6d41dbd76bae">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL2 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL2 - Capture Polarity 2 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga0fb13e5378fdda0ad07af9a1dc53214a" name="ga0fb13e5378fdda0ad07af9a1dc53214a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0fb13e5378fdda0ad07af9a1dc53214a">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL3 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL3 - Capture Polarity 3 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga81a108df56a75dc90d8576ff5adaca4a" name="ga81a108df56a75dc90d8576ff5adaca4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga81a108df56a75dc90d8576ff5adaca4a">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR0 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR0 - Clear Capture 0 0b0..Does nothing 0b1..Clears the CAP0 register value </p>
+
+</div>
+</div>
+<a id="gab70e37a1da977afd3f8670c2ea842e89" name="gab70e37a1da977afd3f8670c2ea842e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab70e37a1da977afd3f8670c2ea842e89">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR1 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR1 - Clear Capture 1 0b0..Does nothing 0b1..Clears the CAP1 register value </p>
+
+</div>
+</div>
+<a id="ga636625ea7172f2656d3c2cf9bcd60a84" name="ga636625ea7172f2656d3c2cf9bcd60a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga636625ea7172f2656d3c2cf9bcd60a84">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR2 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR2 - Clear Capture 2 0b0..Does nothing 0b1..Clears the CAP2 register value </p>
+
+</div>
+</div>
+<a id="ga1374ef9284f18c7a2e73caa1d6817dd0" name="ga1374ef9284f18c7a2e73caa1d6817dd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1374ef9284f18c7a2e73caa1d6817dd0">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR3 <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR3 - Clear Capture 3 0b0..Does nothing 0b1..Clears the CAP3 register value </p>
+
+</div>
+</div>
+<a id="gabcf6749a8a028bae2e057529c69e0d8e" name="gabcf6749a8a028bae2e057529c69e0d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabcf6749a8a028bae2e057529c69e0d8e">&#9670;&#160;</a></span>UTICK_CAP_CAP_VALUE <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAP_CAP_VALUE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAP_VALUE - Captured Value for the Related Capture Event </p>
+
+</div>
+</div>
+<a id="ga832c05adba94a26846e29fedc4b22bb5" name="ga832c05adba94a26846e29fedc4b22bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga832c05adba94a26846e29fedc4b22bb5">&#9670;&#160;</a></span>UTICK_CAP_VALID <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAP_VALID</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>VALID - Captured Value Valid Flag 0b0..Valid value not captured 0b1..Valid value captured </p>
+
+</div>
+</div>
+<a id="ga6834f5c50f8cad49c6fd166032454687" name="ga6834f5c50f8cad49c6fd166032454687"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6834f5c50f8cad49c6fd166032454687">&#9670;&#160;</a></span>UTICK_CTRL_DELAYVAL <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CTRL_DELAYVAL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>DELAYVAL - Tick Interval 0b0000000000000000000000000000000.. *..Clock cycles as defined in the description </p>
+
+</div>
+</div>
+<a id="ga701070f53b4ab40ac39095b88d07df07" name="ga701070f53b4ab40ac39095b88d07df07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga701070f53b4ab40ac39095b88d07df07">&#9670;&#160;</a></span>UTICK_CTRL_REPEAT <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CTRL_REPEAT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>REPEAT - Repeat Delay 0b0..One-time delay 0b1..Delay repeats continuously </p>
+
+</div>
+</div>
+<a id="ga62a7b26f063030fe8ba04f8d8b9519ef" name="ga62a7b26f063030fe8ba04f8d8b9519ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga62a7b26f063030fe8ba04f8d8b9519ef">&#9670;&#160;</a></span>UTICK_STAT_INTR <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_STAT_INTR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>INTR - Interrupt Flag 0b0..Not pending 0b1..Pending </p>
+
+</div>
+</div>
+<a id="ga00c225639be4f35f8a7f47b7431b0427" name="ga00c225639be4f35f8a7f47b7431b0427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga00c225639be4f35f8a7f47b7431b0427">&#9670;&#160;</a></span>UTICK_STAT_ACTIVE <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_STAT_ACTIVE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ACTIVE - Timer Active Flag 0b0..Inactive (stopped) 0b1..Active </p>
+
+</div>
+</div>
+<a id="ga412884dbcb343a0f100406cfe289a6c0" name="ga412884dbcb343a0f100406cfe289a6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga412884dbcb343a0f100406cfe289a6c0">&#9670;&#160;</a></span>UTICK_CFG_CAPEN0 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN0 - Enable Capture 0 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="ga23e28fe7c4036976ad34d226e4b902af" name="ga23e28fe7c4036976ad34d226e4b902af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga23e28fe7c4036976ad34d226e4b902af">&#9670;&#160;</a></span>UTICK_CFG_CAPEN1 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN1 - Enable Capture 1 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="gad8c936d67fe84fa1cdcab6eeabe01513" name="gad8c936d67fe84fa1cdcab6eeabe01513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8c936d67fe84fa1cdcab6eeabe01513">&#9670;&#160;</a></span>UTICK_CFG_CAPEN2 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN2 - Enable Capture 2 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="ga123b2035d005b33ec8a40a45ed252701" name="ga123b2035d005b33ec8a40a45ed252701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga123b2035d005b33ec8a40a45ed252701">&#9670;&#160;</a></span>UTICK_CFG_CAPEN3 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN3 - Enable Capture 3 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="ga3687b41fe4d8f7fad49e0a51e3b6ad55" name="ga3687b41fe4d8f7fad49e0a51e3b6ad55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3687b41fe4d8f7fad49e0a51e3b6ad55">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL0 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL0 - Capture Polarity 0 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga2f1d0921c524b907b87e5d5201b6a7ce" name="ga2f1d0921c524b907b87e5d5201b6a7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f1d0921c524b907b87e5d5201b6a7ce">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL1 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL1 - Capture-Polarity 1 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga9187f6e2d53315b7281c6d41dbd76bae" name="ga9187f6e2d53315b7281c6d41dbd76bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9187f6e2d53315b7281c6d41dbd76bae">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL2 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL2 - Capture Polarity 2 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga0fb13e5378fdda0ad07af9a1dc53214a" name="ga0fb13e5378fdda0ad07af9a1dc53214a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0fb13e5378fdda0ad07af9a1dc53214a">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL3 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL3 - Capture Polarity 3 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga81a108df56a75dc90d8576ff5adaca4a" name="ga81a108df56a75dc90d8576ff5adaca4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga81a108df56a75dc90d8576ff5adaca4a">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR0 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR0 - Clear Capture 0 0b0..Does nothing 0b1..Clears the CAP0 register value </p>
+
+</div>
+</div>
+<a id="gab70e37a1da977afd3f8670c2ea842e89" name="gab70e37a1da977afd3f8670c2ea842e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab70e37a1da977afd3f8670c2ea842e89">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR1 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR1 - Clear Capture 1 0b0..Does nothing 0b1..Clears the CAP1 register value </p>
+
+</div>
+</div>
+<a id="ga636625ea7172f2656d3c2cf9bcd60a84" name="ga636625ea7172f2656d3c2cf9bcd60a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga636625ea7172f2656d3c2cf9bcd60a84">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR2 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR2 - Clear Capture 2 0b0..Does nothing 0b1..Clears the CAP2 register value </p>
+
+</div>
+</div>
+<a id="ga1374ef9284f18c7a2e73caa1d6817dd0" name="ga1374ef9284f18c7a2e73caa1d6817dd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1374ef9284f18c7a2e73caa1d6817dd0">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR3 <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR3 - Clear Capture 3 0b0..Does nothing 0b1..Clears the CAP3 register value </p>
+
+</div>
+</div>
+<a id="gabcf6749a8a028bae2e057529c69e0d8e" name="gabcf6749a8a028bae2e057529c69e0d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabcf6749a8a028bae2e057529c69e0d8e">&#9670;&#160;</a></span>UTICK_CAP_CAP_VALUE <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAP_CAP_VALUE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAP_VALUE - Captured Value for the Related Capture Event </p>
+
+</div>
+</div>
+<a id="ga832c05adba94a26846e29fedc4b22bb5" name="ga832c05adba94a26846e29fedc4b22bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga832c05adba94a26846e29fedc4b22bb5">&#9670;&#160;</a></span>UTICK_CAP_VALID <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAP_VALID</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>VALID - Captured Value Valid Flag 0b0..Valid value not captured 0b1..Valid value captured </p>
+
+</div>
+</div>
+<a id="ga6834f5c50f8cad49c6fd166032454687" name="ga6834f5c50f8cad49c6fd166032454687"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6834f5c50f8cad49c6fd166032454687">&#9670;&#160;</a></span>UTICK_CTRL_DELAYVAL <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CTRL_DELAYVAL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>DELAYVAL - Tick Interval 0b0000000000000000000000000000000.. *..Clock cycles as defined in the description </p>
+
+</div>
+</div>
+<a id="ga701070f53b4ab40ac39095b88d07df07" name="ga701070f53b4ab40ac39095b88d07df07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga701070f53b4ab40ac39095b88d07df07">&#9670;&#160;</a></span>UTICK_CTRL_REPEAT <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CTRL_REPEAT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>REPEAT - Repeat Delay 0b0..One-time delay 0b1..Delay repeats continuously </p>
+
+</div>
+</div>
+<a id="ga62a7b26f063030fe8ba04f8d8b9519ef" name="ga62a7b26f063030fe8ba04f8d8b9519ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga62a7b26f063030fe8ba04f8d8b9519ef">&#9670;&#160;</a></span>UTICK_STAT_INTR <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_STAT_INTR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>INTR - Interrupt Flag 0b0..Not pending 0b1..Pending </p>
+
+</div>
+</div>
+<a id="ga00c225639be4f35f8a7f47b7431b0427" name="ga00c225639be4f35f8a7f47b7431b0427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga00c225639be4f35f8a7f47b7431b0427">&#9670;&#160;</a></span>UTICK_STAT_ACTIVE <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_STAT_ACTIVE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ACTIVE - Timer Active Flag 0b0..Inactive (stopped) 0b1..Active </p>
+
+</div>
+</div>
+<a id="ga412884dbcb343a0f100406cfe289a6c0" name="ga412884dbcb343a0f100406cfe289a6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga412884dbcb343a0f100406cfe289a6c0">&#9670;&#160;</a></span>UTICK_CFG_CAPEN0 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN0 - Enable Capture 0 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="ga23e28fe7c4036976ad34d226e4b902af" name="ga23e28fe7c4036976ad34d226e4b902af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga23e28fe7c4036976ad34d226e4b902af">&#9670;&#160;</a></span>UTICK_CFG_CAPEN1 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN1 - Enable Capture 1 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="gad8c936d67fe84fa1cdcab6eeabe01513" name="gad8c936d67fe84fa1cdcab6eeabe01513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8c936d67fe84fa1cdcab6eeabe01513">&#9670;&#160;</a></span>UTICK_CFG_CAPEN2 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN2 - Enable Capture 2 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="ga123b2035d005b33ec8a40a45ed252701" name="ga123b2035d005b33ec8a40a45ed252701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga123b2035d005b33ec8a40a45ed252701">&#9670;&#160;</a></span>UTICK_CFG_CAPEN3 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPEN3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPEN3 - Enable Capture 3 0b0..Disable 0b1..Enable </p>
+
+</div>
+</div>
+<a id="ga3687b41fe4d8f7fad49e0a51e3b6ad55" name="ga3687b41fe4d8f7fad49e0a51e3b6ad55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3687b41fe4d8f7fad49e0a51e3b6ad55">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL0 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL0 - Capture Polarity 0 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga2f1d0921c524b907b87e5d5201b6a7ce" name="ga2f1d0921c524b907b87e5d5201b6a7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f1d0921c524b907b87e5d5201b6a7ce">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL1 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL1 - Capture-Polarity 1 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga9187f6e2d53315b7281c6d41dbd76bae" name="ga9187f6e2d53315b7281c6d41dbd76bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9187f6e2d53315b7281c6d41dbd76bae">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL2 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL2 - Capture Polarity 2 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga0fb13e5378fdda0ad07af9a1dc53214a" name="ga0fb13e5378fdda0ad07af9a1dc53214a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0fb13e5378fdda0ad07af9a1dc53214a">&#9670;&#160;</a></span>UTICK_CFG_CAPPOL3 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CFG_CAPPOL3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPPOL3 - Capture Polarity 3 0b0..Positive 0b1..Negative </p>
+
+</div>
+</div>
+<a id="ga81a108df56a75dc90d8576ff5adaca4a" name="ga81a108df56a75dc90d8576ff5adaca4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga81a108df56a75dc90d8576ff5adaca4a">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR0 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR0 - Clear Capture 0 0b0..Does nothing 0b1..Clears the CAP0 register value </p>
+
+</div>
+</div>
+<a id="gab70e37a1da977afd3f8670c2ea842e89" name="gab70e37a1da977afd3f8670c2ea842e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab70e37a1da977afd3f8670c2ea842e89">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR1 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR1 - Clear Capture 1 0b0..Does nothing 0b1..Clears the CAP1 register value </p>
+
+</div>
+</div>
+<a id="ga636625ea7172f2656d3c2cf9bcd60a84" name="ga636625ea7172f2656d3c2cf9bcd60a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga636625ea7172f2656d3c2cf9bcd60a84">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR2 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR2 - Clear Capture 2 0b0..Does nothing 0b1..Clears the CAP2 register value </p>
+
+</div>
+</div>
+<a id="ga1374ef9284f18c7a2e73caa1d6817dd0" name="ga1374ef9284f18c7a2e73caa1d6817dd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1374ef9284f18c7a2e73caa1d6817dd0">&#9670;&#160;</a></span>UTICK_CAPCLR_CAPCLR3 <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAPCLR_CAPCLR3</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAPCLR3 - Clear Capture 3 0b0..Does nothing 0b1..Clears the CAP3 register value </p>
+
+</div>
+</div>
+<a id="gabcf6749a8a028bae2e057529c69e0d8e" name="gabcf6749a8a028bae2e057529c69e0d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabcf6749a8a028bae2e057529c69e0d8e">&#9670;&#160;</a></span>UTICK_CAP_CAP_VALUE <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAP_CAP_VALUE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CAP_VALUE - Captured Value for the Related Capture Event </p>
+
+</div>
+</div>
+<a id="ga832c05adba94a26846e29fedc4b22bb5" name="ga832c05adba94a26846e29fedc4b22bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga832c05adba94a26846e29fedc4b22bb5">&#9670;&#160;</a></span>UTICK_CAP_VALID <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UTICK_CAP_VALID</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>VALID - Captured Value Valid Flag 0b0..Valid value not captured 0b1..Valid value captured </p>
 
 </div>
 </div>

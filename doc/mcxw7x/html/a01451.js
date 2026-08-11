@@ -1,7 +1,5 @@
 var a01451 =
 [
-    [ "mcuxClRandomModes_Constants", "a01452.html", null ],
-    [ "mcuxClRandomModes_Functions_PatchMode", "a01453.html", "a01453" ],
-    [ "mcuxClRandomModes_Functions_TestMode", "a01454.html", "a01454" ],
-    [ "mcuxClRandomModes_MemoryConsumption", "a01606.html", null ]
+    [ "mcuxClRandomModes_createTestFromNormalMode", "a01451.html#ga3e1e5c89df4eb0bce8b7f558d8cfb565", null ],
+    [ "mcuxClRandomModes_updateEntropyInput", "a01451.html#gaeb1afe314ca3e55a6c4b3b9620779279", null ]
 ];

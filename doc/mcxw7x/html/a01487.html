@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClSgi_Types</title>
+<title>MCUX CLNS: mcuxClSignature_Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,35 +102,132 @@ $(function(){initNavTree('a01487.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClSgi_Types <div class="ingroups"><a class="el" href="a01484.html">mcuxClSgi</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClSignature_Types <div class="ingroups"><a class="el" href="a01485.html">mcuxClSignature</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines the types and associated constants of the <a class="el" href="a01484.html" title="mcuxClSgi">mcuxClSgi</a> component.  
+<p>Types used by the Signature operations.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ga438bf518456bded28bd3285f86b59e71" id="r_ga438bf518456bded28bd3285f86b59e71"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga438bf518456bded28bd3285f86b59e71">mcuxClSgi_Status_t</a></td></tr>
-<tr class="memdesc:ga438bf518456bded28bd3285f86b59e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI status code.  <br /></td></tr>
+<tr class="memitem:gac7698895768cf6208b4617d6ddf8c180" id="r_gac7698895768cf6208b4617d6ddf8c180"><td class="memItemLeft">typedef struct mcuxClSignature_ModeDescriptor&#160;</td><td class="memItemRight"><a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a></td></tr>
+<tr class="memdesc:gac7698895768cf6208b4617d6ddf8c180"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature mode/algorithm descriptor type.  <br /></td></tr>
+<tr class="memitem:ga6ac41432794064bbed527293f3004584" id="r_ga6ac41432794064bbed527293f3004584"><td class="memItemLeft">typedef const <a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></td></tr>
+<tr class="memdesc:ga6ac41432794064bbed527293f3004584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature mode/algorithm type.  <br /></td></tr>
+<tr class="memitem:ga672adb417c023f01ae78b0819d4d38ee" id="r_ga672adb417c023f01ae78b0819d4d38ee"><td class="memItemLeft">typedef struct mcuxClSignature_TestDescriptor&#160;</td><td class="memItemRight"><a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a></td></tr>
+<tr class="memdesc:ga672adb417c023f01ae78b0819d4d38ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature selftest mode/algorithm descriptor type.  <br /></td></tr>
+<tr class="memitem:ga27896a9732ea6f2ed497b26796bf5348" id="r_ga27896a9732ea6f2ed497b26796bf5348"><td class="memItemLeft">typedef const <a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="#ga27896a9732ea6f2ed497b26796bf5348">mcuxClSignature_Test_t</a></td></tr>
+<tr class="memdesc:ga27896a9732ea6f2ed497b26796bf5348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature selftest mode/algorithm type.  <br /></td></tr>
+<tr class="memitem:ga3006d0f7ee6302bda8fa5edb1437f04a" id="r_ga3006d0f7ee6302bda8fa5edb1437f04a"><td class="memItemLeft">typedef struct mcuxClSignature_Context&#160;</td><td class="memItemRight"><a class="el" href="#ga3006d0f7ee6302bda8fa5edb1437f04a">mcuxClSignature_Context_t</a></td></tr>
+<tr class="memdesc:ga3006d0f7ee6302bda8fa5edb1437f04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature context type.  <br /></td></tr>
+<tr class="memitem:ga2fdcf305b7ceacbb173a35887ead78c7" id="r_ga2fdcf305b7ceacbb173a35887ead78c7"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a></td></tr>
+<tr class="memdesc:ga2fdcf305b7ceacbb173a35887ead78c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature status code.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines the types and associated constants of the <a class="el" href="a01484.html" title="mcuxClSgi">mcuxClSgi</a> component. </p>
+<div class="textblock"><p>Types used by the Signature operations. </p>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
-<a id="ga438bf518456bded28bd3285f86b59e71" name="ga438bf518456bded28bd3285f86b59e71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga438bf518456bded28bd3285f86b59e71">&#9670;&#160;</a></span>mcuxClSgi_Status_t</h2>
+<a id="gac7698895768cf6208b4617d6ddf8c180" name="gac7698895768cf6208b4617d6ddf8c180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac7698895768cf6208b4617d6ddf8c180">&#9670;&#160;</a></span>mcuxClSignature_ModeDescriptor_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef uint32_t <a class="el" href="#ga438bf518456bded28bd3285f86b59e71">mcuxClSgi_Status_t</a></td>
+          <td class="memname">typedef struct mcuxClSignature_ModeDescriptor <a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>SGI status code. </p>
-<p>This type provides information about the status of the SGI operation that has been performed. </p>
+<p>Signature mode/algorithm descriptor type. </p>
+<p>This type captures all the information that the Signature interfaces need to know about a particular Signature mode/algorithm. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03358.html#_a14">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a03359.html#_a14">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a03421.html#_a11">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>, and <a class="el" href="a03422.html#_a12">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga6ac41432794064bbed527293f3004584" name="ga6ac41432794064bbed527293f3004584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6ac41432794064bbed527293f3004584">&#9670;&#160;</a></span>mcuxClSignature_Mode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef const <a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a>* const <a class="el" href="#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Signature mode/algorithm type. </p>
+<p>This type is used to refer to a Signature mode/algorithm. </p>
+
+</div>
+</div>
+<a id="ga672adb417c023f01ae78b0819d4d38ee" name="ga672adb417c023f01ae78b0819d4d38ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga672adb417c023f01ae78b0819d4d38ee">&#9670;&#160;</a></span>mcuxClSignature_TestDescriptor_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct mcuxClSignature_TestDescriptor <a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Signature selftest mode/algorithm descriptor type. </p>
+<p>This type captures all the information that the Signature selftest interfaces need to know about a particular Signature selftest mode/algorithm. </p>
+
+</div>
+</div>
+<a id="ga27896a9732ea6f2ed497b26796bf5348" name="ga27896a9732ea6f2ed497b26796bf5348"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27896a9732ea6f2ed497b26796bf5348">&#9670;&#160;</a></span>mcuxClSignature_Test_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef const <a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a>* const <a class="el" href="#ga27896a9732ea6f2ed497b26796bf5348">mcuxClSignature_Test_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Signature selftest mode/algorithm type. </p>
+<p>This type is used to refer to a Signature selftest mode/algorithm. </p>
+
+</div>
+</div>
+<a id="ga3006d0f7ee6302bda8fa5edb1437f04a" name="ga3006d0f7ee6302bda8fa5edb1437f04a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3006d0f7ee6302bda8fa5edb1437f04a">&#9670;&#160;</a></span>mcuxClSignature_Context_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct mcuxClSignature_Context <a class="el" href="#ga3006d0f7ee6302bda8fa5edb1437f04a">mcuxClSignature_Context_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Signature context type. </p>
+<p>This type is used in the multi-part interfaces to store the information about the current operation and the relevant internal state. </p>
+
+</div>
+</div>
+<a id="ga2fdcf305b7ceacbb173a35887ead78c7" name="ga2fdcf305b7ceacbb173a35887ead78c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2fdcf305b7ceacbb173a35887ead78c7">&#9670;&#160;</a></span>mcuxClSignature_Status_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Signature status code. </p>
+<p>This type provides information about the status of the Signature operation that has been performed. </p>
 
 </div>
 </div>

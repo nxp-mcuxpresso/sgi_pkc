@@ -1,6 +1,6 @@
 var a01439 =
 [
-    [ "MCUXCLMEMORY_FP_MEMORY_SET", "a01439.html#ga039e0b482faab4d1aabe2dd5c79d3eb5", null ],
-    [ "MCUXCLMEMORY_FP_MEMORY_SET_WITH_BUFF", "a01439.html#gad65a5023a0b0263462b6cfcd6761b904", null ],
-    [ "mcuxClMemory_set", "a01439.html#ga5d86af41c30044c28809914e2901884d", null ]
+    [ "MCUXCLMEMORY_FP_MEMORY_XOR", "a01439.html#ga6c232e7d3a42052c2263f5eb853958f6", null ],
+    [ "MCUXCLMEMORY_FP_MEMORY_XOR_WITH_BUFF", "a01439.html#ga0dcd26faded8eb1fe7eaab8330e4c537", null ],
+    [ "mcuxClMemory_xor", "a01439.html#ga5db07fa8946e0fd685fe6fbb2f33c343", null ]
 ];

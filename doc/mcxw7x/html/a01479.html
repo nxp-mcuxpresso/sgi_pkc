@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClRsa_Types</title>
+<title>MCUX CLNS: mcuxClSession_Constants</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,44 +102,108 @@ $(function(){initNavTree('a01479.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClRsa_Types <div class="ingroups"><a class="el" href="a01461.html">mcuxClRsa</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClSession_Constants <div class="ingroups"><a class="el" href="a01477.html">mcuxClSession</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines all types of the <a class="el" href="a01461.html" title="mcuxClRsa">mcuxClRsa</a> component.  
+<p>Defines all constants of <a class="el" href="a01477.html" title="mcuxClSession">mcuxClSession</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:mcuxClRsa_5FKeyData" id="r_mcuxClRsa_5FKeyData"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01472.html">Rsa Key Types</a></td></tr>
-<tr class="memdesc:a01472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to supported key data for <a class="el" href="a01461.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
-<tr class="memitem:_5F_5Fattribute_5F_5F" id="r__5F_5Fattribute_5F_5F"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a01923.html">__attribute__</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure type for Rsa key entries, specifying key entry length and data.  <a href="a01923.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gab654093108d59a4690e464f314356e69" id="r_gab654093108d59a4690e464f314356e69"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gab654093108d59a4690e464f314356e69">mcuxClRsa_Status_t</a></td></tr>
-<tr class="memdesc:gab654093108d59a4690e464f314356e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type for RSA status codes.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga3f63cf17e4f26ba5ee4d92152fca1eb6" id="r_ga3f63cf17e4f26ba5ee4d92152fca1eb6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3f63cf17e4f26ba5ee4d92152fca1eb6">MCUXCLSESSION_STATUS_OK</a></td></tr>
+<tr class="memdesc:ga3f63cf17e4f26ba5ee4d92152fca1eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Session operation successful.  <br /></td></tr>
+<tr class="memitem:ga547425b7379de3ee1fb96c79140fd68e" id="r_ga547425b7379de3ee1fb96c79140fd68e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga547425b7379de3ee1fb96c79140fd68e">MCUXCLSESSION_STATUS_ERROR</a></td></tr>
+<tr class="memdesc:ga547425b7379de3ee1fb96c79140fd68e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error occurred during Session operation.  <br /></td></tr>
+<tr class="memitem:gac52c8810fc4741d16dcd65e5b7aa5203" id="r_gac52c8810fc4741d16dcd65e5b7aa5203"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac52c8810fc4741d16dcd65e5b7aa5203">MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION</a></td></tr>
+<tr class="memdesc:gac52c8810fc4741d16dcd65e5b7aa5203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error occurred during Session operation (Not enough memory).  <br /></td></tr>
+<tr class="memitem:gada96a70cf8278a1753df71c411f3d239" id="r_gada96a70cf8278a1753df71c411f3d239"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gada96a70cf8278a1753df71c411f3d239">MCUXCLSESSION_STATUS_FAULT_ATTACK</a></td></tr>
+<tr class="memdesc:gada96a70cf8278a1753df71c411f3d239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack.  <br /></td></tr>
+<tr class="memitem:ga76f623ca459565c7d125ba0a7eb851fc" id="r_ga76f623ca459565c7d125ba0a7eb851fc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga76f623ca459565c7d125ba0a7eb851fc">MCUXCLSESSION_DMACHANNEL_INVALID</a></td></tr>
+<tr class="memdesc:ga76f623ca459565c7d125ba0a7eb851fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">dma channel is not specified  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines all types of the <a class="el" href="a01461.html" title="mcuxClRsa">mcuxClRsa</a> component. </p>
-</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
-<a id="gab654093108d59a4690e464f314356e69" name="gab654093108d59a4690e464f314356e69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab654093108d59a4690e464f314356e69">&#9670;&#160;</a></span>mcuxClRsa_Status_t</h2>
+<div class="textblock"><p>Defines all constants of <a class="el" href="a01477.html" title="mcuxClSession">mcuxClSession</a>. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="ga3f63cf17e4f26ba5ee4d92152fca1eb6" name="ga3f63cf17e4f26ba5ee4d92152fca1eb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3f63cf17e4f26ba5ee4d92152fca1eb6">&#9670;&#160;</a></span>MCUXCLSESSION_STATUS_OK</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef uint32_t <a class="el" href="#gab654093108d59a4690e464f314356e69">mcuxClRsa_Status_t</a></td>
+          <td class="memname">#define MCUXCLSESSION_STATUS_OK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Type for RSA status codes. </p>
+<p>Session operation successful. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03325.html#_a14">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03327.html#_a14">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03331.html#_a14">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a03333.html#_a14">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03338.html#_a14">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a03337.html#_a14">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03340.html#_a14">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03374.html#_a11">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a03376.html#_a12">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03404.html#_a14">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, <a class="el" href="a03407.html#_a14">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a03415.html#_a12">mcuxClRandomModes_Different_Sessions_example.c</a>, and <a class="el" href="a03423.html#_a12">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga547425b7379de3ee1fb96c79140fd68e" name="ga547425b7379de3ee1fb96c79140fd68e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga547425b7379de3ee1fb96c79140fd68e">&#9670;&#160;</a></span>MCUXCLSESSION_STATUS_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLSESSION_STATUS_ERROR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Error occurred during Session operation. </p>
+
+</div>
+</div>
+<a id="gac52c8810fc4741d16dcd65e5b7aa5203" name="gac52c8810fc4741d16dcd65e5b7aa5203"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac52c8810fc4741d16dcd65e5b7aa5203">&#9670;&#160;</a></span>MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Error occurred during Session operation (Not enough memory). </p>
+
+</div>
+</div>
+<a id="gada96a70cf8278a1753df71c411f3d239" name="gada96a70cf8278a1753df71c411f3d239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gada96a70cf8278a1753df71c411f3d239">&#9670;&#160;</a></span>MCUXCLSESSION_STATUS_FAULT_ATTACK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLSESSION_STATUS_FAULT_ATTACK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fault attack. </p>
+
+</div>
+</div>
+<a id="ga76f623ca459565c7d125ba0a7eb851fc" name="ga76f623ca459565c7d125ba0a7eb851fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga76f623ca459565c7d125ba0a7eb851fc">&#9670;&#160;</a></span>MCUXCLSESSION_DMACHANNEL_INVALID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLSESSION_DMACHANNEL_INVALID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>dma channel is not specified </p>
 
 </div>
 </div>

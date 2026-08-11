@@ -1,5 +1,4 @@
 var a00965 =
 [
-    [ "mcuxCsslMemory_SecureXOR", "a01549.html#gac14d65f1a5340b2e80254e9ff2999ed2", null ],
-    [ "mcuxCsslMemory_SecureXORWithConst", "a01549.html#ga661427a6c75d4c95fa86a34e3b07f423", null ]
+    [ "mcuxCsslMemory_Set", "a01548.html#ga6005b865c5efc30545e5f7c75344e8ee", null ]
 ];

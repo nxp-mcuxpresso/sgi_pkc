@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClMemory_Constants.h File Reference</title>
+<title>MCUX CLNS: mcuxClMemory_Copy.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,29 +102,33 @@ $(function(){initNavTree('a00734.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClMemory_Constants.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClMemory_Copy.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Memory constant header.  
+<p>Memory header for copy functions.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &lt;mcuxClConfig.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00746_source.html">mcuxClMemory_Types.h</a>&gt;</code><br />
+<code>#include &lt;mcuxCsslAnalysis.h&gt;</code><br />
+</div>
 <p><a href="a00734_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga08e000e31df077b27186e532e59c90f9" id="r_ga08e000e31df077b27186e532e59c90f9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01434.html#ga08e000e31df077b27186e532e59c90f9">MCUXCLMEMORY_COMPONENT_MASK</a></td></tr>
-<tr class="memdesc:ga08e000e31df077b27186e532e59c90f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component mask value.  <br /></td></tr>
-<tr class="memitem:gabaa088c030f9f7a12cbdbac0132659bd" id="r_gabaa088c030f9f7a12cbdbac0132659bd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#gabaa088c030f9f7a12cbdbac0132659bd">MCUXCLMEMORY_STATUS_EQUAL</a></td></tr>
-<tr class="memdesc:gabaa088c030f9f7a12cbdbac0132659bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The two contents of the Memory Compare are equal.  <br /></td></tr>
-<tr class="memitem:gabde52183de79322bf40674ee07a0bdac" id="r_gabde52183de79322bf40674ee07a0bdac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#gabde52183de79322bf40674ee07a0bdac">MCUXCLMEMORY_STATUS_NOT_EQUAL</a></td></tr>
-<tr class="memdesc:gabde52183de79322bf40674ee07a0bdac"><td class="mdescLeft">&#160;</td><td class="mdescRight">The two contents of the Memory Compare are not equal.  <br /></td></tr>
-<tr class="memitem:gaf8817536a1139834b1b59ee8cf7ad04e" id="r_gaf8817536a1139834b1b59ee8cf7ad04e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#gaf8817536a1139834b1b59ee8cf7ad04e">MCUXCLMEMORY_STATUS_FAULT</a></td></tr>
-<tr class="memdesc:gaf8817536a1139834b1b59ee8cf7ad04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A fault occurred in the execution.  <br /></td></tr>
+<tr class="memitem:ga5d16560ac24ef6ba2dae129206e70208" id="r_ga5d16560ac24ef6ba2dae129206e70208"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01433.html#ga5d16560ac24ef6ba2dae129206e70208">MCUXCLMEMORY_FP_MEMORY_COPY</a>(pTarget,  pSource,  byteLen)</td></tr>
+<tr class="memdesc:ga5d16560ac24ef6ba2dae129206e70208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to call <a class="el" href="a01433.html#gab564183ab5f02cf11b66b6244ba2112a" title="Copies a memory buffer to another location.">mcuxClMemory_copy</a> with flow protection.  <br /></td></tr>
+<tr class="memitem:gaab249829be1231ec5f08f90093943a40" id="r_gaab249829be1231ec5f08f90093943a40"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01433.html#gaab249829be1231ec5f08f90093943a40">MCUXCLMEMORY_FP_MEMORY_COPY_WITH_BUFF</a>(pTarget,  pSource,  byteLen,  buffLen)</td></tr>
+<tr class="memdesc:gaab249829be1231ec5f08f90093943a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to call <a class="el" href="a01433.html#gab564183ab5f02cf11b66b6244ba2112a" title="Copies a memory buffer to another location.">mcuxClMemory_copy</a> with flow protection with buffer.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gab564183ab5f02cf11b66b6244ba2112a" id="r_gab564183ab5f02cf11b66b6244ba2112a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="a01433.html#gab564183ab5f02cf11b66b6244ba2112a">mcuxClMemory_copy</a> (uint8_t *pDst, uint8_t const *pSrc, size_t length, size_t bufLength)</td></tr>
+<tr class="memdesc:gab564183ab5f02cf11b66b6244ba2112a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a memory buffer to another location.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Memory constant header. </p>
-<p>This header exposes constants used by the <a class="el" href="a01432.html" title="mcuxClMemory">mcuxClMemory</a> functions. </p>
+<div class="textblock"><p>Memory header for copy functions. </p>
+<p>This header exposes functions that enable using memory copy function. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -138,7 +142,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00734.html">mcuxClMemory_Constants.h</a></li>
+    <li class="navelem"><a href="a00734.html">mcuxClMemory_Copy.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

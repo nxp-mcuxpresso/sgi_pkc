@@ -1,6 +1,7 @@
 var a01555 =
 [
-    [ "MCUXCSSLPARAMINTEGRITY_BASE_CHECKSUM", "a01555.html#ga53aac27cab05b855d2ae62f2b1d3d7d0", null ],
-    [ "MCUXCSSLPARAMINTEGRITY_CHECK_VALID", "a01555.html#gad7a460092fbe39b438614ba1d159bb16", null ],
-    [ "MCUXCSSLPARAMINTEGRITY_CHECK_INVALID", "a01555.html#ga889eda2d841537edae8f0f7d80dde8b0", null ]
+    [ "Secure counter core functionality", "a01556.html", "a01556" ],
+    [ "Secure counter increment", "a01557.html", "a01557" ],
+    [ "Secure counter decrement", "a01558.html", "a01558" ],
+    [ "Secure counter direct access", "a01559.html", "a01559" ]
 ];

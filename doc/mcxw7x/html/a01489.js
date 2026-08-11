@@ -1,6 +1,6 @@
 var a01489 =
 [
-    [ "mcuxClSignature_sign", "a01489.html#ga83fe33e60245cf90a490e3214c8de672", null ],
-    [ "mcuxClSignature_verify_recordParam", "a01489.html#gad99e79a6c1418cbda0eca0417bd045dd", null ],
-    [ "mcuxClSignature_verify", "a01489.html#ga1b7deb8d71deafd479940561123b6a87", null ]
+    [ "MCUXCLXOF_STATUS_OK", "a01489.html#gada8f5f1ffa3fbc721c3a812bde70edbc", null ],
+    [ "MCUXCLXOF_STATUS_FAILURE", "a01489.html#ga2da5b372b5dd0993a587347ae702b45e", null ],
+    [ "MCUXCLXOF_STATUS_FAULT_ATTACK", "a01489.html#ga3db6fb6dabf8503ebd5543d7e5f4adba", null ]
 ];

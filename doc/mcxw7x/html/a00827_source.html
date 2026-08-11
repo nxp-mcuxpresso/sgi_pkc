@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClRsa_TestPQDistance_FUP.h Source File</title>
+<title>MCUX CLNS: mcuxClRsa_TestPrimeCandidate_FUP.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a00827_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClRsa_TestPQDistance_FUP.h</div></div>
+  <div class="headertitle"><div class="title">mcuxClRsa_TestPrimeCandidate_FUP.h</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2021, 2023-2024 NXP                                            */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2021, 2023 NXP                                                 */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -135,41 +135,45 @@ $(function(){initNavTree('a00827_source.html','',''); });
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;internal/mcuxClRsa_Internal_PkcDefs.h&gt;</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;internal/mcuxClPkc_FupMacros.h&gt;</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;internal/mcuxClRsa_TestPQDistance_FUP.h&gt;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;internal/mcuxClRsa_TestPrimeCandidate_FUP.h&gt;</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>MCUXCLPKC_FUP_EXT_ROM(mcuxClRsa_TestPQDistance_FUP,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>MCUXCLPKC_FUP_EXT_ROM(mcuxClRsa_TestPrimeCandidate_Steps2_FUP,</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    FUP_CRC_PLACEHOLDER,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">/* 1. Xor 128 MSbits of p with rand */</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    FUP_OP1_XOR(MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1,</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_P128MSB,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_RAND),</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">/* 2. Xor 128 MSbits of q with rand */</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    FUP_OP1_XOR(MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T2,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_Q128MSB,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_RAND),</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">/* 3. Copy 100 MSbits of masked p into buffer in PKC RAM */</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    FUP_OP1_SHR(MCUXCLRSA_INTERNAL_TESTPQDISTANCE_RAND,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_CONSTANT28),</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">/* 4. Copy 100 MS bits of masked q into buffer in PKC RAM */</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    FUP_OP1_SHR(MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T2,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_CONSTANT28),</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">/*</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">    * 5. Compare 100 MSbits of p and q in a masked way</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">    *    If they are equal, then function returns MCUXCLRSA_STATUS_INVALID_INPUT error code</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">    *    (primes do not meet the FIPS requirements).</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">    */</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    FUP_OP1_CMP(MCUXCLRSA_INTERNAL_TESTPQDISTANCE_RAND,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        MCUXCLRSA_INTERNAL_TESTPQDISTANCE_T1),</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    FUP_OP1_OR_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CANDIDATE,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT0),</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    FUP_OP1_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT0), <span class="comment">//clear GCD2</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    FUP_OP2_OR_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_A0,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT0), <span class="comment">//copy A0 to GCD2</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    FUP_MC1_GCD(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2),</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    FUP_OP1_SUB_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT2)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>MCUXCLPKC_FUP_EXT_ROM(mcuxClRsa_TestPrimeCandidate_Steps3_FUP,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    FUP_CRC_PLACEHOLDER,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    FUP_OP1_SUB_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CANDIDATE,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT1),</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    FUP_OP1_OR_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_E,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT0),</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    FUP_MC1_GCD(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2),</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    FUP_OP1_SUB_CONST(MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD1,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_GCD2,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        MCUXCLRSA_INTERNAL_UPTRTINDEX_TESTPRIME_CONSTANT2)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>);</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>mcuxClRsa_TestPQDistance_FUP.h</b></li>
+    <li class="navelem"><b>mcuxClRsa_TestPrimeCandidate_FUP.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

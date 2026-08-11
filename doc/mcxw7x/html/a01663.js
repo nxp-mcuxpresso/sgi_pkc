@@ -1,18 +1,18 @@
 var a01663 =
 [
-    [ "erm_memory_channel_t", "a01663.html#gaeb7d69e29ef95dce925b10a24625690c", null ],
-    [ "erm_memory_channel_t", "a01663.html#gaeb7d69e29ef95dce925b10a24625690c", null ],
-    [ "erm_memory_channel_t", "a01663.html#gaeb7d69e29ef95dce925b10a24625690c", null ],
-    [ "_erm_memory_channel", "a01663.html#gab709919ba09c106adaa1e02203b5657f", [
-      [ "kERM_MemoryChannelRAMA0", "a01663.html#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4", null ],
-      [ "kERM_MemoryChannelFLASH", "a01663.html#ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79", null ]
+    [ "FMC Register Masks", "a01664.html", "a01664" ],
+    [ "FMC_Type", "a02202.html", [
+      [ "REMAP", "a01653.html#gaa5c9e4d06063abf467fa77f88e4e86d4", null ],
+      [ "FCCR", "a02202.html#a78ab9a3faf228e0cc31cd6e76e3a3f1f", null ],
+      [ "FCAR", "a02202.html#a602194284b8642427e1d9a0566ccfd6f", null ],
+      [ "FCTG", "a02202.html#a78d279fd1dd9974baa34601374687d3d", null ],
+      [ "FCLN0", "a02202.html#a81c9367d08e665281f6447b64232624a", null ],
+      [ "FCLN1", "a02202.html#ab31e2e405fd65001a8611ec3e508f678", null ],
+      [ "FCLN2", "a02202.html#a501f4d7ca3b78027dee7173467fffdeb", null ],
+      [ "FCLN3", "a02202.html#a6d97aa323aa86f28348dc685eca829b3", null ]
     ] ],
-    [ "_erm_memory_channel", "a01663.html#gab709919ba09c106adaa1e02203b5657f", [
-      [ "kERM_MemoryChannelRAMA0", "a01663.html#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4", null ],
-      [ "kERM_MemoryChannelFLASH", "a01663.html#ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79", null ]
-    ] ],
-    [ "_erm_memory_channel", "a01663.html#gab709919ba09c106adaa1e02203b5657f", [
-      [ "kERM_MemoryChannelRAMA0", "a01663.html#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4", null ],
-      [ "kERM_MemoryChannelFMU0", "a01663.html#ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b", null ]
-    ] ]
+    [ "FMC0_BASE", "a01663.html#gae740c2a0fea44908b6a40ffe4e19ebd0", null ],
+    [ "FMC0", "a01663.html#ga1a6b1a285c37e6f058dec8013af2cabf", null ],
+    [ "FMC_BASE_ADDRS", "a01663.html#ga37283f414971381846ab9da2c77096b3", null ],
+    [ "FMC_BASE_PTRS", "a01663.html#ga7ad26eb02eedda3bb7e2863700c32017", null ]
 ];

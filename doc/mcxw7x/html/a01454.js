@@ -1,5 +1,7 @@
 var a01454 =
 [
-    [ "mcuxClRandomModes_createTestFromNormalMode", "a01454.html#ga3e1e5c89df4eb0bce8b7f558d8cfb565", null ],
-    [ "mcuxClRandomModes_updateEntropyInput", "a01454.html#gaeb1afe314ca3e55a6c4b3b9620779279", null ]
+    [ "mcuxClResource_Status_t", "a01454.html#gac97f228ebeeb4983ef932cadb7a1ec08", null ],
+    [ "mcuxClResource_Context_t", "a01454.html#ga27045c7d3df5d8a5d0d6ba46a28d3c1d", null ],
+    [ "mcuxClResource_MutexAcquire_Callback_t", "a01454.html#ga79faae48b423d302179cd7f0045ecf23", null ],
+    [ "mcuxClResource_MutexRelease_Callback_t", "a01454.html#ga2a5336cef83f9f7017bd63a70ab83987", null ]
 ];

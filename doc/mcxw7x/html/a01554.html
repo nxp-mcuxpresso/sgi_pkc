@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Parameter Integrity API</title>
+<title>MCUX CLNS: mcuxCsslParamIntegrity Function Definitions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,25 +102,99 @@ $(function(){initNavTree('a01554.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Parameter Integrity API <div class="ingroups"><a class="el" href="a01497.html">MCUX CSSL &amp;ndash; API</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxCsslParamIntegrity Function Definitions <div class="ingroups"><a class="el" href="a01494.html">MCUX CSSL &amp;ndash; API</a> &raquo; <a class="el" href="a01551.html">Parameter Integrity API</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Functionality to ensure parameter integrity during function calls.  
+<p>Functions of mcuxCsslParamIntegrity component.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:mcuxCsslParamIntegrity_5FMacros" id="r_mcuxCsslParamIntegrity_5FMacros"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01555.html">mcuxCsslParamIntegrity Macro Definitions</a></td></tr>
-<tr class="memdesc:a01555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros of mcuxCsslParamIntegrity component. <br /></td></tr>
-<tr class="memitem:mcuxCsslParamIntegrity_5FTypes" id="r_mcuxCsslParamIntegrity_5FTypes"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01556.html">mcuxCsslParamIntegrity Type Definitions</a></td></tr>
-<tr class="memdesc:a01556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of mcuxCsslParamIntegrity component. <br /></td></tr>
-<tr class="memitem:mcuxCsslParamIntegrity_5FFunctions" id="r_mcuxCsslParamIntegrity_5FFunctions"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01557.html">mcuxCsslParamIntegrity Function Definitions</a></td></tr>
-<tr class="memdesc:a01557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions of mcuxCsslParamIntegrity component. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gafc04d811ebb31cce0b673b6d5123d723" id="r_gafc04d811ebb31cce0b673b6d5123d723"><td class="memItemLeft"><a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gafc04d811ebb31cce0b673b6d5123d723">mcuxCsslParamIntegrity_Protect</a> (uint32_t nargs,...)</td></tr>
+<tr class="memdesc:gafc04d811ebb31cce0b673b6d5123d723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a parameter checksum.  <br /></td></tr>
+<tr class="memitem:ga4ff1a46424eab1b7c36ab58da91a992b" id="r_ga4ff1a46424eab1b7c36ab58da91a992b"><td class="memItemLeft"><a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga4ff1a46424eab1b7c36ab58da91a992b">mcuxCsslParamIntegrity_Validate</a> (<a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a> chk, uint32_t nargs,...)</td></tr>
+<tr class="memdesc:ga4ff1a46424eab1b7c36ab58da91a992b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies the correctness of a parameter checksum.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Functionality to ensure parameter integrity during function calls. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Functions of mcuxCsslParamIntegrity component. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="gafc04d811ebb31cce0b673b6d5123d723" name="gafc04d811ebb31cce0b673b6d5123d723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc04d811ebb31cce0b673b6d5123d723">&#9670;&#160;</a></span>mcuxCsslParamIntegrity_Protect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a> mcuxCsslParamIntegrity_Protect </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>nargs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates a parameter checksum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nargs</td><td>The number of parameters to be protected. </td></tr>
+    <tr><td class="paramname">...</td><td>The parameters that should be protected. Note that parameters bigger than a single machine word are not supported. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>checksum over the input parameters to be protected </dd></dl>
+
+</div>
+</div>
+<a id="ga4ff1a46424eab1b7c36ab58da91a992b" name="ga4ff1a46424eab1b7c36ab58da91a992b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4ff1a46424eab1b7c36ab58da91a992b">&#9670;&#160;</a></span>mcuxCsslParamIntegrity_Validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a> mcuxCsslParamIntegrity_Validate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01553.html#ga6a229130320b395fbb8a8a76a361bd1e">mcuxCsslParamIntegrity_Checksum_t</a></td>          <td class="paramname"><span class="paramname"><em>chk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>nargs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Verifies the correctness of a parameter checksum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chk</td><td>The parameter checksum. </td></tr>
+    <tr><td class="paramname">nargs</td><td>The number of parameters to be protected. </td></tr>
+    <tr><td class="paramname">...</td><td>The parameters that were used to calculate the parameter checksum. Note that parameters bigger than a single machine word are not supported. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A status code encapsulated in a flow-protection type. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01552.html#gad7a460092fbe39b438614ba1d159bb16" title="Return value of mcuxCsslParamIntegrity_Validate if the parameter checksum was correct.">MCUXCSSLPARAMINTEGRITY_CHECK_VALID</a></td><td>The parameter checksum was correct. </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01552.html#ga889eda2d841537edae8f0f7d80dde8b0" title="Return value of mcuxCsslParamIntegrity_Validate if the parameter checksum was incorrect.">MCUXCSSLPARAMINTEGRITY_CHECK_INVALID</a></td><td>The parameter checksum was incorrect. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClKdfModes_Algorithms_NIST_SP800_56C.h File Reference</title>
+<title>MCUX CLNS: mcuxClKdfModes_Algorithms_PBKDF2.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,38 +102,33 @@ $(function(){initNavTree('a00665.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClKdfModes_Algorithms_NIST_SP800_56C.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClKdfModes_Algorithms_PBKDF2.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Declarations and definitions for the NIST SP800-56C KDF.  
+<p>Declarations and definitions for the Implementation of PBKDF2 Key Derivation.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;mcuxClConfig.h&gt;</code><br />
 <code>#include &lt;mcuxCsslAnalysis.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00686_source.html">mcuxClKey_Types.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00689_source.html">mcuxClMac.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00620_source.html">mcuxClHash.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00683_source.html">mcuxClKey_Types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00686_source.html">mcuxClMac.h</a>&gt;</code><br />
 </div>
 <p><a href="a00665_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab7f621aed5b55861cf1f2aed3bc055d0" id="r_gab7f621aed5b55861cf1f2aed3bc055d0"><td class="memItemLeft"><a class="el" href="a01420.html#gaa19905c3963849a56ee26a9b0e5013f5">mcuxClKey_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01408.html#gab7f621aed5b55861cf1f2aed3bc055d0">mcuxClKey_Derivation_ModeConstructor_NIST_SP800_56C</a> (mcuxClKey_DerivationMode_t *pDerivationMode, const mcuxClKey_DerivationAlgorithmDescriptor_t *derivationAlgorithm, <a class="el" href="a01426.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> macMode, <a class="el" href="a01394.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> hashFunction, uint32_t options)</td></tr>
-<tr class="memdesc:gab7f621aed5b55861cf1f2aed3bc055d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a key derivation function (KDF) mode according to NIST SP800-56C.  <br /></td></tr>
+<tr class="memitem:ga8d50e81044b55181ad5866d9864f9286" id="r_ga8d50e81044b55181ad5866d9864f9286"><td class="memItemLeft"><a class="el" href="a01417.html#gaa19905c3963849a56ee26a9b0e5013f5">mcuxClKey_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01406.html#ga8d50e81044b55181ad5866d9864f9286">mcuxClKey_Derivation_ModeConstructor_PBKDF2</a> (mcuxClKey_DerivationMode_t *pDerivationMode, const mcuxClKey_DerivationAlgorithmDescriptor_t *derivationAlgorithm, <a class="el" href="a01423.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> macMode, uint32_t iterationCount)</td></tr>
+<tr class="memdesc:ga8d50e81044b55181ad5866d9864f9286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a key derivation function (KDF) mode according to RFC2898 (PBKDF2).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:gae90263c269afb89cb68486940a83d37a" id="r_gae90263c269afb89cb68486940a83d37a"><td class="memItemLeft">const mcuxClKey_DerivationAlgorithmDescriptor_t&#160;</td><td class="memItemRight"><a class="el" href="a01408.html#gae90263c269afb89cb68486940a83d37a">mcuxClKey_DerivationAlgorithmDescriptor_NIST_SP800_56C_OneStep</a></td></tr>
-<tr class="memdesc:gae90263c269afb89cb68486940a83d37a"><td class="mdescLeft">&#160;</td><td class="mdescRight">NIST SP800-56C key derivation algorithm descriptors.  <br /></td></tr>
-<tr class="memitem:ga3b176af3aab9839d22baa2e3786a47d1" id="r_ga3b176af3aab9839d22baa2e3786a47d1"><td class="memItemLeft">
-const mcuxClKey_DerivationAlgorithmDescriptor_t&#160;</td><td class="memItemRight"><b>mcuxClKey_DerivationAlgorithmDescriptor_NIST_SP800_56C_TwoStep</b></td></tr>
-<tr class="memitem:ga21a8ecac377e346ab375aa4f60f60d5e" id="r_ga21a8ecac377e346ab375aa4f60f60d5e"><td class="memItemLeft">static mcuxClKey_DerivationAlgorithm_t&#160;</td><td class="memItemRight"><a class="el" href="a01408.html#ga21a8ecac377e346ab375aa4f60f60d5e">mcuxClKey_DerivationAlgorithm_NIST_SP800_56C_OneStep</a></td></tr>
-<tr class="memdesc:ga21a8ecac377e346ab375aa4f60f60d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">NIST SP800-56C key derivation algorithm types.  <br /></td></tr>
-<tr class="memitem:ga354815d01a94df5b8b4e4065203cf056" id="r_ga354815d01a94df5b8b4e4065203cf056"><td class="memItemLeft">static mcuxClKey_DerivationAlgorithm_t&#160;</td><td class="memItemRight"><a class="el" href="a01408.html#ga354815d01a94df5b8b4e4065203cf056">mcuxClKey_DerivationAlgorithm_NIST_SP800_56C_TwoStep</a></td></tr>
-<tr class="memdesc:ga354815d01a94df5b8b4e4065203cf056"><td class="mdescLeft">&#160;</td><td class="mdescRight">SP800 56C TwoStep derivation algorithm type.  <br /></td></tr>
+<tr class="memitem:ga31317a69d6fb0eb8a9fcddafb39fefa4" id="r_ga31317a69d6fb0eb8a9fcddafb39fefa4"><td class="memItemLeft">const mcuxClKey_DerivationAlgorithmDescriptor_t&#160;</td><td class="memItemRight"><a class="el" href="a01406.html#ga31317a69d6fb0eb8a9fcddafb39fefa4">mcuxClKey_DerivationAlgorithmDescriptor_PBKDF2</a></td></tr>
+<tr class="memdesc:ga31317a69d6fb0eb8a9fcddafb39fefa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">PBKDF2 key derivation algorithm descriptor.  <br /></td></tr>
+<tr class="memitem:ga980d1a97f858c82e401c9cfc4d44b4f2" id="r_ga980d1a97f858c82e401c9cfc4d44b4f2"><td class="memItemLeft">static mcuxClKey_DerivationAlgorithm_t&#160;</td><td class="memItemRight"><a class="el" href="a01406.html#ga980d1a97f858c82e401c9cfc4d44b4f2">mcuxClKey_DerivationAlgorithm_PBKDF2</a></td></tr>
+<tr class="memdesc:ga980d1a97f858c82e401c9cfc4d44b4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">PBKDF2 key derivation algorithm type.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declarations and definitions for the NIST SP800-56C KDF. </p>
+<div class="textblock"><p>Declarations and definitions for the Implementation of PBKDF2 Key Derivation. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -147,7 +142,7 @@ const mcuxClKey_DerivationAlgorithmDescriptor_t&#160;</td><td class="memItemRigh
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00665.html">mcuxClKdfModes_Algorithms_NIST_SP800_56C.h</a></li>
+    <li class="navelem"><a href="a00665.html">mcuxClKdfModes_Algorithms_PBKDF2.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Data Integrity: Secure Counter</title>
+<title>MCUX CLNS: Flow Protection API</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,22 +102,45 @@ $(function(){initNavTree('a01508.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Data Integrity: Secure Counter <div class="ingroups"><a class="el" href="a01501.html">MCUX CSSL &amp;ndash; Implementations</a></div></div></div>
+  <div class="headertitle"><div class="title">Flow Protection API <div class="ingroups"><a class="el" href="a01494.html">MCUX CSSL &amp;ndash; API</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Enable the CSSL data integrity mechanism, based on secure counter.  
+<p>Flow protection mechanism.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
 Topics</h2></td></tr>
-<tr class="memitem:diScCore" id="r_diScCore"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01509.html">Data integrity core functionality</a></td></tr>
-<tr class="memdesc:a01509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data integrity handling core functionality, based on secure counter. <br /></td></tr>
-<tr class="memitem:diScUpdate" id="r_diScUpdate"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01510.html">Data integrity record</a></td></tr>
-<tr class="memdesc:a01510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Support for recording a value in the data integrity register, based on secure counter. <br /></td></tr>
+<tr class="memitem:csslFpCore" id="r_csslFpCore"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01509.html">Flow protection core functionality</a></td></tr>
+<tr class="memdesc:a01509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flow protection handling core functionality. <br /></td></tr>
+<tr class="memitem:csslFpFunction" id="r_csslFpFunction"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01510.html">Function calling flow protection</a></td></tr>
+<tr class="memdesc:a01510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Support for flow protected functions. <br /></td></tr>
+<tr class="memitem:csslFpLoop" id="r_csslFpLoop"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01511.html">Looping flow protection</a></td></tr>
+<tr class="memdesc:a01511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Support for flow protected loops. <br /></td></tr>
+<tr class="memitem:csslFpBranch" id="r_csslFpBranch"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01512.html">Branching flow protection</a></td></tr>
+<tr class="memdesc:a01512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Support for flow protected branches. <br /></td></tr>
+<tr class="memitem:csslFpSwitch" id="r_csslFpSwitch"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01513.html">Switching flow protection</a></td></tr>
+<tr class="memdesc:a01513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Support for flow protected switches. <br /></td></tr>
+<tr class="memitem:csslFpExpect" id="r_csslFpExpect"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01514.html">Expectation handling</a></td></tr>
+<tr class="memdesc:a01514"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation handling support functionality. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Enable the CSSL data integrity mechanism, based on secure counter. </p>
+<div class="textblock"><p>Flow protection mechanism. </p>
+<p>The flow protection mechanism is based on events and expectations that need to be balanced. Every check that an event has occured should correspond to an expectation that has been raised.</p>
+<p>This is a common API with various backends that implement its functionality. The backends can be divided into the following classes:</p>
+<h2 class="doxsection"><a class="anchor" id="None"></a>
+None</h2>
+<p>The None backend allows the use of flow protection macros on platforms that do not support any of the regular backends. It allows portability of code including flow protection macros, without implementing any protection mechanims.</p>
+<h2 class="doxsection"><a class="anchor" id="Secure"></a>
+Counter</h2>
+<p>Security Counter based backends allow a check that the execution matches the general expected code flow, but do not provide protection against individual instruction skips within a part of linear code flow.</p>
+<p>There are two Secure Counter backends, called Local and Global. Local and Global backends implement functionality differently but are to be used in the same way. Both are based on the Security Counter and rely on the matching Security Counter backend to be active for the platform.</p>
+<p>For the current Global implementation, users can omit MCUX_CSSL_FP_PROTECTED_TYPE, MCUX_CSSL_FP_FUNCTION_CALL, MCUX_CSSL_FP_FUNCTION_CALL_VOID macros, as they resolve to standard unprotected code you would use without these macros. (This might change in the future.)</p>
+<h2 class="doxsection"><a class="anchor" id="Code"></a>
+Signature</h2>
+<p>The CodeSignature backend allows protection against individual instruction skips in non-linear and linear code.</p>
+<p>The set of macros useful for the CodeSignature backend is disjoint from the set of useful macros for Local / Global backends.</p>
+<p>Only MCUX_CSSL_FP_FUNCTION_DECL, MCUX_CSSL_FP_FUNCTION_DEF, and MCUX_CSSL_FP_FUNCTION_POINTER have an impact for CodeSignature. Whereas, for Local and Global backends, these three macros do not have any impact. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

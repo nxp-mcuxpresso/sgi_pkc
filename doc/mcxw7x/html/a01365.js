@@ -1,5 +1,8 @@
 var a01365 =
 [
-    [ "mcuxClCrc_computeCRC16", "a01365.html#ga2405ffe3841f68ec6ad5fbfcb8db70a8", null ],
-    [ "mcuxClCrc_computeCRC32", "a01365.html#gaaa1039105bdaf80b54fa267b2d557ea7", null ]
+    [ "mcuxClEcc_Constants", "a01366.html", "a01366" ],
+    [ "mcuxClEcc_Functions", "a01368.html", "a01368" ],
+    [ "mcuxClEcc_Types", "a01373.html", "a01373" ],
+    [ "mcuxClEcc_Descriptors", "a01374.html", "a01374" ],
+    [ "mcuxClEcc_MemoryConsumption", "a01596.html", "a01596" ]
 ];

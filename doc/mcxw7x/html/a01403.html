@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClHmac_KeyTypes</title>
+<title>MCUX CLNS: mcuxClKdfModes_Algorithms_HKDF</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,25 +102,77 @@ $(function(){initNavTree('a01403.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClHmac_KeyTypes <div class="ingroups"><a class="el" href="a01399.html">mcuxClHmac</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClKdfModes_Algorithms_HKDF <div class="ingroups"><a class="el" href="a01401.html">mcuxClKdfModes</a> &raquo; <a class="el" href="a01402.html">mcuxClKdfModes_Algorithms</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines of supported key types of <a class="el" href="a01399.html" title="mcuxClHmac">mcuxClHmac</a>, see <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>.  
+<p>Defines HKDF algorithm of <a class="el" href="a01401.html" title="mcuxClKdfModes">mcuxClKdfModes</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga41b1c050855c5d77dc2dc532f780c01e" id="r_ga41b1c050855c5d77dc2dc532f780c01e"><td class="memItemLeft"><a class="el" href="a01417.html#gaa19905c3963849a56ee26a9b0e5013f5">mcuxClKey_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga41b1c050855c5d77dc2dc532f780c01e">mcuxClKey_Derivation_ModeConstructor_HKDF</a> (mcuxClKey_DerivationMode_t *pDerivationMode, const mcuxClKey_DerivationAlgorithmDescriptor_t *derivationAlgorithm, <a class="el" href="a01423.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> macMode, uint32_t options)</td></tr>
+<tr class="memdesc:ga41b1c050855c5d77dc2dc532f780c01e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a key derivation function (KDF) mode according to RFC5869.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f" id="r_gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f"><td class="memItemLeft">const <a class="el" href="a01420.html#gae9a4d21e5a5239fd0ef48978a3774a89">mcuxClKey_TypeDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f">mcuxClKey_TypeDescriptor_Hmac_variableLength</a></td></tr>
-<tr class="memdesc:gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type structure for Sw-HMAC based keys with variable length.  <br /></td></tr>
-<tr class="memitem:ga42eb018ca876c87b3d4539532ab2154d" id="r_ga42eb018ca876c87b3d4539532ab2154d"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga42eb018ca876c87b3d4539532ab2154d">mcuxClKey_Type_Hmac_variableLength</a></td></tr>
-<tr class="memdesc:ga42eb018ca876c87b3d4539532ab2154d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for HMAC keys with variable length.  <br /></td></tr>
+<tr class="memitem:ga7ee513befe1e6f0a25ad20b7429d9013" id="r_ga7ee513befe1e6f0a25ad20b7429d9013"><td class="memItemLeft">const mcuxClKey_DerivationAlgorithmDescriptor_t&#160;</td><td class="memItemRight"><a class="el" href="#ga7ee513befe1e6f0a25ad20b7429d9013">mcuxClKey_DerivationAlgorithmDescriptor_HKDF</a></td></tr>
+<tr class="memdesc:ga7ee513befe1e6f0a25ad20b7429d9013"><td class="mdescLeft">&#160;</td><td class="mdescRight">RFC5869 key derivation algorithm descriptor.  <br /></td></tr>
+<tr class="memitem:gafc23edf213502f0f0afe0234daca24c6" id="r_gafc23edf213502f0f0afe0234daca24c6"><td class="memItemLeft">static mcuxClKey_DerivationAlgorithm_t&#160;</td><td class="memItemRight"><a class="el" href="#gafc23edf213502f0f0afe0234daca24c6">mcuxClKey_DerivationAlgorithm_HKDF</a></td></tr>
+<tr class="memdesc:gafc23edf213502f0f0afe0234daca24c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">RFC5869 key derivation algorithm type.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines of supported key types of <a class="el" href="a01399.html" title="mcuxClHmac">mcuxClHmac</a>, see <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>. </p>
-</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f" name="gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f">&#9670;&#160;</a></span>mcuxClKey_TypeDescriptor_Hmac_variableLength</h2>
+<div class="textblock"><p>Defines HKDF algorithm of <a class="el" href="a01401.html" title="mcuxClKdfModes">mcuxClKdfModes</a>. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga41b1c050855c5d77dc2dc532f780c01e" name="ga41b1c050855c5d77dc2dc532f780c01e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga41b1c050855c5d77dc2dc532f780c01e">&#9670;&#160;</a></span>mcuxClKey_Derivation_ModeConstructor_HKDF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01417.html#gaa19905c3963849a56ee26a9b0e5013f5">mcuxClKey_Status_t</a> mcuxClKey_Derivation_ModeConstructor_HKDF </td>
+          <td>(</td>
+          <td class="paramtype">mcuxClKey_DerivationMode_t *</td>          <td class="paramname"><span class="paramname"><em>pDerivationMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mcuxClKey_DerivationAlgorithmDescriptor_t *</td>          <td class="paramname"><span class="paramname"><em>derivationAlgorithm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01423.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a></td>          <td class="paramname"><span class="paramname"><em>macMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a key derivation function (KDF) mode according to RFC5869. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">pDerivationMode</td><td>Pointer to the key derivation mode structure to be initialized. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">derivationAlgorithm</td><td>Function pointer to the key derivation algorithm function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">macMode</td><td>Mac mode type, must represent an HMAC mode. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">options</td><td>Generic options field containing algorithm-specific parameters (currently not used).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>When calling mcuxClKey_derivation function with this constructor additional inputs may be provided via mcuxClKey_DerivationInput_t inputs[] parameter array. Detailed description of possible inputs is provided for each algorithm type.</p>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03391.html#_a13">mcuxClKdfModes_HKDF_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ga7ee513befe1e6f0a25ad20b7429d9013" name="ga7ee513befe1e6f0a25ad20b7429d9013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ee513befe1e6f0a25ad20b7429d9013">&#9670;&#160;</a></span>mcuxClKey_DerivationAlgorithmDescriptor_HKDF</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,7 +181,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#gae9a4d21e5a5239fd0ef48978a3774a89">mcuxClKey_TypeDescriptor_t</a> mcuxClKey_TypeDescriptor_Hmac_variableLength</td>
+          <td class="memname">const mcuxClKey_DerivationAlgorithmDescriptor_t mcuxClKey_DerivationAlgorithmDescriptor_HKDF</td>
         </tr>
       </table>
   </td>
@@ -139,12 +191,12 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Key type structure for Sw-HMAC based keys with variable length. </p>
+<p>RFC5869 key derivation algorithm descriptor. </p>
 
 </div>
 </div>
-<a id="ga42eb018ca876c87b3d4539532ab2154d" name="ga42eb018ca876c87b3d4539532ab2154d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga42eb018ca876c87b3d4539532ab2154d">&#9670;&#160;</a></span>mcuxClKey_Type_Hmac_variableLength</h2>
+<a id="gafc23edf213502f0f0afe0234daca24c6" name="gafc23edf213502f0f0afe0234daca24c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc23edf213502f0f0afe0234daca24c6">&#9670;&#160;</a></span>mcuxClKey_DerivationAlgorithm_HKDF</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,7 +205,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Hmac_variableLength</td>
+          <td class="memname">mcuxClKey_DerivationAlgorithm_t mcuxClKey_DerivationAlgorithm_HKDF</td>
         </tr>
       </table>
   </td>
@@ -163,8 +215,12 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Key type pointer for HMAC keys with variable length. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03394.html#_a5">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a03395.html#_a5">mcuxClHmac_Sw_Oneshot_example.c</a>, <a class="el" href="a03397.html#_a4">mcuxClKdfModes_HKDF_example.c</a>, <a class="el" href="a03400.html#_a5">mcuxClKdfModes_SP800_108_Double_Pipeline_Mode_HMAC_example.c</a>, <a class="el" href="a03403.html#_a9">mcuxClKdfModes_SP800_56C_twostep_cmac_example.c</a>, and <a class="el" href="a03404.html#_a4">mcuxClKdfModes_SP800_56C_twostep_hmac_example.c</a>.</dd>
+<p>RFC5869 key derivation algorithm type. </p>
+<p>When using this algorithm possible inputs[] for mcuxClKey_derivation function are:</p><ul>
+<li>inputs[0] fixedInfo (optional) (length is required, data pointer may be NULL which defaults to all-zero salt)</li>
+<li>inputs[1] salt (optional) (length is required, data pointer may be NULL which defaults to all-zero salt) </li>
+</ul>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03391.html#_a14">mcuxClKdfModes_HKDF_example.c</a>.</dd>
 </dl>
 
 </div>

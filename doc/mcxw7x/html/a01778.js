@@ -1,22 +1,15 @@
 var a01778 =
 [
-    [ "INPUTMUX_AON Register Masks", "a01779.html", "a01779" ],
-    [ "INPUTMUX_AON_Type", "a02827.html", [
-      [ "QTMR0_TMR", "a02827.html#a484ba31195b0f4068ff954ca83627816", null ],
-      [ "SOC_GLUE_XOR0_IN", "a02827.html#aeb222a7db57a9976effb67e45c9e0578", null ],
-      [ "SOC_GLUE_CMPPADS_PCTRL_XOR_IN0", "a02827.html#a68462e79c5c7853d9913cec12328a520", null ],
-      [ "SOC_GLUE_CTRLPADS_PCTRL_XOR_IN0", "a02827.html#a9ffebf895573d8d85cdb07a0d85a5d2e", null ],
-      [ "QTMR1_TMR", "a02827.html#ab4f61938a24438f172643b4a7711accd", null ],
-      [ "LC_ROT_SOC_LOGIC_IN", "a02827.html#a62fcb923275818a8de7eac08434a7b2f", null ],
-      [ "LCSENSE_SEQ_PTRIG_GLUE_IN", "a02827.html#aa56b4c4ce943432ce4b30b719a775209", null ],
-      [ "LCSENSE_SEQ_TICKS_GLUE_IN", "a02827.html#a053c051725af1d1ae11e1a5059e8bc06", null ],
-      [ "ACMP0_TRIG", "a02827.html#a20e25187f649566ce297e90786798b1a", null ],
-      [ "LPADC0_TRIG", "a02827.html#a999a71be655e03da1677e5eaa2714c28", null ],
-      [ "AON_TRIG_OUT", "a02827.html#a0ecfeb84624759a5219683a92cd7bd41", null ],
-      [ "CMP0_SAMPLE", "a02827.html#ae332cae0690a7f165e7ebebc617e63b2", null ],
-      [ "CMP0_RR_TRIG", "a02827.html#a42ddbed3aa663ec34ba48c9f80b34ea8", null ],
-      [ "LPI2C0_TRIG", "a02827.html#aa7cd915367979efd461ab09c2301e09b", null ],
-      [ "LPUART0r", "a02827.html#a7078d9721adfad35f9bc44a88e5abc6b", null ]
-    ] ],
-    [ "INPUTMUX_AON_QTMRA_COUNT", "a01778.html#gaa210be331778f791588694d4e669ae66", null ]
+    [ "KPP_KPCR_KRE", "a01778.html#ga272400626fa2c82a618bc6a3e77d6b12", null ],
+    [ "KPP_KPCR_KCO", "a01778.html#gae2c0eee17b48b167d60c4640246b38b5", null ],
+    [ "KPP_KPSR_KPKD", "a01778.html#ga3ab663999557c154dd0c61144cac0f0e", null ],
+    [ "KPP_KPSR_KPKR", "a01778.html#ga29f7896b59843aa3689a7e40d03e9ddf", null ],
+    [ "KPP_KPSR_KDSC", "a01778.html#ga403654465ee5ac06df583836f1616cbb", null ],
+    [ "KPP_KPSR_KRSS", "a01778.html#gabd962d447de0fe5f162cedf59e471a1b", null ],
+    [ "KPP_KPSR_KDIE", "a01778.html#ga00751be6e5c408770e4dcff595e952a0", null ],
+    [ "KPP_KPSR_KRIE", "a01778.html#gac81cbc9cf71539129cf35d0c8ef9d417", null ],
+    [ "KPP_KDDR_KRDD", "a01778.html#ga03ec4671be3172071c1c27e793f9fd16", null ],
+    [ "KPP_KDDR_KCDD", "a01778.html#ga1e4acfe68232fe98a34a8a5d0c095afb", null ],
+    [ "KPP_KPDR_KRD", "a01778.html#gab183f9b4941283b60765b3f26b2e6670", null ],
+    [ "KPP_KPDR_KCD", "a01778.html#ga0c6dd45de2d80a1578b6fc8ee5f639a0", null ]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClEcc_Functions.h File Reference</title>
+<title>MCUX CLNS: mcuxClEcc_Internal_BlindedVarScalarMult_FUP.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,35 +102,23 @@ $(function(){initNavTree('a00500.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClEcc_Functions.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClEcc_Internal_BlindedVarScalarMult_FUP.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Top level APIs of mcuxClEcc component.  
+<p>defines FUP programs byte arrays  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;mcuxClCore_Platform.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00842_source.html">mcuxClSession.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00422_source.html">mcuxClBuffer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00917_source.html">mcuxCsslFlowProtection.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00458_source.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00857_source.html">mcuxClSignature.h</a>&gt;</code><br />
-<code>#include &lt;mcuxCsslAnalysis.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00557_source.html">mcuxClEcc_Types.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00674_source.html">mcuxClKey.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;internal/mcuxClPkc_FupMacros.h&gt;</code><br />
 </div>
 <p><a href="a00500_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga1deb22c96b88674a4513e56cdd2dfe3a" id="r_ga1deb22c96b88674a4513e56cdd2dfe3a"><td class="memItemLeft"><a class="el" href="a01376.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01371.html#ga1deb22c96b88674a4513e56cdd2dfe3a">mcuxClEcc_WeierECC_GenerateDomainParams</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession, <a class="el" href="a01376.html#gafe84edad82c8934ef1634e9f29effa55">mcuxClEcc_Weier_DomainParams_t</a> *pEccWeierDomainParams, <a class="el" href="a01903.html">mcuxClEcc_Weier_BasicDomainParams_t</a> *pEccWeierBasicDomainParams, uint32_t options)</td></tr>
-<tr class="memdesc:ga1deb22c96b88674a4513e56cdd2dfe3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC Weierstrass custom domain parameter generation function.  <br /></td></tr>
-<tr class="memitem:gaf5bdc4291b8564a9d6cab3794456b840" id="r_gaf5bdc4291b8564a9d6cab3794456b840"><td class="memItemLeft"><a class="el" href="a01376.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01371.html#gaf5bdc4291b8564a9d6cab3794456b840">mcuxClEcc_WeierECC_GenerateCustomKeyType</a> (<a class="el" href="a01420.html#ga4249d6ccc1dab6d15b46270da3c3d6d4">mcuxClKey_CustomType_t</a> customType, <a class="el" href="a01420.html#gaf6b6555b802edd08c36e427a4631979e">mcuxClKey_AlgorithmId_t</a> algoId, <a class="el" href="a01420.html#ga90c030f08081016123496c56021b9bab">mcuxClKey_Size_t</a> size, void *pCustomParams, <a class="el" href="a01420.html#ga3a6dadf6672be586930b9456e152889e">mcuxClKey_Encoding_t</a> plainEncoding)</td></tr>
-<tr class="memdesc:gaf5bdc4291b8564a9d6cab3794456b840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type constructor.  <br /></td></tr>
-<tr class="memitem:gab725139ad08fcd3e5a34ad11c1ae2671" id="r_gab725139ad08fcd3e5a34ad11c1ae2671"><td class="memItemLeft"><a class="el" href="a01376.html#gaf044f4a5eeeecc4ec5b01aed19f2fe41">mcuxClEcc_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01371.html#gab725139ad08fcd3e5a34ad11c1ae2671">mcuxClEcc_WeierECC_DecodePoint</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pEncodedPoint, <a class="el" href="a01357.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pDecodedPoint, <a class="el" href="a01376.html#ga8d75897bd07aa891fe0c630f73504ce1">mcuxClEcc_WeierECC_PointEncType_t</a> pointEncType, <a class="el" href="a01376.html#gafe84edad82c8934ef1634e9f29effa55">mcuxClEcc_Weier_DomainParams_t</a> *pEccWeierDomainParams)</td></tr>
-<tr class="memdesc:gab725139ad08fcd3e5a34ad11c1ae2671"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point decoding function.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a33ed0de7b4d4d88668a64651ea2b05de" id="r_a33ed0de7b4d4d88668a64651ea2b05de"><td class="memItemLeft"><a id="a33ed0de7b4d4d88668a64651ea2b05de" name="a33ed0de7b4d4d88668a64651ea2b05de"></a>
+const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClEcc_FUP_Weier_PointMult_SplitScalar_ConvertPoint2MR</b> [10]</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Top level APIs of mcuxClEcc component. </p>
+<div class="textblock"><p>defines FUP programs byte arrays </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -144,7 +132,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00500.html">mcuxClEcc_Functions.h</a></li>
+    <li class="navelem"><a href="a00500.html">mcuxClEcc_Internal_BlindedVarScalarMult_FUP.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

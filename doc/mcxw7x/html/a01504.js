@@ -1,5 +1,5 @@
 var a01504 =
 [
-    [ "MCUX_CSSL_DI_USE_SECURE_COUNTER", "a01504.html#gad14940e758b00b26f2e699b4fc0144bb", null ],
-    [ "MCUX_CSSL_DI_USE_NONE", "a01504.html#ga4f0cea555852c5171e55303b6cb062be", null ]
+    [ "MCUX_CSSL_DI_RECORD_IMPL", "a01504.html#ga528d28a827727ba460795460a30cccfd", null ],
+    [ "MCUX_CSSL_DI_EXPUNGE_IMPL", "a01504.html#gaac8a8ea1888347d41f58f27f11c9caab", null ]
 ];

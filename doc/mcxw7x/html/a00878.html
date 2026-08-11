@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClXof_Constants.h File Reference</title>
+<title>MCUX CLNS: mcuxClXof_Functions.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,27 +102,36 @@ $(function(){initNavTree('a00878.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClXof_Constants.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClXof_Functions.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Constants for use with the mcuxClXof component.  
+<p>Top-level API of the mcuxClXof component.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;mcuxClConfig.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00845_source.html">mcuxClSession_Types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00881_source.html">mcuxClXof_Types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00914_source.html">mcuxCsslFlowProtection.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00455_source.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00419_source.html">mcuxClBuffer.h</a>&gt;</code><br />
 </div>
 <p><a href="a00878_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:gada8f5f1ffa3fbc721c3a812bde70edbc" id="r_gada8f5f1ffa3fbc721c3a812bde70edbc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01492.html#gada8f5f1ffa3fbc721c3a812bde70edbc">MCUXCLXOF_STATUS_OK</a></td></tr>
-<tr class="memdesc:gada8f5f1ffa3fbc721c3a812bde70edbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xof operation successful.  <br /></td></tr>
-<tr class="memitem:ga2da5b372b5dd0993a587347ae702b45e" id="r_ga2da5b372b5dd0993a587347ae702b45e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01492.html#ga2da5b372b5dd0993a587347ae702b45e">MCUXCLXOF_STATUS_FAILURE</a></td></tr>
-<tr class="memdesc:ga2da5b372b5dd0993a587347ae702b45e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xof operation failed.  <br /></td></tr>
-<tr class="memitem:ga3db6fb6dabf8503ebd5543d7e5f4adba" id="r_ga3db6fb6dabf8503ebd5543d7e5f4adba"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01492.html#ga3db6fb6dabf8503ebd5543d7e5f4adba">MCUXCLXOF_STATUS_FAULT_ATTACK</a></td></tr>
-<tr class="memdesc:ga3db6fb6dabf8503ebd5543d7e5f4adba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack (unexpected behavior) detected.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga9d9dc1e485b0a5251be63d96c4fd5723" id="r_ga9d9dc1e485b0a5251be63d96c4fd5723"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01490.html#ga9d9dc1e485b0a5251be63d96c4fd5723">mcuxClXof_compute</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a> algorithm, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pCustomization, uint32_t customizationSize, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t outSize)</td></tr>
+<tr class="memdesc:ga9d9dc1e485b0a5251be63d96c4fd5723"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot Xof computation function.  <br /></td></tr>
+<tr class="memitem:ga68799488ebfd17e3cdf1d6a212ea7f0e" id="r_ga68799488ebfd17e3cdf1d6a212ea7f0e"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01490.html#ga68799488ebfd17e3cdf1d6a212ea7f0e">mcuxClXof_init</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext, <a class="el" href="a01491.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a> algorithm, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pCustomization, uint32_t customizationSize)</td></tr>
+<tr class="memdesc:ga68799488ebfd17e3cdf1d6a212ea7f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof initialization function.  <br /></td></tr>
+<tr class="memitem:gae4acffc293e8774cf6b52f5e7d67755f" id="r_gae4acffc293e8774cf6b52f5e7d67755f"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01490.html#gae4acffc293e8774cf6b52f5e7d67755f">mcuxClXof_process</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize)</td></tr>
+<tr class="memdesc:gae4acffc293e8774cf6b52f5e7d67755f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof processing function.  <br /></td></tr>
+<tr class="memitem:gaaaae29a01783e703c055cdaccf99b0b9" id="r_gaaaae29a01783e703c055cdaccf99b0b9"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01490.html#gaaaae29a01783e703c055cdaccf99b0b9">mcuxClXof_generate</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t outSize)</td></tr>
+<tr class="memdesc:gaaaae29a01783e703c055cdaccf99b0b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof generation function.  <br /></td></tr>
+<tr class="memitem:ga64bb8f44359cc8437057f474601ac9d5" id="r_ga64bb8f44359cc8437057f474601ac9d5"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01490.html#ga64bb8f44359cc8437057f474601ac9d5">mcuxClXof_finish</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext)</td></tr>
+<tr class="memdesc:ga64bb8f44359cc8437057f474601ac9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof computation cleanup function.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Constants for use with the mcuxClXof component. </p>
+<div class="textblock"><p>Top-level API of the mcuxClXof component. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -136,7 +145,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00878.html">mcuxClXof_Constants.h</a></li>
+    <li class="navelem"><a href="a00878.html">mcuxClXof_Functions.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,9 +1,6 @@
 var a01486 =
 [
-    [ "MCUXCLSGI_STATUS_ERROR", "a01486.html#ga3a7f396d056150e6b660e0a1c1411d8a", null ],
-    [ "MCUXCLSGI_STATUS_UNWRAP_ERROR", "a01486.html#gae800260950cd588eab670511e2897b01", null ],
-    [ "MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED", "a01486.html#gad238e73fbfbfd66329ec6bdcc869c74d", null ],
-    [ "MCUXCLSGI_STATUS_UNALIGNED_ACCESS_NOT_SUPPORTED", "a01486.html#gac50360c76a049483afe98382c66e56d7", null ],
-    [ "MCUXCLSGI_STATUS_OK", "a01486.html#ga6943fe8a51be06c7ba75f2db2718beb1", null ],
-    [ "MCUXCLSGI_STATUS_FAULT", "a01486.html#ga15e56f64900801e09aefc4a6a1501e71", null ]
+    [ "mcuxClSignature_sign", "a01486.html#ga83fe33e60245cf90a490e3214c8de672", null ],
+    [ "mcuxClSignature_verify_recordParam", "a01486.html#gad99e79a6c1418cbda0eca0417bd045dd", null ],
+    [ "mcuxClSignature_verify", "a01486.html#ga1b7deb8d71deafd479940561123b6a87", null ]
 ];

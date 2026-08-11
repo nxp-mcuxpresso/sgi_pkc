@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxCsslMemory_SecureCompare_example.c</title>
+<title>MCUX CLNS: User Guidance Manual</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,139 +101,41 @@ $(function(){initNavTree('a03440.html','',''); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">mcuxCsslMemory_SecureCompare_example.c</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">User Guidance Manual </div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example constant-time secure compare (CSSL component mcuxCsslMemory).</p>
-<p>Example constant-time secure compare (CSSL component mcuxCsslMemory)</p>
-<div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2023, 2025-2026 NXP                                            */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* Redistribution and use in source and binary forms, with or without       */</span></div>
-<div class="line"><span class="comment">/* modification, are permitted provided that the following conditions are   */</span></div>
-<div class="line"><span class="comment">/* met:                                                                     */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* 1. Redistributions of source code must retain the above copyright        */</span></div>
-<div class="line"><span class="comment">/*    notice, this list of conditions and the following disclaimer.         */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* 2. Redistributions in binary form must reproduce the above copyright     */</span></div>
-<div class="line"><span class="comment">/*    notice, this list of conditions and the following disclaimer in the   */</span></div>
-<div class="line"><span class="comment">/*    documentation and/or other materials provided with the distribution.  */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* 3. Neither the name of the copyright holder nor the names of its         */</span></div>
-<div class="line"><span class="comment">/*    contributors may be used to endorse or promote products derived from  */</span></div>
-<div class="line"><span class="comment">/*    this software without specific prior written permission.              */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS  */</span></div>
-<div class="line"><span class="comment">/* IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    */</span></div>
-<div class="line"><span class="comment">/* TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          */</span></div>
-<div class="line"><span class="comment">/* PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT       */</span></div>
-<div class="line"><span class="comment">/* HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,   */</span></div>
-<div class="line"><span class="comment">/* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED */</span></div>
-<div class="line"><span class="comment">/* TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR   */</span></div>
-<div class="line"><span class="comment">/* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   */</span></div>
-<div class="line"><span class="comment">/* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     */</span></div>
-<div class="line"><span class="comment">/* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       */</span></div>
-<div class="line"><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
-<div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;mcuxClToolchain.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;mcuxCsslMemory_Examples.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00974.html">mcuxCsslParamIntegrity.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00950.html">mcuxCsslMemory_Constants.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00956.html">mcuxCsslMemory_SecureCompare.h</a>&gt;</span></div>
-<div class="line"> </div>
-<div class="line">MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_SecureCompare_example)</div>
-<div class="line">{</div>
-<div class="line">  <span class="comment">/* Define data array */</span></div>
-<div class="line">  ALIGNED uint8_t arr_1[] = {0xe4u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u,</div>
-<div class="line">                            0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u,</div>
-<div class="line">                            0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u,</div>
-<div class="line">                            0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,</div>
-<div class="line">                            0x76u};</div>
-<div class="line">  ALIGNED uint8_t arr_2[] = {0xe4u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u,</div>
-<div class="line">                            0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u,</div>
-<div class="line">                            0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u,</div>
-<div class="line">                            0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,</div>
-<div class="line">                            0x76u};</div>
-<div class="line">  ALIGNED uint8_t arr_3[] = {0x00u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u,</div>
-<div class="line">                            0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u,</div>
-<div class="line">                            0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u,</div>
-<div class="line">                            0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,</div>
-<div class="line">                            0x76u};</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Pass length as zero =&gt; Should result in the zero length return code. */</span></div>
-<div class="line">  <a id="a0" name="a0"></a><a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(secureCompareResultZeroLength, secureCompareTokenZeroLength, <a id="a1" name="a1"></a><a class="code hl_function" href="a01543.html#gaaeaea6e90c6eb82adfd84ade13141141">mcuxCsslMemory_SecureCompare</a>(</div>
-<div class="line">  <span class="comment">/* mcuxCsslParamIntegrity_Checksum_t chk,*/</span> MCUX_CSSL_PI_PROTECT(arr_1, arr_2, 0U),</div>
-<div class="line">  <span class="comment">/* void const * lhs,                    */</span> arr_1,</div>
-<div class="line">  <span class="comment">/* void const * rhs,                    */</span> arr_2,</div>
-<div class="line">  <span class="comment">/* uint32_t length                      */</span> 0U));</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_SecureCompare */</span></div>
-<div class="line">  <span class="keywordflow">if</span>((<a id="a2" name="a2"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01543.html#gaaeaea6e90c6eb82adfd84ade13141141">mcuxCsslMemory_SecureCompare</a>) != secureCompareTokenZeroLength)</div>
-<div class="line">    || (<a id="_a3" name="_a3"></a><a class="code hl_define" href="a01539.html#gab40f0fb87e67df3338f94f6d0f758f1a">MCUXCSSLMEMORY_STATUS_ZERO_LENGTH</a> != secureCompareResultZeroLength))</div>
-<div class="line">  {</div>
-<div class="line">      <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line">  <a id="a4" name="a4"></a><a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Compare arr_1 with arr_2 =&gt; Should be true */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(secureCompareResultEq, secureCompareTokenEq, <a class="code hl_function" href="a01543.html#gaaeaea6e90c6eb82adfd84ade13141141">mcuxCsslMemory_SecureCompare</a>(</div>
-<div class="line">  <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk */</span> MCUX_CSSL_PI_PROTECT(arr_1, arr_2, <span class="keyword">sizeof</span>(arr_1)),</div>
-<div class="line">  <span class="comment">/*  void * pLhs                          */</span> arr_1,</div>
-<div class="line">  <span class="comment">/*  void * pRhs                          */</span> arr_2,</div>
-<div class="line">  <span class="comment">/*  uint32_t length                      */</span> <span class="keyword">sizeof</span>(arr_1)</div>
-<div class="line">  ));</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_SecureCompare */</span></div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01543.html#gaaeaea6e90c6eb82adfd84ade13141141">mcuxCsslMemory_SecureCompare</a>) != secureCompareTokenEq) </div>
-<div class="line">     || (<a id="_a5" name="_a5"></a><a class="code hl_define" href="a01539.html#gafaad4a560714fdff8064ba9a50f7d572">MCUXCSSLMEMORY_STATUS_EQUAL</a> != secureCompareResultEq))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Compare arr_1 with arr_3 =&gt; Should be false */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(secureCompareResultNotEq, secureCompareTokenNotEq, <a class="code hl_function" href="a01543.html#gaaeaea6e90c6eb82adfd84ade13141141">mcuxCsslMemory_SecureCompare</a>(</div>
-<div class="line">  <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk */</span> MCUX_CSSL_PI_PROTECT(arr_1, arr_3, <span class="keyword">sizeof</span>(arr_1)),</div>
-<div class="line">  <span class="comment">/*  void * pLhs                          */</span> arr_1,</div>
-<div class="line">  <span class="comment">/*  void * pRhs                          */</span> arr_3,</div>
-<div class="line">  <span class="comment">/*  uint32_t length                      */</span> <span class="keyword">sizeof</span>(arr_1)</div>
-<div class="line">  ));</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_SecureCompare */</span></div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01543.html#gaaeaea6e90c6eb82adfd84ade13141141">mcuxCsslMemory_SecureCompare</a>) != secureCompareTokenNotEq)</div>
-<div class="line">    || (<a id="_a6" name="_a6"></a><a class="code hl_define" href="a01539.html#ga2b5d2b24036bee244a9e7310160b3035">MCUXCSSLMEMORY_STATUS_NOT_EQUAL</a> != secureCompareResultNotEq))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_OK;</div>
-<div class="line">}</div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00950_html"><div class="ttname"><a href="a00950.html">mcuxCsslMemory_Constants.h</a></div><div class="ttdoc">Constants definitions for the mcuxCsslMemory component.</div></div>
-<div class="ttc" id="aa00956_html"><div class="ttname"><a href="a00956.html">mcuxCsslMemory_SecureCompare.h</a></div><div class="ttdoc">Include file for secure compare function.</div></div>
-<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">mcuxCsslParamIntegrity.h</a></div><div class="ttdoc">Top-level include file for the parameter integrity protection mechanism.</div></div>
-<div class="ttc" id="aa01513_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01513_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
-<div class="ttc" id="aa01539_html_ga2b5d2b24036bee244a9e7310160b3035"><div class="ttname"><a href="a01539.html#ga2b5d2b24036bee244a9e7310160b3035">MCUXCSSLMEMORY_STATUS_NOT_EQUAL</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_NOT_EQUAL</div><div class="ttdoc">The two contents of the Memory Compare are not equal.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:71</div></div>
-<div class="ttc" id="aa01539_html_gab40f0fb87e67df3338f94f6d0f758f1a"><div class="ttname"><a href="a01539.html#gab40f0fb87e67df3338f94f6d0f758f1a">MCUXCSSLMEMORY_STATUS_ZERO_LENGTH</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_ZERO_LENGTH</div><div class="ttdoc">The length passed to Memory Compare is zero.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:70</div></div>
-<div class="ttc" id="aa01539_html_gafaad4a560714fdff8064ba9a50f7d572"><div class="ttname"><a href="a01539.html#gafaad4a560714fdff8064ba9a50f7d572">MCUXCSSLMEMORY_STATUS_EQUAL</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_EQUAL</div><div class="ttdoc">The two contents of the Memory Compare are equal.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:69</div></div>
-<div class="ttc" id="aa01543_html_gaaeaea6e90c6eb82adfd84ade13141141"><div class="ttname"><a href="a01543.html#gaaeaea6e90c6eb82adfd84ade13141141">mcuxCsslMemory_SecureCompare</a></div><div class="ttdeci">mcuxCsslMemory_Status_t mcuxCsslMemory_SecureCompare(mcuxCsslParamIntegrity_Checksum_t chk, void const *pLhs, void const *pRhs, uint32_t length)</div><div class="ttdoc">Securely compares the two memory regions lhs and rhs.</div></div>
-</div><!-- fragment --> </div><!-- contents -->
+<div class="textblock"><h2>General Information</h2>
+<ul>
+<li>This documentation describes a version of the Crypto Library Normal Secure (CLNS). To identify your version of the CLNS, see #nxpCl_GetVersion.</li>
+<li>The CLNS is separated into software components, each of which encapsulates a disjoint subset of its functionality with a common purpose. For example, that purpose can be the abstraction of a hardware IP (Intellectual Property) or the implementation of a specific cryptographic algorithm.<ul>
+<li>Each component has a name that begins with the prefix <span class="tt">nxpCl</span>.</li>
+<li>The names of all header files, functions and data types belonging to a component named <span class="tt">&lt;component-name&gt;</span> begin with the prefix <span class="tt">&lt;component-name&gt;_</span>.</li>
+<li>The names of all preprocessor macros belonging to a component named <span class="tt">nxpCl&lt;Name&gt;</span> begin with the prefix <span class="tt">NXPCL&lt;NAME&gt;_</span>.</li>
+</ul>
+</li>
+<li>Additionally, there is some component-independent functionality, such as CLNS version information.<ul>
+<li>The names of all header files, functions and data types that are part of component-independent functionality begin with the prefix <span class="tt">nxpCl_</span>.</li>
+<li>The names of all preprocessor macros that are part of component-independent functionality begin with the prefix <span class="tt">NXPCL_</span>.</li>
+</ul>
+</li>
+<li>The CLNS API consists only of the declarations contained in the API header files. Other functions, macros or types found in other source files should not be used.</li>
+<li>In order to minimize CPU wait cycles during coprocessor activities, some CLNS functions (<em>non-blocking functions</em>) are implemented in a non-blocking way, which means that the underlying operation has not completed at function return. <br  />
+ It is the caller's responsibility to ensure that the operation has completed before further processing on the operation output data is performed. <br  />
+ The names of all non-blocking functions end with the suffix <span class="tt">_Async</span>.</li>
+</ul>
+<h2>Release Content</h2>
+<p>The release consists of three files, the NXP Software Content Register <span class="tt">softwareContentRegister.txt</span>, the NXP Software License Agreement <span class="tt">LICENSE.htm</span> and an archive with the file name extension <span class="tt">.zip</span>. The archive contains the following data:</p><ul>
+<li>The <span class="tt">doc</span> folder contains Doxygen HTML documentation of the CLNS interfaces and example code. Open <span class="tt">doc/html/index.html</span> in a browser to view its main page.</li>
+<li>The <span class="tt">examples</span> folder contains integration example code for each included component.</li>
+<li>The <span class="tt">includes</span> folder directly contains the header source files that make up the API of the CLNS.</li>
+<li>The <span class="tt">includes/platform</span> folder contains platform-specific header files that are required for integration of the CLNS.</li>
+<li>The <span class="tt">static_library</span> folder contains a static library (archive of object code files) that contains the CLNS binaries.</li>
+<li>The <span class="tt">LICENSE.htm</span> file contains the NXP Software License Agreement.</li>
+<li>The <span class="tt">softwareContentRegister.txt</span> file contains the NXP Software Content Register. Note that this file is identical to the <span class="tt">softwareContentRegister.txt</span> delivered alongside the archive. </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->

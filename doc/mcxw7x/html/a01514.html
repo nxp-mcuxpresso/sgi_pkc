@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Looping flow protection</title>
+<title>MCUX CLNS: Expectation handling</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,80 +102,34 @@ $(function(){initNavTree('a01514.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Looping flow protection <div class="ingroups"><a class="el" href="a01497.html">MCUX CSSL &amp;ndash; API</a> &raquo; <a class="el" href="a01511.html">Flow Protection API</a></div></div></div>
+  <div class="headertitle"><div class="title">Expectation handling <div class="ingroups"><a class="el" href="a01494.html">MCUX CSSL &amp;ndash; API</a> &raquo; <a class="el" href="a01508.html">Flow Protection API</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Support for flow protected loops.  
+<p>Expectation handling support functionality.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga96df84766aff763718a84dd44246af38" id="r_ga96df84766aff763718a84dd44246af38"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga96df84766aff763718a84dd44246af38">MCUX_CSSL_FP_LOOP_DECL</a>(id)</td></tr>
-<tr class="memdesc:ga96df84766aff763718a84dd44246af38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration of a flow protected loop.  <br /></td></tr>
-<tr class="memitem:gae7942657c4fac73115908f05c382cc86" id="r_gae7942657c4fac73115908f05c382cc86"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae7942657c4fac73115908f05c382cc86">MCUX_CSSL_FP_LOOP_ITERATION</a>(...)</td></tr>
-<tr class="memdesc:gae7942657c4fac73115908f05c382cc86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a loop iteration.  <br /></td></tr>
-<tr class="memitem:gae5aabc3339a46a799d1fefd1095a4898" id="r_gae5aabc3339a46a799d1fefd1095a4898"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae5aabc3339a46a799d1fefd1095a4898">MCUX_CSSL_FP_LOOP_ITERATIONS</a>(id,  count)</td></tr>
-<tr class="memdesc:gae5aabc3339a46a799d1fefd1095a4898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected number of loop iterations.  <br /></td></tr>
+<tr class="memitem:ga83db474d65df2b52abea45293f9684d0" id="r_ga83db474d65df2b52abea45293f9684d0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga83db474d65df2b52abea45293f9684d0">MCUX_CSSL_FP_EXPECT</a>(...)</td></tr>
+<tr class="memdesc:ga83db474d65df2b52abea45293f9684d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration(s) of expected code flow behavior.  <br /></td></tr>
+<tr class="memitem:ga24a55fecde25d3aa0a227814345b9714" id="r_ga24a55fecde25d3aa0a227814345b9714"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga24a55fecde25d3aa0a227814345b9714">MCUX_CSSL_FP_CONDITIONAL</a>(condition, ...)</td></tr>
+<tr class="memdesc:ga24a55fecde25d3aa0a227814345b9714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handling of conditionally expected code flow behavior.  <br /></td></tr>
+<tr class="memitem:ga301b8f23ac6981e62649c8f571a6c6eb" id="r_ga301b8f23ac6981e62649c8f571a6c6eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga301b8f23ac6981e62649c8f571a6c6eb">MCUX_CSSL_FP_ASSERT</a>(...)</td></tr>
+<tr class="memdesc:ga301b8f23ac6981e62649c8f571a6c6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert an expected state of the code flow.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Support for flow protected loops. </p>
-<p>This subset of Flow protection macros is used to protect any kind of loops (for, do while , while).</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a03436.html" title="mcuxCsslFlowProtection_Loop_example.c">mcuxCsslFlowProtection_Loop_example.c</a></dd></dl>
-<dl class="section user"><dt>Declaration </dt><dd><a class="el" href="#ga96df84766aff763718a84dd44246af38" title="Declaration of a flow protected loop.">MCUX_CSSL_FP_LOOP_DECL</a> </dd></dl>
-<dl class="section user"><dt>Event </dt><dd><a class="el" href="#gae7942657c4fac73115908f05c382cc86" title="Perform a loop iteration.">MCUX_CSSL_FP_LOOP_ITERATION</a> </dd></dl>
-<dl class="section user"><dt>Expectation </dt><dd><a class="el" href="#gae5aabc3339a46a799d1fefd1095a4898" title="Expected number of loop iterations.">MCUX_CSSL_FP_LOOP_ITERATIONS</a> </dd></dl>
+<div class="textblock"><p>Expectation handling support functionality. </p>
+<p>This subset of Flow protection macros is used to formulate and verify FP expectations within a function body. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga96df84766aff763718a84dd44246af38" name="ga96df84766aff763718a84dd44246af38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga96df84766aff763718a84dd44246af38">&#9670;&#160;</a></span>MCUX_CSSL_FP_LOOP_DECL</h2>
+<a id="ga83db474d65df2b52abea45293f9684d0" name="ga83db474d65df2b52abea45293f9684d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga83db474d65df2b52abea45293f9684d0">&#9670;&#160;</a></span>MCUX_CSSL_FP_EXPECT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_LOOP_DECL</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Declaration of a flow protected loop. </p>
-<p>To inform the flow protection mechanism about a loop that needs to be protected, a loop identifier needs to be declared. This identifier can then be used in the event and expectation macros. For example: </p><div class="fragment"><div class="line"><a class="code hl_define" href="#ga96df84766aff763718a84dd44246af38">MCUX_CSSL_FP_LOOP_DECL</a>(someLoopIdentifier);</div>
-<div class="line"><span class="keywordflow">for</span> (uint32_t i = 0; i &lt; 8; ++i)</div>
-<div class="line">{</div>
-<div class="line">  <a class="code hl_define" href="#gae7942657c4fac73115908f05c382cc86">MCUX_CSSL_FP_LOOP_ITERATION</a>(someLoopIdentifier);</div>
-<div class="line">}</div>
-<div class="line"><span class="comment">// ...</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga9d9934b6d02da9505dd20ac36236b61d">MCUX_CSSL_FP_FUNCTION_EXIT</a>(someFunction, 0,</div>
-<div class="line">  <a class="code hl_define" href="#gae5aabc3339a46a799d1fefd1095a4898">MCUX_CSSL_FP_LOOP_ITERATIONS</a>(someLoopIdentifier, 8)</div>
-<div class="line">);</div>
-<div class="ttc" id="aa01513_html_ga9d9934b6d02da9505dd20ac36236b61d"><div class="ttname"><a href="a01513.html#ga9d9934b6d02da9505dd20ac36236b61d">MCUX_CSSL_FP_FUNCTION_EXIT</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_EXIT(...)</div><div class="ttdoc">Flow protection handler for the function exit point.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:348</div></div>
-<div class="ttc" id="aa01514_html_ga96df84766aff763718a84dd44246af38"><div class="ttname"><a href="#ga96df84766aff763718a84dd44246af38">MCUX_CSSL_FP_LOOP_DECL</a></div><div class="ttdeci">#define MCUX_CSSL_FP_LOOP_DECL(id)</div><div class="ttdoc">Declaration of a flow protected loop.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:876</div></div>
-<div class="ttc" id="aa01514_html_gae5aabc3339a46a799d1fefd1095a4898"><div class="ttname"><a href="#gae5aabc3339a46a799d1fefd1095a4898">MCUX_CSSL_FP_LOOP_ITERATIONS</a></div><div class="ttdeci">#define MCUX_CSSL_FP_LOOP_ITERATIONS(id, count)</div><div class="ttdoc">Expected number of loop iterations.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:939</div></div>
-<div class="ttc" id="aa01514_html_gae7942657c4fac73115908f05c382cc86"><div class="ttname"><a href="#gae7942657c4fac73115908f05c382cc86">MCUX_CSSL_FP_LOOP_ITERATION</a></div><div class="ttdeci">#define MCUX_CSSL_FP_LOOP_ITERATION(...)</div><div class="ttdoc">Perform a loop iteration.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:904</div></div>
-</div><!-- fragment --><dl class="section user"><dt>Event </dt><dd><a class="el" href="#gae7942657c4fac73115908f05c382cc86" title="Perform a loop iteration.">MCUX_CSSL_FP_LOOP_ITERATION</a> </dd></dl>
-<dl class="section user"><dt>Expectation </dt><dd><a class="el" href="#gae5aabc3339a46a799d1fefd1095a4898" title="Expected number of loop iterations.">MCUX_CSSL_FP_LOOP_ITERATIONS</a></dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>Identifier for the loop that is flow protected. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03436.html#a4">mcuxCsslFlowProtection_Loop_example.c</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="gae7942657c4fac73115908f05c382cc86" name="gae7942657c4fac73115908f05c382cc86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae7942657c4fac73115908f05c382cc86">&#9670;&#160;</a></span>MCUX_CSSL_FP_LOOP_ITERATION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUX_CSSL_FP_LOOP_ITERATION</td>
+          <td class="memname">#define MCUX_CSSL_FP_EXPECT</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
           <td></td>
@@ -183,75 +137,112 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Perform a loop iteration. </p>
-<p>This loop iteration macro informs the flow mechanism that an iteration event is performed for the loop declared by <a class="el" href="#ga96df84766aff763718a84dd44246af38" title="Declaration of a flow protected loop.">MCUX_CSSL_FP_LOOP_DECL</a> with the given <code class="param">id</code>. For example: </p><div class="fragment"><div class="line"><a class="code hl_define" href="#ga96df84766aff763718a84dd44246af38">MCUX_CSSL_FP_LOOP_DECL</a>(someLoopIdentifier);</div>
-<div class="line"><span class="keywordflow">for</span> (uint32_t i = 0; i &lt; 8; ++i)</div>
-<div class="line">{</div>
-<div class="line">  <a class="code hl_define" href="#gae7942657c4fac73115908f05c382cc86">MCUX_CSSL_FP_LOOP_ITERATION</a>(someLoopIdentifier);</div>
-<div class="line">}</div>
-</div><!-- fragment --><dl class="section user"><dt>Declaration </dt><dd><a class="el" href="#ga96df84766aff763718a84dd44246af38" title="Declaration of a flow protected loop.">MCUX_CSSL_FP_LOOP_DECL</a> </dd></dl>
-<dl class="section user"><dt>Expectation </dt><dd><a class="el" href="#gae5aabc3339a46a799d1fefd1095a4898" title="Expected number of loop iterations.">MCUX_CSSL_FP_LOOP_ITERATIONS</a></dd></dl>
+<p>Declaration(s) of expected code flow behavior. </p>
+<p>This macro can be used to indicate expectations in the function body at another location than the function entry or exit.</p>
+<dl class="section note"><dt>Note</dt><dd>In general the use of this macro is discouraged, to avoid a potential security and/or code-size impact. However, it may be usefull for complex code, where an intermediate update can actually save code, since conditions for expectations can than be locallized.</dd></dl>
+<dl class="section user"><dt>Expectations </dt><dd><a class="el" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5" title="Expectation of a called function.">MCUX_CSSL_FP_FUNCTION_CALLED</a><br  />
+<a class="el" href="a01511.html#gae5aabc3339a46a799d1fefd1095a4898" title="Expected number of loop iterations.">MCUX_CSSL_FP_LOOP_ITERATIONS</a><br  />
+<a class="el" href="a01512.html#ga99db0902665c118dbfeacd73dd8c8672" title="Expectation that positive branch has been taken.">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE</a><br  />
+<a class="el" href="a01512.html#ga7ca1b74234f560a110647fbc24fec3f9" title="Expectation that negative branch has been taken.">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE</a><br  />
+<a class="el" href="a01513.html#gaa620180722a4eaa8e7370a92d2bd18d9" title="Expected that a specific case is handled from a switch.">MCUX_CSSL_FP_SWITCH_TAKEN</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01510.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb" title="Flow protection handler for the function entry point.">MCUX_CSSL_FP_FUNCTION_ENTRY</a> </dd>
+<dd>
+<a class="el" href="a01510.html#ga9d9934b6d02da9505dd20ac36236b61d" title="Flow protection handler for the function exit point.">MCUX_CSSL_FP_FUNCTION_EXIT</a> </dd>
+<dd>
+<a class="el" href="a01510.html#ga7c4b79e79eecb68ef4e4fb4fb9fbc1b8" title="Flow protection handler for the function exit point which includes an actual check of the code flow.">MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK</a> </dd>
+<dd>
+<a class="el" href="#ga24a55fecde25d3aa0a227814345b9714" title="Handling of conditionally expected code flow behavior.">MCUX_CSSL_FP_CONDITIONAL</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">...</td><td>The following parameters need to be passed (comma separated):<ul>
-<li>id: Identifier for the loop that is flow protected.</li>
-<li>expect: Zero or more (comma separated) declarations of expected code flow behavior related to this event. </li>
+<li>expect: One or more (comma separated) declarations of expected code flow behavior. </li>
 </ul>
 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03436.html#_a5">mcuxCsslFlowProtection_Loop_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03429.html#a11">mcuxCsslFlowProtection_Function_example.c</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="gae5aabc3339a46a799d1fefd1095a4898" name="gae5aabc3339a46a799d1fefd1095a4898"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae5aabc3339a46a799d1fefd1095a4898">&#9670;&#160;</a></span>MCUX_CSSL_FP_LOOP_ITERATIONS</h2>
+<a id="ga24a55fecde25d3aa0a227814345b9714" name="ga24a55fecde25d3aa0a227814345b9714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga24a55fecde25d3aa0a227814345b9714">&#9670;&#160;</a></span>MCUX_CSSL_FP_CONDITIONAL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_LOOP_ITERATIONS</td>
+          <td class="memname">#define MCUX_CSSL_FP_CONDITIONAL</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Expected number of loop iterations. </p>
-<p>This expectation macro indicates to the flow protection mechanism that the loop declared by <a class="el" href="#ga96df84766aff763718a84dd44246af38" title="Declaration of a flow protected loop.">MCUX_CSSL_FP_LOOP_DECL</a> with the given <code class="param">id</code> has made <code class="param">count</code> iterations. For example: </p><div class="fragment"><div class="line"><a class="code hl_define" href="#ga96df84766aff763718a84dd44246af38">MCUX_CSSL_FP_LOOP_DECL</a>(someLoopIdentifier);</div>
-<div class="line"><span class="keywordflow">for</span> (uint32_t i = 0; i &lt; 8; ++i)</div>
-<div class="line">{</div>
-<div class="line">  <a class="code hl_define" href="#gae7942657c4fac73115908f05c382cc86">MCUX_CSSL_FP_LOOP_ITERATION</a>(someLoopIdentifier);</div>
-<div class="line">}</div>
-<div class="line"><span class="comment">// ...</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga9d9934b6d02da9505dd20ac36236b61d">MCUX_CSSL_FP_FUNCTION_EXIT</a>(someFunction, 0,</div>
-<div class="line">  <a class="code hl_define" href="#gae5aabc3339a46a799d1fefd1095a4898">MCUX_CSSL_FP_LOOP_ITERATIONS</a>(someLoopIdentifier, 8)</div>
-<div class="line">);</div>
-</div><!-- fragment --><dl class="section user"><dt>Declaration </dt><dd><a class="el" href="#ga96df84766aff763718a84dd44246af38" title="Declaration of a flow protected loop.">MCUX_CSSL_FP_LOOP_DECL</a> </dd></dl>
-<dl class="section user"><dt>Event </dt><dd><a class="el" href="#gae7942657c4fac73115908f05c382cc86" title="Perform a loop iteration.">MCUX_CSSL_FP_LOOP_ITERATION</a></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01513.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb" title="Flow protection handler for the function entry point.">MCUX_CSSL_FP_FUNCTION_ENTRY</a> </dd>
+<p>Handling of conditionally expected code flow behavior. </p>
+<p>This macro can be used to indicate expectations that are only true under a given <code class="param">condition</code>.</p>
+<dl class="section user"><dt>Expectations </dt><dd><a class="el" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5" title="Expectation of a called function.">MCUX_CSSL_FP_FUNCTION_CALLED</a><br  />
+<a class="el" href="a01511.html#gae5aabc3339a46a799d1fefd1095a4898" title="Expected number of loop iterations.">MCUX_CSSL_FP_LOOP_ITERATIONS</a><br  />
+<a class="el" href="a01512.html#ga99db0902665c118dbfeacd73dd8c8672" title="Expectation that positive branch has been taken.">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE</a><br  />
+<a class="el" href="a01512.html#ga7ca1b74234f560a110647fbc24fec3f9" title="Expectation that negative branch has been taken.">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE</a><br  />
+<a class="el" href="a01513.html#gaa620180722a4eaa8e7370a92d2bd18d9" title="Expected that a specific case is handled from a switch.">MCUX_CSSL_FP_SWITCH_TAKEN</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01510.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb" title="Flow protection handler for the function entry point.">MCUX_CSSL_FP_FUNCTION_ENTRY</a> </dd>
 <dd>
-<a class="el" href="a01513.html#ga9d9934b6d02da9505dd20ac36236b61d" title="Flow protection handler for the function exit point.">MCUX_CSSL_FP_FUNCTION_EXIT</a> </dd>
+<a class="el" href="a01510.html#ga9d9934b6d02da9505dd20ac36236b61d" title="Flow protection handler for the function exit point.">MCUX_CSSL_FP_FUNCTION_EXIT</a> </dd>
 <dd>
-<a class="el" href="a01513.html#ga7c4b79e79eecb68ef4e4fb4fb9fbc1b8" title="Flow protection handler for the function exit point which includes an actual check of the code flow.">MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK</a> </dd>
+<a class="el" href="a01510.html#ga7c4b79e79eecb68ef4e4fb4fb9fbc1b8" title="Flow protection handler for the function exit point which includes an actual check of the code flow.">MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK</a> </dd>
 <dd>
-<a class="el" href="a01517.html#ga83db474d65df2b52abea45293f9684d0" title="Declaration(s) of expected code flow behavior.">MCUX_CSSL_FP_EXPECT</a></dd></dl>
+<a class="el" href="#ga83db474d65df2b52abea45293f9684d0" title="Declaration(s) of expected code flow behavior.">MCUX_CSSL_FP_EXPECT</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>Identifier of the flow protected loop. </td></tr>
-    <tr><td class="paramname">count</td><td>Number of expected iterations. </td></tr>
+    <tr><td class="paramname">condition</td><td>Condition under which the given expectations apply. </td></tr>
+    <tr><td class="paramname">...</td><td>One or more (comma separated) declarations of expected code flow behavior. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03436.html#_a7">mcuxCsslFlowProtection_Loop_example.c</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03428.html#a9">mcuxCsslFlowProtection_Branch_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga301b8f23ac6981e62649c8f571a6c6eb" name="ga301b8f23ac6981e62649c8f571a6c6eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga301b8f23ac6981e62649c8f571a6c6eb">&#9670;&#160;</a></span>MCUX_CSSL_FP_ASSERT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_ASSERT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assert an expected state of the code flow. </p>
+<p>This macro can be used to check whether the code flow up to this point matches the expected state. Unlike the <a class="el" href="#ga83db474d65df2b52abea45293f9684d0" title="Declaration(s) of expected code flow behavior.">MCUX_CSSL_FP_EXPECT</a> macro, it will not update the expectations, but merely perform a check on the recorded events against the already recorded expectations plus the ones provided as parameters.</p>
+<p>If the check fails, the code defined in <a class="el" href="a01525.html#ga0c29c395a9104c6d918091b12f63ca74" title="Fallback assert callback implementation.">MCUX_CSSL_FP_ASSERT_CALLBACK()</a> will be executed.</p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="a01525.html#ga0c29c395a9104c6d918091b12f63ca74" title="Fallback assert callback implementation.">MCUX_CSSL_FP_ASSERT_CALLBACK()</a> must be defined before including the CSSL flow protection headers, otherwise a default implementation could be used.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga83db474d65df2b52abea45293f9684d0" title="Declaration(s) of expected code flow behavior.">MCUX_CSSL_FP_EXPECT</a></dd>
+<dd>
+<a class="el" href="a03427.html" title="mcuxCsslFlowProtection_Assert_example.c">mcuxCsslFlowProtection_Assert_example.c</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">...</td><td>The following parameters need to be passed (comma separated):<ul>
+<li>expect: One or more (comma separated) declarations of expected code flow behavior. </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03427.html#a8">mcuxCsslFlowProtection_Assert_example.c</a>.</dd>
 </dl>
 
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Expectation handling</title>
+<title>MCUX CLNS: Branching flow protection</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,67 +102,181 @@ $(function(){initNavTree('a01528.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Expectation handling <div class="ingroups"><a class="el" href="a01501.html">MCUX CSSL &amp;ndash; Implementations</a> &raquo; <a class="el" href="a01526.html">Flow Protection: Secure Counter</a></div></div></div>
+  <div class="headertitle"><div class="title">Branching flow protection <div class="ingroups"><a class="el" href="a01498.html">MCUX CSSL &amp;ndash; Implementations</a> &raquo; <a class="el" href="a01523.html">Flow Protection: Secure Counter</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Expectation handling support functionality.  
+<p>Support for flow protected branches.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga173c3887e1d02b5cace9e622d0a3225b" id="r_ga173c3887e1d02b5cace9e622d0a3225b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga173c3887e1d02b5cace9e622d0a3225b">MCUX_CSSL_FP_EXPECTATIONS</a>(...)</td></tr>
-<tr class="memdesc:ga173c3887e1d02b5cace9e622d0a3225b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation aggregation.  <br /></td></tr>
-<tr class="memitem:ga643cc00e2fecb3e73de572797618ad35" id="r_ga643cc00e2fecb3e73de572797618ad35"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga643cc00e2fecb3e73de572797618ad35">MCUX_CSSL_FP_CONDITIONAL_IMPL</a>(condition, ...)</td></tr>
-<tr class="memdesc:ga643cc00e2fecb3e73de572797618ad35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conditional expectation aggregation.  <br /></td></tr>
-<tr class="memitem:ga4ea20ab3d4d080887fdfc12f6c7f6bab" id="r_ga4ea20ab3d4d080887fdfc12f6c7f6bab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4ea20ab3d4d080887fdfc12f6c7f6bab">MCUX_CSSL_FP_VOID_EXPECTATION_IMPL</a>()</td></tr>
-<tr class="memdesc:ga4ea20ab3d4d080887fdfc12f6c7f6bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of expectation of nothing.  <br /></td></tr>
-<tr class="memitem:ga7be0ed334bcf634f81d5d4b93a4c1657" id="r_ga7be0ed334bcf634f81d5d4b93a4c1657"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7be0ed334bcf634f81d5d4b93a4c1657">MCUX_CSSL_FP_EXPECT_IMPL</a>(...)</td></tr>
-<tr class="memdesc:ga7be0ed334bcf634f81d5d4b93a4c1657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration(s) of expected code flow behavior.  <br /></td></tr>
-<tr class="memitem:ga0c29c395a9104c6d918091b12f63ca74" id="r_ga0c29c395a9104c6d918091b12f63ca74"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0c29c395a9104c6d918091b12f63ca74">MCUX_CSSL_FP_ASSERT_CALLBACK</a>()</td></tr>
-<tr class="memdesc:ga0c29c395a9104c6d918091b12f63ca74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fallback assert callback implementation.  <br /></td></tr>
-<tr class="memitem:ga391e0f29868a1dd17bd0d23a4737c129" id="r_ga391e0f29868a1dd17bd0d23a4737c129"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga391e0f29868a1dd17bd0d23a4737c129">MCUX_CSSL_FP_ASSERT_IMPL</a>(...)</td></tr>
-<tr class="memdesc:ga391e0f29868a1dd17bd0d23a4737c129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert an expected state of the code flow.  <br /></td></tr>
+<tr class="memitem:ga0cd46ecad6c5ab6ef4ba6ff18a79b1eb" id="r_ga0cd46ecad6c5ab6ef4ba6ff18a79b1eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0cd46ecad6c5ab6ef4ba6ff18a79b1eb">MCUX_CSSL_FP_BRANCH_ID</a>(id)</td></tr>
+<tr class="memdesc:ga0cd46ecad6c5ab6ef4ba6ff18a79b1eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generator for branch identifiers.  <br /></td></tr>
+<tr class="memitem:gaf4e4c76c10150fa1b5e8944f33720c44" id="r_gaf4e4c76c10150fa1b5e8944f33720c44"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf4e4c76c10150fa1b5e8944f33720c44">MCUX_CSSL_FP_BRANCH_DECL_IMPL</a>(id)</td></tr>
+<tr class="memdesc:gaf4e4c76c10150fa1b5e8944f33720c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration implementation of a flow protected branch.  <br /></td></tr>
+<tr class="memitem:ga24770b08dbac22e0ca123f737f9710b3" id="r_ga24770b08dbac22e0ca123f737f9710b3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga24770b08dbac22e0ca123f737f9710b3">MCUX_CSSL_FP_BRANCH_VALUE</a>(id)</td></tr>
+<tr class="memdesc:ga24770b08dbac22e0ca123f737f9710b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to get the value for a given branch.  <br /></td></tr>
+<tr class="memitem:gafd8b6619c2105004d85eee8581c4969c" id="r_gafd8b6619c2105004d85eee8581c4969c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gafd8b6619c2105004d85eee8581c4969c">MCUX_CSSL_FP_BRANCH_POSITIVE_VALUE</a></td></tr>
+<tr class="memdesc:gafd8b6619c2105004d85eee8581c4969c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to use for the positive scenario.  <br /></td></tr>
+<tr class="memitem:ga82df96ef3fb0b8718bff46f3f4cd9a5c" id="r_ga82df96ef3fb0b8718bff46f3f4cd9a5c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga82df96ef3fb0b8718bff46f3f4cd9a5c">MCUX_CSSL_FP_BRANCH_NEGATIVE_VALUE</a></td></tr>
+<tr class="memdesc:ga82df96ef3fb0b8718bff46f3f4cd9a5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to use for the negative scenario.  <br /></td></tr>
+<tr class="memitem:ga3232cfdb56c441fe5c6a914e38528494" id="r_ga3232cfdb56c441fe5c6a914e38528494"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3232cfdb56c441fe5c6a914e38528494">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPLn</a>(id, ...)</td></tr>
+<tr class="memdesc:ga3232cfdb56c441fe5c6a914e38528494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event implementation for the execution of a positive branch scenario (with expectations).  <br /></td></tr>
+<tr class="memitem:ga54981abcad9da3f0d9a347ec3d0d2953" id="r_ga54981abcad9da3f0d9a347ec3d0d2953"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga54981abcad9da3f0d9a347ec3d0d2953">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL1</a>(id)</td></tr>
+<tr class="memdesc:ga54981abcad9da3f0d9a347ec3d0d2953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event implementation for the execution of a positive branch scenario (without expectations).  <br /></td></tr>
+<tr class="memitem:gadff057603f2018ef9440b0e981353a48" id="r_gadff057603f2018ef9440b0e981353a48"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gadff057603f2018ef9440b0e981353a48">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL</a>(...)</td></tr>
+<tr class="memdesc:gadff057603f2018ef9440b0e981353a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event implementation for the execution of a positive branch scenario.  <br /></td></tr>
+<tr class="memitem:ga49e07e6c9d6faf768cd464d4cdb4a881" id="r_ga49e07e6c9d6faf768cd464d4cdb4a881"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga49e07e6c9d6faf768cd464d4cdb4a881">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPLn</a>(id, ...)</td></tr>
+<tr class="memdesc:ga49e07e6c9d6faf768cd464d4cdb4a881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event implementation for the execution of a negative branch scenario (with expectations).  <br /></td></tr>
+<tr class="memitem:ga8547d895809dfb59bf0709fbc49e5483" id="r_ga8547d895809dfb59bf0709fbc49e5483"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8547d895809dfb59bf0709fbc49e5483">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL1</a>(id)</td></tr>
+<tr class="memdesc:ga8547d895809dfb59bf0709fbc49e5483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event implementation for the execution of a negative branch scenario (without expectations).  <br /></td></tr>
+<tr class="memitem:gaf7f462f39963033ea44c0f7c7f41a76f" id="r_gaf7f462f39963033ea44c0f7c7f41a76f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf7f462f39963033ea44c0f7c7f41a76f">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL</a>(...)</td></tr>
+<tr class="memdesc:gaf7f462f39963033ea44c0f7c7f41a76f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event implementation for the execution of a negative branch scenario.  <br /></td></tr>
+<tr class="memitem:ga640bbb8417eb2e2fd975431d15a9364d" id="r_ga640bbb8417eb2e2fd975431d15a9364d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga640bbb8417eb2e2fd975431d15a9364d">MCUX_CSSL_FP_BRANCH_TAKEN_IMPL</a>(id,  scenario,  condition)</td></tr>
+<tr class="memdesc:ga640bbb8417eb2e2fd975431d15a9364d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation implementation of an executed specified branch scenario.  <br /></td></tr>
+<tr class="memitem:ga8a3b0d047ea142e74e5bef729508f683" id="r_ga8a3b0d047ea142e74e5bef729508f683"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8a3b0d047ea142e74e5bef729508f683">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL2</a>(id,  condition)</td></tr>
+<tr class="memdesc:ga8a3b0d047ea142e74e5bef729508f683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation implementation of an executed positive branch (with condition).  <br /></td></tr>
+<tr class="memitem:ga29b42c7c0d701dc98159e7e04aafcd93" id="r_ga29b42c7c0d701dc98159e7e04aafcd93"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga29b42c7c0d701dc98159e7e04aafcd93">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL1</a>(id)</td></tr>
+<tr class="memdesc:ga29b42c7c0d701dc98159e7e04aafcd93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation implementation of an executed positive branch (without condition).  <br /></td></tr>
+<tr class="memitem:gaae07d1c658effb2daa3df7a75214b0f1" id="r_gaae07d1c658effb2daa3df7a75214b0f1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaae07d1c658effb2daa3df7a75214b0f1">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL</a>(...)</td></tr>
+<tr class="memdesc:gaae07d1c658effb2daa3df7a75214b0f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation implementation of an executed positive branch.  <br /></td></tr>
+<tr class="memitem:gae5068ae5b0a47a9d366e832f255e9ce9" id="r_gae5068ae5b0a47a9d366e832f255e9ce9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae5068ae5b0a47a9d366e832f255e9ce9">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL2</a>(id,  condition)</td></tr>
+<tr class="memdesc:gae5068ae5b0a47a9d366e832f255e9ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation implementation of an executed negative branch (with condition).  <br /></td></tr>
+<tr class="memitem:gaff88c9879207f5f1d7ab643fdd9c278f" id="r_gaff88c9879207f5f1d7ab643fdd9c278f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaff88c9879207f5f1d7ab643fdd9c278f">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL1</a>(id)</td></tr>
+<tr class="memdesc:gaff88c9879207f5f1d7ab643fdd9c278f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation implementation of an executed negative branch (without condition).  <br /></td></tr>
+<tr class="memitem:ga2142ecf918cf320bf1b15b8d8cfe5253" id="r_ga2142ecf918cf320bf1b15b8d8cfe5253"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2142ecf918cf320bf1b15b8d8cfe5253">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL</a>(...)</td></tr>
+<tr class="memdesc:ga2142ecf918cf320bf1b15b8d8cfe5253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expectation implementation of an executed negative branch.  <br /></td></tr>
+<tr class="memitem:gab65273365a2139c4e6693664c8dc7e36" id="r_gab65273365a2139c4e6693664c8dc7e36"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab65273365a2139c4e6693664c8dc7e36">MCUX_CSSL_FP_BRANCH_SCENARIO_IMPL</a>(id,  scenario, ...)</td></tr>
+<tr class="memdesc:gab65273365a2139c4e6693664c8dc7e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event implementation for the execution of a specified branch scenario.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Expectation handling support functionality. </p>
+<div class="textblock"><p>Support for flow protected branches. </p>
+<dl class="section user"><dt>Declaration </dt><dd><a class="el" href="#gaf4e4c76c10150fa1b5e8944f33720c44" title="Declaration implementation of a flow protected branch.">MCUX_CSSL_FP_BRANCH_DECL_IMPL</a> </dd></dl>
+<dl class="section user"><dt>Events </dt><dd><a class="el" href="#gadff057603f2018ef9440b0e981353a48" title="Event implementation for the execution of a positive branch scenario.">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL</a><br  />
+<a class="el" href="#gaf7f462f39963033ea44c0f7c7f41a76f" title="Event implementation for the execution of a negative branch scenario.">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL</a> </dd></dl>
+<dl class="section user"><dt>Expectations </dt><dd><a class="el" href="#gaae07d1c658effb2daa3df7a75214b0f1" title="Expectation implementation of an executed positive branch.">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL</a><br  />
+<a class="el" href="#ga2142ecf918cf320bf1b15b8d8cfe5253" title="Expectation implementation of an executed negative branch.">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL</a> </dd></dl>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga173c3887e1d02b5cace9e622d0a3225b" name="ga173c3887e1d02b5cace9e622d0a3225b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga173c3887e1d02b5cace9e622d0a3225b">&#9670;&#160;</a></span>MCUX_CSSL_FP_EXPECTATIONS</h2>
+<a id="ga0cd46ecad6c5ab6ef4ba6ff18a79b1eb" name="ga0cd46ecad6c5ab6ef4ba6ff18a79b1eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0cd46ecad6c5ab6ef4ba6ff18a79b1eb">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_ID</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_EXPECTATIONS</td>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_ID</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Expectation aggregation. </p>
+<p>Generator for branch identifiers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior. </td></tr>
+    <tr><td class="paramname">id</td><td>Identifier for the flow protected branch. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Aggregated counter value for the given expectations. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Counter value for the given branch. </dd></dl>
 
 </div>
 </div>
-<a id="ga643cc00e2fecb3e73de572797618ad35" name="ga643cc00e2fecb3e73de572797618ad35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga643cc00e2fecb3e73de572797618ad35">&#9670;&#160;</a></span>MCUX_CSSL_FP_CONDITIONAL_IMPL</h2>
+<a id="gaf4e4c76c10150fa1b5e8944f33720c44" name="gaf4e4c76c10150fa1b5e8944f33720c44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf4e4c76c10150fa1b5e8944f33720c44">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_DECL_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_CONDITIONAL_IMPL</td>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_DECL_IMPL</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span>, </td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Declaration implementation of a flow protected branch. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier for the branch that is flow protected. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga24770b08dbac22e0ca123f737f9710b3" name="ga24770b08dbac22e0ca123f737f9710b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga24770b08dbac22e0ca123f737f9710b3">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_VALUE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Macro to get the value for a given branch. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier for the branch that is flow protected. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The counter value for the given branch <code class="param">id</code>. </dd></dl>
+
+</div>
+</div>
+<a id="gafd8b6619c2105004d85eee8581c4969c" name="gafd8b6619c2105004d85eee8581c4969c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafd8b6619c2105004d85eee8581c4969c">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_POSITIVE_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_POSITIVE_VALUE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value to use for the positive scenario. </p>
+
+</div>
+</div>
+<a id="ga82df96ef3fb0b8718bff46f3f4cd9a5c" name="ga82df96ef3fb0b8718bff46f3f4cd9a5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga82df96ef3fb0b8718bff46f3f4cd9a5c">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_NEGATIVE_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_NEGATIVE_VALUE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value to use for the negative scenario. </p>
+
+</div>
+</div>
+<a id="ga3232cfdb56c441fe5c6a914e38528494" name="ga3232cfdb56c441fe5c6a914e38528494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3232cfdb56c441fe5c6a914e38528494">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_POSITIVE_IMPLn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_POSITIVE_IMPLn</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -172,46 +286,56 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Conditional expectation aggregation. </p>
+<p>Event implementation for the execution of a positive branch scenario (with expectations). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gadff057603f2018ef9440b0e981353a48" title="Event implementation for the execution of a positive branch scenario.">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#ga54981abcad9da3f0d9a347ec3d0d2953" title="Event implementation for the execution of a positive branch scenario (without expectations).">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL1</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">condition</td><td>Condition under which the given expectations apply </td></tr>
-    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code code flow behavior. </td></tr>
+    <tr><td class="paramname">id</td><td>Identifier for the branch for which the positive scenario is executed. </td></tr>
+    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior related to this event. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Aggregated counter value for the given expectations, if condition is satisfied. Otherwise 0. </dd></dl>
 
 </div>
 </div>
-<a id="ga4ea20ab3d4d080887fdfc12f6c7f6bab" name="ga4ea20ab3d4d080887fdfc12f6c7f6bab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4ea20ab3d4d080887fdfc12f6c7f6bab">&#9670;&#160;</a></span>MCUX_CSSL_FP_VOID_EXPECTATION_IMPL</h2>
+<a id="ga54981abcad9da3f0d9a347ec3d0d2953" name="ga54981abcad9da3f0d9a347ec3d0d2953"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga54981abcad9da3f0d9a347ec3d0d2953">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_VOID_EXPECTATION_IMPL</td>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL1</td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implementation of expectation of nothing. </p>
-<p>This expectation macro indicates to the flow protection mechanism that nothing is expected to happen. This is mainly intended for internal use (to ensure at least one expectation is passed). </p>
+<p>Event implementation for the execution of a positive branch scenario (without expectations). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gadff057603f2018ef9440b0e981353a48" title="Event implementation for the execution of a positive branch scenario.">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#ga3232cfdb56c441fe5c6a914e38528494" title="Event implementation for the execution of a positive branch scenario (with expectations).">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPLn</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier for the branch for which the positive scenario is executed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="ga7be0ed334bcf634f81d5d4b93a4c1657" name="ga7be0ed334bcf634f81d5d4b93a4c1657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7be0ed334bcf634f81d5d4b93a4c1657">&#9670;&#160;</a></span>MCUX_CSSL_FP_EXPECT_IMPL</h2>
+<a id="gadff057603f2018ef9440b0e981353a48" name="gadff057603f2018ef9440b0e981353a48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadff057603f2018ef9440b0e981353a48">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_EXPECT_IMPL</td>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
           <td></td>
@@ -219,48 +343,90 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Declaration(s) of expected code flow behavior. </p>
-<p>This macro can be used to indicate expectations in the function body at another location than the function entry or exit.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga173c3887e1d02b5cace9e622d0a3225b" title="Expectation aggregation.">MCUX_CSSL_FP_EXPECTATIONS</a></dd></dl>
+<p>Event implementation for the execution of a positive branch scenario. </p>
+<p>Implemented as an overloaded macro to simplify the use of the API.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga54981abcad9da3f0d9a347ec3d0d2953" title="Event implementation for the execution of a positive branch scenario (without expectations).">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL1</a> </dd>
+<dd>
+<a class="el" href="#ga3232cfdb56c441fe5c6a914e38528494" title="Event implementation for the execution of a positive branch scenario (with expectations).">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPLn</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior. </td></tr>
+    <tr><td class="paramname">id</td><td>Identifier for the branch for which the positive scenario is executed. </td></tr>
+    <tr><td class="paramname">expect</td><td>Zero or more (comma separated) declarations of expected code flow behavior related to this event. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ga0c29c395a9104c6d918091b12f63ca74" name="ga0c29c395a9104c6d918091b12f63ca74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0c29c395a9104c6d918091b12f63ca74">&#9670;&#160;</a></span>MCUX_CSSL_FP_ASSERT_CALLBACK</h2>
+<a id="ga49e07e6c9d6faf768cd464d4cdb4a881" name="ga49e07e6c9d6faf768cd464d4cdb4a881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga49e07e6c9d6faf768cd464d4cdb4a881">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPLn</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_ASSERT_CALLBACK</td>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPLn</td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Event implementation for the execution of a negative branch scenario (with expectations). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gaf7f462f39963033ea44c0f7c7f41a76f" title="Event implementation for the execution of a negative branch scenario.">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#ga8547d895809dfb59bf0709fbc49e5483" title="Event implementation for the execution of a negative branch scenario (without expectations).">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL1</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier for the branch for which the negative scenario is executed. </td></tr>
+    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior related to this event. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga8547d895809dfb59bf0709fbc49e5483" name="ga8547d895809dfb59bf0709fbc49e5483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8547d895809dfb59bf0709fbc49e5483">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fallback assert callback implementation. </p>
-<p>This macro will be executed if an <a class="el" href="a01517.html#ga301b8f23ac6981e62649c8f571a6c6eb" title="Assert an expected state of the code flow.">MCUX_CSSL_FP_ASSERT</a> fails. In general this behavior should be defined by the user. This implementation is only in place to ensure that an implementation is always available.</p>
-<p>This is implemented a division by 0, which should trigger a compiler warning when used, to inform the user that the default implementation is used. Additionally, when still used at run-time it should trigger some system exception.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01517.html#ga301b8f23ac6981e62649c8f571a6c6eb" title="Assert an expected state of the code flow.">MCUX_CSSL_FP_ASSERT</a> </dd></dl>
+<p>Event implementation for the execution of a negative branch scenario (without expectations). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gaf7f462f39963033ea44c0f7c7f41a76f" title="Event implementation for the execution of a negative branch scenario.">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#ga49e07e6c9d6faf768cd464d4cdb4a881" title="Event implementation for the execution of a negative branch scenario (with expectations).">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPLn</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier for the branch for which the negative scenario is executed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="ga391e0f29868a1dd17bd0d23a4737c129" name="ga391e0f29868a1dd17bd0d23a4737c129"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga391e0f29868a1dd17bd0d23a4737c129">&#9670;&#160;</a></span>MCUX_CSSL_FP_ASSERT_IMPL</h2>
+<a id="gaf7f462f39963033ea44c0f7c7f41a76f" name="gaf7f462f39963033ea44c0f7c7f41a76f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7f462f39963033ea44c0f7c7f41a76f">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_ASSERT_IMPL</td>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
           <td></td>
@@ -268,13 +434,275 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assert an expected state of the code flow. </p>
-<p>This macro can be used to check whether the code flow up to this point matches the expected state. Unlike the <a class="el" href="a01517.html#ga83db474d65df2b52abea45293f9684d0" title="Declaration(s) of expected code flow behavior.">MCUX_CSSL_FP_EXPECT</a> macro, it will not update the expectations, but merely perform a check on the recorded events against the already recorded expectations plus the ones provided as parameters.</p>
-<p>If the check fails, the code defined in MCUX_CSSL_FP_ASSERT_CALLBACK will be executed.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga173c3887e1d02b5cace9e622d0a3225b" title="Expectation aggregation.">MCUX_CSSL_FP_EXPECTATIONS</a></dd></dl>
+<p>Event implementation for the execution of a negative branch scenario. </p>
+<p>Implemented as an overloaded macro to simplify the use of the API.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga8547d895809dfb59bf0709fbc49e5483" title="Event implementation for the execution of a negative branch scenario (without expectations).">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL1</a> </dd>
+<dd>
+<a class="el" href="#ga49e07e6c9d6faf768cd464d4cdb4a881" title="Event implementation for the execution of a negative branch scenario (with expectations).">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPLn</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior. </td></tr>
+    <tr><td class="paramname">id</td><td>Identifier for the branch for which the negative scenario is executed. </td></tr>
+    <tr><td class="paramname">expect</td><td>Zero or more (comma separated) declarations of expected code flow behavior related to this event. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga640bbb8417eb2e2fd975431d15a9364d" name="ga640bbb8417eb2e2fd975431d15a9364d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga640bbb8417eb2e2fd975431d15a9364d">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_TAKEN_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_TAKEN_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>scenario</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expectation implementation of an executed specified branch scenario. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gaae07d1c658effb2daa3df7a75214b0f1" title="Expectation implementation of an executed positive branch.">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#ga2142ecf918cf320bf1b15b8d8cfe5253" title="Expectation implementation of an executed negative branch.">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the flow protected branch. </td></tr>
+    <tr><td class="paramname">scenario</td><td>The scenario for a branch is either positive or negative. </td></tr>
+    <tr><td class="paramname">condition</td><td>Condition under which this branch is taken. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga8a3b0d047ea142e74e5bef729508f683" name="ga8a3b0d047ea142e74e5bef729508f683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a3b0d047ea142e74e5bef729508f683">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expectation implementation of an executed positive branch (with condition). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gaae07d1c658effb2daa3df7a75214b0f1" title="Expectation implementation of an executed positive branch.">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#ga29b42c7c0d701dc98159e7e04aafcd93" title="Expectation implementation of an executed positive branch (without condition).">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL1</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the flow protected branch. </td></tr>
+    <tr><td class="paramname">condition</td><td>Condition under which this branch is taken. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga29b42c7c0d701dc98159e7e04aafcd93" name="ga29b42c7c0d701dc98159e7e04aafcd93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga29b42c7c0d701dc98159e7e04aafcd93">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expectation implementation of an executed positive branch (without condition). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gaae07d1c658effb2daa3df7a75214b0f1" title="Expectation implementation of an executed positive branch.">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#ga8a3b0d047ea142e74e5bef729508f683" title="Expectation implementation of an executed positive branch (with condition).">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL2</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the flow protected branch. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaae07d1c658effb2daa3df7a75214b0f1" name="gaae07d1c658effb2daa3df7a75214b0f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaae07d1c658effb2daa3df7a75214b0f1">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expectation implementation of an executed positive branch. </p>
+<p>Implemented as an overloaded macro to simplify the use of the API.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga29b42c7c0d701dc98159e7e04aafcd93" title="Expectation implementation of an executed positive branch (without condition).">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL1</a> </dd>
+<dd>
+<a class="el" href="#ga8a3b0d047ea142e74e5bef729508f683" title="Expectation implementation of an executed positive branch (with condition).">MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL2</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the flow protected branch. </td></tr>
+    <tr><td class="paramname">condition</td><td>Optional, condition under which this branch is taken. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gae5068ae5b0a47a9d366e832f255e9ce9" name="gae5068ae5b0a47a9d366e832f255e9ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae5068ae5b0a47a9d366e832f255e9ce9">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expectation implementation of an executed negative branch (with condition). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga2142ecf918cf320bf1b15b8d8cfe5253" title="Expectation implementation of an executed negative branch.">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#gaff88c9879207f5f1d7ab643fdd9c278f" title="Expectation implementation of an executed negative branch (without condition).">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL1</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the flow protected branch. </td></tr>
+    <tr><td class="paramname">condition</td><td>Condition under which this branch is taken. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaff88c9879207f5f1d7ab643fdd9c278f" name="gaff88c9879207f5f1d7ab643fdd9c278f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaff88c9879207f5f1d7ab643fdd9c278f">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expectation implementation of an executed negative branch (without condition). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga2142ecf918cf320bf1b15b8d8cfe5253" title="Expectation implementation of an executed negative branch.">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="#gae5068ae5b0a47a9d366e832f255e9ce9" title="Expectation implementation of an executed negative branch (with condition).">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL2</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the flow protected branch. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga2142ecf918cf320bf1b15b8d8cfe5253" name="ga2142ecf918cf320bf1b15b8d8cfe5253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2142ecf918cf320bf1b15b8d8cfe5253">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expectation implementation of an executed negative branch. </p>
+<p>Implemented as an overloaded macro to simplify the use of the API.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gaff88c9879207f5f1d7ab643fdd9c278f" title="Expectation implementation of an executed negative branch (without condition).">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL1</a> </dd>
+<dd>
+<a class="el" href="#gae5068ae5b0a47a9d366e832f255e9ce9" title="Expectation implementation of an executed negative branch (with condition).">MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL2</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the flow protected branch. </td></tr>
+    <tr><td class="paramname">condition</td><td>Optional, condition under which this branch is taken. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gab65273365a2139c4e6693664c8dc7e36" name="gab65273365a2139c4e6693664c8dc7e36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab65273365a2139c4e6693664c8dc7e36">&#9670;&#160;</a></span>MCUX_CSSL_FP_BRANCH_SCENARIO_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_BRANCH_SCENARIO_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>scenario</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Event implementation for the execution of a specified branch scenario. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01521.html#gadff057603f2018ef9440b0e981353a48" title="Event implementation for the execution of a positive branch scenario.">MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL</a> </dd>
+<dd>
+<a class="el" href="a01521.html#gaf7f462f39963033ea44c0f7c7f41a76f" title="Event implementation for the execution of a negative branch scenario.">MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier for the branch for which the given <code class="param">scenario</code> is executed. </td></tr>
+    <tr><td class="paramname">scenario</td><td>The scenario for a branch is either positive or negative. </td></tr>
+    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior related to this event. </td></tr>
   </table>
   </dd>
 </dl>

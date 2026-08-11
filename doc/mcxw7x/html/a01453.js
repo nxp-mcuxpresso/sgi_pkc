@@ -1,4 +1,5 @@
 var a01453 =
 [
-    [ "mcuxClRandomModes_createPatchMode", "a01453.html#ga2888ba46368d8945c50a0b6ae95281bd", null ]
+    [ "mcuxClResource_init", "a01453.html#gad93d8ac6ebe62ec3d274b44ef27a4b79", null ],
+    [ "mcuxClResource_handle_interrupt", "a01453.html#gaf083fd1ec859bfe9e6e71a93a8d7e1c0", null ]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLSGI_STATUS_</title>
+<title>MCUX CLNS: mcuxClSignature_Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,124 +102,211 @@ $(function(){initNavTree('a01486.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLSGI_STATUS_ <div class="ingroups"><a class="el" href="a01484.html">mcuxClSgi</a> &raquo; <a class="el" href="a01485.html">mcuxClSgi_Constants</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClSignature_Functions <div class="ingroups"><a class="el" href="a01485.html">mcuxClSignature</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines valid mcuxClSgi function return codes.  
+<p>Interfaces to perform Signature operations in one shot.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga3a7f396d056150e6b660e0a1c1411d8a" id="r_ga3a7f396d056150e6b660e0a1c1411d8a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3a7f396d056150e6b660e0a1c1411d8a">MCUXCLSGI_STATUS_ERROR</a></td></tr>
-<tr class="memdesc:ga3a7f396d056150e6b660e0a1c1411d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">An error occurred during an SGI operation.  <br /></td></tr>
-<tr class="memitem:gae800260950cd588eab670511e2897b01" id="r_gae800260950cd588eab670511e2897b01"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae800260950cd588eab670511e2897b01">MCUXCLSGI_STATUS_UNWRAP_ERROR</a></td></tr>
-<tr class="memdesc:gae800260950cd588eab670511e2897b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">An error occurred during SGI key unwrap, an SGI reset or FULL_FLUSH has to be performed to clear this sticky error.  <br /></td></tr>
-<tr class="memitem:gad238e73fbfbfd66329ec6bdcc869c74d" id="r_gad238e73fbfbfd66329ec6bdcc869c74d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad238e73fbfbfd66329ec6bdcc869c74d">MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED</a></td></tr>
-<tr class="memdesc:gad238e73fbfbfd66329ec6bdcc869c74d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The given key size is not supported for the operation.  <br /></td></tr>
-<tr class="memitem:gac50360c76a049483afe98382c66e56d7" id="r_gac50360c76a049483afe98382c66e56d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac50360c76a049483afe98382c66e56d7">MCUXCLSGI_STATUS_UNALIGNED_ACCESS_NOT_SUPPORTED</a></td></tr>
-<tr class="memdesc:gac50360c76a049483afe98382c66e56d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The given key buffer is not aligned correctly for the operation.  <br /></td></tr>
-<tr class="memitem:ga6943fe8a51be06c7ba75f2db2718beb1" id="r_ga6943fe8a51be06c7ba75f2db2718beb1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6943fe8a51be06c7ba75f2db2718beb1">MCUXCLSGI_STATUS_OK</a></td></tr>
-<tr class="memdesc:ga6943fe8a51be06c7ba75f2db2718beb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The operation was successful and no SGI error occurred.  <br /></td></tr>
-<tr class="memitem:ga15e56f64900801e09aefc4a6a1501e71" id="r_ga15e56f64900801e09aefc4a6a1501e71"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga15e56f64900801e09aefc4a6a1501e71">MCUXCLSGI_STATUS_FAULT</a></td></tr>
-<tr class="memdesc:ga15e56f64900801e09aefc4a6a1501e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack detected.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga83fe33e60245cf90a490e3214c8de672" id="r_ga83fe33e60245cf90a490e3214c8de672"><td class="memItemLeft"><a class="el" href="a01487.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga83fe33e60245cf90a490e3214c8de672">mcuxClSignature_sign</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01487.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a> mode, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pSignature, uint32_t *const pSignatureSize)</td></tr>
+<tr class="memdesc:ga83fe33e60245cf90a490e3214c8de672"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot signing function.  <br /></td></tr>
+<tr class="memitem:gad99e79a6c1418cbda0eca0417bd045dd" id="r_gad99e79a6c1418cbda0eca0417bd045dd"><td class="memItemLeft"><a class="el" href="a01487.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gad99e79a6c1418cbda0eca0417bd045dd">mcuxClSignature_verify_recordParam</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> pSession, <a class="el" href="a01487.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a> mode, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize)</td></tr>
+<tr class="memdesc:gad99e79a6c1418cbda0eca0417bd045dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Record signature verification parameters for protection.  <br /></td></tr>
+<tr class="memitem:ga1b7deb8d71deafd479940561123b6a87" id="r_ga1b7deb8d71deafd479940561123b6a87"><td class="memItemLeft"><a class="el" href="a01487.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga1b7deb8d71deafd479940561123b6a87">mcuxClSignature_verify</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01487.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a> mode, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pSignature, uint32_t signatureSize)</td></tr>
+<tr class="memdesc:ga1b7deb8d71deafd479940561123b6a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot verification function.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines valid mcuxClSgi function return codes. </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga3a7f396d056150e6b660e0a1c1411d8a" name="ga3a7f396d056150e6b660e0a1c1411d8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3a7f396d056150e6b660e0a1c1411d8a">&#9670;&#160;</a></span>MCUXCLSGI_STATUS_ERROR</h2>
+<div class="textblock"><p>Interfaces to perform Signature operations in one shot. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga83fe33e60245cf90a490e3214c8de672" name="ga83fe33e60245cf90a490e3214c8de672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga83fe33e60245cf90a490e3214c8de672">&#9670;&#160;</a></span>mcuxClSignature_sign()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLSGI_STATUS_ERROR</td>
+          <td class="memname"><a class="el" href="a01487.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a> mcuxClSignature_sign </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01487.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pIn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pSignature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *const</td>          <td class="paramname"><span class="paramname"><em>pSignatureSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>An error occurred during an SGI operation. </p>
+<p>One-shot signing function. </p>
+<p>This function performs a signing operation in one shot. The algorithm to be used will be determined based on the key and mode that are provided.</p>
+<p>For example, to perform an ECDSA signing operation over pre-hashed data with a 256-bit private key, the following needs to be provided:</p><ul>
+<li>ECC256 private key</li>
+<li>ECDSA mode, pre-hashed data</li>
+<li>Input data, hash of the data to be signed</li>
+<li>Output data buffer</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">key</td><td>Key to be used to sign the data (word-aligned). </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">mode</td><td>Signature mode that should be used during the signing operation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that needs to be signed. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pSignature</td><td>Pointer to the output buffer where the generated signature needs to be written. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pSignatureSize</td><td>Will be set to the number of bytes of data that have been written to the <code class="param">pSignature</code> buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status</dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>When used with RSA modes, the function uses PRNG, which has to be initialized prior to calling the function. </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03354.html#a9">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a03355.html#a11">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a03357.html#a12">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a03358.html#_a16">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a03359.html#_a17">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a03360.html#a15">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, <a class="el" href="a03421.html#_a21">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>, and <a class="el" href="a03422.html#a22">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>
-<a id="gae800260950cd588eab670511e2897b01" name="gae800260950cd588eab670511e2897b01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae800260950cd588eab670511e2897b01">&#9670;&#160;</a></span>MCUXCLSGI_STATUS_UNWRAP_ERROR</h2>
+<a id="gad99e79a6c1418cbda0eca0417bd045dd" name="gad99e79a6c1418cbda0eca0417bd045dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad99e79a6c1418cbda0eca0417bd045dd">&#9670;&#160;</a></span>mcuxClSignature_verify_recordParam()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLSGI_STATUS_UNWRAP_ERROR</td>
+          <td class="memname"><a class="el" href="a01487.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a> mcuxClSignature_verify_recordParam </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>pSession</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01487.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pIn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>An error occurred during SGI key unwrap, an SGI reset or FULL_FLUSH has to be performed to clear this sticky error. </p>
+<p>Record signature verification parameters for protection. </p>
+<p>Records signature mode, input data pIn and inSize parameters for additional protection. This function must be called immediately before the mcuxClSignature_verify function call when ECDSA mode is requested. Failure to do so will result in a protection token mismatch during the signature verification.</p>
+<dl class="section note"><dt>Note</dt><dd>This function will use the first word of CPU WA (without allocating it) to store the calculated parameter protection value. This will then be used by the mcuxClSignature_verify function to validate parameters.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">pSession</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">mode</td><td>Signature mode that should be used during the verification operation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that has been signed. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03354.html#a11">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a03355.html#a13">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a03356.html#a8">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, and <a class="el" href="a03423.html#a8">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>
-<a id="gad238e73fbfbfd66329ec6bdcc869c74d" name="gad238e73fbfbfd66329ec6bdcc869c74d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad238e73fbfbfd66329ec6bdcc869c74d">&#9670;&#160;</a></span>MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED</h2>
+<a id="ga1b7deb8d71deafd479940561123b6a87" name="ga1b7deb8d71deafd479940561123b6a87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1b7deb8d71deafd479940561123b6a87">&#9670;&#160;</a></span>mcuxClSignature_verify()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED</td>
+          <td class="memname"><a class="el" href="a01487.html#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a> mcuxClSignature_verify </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The given key size is not supported for the operation. </p>
-
-</div>
-</div>
-<a id="gac50360c76a049483afe98382c66e56d7" name="gac50360c76a049483afe98382c66e56d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac50360c76a049483afe98382c66e56d7">&#9670;&#160;</a></span>MCUXCLSGI_STATUS_UNALIGNED_ACCESS_NOT_SUPPORTED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLSGI_STATUS_UNALIGNED_ACCESS_NOT_SUPPORTED</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The given key buffer is not aligned correctly for the operation. </p>
-
-</div>
-</div>
-<a id="ga6943fe8a51be06c7ba75f2db2718beb1" name="ga6943fe8a51be06c7ba75f2db2718beb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6943fe8a51be06c7ba75f2db2718beb1">&#9670;&#160;</a></span>MCUXCLSGI_STATUS_OK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLSGI_STATUS_OK</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01487.html#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The operation was successful and no SGI error occurred. </p>
-
-</div>
-</div>
-<a id="ga15e56f64900801e09aefc4a6a1501e71" name="ga15e56f64900801e09aefc4a6a1501e71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga15e56f64900801e09aefc4a6a1501e71">&#9670;&#160;</a></span>MCUXCLSGI_STATUS_FAULT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLSGI_STATUS_FAULT</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pIn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pSignature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>signatureSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fault attack detected. </p>
+<p>One-shot verification function. </p>
+<p>This function performs a signature verification operation in one shot. The algorithm to be used will be determined based on the key and mode that are provided.</p>
+<p>For example, to perform an ECDSA signature verification operation with pre-hashed data and a 256-bit public key, the following needs to be provided:</p><ul>
+<li>ECC256 public key</li>
+<li>ECDSA mode, pre-hashed data</li>
+<li>Input data, hash of the data to be verified</li>
+<li>Signature</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">key</td><td>Key to be used to verify the <code class="param">pSignature</code> (word-aligned). </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">mode</td><td>Signature mode that should be used during the verification operation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that has been signed. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pSignature</td><td>Pointer to the buffer that contains the signature that needs to be verified. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">signatureSize</td><td>Number of bytes of data in the <code class="param">pSignature</code> buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>When performing ECDSA signature verification: mode, pIn and inSize parameters require additional protection using <a class="el" href="#gad99e79a6c1418cbda0eca0417bd045dd" title="Record signature verification parameters for protection.">mcuxClSignature_verify_recordParam()</a>. This will initialize first word of CPU WA with integrity value required by <a class="el" href="#ga1b7deb8d71deafd479940561123b6a87" title="One-shot verification function.">mcuxClSignature_verify()</a> to validate parameters. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03354.html#a12">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a03355.html#a14">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a03356.html#a10">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, <a class="el" href="a03357.html#a13">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a03358.html#_a17">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a03359.html#_a18">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a03360.html#a16">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, <a class="el" href="a03421.html#a23">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>, <a class="el" href="a03422.html#a24">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>, and <a class="el" href="a03423.html#a10">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>

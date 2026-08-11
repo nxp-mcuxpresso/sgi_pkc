@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClGlikey</title>
+<title>MCUX CLNS: mcuxClHash</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,22 +102,29 @@ $(function(){initNavTree('a01387.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClGlikey </div></div>
+  <div class="headertitle"><div class="title">mcuxClHash </div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Glikey driver.  
+<p>Hash component.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
 Topics</h2></td></tr>
-<tr class="memitem:mcuxClGlikey_5FConstants" id="r_mcuxClGlikey_5FConstants"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01388.html">mcuxClGlikey_Constants</a></td></tr>
-<tr class="memdesc:a01388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants for use with the Glikey driver. <br /></td></tr>
-<tr class="memitem:mcuxClGlikey_5FTypes" id="r_mcuxClGlikey_5FTypes"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01389.html">mcuxClGlikey_Types</a></td></tr>
-<tr class="memdesc:a01389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types for use with the Glikey driver. <br /></td></tr>
+<tr class="memitem:mcuxClHash_5FConstants" id="r_mcuxClHash_5FConstants"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01388.html">mcuxClHash_Constants</a></td></tr>
+<tr class="memdesc:a01388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a> component. <br /></td></tr>
+<tr class="memitem:mcuxClHash_5FFunctions" id="r_mcuxClHash_5FFunctions"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01390.html">mcuxClHash_Functions</a></td></tr>
+<tr class="memdesc:a01390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all functions of <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a>. <br /></td></tr>
+<tr class="memitem:mcuxClHash_5FTypes" id="r_mcuxClHash_5FTypes"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01391.html">mcuxClHash_Types</a></td></tr>
+<tr class="memdesc:a01391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all types of the <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a> component. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Glikey driver. </p>
+<div class="textblock"><p>Hash component. </p>
+<p>The mcuxClHash component implements the Hash functionality supported by CLNS.</p>
+<p>An example of how to use the <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a> component can be found in /mcuxClHash/ex.</p>
+<p>The <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a> component supports interfaces to either hash a message in one shot (mcuxClHash_compute) or to hash it in parts (mcuxClHash_init, mcuxClHash_process, and mcuxClHash_finish). In case of hashing a message in parts, first an initialization has to be performed (mcuxClHash_init), followed by zero, one, or multiple updates (mcuxClHash_process), followed by a finalization (mcuxClHash_finish). The finalization generates the output data (digest) and destroys the context. After the finalization step, no further updates are possible.</p>
+<p>The targeted hash algorithm is selected by passing one of the offered algorithm mode descriptors (mcuxClHash_Modes), which are listed in file mcuxClHash_Algorithms.h</p>
+<p>Note: In case the hashing functionality is based on a hardware co-processor, it might be necessary to initialize the co-processor, before it's use in the <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a> component. Please refer to the example for further information on this. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

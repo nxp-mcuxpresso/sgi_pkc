@@ -1,5 +1,4 @@
 var a01484 =
 [
-    [ "mcuxClSgi_Constants", "a01485.html", "a01485" ],
-    [ "mcuxClSgi_Types", "a01487.html", "a01487" ]
+    [ "mcuxClSgi_Status_t", "a01484.html#ga438bf518456bded28bd3285f86b59e71", null ]
 ];

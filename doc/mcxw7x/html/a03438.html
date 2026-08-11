@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxCsslMemory_Compare_example.c</title>
+<title>MCUX CLNS: mcuxCsslMemory_Set_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,13 @@ $(function(){initNavTree('a03438.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxCsslMemory_Compare_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxCsslMemory_Set_example.c</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example constant-time memory compare (CSSL component mcuxCsslMemory).</p>
-<p>Example constant-time memory compare (CSSL component mcuxCsslMemory)</p>
+<p>Example constant-time memory set (CSSL component mcuxCsslMemory).</p>
+<p>Example constant-time memory set (CSSL component mcuxCsslMemory)</p>
 <div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2020-2021, 2025-2026 NXP                                       */</span></div>
+<div class="line"><span class="comment">/* Copyright 2023, 2025 NXP                                                 */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
 <div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
@@ -142,94 +142,82 @@ $(function(){initNavTree('a03438.html','',''); });
 <div class="line"></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClToolchain.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00941.html">mcuxCsslMemory.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00938.html">mcuxCsslMemory.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxCsslMemory_Examples.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00974.html">mcuxCsslParamIntegrity.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00920.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00971.html">mcuxCsslParamIntegrity.h</a>&gt;</span></div>
 <div class="line"> </div>
-<div class="line">MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Compare_example)</div>
+<div class="line">MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Set_example)</div>
 <div class="line">{</div>
-<div class="line">  <span class="comment">/* Define data arrays */</span></div>
-<div class="line">  ALIGNED uint8_t arr_1[] = {0xe4u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u,</div>
-<div class="line">                            0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u,</div>
-<div class="line">                            0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u,</div>
-<div class="line">                            0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,</div>
-<div class="line">                            0x76u};</div>
-<div class="line">  ALIGNED uint8_t arr_2[] = {0xe4u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u,</div>
-<div class="line">                            0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u,</div>
-<div class="line">                            0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u,</div>
-<div class="line">                            0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,</div>
-<div class="line">                            0x76u};</div>
-<div class="line">  ALIGNED uint8_t arr_3[] = {0x00u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u,</div>
-<div class="line">                            0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u,</div>
-<div class="line">                            0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u,</div>
-<div class="line">                            0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,</div>
-<div class="line">                            0x76u};</div>
+<div class="line">  <span class="comment">/* Define data array */</span></div>
+<div class="line">  ALIGNED uint8_t arr[33] = { 0u };</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* Pass length as zero =&gt; Should result in the zero length return code. */</span></div>
-<div class="line">  <a id="a0" name="a0"></a><a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(compareResultZeroLength, compareTokenZeroLength, <a id="a1" name="a1"></a><a class="code hl_function" href="a01537.html#ga64c967916491be6ab170279ff502f8ef">mcuxCsslMemory_Compare</a>(</div>
-<div class="line">  <span class="comment">/* mcuxCsslParamIntegrity_Checksum_t chk,*/</span> MCUX_CSSL_PI_PROTECT(arr_1, arr_2, 0U),</div>
-<div class="line">  <span class="comment">/* void const * lhs,                    */</span> arr_1,</div>
-<div class="line">  <span class="comment">/* void const * rhs,                    */</span> arr_2,</div>
-<div class="line">  <span class="comment">/* uint32_t length                      */</span> 0U</div>
+<div class="line">  <span class="comment">/* Try to set nothing (length = 0 bytes) =&gt; should return success */</span></div>
+<div class="line">  <a id="a0" name="a0"></a><a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(setResult, setToken, <a id="a1" name="a1"></a><a class="code hl_function" href="a01548.html#ga6005b865c5efc30545e5f7c75344e8ee">mcuxCsslMemory_Set</a>(</div>
+<div class="line">  <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk */</span> MCUX_CSSL_PI_PROTECT(arr, 42u, 0u, <span class="keyword">sizeof</span>(arr)),</div>
+<div class="line">  <span class="comment">/*  void * pDst                          */</span> arr,</div>
+<div class="line">  <span class="comment">/*  uint8_t val                          */</span> 42u,</div>
+<div class="line">  <span class="comment">/*  uint32_t length                      */</span> 0u,</div>
+<div class="line">  <span class="comment">/*  uint32_t bufLength                   */</span> <span class="keyword">sizeof</span>(arr)</div>
 <div class="line">  ));</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_Compare */</span></div>
-<div class="line">  <span class="keywordflow">if</span>((<a id="a2" name="a2"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01537.html#ga64c967916491be6ab170279ff502f8ef">mcuxCsslMemory_Compare</a>) != compareTokenZeroLength)</div>
-<div class="line">    || (<a id="_a3" name="_a3"></a><a class="code hl_define" href="a01539.html#gab40f0fb87e67df3338f94f6d0f758f1a">MCUXCSSLMEMORY_STATUS_ZERO_LENGTH</a> != compareResultZeroLength))</div>
+<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_Set */</span></div>
+<div class="line">  <span class="keywordflow">if</span>(((<a id="a2" name="a2"></a><a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01548.html#ga6005b865c5efc30545e5f7c75344e8ee">mcuxCsslMemory_Set</a>) != setToken)) || (<a id="_a3" name="_a3"></a><a class="code hl_define" href="a01536.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a> != setResult))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <a id="a4" name="a4"></a><a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <a id="a4" name="a4"></a><a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* Compare arr_1 with arr_2 =&gt; Should be true */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(compareResultEq, compareTokenEq, <a class="code hl_function" href="a01537.html#ga64c967916491be6ab170279ff502f8ef">mcuxCsslMemory_Compare</a>(</div>
-<div class="line">  <span class="comment">/* mcuxCsslParamIntegrity_Checksum_t chk,*/</span> MCUX_CSSL_PI_PROTECT(arr_1, arr_2, <span class="keyword">sizeof</span>(arr_1)),</div>
-<div class="line">  <span class="comment">/* void const * lhs,                    */</span> arr_1,</div>
-<div class="line">  <span class="comment">/* void const * rhs,                    */</span> arr_2,</div>
-<div class="line">  <span class="comment">/* uint32_t length                      */</span> <span class="keyword">sizeof</span>(arr_1)));</div>
+<div class="line">  <span class="comment">/* Try to call the function with NULL as destination =&gt; should return invalid parameter error */</span></div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT(<span class="stringliteral">&quot;NULL is used in code&quot;</span>)</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(setResult1, setToken1, <a class="code hl_function" href="a01548.html#ga6005b865c5efc30545e5f7c75344e8ee">mcuxCsslMemory_Set</a>(</div>
+<div class="line">  <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk */</span> MCUX_CSSL_PI_PROTECT(NULL, 42u, <span class="keyword">sizeof</span>(arr), <span class="keyword">sizeof</span>(arr)),</div>
+<div class="line">  <span class="comment">/*  void * pDst                          */</span> NULL,</div>
+<div class="line">  <span class="comment">/*  uint8_t val                          */</span> 42u,</div>
+<div class="line">  <span class="comment">/*  uint32_t length                      */</span> <span class="keyword">sizeof</span>(arr),</div>
+<div class="line">  <span class="comment">/*  uint32_t bufLength                   */</span> <span class="keyword">sizeof</span>(arr)</div>
+<div class="line">  ));</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_Compare */</span></div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01537.html#ga64c967916491be6ab170279ff502f8ef">mcuxCsslMemory_Compare</a>) != compareTokenEq)</div>
-<div class="line">    || (<a id="_a5" name="_a5"></a><a class="code hl_define" href="a01539.html#gafaad4a560714fdff8064ba9a50f7d572">MCUXCSSLMEMORY_STATUS_EQUAL</a> != compareResultEq))</div>
+<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_Set */</span></div>
+<div class="line">  <span class="keywordflow">if</span>(((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01548.html#ga6005b865c5efc30545e5f7c75344e8ee">mcuxCsslMemory_Set</a>) != setToken1)) || (<a id="_a5" name="_a5"></a><a class="code hl_define" href="a01536.html#ga0e60adf6203cb3acb2bdb3ddec166766">MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</a> != setResult1))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
+<div class="line">  <span class="comment">/* Set all bytes in the buffer to 42 =&gt; should return success */</span></div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(setResult2, setToken2, <a class="code hl_function" href="a01548.html#ga6005b865c5efc30545e5f7c75344e8ee">mcuxCsslMemory_Set</a>(</div>
+<div class="line">  <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk */</span> MCUX_CSSL_PI_PROTECT(arr, 42u, <span class="keyword">sizeof</span>(arr), <span class="keyword">sizeof</span>(arr)),</div>
+<div class="line">  <span class="comment">/*  void * pDst                          */</span> arr,</div>
+<div class="line">  <span class="comment">/*  uint8_t val                          */</span> 42u,</div>
+<div class="line">  <span class="comment">/*  uint32_t length                      */</span> <span class="keyword">sizeof</span>(arr),</div>
+<div class="line">  <span class="comment">/*  uint32_t bufLength                   */</span> <span class="keyword">sizeof</span>(arr)</div>
+<div class="line">  ));</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* Compare arr_1 with arr_3 =&gt; Should be false */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(compareResultNotEq, compareTokenNotEq, <a class="code hl_function" href="a01537.html#ga64c967916491be6ab170279ff502f8ef">mcuxCsslMemory_Compare</a>(</div>
-<div class="line">  <span class="comment">/* mcuxCsslParamIntegrity_Checksum_t chk,*/</span> MCUX_CSSL_PI_PROTECT(arr_1, arr_3, <span class="keyword">sizeof</span>(arr_1)),</div>
-<div class="line">  <span class="comment">/* void const * lhs,                    */</span> arr_1,</div>
-<div class="line">  <span class="comment">/* void const * rhs,                    */</span> arr_3,</div>
-<div class="line">  <span class="comment">/* uint32_t length                      */</span> <span class="keyword">sizeof</span>(arr_1)));</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_Compare */</span></div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01537.html#ga64c967916491be6ab170279ff502f8ef">mcuxCsslMemory_Compare</a>) != compareTokenNotEq)</div>
-<div class="line">    || (<a id="_a6" name="_a6"></a><a class="code hl_define" href="a01539.html#ga2b5d2b24036bee244a9e7310160b3035">MCUXCSSLMEMORY_STATUS_NOT_EQUAL</a> != compareResultNotEq))</div>
+<div class="line">  <span class="comment">/* Check the return code of mcuxCsslMemory_Set */</span></div>
+<div class="line">  <span class="keywordflow">if</span>(((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01548.html#ga6005b865c5efc30545e5f7c75344e8ee">mcuxCsslMemory_Set</a>) != setToken2)) || (<a class="code hl_define" href="a01536.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a> != setResult2))</div>
 <div class="line">  {</div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
 <div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* No error occurred during execution, exit with MCUXCSSLMEMORY_EX_OK */</span></div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
 <div class="line">  <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_OK;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00941_html"><div class="ttname"><a href="a00941.html">mcuxCsslMemory.h</a></div><div class="ttdoc">Top-level include file for the CSSL memory functions.</div></div>
-<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">mcuxCsslParamIntegrity.h</a></div><div class="ttdoc">Top-level include file for the parameter integrity protection mechanism.</div></div>
-<div class="ttc" id="aa01513_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01513_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
-<div class="ttc" id="aa01537_html_ga64c967916491be6ab170279ff502f8ef"><div class="ttname"><a href="a01537.html#ga64c967916491be6ab170279ff502f8ef">mcuxCsslMemory_Compare</a></div><div class="ttdeci">mcuxCsslMemory_Status_t mcuxCsslMemory_Compare(mcuxCsslParamIntegrity_Checksum_t chk, void const *pLhs, void const *pRhs, uint32_t length)</div><div class="ttdoc">Compares the two memory regions lhs and rhs.</div></div>
-<div class="ttc" id="aa01539_html_ga2b5d2b24036bee244a9e7310160b3035"><div class="ttname"><a href="a01539.html#ga2b5d2b24036bee244a9e7310160b3035">MCUXCSSLMEMORY_STATUS_NOT_EQUAL</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_NOT_EQUAL</div><div class="ttdoc">The two contents of the Memory Compare are not equal.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:71</div></div>
-<div class="ttc" id="aa01539_html_gab40f0fb87e67df3338f94f6d0f758f1a"><div class="ttname"><a href="a01539.html#gab40f0fb87e67df3338f94f6d0f758f1a">MCUXCSSLMEMORY_STATUS_ZERO_LENGTH</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_ZERO_LENGTH</div><div class="ttdoc">The length passed to Memory Compare is zero.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:70</div></div>
-<div class="ttc" id="aa01539_html_gafaad4a560714fdff8064ba9a50f7d572"><div class="ttname"><a href="a01539.html#gafaad4a560714fdff8064ba9a50f7d572">MCUXCSSLMEMORY_STATUS_EQUAL</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_EQUAL</div><div class="ttdoc">The two contents of the Memory Compare are equal.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:69</div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa00920_html"><div class="ttname"><a href="a00920.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
+<div class="ttc" id="aa00938_html"><div class="ttname"><a href="a00938.html">mcuxCsslMemory.h</a></div><div class="ttdoc">Top-level include file for the CSSL memory functions.</div></div>
+<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">mcuxCsslParamIntegrity.h</a></div><div class="ttdoc">Top-level include file for the parameter integrity protection mechanism.</div></div>
+<div class="ttc" id="aa01510_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
+<div class="ttc" id="aa01510_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
+<div class="ttc" id="aa01510_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
+<div class="ttc" id="aa01536_html_ga0e60adf6203cb3acb2bdb3ddec166766"><div class="ttname"><a href="a01536.html#ga0e60adf6203cb3acb2bdb3ddec166766">MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</div><div class="ttdoc">A parameter was invalid.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:72</div></div>
+<div class="ttc" id="aa01536_html_gab2993c75e7ef98fed36f03946630e41c"><div class="ttname"><a href="a01536.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_OK</div><div class="ttdoc">The operation was successful.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:68</div></div>
+<div class="ttc" id="aa01548_html_ga6005b865c5efc30545e5f7c75344e8ee"><div class="ttname"><a href="a01548.html#ga6005b865c5efc30545e5f7c75344e8ee">mcuxCsslMemory_Set</a></div><div class="ttdeci">mcuxCsslMemory_Status_t mcuxCsslMemory_Set(mcuxCsslParamIntegrity_Checksum_t chk, void *pDst, uint8_t val, uint32_t length, uint32_t bufLength)</div><div class="ttdoc">Set length bytes of data at pDst.</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

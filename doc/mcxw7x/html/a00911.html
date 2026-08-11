@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxCsslDataIntegrity_None.h File Reference</title>
+<title>MCUX CLNS: mcuxCsslDataIntegrity_SecureCounter.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,15 @@ $(function(){initNavTree('a00911.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxCsslDataIntegrity_None.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxCsslDataIntegrity_SecureCounter.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation that disables the CSSL data integrity mechanism.  
+<p>Implementation that enables the CSSL data integrity mechanism, based on secure counter.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &lt;mcuxCsslAnalysis.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00914_source.html">mcuxCsslFlowProtection.h</a>&gt;</code><br />
+</div>
 <p><a href="a00911_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
@@ -117,8 +119,12 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga4deb1836544c454f189e5aefe3a16b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positive comparison result value.  <br /></td></tr>
 <tr class="memitem:ga381a9c96de77bfc8d099d9ebcc54f71b" id="r_ga381a9c96de77bfc8d099d9ebcc54f71b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01506.html#ga381a9c96de77bfc8d099d9ebcc54f71b">MCUX_CSSL_DI_CHECK_FAILED_IMPL</a></td></tr>
 <tr class="memdesc:ga381a9c96de77bfc8d099d9ebcc54f71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Negative comparison result value.  <br /></td></tr>
+<tr class="memitem:ga3aa337c1c53bf7305727463f745ad89b" id="r_ga3aa337c1c53bf7305727463f745ad89b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01506.html#ga3aa337c1c53bf7305727463f745ad89b">MCUX_CSSL_DI_BACKUP_SC</a>(backupValue)</td></tr>
+<tr class="memdesc:ga3aa337c1c53bf7305727463f745ad89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backs up the current secure counter value.  <br /></td></tr>
+<tr class="memitem:gae81bd7e44505610d4248e6831e2c0a21" id="r_gae81bd7e44505610d4248e6831e2c0a21"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01506.html#gae81bd7e44505610d4248e6831e2c0a21">MCUX_CSSL_DI_RESTORE_SC_REF</a>(reference)</td></tr>
+<tr class="memdesc:gae81bd7e44505610d4248e6831e2c0a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the data integrity reference value to the corresponding HW SFR.  <br /></td></tr>
 <tr class="memitem:gaa624394a5af7473e531ea46ecb04c763" id="r_gaa624394a5af7473e531ea46ecb04c763"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01506.html#gaa624394a5af7473e531ea46ecb04c763">MCUX_CSSL_DI_INIT_IMPL</a>(backupValue)</td></tr>
-<tr class="memdesc:gaa624394a5af7473e531ea46ecb04c763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the backup of the data integrity value to zero.  <br /></td></tr>
+<tr class="memdesc:gaa624394a5af7473e531ea46ecb04c763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backup of the current data integrity value, that will be checked later on with MCUX_CSSL_SC_CHECK.  <br /></td></tr>
 <tr class="memitem:gac19903f4bcc14df44ce3779e82eeec8b" id="r_gac19903f4bcc14df44ce3779e82eeec8b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01506.html#gac19903f4bcc14df44ce3779e82eeec8b">MCUX_CSSL_DI_CHECK_IMPL</a>(reference)</td></tr>
 <tr class="memdesc:gac19903f4bcc14df44ce3779e82eeec8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparison operation implementation for the data integrity.  <br /></td></tr>
 <tr class="memitem:gaafc28614e23ef007041542c3703c8197" id="r_gaafc28614e23ef007041542c3703c8197"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01506.html#gaafc28614e23ef007041542c3703c8197">MCUX_CSSL_DI_CHECK_EXIT_IMPL</a>(id,  reference,  fail)</td></tr>
@@ -129,7 +135,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gaac8a8ea1888347d41f58f27f11c9caab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation: Expunge the record for value.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation that disables the CSSL data integrity mechanism. </p>
+<div class="textblock"><p>Implementation that enables the CSSL data integrity mechanism, based on secure counter. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -143,7 +149,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00911.html">mcuxCsslDataIntegrity_None.h</a></li>
+    <li class="navelem"><a href="a00911.html">mcuxCsslDataIntegrity_SecureCounter.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

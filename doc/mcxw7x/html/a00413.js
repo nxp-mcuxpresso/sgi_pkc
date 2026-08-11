@@ -1,5 +1,7 @@
 var a00413 =
 [
-    [ "mcuxClAes_EncodingDescriptor_Rfc3394", "a01350.html#ga476271edf73ec93ed27a65969a602817", null ],
-    [ "mcuxClAes_Encoding_Rfc3394", "a01350.html#ga0a0b95171f3244efecc718424e2dc377", null ]
+    [ "mcuxClKey_TypeDescriptor_Aes128", "a01348.html#ga8f7fce2b87e12c68354d223b9a75dc37", null ],
+    [ "mcuxClKey_Type_Aes128", "a01348.html#ga8f0a74b8ec63f9bcfff2723f37602d0d", null ],
+    [ "mcuxClKey_TypeDescriptor_Aes256", "a01348.html#ga5a8d0b88ec6b1da1730d861ca6fb7f97", null ],
+    [ "mcuxClKey_Type_Aes256", "a01348.html#ga1249b014f089397821eceab3fd04ed5c", null ]
 ];

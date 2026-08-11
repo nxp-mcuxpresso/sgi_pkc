@@ -1,5 +1,5 @@
 var a01362 =
 [
-    [ "mcuxClCipherModes_Modes", "a01363.html", "a01363" ],
-    [ "mcuxClCipherModes_MemoryConsumption", "a01598.html", null ]
+    [ "mcuxClCrc_computeCRC16", "a01362.html#ga2405ffe3841f68ec6ad5fbfcb8db70a8", null ],
+    [ "mcuxClCrc_computeCRC32", "a01362.html#gaaa1039105bdaf80b54fa267b2d557ea7", null ]
 ];

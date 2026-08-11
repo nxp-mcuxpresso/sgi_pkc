@@ -1,8 +1,6 @@
 var a01368 =
 [
-    [ "mcuxClEcc_Constants", "a01369.html", "a01369" ],
-    [ "mcuxClEcc_Functions", "a01371.html", "a01371" ],
-    [ "mcuxClEcc_Types", "a01376.html", "a01376" ],
-    [ "mcuxClEcc_Descriptors", "a01377.html", "a01377" ],
-    [ "mcuxClEcc_MemoryConsumption", "a01599.html", "a01599" ]
+    [ "mcuxClEcc_WeierECC_GenerateDomainParams", "a01368.html#ga1deb22c96b88674a4513e56cdd2dfe3a", null ],
+    [ "mcuxClEcc_WeierECC_GenerateCustomKeyType", "a01368.html#gaf5bdc4291b8564a9d6cab3794456b840", null ],
+    [ "mcuxClEcc_WeierECC_DecodePoint", "a01368.html#gab725139ad08fcd3e5a34ad11c1ae2671", null ]
 ];

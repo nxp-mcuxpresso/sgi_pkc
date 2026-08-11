@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClRandomModes_Functions_PatchMode</title>
+<title>MCUX CLNS: mcuxClResource_Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,68 +102,108 @@ $(function(){initNavTree('a01453.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClRandomModes_Functions_PatchMode <div class="ingroups"><a class="el" href="a01451.html">mcuxClRandomModes</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClResource_Functions <div class="ingroups"><a class="el" href="a01452.html">mcuxClResource</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Random operations in PATCH_MODE.  
+<p>Defines all functions of <a class="el" href="a01452.html" title="mcuxClResource">mcuxClResource</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gab23867b4d1f91f326904a061f00021f8" id="r_gab23867b4d1f91f326904a061f00021f8"><td class="memItemLeft"><a id="gab23867b4d1f91f326904a061f00021f8" name="gab23867b4d1f91f326904a061f00021f8"></a>
-typedef <a class="el" href="a01450.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a>(*&#160;</td><td class="memItemRight"><b>mcuxClRandomModes_CustomGenerateAlgorithm_t</b>) (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01450.html#gac2ce3a52788240794afde522cfad65c5">mcuxClRandom_Context_t</a> pCustomCtx, <a class="el" href="a01357.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t outLength)</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2888ba46368d8945c50a0b6ae95281bd" id="r_ga2888ba46368d8945c50a0b6ae95281bd"><td class="memItemLeft"><a class="el" href="a01450.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga2888ba46368d8945c50a0b6ae95281bd">mcuxClRandomModes_createPatchMode</a> (<a class="el" href="a01450.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *patchMode, mcuxClRandomModes_CustomGenerateAlgorithm_t customGenerateAlgorithm, <a class="el" href="a01450.html#gac2ce3a52788240794afde522cfad65c5">mcuxClRandom_Context_t</a> pCustomCtx, uint32_t securityStrength)</td></tr>
-<tr class="memdesc:ga2888ba46368d8945c50a0b6ae95281bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function creates a PATCH_MODE descriptor.  <br /></td></tr>
+<tr class="memitem:gad93d8ac6ebe62ec3d274b44ef27a4b79" id="r_gad93d8ac6ebe62ec3d274b44ef27a4b79"><td class="memItemLeft"><a class="el" href="a01454.html#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gad93d8ac6ebe62ec3d274b44ef27a4b79">mcuxClResource_init</a> (<a class="el" href="a01454.html#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a> *pResourceCtx, <a class="el" href="a01454.html#ga79faae48b423d302179cd7f0045ecf23">mcuxClResource_MutexAcquire_Callback_t</a> pMutexAcquire, <a class="el" href="a01454.html#ga2a5336cef83f9f7017bd63a70ab83987">mcuxClResource_MutexRelease_Callback_t</a> pMutexRelease)</td></tr>
+<tr class="memdesc:gad93d8ac6ebe62ec3d274b44ef27a4b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource context initialization function.  <br /></td></tr>
+<tr class="memitem:gaf083fd1ec859bfe9e6e71a93a8d7e1c0" id="r_gaf083fd1ec859bfe9e6e71a93a8d7e1c0"><td class="memItemLeft"><a class="el" href="a01454.html#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf083fd1ec859bfe9e6e71a93a8d7e1c0">mcuxClResource_handle_interrupt</a> (const <a class="el" href="a01454.html#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a> *pResourceCtx, mcuxClResource_Interrupt_t interrupt)</td></tr>
+<tr class="memdesc:gaf083fd1ec859bfe9e6e71a93a8d7e1c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource interrupt handler.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Random operations in PATCH_MODE. </p>
+<div class="textblock"><p>Defines all functions of <a class="el" href="a01452.html" title="mcuxClResource">mcuxClResource</a>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga2888ba46368d8945c50a0b6ae95281bd" name="ga2888ba46368d8945c50a0b6ae95281bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2888ba46368d8945c50a0b6ae95281bd">&#9670;&#160;</a></span>mcuxClRandomModes_createPatchMode()</h2>
+<a id="gad93d8ac6ebe62ec3d274b44ef27a4b79" name="gad93d8ac6ebe62ec3d274b44ef27a4b79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad93d8ac6ebe62ec3d274b44ef27a4b79">&#9670;&#160;</a></span>mcuxClResource_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01450.html#ga768ea9930242003d2a68991684a1e948">mcuxClRandom_Status_t</a> mcuxClRandomModes_createPatchMode </td>
+          <td class="memname"><a class="el" href="a01454.html#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a> mcuxClResource_init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01450.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>patchMode</em></span>, </td>
+          <td class="paramtype"><a class="el" href="a01454.html#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pResourceCtx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">mcuxClRandomModes_CustomGenerateAlgorithm_t</td>          <td class="paramname"><span class="paramname"><em>customGenerateAlgorithm</em></span>, </td>
+          <td class="paramtype"><a class="el" href="a01454.html#ga79faae48b423d302179cd7f0045ecf23">mcuxClResource_MutexAcquire_Callback_t</a></td>          <td class="paramname"><span class="paramname"><em>pMutexAcquire</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01450.html#gac2ce3a52788240794afde522cfad65c5">mcuxClRandom_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pCustomCtx</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>securityStrength</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="a01454.html#ga2a5336cef83f9f7017bd63a70ab83987">mcuxClResource_MutexRelease_Callback_t</a></td>          <td class="paramname"><span class="paramname"><em>pMutexRelease</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function creates a PATCH_MODE descriptor. </p>
-<p>This function creates a PATCH_MODE descriptor. The function expects as input a custom function to be used inside the CL functions for random number generation as well as a pointer to a context buffer which can be used by the custom generate function. The custom generate function may also use all CPU workarea allocated for the mcuxClRandom_generate function. The function shall be called prior to an mcuxClRandom_init call.</p>
+<p>Resource context initialization function. </p>
+<p>This function performs the initialization of the resource context. There should generally only be one (global) resource context.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">patchMode[out]</td><td>Pointer to PATCH_MODE descriptor to be initialized </td></tr>
-    <tr><td class="paramname">customGenerateAlgorithm[in]</td><td>Pointer to the custom generate function </td></tr>
-    <tr><td class="paramname">pCustomCtx[in]</td><td>Pointer to a custom context which shall be used by the passed custom generate function </td></tr>
-    <tr><td class="paramname">securityStrength[in]</td><td>Security level for which the patch DRBG shall be used</td></tr>
+    <tr><td class="paramname">pResourceCtx</td><td>Pointer to the global resource context </td></tr>
+    <tr><td class="paramname">pMutexAcquire</td><td>Callback to be used for acquiring a mutex. </td></tr>
+    <tr><td class="paramname">pMutexRelease</td><td>Callback to be used for releasing a mutex.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03422.html#a11">mcuxClRandomModes_PatchMode_CtrDrbg_AES256_DRG3_example.c</a>.</dd>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01456.html#gaafc8964b2e6e576ec94cde857b6cec59" title="Resource operation successful.">MCUXCLRESOURCE_STATUS_OK</a></td><td>Resource context has been initialized successfully </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01456.html#ga645e736b3303b3a09350980cad311193" title="Error occurred during Resource operation.">MCUXCLRESOURCE_STATUS_ERROR</a></td><td>Error occurred during resource initializing </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaf083fd1ec859bfe9e6e71a93a8d7e1c0" name="gaf083fd1ec859bfe9e6e71a93a8d7e1c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf083fd1ec859bfe9e6e71a93a8d7e1c0">&#9670;&#160;</a></span>mcuxClResource_handle_interrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01454.html#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a> mcuxClResource_handle_interrupt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01454.html#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pResourceCtx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">mcuxClResource_Interrupt_t</td>          <td class="paramname"><span class="paramname"><em>interrupt</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resource interrupt handler. </p>
+<p>This function performs the interrupt handling for the given resource to wrap-up an operation after the interrupt of the resource was triggered. The user callback, which is installed in the session that performed the non-blocking operation, will be triggered by this function if the crypto operation finished successfully.</p>
+<dl class="section attention"><dt>Attention</dt><dd>This function shall not be called directly in interrupt service routines (ISR) of the resources, but rather after the ISR has been triggered. Do not clear any error bits in the respective resources before calling this function, as the error status bits are read and handled/translated by Clib to wrap-up the operation. </dd>
+<dd>
+In case of any detected error or fault, the installed user callback is not triggered.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pResourceCtx</td><td>Pointer to the global resource context </td></tr>
+    <tr><td class="paramname">interrupt</td><td>The interrupt to be handled.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01456.html#gaafc8964b2e6e576ec94cde857b6cec59" title="Resource operation successful.">MCUXCLRESOURCE_STATUS_OK</a></td><td>Resource operation successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01456.html#ga645e736b3303b3a09350980cad311193" title="Error occurred during Resource operation.">MCUXCLRESOURCE_STATUS_ERROR</a></td><td>Error occurred during Resource operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03325.html#a21">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03327.html#a19">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03331.html#a21">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a03333.html#a19">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03338.html#a21">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a03337.html#a21">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03340.html#a19">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03374.html#a19">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a03376.html#a21">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03404.html#a21">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, and <a class="el" href="a03407.html#a22">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>.</dd>
 </dl>
 
 </div>

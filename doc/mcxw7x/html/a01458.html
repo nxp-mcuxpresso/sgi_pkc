@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClResource_Constants</title>
+<title>MCUX CLNS: mcuxClRsa</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,21 +102,65 @@ $(function(){initNavTree('a01458.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClResource_Constants <div class="ingroups"><a class="el" href="a01455.html">mcuxClResource</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClRsa </div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines all constants of <a class="el" href="a01455.html" title="mcuxClResource">mcuxClResource</a>.  
+<p>RSA component.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
 Topics</h2></td></tr>
-<tr class="memitem:MCUXCLRESOURCE_5FSTATUS_5F" id="r_MCUXCLRESOURCE_5FSTATUS_5F"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01459.html">mcuxClResource return code definitions</a></td></tr>
-<tr class="memitem:MCUXCLRESOURCE_5FHWSTATUS_5F" id="r_MCUXCLRESOURCE_5FHWSTATUS_5F"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01460.html">mcuxClResource status of HW resource and option to request HW resource</a></td></tr>
-<tr class="memdesc:a01460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines of hardware request options. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FFunctions" id="r_mcuxClRsa_5FFunctions"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01459.html">mcuxClRsa_Functions</a></td></tr>
+<tr class="memdesc:a01459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all functions of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FDescriptors" id="r_mcuxClRsa_5FDescriptors"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01470.html">mcuxClRsa_Descriptors</a></td></tr>
+<tr class="memdesc:a01470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines descriptors of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FMacros" id="r_mcuxClRsa_5FMacros"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01473.html">mcuxClRsa_Macros</a></td></tr>
+<tr class="memdesc:a01473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all macros of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FTypes" id="r_mcuxClRsa_5FTypes"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01476.html">mcuxClRsa_Types</a></td></tr>
+<tr class="memdesc:a01476"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all types of the <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a> component. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines all constants of <a class="el" href="a01455.html" title="mcuxClResource">mcuxClResource</a>. </p>
+<div class="textblock"><p>RSA component. </p>
+<p>The mcuxClRsa component implements the RSA functionality supported by CLNS. This includes RSA signature generation and verification, and encryption and decryption, according to PKCS#1 v2.2.  It also provides RSA key generation functionality.  The RSA component relies on the mcuxClMath component for modular arithmetic operations as well as the secure and non-secure exponentiation. It further relies on the mcuxHash component for the execution of hashing operations. The component offers the following functionality:</p><ul>
+<li>RSA signature generation and verification: <ol>
+<li>
+RSA signature generation using RSA keys in private plain or private CRT format together with the PKCS#1 v1.5 padding or PSS padding functionality, according to to RSASSA-PSS-SIGN or RSASSA-PKCS1-v1_5-SIGN of PKCS #1 v2.2. </li>
+<li>
+RSA signature verification using RSA keys public format together with the PKCS#1 v1.5 padding or PSS verification functionality, according to to RSASSA-PSS-VERIFY or RSASSA-PKCS1-v1_5-VERIFY of PKCS #1 v2.2. </li>
+<li>
+RSA signature generation primitive RSASP1 (exponentiation with public exponent) according to PKCS #1 v2.2. </li>
+<li>
+RSA signature verification primitive RSAVP1 (exponentiation with RSA keys in private plain or private CRT format) according to PKCS #1 v2.2.  </li>
+<li>
+The bit-length of the modulus can vary from 1024 bits to 4096 bits.  </li>
+<li>
+The bit-length of the public exponent is limited to: of 2 &lt;= e &lt; N. </li>
+<li>
+The bit-length of the private exponent is limited to: d &lt; N. </li>
+</ol>
+</li>
+<li>RSA encryption and decryption: TODO CLNS-7925: update documentation for RSA. </li>
+<li>RSA key generation <ol>
+<li>
+Generation of an RSA key in CRT format {p, q, dp, dq, qInv} and n. </li>
+<li>
+Generation of an RSA key in Plain format {d, n}. </li>
+<li>
+Primes p and q are generated based on the method specified in the FIPS 186-5, Appendix A.1.3. </li>
+<li>
+Private exponent d is computed with the requirements specified in the FIPS 186-5, Appendix A.1.1. </li>
+<li>
+Primes p and q are generated using probabilistic primality test with the probability of not being prime less than 2^(-125).  </li>
+<li>
+The bit-length of the key size is limited to 1024, 2048, 3072 and 4096.  </li>
+<li>
+The public exponent is restricted to (FIPS compliant) odd values in the range 2^16 &lt; e &lt; 2^256 (i.e. including 0x10001). </li>
+<li>
+User shall ensure that if FIPS 186-5 compliance is claimed, the key generation functions are used to generate keys of length greater than or equal to 2048 bits. </li>
+</ol>
+</li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

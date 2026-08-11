@@ -1,23 +1,19 @@
 var a01669 =
 [
-    [ "FMC_REMAP_REMAPLK", "a01669.html#ga43b455416edb9a2ea5bd3f18a900215c", null ],
-    [ "FMC_REMAP_LIM", "a01669.html#gabc7db6a8aadae61fa01825376864dfae", null ],
-    [ "FMC_REMAP_LIMDP", "a01669.html#ga8d432828c4b26d66d4ba2b4fdfe609ff", null ],
-    [ "FMC_FCCR_WAY_LOCK", "a01669.html#gaf94f5dec7515c2a22f14757115c8b732", null ],
-    [ "FMC_FCCR_LOCK", "a01669.html#ga189d9717bb6f6a76a8f857d8f37c923a", null ],
-    [ "FMC_FCAR_CACHES_WAY_NUM", "a01669.html#gac9f5faa845b359210f84b3310d2149a7", null ],
-    [ "FMC_FCAR_CACHES_SET_NUM", "a01669.html#ga48626535da036a5d6ebb71bdeb218fef", null ],
-    [ "FMC_FCAR_TYPE", "a01669.html#ga7502c579f8de64b520e8516b14d068b2", null ],
-    [ "FMC_FCTG_VALID", "a01669.html#gaac31b2de1679b63c4309364e6fe2aff6", null ],
-    [ "FMC_FCTG_ADDRESS", "a01669.html#ga9e2310ee39a664b711956d22e550b0c5", null ],
-    [ "FMC_FCLN0_DATAWxSyLM", "a01669.html#ga010f0ded70b3143a717855d7c18438ff", null ],
-    [ "FMC_FCLN1_DATAWxSyML", "a01669.html#ga24d20e0e7fb7046fcc5a290d2b245a06", null ],
-    [ "FMC_FCLN2_DATAWxSyMU", "a01669.html#ga780af49e69eddeca39be55de90343862", null ],
-    [ "FMC_FCLN3_DATAWxSyUM", "a01669.html#gaf1b7fe464b6e133e7f5a9eb2f89ad544", null ],
-    [ "FMC_REMAP_REMAPLK", "a01669.html#ga43b455416edb9a2ea5bd3f18a900215c", null ],
-    [ "FMC_REMAP_LIM", "a01669.html#gabc7db6a8aadae61fa01825376864dfae", null ],
-    [ "FMC_REMAP_LIMDP", "a01669.html#ga8d432828c4b26d66d4ba2b4fdfe609ff", null ],
-    [ "FMC_REMAP_REMAPLK", "a01669.html#ga43b455416edb9a2ea5bd3f18a900215c", null ],
-    [ "FMC_REMAP_LIM", "a01669.html#gabc7db6a8aadae61fa01825376864dfae", null ],
-    [ "FMC_REMAP_LIMDP", "a01669.html#ga8d432828c4b26d66d4ba2b4fdfe609ff", null ]
+    [ "GLIKEY Register Masks", "a01670.html", "a01670" ],
+    [ "GLIKEY_Type", "a02218.html", [
+      [ "CTRL_0", "a01653.html#gabef6f9c5862d7b638a0a40cf65f93b02", null ],
+      [ "CTRL_1", "a01653.html#gad6f6ab1e49b94106cc6929d5d7c80e2a", null ],
+      [ "INTR_CTRL", "a01653.html#ga635f790e640399d471b4ec41b4bdf42b", null ],
+      [ "STATUS", "a01653.html#ga62413ed6b6e6fef3cc4ff353578fa869", null ],
+      [ "VERSION", "a01653.html#ga4d8225bdd0abe41427fa68a32ef496d1", null ]
+    ] ],
+    [ "GLIKEY0_BASE", "a01669.html#gab0ac816de6aa85521ee7a80fc8420f36", null ],
+    [ "GLIKEY0", "a01669.html#gabc625c25d9d41697aaf96f328518289c", null ],
+    [ "GLIKEY_BASE_ADDRS", "a01669.html#ga7f16d5764ab55b4d62fbbcc2590e585e", null ],
+    [ "GLIKEY_BASE_PTRS", "a01669.html#gab1c2e7168c67621bc49466eba71dfeef", null ],
+    [ "GLIKEY_BASE", "a01669.html#ga0a0beb7d19c107ebb390433adc784eed", null ],
+    [ "GLIKEY", "a01669.html#ga1d7dc8662bad330cd43ec2ceb42c5608", null ],
+    [ "GLIKEY_BASE_ADDRS", "a01669.html#ga7f16d5764ab55b4d62fbbcc2590e585e", null ],
+    [ "GLIKEY_BASE_PTRS", "a01669.html#gab1c2e7168c67621bc49466eba71dfeef", null ]
 ];

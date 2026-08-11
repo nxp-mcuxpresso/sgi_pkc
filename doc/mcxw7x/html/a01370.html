@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClEcc_ParameterSizes</title>
+<title>MCUX CLNS: mcuxClEcc_KeyGenerationDescriptors</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,23 +102,127 @@ $(function(){initNavTree('a01370.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClEcc_ParameterSizes <div class="ingroups"><a class="el" href="a01368.html">mcuxClEcc</a> &raquo; <a class="el" href="a01369.html">mcuxClEcc_Constants</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClEcc_KeyGenerationDescriptors <div class="ingroups"><a class="el" href="a01365.html">mcuxClEcc</a> &raquo; <a class="el" href="a01374.html">mcuxClEcc_Descriptors</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines domain parameter, key and signature sizes of <a class="el" href="a01368.html" title="mcuxClEcc">mcuxClEcc</a>.  
+<p>Definitions of ECC related key pair generation algorithm descriptors.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:MCUXCLECC_5FWEIERECC_5FMIN_5FSIZE" id="r_MCUXCLECC_5FWEIERECC_5FMIN_5FSIZE"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01617.html">MCUXCLECC_WEIERECC_MIN_SIZE</a></td></tr>
-<tr class="memdesc:a01617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum size definitions for WeierECC parameter <br /></td></tr>
-<tr class="memitem:MCUXCLECC_5FWEIERECC_5FMAX_5FSIZE" id="r_MCUXCLECC_5FWEIERECC_5FMAX_5FSIZE"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01618.html">MCUXCLECC_WEIERECC_MAX_SIZE</a></td></tr>
-<tr class="memdesc:a01618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum size definitions for WeierECC parameters (ECC component officially supports up to 640 bit Weierstrass curves) <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga0172e9b22cb169b988a92b53f66e38c2" id="r_ga0172e9b22cb169b988a92b53f66e38c2"><td class="memItemLeft">const <a class="el" href="a01417.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga0172e9b22cb169b988a92b53f66e38c2">mcuxClKey_GenerationDescriptor_ECDH</a></td></tr>
+<tr class="memdesc:ga0172e9b22cb169b988a92b53f66e38c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECDH Key generation algorithm descriptor.  <br /></td></tr>
+<tr class="memitem:gac4b12ce8bf78dbea254d4ee74f55e6c9" id="r_gac4b12ce8bf78dbea254d4ee74f55e6c9"><td class="memItemLeft">static <a class="el" href="a01417.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gac4b12ce8bf78dbea254d4ee74f55e6c9">mcuxClKey_Generation_ECDH</a></td></tr>
+<tr class="memdesc:gac4b12ce8bf78dbea254d4ee74f55e6c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECDH Key generation algorithm.  <br /></td></tr>
+<tr class="memitem:ga3dc0014c787cc578dfb4712012f5a585" id="r_ga3dc0014c787cc578dfb4712012f5a585"><td class="memItemLeft">const <a class="el" href="a01417.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga3dc0014c787cc578dfb4712012f5a585">mcuxClKey_GenerationDescriptor_ECDSA</a></td></tr>
+<tr class="memdesc:ga3dc0014c787cc578dfb4712012f5a585"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECDSA Key generation algorithm descriptor.  <br /></td></tr>
+<tr class="memitem:gaf478f6dfe868e5c07e681d879ca15998" id="r_gaf478f6dfe868e5c07e681d879ca15998"><td class="memItemLeft">static <a class="el" href="a01417.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf478f6dfe868e5c07e681d879ca15998">mcuxClKey_Generation_ECDSA</a></td></tr>
+<tr class="memdesc:gaf478f6dfe868e5c07e681d879ca15998"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECDSA Key generation algorithm.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines domain parameter, key and signature sizes of <a class="el" href="a01368.html" title="mcuxClEcc">mcuxClEcc</a>. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Definitions of ECC related key pair generation algorithm descriptors. </p>
+</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ga0172e9b22cb169b988a92b53f66e38c2" name="ga0172e9b22cb169b988a92b53f66e38c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0172e9b22cb169b988a92b53f66e38c2">&#9670;&#160;</a></span>mcuxClKey_GenerationDescriptor_ECDH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01417.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a> mcuxClKey_GenerationDescriptor_ECDH</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ECDH Key generation algorithm descriptor. </p>
+
+</div>
+</div>
+<a id="gac4b12ce8bf78dbea254d4ee74f55e6c9" name="gac4b12ce8bf78dbea254d4ee74f55e6c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac4b12ce8bf78dbea254d4ee74f55e6c9">&#9670;&#160;</a></span>mcuxClKey_Generation_ECDH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01417.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a> mcuxClKey_Generation_ECDH</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ECDH Key generation algorithm. </p>
+
+</div>
+</div>
+<a id="ga3dc0014c787cc578dfb4712012f5a585" name="ga3dc0014c787cc578dfb4712012f5a585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3dc0014c787cc578dfb4712012f5a585">&#9670;&#160;</a></span>mcuxClKey_GenerationDescriptor_ECDSA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01417.html#gaad2bc2272e961dd28dba4697d9287a14">mcuxClKey_GenerationDescriptor_t</a> mcuxClKey_GenerationDescriptor_ECDSA</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ECDSA Key generation algorithm descriptor. </p>
+
+</div>
+</div>
+<a id="gaf478f6dfe868e5c07e681d879ca15998" name="gaf478f6dfe868e5c07e681d879ca15998"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf478f6dfe868e5c07e681d879ca15998">&#9670;&#160;</a></span>mcuxClKey_Generation_ECDSA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01417.html#gabb1e565ab474265cf8b53be6d9a1f758">mcuxClKey_Generation_t</a> mcuxClKey_Generation_ECDSA</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ECDSA Key generation algorithm. </p>
+<p>} </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03355.html#_a8">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, and <a class="el" href="a03364.html#_a30">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

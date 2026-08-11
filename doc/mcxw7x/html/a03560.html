@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa5xx/ip_platform.h File Reference</title>
+<title>MCUX CLNS: platform/mcxw7x/ip_platform.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -108,12 +108,14 @@ $(function(){initNavTree('a03560.html','',''); });
 
 <p>Include file for the IP.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="a01259_source.html">MCXA577.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01322_source.html">KW43B43ZC7.h</a>&gt;</code><br />
 </div>
 <p><a href="a03560_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a302dc96df49193b0f769a81d6339722d" id="r_a302dc96df49193b0f769a81d6339722d"><td class="memItemLeft"><a id="a302dc96df49193b0f769a81d6339722d" name="a302dc96df49193b0f769a81d6339722d"></a>
+#define&#160;</td><td class="memItemRight"><b>CPU_KW43B43ZC7MFPA</b></td></tr>
 <tr class="memitem:ad291a08c02c008bc5088891a99a5329d" id="r_ad291a08c02c008bc5088891a99a5329d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad291a08c02c008bc5088891a99a5329d">DMA_MP_SFR_BASE</a></td></tr>
 <tr class="memdesc:ad291a08c02c008bc5088891a99a5329d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base of the DMA MP SFR structure.  <br /></td></tr>
 <tr class="memitem:a7c676413ffed86d8e1a069b362d5506d" id="r_a7c676413ffed86d8e1a069b362d5506d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7c676413ffed86d8e1a069b362d5506d">DMA_CH_SFR_BASE</a></td></tr>
@@ -154,12 +156,18 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight"><b>GET_DMA_CHX_IRQ_NUMBER</b>(x)</td></tr>
 <tr class="memitem:a7beca9a8dee34e052805e6b5e5b6d121" id="r_a7beca9a8dee34e052805e6b5e5b6d121"><td class="memItemLeft"><a id="a7beca9a8dee34e052805e6b5e5b6d121" name="a7beca9a8dee34e052805e6b5e5b6d121"></a>
 #define&#160;</td><td class="memItemRight"><b>DMA_CH_TOTAL</b></td></tr>
+<tr class="memitem:a27e455003307695243ca972d49a80a81" id="r_a27e455003307695243ca972d49a80a81"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a27e455003307695243ca972d49a80a81">kDma0RequestDisabled</a></td></tr>
+<tr class="memdesc:a27e455003307695243ca972d49a80a81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines/Macros for the CH_MUX (Channel Multiplexor) register fields.  <br /></td></tr>
+<tr class="memitem:a2dd0a68b38ba8c9789c50f613a26e314" id="r_a2dd0a68b38ba8c9789c50f613a26e314"><td class="memItemLeft"><a id="a2dd0a68b38ba8c9789c50f613a26e314" name="a2dd0a68b38ba8c9789c50f613a26e314"></a>
+#define&#160;</td><td class="memItemRight"><b>kDma0RequestSGI0Datain</b></td></tr>
+<tr class="memitem:adc8bf519a57e1894cb814fe072cd5254" id="r_adc8bf519a57e1894cb814fe072cd5254"><td class="memItemLeft"><a id="adc8bf519a57e1894cb814fe072cd5254" name="adc8bf519a57e1894cb814fe072cd5254"></a>
+#define&#160;</td><td class="memItemRight"><b>kDma0RequestSGI0Dataout</b></td></tr>
 <tr class="memitem:a00fb401c4ec0408305bd0e82ef2e3ed9" id="r_a00fb401c4ec0408305bd0e82ef2e3ed9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a00fb401c4ec0408305bd0e82ef2e3ed9">DMA_REQ_SRC_DISABLED</a></td></tr>
-<tr class="memdesc:a00fb401c4ec0408305bd0e82ef2e3ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines/Macros for the CH_MUX (Channel Multiplexor) register fields.  <br /></td></tr>
-<tr class="memitem:ad0816cd511719039861b5033b9494dbd" id="r_ad0816cd511719039861b5033b9494dbd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad0816cd511719039861b5033b9494dbd">DMA_REQ_SRC_SGI_IN</a></td></tr>
-<tr class="memdesc:ad0816cd511719039861b5033b9494dbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA handshake source for SGI DATIN.  <br /></td></tr>
-<tr class="memitem:a7d9edc2ea99fe2bba274773cf7fd725d" id="r_a7d9edc2ea99fe2bba274773cf7fd725d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7d9edc2ea99fe2bba274773cf7fd725d">DMA_REQ_SRC_SGI_OUT</a></td></tr>
-<tr class="memdesc:a7d9edc2ea99fe2bba274773cf7fd725d"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA handshake source for SGI DATOUT.  <br /></td></tr>
+<tr class="memdesc:a00fb401c4ec0408305bd0e82ef2e3ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA handshake source for disabling handshakes.  <br /></td></tr>
+<tr class="memitem:ad0816cd511719039861b5033b9494dbd" id="r_ad0816cd511719039861b5033b9494dbd"><td class="memItemLeft"><a id="ad0816cd511719039861b5033b9494dbd" name="ad0816cd511719039861b5033b9494dbd"></a>
+#define&#160;</td><td class="memItemRight"><b>DMA_REQ_SRC_SGI_IN</b></td></tr>
+<tr class="memitem:a7d9edc2ea99fe2bba274773cf7fd725d" id="r_a7d9edc2ea99fe2bba274773cf7fd725d"><td class="memItemLeft"><a id="a7d9edc2ea99fe2bba274773cf7fd725d" name="a7d9edc2ea99fe2bba274773cf7fd725d"></a>
+#define&#160;</td><td class="memItemRight"><b>DMA_REQ_SRC_SGI_OUT</b></td></tr>
 <tr class="memitem:a2ba140c9381e64d29b31d25d95e23e56" id="r_a2ba140c9381e64d29b31d25d95e23e56"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2ba140c9381e64d29b31d25d95e23e56">DMA_PASTE</a>(a,  b)</td></tr>
 <tr class="memdesc:a2ba140c9381e64d29b31d25d95e23e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro for constructing SFR field name constants.  <br /></td></tr>
 <tr class="memitem:a525b6b8c7a796c4cfffa1b947d3da746" id="r_a525b6b8c7a796c4cfffa1b947d3da746"><td class="memItemLeft"><a id="a525b6b8c7a796c4cfffa1b947d3da746" name="a525b6b8c7a796c4cfffa1b947d3da746"></a>
@@ -205,7 +213,7 @@ Macros</h2></td></tr>
 <tr class="memitem:a87975a9a333c4354c6f68c28853868b6" id="r_a87975a9a333c4354c6f68c28853868b6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a87975a9a333c4354c6f68c28853868b6">SGI_HAS_KEY_WRAP_UNWRAP</a></td></tr>
 <tr class="memdesc:a87975a9a333c4354c6f68c28853868b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">"feature" flag for existence of SGI key wrap/unwrap  <br /></td></tr>
 <tr class="memitem:ada1854b03a7531255f10a45fcf3c2e8a" id="r_ada1854b03a7531255f10a45fcf3c2e8a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ada1854b03a7531255f10a45fcf3c2e8a">SGI_HAS_PRNG_SW_READ</a></td></tr>
-<tr class="memdesc:ada1854b03a7531255f10a45fcf3c2e8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">"feature" flag for existance of the SGI PRNG  <br /></td></tr>
+<tr class="memdesc:ada1854b03a7531255f10a45fcf3c2e8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">"feature" flag for existence of the SGI PRNG  <br /></td></tr>
 <tr class="memitem:a227c7fa9b8d82e11ebe796a64855850f" id="r_a227c7fa9b8d82e11ebe796a64855850f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a227c7fa9b8d82e11ebe796a64855850f">PKC_SFR_BASE</a></td></tr>
 <tr class="memdesc:a227c7fa9b8d82e11ebe796a64855850f"><td class="mdescLeft">&#160;</td><td class="mdescRight">base of PKC SFRs  <br /></td></tr>
 <tr class="memitem:ae6c11046221362323587067c5eca6d93" id="r_ae6c11046221362323587067c5eca6d93"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae6c11046221362323587067c5eca6d93">PKC_SFR_NAME</a>(sfr)</td></tr>
@@ -262,6 +270,8 @@ Macros</h2></td></tr>
 <tr class="memdesc:a97add246d10c546112ae8ebbb4f5a9cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of addressable indexes for GLIKEY instance 1.  <br /></td></tr>
 <tr class="memitem:a4dbbdeb02984b062cb16363cad6c9e33" id="r_a4dbbdeb02984b062cb16363cad6c9e33"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4dbbdeb02984b062cb16363cad6c9e33">GLIKEY2_NUM_IDX</a></td></tr>
 <tr class="memdesc:a4dbbdeb02984b062cb16363cad6c9e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of addressable indexes for GLIKEY instance 1.  <br /></td></tr>
+<tr class="memitem:a5c29f1287c09516b4a77130241865b09" id="r_a5c29f1287c09516b4a77130241865b09"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5c29f1287c09516b4a77130241865b09">GLIKEY0_IRQn</a></td></tr>
+<tr class="memdesc:a5c29f1287c09516b4a77130241865b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">GLIKEY Interrupt.  <br /></td></tr>
 <tr class="memitem:a25c34e87134657b751e75b07decec9c5" id="r_a25c34e87134657b751e75b07decec9c5"><td class="memItemLeft"><a id="a25c34e87134657b751e75b07decec9c5" name="a25c34e87134657b751e75b07decec9c5"></a>
 #define&#160;</td><td class="memItemRight"><b>GLIKEY0_INTERRUPT_NUMBER</b></td></tr>
 <tr class="memitem:a5d48aae46d24eef579f86f091a1c0038" id="r_a5d48aae46d24eef579f86f091a1c0038"><td class="memItemLeft"><a id="a5d48aae46d24eef579f86f091a1c0038" name="a5d48aae46d24eef579f86f091a1c0038"></a>
@@ -547,6 +557,22 @@ const uint32_t&#160;</td><td class="memItemRight"><b>Image$$PKC_RAM_BUF_ADDRESS$
 
 </div>
 </div>
+<a id="a27e455003307695243ca972d49a80a81" name="a27e455003307695243ca972d49a80a81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e455003307695243ca972d49a80a81">&#9670;&#160;</a></span>kDma0RequestDisabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define kDma0RequestDisabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines/Macros for the CH_MUX (Channel Multiplexor) register fields. </p>
+
+</div>
+</div>
 <a id="a00fb401c4ec0408305bd0e82ef2e3ed9" name="a00fb401c4ec0408305bd0e82ef2e3ed9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00fb401c4ec0408305bd0e82ef2e3ed9">&#9670;&#160;</a></span>DMA_REQ_SRC_DISABLED</h2>
 
@@ -559,40 +585,7 @@ const uint32_t&#160;</td><td class="memItemRight"><b>Image$$PKC_RAM_BUF_ADDRESS$
       </table>
 </div><div class="memdoc">
 
-<p>Defines/Macros for the CH_MUX (Channel Multiplexor) register fields. </p>
-<p>DMA handshake source for disabling handshakes </p>
-
-</div>
-</div>
-<a id="ad0816cd511719039861b5033b9494dbd" name="ad0816cd511719039861b5033b9494dbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0816cd511719039861b5033b9494dbd">&#9670;&#160;</a></span>DMA_REQ_SRC_SGI_IN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DMA_REQ_SRC_SGI_IN</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>DMA handshake source for SGI DATIN. </p>
-
-</div>
-</div>
-<a id="a7d9edc2ea99fe2bba274773cf7fd725d" name="a7d9edc2ea99fe2bba274773cf7fd725d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d9edc2ea99fe2bba274773cf7fd725d">&#9670;&#160;</a></span>DMA_REQ_SRC_SGI_OUT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DMA_REQ_SRC_SGI_OUT</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>DMA handshake source for SGI DATOUT. </p>
+<p>DMA handshake source for disabling handshakes. </p>
 
 </div>
 </div>
@@ -905,7 +898,7 @@ const uint32_t&#160;</td><td class="memItemRight"><b>Image$$PKC_RAM_BUF_ADDRESS$
       </table>
 </div><div class="memdoc">
 
-<p>"feature" flag for existance of the SGI PRNG </p>
+<p>"feature" flag for existence of the SGI PRNG </p>
 
 </div>
 </div>
@@ -1276,6 +1269,22 @@ const uint32_t&#160;</td><td class="memItemRight"><b>Image$$PKC_RAM_BUF_ADDRESS$
 
 </div>
 </div>
+<a id="a5c29f1287c09516b4a77130241865b09" name="a5c29f1287c09516b4a77130241865b09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c29f1287c09516b4a77130241865b09">&#9670;&#160;</a></span>GLIKEY0_IRQn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GLIKEY0_IRQn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GLIKEY Interrupt. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -1289,7 +1298,7 @@ const uint32_t&#160;</td><td class="memItemRight"><b>Image$$PKC_RAM_BUF_ADDRESS$
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa5xx</b></li><li class="navelem"><a href="a03560.html">ip_platform.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxw7x</b></li><li class="navelem"><a href="a03560.html">ip_platform.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

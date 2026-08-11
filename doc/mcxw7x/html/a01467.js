@@ -1,7 +1,7 @@
 var a01467 =
 [
-    [ "mcuxClKey_Type_Rsa_PrivatePlain_1024", "a01467.html#gaf5bbb6255ae6462295ad341090f2f8b6", null ],
-    [ "mcuxClKey_Type_Rsa_PrivatePlain_2048", "a01467.html#ga947df64fd3498ff03b52359b8b6f36a6", null ],
-    [ "mcuxClKey_Type_Rsa_PrivatePlain_3072", "a01467.html#ga837f3ccdd2b16ef9e9a7396871e015a5", null ],
-    [ "mcuxClKey_Type_Rsa_PrivatePlain_4096", "a01467.html#ga0ce30bfed5000b5fbe3a56456429fd5a", null ]
+    [ "mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_1024", "a01467.html#ga0035ca1d9cc843b9eaf35e595e1d5d2b", null ],
+    [ "mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_2048", "a01467.html#ga6767f8b191182e2d2b8d054156755d54", null ],
+    [ "mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_3072", "a01467.html#gac1f354082a778ebdaa2a77ad4fe01a20", null ],
+    [ "mcuxClKey_TypeDescriptor_Rsa_PrivateCRT_DFA_4096", "a01467.html#ga385e1c69e24dbd0219852b9a1e9a9ad4", null ]
 ];

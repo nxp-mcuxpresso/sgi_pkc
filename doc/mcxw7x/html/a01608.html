@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLRSA_SIGN_WA</title>
+<title>MCUX CLNS: MCUXCLRSA_KEYGENERATION_CRT_WA</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,331 +102,171 @@ $(function(){initNavTree('a01608.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLRSA_SIGN_WA <div class="ingroups"><a class="el" href="a01461.html">mcuxClRsa</a> &raquo; <a class="el" href="a01476.html">mcuxClRsa_Macros</a></div></div></div>
+  <div class="headertitle"><div class="title">MCUXCLRSA_KEYGENERATION_CRT_WA <div class="ingroups"><a class="el" href="a01458.html">mcuxClRsa</a> &raquo; <a class="el" href="a01473.html">mcuxClRsa_Macros</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definitions of workarea sizes for the mcuxClRsa Sign.  
+<p>Definitions of workarea sizes for the mcuxClKey_generate_keypair function required to generate RSA key in CRT form.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga4312eb8909ce30ba6362af6aaa03f69e" id="r_ga4312eb8909ce30ba6362af6aaa03f69e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4312eb8909ce30ba6362af6aaa03f69e">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga4312eb8909ce30ba6362af6aaa03f69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:gaf455d79389af05675935d6d53d7ade7c" id="r_gaf455d79389af05675935d6d53d7ade7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf455d79389af05675935d6d53d7ade7c">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf455d79389af05675935d6d53d7ade7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga164cca6715f5d4ad090ccc4ab882dd68" id="r_ga164cca6715f5d4ad090ccc4ab882dd68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga164cca6715f5d4ad090ccc4ab882dd68">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga164cca6715f5d4ad090ccc4ab882dd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga773066aea6da7ba38442305ad2bf6af2" id="r_ga773066aea6da7ba38442305ad2bf6af2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga773066aea6da7ba38442305ad2bf6af2">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga773066aea6da7ba38442305ad2bf6af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga1dea31cb3edffff3b19d105f7374aa81" id="r_ga1dea31cb3edffff3b19d105f7374aa81"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1dea31cb3edffff3b19d105f7374aa81">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga1dea31cb3edffff3b19d105f7374aa81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga25a8fb0b64b30957a85d6cc8ccff3694" id="r_ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga25a8fb0b64b30957a85d6cc8ccff3694">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga6c85361c450a7a291e4a21ba5ad8c829" id="r_ga6c85361c450a7a291e4a21ba5ad8c829"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6c85361c450a7a291e4a21ba5ad8c829">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga6c85361c450a7a291e4a21ba5ad8c829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gaa0b8b7e5e999f0f647b157570879ab70" id="r_gaa0b8b7e5e999f0f647b157570879ab70"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa0b8b7e5e999f0f647b157570879ab70">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaa0b8b7e5e999f0f647b157570879ab70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga48f0eed84fa89303aab8926a5af140e0" id="r_ga48f0eed84fa89303aab8926a5af140e0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48f0eed84fa89303aab8926a5af140e0">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga48f0eed84fa89303aab8926a5af140e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gab630a43086137a34a22d379d99d4979e" id="r_gab630a43086137a34a22d379d99d4979e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab630a43086137a34a22d379d99d4979e">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab630a43086137a34a22d379d99d4979e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga48b4346142911ddd75ac4bb4575b4a44" id="r_ga48b4346142911ddd75ac4bb4575b4a44"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48b4346142911ddd75ac4bb4575b4a44">MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga48b4346142911ddd75ac4bb4575b4a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga5b2d3626004c26e5935658c75faed0fe" id="r_ga5b2d3626004c26e5935658c75faed0fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5b2d3626004c26e5935658c75faed0fe">MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga5b2d3626004c26e5935658c75faed0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga87f2af5e231ca701d6c241260f6632c8" id="r_ga87f2af5e231ca701d6c241260f6632c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga87f2af5e231ca701d6c241260f6632c8">MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga87f2af5e231ca701d6c241260f6632c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gac51d995815daa1270660faa6c941556b" id="r_gac51d995815daa1270660faa6c941556b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac51d995815daa1270660faa6c941556b">MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gac51d995815daa1270660faa6c941556b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gab592bb2afe239d110b69019bbcfbf39a" id="r_gab592bb2afe239d110b69019bbcfbf39a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab592bb2afe239d110b69019bbcfbf39a">MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab592bb2afe239d110b69019bbcfbf39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga94c5de50e6e2c146a56ca41fe875b1ae" id="r_ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga94c5de50e6e2c146a56ca41fe875b1ae">MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaffa8f7a22bc5dc5f0102e6a7d58aae22" id="r_gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga622d0a8ac987bd0a74fbf3a6aafb0622" id="r_ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56c7e14b62345bd224a7dd133c9cf47e" id="r_ga56c7e14b62345bd224a7dd133c9cf47e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56c7e14b62345bd224a7dd133c9cf47e">MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga56c7e14b62345bd224a7dd133c9cf47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaae863be535c94424a53999e430f94345" id="r_gaae863be535c94424a53999e430f94345"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaae863be535c94424a53999e430f94345">MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gaae863be535c94424a53999e430f94345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaf8a8d4ef6856d0325171771a38ed2b3f" id="r_gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf8a8d4ef6856d0325171771a38ed2b3f">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga13a37dc2bf4e9369d0f97257eedbb240" id="r_ga13a37dc2bf4e9369d0f97257eedbb240"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga13a37dc2bf4e9369d0f97257eedbb240">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga13a37dc2bf4e9369d0f97257eedbb240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaf1c40d9d43240fca324f6bddb7ba22b2" id="r_gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf1c40d9d43240fca324f6bddb7ba22b2">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga85c6c2f1faf8413022119493161d08eb" id="r_ga85c6c2f1faf8413022119493161d08eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga85c6c2f1faf8413022119493161d08eb">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga85c6c2f1faf8413022119493161d08eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga437b8eb62b4f1c455f0fcf9185dee790" id="r_ga437b8eb62b4f1c455f0fcf9185dee790"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga437b8eb62b4f1c455f0fcf9185dee790">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga437b8eb62b4f1c455f0fcf9185dee790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaace82904ad5b20b810d80d9561e6277b" id="r_gaace82904ad5b20b810d80d9561e6277b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaace82904ad5b20b810d80d9561e6277b">MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaace82904ad5b20b810d80d9561e6277b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaab6efa4449159180daf2c0ad4452283c" id="r_gaab6efa4449159180daf2c0ad4452283c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaab6efa4449159180daf2c0ad4452283c">MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaab6efa4449159180daf2c0ad4452283c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga7844b694581a8cb752edd86444a10812" id="r_ga7844b694581a8cb752edd86444a10812"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7844b694581a8cb752edd86444a10812">MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga7844b694581a8cb752edd86444a10812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56f2ed2760ce4db4e8246d96f768e23e" id="r_ga56f2ed2760ce4db4e8246d96f768e23e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56f2ed2760ce4db4e8246d96f768e23e">MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga56f2ed2760ce4db4e8246d96f768e23e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gae92072e416a0f52664b7720d33b1fd91" id="r_gae92072e416a0f52664b7720d33b1fd91"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae92072e416a0f52664b7720d33b1fd91">MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gae92072e416a0f52664b7720d33b1fd91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:ga4312eb8909ce30ba6362af6aaa03f69e" id="r_ga4312eb8909ce30ba6362af6aaa03f69e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4312eb8909ce30ba6362af6aaa03f69e">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga4312eb8909ce30ba6362af6aaa03f69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:gaf455d79389af05675935d6d53d7ade7c" id="r_gaf455d79389af05675935d6d53d7ade7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf455d79389af05675935d6d53d7ade7c">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf455d79389af05675935d6d53d7ade7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga164cca6715f5d4ad090ccc4ab882dd68" id="r_ga164cca6715f5d4ad090ccc4ab882dd68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga164cca6715f5d4ad090ccc4ab882dd68">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga164cca6715f5d4ad090ccc4ab882dd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga773066aea6da7ba38442305ad2bf6af2" id="r_ga773066aea6da7ba38442305ad2bf6af2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga773066aea6da7ba38442305ad2bf6af2">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga773066aea6da7ba38442305ad2bf6af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga1dea31cb3edffff3b19d105f7374aa81" id="r_ga1dea31cb3edffff3b19d105f7374aa81"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1dea31cb3edffff3b19d105f7374aa81">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga1dea31cb3edffff3b19d105f7374aa81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga25a8fb0b64b30957a85d6cc8ccff3694" id="r_ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga25a8fb0b64b30957a85d6cc8ccff3694">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga6c85361c450a7a291e4a21ba5ad8c829" id="r_ga6c85361c450a7a291e4a21ba5ad8c829"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6c85361c450a7a291e4a21ba5ad8c829">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga6c85361c450a7a291e4a21ba5ad8c829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gaa0b8b7e5e999f0f647b157570879ab70" id="r_gaa0b8b7e5e999f0f647b157570879ab70"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa0b8b7e5e999f0f647b157570879ab70">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaa0b8b7e5e999f0f647b157570879ab70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga48f0eed84fa89303aab8926a5af140e0" id="r_ga48f0eed84fa89303aab8926a5af140e0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48f0eed84fa89303aab8926a5af140e0">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga48f0eed84fa89303aab8926a5af140e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gab630a43086137a34a22d379d99d4979e" id="r_gab630a43086137a34a22d379d99d4979e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab630a43086137a34a22d379d99d4979e">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab630a43086137a34a22d379d99d4979e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga48b4346142911ddd75ac4bb4575b4a44" id="r_ga48b4346142911ddd75ac4bb4575b4a44"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48b4346142911ddd75ac4bb4575b4a44">MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga48b4346142911ddd75ac4bb4575b4a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga5b2d3626004c26e5935658c75faed0fe" id="r_ga5b2d3626004c26e5935658c75faed0fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5b2d3626004c26e5935658c75faed0fe">MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga5b2d3626004c26e5935658c75faed0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga87f2af5e231ca701d6c241260f6632c8" id="r_ga87f2af5e231ca701d6c241260f6632c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga87f2af5e231ca701d6c241260f6632c8">MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga87f2af5e231ca701d6c241260f6632c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gac51d995815daa1270660faa6c941556b" id="r_gac51d995815daa1270660faa6c941556b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac51d995815daa1270660faa6c941556b">MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gac51d995815daa1270660faa6c941556b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gab592bb2afe239d110b69019bbcfbf39a" id="r_gab592bb2afe239d110b69019bbcfbf39a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab592bb2afe239d110b69019bbcfbf39a">MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab592bb2afe239d110b69019bbcfbf39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga94c5de50e6e2c146a56ca41fe875b1ae" id="r_ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga94c5de50e6e2c146a56ca41fe875b1ae">MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaffa8f7a22bc5dc5f0102e6a7d58aae22" id="r_gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga622d0a8ac987bd0a74fbf3a6aafb0622" id="r_ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56c7e14b62345bd224a7dd133c9cf47e" id="r_ga56c7e14b62345bd224a7dd133c9cf47e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56c7e14b62345bd224a7dd133c9cf47e">MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga56c7e14b62345bd224a7dd133c9cf47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaae863be535c94424a53999e430f94345" id="r_gaae863be535c94424a53999e430f94345"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaae863be535c94424a53999e430f94345">MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gaae863be535c94424a53999e430f94345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaf8a8d4ef6856d0325171771a38ed2b3f" id="r_gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf8a8d4ef6856d0325171771a38ed2b3f">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga13a37dc2bf4e9369d0f97257eedbb240" id="r_ga13a37dc2bf4e9369d0f97257eedbb240"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga13a37dc2bf4e9369d0f97257eedbb240">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga13a37dc2bf4e9369d0f97257eedbb240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaf1c40d9d43240fca324f6bddb7ba22b2" id="r_gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf1c40d9d43240fca324f6bddb7ba22b2">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga85c6c2f1faf8413022119493161d08eb" id="r_ga85c6c2f1faf8413022119493161d08eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga85c6c2f1faf8413022119493161d08eb">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga85c6c2f1faf8413022119493161d08eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga437b8eb62b4f1c455f0fcf9185dee790" id="r_ga437b8eb62b4f1c455f0fcf9185dee790"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga437b8eb62b4f1c455f0fcf9185dee790">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga437b8eb62b4f1c455f0fcf9185dee790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaace82904ad5b20b810d80d9561e6277b" id="r_gaace82904ad5b20b810d80d9561e6277b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaace82904ad5b20b810d80d9561e6277b">MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaace82904ad5b20b810d80d9561e6277b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaab6efa4449159180daf2c0ad4452283c" id="r_gaab6efa4449159180daf2c0ad4452283c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaab6efa4449159180daf2c0ad4452283c">MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaab6efa4449159180daf2c0ad4452283c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga7844b694581a8cb752edd86444a10812" id="r_ga7844b694581a8cb752edd86444a10812"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7844b694581a8cb752edd86444a10812">MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga7844b694581a8cb752edd86444a10812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56f2ed2760ce4db4e8246d96f768e23e" id="r_ga56f2ed2760ce4db4e8246d96f768e23e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56f2ed2760ce4db4e8246d96f768e23e">MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga56f2ed2760ce4db4e8246d96f768e23e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gae92072e416a0f52664b7720d33b1fd91" id="r_gae92072e416a0f52664b7720d33b1fd91"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae92072e416a0f52664b7720d33b1fd91">MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gae92072e416a0f52664b7720d33b1fd91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:ga4312eb8909ce30ba6362af6aaa03f69e" id="r_ga4312eb8909ce30ba6362af6aaa03f69e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4312eb8909ce30ba6362af6aaa03f69e">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga4312eb8909ce30ba6362af6aaa03f69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:gaf455d79389af05675935d6d53d7ade7c" id="r_gaf455d79389af05675935d6d53d7ade7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf455d79389af05675935d6d53d7ade7c">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf455d79389af05675935d6d53d7ade7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga164cca6715f5d4ad090ccc4ab882dd68" id="r_ga164cca6715f5d4ad090ccc4ab882dd68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga164cca6715f5d4ad090ccc4ab882dd68">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga164cca6715f5d4ad090ccc4ab882dd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga773066aea6da7ba38442305ad2bf6af2" id="r_ga773066aea6da7ba38442305ad2bf6af2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga773066aea6da7ba38442305ad2bf6af2">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga773066aea6da7ba38442305ad2bf6af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga1dea31cb3edffff3b19d105f7374aa81" id="r_ga1dea31cb3edffff3b19d105f7374aa81"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1dea31cb3edffff3b19d105f7374aa81">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga1dea31cb3edffff3b19d105f7374aa81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga25a8fb0b64b30957a85d6cc8ccff3694" id="r_ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga25a8fb0b64b30957a85d6cc8ccff3694">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga6c85361c450a7a291e4a21ba5ad8c829" id="r_ga6c85361c450a7a291e4a21ba5ad8c829"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6c85361c450a7a291e4a21ba5ad8c829">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga6c85361c450a7a291e4a21ba5ad8c829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gaa0b8b7e5e999f0f647b157570879ab70" id="r_gaa0b8b7e5e999f0f647b157570879ab70"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa0b8b7e5e999f0f647b157570879ab70">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaa0b8b7e5e999f0f647b157570879ab70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga48f0eed84fa89303aab8926a5af140e0" id="r_ga48f0eed84fa89303aab8926a5af140e0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48f0eed84fa89303aab8926a5af140e0">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga48f0eed84fa89303aab8926a5af140e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gab630a43086137a34a22d379d99d4979e" id="r_gab630a43086137a34a22d379d99d4979e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab630a43086137a34a22d379d99d4979e">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab630a43086137a34a22d379d99d4979e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga48b4346142911ddd75ac4bb4575b4a44" id="r_ga48b4346142911ddd75ac4bb4575b4a44"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48b4346142911ddd75ac4bb4575b4a44">MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga48b4346142911ddd75ac4bb4575b4a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga5b2d3626004c26e5935658c75faed0fe" id="r_ga5b2d3626004c26e5935658c75faed0fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5b2d3626004c26e5935658c75faed0fe">MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga5b2d3626004c26e5935658c75faed0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga87f2af5e231ca701d6c241260f6632c8" id="r_ga87f2af5e231ca701d6c241260f6632c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga87f2af5e231ca701d6c241260f6632c8">MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga87f2af5e231ca701d6c241260f6632c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gac51d995815daa1270660faa6c941556b" id="r_gac51d995815daa1270660faa6c941556b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac51d995815daa1270660faa6c941556b">MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gac51d995815daa1270660faa6c941556b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gab592bb2afe239d110b69019bbcfbf39a" id="r_gab592bb2afe239d110b69019bbcfbf39a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab592bb2afe239d110b69019bbcfbf39a">MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab592bb2afe239d110b69019bbcfbf39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga94c5de50e6e2c146a56ca41fe875b1ae" id="r_ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga94c5de50e6e2c146a56ca41fe875b1ae">MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaffa8f7a22bc5dc5f0102e6a7d58aae22" id="r_gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga622d0a8ac987bd0a74fbf3a6aafb0622" id="r_ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56c7e14b62345bd224a7dd133c9cf47e" id="r_ga56c7e14b62345bd224a7dd133c9cf47e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56c7e14b62345bd224a7dd133c9cf47e">MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga56c7e14b62345bd224a7dd133c9cf47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaae863be535c94424a53999e430f94345" id="r_gaae863be535c94424a53999e430f94345"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaae863be535c94424a53999e430f94345">MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gaae863be535c94424a53999e430f94345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaf8a8d4ef6856d0325171771a38ed2b3f" id="r_gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf8a8d4ef6856d0325171771a38ed2b3f">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga13a37dc2bf4e9369d0f97257eedbb240" id="r_ga13a37dc2bf4e9369d0f97257eedbb240"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga13a37dc2bf4e9369d0f97257eedbb240">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga13a37dc2bf4e9369d0f97257eedbb240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaf1c40d9d43240fca324f6bddb7ba22b2" id="r_gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf1c40d9d43240fca324f6bddb7ba22b2">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga85c6c2f1faf8413022119493161d08eb" id="r_ga85c6c2f1faf8413022119493161d08eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga85c6c2f1faf8413022119493161d08eb">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga85c6c2f1faf8413022119493161d08eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga437b8eb62b4f1c455f0fcf9185dee790" id="r_ga437b8eb62b4f1c455f0fcf9185dee790"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga437b8eb62b4f1c455f0fcf9185dee790">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga437b8eb62b4f1c455f0fcf9185dee790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaace82904ad5b20b810d80d9561e6277b" id="r_gaace82904ad5b20b810d80d9561e6277b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaace82904ad5b20b810d80d9561e6277b">MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaace82904ad5b20b810d80d9561e6277b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaab6efa4449159180daf2c0ad4452283c" id="r_gaab6efa4449159180daf2c0ad4452283c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaab6efa4449159180daf2c0ad4452283c">MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaab6efa4449159180daf2c0ad4452283c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga7844b694581a8cb752edd86444a10812" id="r_ga7844b694581a8cb752edd86444a10812"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7844b694581a8cb752edd86444a10812">MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga7844b694581a8cb752edd86444a10812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56f2ed2760ce4db4e8246d96f768e23e" id="r_ga56f2ed2760ce4db4e8246d96f768e23e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56f2ed2760ce4db4e8246d96f768e23e">MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga56f2ed2760ce4db4e8246d96f768e23e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gae92072e416a0f52664b7720d33b1fd91" id="r_gae92072e416a0f52664b7720d33b1fd91"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae92072e416a0f52664b7720d33b1fd91">MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gae92072e416a0f52664b7720d33b1fd91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:ga4312eb8909ce30ba6362af6aaa03f69e" id="r_ga4312eb8909ce30ba6362af6aaa03f69e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4312eb8909ce30ba6362af6aaa03f69e">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga4312eb8909ce30ba6362af6aaa03f69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:gaf455d79389af05675935d6d53d7ade7c" id="r_gaf455d79389af05675935d6d53d7ade7c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf455d79389af05675935d6d53d7ade7c">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf455d79389af05675935d6d53d7ade7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga164cca6715f5d4ad090ccc4ab882dd68" id="r_ga164cca6715f5d4ad090ccc4ab882dd68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga164cca6715f5d4ad090ccc4ab882dd68">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga164cca6715f5d4ad090ccc4ab882dd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga773066aea6da7ba38442305ad2bf6af2" id="r_ga773066aea6da7ba38442305ad2bf6af2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga773066aea6da7ba38442305ad2bf6af2">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga773066aea6da7ba38442305ad2bf6af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding.  <br /></td></tr>
-<tr class="memitem:ga1dea31cb3edffff3b19d105f7374aa81" id="r_ga1dea31cb3edffff3b19d105f7374aa81"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1dea31cb3edffff3b19d105f7374aa81">MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga1dea31cb3edffff3b19d105f7374aa81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga25a8fb0b64b30957a85d6cc8ccff3694" id="r_ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga25a8fb0b64b30957a85d6cc8ccff3694">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga25a8fb0b64b30957a85d6cc8ccff3694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga6c85361c450a7a291e4a21ba5ad8c829" id="r_ga6c85361c450a7a291e4a21ba5ad8c829"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6c85361c450a7a291e4a21ba5ad8c829">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga6c85361c450a7a291e4a21ba5ad8c829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gaa0b8b7e5e999f0f647b157570879ab70" id="r_gaa0b8b7e5e999f0f647b157570879ab70"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa0b8b7e5e999f0f647b157570879ab70">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaa0b8b7e5e999f0f647b157570879ab70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:ga48f0eed84fa89303aab8926a5af140e0" id="r_ga48f0eed84fa89303aab8926a5af140e0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48f0eed84fa89303aab8926a5af140e0">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga48f0eed84fa89303aab8926a5af140e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding.  <br /></td></tr>
-<tr class="memitem:gab630a43086137a34a22d379d99d4979e" id="r_gab630a43086137a34a22d379d99d4979e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab630a43086137a34a22d379d99d4979e">MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab630a43086137a34a22d379d99d4979e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga48b4346142911ddd75ac4bb4575b4a44" id="r_ga48b4346142911ddd75ac4bb4575b4a44"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga48b4346142911ddd75ac4bb4575b4a44">MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga48b4346142911ddd75ac4bb4575b4a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga5b2d3626004c26e5935658c75faed0fe" id="r_ga5b2d3626004c26e5935658c75faed0fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5b2d3626004c26e5935658c75faed0fe">MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga5b2d3626004c26e5935658c75faed0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:ga87f2af5e231ca701d6c241260f6632c8" id="r_ga87f2af5e231ca701d6c241260f6632c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga87f2af5e231ca701d6c241260f6632c8">MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga87f2af5e231ca701d6c241260f6632c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gac51d995815daa1270660faa6c941556b" id="r_gac51d995815daa1270660faa6c941556b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac51d995815daa1270660faa6c941556b">MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gac51d995815daa1270660faa6c941556b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys.  <br /></td></tr>
-<tr class="memitem:gab592bb2afe239d110b69019bbcfbf39a" id="r_gab592bb2afe239d110b69019bbcfbf39a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab592bb2afe239d110b69019bbcfbf39a">MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gab592bb2afe239d110b69019bbcfbf39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key.  <br /></td></tr>
-<tr class="memitem:ga94c5de50e6e2c146a56ca41fe875b1ae" id="r_ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga94c5de50e6e2c146a56ca41fe875b1ae">MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga94c5de50e6e2c146a56ca41fe875b1ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaffa8f7a22bc5dc5f0102e6a7d58aae22" id="r_gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaffa8f7a22bc5dc5f0102e6a7d58aae22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga622d0a8ac987bd0a74fbf3a6aafb0622" id="r_ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga622d0a8ac987bd0a74fbf3a6aafb0622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56c7e14b62345bd224a7dd133c9cf47e" id="r_ga56c7e14b62345bd224a7dd133c9cf47e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56c7e14b62345bd224a7dd133c9cf47e">MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga56c7e14b62345bd224a7dd133c9cf47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaae863be535c94424a53999e430f94345" id="r_gaae863be535c94424a53999e430f94345"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaae863be535c94424a53999e430f94345">MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gaae863be535c94424a53999e430f94345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaf8a8d4ef6856d0325171771a38ed2b3f" id="r_gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf8a8d4ef6856d0325171771a38ed2b3f">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf8a8d4ef6856d0325171771a38ed2b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga13a37dc2bf4e9369d0f97257eedbb240" id="r_ga13a37dc2bf4e9369d0f97257eedbb240"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga13a37dc2bf4e9369d0f97257eedbb240">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga13a37dc2bf4e9369d0f97257eedbb240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaf1c40d9d43240fca324f6bddb7ba22b2" id="r_gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf1c40d9d43240fca324f6bddb7ba22b2">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:gaf1c40d9d43240fca324f6bddb7ba22b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga85c6c2f1faf8413022119493161d08eb" id="r_ga85c6c2f1faf8413022119493161d08eb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga85c6c2f1faf8413022119493161d08eb">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</a></td></tr>
-<tr class="memdesc:ga85c6c2f1faf8413022119493161d08eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga437b8eb62b4f1c455f0fcf9185dee790" id="r_ga437b8eb62b4f1c455f0fcf9185dee790"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga437b8eb62b4f1c455f0fcf9185dee790">MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:ga437b8eb62b4f1c455f0fcf9185dee790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
-<tr class="memitem:gaace82904ad5b20b810d80d9561e6277b" id="r_gaace82904ad5b20b810d80d9561e6277b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaace82904ad5b20b810d80d9561e6277b">MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaace82904ad5b20b810d80d9561e6277b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gaab6efa4449159180daf2c0ad4452283c" id="r_gaab6efa4449159180daf2c0ad4452283c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaab6efa4449159180daf2c0ad4452283c">MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:gaab6efa4449159180daf2c0ad4452283c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga7844b694581a8cb752edd86444a10812" id="r_ga7844b694581a8cb752edd86444a10812"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7844b694581a8cb752edd86444a10812">MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga7844b694581a8cb752edd86444a10812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:ga56f2ed2760ce4db4e8246d96f768e23e" id="r_ga56f2ed2760ce4db4e8246d96f768e23e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga56f2ed2760ce4db4e8246d96f768e23e">MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</a></td></tr>
-<tr class="memdesc:ga56f2ed2760ce4db4e8246d96f768e23e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys.  <br /></td></tr>
-<tr class="memitem:gae92072e416a0f52664b7720d33b1fd91" id="r_gae92072e416a0f52664b7720d33b1fd91"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae92072e416a0f52664b7720d33b1fd91">MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
-<tr class="memdesc:gae92072e416a0f52664b7720d33b1fd91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key.  <br /></td></tr>
+<tr class="memitem:gaf49068aad7b11d7dd57847107722624b" id="r_gaf49068aad7b11d7dd57847107722624b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf49068aad7b11d7dd57847107722624b">MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gaf49068aad7b11d7dd57847107722624b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gad96d63918b029c58379a519458e0fe5e" id="r_gad96d63918b029c58379a519458e0fe5e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad96d63918b029c58379a519458e0fe5e">MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gad96d63918b029c58379a519458e0fe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga4f7ea947e335da713b995b3dd5756726" id="r_ga4f7ea947e335da713b995b3dd5756726"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f7ea947e335da713b995b3dd5756726">MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga4f7ea947e335da713b995b3dd5756726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga7cd47280b5c29ab35fe15afdb1aff9b5" id="r_ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gab62b9607b6acf175174f192227482782" id="r_gab62b9607b6acf175174f192227482782"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab62b9607b6acf175174f192227482782">MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:gab62b9607b6acf175174f192227482782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size (in bytes) for the given key length.  <br /></td></tr>
+<tr class="memitem:ga8d6e188b879a8f1a287af3cb527abc1f" id="r_ga8d6e188b879a8f1a287af3cb527abc1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8d6e188b879a8f1a287af3cb527abc1f">MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga8d6e188b879a8f1a287af3cb527abc1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga50df60e5ac10a4d18d91793b9975f931" id="r_ga50df60e5ac10a4d18d91793b9975f931"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga50df60e5ac10a4d18d91793b9975f931">MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga50df60e5ac10a4d18d91793b9975f931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga9cddbdf9c06180c1ad4f1004c013a3b0" id="r_ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga046e2a5713b8ad6d69f9882d2fde5b3f" id="r_ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga398705431e601a6309bcf59a65f72328" id="r_ga398705431e601a6309bcf59a65f72328"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga398705431e601a6309bcf59a65f72328">MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:ga398705431e601a6309bcf59a65f72328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size (in bytes) for the given key length.  <br /></td></tr>
+<tr class="memitem:gaf49068aad7b11d7dd57847107722624b" id="r_gaf49068aad7b11d7dd57847107722624b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf49068aad7b11d7dd57847107722624b">MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gaf49068aad7b11d7dd57847107722624b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gad96d63918b029c58379a519458e0fe5e" id="r_gad96d63918b029c58379a519458e0fe5e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad96d63918b029c58379a519458e0fe5e">MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gad96d63918b029c58379a519458e0fe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga4f7ea947e335da713b995b3dd5756726" id="r_ga4f7ea947e335da713b995b3dd5756726"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f7ea947e335da713b995b3dd5756726">MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga4f7ea947e335da713b995b3dd5756726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga7cd47280b5c29ab35fe15afdb1aff9b5" id="r_ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gab62b9607b6acf175174f192227482782" id="r_gab62b9607b6acf175174f192227482782"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab62b9607b6acf175174f192227482782">MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:gab62b9607b6acf175174f192227482782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size (in bytes) for the given key length.  <br /></td></tr>
+<tr class="memitem:ga8d6e188b879a8f1a287af3cb527abc1f" id="r_ga8d6e188b879a8f1a287af3cb527abc1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8d6e188b879a8f1a287af3cb527abc1f">MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga8d6e188b879a8f1a287af3cb527abc1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga50df60e5ac10a4d18d91793b9975f931" id="r_ga50df60e5ac10a4d18d91793b9975f931"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga50df60e5ac10a4d18d91793b9975f931">MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga50df60e5ac10a4d18d91793b9975f931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga9cddbdf9c06180c1ad4f1004c013a3b0" id="r_ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga046e2a5713b8ad6d69f9882d2fde5b3f" id="r_ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga398705431e601a6309bcf59a65f72328" id="r_ga398705431e601a6309bcf59a65f72328"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga398705431e601a6309bcf59a65f72328">MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:ga398705431e601a6309bcf59a65f72328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size (in bytes) for the given key length.  <br /></td></tr>
+<tr class="memitem:gaf49068aad7b11d7dd57847107722624b" id="r_gaf49068aad7b11d7dd57847107722624b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf49068aad7b11d7dd57847107722624b">MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gaf49068aad7b11d7dd57847107722624b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gad96d63918b029c58379a519458e0fe5e" id="r_gad96d63918b029c58379a519458e0fe5e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad96d63918b029c58379a519458e0fe5e">MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gad96d63918b029c58379a519458e0fe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga4f7ea947e335da713b995b3dd5756726" id="r_ga4f7ea947e335da713b995b3dd5756726"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f7ea947e335da713b995b3dd5756726">MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga4f7ea947e335da713b995b3dd5756726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga7cd47280b5c29ab35fe15afdb1aff9b5" id="r_ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gab62b9607b6acf175174f192227482782" id="r_gab62b9607b6acf175174f192227482782"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab62b9607b6acf175174f192227482782">MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:gab62b9607b6acf175174f192227482782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size (in bytes) for the given key length.  <br /></td></tr>
+<tr class="memitem:ga8d6e188b879a8f1a287af3cb527abc1f" id="r_ga8d6e188b879a8f1a287af3cb527abc1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8d6e188b879a8f1a287af3cb527abc1f">MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga8d6e188b879a8f1a287af3cb527abc1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga50df60e5ac10a4d18d91793b9975f931" id="r_ga50df60e5ac10a4d18d91793b9975f931"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga50df60e5ac10a4d18d91793b9975f931">MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga50df60e5ac10a4d18d91793b9975f931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga9cddbdf9c06180c1ad4f1004c013a3b0" id="r_ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga046e2a5713b8ad6d69f9882d2fde5b3f" id="r_ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga398705431e601a6309bcf59a65f72328" id="r_ga398705431e601a6309bcf59a65f72328"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga398705431e601a6309bcf59a65f72328">MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:ga398705431e601a6309bcf59a65f72328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size (in bytes) for the given key length.  <br /></td></tr>
+<tr class="memitem:gaf49068aad7b11d7dd57847107722624b" id="r_gaf49068aad7b11d7dd57847107722624b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf49068aad7b11d7dd57847107722624b">MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gaf49068aad7b11d7dd57847107722624b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gad96d63918b029c58379a519458e0fe5e" id="r_gad96d63918b029c58379a519458e0fe5e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad96d63918b029c58379a519458e0fe5e">MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:gad96d63918b029c58379a519458e0fe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga4f7ea947e335da713b995b3dd5756726" id="r_ga4f7ea947e335da713b995b3dd5756726"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f7ea947e335da713b995b3dd5756726">MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga4f7ea947e335da713b995b3dd5756726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga7cd47280b5c29ab35fe15afdb1aff9b5" id="r_ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</a></td></tr>
+<tr class="memdesc:ga7cd47280b5c29ab35fe15afdb1aff9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:gab62b9607b6acf175174f192227482782" id="r_gab62b9607b6acf175174f192227482782"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab62b9607b6acf175174f192227482782">MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:gab62b9607b6acf175174f192227482782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract CPU workarea size (in bytes) for the given key length.  <br /></td></tr>
+<tr class="memitem:ga8d6e188b879a8f1a287af3cb527abc1f" id="r_ga8d6e188b879a8f1a287af3cb527abc1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8d6e188b879a8f1a287af3cb527abc1f">MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga8d6e188b879a8f1a287af3cb527abc1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga50df60e5ac10a4d18d91793b9975f931" id="r_ga50df60e5ac10a4d18d91793b9975f931"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga50df60e5ac10a4d18d91793b9975f931">MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga50df60e5ac10a4d18d91793b9975f931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga9cddbdf9c06180c1ad4f1004c013a3b0" id="r_ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga9cddbdf9c06180c1ad4f1004c013a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga046e2a5713b8ad6d69f9882d2fde5b3f" id="r_ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</a></td></tr>
+<tr class="memdesc:ga046e2a5713b8ad6d69f9882d2fde5b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form.  <br /></td></tr>
+<tr class="memitem:ga398705431e601a6309bcf59a65f72328" id="r_ga398705431e601a6309bcf59a65f72328"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga398705431e601a6309bcf59a65f72328">MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</a>(keyBitLength)</td></tr>
+<tr class="memdesc:ga398705431e601a6309bcf59a65f72328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract PKC workarea size (in bytes) for the given key length.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definitions of workarea sizes for the mcuxClRsa Sign. </p>
+<div class="textblock"><p>Definitions of workarea sizes for the mcuxClKey_generate_keypair function required to generate RSA key in CRT form. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga4312eb8909ce30ba6362af6aaa03f69e" name="ga4312eb8909ce30ba6362af6aaa03f69e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4312eb8909ce30ba6362af6aaa03f69e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gaf49068aad7b11d7dd57847107722624b" name="gaf49068aad7b11d7dd57847107722624b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf49068aad7b11d7dd57847107722624b">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaf455d79389af05675935d6d53d7ade7c" name="gaf455d79389af05675935d6d53d7ade7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf455d79389af05675935d6d53d7ade7c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gad96d63918b029c58379a519458e0fe5e" name="gad96d63918b029c58379a519458e0fe5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad96d63918b029c58379a519458e0fe5e">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga164cca6715f5d4ad090ccc4ab882dd68" name="ga164cca6715f5d4ad090ccc4ab882dd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga164cca6715f5d4ad090ccc4ab882dd68">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga4f7ea947e335da713b995b3dd5756726" name="ga4f7ea947e335da713b995b3dd5756726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f7ea947e335da713b995b3dd5756726">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga773066aea6da7ba38442305ad2bf6af2" name="ga773066aea6da7ba38442305ad2bf6af2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga773066aea6da7ba38442305ad2bf6af2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga7cd47280b5c29ab35fe15afdb1aff9b5" name="ga7cd47280b5c29ab35fe15afdb1aff9b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga1dea31cb3edffff3b19d105f7374aa81" name="ga1dea31cb3edffff3b19d105f7374aa81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1dea31cb3edffff3b19d105f7374aa81">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gab62b9607b6acf175174f192227482782" name="gab62b9607b6acf175174f192227482782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab62b9607b6acf175174f192227482782">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -434,82 +274,82 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
+<p>Macro to extract CPU workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>
-<a id="ga25a8fb0b64b30957a85d6cc8ccff3694" name="ga25a8fb0b64b30957a85d6cc8ccff3694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga25a8fb0b64b30957a85d6cc8ccff3694">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga8d6e188b879a8f1a287af3cb527abc1f" name="ga8d6e188b879a8f1a287af3cb527abc1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8d6e188b879a8f1a287af3cb527abc1f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga6c85361c450a7a291e4a21ba5ad8c829" name="ga6c85361c450a7a291e4a21ba5ad8c829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6c85361c450a7a291e4a21ba5ad8c829">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga50df60e5ac10a4d18d91793b9975f931" name="ga50df60e5ac10a4d18d91793b9975f931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga50df60e5ac10a4d18d91793b9975f931">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaa0b8b7e5e999f0f647b157570879ab70" name="gaa0b8b7e5e999f0f647b157570879ab70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa0b8b7e5e999f0f647b157570879ab70">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga9cddbdf9c06180c1ad4f1004c013a3b0" name="ga9cddbdf9c06180c1ad4f1004c013a3b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga48f0eed84fa89303aab8926a5af140e0" name="ga48f0eed84fa89303aab8926a5af140e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48f0eed84fa89303aab8926a5af140e0">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga046e2a5713b8ad6d69f9882d2fde5b3f" name="ga046e2a5713b8ad6d69f9882d2fde5b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gab630a43086137a34a22d379d99d4979e" name="gab630a43086137a34a22d379d99d4979e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab630a43086137a34a22d379d99d4979e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga398705431e601a6309bcf59a65f72328" name="ga398705431e601a6309bcf59a65f72328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga398705431e601a6309bcf59a65f72328">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -517,82 +357,82 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
+<p>Macro to extract PKC workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>
-<a id="ga48b4346142911ddd75ac4bb4575b4a44" name="ga48b4346142911ddd75ac4bb4575b4a44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48b4346142911ddd75ac4bb4575b4a44">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gaf49068aad7b11d7dd57847107722624b" name="gaf49068aad7b11d7dd57847107722624b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf49068aad7b11d7dd57847107722624b">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga5b2d3626004c26e5935658c75faed0fe" name="ga5b2d3626004c26e5935658c75faed0fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5b2d3626004c26e5935658c75faed0fe">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gad96d63918b029c58379a519458e0fe5e" name="gad96d63918b029c58379a519458e0fe5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad96d63918b029c58379a519458e0fe5e">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga87f2af5e231ca701d6c241260f6632c8" name="ga87f2af5e231ca701d6c241260f6632c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87f2af5e231ca701d6c241260f6632c8">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga4f7ea947e335da713b995b3dd5756726" name="ga4f7ea947e335da713b995b3dd5756726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f7ea947e335da713b995b3dd5756726">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gac51d995815daa1270660faa6c941556b" name="gac51d995815daa1270660faa6c941556b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac51d995815daa1270660faa6c941556b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga7cd47280b5c29ab35fe15afdb1aff9b5" name="ga7cd47280b5c29ab35fe15afdb1aff9b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gab592bb2afe239d110b69019bbcfbf39a" name="gab592bb2afe239d110b69019bbcfbf39a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab592bb2afe239d110b69019bbcfbf39a">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gab62b9607b6acf175174f192227482782" name="gab62b9607b6acf175174f192227482782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab62b9607b6acf175174f192227482782">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -600,82 +440,82 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key. </p>
+<p>Macro to extract CPU workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>
-<a id="ga94c5de50e6e2c146a56ca41fe875b1ae" name="ga94c5de50e6e2c146a56ca41fe875b1ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga94c5de50e6e2c146a56ca41fe875b1ae">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga8d6e188b879a8f1a287af3cb527abc1f" name="ga8d6e188b879a8f1a287af3cb527abc1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8d6e188b879a8f1a287af3cb527abc1f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaffa8f7a22bc5dc5f0102e6a7d58aae22" name="gaffa8f7a22bc5dc5f0102e6a7d58aae22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga50df60e5ac10a4d18d91793b9975f931" name="ga50df60e5ac10a4d18d91793b9975f931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga50df60e5ac10a4d18d91793b9975f931">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga622d0a8ac987bd0a74fbf3a6aafb0622" name="ga622d0a8ac987bd0a74fbf3a6aafb0622"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga9cddbdf9c06180c1ad4f1004c013a3b0" name="ga9cddbdf9c06180c1ad4f1004c013a3b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga56c7e14b62345bd224a7dd133c9cf47e" name="ga56c7e14b62345bd224a7dd133c9cf47e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56c7e14b62345bd224a7dd133c9cf47e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga046e2a5713b8ad6d69f9882d2fde5b3f" name="ga046e2a5713b8ad6d69f9882d2fde5b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaae863be535c94424a53999e430f94345" name="gaae863be535c94424a53999e430f94345"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaae863be535c94424a53999e430f94345">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga398705431e601a6309bcf59a65f72328" name="ga398705431e601a6309bcf59a65f72328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga398705431e601a6309bcf59a65f72328">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -683,82 +523,82 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
+<p>Macro to extract PKC workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>
-<a id="gaf8a8d4ef6856d0325171771a38ed2b3f" name="gaf8a8d4ef6856d0325171771a38ed2b3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf8a8d4ef6856d0325171771a38ed2b3f">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gaf49068aad7b11d7dd57847107722624b" name="gaf49068aad7b11d7dd57847107722624b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf49068aad7b11d7dd57847107722624b">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga13a37dc2bf4e9369d0f97257eedbb240" name="ga13a37dc2bf4e9369d0f97257eedbb240"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga13a37dc2bf4e9369d0f97257eedbb240">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gad96d63918b029c58379a519458e0fe5e" name="gad96d63918b029c58379a519458e0fe5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad96d63918b029c58379a519458e0fe5e">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaf1c40d9d43240fca324f6bddb7ba22b2" name="gaf1c40d9d43240fca324f6bddb7ba22b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf1c40d9d43240fca324f6bddb7ba22b2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga4f7ea947e335da713b995b3dd5756726" name="ga4f7ea947e335da713b995b3dd5756726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f7ea947e335da713b995b3dd5756726">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga85c6c2f1faf8413022119493161d08eb" name="ga85c6c2f1faf8413022119493161d08eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga85c6c2f1faf8413022119493161d08eb">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga7cd47280b5c29ab35fe15afdb1aff9b5" name="ga7cd47280b5c29ab35fe15afdb1aff9b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga437b8eb62b4f1c455f0fcf9185dee790" name="ga437b8eb62b4f1c455f0fcf9185dee790"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga437b8eb62b4f1c455f0fcf9185dee790">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[1/4]</span></h2>
+<a id="gab62b9607b6acf175174f192227482782" name="gab62b9607b6acf175174f192227482782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab62b9607b6acf175174f192227482782">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -766,82 +606,82 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
+<p>Macro to extract CPU workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>
-<a id="gaace82904ad5b20b810d80d9561e6277b" name="gaace82904ad5b20b810d80d9561e6277b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaace82904ad5b20b810d80d9561e6277b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga8d6e188b879a8f1a287af3cb527abc1f" name="ga8d6e188b879a8f1a287af3cb527abc1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8d6e188b879a8f1a287af3cb527abc1f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaab6efa4449159180daf2c0ad4452283c" name="gaab6efa4449159180daf2c0ad4452283c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaab6efa4449159180daf2c0ad4452283c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga50df60e5ac10a4d18d91793b9975f931" name="ga50df60e5ac10a4d18d91793b9975f931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga50df60e5ac10a4d18d91793b9975f931">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga7844b694581a8cb752edd86444a10812" name="ga7844b694581a8cb752edd86444a10812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7844b694581a8cb752edd86444a10812">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga9cddbdf9c06180c1ad4f1004c013a3b0" name="ga9cddbdf9c06180c1ad4f1004c013a3b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga56f2ed2760ce4db4e8246d96f768e23e" name="ga56f2ed2760ce4db4e8246d96f768e23e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56f2ed2760ce4db4e8246d96f768e23e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga046e2a5713b8ad6d69f9882d2fde5b3f" name="ga046e2a5713b8ad6d69f9882d2fde5b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gae92072e416a0f52664b7720d33b1fd91" name="gae92072e416a0f52664b7720d33b1fd91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae92072e416a0f52664b7720d33b1fd91">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_WAPKC_SIZE <span class="overload">[1/4]</span></h2>
+<a id="ga398705431e601a6309bcf59a65f72328" name="ga398705431e601a6309bcf59a65f72328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga398705431e601a6309bcf59a65f72328">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -849,82 +689,82 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key. </p>
+<p>Macro to extract PKC workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>
-<a id="ga4312eb8909ce30ba6362af6aaa03f69e" name="ga4312eb8909ce30ba6362af6aaa03f69e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4312eb8909ce30ba6362af6aaa03f69e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="gaf49068aad7b11d7dd57847107722624b" name="gaf49068aad7b11d7dd57847107722624b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf49068aad7b11d7dd57847107722624b">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaf455d79389af05675935d6d53d7ade7c" name="gaf455d79389af05675935d6d53d7ade7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf455d79389af05675935d6d53d7ade7c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="gad96d63918b029c58379a519458e0fe5e" name="gad96d63918b029c58379a519458e0fe5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad96d63918b029c58379a519458e0fe5e">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga164cca6715f5d4ad090ccc4ab882dd68" name="ga164cca6715f5d4ad090ccc4ab882dd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga164cca6715f5d4ad090ccc4ab882dd68">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="ga4f7ea947e335da713b995b3dd5756726" name="ga4f7ea947e335da713b995b3dd5756726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f7ea947e335da713b995b3dd5756726">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga773066aea6da7ba38442305ad2bf6af2" name="ga773066aea6da7ba38442305ad2bf6af2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga773066aea6da7ba38442305ad2bf6af2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="ga7cd47280b5c29ab35fe15afdb1aff9b5" name="ga7cd47280b5c29ab35fe15afdb1aff9b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7cd47280b5c29ab35fe15afdb1aff9b5">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WACPU_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding. </p>
+<p>Definition of CPU workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga1dea31cb3edffff3b19d105f7374aa81" name="ga1dea31cb3edffff3b19d105f7374aa81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1dea31cb3edffff3b19d105f7374aa81">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="gab62b9607b6acf175174f192227482782" name="gab62b9607b6acf175174f192227482782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab62b9607b6acf175174f192227482782">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WACPU_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -932,82 +772,82 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
+<p>Macro to extract CPU workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>
-<a id="ga25a8fb0b64b30957a85d6cc8ccff3694" name="ga25a8fb0b64b30957a85d6cc8ccff3694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga25a8fb0b64b30957a85d6cc8ccff3694">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="ga8d6e188b879a8f1a287af3cb527abc1f" name="ga8d6e188b879a8f1a287af3cb527abc1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8d6e188b879a8f1a287af3cb527abc1f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_1024_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 1024-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga6c85361c450a7a291e4a21ba5ad8c829" name="ga6c85361c450a7a291e4a21ba5ad8c829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6c85361c450a7a291e4a21ba5ad8c829">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="ga50df60e5ac10a4d18d91793b9975f931" name="ga50df60e5ac10a4d18d91793b9975f931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga50df60e5ac10a4d18d91793b9975f931">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_2048_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 2048-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gaa0b8b7e5e999f0f647b157570879ab70" name="gaa0b8b7e5e999f0f647b157570879ab70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa0b8b7e5e999f0f647b157570879ab70">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="ga9cddbdf9c06180c1ad4f1004c013a3b0" name="ga9cddbdf9c06180c1ad4f1004c013a3b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cddbdf9c06180c1ad4f1004c013a3b0">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_3072_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 3072-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="ga48f0eed84fa89303aab8926a5af140e0" name="ga48f0eed84fa89303aab8926a5af140e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48f0eed84fa89303aab8926a5af140e0">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="ga046e2a5713b8ad6d69f9882d2fde5b3f" name="ga046e2a5713b8ad6d69f9882d2fde5b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga046e2a5713b8ad6d69f9882d2fde5b3f">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_4096_WAPKC_SIZE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding. </p>
+<p>Definition of PKC workarea size (in bytes) for the mcuxClKey_generate_keypair function required to generate 4096-bit RSA keys in CRT form. </p>
 
 </div>
 </div>
-<a id="gab630a43086137a34a22d379d99d4979e" name="gab630a43086137a34a22d379d99d4979e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab630a43086137a34a22d379d99d4979e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[2/4]</span></h2>
+<a id="ga398705431e601a6309bcf59a65f72328" name="ga398705431e601a6309bcf59a65f72328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga398705431e601a6309bcf59a65f72328">&#9670;&#160;</a></span>MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</td>
+          <td class="memname">#define MCUXCLRSA_KEYGENERATION_CRT_WAPKC_SIZE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
           <td></td>
@@ -1015,1335 +855,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga48b4346142911ddd75ac4bb4575b4a44" name="ga48b4346142911ddd75ac4bb4575b4a44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48b4346142911ddd75ac4bb4575b4a44">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="ga5b2d3626004c26e5935658c75faed0fe" name="ga5b2d3626004c26e5935658c75faed0fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5b2d3626004c26e5935658c75faed0fe">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="ga87f2af5e231ca701d6c241260f6632c8" name="ga87f2af5e231ca701d6c241260f6632c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87f2af5e231ca701d6c241260f6632c8">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="gac51d995815daa1270660faa6c941556b" name="gac51d995815daa1270660faa6c941556b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac51d995815daa1270660faa6c941556b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="gab592bb2afe239d110b69019bbcfbf39a" name="gab592bb2afe239d110b69019bbcfbf39a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab592bb2afe239d110b69019bbcfbf39a">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga94c5de50e6e2c146a56ca41fe875b1ae" name="ga94c5de50e6e2c146a56ca41fe875b1ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga94c5de50e6e2c146a56ca41fe875b1ae">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaffa8f7a22bc5dc5f0102e6a7d58aae22" name="gaffa8f7a22bc5dc5f0102e6a7d58aae22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga622d0a8ac987bd0a74fbf3a6aafb0622" name="ga622d0a8ac987bd0a74fbf3a6aafb0622"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga56c7e14b62345bd224a7dd133c9cf47e" name="ga56c7e14b62345bd224a7dd133c9cf47e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56c7e14b62345bd224a7dd133c9cf47e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaae863be535c94424a53999e430f94345" name="gaae863be535c94424a53999e430f94345"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaae863be535c94424a53999e430f94345">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="gaf8a8d4ef6856d0325171771a38ed2b3f" name="gaf8a8d4ef6856d0325171771a38ed2b3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf8a8d4ef6856d0325171771a38ed2b3f">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga13a37dc2bf4e9369d0f97257eedbb240" name="ga13a37dc2bf4e9369d0f97257eedbb240"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga13a37dc2bf4e9369d0f97257eedbb240">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaf1c40d9d43240fca324f6bddb7ba22b2" name="gaf1c40d9d43240fca324f6bddb7ba22b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf1c40d9d43240fca324f6bddb7ba22b2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga85c6c2f1faf8413022119493161d08eb" name="ga85c6c2f1faf8413022119493161d08eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga85c6c2f1faf8413022119493161d08eb">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga437b8eb62b4f1c455f0fcf9185dee790" name="ga437b8eb62b4f1c455f0fcf9185dee790"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga437b8eb62b4f1c455f0fcf9185dee790">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="gaace82904ad5b20b810d80d9561e6277b" name="gaace82904ad5b20b810d80d9561e6277b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaace82904ad5b20b810d80d9561e6277b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaab6efa4449159180daf2c0ad4452283c" name="gaab6efa4449159180daf2c0ad4452283c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaab6efa4449159180daf2c0ad4452283c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga7844b694581a8cb752edd86444a10812" name="ga7844b694581a8cb752edd86444a10812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7844b694581a8cb752edd86444a10812">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga56f2ed2760ce4db4e8246d96f768e23e" name="ga56f2ed2760ce4db4e8246d96f768e23e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56f2ed2760ce4db4e8246d96f768e23e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gae92072e416a0f52664b7720d33b1fd91" name="gae92072e416a0f52664b7720d33b1fd91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae92072e416a0f52664b7720d33b1fd91">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_WAPKC_SIZE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="ga4312eb8909ce30ba6362af6aaa03f69e" name="ga4312eb8909ce30ba6362af6aaa03f69e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4312eb8909ce30ba6362af6aaa03f69e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="gaf455d79389af05675935d6d53d7ade7c" name="gaf455d79389af05675935d6d53d7ade7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf455d79389af05675935d6d53d7ade7c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="ga164cca6715f5d4ad090ccc4ab882dd68" name="ga164cca6715f5d4ad090ccc4ab882dd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga164cca6715f5d4ad090ccc4ab882dd68">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="ga773066aea6da7ba38442305ad2bf6af2" name="ga773066aea6da7ba38442305ad2bf6af2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga773066aea6da7ba38442305ad2bf6af2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="ga1dea31cb3edffff3b19d105f7374aa81" name="ga1dea31cb3edffff3b19d105f7374aa81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1dea31cb3edffff3b19d105f7374aa81">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga25a8fb0b64b30957a85d6cc8ccff3694" name="ga25a8fb0b64b30957a85d6cc8ccff3694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga25a8fb0b64b30957a85d6cc8ccff3694">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="ga6c85361c450a7a291e4a21ba5ad8c829" name="ga6c85361c450a7a291e4a21ba5ad8c829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6c85361c450a7a291e4a21ba5ad8c829">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="gaa0b8b7e5e999f0f647b157570879ab70" name="gaa0b8b7e5e999f0f647b157570879ab70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa0b8b7e5e999f0f647b157570879ab70">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="ga48f0eed84fa89303aab8926a5af140e0" name="ga48f0eed84fa89303aab8926a5af140e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48f0eed84fa89303aab8926a5af140e0">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="gab630a43086137a34a22d379d99d4979e" name="gab630a43086137a34a22d379d99d4979e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab630a43086137a34a22d379d99d4979e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga48b4346142911ddd75ac4bb4575b4a44" name="ga48b4346142911ddd75ac4bb4575b4a44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48b4346142911ddd75ac4bb4575b4a44">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="ga5b2d3626004c26e5935658c75faed0fe" name="ga5b2d3626004c26e5935658c75faed0fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5b2d3626004c26e5935658c75faed0fe">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="ga87f2af5e231ca701d6c241260f6632c8" name="ga87f2af5e231ca701d6c241260f6632c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87f2af5e231ca701d6c241260f6632c8">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="gac51d995815daa1270660faa6c941556b" name="gac51d995815daa1270660faa6c941556b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac51d995815daa1270660faa6c941556b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="gab592bb2afe239d110b69019bbcfbf39a" name="gab592bb2afe239d110b69019bbcfbf39a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab592bb2afe239d110b69019bbcfbf39a">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga94c5de50e6e2c146a56ca41fe875b1ae" name="ga94c5de50e6e2c146a56ca41fe875b1ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga94c5de50e6e2c146a56ca41fe875b1ae">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaffa8f7a22bc5dc5f0102e6a7d58aae22" name="gaffa8f7a22bc5dc5f0102e6a7d58aae22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga622d0a8ac987bd0a74fbf3a6aafb0622" name="ga622d0a8ac987bd0a74fbf3a6aafb0622"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga56c7e14b62345bd224a7dd133c9cf47e" name="ga56c7e14b62345bd224a7dd133c9cf47e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56c7e14b62345bd224a7dd133c9cf47e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaae863be535c94424a53999e430f94345" name="gaae863be535c94424a53999e430f94345"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaae863be535c94424a53999e430f94345">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="gaf8a8d4ef6856d0325171771a38ed2b3f" name="gaf8a8d4ef6856d0325171771a38ed2b3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf8a8d4ef6856d0325171771a38ed2b3f">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga13a37dc2bf4e9369d0f97257eedbb240" name="ga13a37dc2bf4e9369d0f97257eedbb240"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga13a37dc2bf4e9369d0f97257eedbb240">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaf1c40d9d43240fca324f6bddb7ba22b2" name="gaf1c40d9d43240fca324f6bddb7ba22b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf1c40d9d43240fca324f6bddb7ba22b2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga85c6c2f1faf8413022119493161d08eb" name="ga85c6c2f1faf8413022119493161d08eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga85c6c2f1faf8413022119493161d08eb">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga437b8eb62b4f1c455f0fcf9185dee790" name="ga437b8eb62b4f1c455f0fcf9185dee790"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga437b8eb62b4f1c455f0fcf9185dee790">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="gaace82904ad5b20b810d80d9561e6277b" name="gaace82904ad5b20b810d80d9561e6277b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaace82904ad5b20b810d80d9561e6277b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaab6efa4449159180daf2c0ad4452283c" name="gaab6efa4449159180daf2c0ad4452283c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaab6efa4449159180daf2c0ad4452283c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga7844b694581a8cb752edd86444a10812" name="ga7844b694581a8cb752edd86444a10812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7844b694581a8cb752edd86444a10812">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga56f2ed2760ce4db4e8246d96f768e23e" name="ga56f2ed2760ce4db4e8246d96f768e23e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56f2ed2760ce4db4e8246d96f768e23e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gae92072e416a0f52664b7720d33b1fd91" name="gae92072e416a0f52664b7720d33b1fd91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae92072e416a0f52664b7720d33b1fd91">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_WAPKC_SIZE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="ga4312eb8909ce30ba6362af6aaa03f69e" name="ga4312eb8909ce30ba6362af6aaa03f69e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4312eb8909ce30ba6362af6aaa03f69e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="gaf455d79389af05675935d6d53d7ade7c" name="gaf455d79389af05675935d6d53d7ade7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf455d79389af05675935d6d53d7ade7c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="ga164cca6715f5d4ad090ccc4ab882dd68" name="ga164cca6715f5d4ad090ccc4ab882dd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga164cca6715f5d4ad090ccc4ab882dd68">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="ga773066aea6da7ba38442305ad2bf6af2" name="ga773066aea6da7ba38442305ad2bf6af2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga773066aea6da7ba38442305ad2bf6af2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding. </p>
-
-</div>
-</div>
-<a id="ga1dea31cb3edffff3b19d105f7374aa81" name="ga1dea31cb3edffff3b19d105f7374aa81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1dea31cb3edffff3b19d105f7374aa81">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga25a8fb0b64b30957a85d6cc8ccff3694" name="ga25a8fb0b64b30957a85d6cc8ccff3694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga25a8fb0b64b30957a85d6cc8ccff3694">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="ga6c85361c450a7a291e4a21ba5ad8c829" name="ga6c85361c450a7a291e4a21ba5ad8c829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6c85361c450a7a291e4a21ba5ad8c829">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="gaa0b8b7e5e999f0f647b157570879ab70" name="gaa0b8b7e5e999f0f647b157570879ab70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa0b8b7e5e999f0f647b157570879ab70">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="ga48f0eed84fa89303aab8926a5af140e0" name="ga48f0eed84fa89303aab8926a5af140e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48f0eed84fa89303aab8926a5af140e0">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PKCS#1v1.5 encoding. </p>
-
-</div>
-</div>
-<a id="gab630a43086137a34a22d379d99d4979e" name="gab630a43086137a34a22d379d99d4979e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab630a43086137a34a22d379d99d4979e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_PKCS1V15ENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga48b4346142911ddd75ac4bb4575b4a44" name="ga48b4346142911ddd75ac4bb4575b4a44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga48b4346142911ddd75ac4bb4575b4a44">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_1024_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="ga5b2d3626004c26e5935658c75faed0fe" name="ga5b2d3626004c26e5935658c75faed0fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5b2d3626004c26e5935658c75faed0fe">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_2048_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="ga87f2af5e231ca701d6c241260f6632c8" name="ga87f2af5e231ca701d6c241260f6632c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87f2af5e231ca701d6c241260f6632c8">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_3072_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="gac51d995815daa1270660faa6c941556b" name="gac51d995815daa1270660faa6c941556b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac51d995815daa1270660faa6c941556b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_4096_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private plain keys. </p>
-
-</div>
-</div>
-<a id="gab592bb2afe239d110b69019bbcfbf39a" name="gab592bb2afe239d110b69019bbcfbf39a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab592bb2afe239d110b69019bbcfbf39a">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_PLAIN_WAPKC_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private plain key. </p>
-
-</div>
-</div>
-<a id="ga94c5de50e6e2c146a56ca41fe875b1ae" name="ga94c5de50e6e2c146a56ca41fe875b1ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga94c5de50e6e2c146a56ca41fe875b1ae">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaffa8f7a22bc5dc5f0102e6a7d58aae22" name="gaffa8f7a22bc5dc5f0102e6a7d58aae22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaffa8f7a22bc5dc5f0102e6a7d58aae22">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga622d0a8ac987bd0a74fbf3a6aafb0622" name="ga622d0a8ac987bd0a74fbf3a6aafb0622"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga622d0a8ac987bd0a74fbf3a6aafb0622">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga56c7e14b62345bd224a7dd133c9cf47e" name="ga56c7e14b62345bd224a7dd133c9cf47e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56c7e14b62345bd224a7dd133c9cf47e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaae863be535c94424a53999e430f94345" name="gaae863be535c94424a53999e430f94345"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaae863be535c94424a53999e430f94345">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PSSENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="gaf8a8d4ef6856d0325171771a38ed2b3f" name="gaf8a8d4ef6856d0325171771a38ed2b3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf8a8d4ef6856d0325171771a38ed2b3f">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_1024_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga13a37dc2bf4e9369d0f97257eedbb240" name="ga13a37dc2bf4e9369d0f97257eedbb240"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga13a37dc2bf4e9369d0f97257eedbb240">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_2048_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaf1c40d9d43240fca324f6bddb7ba22b2" name="gaf1c40d9d43240fca324f6bddb7ba22b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf1c40d9d43240fca324f6bddb7ba22b2">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_3072_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga85c6c2f1faf8413022119493161d08eb" name="ga85c6c2f1faf8413022119493161d08eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga85c6c2f1faf8413022119493161d08eb">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_4096_WACPU_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of CPU workarea size for the RSA Sign function using PKCS#1v1.5 encoding, for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga437b8eb62b4f1c455f0fcf9185dee790" name="ga437b8eb62b4f1c455f0fcf9185dee790"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga437b8eb62b4f1c455f0fcf9185dee790">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_PKCS1V15ENCODE_WACPU_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract CPU workarea size to be used with a non-standard key length, with a private CRT key. </p>
-
-</div>
-</div>
-<a id="gaace82904ad5b20b810d80d9561e6277b" name="gaace82904ad5b20b810d80d9561e6277b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaace82904ad5b20b810d80d9561e6277b">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_1024_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 1024-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gaab6efa4449159180daf2c0ad4452283c" name="gaab6efa4449159180daf2c0ad4452283c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaab6efa4449159180daf2c0ad4452283c">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_2048_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 2048-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga7844b694581a8cb752edd86444a10812" name="ga7844b694581a8cb752edd86444a10812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7844b694581a8cb752edd86444a10812">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_3072_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 3072-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="ga56f2ed2760ce4db4e8246d96f768e23e" name="ga56f2ed2760ce4db4e8246d96f768e23e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga56f2ed2760ce4db4e8246d96f768e23e">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_4096_WAPKC_SIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition of PKC workarea size for the RSA Sign function for 4096-bit private CRT keys. </p>
-
-</div>
-</div>
-<a id="gae92072e416a0f52664b7720d33b1fd91" name="gae92072e416a0f52664b7720d33b1fd91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae92072e416a0f52664b7720d33b1fd91">&#9670;&#160;</a></span>MCUXCLRSA_SIGN_CRT_WAPKC_SIZE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRSA_SIGN_CRT_WAPKC_SIZE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>keyBitLength</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Macro to extract PKC workarea size to be used with a non-standard key length, with a private CRT key. </p>
+<p>Macro to extract PKC workarea size (in bytes) for the given key length. </p>
 
 </div>
 </div>

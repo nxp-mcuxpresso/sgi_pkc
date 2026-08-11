@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClSgi_Constants.h Source File</title>
+<title>MCUX CLNS: mcuxClSgi_Types.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a00851_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClSgi_Constants.h</div></div>
+  <div class="headertitle"><div class="title">mcuxClSgi_Types.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00851.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023-2026 NXP                                                  */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023 NXP                                                       */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -131,37 +131,35 @@ $(function(){initNavTree('a00851_source.html','',''); });
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#ifndef MCUXCLSGI_CONSTANTS_H_</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define MCUXCLSGI_CONSTANTS_H_</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;<a class="code" href="a00854.html">mcuxClSgi_Types.h</a>&gt;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">/**********************************************</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> * CONSTANTS</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"> **********************************************/</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">/* Status/error codes */</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a01486.html#ga3a7f396d056150e6b660e0a1c1411d8a">   66</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_ERROR                            ((mcuxClSgi_Status_t) 0x0FFF5330U) </span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a01486.html#gae800260950cd588eab670511e2897b01">   67</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_UNWRAP_ERROR                     ((mcuxClSgi_Status_t) 0x0FFF53B8U) </span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a01486.html#gad238e73fbfbfd66329ec6bdcc869c74d">   68</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_KEYSIZE_NOT_SUPPORTED            ((mcuxClSgi_Status_t) 0x0FFF5374U) </span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a01486.html#gac50360c76a049483afe98382c66e56d7">   69</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_UNALIGNED_ACCESS_NOT_SUPPORTED   ((mcuxClSgi_Status_t) 0x0FFF5338U) </span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a01486.html#ga6943fe8a51be06c7ba75f2db2718beb1">   70</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_OK                               ((mcuxClSgi_Status_t) 0x0FFF2E03U) </span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a01486.html#ga15e56f64900801e09aefc4a6a1501e71">   71</a></span><span class="preprocessor">#define MCUXCLSGI_STATUS_FAULT                            ((mcuxClSgi_Status_t) 0x0FFFF0F0U) </span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif  </span><span class="comment">/* MCUXCLSGI_CONSTANTS_H_ */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
-<div class="ttc" id="aa00854_html"><div class="ttname"><a href="a00854.html">mcuxClSgi_Types.h</a></div><div class="ttdoc">Type and associated constant definitions of the mcuxClSgi component.</div></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef MCUXCLSGI_TYPES_H_</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MCUXCLSGI_TYPES_H_</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;mcuxClCore_Platform.h&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a01484.html#ga438bf518456bded28bd3285f86b59e71">   62</a></span><span class="keyword">typedef</span> uint32_t <a class="code hl_typedef" href="a01484.html#ga438bf518456bded28bd3285f86b59e71">mcuxClSgi_Status_t</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> <span class="comment">/* mcuxClSgi_Types */</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLSGI_TYPES_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa01484_html_ga438bf518456bded28bd3285f86b59e71"><div class="ttname"><a href="a01484.html#ga438bf518456bded28bd3285f86b59e71">mcuxClSgi_Status_t</a></div><div class="ttdeci">uint32_t mcuxClSgi_Status_t</div><div class="ttdoc">SGI status code.</div><div class="ttdef"><b>Definition</b> mcuxClSgi_Types.h:62</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00851.html">mcuxClSgi_Constants.h</a></li>
+    <li class="navelem"><a href="a00851.html">mcuxClSgi_Types.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

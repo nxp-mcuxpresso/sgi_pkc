@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLKEY_STATUS_</title>
+<title>MCUX CLNS: mcuxClKey_KeySize</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,202 +102,614 @@ $(function(){initNavTree('a01413.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLKEY_STATUS_ <div class="ingroups"><a class="el" href="a01411.html">mcuxClKey</a> &raquo; <a class="el" href="a01412.html">mcuxClKey_Macros</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClKey_KeySize <div class="ingroups"><a class="el" href="a01408.html">mcuxClKey</a> &raquo; <a class="el" href="a01409.html">mcuxClKey_Macros</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Return code definitions.  
+<p>Defines all key sizes of <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga3cac3b08cb53d2949698e19319010c49" id="r_ga3cac3b08cb53d2949698e19319010c49"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></td></tr>
-<tr class="memdesc:ga3cac3b08cb53d2949698e19319010c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key operation successful.  <br /></td></tr>
-<tr class="memitem:gaad298a05e6e023bc251b91ad5173ac59" id="r_gaad298a05e6e023bc251b91ad5173ac59"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaad298a05e6e023bc251b91ad5173ac59">MCUXCLKEY_STATUS_ERROR</a></td></tr>
-<tr class="memdesc:gaad298a05e6e023bc251b91ad5173ac59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error occured during Key operation.  <br /></td></tr>
-<tr class="memitem:gabcc2c3ef67df555b363b5bb51f71d83b" id="r_gabcc2c3ef67df555b363b5bb51f71d83b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabcc2c3ef67df555b363b5bb51f71d83b">MCUXCLKEY_STATUS_FAILURE</a></td></tr>
-<tr class="memdesc:gabcc2c3ef67df555b363b5bb51f71d83b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failure during execution.  <br /></td></tr>
-<tr class="memitem:gaf5c8b802949e1a7920cfdd65ec3fe42b" id="r_gaf5c8b802949e1a7920cfdd65ec3fe42b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf5c8b802949e1a7920cfdd65ec3fe42b">MCUXCLKEY_STATUS_INVALID_INPUT</a></td></tr>
-<tr class="memdesc:gaf5c8b802949e1a7920cfdd65ec3fe42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid input.  <br /></td></tr>
-<tr class="memitem:gab872154b651009223cde9dea7e081b98" id="r_gab872154b651009223cde9dea7e081b98"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab872154b651009223cde9dea7e081b98">MCUXCLKEY_STATUS_KEYSLOT_ERROR</a></td></tr>
-<tr class="memdesc:gab872154b651009223cde9dea7e081b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key slot error.  <br /></td></tr>
-<tr class="memitem:ga7be083c8ca459a7290b5cf7784c75469" id="r_ga7be083c8ca459a7290b5cf7784c75469"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7be083c8ca459a7290b5cf7784c75469">MCUXCLKEY_STATUS_FAULT_ATTACK</a></td></tr>
-<tr class="memdesc:ga7be083c8ca459a7290b5cf7784c75469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack detected.  <br /></td></tr>
-<tr class="memitem:gaa1223f9f839075cd078103d4129b5218" id="r_gaa1223f9f839075cd078103d4129b5218"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa1223f9f839075cd078103d4129b5218">MCUXCLKEY_STATUS_CRC_NOT_OK</a></td></tr>
-<tr class="memdesc:gaa1223f9f839075cd078103d4129b5218"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC verification failed.  <br /></td></tr>
-<tr class="memitem:ga570c6c57da1aaa17f64d3d322503b97f" id="r_ga570c6c57da1aaa17f64d3d322503b97f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga570c6c57da1aaa17f64d3d322503b97f">MCUXCLKEY_STATUS_ITERATIONS_EXCEEDED</a></td></tr>
-<tr class="memdesc:ga570c6c57da1aaa17f64d3d322503b97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum interations exceeded, during prime generation for RSA.  <br /></td></tr>
-<tr class="memitem:ga6ca1fd21e2f91e36cd18d281507bc005" id="r_ga6ca1fd21e2f91e36cd18d281507bc005"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6ca1fd21e2f91e36cd18d281507bc005">MCUXCLKEY_STATUS_VALIDATION_PASSED</a></td></tr>
-<tr class="memdesc:ga6ca1fd21e2f91e36cd18d281507bc005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key validation successful.  <br /></td></tr>
-<tr class="memitem:gaffba7b3ac623991f806248ec286cb42a" id="r_gaffba7b3ac623991f806248ec286cb42a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaffba7b3ac623991f806248ec286cb42a">MCUXCLKEY_STATUS_VALIDATION_FAILED</a></td></tr>
-<tr class="memdesc:gaffba7b3ac623991f806248ec286cb42a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key validation failed.  <br /></td></tr>
+<tr class="memitem:gaba60c5f0fa5e1bfb5299f1e6814c919f" id="r_gaba60c5f0fa5e1bfb5299f1e6814c919f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaba60c5f0fa5e1bfb5299f1e6814c919f">MCUXCLKEY_SIZE_NOTUSED</a></td></tr>
+<tr class="memdesc:gaba60c5f0fa5e1bfb5299f1e6814c919f"><td class="mdescLeft">&#160;</td><td class="mdescRight">key length field is not used (e.g. ECC keys)  <br /></td></tr>
+<tr class="memitem:gaf177970e4e11debb134233865ee5ef0d" id="r_gaf177970e4e11debb134233865ee5ef0d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf177970e4e11debb134233865ee5ef0d">MCUXCLKEY_SIZE_64</a></td></tr>
+<tr class="memdesc:gaf177970e4e11debb134233865ee5ef0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">64 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:gab0cb72bbcdd5736790b183a6e49f8eb8" id="r_gab0cb72bbcdd5736790b183a6e49f8eb8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab0cb72bbcdd5736790b183a6e49f8eb8">MCUXCLKEY_SIZE_128</a></td></tr>
+<tr class="memdesc:gab0cb72bbcdd5736790b183a6e49f8eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">128 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:gac82b7eaeeb5f153630b71bbd59a7e515" id="r_gac82b7eaeeb5f153630b71bbd59a7e515"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac82b7eaeeb5f153630b71bbd59a7e515">MCUXCLKEY_SIZE_160</a></td></tr>
+<tr class="memdesc:gac82b7eaeeb5f153630b71bbd59a7e515"><td class="mdescLeft">&#160;</td><td class="mdescRight">160 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:ga9871dfc831af8af21381f0f08007efe8" id="r_ga9871dfc831af8af21381f0f08007efe8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9871dfc831af8af21381f0f08007efe8">MCUXCLKEY_SIZE_192</a></td></tr>
+<tr class="memdesc:ga9871dfc831af8af21381f0f08007efe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">192 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:gaaeee050febe3515ef1369c27a77d8a79" id="r_gaaeee050febe3515ef1369c27a77d8a79"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaaeee050febe3515ef1369c27a77d8a79">MCUXCLKEY_SIZE_224</a></td></tr>
+<tr class="memdesc:gaaeee050febe3515ef1369c27a77d8a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">224 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:ga16f615ca2af0dcc6dad9930cbfc21b89" id="r_ga16f615ca2af0dcc6dad9930cbfc21b89"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga16f615ca2af0dcc6dad9930cbfc21b89">MCUXCLKEY_SIZE_256</a></td></tr>
+<tr class="memdesc:ga16f615ca2af0dcc6dad9930cbfc21b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">256 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:gad3a6f649d8e9b10a97bc0c04bc353718" id="r_gad3a6f649d8e9b10a97bc0c04bc353718"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad3a6f649d8e9b10a97bc0c04bc353718">MCUXCLKEY_SIZE_320</a></td></tr>
+<tr class="memdesc:gad3a6f649d8e9b10a97bc0c04bc353718"><td class="mdescLeft">&#160;</td><td class="mdescRight">320 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:ga0d300ed35264eccec76e71201613f065" id="r_ga0d300ed35264eccec76e71201613f065"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0d300ed35264eccec76e71201613f065">MCUXCLKEY_SIZE_384</a></td></tr>
+<tr class="memdesc:ga0d300ed35264eccec76e71201613f065"><td class="mdescLeft">&#160;</td><td class="mdescRight">348 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:ga7dd4afbbc02c2612af98796af352b875" id="r_ga7dd4afbbc02c2612af98796af352b875"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7dd4afbbc02c2612af98796af352b875">MCUXCLKEY_SIZE_512</a></td></tr>
+<tr class="memdesc:ga7dd4afbbc02c2612af98796af352b875"><td class="mdescLeft">&#160;</td><td class="mdescRight">512 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:ga704db03c84c8e46314089d8b052ba030" id="r_ga704db03c84c8e46314089d8b052ba030"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga704db03c84c8e46314089d8b052ba030">MCUXCLKEY_SIZE_521</a></td></tr>
+<tr class="memdesc:ga704db03c84c8e46314089d8b052ba030"><td class="mdescLeft">&#160;</td><td class="mdescRight">521 bit key, size in bytes  <br /></td></tr>
+<tr class="memitem:gadd198add7df214eed81dbe316b150d3d" id="r_gadd198add7df214eed81dbe316b150d3d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gadd198add7df214eed81dbe316b150d3d">MCUXCLKEY_SIZE_1024</a></td></tr>
+<tr class="memdesc:gadd198add7df214eed81dbe316b150d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">1024 bit key, size in bits  <br /></td></tr>
+<tr class="memitem:gacaf2b0cf43dc21e81e653d58be8320f6" id="r_gacaf2b0cf43dc21e81e653d58be8320f6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gacaf2b0cf43dc21e81e653d58be8320f6">MCUXCLKEY_SIZE_2048</a></td></tr>
+<tr class="memdesc:gacaf2b0cf43dc21e81e653d58be8320f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">2048 bit key, size in bits  <br /></td></tr>
+<tr class="memitem:gacdbba9c49cef3b7a47dc9570bdc72115" id="r_gacdbba9c49cef3b7a47dc9570bdc72115"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gacdbba9c49cef3b7a47dc9570bdc72115">MCUXCLKEY_SIZE_3072</a></td></tr>
+<tr class="memdesc:gacdbba9c49cef3b7a47dc9570bdc72115"><td class="mdescLeft">&#160;</td><td class="mdescRight">3072 bit key, size in bits  <br /></td></tr>
+<tr class="memitem:ga44cf02ee5c2944fa72ec10c3be54642a" id="r_ga44cf02ee5c2944fa72ec10c3be54642a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga44cf02ee5c2944fa72ec10c3be54642a">MCUXCLKEY_SIZE_4096</a></td></tr>
+<tr class="memdesc:ga44cf02ee5c2944fa72ec10c3be54642a"><td class="mdescLeft">&#160;</td><td class="mdescRight">4096 bit key, size in bits  <br /></td></tr>
+<tr class="memitem:gaf8c45542e3fe919a3dddc532b44cecd2" id="r_gaf8c45542e3fe919a3dddc532b44cecd2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf8c45542e3fe919a3dddc532b44cecd2">MCUXCLKEY_SIZE_6144</a></td></tr>
+<tr class="memdesc:gaf8c45542e3fe919a3dddc532b44cecd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">6144 bit key, size in bits  <br /></td></tr>
+<tr class="memitem:gaaee55d800a45f767592c0071e5fca0d8" id="r_gaaee55d800a45f767592c0071e5fca0d8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaaee55d800a45f767592c0071e5fca0d8">MCUXCLKEY_SIZE_8192</a></td></tr>
+<tr class="memdesc:gaaee55d800a45f767592c0071e5fca0d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">8192 bit key, size in bits  <br /></td></tr>
+<tr class="memitem:ga4c339cd5702dfbf2a4a5d131f597184b" id="r_ga4c339cd5702dfbf2a4a5d131f597184b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4c339cd5702dfbf2a4a5d131f597184b">MCUXCLKEY_SIZE_64_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga4c339cd5702dfbf2a4a5d131f597184b"><td class="mdescLeft">&#160;</td><td class="mdescRight">64 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga46a4709b4a513ab6676ee24944d4d2f0" id="r_ga46a4709b4a513ab6676ee24944d4d2f0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga46a4709b4a513ab6676ee24944d4d2f0">MCUXCLKEY_SIZE_128_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga46a4709b4a513ab6676ee24944d4d2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">128 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga468b330bc005b81ccfe88e11171f391f" id="r_ga468b330bc005b81ccfe88e11171f391f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga468b330bc005b81ccfe88e11171f391f">MCUXCLKEY_SIZE_160_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga468b330bc005b81ccfe88e11171f391f"><td class="mdescLeft">&#160;</td><td class="mdescRight">160 bit key, size in words  <br /></td></tr>
+<tr class="memitem:gaeab881403cb2a9ade4906fda695a086e" id="r_gaeab881403cb2a9ade4906fda695a086e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaeab881403cb2a9ade4906fda695a086e">MCUXCLKEY_SIZE_192_IN_WORDS</a></td></tr>
+<tr class="memdesc:gaeab881403cb2a9ade4906fda695a086e"><td class="mdescLeft">&#160;</td><td class="mdescRight">192 bit key, size in words  <br /></td></tr>
+<tr class="memitem:gaeb7c6bde09543bd3a45fc33c8e5beb3a" id="r_gaeb7c6bde09543bd3a45fc33c8e5beb3a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaeb7c6bde09543bd3a45fc33c8e5beb3a">MCUXCLKEY_SIZE_224_IN_WORDS</a></td></tr>
+<tr class="memdesc:gaeb7c6bde09543bd3a45fc33c8e5beb3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">224 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga6bea535c9b507d50ff14aa2dfb1ddf5b" id="r_ga6bea535c9b507d50ff14aa2dfb1ddf5b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6bea535c9b507d50ff14aa2dfb1ddf5b">MCUXCLKEY_SIZE_256_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga6bea535c9b507d50ff14aa2dfb1ddf5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">256 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga979dec395bea975d81634d14026159e4" id="r_ga979dec395bea975d81634d14026159e4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga979dec395bea975d81634d14026159e4">MCUXCLKEY_SIZE_320_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga979dec395bea975d81634d14026159e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">320 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga3ad1e0304140bdf547a93d45cbd7a5ff" id="r_ga3ad1e0304140bdf547a93d45cbd7a5ff"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3ad1e0304140bdf547a93d45cbd7a5ff">MCUXCLKEY_SIZE_384_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga3ad1e0304140bdf547a93d45cbd7a5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">348 bit key, size in words  <br /></td></tr>
+<tr class="memitem:gacfa3ec1113e89c824bc9d3aaad76d04e" id="r_gacfa3ec1113e89c824bc9d3aaad76d04e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gacfa3ec1113e89c824bc9d3aaad76d04e">MCUXCLKEY_SIZE_512_IN_WORDS</a></td></tr>
+<tr class="memdesc:gacfa3ec1113e89c824bc9d3aaad76d04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">512 bit key, size in words  <br /></td></tr>
+<tr class="memitem:gadaea316eb7a4a8b0b59e9f1879cae923" id="r_gadaea316eb7a4a8b0b59e9f1879cae923"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gadaea316eb7a4a8b0b59e9f1879cae923">MCUXCLKEY_SIZE_521_IN_WORDS</a></td></tr>
+<tr class="memdesc:gadaea316eb7a4a8b0b59e9f1879cae923"><td class="mdescLeft">&#160;</td><td class="mdescRight">521 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga0c357e26537083ca9164aab3820b4ca7" id="r_ga0c357e26537083ca9164aab3820b4ca7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0c357e26537083ca9164aab3820b4ca7">MCUXCLKEY_SIZE_1024_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga0c357e26537083ca9164aab3820b4ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">1024 bit key, size in words  <br /></td></tr>
+<tr class="memitem:gae48b497b883fa63ef84465fcb4fb3ced" id="r_gae48b497b883fa63ef84465fcb4fb3ced"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae48b497b883fa63ef84465fcb4fb3ced">MCUXCLKEY_SIZE_2048_IN_WORDS</a></td></tr>
+<tr class="memdesc:gae48b497b883fa63ef84465fcb4fb3ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">2048 bit key, size in words  <br /></td></tr>
+<tr class="memitem:gabbd3d5e04feb2c2f43a94d238cfca369" id="r_gabbd3d5e04feb2c2f43a94d238cfca369"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabbd3d5e04feb2c2f43a94d238cfca369">MCUXCLKEY_SIZE_3072_IN_WORDS</a></td></tr>
+<tr class="memdesc:gabbd3d5e04feb2c2f43a94d238cfca369"><td class="mdescLeft">&#160;</td><td class="mdescRight">3072 bit key, size in words  <br /></td></tr>
+<tr class="memitem:gada1e24d3f9d8207287333085df1712dd" id="r_gada1e24d3f9d8207287333085df1712dd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gada1e24d3f9d8207287333085df1712dd">MCUXCLKEY_SIZE_4096_IN_WORDS</a></td></tr>
+<tr class="memdesc:gada1e24d3f9d8207287333085df1712dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">4096 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga4de61cf46c4577ba0019f92814cbf804" id="r_ga4de61cf46c4577ba0019f92814cbf804"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4de61cf46c4577ba0019f92814cbf804">MCUXCLKEY_SIZE_6144_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga4de61cf46c4577ba0019f92814cbf804"><td class="mdescLeft">&#160;</td><td class="mdescRight">6144 bit key, size in words  <br /></td></tr>
+<tr class="memitem:ga6c05f57184c5dd0da0cbb44ba28ce0f8" id="r_ga6c05f57184c5dd0da0cbb44ba28ce0f8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6c05f57184c5dd0da0cbb44ba28ce0f8">MCUXCLKEY_SIZE_8192_IN_WORDS</a></td></tr>
+<tr class="memdesc:ga6c05f57184c5dd0da0cbb44ba28ce0f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">8192 bit key, size in words  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Return code definitions. </p>
+<div class="textblock"><p>Defines all key sizes of <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga3cac3b08cb53d2949698e19319010c49" name="ga3cac3b08cb53d2949698e19319010c49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3cac3b08cb53d2949698e19319010c49">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_OK</h2>
+<a id="gaba60c5f0fa5e1bfb5299f1e6814c919f" name="gaba60c5f0fa5e1bfb5299f1e6814c919f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaba60c5f0fa5e1bfb5299f1e6814c919f">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_NOTUSED</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_OK</td>
+          <td class="memname">#define MCUXCLKEY_SIZE_NOTUSED</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key operation successful. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03320.html#_a7">mcuxClAeadModes_Ccm_Aes128_Multipart_example.c</a>, <a class="el" href="a03321.html#_a7">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist1_example.c</a>, <a class="el" href="a03322.html#_a7">mcuxClAeadModes_Ccm_Aes128_Oneshot_Nist2_example.c</a>, <a class="el" href="a03323.html#_a7">mcuxClAeadModes_Ccm_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a03324.html#_a7">mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</a>, <a class="el" href="a03326.html#_a7">mcuxClAeadModes_Gcm_Aes128_Oneshot_LongNonce_example.c</a>, <a class="el" href="a03325.html#_a7">mcuxClAeadModes_Gcm_Aes128_Oneshot_example.c</a>, <a class="el" href="a03328.html#_a8">mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</a>, <a class="el" href="a03329.html#_a6">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a03330.html#_a9">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03331.html#_a6">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a03327.html#_a6">mcuxClCipherModes_Cbc_Aes128_Multipart_example.c</a>, <a class="el" href="a03332.html#_a9">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03334.html#_a6">mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingISO_example.c</a>, <a class="el" href="a03335.html#_a6">mcuxClCipherModes_Cbc_Aes128_Oneshot_PaddingZero_example.c</a>, <a class="el" href="a03333.html#_a6">mcuxClCipherModes_Cbc_Aes128_Oneshot_example.c</a>, <a class="el" href="a03336.html#_a9">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a03337.html#_a6">mcuxClCipherModes_Ctr_Aes128_Multipart_example.c</a>, <a class="el" href="a03338.html#_a9">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03339.html#_a6">mcuxClCipherModes_Ctr_Aes128_Oneshot_example.c</a>, <a class="el" href="a03341.html#_a6">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingISO_example.c</a>, <a class="el" href="a03343.html#_a9">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a03342.html#_a9">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03344.html#_a6">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_example.c</a>, <a class="el" href="a03340.html#_a6">mcuxClCipherModes_Ecb_Aes128_Multipart_example.c</a>, <a class="el" href="a03345.html#_a9">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03347.html#_a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingISO_example.c</a>, <a class="el" href="a03348.html#_a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingPKCS7_example.c</a>, <a class="el" href="a03349.html#_a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_PaddingZero_example.c</a>, <a class="el" href="a03350.html#_a7">mcuxClCipherModes_Ecb_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a03346.html#_a6">mcuxClCipherModes_Ecb_Aes128_Oneshot_example.c</a>, <a class="el" href="a03358.html#_a6">mcuxClEcc_ECDH_KeyAgreement_NIST_P256_example.c</a>, <a class="el" href="a03359.html#_a5">mcuxClEcc_ECDSA_FixedKeys_NIST_P256_example.c</a>, <a class="el" href="a03360.html#_a5">mcuxClEcc_ECDSA_GeneratedKeys_NIST_P256_example.c</a>, <a class="el" href="a03361.html#_a5">mcuxClEcc_ECDSA_VerifyOnly_NIST_P256_example.c</a>, <a class="el" href="a03362.html#_a6">mcuxClEcc_EdDSA_Ed25519_example.c</a>, <a class="el" href="a03363.html#_a6">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a03364.html#_a7">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a03365.html#_a6">mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c</a>, <a class="el" href="a03366.html#_a5">mcuxClEcc_MontDH_Curve25519_example.c</a>, <a class="el" href="a03367.html#_a5">mcuxClEcc_MontDH_Curve448_example.c</a>, <a class="el" href="a03370.html#_a28">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>, <a class="el" href="a03368.html#_a6">mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c</a>, <a class="el" href="a03369.html#_a6">mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</a>, <a class="el" href="a03373.html#_a6">mcuxClFfdh_KeyAgreement_ffdhe2048_example.c</a>, <a class="el" href="a03374.html#_a6">mcuxClFfdh_KeyAgreement_ffdhe3072_example.c</a>, <a class="el" href="a03375.html#_a6">mcuxClFfdh_KeyAgreement_ffdhe4096_example.c</a>, <a class="el" href="a03376.html#_a6">mcuxClFfdh_KeyAgreement_ffdhe6144_example.c</a>, <a class="el" href="a03377.html#_a6">mcuxClFfdh_KeyAgreement_ffdhe8192_example.c</a>, <a class="el" href="a03394.html#_a7">mcuxClHmac_Sw_Multipart_example.c</a>, <a class="el" href="a03395.html#_a7">mcuxClHmac_Sw_Oneshot_example.c</a>, <a class="el" href="a03396.html#_a7">mcuxClKdfModes_CM_CMAC_example.c</a>, <a class="el" href="a03397.html#_a6">mcuxClKdfModes_HKDF_example.c</a>, <a class="el" href="a03398.html#_a7">mcuxClKdfModes_SP800_108_Counter_Mode_CMAC_example.c</a>, <a class="el" href="a03399.html#_a7">mcuxClKdfModes_SP800_108_Double_Pipeline_Mode_CMAC_example.c</a>, <a class="el" href="a03400.html#_a7">mcuxClKdfModes_SP800_108_Double_Pipeline_Mode_HMAC_example.c</a>, <a class="el" href="a03401.html#_a7">mcuxClKdfModes_SP800_108_Feedback_Mode_CMAC_example.c</a>, <a class="el" href="a03402.html#_a6">mcuxClKdfModes_SP800_56C_example.c</a>, <a class="el" href="a03403.html#_a6">mcuxClKdfModes_SP800_56C_twostep_cmac_example.c</a>, <a class="el" href="a03404.html#_a6">mcuxClKdfModes_SP800_56C_twostep_hmac_example.c</a>, <a class="el" href="a03405.html#_a7">mcuxClKey_Load_Flush_Sgi_example.c</a>, <a class="el" href="a03406.html#_a9">mcuxClKey_Rewrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a03407.html#_a8">mcuxClKey_Unwrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a03409.html#_a9">mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example.c</a>, <a class="el" href="a03408.html#_a9">mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example.c</a>, <a class="el" href="a03410.html#_a9">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, <a class="el" href="a03412.html#_a6">mcuxClMacModes_Cmac_Aes128_Compute_PreloadedKey_example.c</a>, <a class="el" href="a03411.html#_a6">mcuxClMacModes_Cmac_Aes128_Compute_example.c</a>, <a class="el" href="a03413.html#_a9">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a03414.html#_a6">mcuxClMacModes_Cmac_Aes128_Multipart_example.c</a>, <a class="el" href="a03415.html#_a6">mcuxClMacModes_Cmac_Aes256_Compute_example.c</a>, <a class="el" href="a03424.html#_a8">mcuxClRsa_Cipher_RSAES_OAEP_example.c</a>, <a class="el" href="a03425.html#_a9">mcuxClRsa_Cipher_RSAES_PKCS1_v1_5_example.c</a>, <a class="el" href="a03426.html#_a8">mcuxClRsa_KeyGeneration_example.c</a>, <a class="el" href="a03427.html#_a8">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>, <a class="el" href="a03428.html#_a9">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>, and <a class="el" href="a03429.html#_a5">mcuxClSession_cleanupOnError_example.c</a>.</dd>
+<p>key length field is not used (e.g. ECC keys) </p>
+
+</div>
+</div>
+<a id="gaf177970e4e11debb134233865ee5ef0d" name="gaf177970e4e11debb134233865ee5ef0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf177970e4e11debb134233865ee5ef0d">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_64</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_64</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>64 bit key, size in bytes </p>
+
+</div>
+</div>
+<a id="gab0cb72bbcdd5736790b183a6e49f8eb8" name="gab0cb72bbcdd5736790b183a6e49f8eb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab0cb72bbcdd5736790b183a6e49f8eb8">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_128</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>128 bit key, size in bytes </p>
+
+</div>
+</div>
+<a id="gac82b7eaeeb5f153630b71bbd59a7e515" name="gac82b7eaeeb5f153630b71bbd59a7e515"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac82b7eaeeb5f153630b71bbd59a7e515">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_160</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_160</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>160 bit key, size in bytes </p>
+
+</div>
+</div>
+<a id="ga9871dfc831af8af21381f0f08007efe8" name="ga9871dfc831af8af21381f0f08007efe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9871dfc831af8af21381f0f08007efe8">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_192</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>192 bit key, size in bytes </p>
+
+</div>
+</div>
+<a id="gaaeee050febe3515ef1369c27a77d8a79" name="gaaeee050febe3515ef1369c27a77d8a79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaeee050febe3515ef1369c27a77d8a79">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_224</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_224</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>224 bit key, size in bytes </p>
+
+</div>
+</div>
+<a id="ga16f615ca2af0dcc6dad9930cbfc21b89" name="ga16f615ca2af0dcc6dad9930cbfc21b89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga16f615ca2af0dcc6dad9930cbfc21b89">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_256</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>256 bit key, size in bytes </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03364.html#_a21">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>, and <a class="el" href="a03394.html#_a0">mcuxClKdfModes_SP800_108_Double_Pipeline_Mode_HMAC_example.c</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="gaad298a05e6e023bc251b91ad5173ac59" name="gaad298a05e6e023bc251b91ad5173ac59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaad298a05e6e023bc251b91ad5173ac59">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_ERROR</h2>
+<a id="gad3a6f649d8e9b10a97bc0c04bc353718" name="gad3a6f649d8e9b10a97bc0c04bc353718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad3a6f649d8e9b10a97bc0c04bc353718">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_320</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_ERROR</td>
+          <td class="memname">#define MCUXCLKEY_SIZE_320</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Error occured during Key operation. </p>
+<p>320 bit key, size in bytes </p>
 
 </div>
 </div>
-<a id="gabcc2c3ef67df555b363b5bb51f71d83b" name="gabcc2c3ef67df555b363b5bb51f71d83b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabcc2c3ef67df555b363b5bb51f71d83b">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_FAILURE</h2>
+<a id="ga0d300ed35264eccec76e71201613f065" name="ga0d300ed35264eccec76e71201613f065"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0d300ed35264eccec76e71201613f065">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_384</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_FAILURE</td>
+          <td class="memname">#define MCUXCLKEY_SIZE_384</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Failure during execution. </p>
+<p>348 bit key, size in bytes </p>
 
 </div>
 </div>
-<a id="gaf5c8b802949e1a7920cfdd65ec3fe42b" name="gaf5c8b802949e1a7920cfdd65ec3fe42b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf5c8b802949e1a7920cfdd65ec3fe42b">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_INVALID_INPUT</h2>
+<a id="ga7dd4afbbc02c2612af98796af352b875" name="ga7dd4afbbc02c2612af98796af352b875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7dd4afbbc02c2612af98796af352b875">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_512</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_INVALID_INPUT</td>
+          <td class="memname">#define MCUXCLKEY_SIZE_512</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Invalid input. </p>
-
-</div>
-</div>
-<a id="gab872154b651009223cde9dea7e081b98" name="gab872154b651009223cde9dea7e081b98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab872154b651009223cde9dea7e081b98">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_KEYSLOT_ERROR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_KEYSLOT_ERROR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Key slot error. </p>
-
-</div>
-</div>
-<a id="ga7be083c8ca459a7290b5cf7784c75469" name="ga7be083c8ca459a7290b5cf7784c75469"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7be083c8ca459a7290b5cf7784c75469">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_FAULT_ATTACK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_FAULT_ATTACK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fault attack detected. </p>
-
-</div>
-</div>
-<a id="gaa1223f9f839075cd078103d4129b5218" name="gaa1223f9f839075cd078103d4129b5218"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa1223f9f839075cd078103d4129b5218">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_CRC_NOT_OK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_CRC_NOT_OK</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>CRC verification failed. </p>
-
-</div>
-</div>
-<a id="ga570c6c57da1aaa17f64d3d322503b97f" name="ga570c6c57da1aaa17f64d3d322503b97f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga570c6c57da1aaa17f64d3d322503b97f">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_ITERATIONS_EXCEEDED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_ITERATIONS_EXCEEDED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Maximum interations exceeded, during prime generation for RSA. </p>
-
-</div>
-</div>
-<a id="ga6ca1fd21e2f91e36cd18d281507bc005" name="ga6ca1fd21e2f91e36cd18d281507bc005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6ca1fd21e2f91e36cd18d281507bc005">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_VALIDATION_PASSED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_VALIDATION_PASSED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Key validation successful. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03368.html#_a11">mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c</a>, and <a class="el" href="a03369.html#_a11">mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</a>.</dd>
+<p>512 bit key, size in bytes </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03364.html#_a24">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="gaffba7b3ac623991f806248ec286cb42a" name="gaffba7b3ac623991f806248ec286cb42a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaffba7b3ac623991f806248ec286cb42a">&#9670;&#160;</a></span>MCUXCLKEY_STATUS_VALIDATION_FAILED</h2>
+<a id="ga704db03c84c8e46314089d8b052ba030" name="ga704db03c84c8e46314089d8b052ba030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga704db03c84c8e46314089d8b052ba030">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_521</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_STATUS_VALIDATION_FAILED</td>
+          <td class="memname">#define MCUXCLKEY_SIZE_521</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key validation failed. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03368.html#_a10">mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c</a>, and <a class="el" href="a03369.html#_a10">mcuxClEcc_Weier_KeyValidation_PublicKey_example.c</a>.</dd>
-</dl>
+<p>521 bit key, size in bytes </p>
+
+</div>
+</div>
+<a id="gadd198add7df214eed81dbe316b150d3d" name="gadd198add7df214eed81dbe316b150d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd198add7df214eed81dbe316b150d3d">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_1024</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1024 bit key, size in bits </p>
+
+</div>
+</div>
+<a id="gacaf2b0cf43dc21e81e653d58be8320f6" name="gacaf2b0cf43dc21e81e653d58be8320f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacaf2b0cf43dc21e81e653d58be8320f6">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_2048</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2048 bit key, size in bits </p>
+
+</div>
+</div>
+<a id="gacdbba9c49cef3b7a47dc9570bdc72115" name="gacdbba9c49cef3b7a47dc9570bdc72115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacdbba9c49cef3b7a47dc9570bdc72115">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_3072</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_3072</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3072 bit key, size in bits </p>
+
+</div>
+</div>
+<a id="ga44cf02ee5c2944fa72ec10c3be54642a" name="ga44cf02ee5c2944fa72ec10c3be54642a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44cf02ee5c2944fa72ec10c3be54642a">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_4096</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_4096</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>4096 bit key, size in bits </p>
+
+</div>
+</div>
+<a id="gaf8c45542e3fe919a3dddc532b44cecd2" name="gaf8c45542e3fe919a3dddc532b44cecd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf8c45542e3fe919a3dddc532b44cecd2">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_6144</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_6144</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>6144 bit key, size in bits </p>
+
+</div>
+</div>
+<a id="gaaee55d800a45f767592c0071e5fca0d8" name="gaaee55d800a45f767592c0071e5fca0d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaee55d800a45f767592c0071e5fca0d8">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_8192</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_8192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>8192 bit key, size in bits </p>
+
+</div>
+</div>
+<a id="ga4c339cd5702dfbf2a4a5d131f597184b" name="ga4c339cd5702dfbf2a4a5d131f597184b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4c339cd5702dfbf2a4a5d131f597184b">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_64_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_64_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>64 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga46a4709b4a513ab6676ee24944d4d2f0" name="ga46a4709b4a513ab6676ee24944d4d2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga46a4709b4a513ab6676ee24944d4d2f0">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_128_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_128_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>128 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga468b330bc005b81ccfe88e11171f391f" name="ga468b330bc005b81ccfe88e11171f391f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga468b330bc005b81ccfe88e11171f391f">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_160_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_160_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>160 bit key, size in words </p>
+
+</div>
+</div>
+<a id="gaeab881403cb2a9ade4906fda695a086e" name="gaeab881403cb2a9ade4906fda695a086e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeab881403cb2a9ade4906fda695a086e">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_192_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_192_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>192 bit key, size in words </p>
+
+</div>
+</div>
+<a id="gaeb7c6bde09543bd3a45fc33c8e5beb3a" name="gaeb7c6bde09543bd3a45fc33c8e5beb3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb7c6bde09543bd3a45fc33c8e5beb3a">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_224_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_224_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>224 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga6bea535c9b507d50ff14aa2dfb1ddf5b" name="ga6bea535c9b507d50ff14aa2dfb1ddf5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6bea535c9b507d50ff14aa2dfb1ddf5b">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_256_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_256_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>256 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga979dec395bea975d81634d14026159e4" name="ga979dec395bea975d81634d14026159e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga979dec395bea975d81634d14026159e4">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_320_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_320_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>320 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga3ad1e0304140bdf547a93d45cbd7a5ff" name="ga3ad1e0304140bdf547a93d45cbd7a5ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ad1e0304140bdf547a93d45cbd7a5ff">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_384_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_384_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>348 bit key, size in words </p>
+
+</div>
+</div>
+<a id="gacfa3ec1113e89c824bc9d3aaad76d04e" name="gacfa3ec1113e89c824bc9d3aaad76d04e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacfa3ec1113e89c824bc9d3aaad76d04e">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_512_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_512_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>512 bit key, size in words </p>
+
+</div>
+</div>
+<a id="gadaea316eb7a4a8b0b59e9f1879cae923" name="gadaea316eb7a4a8b0b59e9f1879cae923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadaea316eb7a4a8b0b59e9f1879cae923">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_521_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_521_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>521 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga0c357e26537083ca9164aab3820b4ca7" name="ga0c357e26537083ca9164aab3820b4ca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0c357e26537083ca9164aab3820b4ca7">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_1024_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_1024_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1024 bit key, size in words </p>
+
+</div>
+</div>
+<a id="gae48b497b883fa63ef84465fcb4fb3ced" name="gae48b497b883fa63ef84465fcb4fb3ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae48b497b883fa63ef84465fcb4fb3ced">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_2048_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_2048_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2048 bit key, size in words </p>
+
+</div>
+</div>
+<a id="gabbd3d5e04feb2c2f43a94d238cfca369" name="gabbd3d5e04feb2c2f43a94d238cfca369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbd3d5e04feb2c2f43a94d238cfca369">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_3072_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_3072_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3072 bit key, size in words </p>
+
+</div>
+</div>
+<a id="gada1e24d3f9d8207287333085df1712dd" name="gada1e24d3f9d8207287333085df1712dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gada1e24d3f9d8207287333085df1712dd">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_4096_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_4096_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>4096 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga4de61cf46c4577ba0019f92814cbf804" name="ga4de61cf46c4577ba0019f92814cbf804"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4de61cf46c4577ba0019f92814cbf804">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_6144_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_6144_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>6144 bit key, size in words </p>
+
+</div>
+</div>
+<a id="ga6c05f57184c5dd0da0cbb44ba28ce0f8" name="ga6c05f57184c5dd0da0cbb44ba28ce0f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6c05f57184c5dd0da0cbb44ba28ce0f8">&#9670;&#160;</a></span>MCUXCLKEY_SIZE_8192_IN_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_SIZE_8192_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>8192 bit key, size in words </p>
 
 </div>
 </div>

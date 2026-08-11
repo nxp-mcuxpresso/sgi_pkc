@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClMacModes_Modes.h Source File</title>
+<title>MCUX CLNS: mcuxClMac_Constants.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a00701_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClMacModes_Modes.h</div></div>
+  <div class="headertitle"><div class="title">mcuxClMac_Constants.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2020-2026 NXP                                                  */</span></div>
+<a href="a00701.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2021-2026 NXP                                                  */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -130,68 +130,34 @@ $(function(){initNavTree('a00701_source.html','',''); });
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       */</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#ifndef MCUXCLMACMODES_MODES_H_</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define MCUXCLMACMODES_MODES_H_</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;mcuxClCore_Platform.h&gt;</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &lt;mcuxCsslAnalysis.h&gt;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &lt;<a class="code" href="a00710.html">mcuxClMac_Types.h</a>&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef MCUXCLMAC_CONSTANTS_H_</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MCUXCLMAC_CONSTANTS_H_</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED(<span class="stringliteral">&quot;Declaration provided for externally accessible API&quot;</span>)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>extern const <a class="code hl_typedef" href="a01426.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a> <a class="code hl_variable" href="a01431.html#ga7df28da412f427562a5ffcb2b3ab8c35">mcuxClMac_ModeDescriptor_CMAC</a>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a01431.html#gab5f61e17bb7b7d97f69745700f107bc6">   68</a></span>static <a class="code hl_typedef" href="a01426.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> <a class="code hl_variable" href="a01431.html#gab5f61e17bb7b7d97f69745700f107bc6">mcuxClMac_Mode_CMAC</a> =</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  &amp;<a class="code hl_variable" href="a01431.html#ga7df28da412f427562a5ffcb2b3ab8c35">mcuxClMac_ModeDescriptor_CMAC</a>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>extern const <a class="code hl_typedef" href="a01426.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a> <a class="code hl_variable" href="a01431.html#ga1f80faae49b6cef0a5275ed1eccd72c2">mcuxClMac_ModeDescriptor_CMAC_NonBlocking</a>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a01431.html#ga6d2bea37b69bc27a067c50ed06384600">   91</a></span>static <a class="code hl_typedef" href="a01426.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> <a class="code hl_variable" href="a01431.html#ga6d2bea37b69bc27a067c50ed06384600">mcuxClMac_Mode_CMAC_NonBlocking</a> =</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  &amp;<a class="code hl_variable" href="a01431.html#ga1f80faae49b6cef0a5275ed1eccd72c2">mcuxClMac_ModeDescriptor_CMAC_NonBlocking</a>;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>extern const <a class="code hl_typedef" href="a01426.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a> <a class="code hl_variable" href="a01431.html#gacf3978d54625d231254d9b42bcbf349c">mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1</a>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a01431.html#ga39e525bf4e237be5933966afa1eafd02">  109</a></span>static <a class="code hl_typedef" href="a01426.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> <a class="code hl_variable" href="a01431.html#ga39e525bf4e237be5933966afa1eafd02">mcuxClMac_Mode_CBCMAC_PaddingISO9797_1_Method1</a> =</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  &amp;<a class="code hl_variable" href="a01431.html#gacf3978d54625d231254d9b42bcbf349c">mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1</a>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLMACMODES_MODES_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">mcuxClMac_Types.h</a></div><div class="ttdoc">Type definitions for the mcuxClMac component.</div></div>
-<div class="ttc" id="aa01426_html_ga8e9aa3b88af43aaf819650568abc471f"><div class="ttname"><a href="a01426.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a></div><div class="ttdeci">const mcuxClMac_ModeDescriptor_t *const mcuxClMac_Mode_t</div><div class="ttdoc">MAC mode/algorithm type.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:87</div></div>
-<div class="ttc" id="aa01426_html_gaad5e6326d43f28d324ef2d98ac3ad2cc"><div class="ttname"><a href="a01426.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a></div><div class="ttdeci">struct mcuxClMac_ModeDescriptor mcuxClMac_ModeDescriptor_t</div><div class="ttdoc">MAC mode/algorithm descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClMac_Types.h:80</div></div>
-<div class="ttc" id="aa01431_html_ga1f80faae49b6cef0a5275ed1eccd72c2"><div class="ttname"><a href="a01431.html#ga1f80faae49b6cef0a5275ed1eccd72c2">mcuxClMac_ModeDescriptor_CMAC_NonBlocking</a></div><div class="ttdeci">const mcuxClMac_ModeDescriptor_t mcuxClMac_ModeDescriptor_CMAC_NonBlocking</div><div class="ttdoc">AES-CMAC mode descriptor, non-blocking API, using the DMA for I/O operations.</div></div>
-<div class="ttc" id="aa01431_html_ga39e525bf4e237be5933966afa1eafd02"><div class="ttname"><a href="a01431.html#ga39e525bf4e237be5933966afa1eafd02">mcuxClMac_Mode_CBCMAC_PaddingISO9797_1_Method1</a></div><div class="ttdeci">static mcuxClMac_Mode_t mcuxClMac_Mode_CBCMAC_PaddingISO9797_1_Method1</div><div class="ttdoc">AES-CBC-MAC mode with ISO/IEC 9797-1 padding method 1.</div><div class="ttdef"><b>Definition</b> mcuxClMacModes_Modes.h:109</div></div>
-<div class="ttc" id="aa01431_html_ga6d2bea37b69bc27a067c50ed06384600"><div class="ttname"><a href="a01431.html#ga6d2bea37b69bc27a067c50ed06384600">mcuxClMac_Mode_CMAC_NonBlocking</a></div><div class="ttdeci">static mcuxClMac_Mode_t mcuxClMac_Mode_CMAC_NonBlocking</div><div class="ttdoc">AES-CMAC mode, non-blocking API, using the DMA for I/O operations.</div><div class="ttdef"><b>Definition</b> mcuxClMacModes_Modes.h:91</div></div>
-<div class="ttc" id="aa01431_html_ga7df28da412f427562a5ffcb2b3ab8c35"><div class="ttname"><a href="a01431.html#ga7df28da412f427562a5ffcb2b3ab8c35">mcuxClMac_ModeDescriptor_CMAC</a></div><div class="ttdeci">const mcuxClMac_ModeDescriptor_t mcuxClMac_ModeDescriptor_CMAC</div><div class="ttdoc">AES-CMAC mode descriptor.</div></div>
-<div class="ttc" id="aa01431_html_gab5f61e17bb7b7d97f69745700f107bc6"><div class="ttname"><a href="a01431.html#gab5f61e17bb7b7d97f69745700f107bc6">mcuxClMac_Mode_CMAC</a></div><div class="ttdeci">static mcuxClMac_Mode_t mcuxClMac_Mode_CMAC</div><div class="ttdoc">AES-CMAC mode.</div><div class="ttdef"><b>Definition</b> mcuxClMacModes_Modes.h:68</div></div>
-<div class="ttc" id="aa01431_html_gacf3978d54625d231254d9b42bcbf349c"><div class="ttname"><a href="a01431.html#gacf3978d54625d231254d9b42bcbf349c">mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1</a></div><div class="ttdeci">const mcuxClMac_ModeDescriptor_t mcuxClMac_ModeDescriptor_CBCMAC_PaddingISO9797_1_Method1</div><div class="ttdoc">AES-CBC-MAC mode descriptor with ISO/IEC 9797-1 padding method 1.</div></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">/* Status codes */</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a01419.html#ga29a0556d236921ec9e6680cd049f784b">   52</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_ERROR                     ((mcuxClMac_Status_t) 0x08885330U) </span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a01419.html#gaeee9d7aded8807ac014d1030847457a2">   53</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_FAILURE                   ((mcuxClMac_Status_t) 0x08885334U) </span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a01419.html#ga8eb86baa218d3f14c65c4cf1fd4a9a6b">   54</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_INVALID_PARAM             ((mcuxClMac_Status_t) 0x088853F8U) </span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a01419.html#ga025cf49de0fa3225a6d15fd972bf3c64">   55</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_FAULT_ATTACK              ((mcuxClMac_Status_t) 0x0888F0F0U) </span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a01419.html#ga7df50ebdaad50cfe8661c930df6c43df">   56</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_OK                        ((mcuxClMac_Status_t) 0x08882E03U) </span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a01419.html#ga322f2ecd934013fbc12b609d7f92b49f">   57</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_COMPARE_NOK               ((mcuxClMac_Status_t) 0x088889FCU) </span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a01419.html#gaa4205233c5a383270d954c792515a935">   58</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_JOB_STARTED               ((mcuxClMac_Status_t) 0x08882E47U) </span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a01419.html#ga2fb1d85d0758aa314cfa6684291edff8">   59</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_JOB_COMPLETED             ((mcuxClMac_Status_t) 0x08882EFCU) </span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a01419.html#ga26a3e698b35633850eb2347a188891d8">   60</a></span><span class="preprocessor">#define MCUXCLMAC_STATUS_JOB_COMPLETED_COMPARE_NOK ((mcuxClMac_Status_t) 0x08888903U) </span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLMAC_CONSTANTS_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>mcuxClMacModes_Modes.h</b></li>
+    <li class="navelem"><a href="a00701.html">mcuxClMac_Constants.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

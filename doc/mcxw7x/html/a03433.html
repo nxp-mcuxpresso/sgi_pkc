@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxCsslFlowProtection_Assert_example.c</title>
+<title>MCUX CLNS: mcuxCsslMemory_Copy_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,13 @@ $(function(){initNavTree('a03433.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxCsslFlowProtection_Assert_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxCsslMemory_Copy_example.c</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example for the Assert functionality of the Flow Protection component.</p>
-<p>Example for the Assert functionality of the Flow Protection component</p>
+<p>Example constant-time memory copy (CSSL component mcuxCsslMemory).</p>
+<p>Example constant-time memory copy (CSSL component mcuxCsslMemory)</p>
 <div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2020-2024 NXP                                                  */</span></div>
+<div class="line"><span class="comment">/* Copyright 2021, 2025 NXP                                                 */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
 <div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
@@ -141,142 +141,94 @@ $(function(){initNavTree('a03433.html','',''); });
 <div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#define MCUX_CSSL_FP_ASSERT_CALLBACK() assertCallback()</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mcuxClToolchain.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00938.html">mcuxCsslMemory.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mcuxCsslMemory_Examples.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00920.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00971.html">mcuxCsslParamIntegrity.h</a>&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;mcuxCsslExamples.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define EXIT_CODE_ERROR false   </span></div>
+<div class="line"><span class="preprocessor">#define EXIT_CODE_OK    true    </span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">/* Example global SC */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">volatile</span> uint32_t testVariable = 0u;</div>
+<div class="line">MCUXCSSL_MEMORY_EX_FUNCTION(mcuxCsslMemory_Copy_example)</div>
+<div class="line">{   </div>
+<div class="line">    <span class="comment">/* Define data arrays */</span></div>
+<div class="line">    ALIGNED uint8_t arr1[] = {0xe4u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u,</div>
+<div class="line">                              0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u,</div>
+<div class="line">                              0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u,</div>
+<div class="line">                              0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u,</div>
+<div class="line">                              0x76u};</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"><span class="comment">/* Function declaration                                                     */</span></div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> assertCallback(<span class="keywordtype">void</span>);</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"><span class="comment">/* Protected function declarations                                          */</span></div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"><a id="a0" name="a0"></a><a class="code hl_define" href="a01513.html#ga21e1a3f12fd2772ca92216b888b3bdff">MCUX_CSSL_FP_FUNCTION_DECL</a>(functionOnly0Assert) <span class="comment">/* Important: no semicolon here! */</span></div>
-<div class="line"><a id="a1" name="a1"></a><a class="code hl_define" href="a01513.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(<span class="keywordtype">void</span>) functionOnly0Assert(<span class="keywordtype">void</span>);</div>
-<div class="line"> </div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga21e1a3f12fd2772ca92216b888b3bdff">MCUX_CSSL_FP_FUNCTION_DECL</a>(functionOnly1Assert) <span class="comment">/* Important: no semicolon here! */</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(uint32_t) functionOnly1Assert(<span class="keywordtype">void</span>);</div>
-<div class="line"> </div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga21e1a3f12fd2772ca92216b888b3bdff">MCUX_CSSL_FP_FUNCTION_DECL</a>(functionAssert) <span class="comment">/* Important: no semicolon here! */</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(<span class="keywordtype">void</span>) functionAssert(<span class="keywordtype">void</span>);</div>
+<div class="line">    ALIGNED uint8_t arr2[<span class="keyword">sizeof</span>(arr1)] = {0u};</div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"><span class="comment">/* Function definitions                                                     */</span></div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Provoke buffer overflow =&gt; should return invalid parameter error */</span></div>
+<div class="line">    <a id="a0" name="a0"></a><a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(copyResult, copyToken, <a id="a1" name="a1"></a><a class="code hl_function" href="a01538.html#gaee82c726fe1d421446b22af31d2c52ad">mcuxCsslMemory_Copy</a>(</div>
+<div class="line">    <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk,*/</span> MCUX_CSSL_PI_PROTECT(arr1, arr2, <span class="keyword">sizeof</span>(arr1), <span class="keyword">sizeof</span>(arr1) + 1u),</div>
+<div class="line">    <span class="comment">/*  void const * src,                    */</span> arr1,</div>
+<div class="line">    <span class="comment">/*  void * dst,                          */</span> arr2,</div>
+<div class="line">    <span class="comment">/*  uint32_t dstLength,                    */</span> <span class="keyword">sizeof</span>(arr1),</div>
+<div class="line">    <span class="comment">/*  uint32_t length                        */</span> <span class="keyword">sizeof</span>(arr1) + 1u));</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">/* Check the return code of mcuxCsslMemory_Copy */</span></div>
+<div class="line">    <span class="keywordflow">if</span>((<a id="a2" name="a2"></a><a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01538.html#gaee82c726fe1d421446b22af31d2c52ad">mcuxCsslMemory_Copy</a>) != copyToken) || (<a id="_a3" name="_a3"></a><a class="code hl_define" href="a01536.html#ga0e60adf6203cb3acb2bdb3ddec166766">MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</a> != copyResult))</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> EXIT_CODE_ERROR;</div>
+<div class="line">    }</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> assertCallback(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line">  testVariable = 0xFFU;</div>
+<div class="line">    <a id="a4" name="a4"></a><a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Try to copy nothing (length = 0 bytes) =&gt; should return success */</span></div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(copyResult1, copyToken1, <a class="code hl_function" href="a01538.html#gaee82c726fe1d421446b22af31d2c52ad">mcuxCsslMemory_Copy</a>(</div>
+<div class="line">    <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk,*/</span> MCUX_CSSL_PI_PROTECT(arr1, arr2, <span class="keyword">sizeof</span>(arr1), 0u),</div>
+<div class="line">    <span class="comment">/*  void const * src,                    */</span> arr1,</div>
+<div class="line">    <span class="comment">/*  void * dst,                          */</span> arr2,</div>
+<div class="line">    <span class="comment">/*  uint32_t dstLength,                    */</span> <span class="keyword">sizeof</span>(arr1),</div>
+<div class="line">    <span class="comment">/*  uint32_t length                        */</span> 0u));</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">/* Check the return code of mcuxCsslMemory_Copy */</span></div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01538.html#gaee82c726fe1d421446b22af31d2c52ad">mcuxCsslMemory_Copy</a>) != copyToken1) || (<a id="_a5" name="_a5"></a><a class="code hl_define" href="a01536.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a> != copyResult1))</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> EXIT_CODE_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Copy arr1 to arr2 =&gt; should return success */</span></div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(copyResult2, copyToken2, <a class="code hl_function" href="a01538.html#gaee82c726fe1d421446b22af31d2c52ad">mcuxCsslMemory_Copy</a>(</div>
+<div class="line">    <span class="comment">/*  mcuxCsslParamIntegrity_Checksum_t chk,*/</span> MCUX_CSSL_PI_PROTECT(arr1, arr2, <span class="keyword">sizeof</span>(arr1), <span class="keyword">sizeof</span>(arr1)),</div>
+<div class="line">    <span class="comment">/*  void const * src,                    */</span> arr1,</div>
+<div class="line">    <span class="comment">/*  void * dst,                          */</span> arr2,</div>
+<div class="line">    <span class="comment">/*  uint32_t dstLength,                    */</span> <span class="keyword">sizeof</span>(arr1),</div>
+<div class="line">    <span class="comment">/*  uint32_t length                        */</span> <span class="keyword">sizeof</span>(arr1)));</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">/* Check the return code of mcuxCsslMemory_Copy */</span></div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01538.html#gaee82c726fe1d421446b22af31d2c52ad">mcuxCsslMemory_Copy</a>) != copyToken2) || (<a class="code hl_define" href="a01536.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a> != copyResult2))</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> EXIT_CODE_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* No error occurred during execution, exit with EXIT_CODE_OK */</span></div>
+<div class="line">    <span class="keywordflow">return</span> EXIT_CODE_OK;</div>
 <div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"><span class="comment">/* Protected function definitions                                           */</span></div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/*</span></div>
-<div class="line"><span class="comment"> * Example for a very basic protected function (without any protected code), used in the functionAssert example.</span></div>
-<div class="line"><span class="comment"> */</span></div>
-<div class="line"><a id="a2" name="a2"></a><a class="code hl_define" href="a01513.html#ga7c1d29e4d644c86f11e337e30dd2b210">MCUX_CSSL_FP_FUNCTION_DEF</a>(functionOnly0Assert) <span class="comment">/* Important: no semicolon here! */</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(<span class="keywordtype">void</span>) functionOnly0Assert(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line">  <span class="comment">/* FUNCTION_ENTRY initializes the flow protection for this function. */</span></div>
-<div class="line">  <a id="a3" name="a3"></a><a class="code hl_define" href="a01513.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb">MCUX_CSSL_FP_FUNCTION_ENTRY</a>(functionOnly0Assert);</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* FUNCTION_EXIT encodes the result together with a protection token in the</span></div>
-<div class="line"><span class="comment">   * return code. */</span></div>
-<div class="line">  <a id="a4" name="a4"></a><a class="code hl_define" href="a01513.html#ga4c6863806f0054719824891271a5f598">MCUX_CSSL_FP_FUNCTION_EXIT_VOID</a>(functionOnly0Assert);</div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/* Another simple protected function, used in the functionAssert example. */</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga7c1d29e4d644c86f11e337e30dd2b210">MCUX_CSSL_FP_FUNCTION_DEF</a>(functionOnly1Assert)</div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(uint32_t) functionOnly1Assert(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb">MCUX_CSSL_FP_FUNCTION_ENTRY</a>(functionOnly1Assert);</div>
-<div class="line">  <a id="a5" name="a5"></a><a class="code hl_define" href="a01513.html#ga7c4b79e79eecb68ef4e4fb4fb9fbc1b8">MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK</a>(functionOnly1Assert, 1u, 0xFAFAu);</div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/*</span></div>
-<div class="line"><span class="comment"> * Example of a protected function that performs an assertion.</span></div>
-<div class="line"><span class="comment"> */</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga7c1d29e4d644c86f11e337e30dd2b210">MCUX_CSSL_FP_FUNCTION_DEF</a>(functionAssert) <span class="comment">/* Important: no semicolon here! */</span></div>
-<div class="line"><a class="code hl_define" href="a01513.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a>(<span class="keywordtype">void</span>) functionAssert(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line">  <span class="comment">/* The protected function that will be called must be declared as expected,</span></div>
-<div class="line"><span class="comment">   * either in the FUNCTION_ENTRY, FUNCTION_EXIT, EXPECT, or an event that</span></div>
-<div class="line"><span class="comment">   * accepts expectation declarations.</span></div>
-<div class="line"><span class="comment">   * FUNCTION_ENTRY can be used with and without providing expectations. */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb">MCUX_CSSL_FP_FUNCTION_ENTRY</a>(functionAssert,</div>
-<div class="line">    <a id="a6" name="a6"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(functionOnly0Assert)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  <a id="a7" name="a7"></a><a class="code hl_define" href="a01513.html#ga8d8dfc8f87971ee861d0bc77118a97cb">MCUX_CSSL_FP_FUNCTION_CALL_VOID</a>(functionOnly0Assert());</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* The ASSERT macro allows the currently recorded code flow to be checked.</span></div>
-<div class="line"><span class="comment">   * The call to functionOnly has already been recorded as expected at the</span></div>
-<div class="line"><span class="comment">   * function entry, so at this point the only remaining expectation is that</span></div>
-<div class="line"><span class="comment">   * the function has been entered. */</span></div>
-<div class="line">  <a id="a8" name="a8"></a><a class="code hl_define" href="a01517.html#ga301b8f23ac6981e62649c8f571a6c6eb">MCUX_CSSL_FP_ASSERT</a>(</div>
-<div class="line">    <a id="a9" name="a9"></a><a class="code hl_define" href="a01513.html#ga9f7aa860f353079a6da5188bd18b977c">MCUX_CSSL_FP_FUNCTION_ENTERED</a>(functionAssert)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  (void) functionOnly1Assert();</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* At this point the functionOnly1Assert call event should have happened, but not</span></div>
-<div class="line"><span class="comment">   * yet recorded as an expectation. Therefore it should be specified as an</span></div>
-<div class="line"><span class="comment">   * expected event for the assertion to pass. */</span></div>
-<div class="line">  <a class="code hl_define" href="a01517.html#ga301b8f23ac6981e62649c8f571a6c6eb">MCUX_CSSL_FP_ASSERT</a>(</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga9f7aa860f353079a6da5188bd18b977c">MCUX_CSSL_FP_FUNCTION_ENTERED</a>(functionAssert),</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(functionOnly1Assert)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* This assertion will fail since it misses the expectation for the</span></div>
-<div class="line"><span class="comment">   * functionOnly1Assert call event. */</span></div>
-<div class="line">  <a class="code hl_define" href="a01517.html#ga301b8f23ac6981e62649c8f571a6c6eb">MCUX_CSSL_FP_ASSERT</a>(</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga9f7aa860f353079a6da5188bd18b977c">MCUX_CSSL_FP_FUNCTION_ENTERED</a>(functionAssert)</div>
-<div class="line">  );</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* At this point MCUX_CSSL_FP_ASSERT_CALLBACK should be already executed</span></div>
-<div class="line"><span class="comment">  testVariable should be set to 0xFF*/</span></div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* FUNCTION_EXIT can be used with and without providing expectations. */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga4c6863806f0054719824891271a5f598">MCUX_CSSL_FP_FUNCTION_EXIT_VOID</a>(functionAssert,</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(functionOnly1Assert)</div>
-<div class="line">  );</div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"><span class="comment">/* Unprotected main example function                                        */</span></div>
-<div class="line"><span class="comment">/****************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">MCUX_CSSL_EX_FUNCTION(mcuxCsslFlowProtection_Assert_example)</div>
-<div class="line">{</div>
-<div class="line">  <span class="comment">/* Return value from FP token is not used */</span></div>
-<div class="line">  (void) functionAssert();</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">return</span> MCUX_CSSL_EX_OK;</div>
-<div class="line">}</div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa01513_html_ga21e1a3f12fd2772ca92216b888b3bdff"><div class="ttname"><a href="a01513.html#ga21e1a3f12fd2772ca92216b888b3bdff">MCUX_CSSL_FP_FUNCTION_DECL</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_DECL(...)</div><div class="ttdoc">Declaration of a flow protected function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:186</div></div>
-<div class="ttc" id="aa01513_html_ga2fda8e2a0e7d862b113b28bcc1b4d9bb"><div class="ttname"><a href="a01513.html#ga2fda8e2a0e7d862b113b28bcc1b4d9bb">MCUX_CSSL_FP_FUNCTION_ENTRY</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_ENTRY(...)</div><div class="ttdoc">Flow protection handler for the function entry point.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:305</div></div>
-<div class="ttc" id="aa01513_html_ga4c6863806f0054719824891271a5f598"><div class="ttname"><a href="a01513.html#ga4c6863806f0054719824891271a5f598">MCUX_CSSL_FP_FUNCTION_EXIT_VOID</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_EXIT_VOID(...)</div><div class="ttdoc">Flow protection handler for the exit point of functions with the return type void.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:427</div></div>
-<div class="ttc" id="aa01513_html_ga6cb5dab960bed02a02ad907bd2a54a4b"><div class="ttname"><a href="a01513.html#ga6cb5dab960bed02a02ad907bd2a54a4b">MCUX_CSSL_FP_PROTECTED_TYPE</a></div><div class="ttdeci">#define MCUX_CSSL_FP_PROTECTED_TYPE(resultType)</div><div class="ttdoc">Based on a given base type, builds a return type with flow protection.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:158</div></div>
-<div class="ttc" id="aa01513_html_ga7c1d29e4d644c86f11e337e30dd2b210"><div class="ttname"><a href="a01513.html#ga7c1d29e4d644c86f11e337e30dd2b210">MCUX_CSSL_FP_FUNCTION_DEF</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_DEF(...)</div><div class="ttdoc">Definition of a flow protected function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:220</div></div>
-<div class="ttc" id="aa01513_html_ga7c4b79e79eecb68ef4e4fb4fb9fbc1b8"><div class="ttname"><a href="a01513.html#ga7c4b79e79eecb68ef4e4fb4fb9fbc1b8">MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_EXIT_WITH_CHECK(...)</div><div class="ttdoc">Flow protection handler for the function exit point which includes an actual check of the code flow.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:387</div></div>
-<div class="ttc" id="aa01513_html_ga8d8dfc8f87971ee861d0bc77118a97cb"><div class="ttname"><a href="a01513.html#ga8d8dfc8f87971ee861d0bc77118a97cb">MCUX_CSSL_FP_FUNCTION_CALL_VOID</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_VOID(...)</div><div class="ttdoc">Call a flow protected void function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:529</div></div>
-<div class="ttc" id="aa01513_html_ga9f7aa860f353079a6da5188bd18b977c"><div class="ttname"><a href="a01513.html#ga9f7aa860f353079a6da5188bd18b977c">MCUX_CSSL_FP_FUNCTION_ENTERED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_ENTERED(id)</div><div class="ttdoc">Expectation implementation of an entered (but not exited) function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:832</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01517_html_ga301b8f23ac6981e62649c8f571a6c6eb"><div class="ttname"><a href="a01517.html#ga301b8f23ac6981e62649c8f571a6c6eb">MCUX_CSSL_FP_ASSERT</a></div><div class="ttdeci">#define MCUX_CSSL_FP_ASSERT(...)</div><div class="ttdoc">Assert an expected state of the code flow.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:1493</div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa00920_html"><div class="ttname"><a href="a00920.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
+<div class="ttc" id="aa00938_html"><div class="ttname"><a href="a00938.html">mcuxCsslMemory.h</a></div><div class="ttdoc">Top-level include file for the CSSL memory functions.</div></div>
+<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">mcuxCsslParamIntegrity.h</a></div><div class="ttdoc">Top-level include file for the parameter integrity protection mechanism.</div></div>
+<div class="ttc" id="aa01510_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
+<div class="ttc" id="aa01510_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
+<div class="ttc" id="aa01510_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
+<div class="ttc" id="aa01536_html_ga0e60adf6203cb3acb2bdb3ddec166766"><div class="ttname"><a href="a01536.html#ga0e60adf6203cb3acb2bdb3ddec166766">MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_INVALID_PARAMETER</div><div class="ttdoc">A parameter was invalid.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:72</div></div>
+<div class="ttc" id="aa01536_html_gab2993c75e7ef98fed36f03946630e41c"><div class="ttname"><a href="a01536.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_OK</div><div class="ttdoc">The operation was successful.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:68</div></div>
+<div class="ttc" id="aa01538_html_gaee82c726fe1d421446b22af31d2c52ad"><div class="ttname"><a href="a01538.html#gaee82c726fe1d421446b22af31d2c52ad">mcuxCsslMemory_Copy</a></div><div class="ttdeci">mcuxCsslMemory_Status_t mcuxCsslMemory_Copy(mcuxCsslParamIntegrity_Checksum_t chk, void const *pSrc, void *pDst, uint32_t dstLength, uint32_t length)</div><div class="ttdoc">Copies length bytes of data from pSrc to pDst.</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

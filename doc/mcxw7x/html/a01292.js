@@ -1,16 +1,18 @@
 var a01292 =
 [
-    [ "PERI_KPP_H_", "a01292.html#a24d259a7bfcc72135487ab69b9bcf213", null ],
-    [ "KPP_KPCR_KRE", "a01783.html#ga272400626fa2c82a618bc6a3e77d6b12", null ],
-    [ "KPP_KPCR_KCO", "a01783.html#gae2c0eee17b48b167d60c4640246b38b5", null ],
-    [ "KPP_KPSR_KPKD", "a01783.html#ga3ab663999557c154dd0c61144cac0f0e", null ],
-    [ "KPP_KPSR_KPKR", "a01783.html#ga29f7896b59843aa3689a7e40d03e9ddf", null ],
-    [ "KPP_KPSR_KDSC", "a01783.html#ga403654465ee5ac06df583836f1616cbb", null ],
-    [ "KPP_KPSR_KRSS", "a01783.html#gabd962d447de0fe5f162cedf59e471a1b", null ],
-    [ "KPP_KPSR_KDIE", "a01783.html#ga00751be6e5c408770e4dcff595e952a0", null ],
-    [ "KPP_KPSR_KRIE", "a01783.html#gac81cbc9cf71539129cf35d0c8ef9d417", null ],
-    [ "KPP_KDDR_KRDD", "a01783.html#ga03ec4671be3172071c1c27e793f9fd16", null ],
-    [ "KPP_KDDR_KCDD", "a01783.html#ga1e4acfe68232fe98a34a8a5d0c095afb", null ],
-    [ "KPP_KPDR_KRD", "a01783.html#gab183f9b4941283b60765b3f26b2e6670", null ],
-    [ "KPP_KPDR_KCD", "a01783.html#ga0c6dd45de2d80a1578b6fc8ee5f639a0", null ]
+    [ "PERI_LPACMP_H_", "a01292.html#adcc386df3e7a4a02b98512d48a450c58", null ],
+    [ "LPACMP_EXT_TRIG_COUNT", "a01779.html#ga4f5dc872ac70ca7c4e89c28e25efa310", null ],
+    [ "LPACMP_CTRL_BLOCK_EN", "a01780.html#gab4ef963686b21bfd7609d326e917c07e", null ],
+    [ "LPACMP_CTRL_MODE", "a01780.html#ga50035b97e441f86a162867f981351e03", null ],
+    [ "LPACMP_INTERVAL_INVL", "a01780.html#ga30c0cbb3684ae3cdebe3dac02a3dcc84", null ],
+    [ "LPACMP_COMP_IF_MATCH_IF", "a01780.html#ga37277156bf9aeadc10817c554acc66da", null ],
+    [ "LPACMP_SEL_INP_SEL", "a01780.html#gae3ca16ca91494a17f36d55c544289460", null ],
+    [ "LPACMP_SEL_HIGHER", "a01780.html#gae6672604135016da367e3a47db7c0ab5", null ],
+    [ "LPACMP_SEL_INN_SEL", "a01780.html#ga9bb2d99991d498daad1992fea21d1e8b", null ],
+    [ "LPACMP_DELAY_DEL", "a01780.html#ga2a748c424acd6ed0bdc5cf2ddea7560c", null ],
+    [ "LPACMP_STATUS_CHNL_EN", "a01780.html#gaf981a8b296ba8c37e0cb0b395d537523", null ],
+    [ "LPACMP_STATUS_MATCH_IE", "a01780.html#gaf965904ac8b70b670fafdfcad6f9bcf8", null ],
+    [ "LPACMP_STATUS_TRGOP_EN", "a01780.html#gab4c4871b3251d51c5bf52008eabbb66c", null ],
+    [ "LPACMP_STATUS_WAKEUPEN", "a01780.html#ga51dc9594c9a8c026bee860344e50d9ee", null ],
+    [ "LPACMP_STATUS_TRGOPWDH", "a01780.html#ga99d1e43af88c7e8b453a959e653d1c4f", null ]
 ];

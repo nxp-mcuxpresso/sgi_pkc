@@ -1,8 +1,8 @@
 var a01494 =
 [
-    [ "mcuxClXof_AlgorithmDescriptor_t", "a01494.html#ga87d0a83ea0a33776f003f357f2cc46fb", null ],
-    [ "mcuxClXof_Algo_t", "a01494.html#gae81456a05942eca8efc532d06f20eb73", null ],
-    [ "mcuxClXof_ContextDescriptor_t", "a01494.html#ga2a035d35d6b007c229fd74af54c32464", null ],
-    [ "mcuxClXof_Context_t", "a01494.html#ga12840d1a183c9196ade8a72845c3a750", null ],
-    [ "mcuxClXof_Status_t", "a01494.html#ga1fded28de09972be090a88c34d621ceb", null ]
+    [ "Data Integrity API", "a01495.html", "a01495" ],
+    [ "Flow Protection API", "a01508.html", "a01508" ],
+    [ "mcuxCsslMemory", "a01530.html", "a01530" ],
+    [ "Parameter Integrity API", "a01551.html", "a01551" ],
+    [ "Secure Counter API", "a01555.html", "a01555" ]
 ];

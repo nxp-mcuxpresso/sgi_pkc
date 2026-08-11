@@ -1,8 +1,6 @@
 var a00743 =
 [
-    [ "mcuxClMemory_StoreLittleEndian32", "a01438.html#gaef4886d199c2539b209458a8c62378cd", null ],
-    [ "mcuxClMemory_StoreBigEndian32", "a01438.html#ga84f8097975ebea39deaea4ab9306d2ce", null ],
-    [ "mcuxClMemory_LoadLittleEndian32", "a01438.html#gaa3eba98f422623a6a02f15898449c874", null ],
-    [ "mcuxClMemory_LoadBigEndian32", "a01438.html#gabd3fd1c7ee32c2cd202a67bce5036778", null ],
-    [ "MCUXCLMEMORY_SWITCH_4BYTE_ENDIANNESS", "a01438.html#gac426a079f1808ff0183d2851ead720c5", null ]
+    [ "MCUXCLMEMORY_FP_MEMORY_SET", "a01436.html#ga039e0b482faab4d1aabe2dd5c79d3eb5", null ],
+    [ "MCUXCLMEMORY_FP_MEMORY_SET_WITH_BUFF", "a01436.html#gad65a5023a0b0263462b6cfcd6761b904", null ],
+    [ "mcuxClMemory_set", "a01436.html#ga5d86af41c30044c28809914e2901884d", null ]
 ];

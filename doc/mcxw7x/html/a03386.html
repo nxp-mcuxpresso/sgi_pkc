@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClHashModes_sha3_224_streaming_example.c</title>
+<title>MCUX CLNS: mcuxClHashModes_sha3_512_streaming_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,7 +102,7 @@ $(function(){initNavTree('a03386.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClHashModes_sha3_224_streaming_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxClHashModes_sha3_512_streaming_example.c</div></div>
 </div><!--header-->
 <div class="contents">
 <p>mcuxClHashModes example application</p>
@@ -141,29 +141,32 @@ $(function(){initNavTree('a03386.html','',''); });
 <div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00842.html">mcuxClSession.h</a>&gt;</span>          <span class="comment">// Interface to the entire mcuxClSession component</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">mcuxClHash.h</a>&gt;</span>             <span class="comment">// Interface to the entire mcuxClHash component</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00623.html">mcuxClHashModes.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00839.html">mcuxClSession.h</a>&gt;</span>          <span class="comment">// Interface to the entire mcuxClSession component</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00617.html">mcuxClHash.h</a>&gt;</span>             <span class="comment">// Interface to the entire mcuxClHash component</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">mcuxClHashModes.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_Session_Helper.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_RNG_Helper.h&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">/* random vector */</span></div>
+<div class="line"><span class="comment">/* Source of this example data is NIST CAVP SHA3_512ShortMsg.rsp */</span></div>
+<div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t data1[] = {</div>
-<div class="line">   <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;b&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;d&#39;</span>, <span class="charliteral">&#39;b&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;d&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;d&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;d&#39;</span>, <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;g&#39;</span>,</div>
-<div class="line">   <span class="charliteral">&#39;e&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;g&#39;</span>, <span class="charliteral">&#39;h&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;g&#39;</span>, <span class="charliteral">&#39;h&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;g&#39;</span>, <span class="charliteral">&#39;h&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;j&#39;</span>, <span class="charliteral">&#39;h&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;j&#39;</span>, <span class="charliteral">&#39;k&#39;</span>,</div>
-<div class="line">   <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;j&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;j&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;o&#39;</span>,</div>
-<div class="line">   <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;q&#39;</span>, <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;v&#39;</span>, <span class="charliteral">&#39;w&#39;</span>,</div>
+<div class="line">    0xd7u, 0xd5u, 0x36u, 0x33u, 0x50u, 0x70u, 0x9eu, 0x96u, 0x93u, 0x9eu, 0x6bu, 0x68u, 0xb3u, 0xbbu, 0xdeu, 0xf6u</div>
 <div class="line">};</div>
 <div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t data2[] = {</div>
-<div class="line">   <span class="charliteral">&#39;x&#39;</span></div>
+<div class="line">    0x99u, 0x9au, 0xc8u, 0xd9u</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t hashExpected[] = {0x921e3287u, 0xbee668a8u, 0xaa829123u, 0xf8f65df8u, 0x213b5eecu, 0x31e9c7bcu,0x902af41au};</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t hashExpected[] = {</div>
+<div class="line">    0x7au, 0x46u, 0xbeu, 0xcau, 0x55u, 0x3fu, 0xffu, 0xa8u, 0x02u, 0x1bu, 0x09u, 0x89u, 0xf4u, 0x0au, 0x65u, 0x63u, </div>
+<div class="line">    0xa8u, 0xafu, 0xb6u, 0x41u, 0xe8u, 0x13u, 0x30u, 0x90u, 0xbcu, 0x03u, 0x4au, 0xb6u, 0x76u, 0x3eu, 0x96u, 0xd7u, </div>
+<div class="line">    0xb7u, 0xa0u, 0xdau, 0x4du, 0xe3u, 0xabu, 0xd5u, 0xa6u, 0x7du, 0x80u, 0x85u, 0xf7u, 0xc2u, 0x8bu, 0x21u, 0xa2u, </div>
+<div class="line">    0x4au, 0xefu, 0xb3u, 0x59u, 0xc3u, 0x7fu, 0xacu, 0x61u, 0xd3u, 0xa5u, 0x37u, 0x4bu, 0x4bu, 0x1fu, 0xb6u, 0xbbu</div>
+<div class="line">};</div>
 <div class="line"> </div>
-<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha3_224_streaming_example)</div>
+<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClHashModes_sha3_512_streaming_example)</div>
 <div class="line">{</div>
 <div class="line"><span class="comment">    /**************************************************************************/</span></div>
 <div class="line">    <span class="comment">/* Preparation                                                            */</span></div>
@@ -171,7 +174,7 @@ $(function(){initNavTree('a03386.html','',''); });
 <div class="line"> </div>
 <div class="line">    <span class="comment">/* Initialize session */</span></div>
 <div class="line">    mcuxClSession_Descriptor_t sessionDesc;</div>
-<div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
+<div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">/* Allocate and initialize session */</span></div>
 <div class="line">    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLEXAMPLE_MAX_WA(<a id="_a1" name="_a1"></a><a class="code hl_define" href="a03623.html#a8c70073fba8e9b6bdd946ca99e3dfcf4">MCUXCLHASH_MAX_CPU_WA_BUFFER_SIZE</a>, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0u);</div>
@@ -179,32 +182,33 @@ $(function(){initNavTree('a03386.html','',''); });
 <div class="line">    <span class="comment">/* Initialize the PRNG */</span></div>
 <div class="line">    MCUXCLEXAMPLE_INITIALIZE_PRNG(session);</div>
 <div class="line"> </div>
-<div class="line">    uint32_t context[MCUXCLHASH_CONTEXT_SIZE_SHA3_224_IN_WORDS];</div>
-<div class="line">    <a id="_a2" name="_a2"></a><a class="code hl_typedef" href="a01394.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a> pContext = (<a class="code hl_typedef" href="a01394.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a>) context;</div>
+<div class="line">    uint32_t context[MCUXCLHASH_CONTEXT_SIZE_SHA3_512_IN_WORDS];</div>
+<div class="line">    <a id="_a2" name="_a2"></a><a class="code hl_typedef" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a> pContext = (<a class="code hl_typedef" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a>) context;</div>
 <div class="line"> </div>
-<div class="line">    <a id="a3" name="a3"></a><a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(data1Buf, session, data1, <span class="keyword">sizeof</span>(data1));</div>
-<div class="line">    <a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(data2Buf, session, data2, <span class="keyword">sizeof</span>(data2));</div>
+<div class="line">    <a id="a3" name="a3"></a><a class="code hl_define" href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(data1Buf, session, data1, <span class="keyword">sizeof</span>(data1));</div>
+<div class="line">    <a class="code hl_define" href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(data2Buf, session, data2, <span class="keyword">sizeof</span>(data2));</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">    /**************************************************************************/</span></div>
 <div class="line">    <span class="comment">/* Hash computation                                                       */</span></div>
 <div class="line"><span class="comment">    /**************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line">    uint32_t hash[<a id="_a4" name="_a4"></a><a class="code hl_define" href="a01398.html#ga9b455baf1195244a5a21f95d24d1bb78">MCUXCLHASH_OUTPUT_SIZE_SHA3_224</a> / <span class="keyword">sizeof</span>(uint32_t)];</div>
-<div class="line">    <a id="a5" name="a5"></a><a class="code hl_define" href="a01354.html#ga1233c58dc0ba531eb3f02c82c0e1b2b5">MCUXCLBUFFER_INIT_RW</a>(hashBuf, session, (uint8_t*)hash, <span class="keyword">sizeof</span>(hash));</div>
+<div class="line">    uint8_t hash[<a id="_a4" name="_a4"></a><a class="code hl_define" href="a01395.html#ga98c0f235847458f6e0785ce7e1fa4de1">MCUXCLHASH_OUTPUT_SIZE_SHA3_512</a>];</div>
+<div class="line">    <a id="a5" name="a5"></a><a class="code hl_define" href="a01351.html#ga1233c58dc0ba531eb3f02c82c0e1b2b5">MCUXCLBUFFER_INIT_RW</a>(hashBuf, session, hash, <span class="keyword">sizeof</span>(hash));</div>
+<div class="line">    uint32_t hashOutputSize = 0u;</div>
 <div class="line"> </div>
-<div class="line">    <a id="a6" name="a6"></a><a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result1, token1, <a id="a7" name="a7"></a><a class="code hl_function" href="a01393.html#ga68263436904cf849bfbe8c9b1f6542d4">mcuxClHash_init</a>(</div>
+<div class="line">    <a id="a6" name="a6"></a><a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result1, token1, <a id="a7" name="a7"></a><a class="code hl_function" href="a01390.html#ga68263436904cf849bfbe8c9b1f6542d4">mcuxClHash_init</a>(</div>
 <div class="line">    <span class="comment">/* mcuxCLSession_Handle_t session: */</span> session,</div>
 <div class="line">    <span class="comment">/* mcuxClHash_Context_t context:   */</span> pContext,</div>
-<div class="line">    <span class="comment">/* mcuxClHash_Algo_t  algo:        */</span> mcuxClHash_Algorithm_Sha3_224</div>
+<div class="line">    <span class="comment">/* mcuxClHash_Algo_t  algo:        */</span> mcuxClHash_Algorithm_Sha3_512</div>
 <div class="line">    ));</div>
 <div class="line">    <span class="comment">// mcuxClHash_init is a flow-protected function: Check the protection token and the return value</span></div>
-<div class="line">    <span class="keywordflow">if</span>((<a id="a8" name="a8"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01393.html#ga68263436904cf849bfbe8c9b1f6542d4">mcuxClHash_init</a>) != token1) || (<a id="_a9" name="_a9"></a><a class="code hl_define" href="a01392.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result1))</div>
+<div class="line">    <span class="keywordflow">if</span>((<a id="a8" name="a8"></a><a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01390.html#ga68263436904cf849bfbe8c9b1f6542d4">mcuxClHash_init</a>) != token1) || (<a id="_a9" name="_a9"></a><a class="code hl_define" href="a01389.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result1))</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">    }</div>
-<div class="line">    <a id="a10" name="a10"></a><a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">    <a id="a10" name="a10"></a><a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result2, token2, <a id="a11" name="a11"></a><a class="code hl_function" href="a01393.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>(</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result2, token2, <a id="a11" name="a11"></a><a class="code hl_function" href="a01390.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>(</div>
 <div class="line">            <span class="comment">/* mcuxCLSession_Handle_t session: */</span> session,</div>
 <div class="line">            MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClHash_init&quot;</span>)</div>
 <div class="line">            <span class="comment">/* mcuxClHash_Context_t context:   */</span> pContext,</div>
@@ -213,13 +217,13 @@ $(function(){initNavTree('a03386.html','',''); });
 <div class="line">            <span class="comment">/* uint32_t inLength:             */</span> <span class="keyword">sizeof</span>(data1)</div>
 <div class="line">    ));</div>
 <div class="line">    <span class="comment">// mcuxClHash_process is a flow-protected function: Check the protection token and the return value</span></div>
-<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01393.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>) != token2) || (<a class="code hl_define" href="a01392.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result2))</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01390.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>) != token2) || (<a class="code hl_define" href="a01389.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result2))</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result3, token3, <a class="code hl_function" href="a01393.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>(</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result3, token3, <a class="code hl_function" href="a01390.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>(</div>
 <div class="line">            <span class="comment">/* mcuxCLSession_Handle_t session: */</span> session,</div>
 <div class="line">            MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClHash_init&quot;</span>)</div>
 <div class="line">            <span class="comment">/* mcuxClHash_Context_t context:   */</span> pContext,</div>
@@ -228,29 +232,28 @@ $(function(){initNavTree('a03386.html','',''); });
 <div class="line">            <span class="comment">/* uint32_t inLength:             */</span> <span class="keyword">sizeof</span>(data2)</div>
 <div class="line">    ));</div>
 <div class="line">    <span class="comment">// mcuxClHash_process is a flow-protected function: Check the protection token and the return value</span></div>
-<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01393.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>) != token3) || (<a class="code hl_define" href="a01392.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result3))</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01390.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a>) != token3) || (<a class="code hl_define" href="a01389.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result3))</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    uint32_t pOutSize = 0u;</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result4, token4, <a id="a12" name="a12"></a><a class="code hl_function" href="a01393.html#gad55cc3a702b915f84d9cd2e94c2b7f6b">mcuxClHash_finish</a>(</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(result4, token4, <a id="a12" name="a12"></a><a class="code hl_function" href="a01390.html#gad55cc3a702b915f84d9cd2e94c2b7f6b">mcuxClHash_finish</a>(</div>
 <div class="line">            <span class="comment">/* mcuxCLSession_Handle_t session: */</span> session,</div>
 <div class="line">            MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClHash_init&quot;</span>)</div>
 <div class="line">            <span class="comment">/* mcuxClHash_Context_t context:   */</span> pContext,</div>
 <div class="line">            MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
 <div class="line">            <span class="comment">/* mcuxCl_Buffer_t pOut,        */</span>    hashBuf,</div>
-<div class="line">            <span class="comment">/* uint32_t *const pOutSize    */</span>    &amp;pOutSize</div>
+<div class="line">            <span class="comment">/* uint32_t *const pOutSize    */</span>    &amp;hashOutputSize</div>
 <div class="line">    ));</div>
 <div class="line">    <span class="comment">// mcuxClHash_finish is a flow-protected function: Check the protection token and the return value</span></div>
-<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01393.html#gad55cc3a702b915f84d9cd2e94c2b7f6b">mcuxClHash_finish</a>) != token4) || (<a class="code hl_define" href="a01392.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result4))</div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01390.html#gad55cc3a702b915f84d9cd2e94c2b7f6b">mcuxClHash_finish</a>) != token4) || (<a class="code hl_define" href="a01389.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a> != result4))</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line">    </div>
-<div class="line">    <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(hash) != pOutSize)</div>
+<div class="line">    <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(hash) != hashOutputSize)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
 <div class="line">    }</div>
@@ -258,7 +261,7 @@ $(function(){initNavTree('a03386.html','',''); });
 <div class="line"><span class="comment">    /**************************************************************************/</span></div>
 <div class="line">    <span class="comment">/* Verification                                                           */</span></div>
 <div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0U; i &lt; (<span class="keyword">sizeof</span>(hash) / <span class="keyword">sizeof</span>(uint32_t)); i++)</div>
+<div class="line">    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0U; i &lt; <span class="keyword">sizeof</span>(hash); i++)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">if</span>(hashExpected[i] != hash[i])  <span class="comment">// Expect that the resulting hash matches our expected output</span></div>
 <div class="line">        {</div>
@@ -276,23 +279,23 @@ $(function(){initNavTree('a03386.html','',''); });
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">mcuxClHash.h</a></div><div class="ttdoc">Top-level include file for the mcuxClHash component.</div></div>
-<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">mcuxClHashModes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClHashModes component.</div></div>
-<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa01354_html_ga1233c58dc0ba531eb3f02c82c0e1b2b5"><div class="ttname"><a href="a01354.html#ga1233c58dc0ba531eb3f02c82c0e1b2b5">MCUXCLBUFFER_INIT_RW</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RW(name, info, ptr, size)</div><div class="ttdoc">Initialize an input/output buffer (mcuxCl_Buffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:121</div></div>
-<div class="ttc" id="aa01354_html_gaa0ed06160ed0bb21bbef3def4479d9ce"><div class="ttname"><a href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RO(name, info, ptr, size)</div><div class="ttdoc">Initialize an input buffer (mcuxCl_InputBuffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:104</div></div>
-<div class="ttc" id="aa01392_html_gadf29410b02d95357d48a3ba443558da4"><div class="ttname"><a href="a01392.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLHASH_STATUS_OK</div><div class="ttdoc">Hash operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClHash_Constants.h:55</div></div>
-<div class="ttc" id="aa01393_html_ga49bdf3dca9746328fe58e6d5859e92eb"><div class="ttname"><a href="a01393.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a></div><div class="ttdeci">mcuxClHash_Status_t mcuxClHash_process(mcuxClSession_Handle_t session, mcuxClHash_Context_t pContext, mcuxCl_InputBuffer_t pIn, uint32_t inSize)</div><div class="ttdoc">Multi-part Hash processing function.</div></div>
-<div class="ttc" id="aa01393_html_ga68263436904cf849bfbe8c9b1f6542d4"><div class="ttname"><a href="a01393.html#ga68263436904cf849bfbe8c9b1f6542d4">mcuxClHash_init</a></div><div class="ttdeci">mcuxClHash_Status_t mcuxClHash_init(mcuxClSession_Handle_t session, mcuxClHash_Context_t pContext, mcuxClHash_Algo_t algorithm)</div><div class="ttdoc">Multi-part Hash initialization function.</div></div>
-<div class="ttc" id="aa01393_html_gad55cc3a702b915f84d9cd2e94c2b7f6b"><div class="ttname"><a href="a01393.html#gad55cc3a702b915f84d9cd2e94c2b7f6b">mcuxClHash_finish</a></div><div class="ttdeci">mcuxClHash_Status_t mcuxClHash_finish(mcuxClSession_Handle_t session, mcuxClHash_Context_t pContext, mcuxCl_Buffer_t pOut, uint32_t *const pOutSize)</div><div class="ttdoc">Multi-part Hash computation finalization function.</div></div>
-<div class="ttc" id="aa01394_html_ga9a3590c1a721fe0cb8a267015f9204e3"><div class="ttname"><a href="a01394.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a></div><div class="ttdeci">mcuxClHash_ContextDescriptor_t * mcuxClHash_Context_t</div><div class="ttdoc">Hash Context type.</div><div class="ttdef"><b>Definition</b> mcuxClHash_Types.h:118</div></div>
-<div class="ttc" id="aa01398_html_ga9b455baf1195244a5a21f95d24d1bb78"><div class="ttname"><a href="a01398.html#ga9b455baf1195244a5a21f95d24d1bb78">MCUXCLHASH_OUTPUT_SIZE_SHA3_224</a></div><div class="ttdeci">#define MCUXCLHASH_OUTPUT_SIZE_SHA3_224</div><div class="ttdoc">SHA3-224 output size: 224 bit (28 bytes).</div><div class="ttdef"><b>Definition</b> mcuxClHashModes_Constants.h:63</div></div>
-<div class="ttc" id="aa01483_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
-<div class="ttc" id="aa01513_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01513_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
+<div class="ttc" id="aa00455_html"><div class="ttname"><a href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
+<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">mcuxClHash.h</a></div><div class="ttdoc">Top-level include file for the mcuxClHash component.</div></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">mcuxClHashModes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClHashModes component.</div></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa01351_html_ga1233c58dc0ba531eb3f02c82c0e1b2b5"><div class="ttname"><a href="a01351.html#ga1233c58dc0ba531eb3f02c82c0e1b2b5">MCUXCLBUFFER_INIT_RW</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RW(name, info, ptr, size)</div><div class="ttdoc">Initialize an input/output buffer (mcuxCl_Buffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:121</div></div>
+<div class="ttc" id="aa01351_html_gaa0ed06160ed0bb21bbef3def4479d9ce"><div class="ttname"><a href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RO(name, info, ptr, size)</div><div class="ttdoc">Initialize an input buffer (mcuxCl_InputBuffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:104</div></div>
+<div class="ttc" id="aa01389_html_gadf29410b02d95357d48a3ba443558da4"><div class="ttname"><a href="a01389.html#gadf29410b02d95357d48a3ba443558da4">MCUXCLHASH_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLHASH_STATUS_OK</div><div class="ttdoc">Hash operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClHash_Constants.h:55</div></div>
+<div class="ttc" id="aa01390_html_ga49bdf3dca9746328fe58e6d5859e92eb"><div class="ttname"><a href="a01390.html#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a></div><div class="ttdeci">mcuxClHash_Status_t mcuxClHash_process(mcuxClSession_Handle_t session, mcuxClHash_Context_t pContext, mcuxCl_InputBuffer_t pIn, uint32_t inSize)</div><div class="ttdoc">Multi-part Hash processing function.</div></div>
+<div class="ttc" id="aa01390_html_ga68263436904cf849bfbe8c9b1f6542d4"><div class="ttname"><a href="a01390.html#ga68263436904cf849bfbe8c9b1f6542d4">mcuxClHash_init</a></div><div class="ttdeci">mcuxClHash_Status_t mcuxClHash_init(mcuxClSession_Handle_t session, mcuxClHash_Context_t pContext, mcuxClHash_Algo_t algorithm)</div><div class="ttdoc">Multi-part Hash initialization function.</div></div>
+<div class="ttc" id="aa01390_html_gad55cc3a702b915f84d9cd2e94c2b7f6b"><div class="ttname"><a href="a01390.html#gad55cc3a702b915f84d9cd2e94c2b7f6b">mcuxClHash_finish</a></div><div class="ttdeci">mcuxClHash_Status_t mcuxClHash_finish(mcuxClSession_Handle_t session, mcuxClHash_Context_t pContext, mcuxCl_Buffer_t pOut, uint32_t *const pOutSize)</div><div class="ttdoc">Multi-part Hash computation finalization function.</div></div>
+<div class="ttc" id="aa01391_html_ga9a3590c1a721fe0cb8a267015f9204e3"><div class="ttname"><a href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a></div><div class="ttdeci">mcuxClHash_ContextDescriptor_t * mcuxClHash_Context_t</div><div class="ttdoc">Hash Context type.</div><div class="ttdef"><b>Definition</b> mcuxClHash_Types.h:118</div></div>
+<div class="ttc" id="aa01395_html_ga98c0f235847458f6e0785ce7e1fa4de1"><div class="ttname"><a href="a01395.html#ga98c0f235847458f6e0785ce7e1fa4de1">MCUXCLHASH_OUTPUT_SIZE_SHA3_512</a></div><div class="ttdeci">#define MCUXCLHASH_OUTPUT_SIZE_SHA3_512</div><div class="ttdoc">SHA3-512 output size: 512 bit (64 bytes).</div><div class="ttdef"><b>Definition</b> mcuxClHashModes_Constants.h:66</div></div>
+<div class="ttc" id="aa01480_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
+<div class="ttc" id="aa01510_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
+<div class="ttc" id="aa01510_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
+<div class="ttc" id="aa01510_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
 <div class="ttc" id="aa03623_html_a8c70073fba8e9b6bdd946ca99e3dfcf4"><div class="ttname"><a href="a03623.html#a8c70073fba8e9b6bdd946ca99e3dfcf4">MCUXCLHASH_MAX_CPU_WA_BUFFER_SIZE</a></div><div class="ttdeci">#define MCUXCLHASH_MAX_CPU_WA_BUFFER_SIZE</div><div class="ttdoc">Defines the max workarea size required for this component.</div><div class="ttdef"><b>Definition</b> mcuxClHash_MemoryConsumption.h:47</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

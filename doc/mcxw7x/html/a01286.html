@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxl2xx/PERI_INPUTMUX_AON.h File Reference</title>
+<title>MCUX CLNS: platform/mcxl2xx/PERI_INPUTMUX_MAIN.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,153 +102,171 @@ $(function(){initNavTree('a01286.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PERI_INPUTMUX_AON.h File Reference</div></div>
+  <div class="headertitle"><div class="title">PERI_INPUTMUX_MAIN.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>CMSIS Peripheral Access Layer for INPUTMUX_AON.  
+<p>CMSIS Peripheral Access Layer for INPUTMUX_MAIN.  
 <a href="#details">More...</a></p>
 
 <p><a href="a01286_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:INPUTMUX_5FAON_5FType" id="r_INPUTMUX_5FAON_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02827.html">INPUTMUX_AON_Type</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">INPUTMUX_AON - Register Layout Typedef.  <a href="a02827.html#details">More...</a><br /></td></tr>
+<tr class="memitem:INPUTMUX_5FMAIN_5FType" id="r_INPUTMUX_5FMAIN_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02826.html">INPUTMUX_MAIN_Type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">INPUTMUX_MAIN - Register Layout Typedef.  <a href="a02826.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ae5271d12bdf48b3aba950f11eb1f0df1" id="r_ae5271d12bdf48b3aba950f11eb1f0df1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae5271d12bdf48b3aba950f11eb1f0df1">PERI_INPUTMUX_AON_H_</a></td></tr>
-<tr class="memdesc:ae5271d12bdf48b3aba950f11eb1f0df1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
-<tr class="memitem:gaa210be331778f791588694d4e669ae66" id="r_gaa210be331778f791588694d4e669ae66"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01778.html#gaa210be331778f791588694d4e669ae66">INPUTMUX_AON_QTMRA_COUNT</a></td></tr>
-<tr class="memdesc:gaa210be331778f791588694d4e669ae66"><td class="mdescLeft">&#160;</td><td class="mdescRight">INPUTMUX_AON - Size of Registers Arrays.  <br /></td></tr>
-<tr class="memitem:ga2c8a793a8936801587665c037848f58e" id="r_ga2c8a793a8936801587665c037848f58e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_XOR0_INA_COUNT</b></td></tr>
-<tr class="memitem:ga473acb6c44ff48fe3145386e32f765ba" id="r_ga473acb6c44ff48fe3145386e32f765ba"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_QTMRB_COUNT</b></td></tr>
-<tr class="memitem:ga9cc2a4386ef757eef8208e77fe0a2095" id="r_ga9cc2a4386ef757eef8208e77fe0a2095"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_ACMP0_TRIGM_COUNT</b></td></tr>
-<tr class="memitem:ga95be5fdf6ad473b7f08713604963cbe1" id="r_ga95be5fdf6ad473b7f08713604963cbe1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPADC0_TRIGM_COUNT</b></td></tr>
-<tr class="memitem:ga6bce8fd38ed588d024252b6368eca874" id="r_ga6bce8fd38ed588d024252b6368eca874"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_AON_TRIG_OUTN_COUNT</b></td></tr>
-<tr class="memitem:ga7d818a4486ebc5f0a0b8ae23701f0a48" id="r_ga7d818a4486ebc5f0a0b8ae23701f0a48"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_QTMR0_TMR_COUNT</b></td></tr>
-<tr class="memitem:ga034fdca1b4e09b19cca83bac254bffa1" id="r_ga034fdca1b4e09b19cca83bac254bffa1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_XOR0_IN_COUNT</b></td></tr>
-<tr class="memitem:gae8da743c37146c3475e6212d36abe860" id="r_gae8da743c37146c3475e6212d36abe860"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_QTMR1_TMR_COUNT</b></td></tr>
-<tr class="memitem:ga9bb7f183bbb0fc7d3216afc58206d239" id="r_ga9bb7f183bbb0fc7d3216afc58206d239"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_ACMP0_TRIG_COUNT</b></td></tr>
-<tr class="memitem:gaed01bd639003370172ce6ca13385acd6" id="r_gaed01bd639003370172ce6ca13385acd6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPADC0_TRIG_COUNT</b></td></tr>
-<tr class="memitem:gacf2467de2450040bd634f5a7200384de" id="r_gacf2467de2450040bd634f5a7200384de"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_AON_TRIG_OUT_COUNT</b></td></tr>
-<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">QTMR0_TMR - QTMR0 Input Connections</div></td></tr>
-<tr class="memitem:ga3dcd6fa70c3a39d520f0e71a1c8bfd91" id="r_ga3dcd6fa70c3a39d520f0e71a1c8bfd91"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_QTMR0_TMR_INP_MASK</b></td></tr>
-<tr class="memitem:gaf3298f4a1b720db17e9b32d5c14b3620" id="r_gaf3298f4a1b720db17e9b32d5c14b3620"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_QTMR0_TMR_INP_SHIFT</b></td></tr>
-<tr class="memitem:gaca469123f115c3e6586e9503d3e0569b" id="r_gaca469123f115c3e6586e9503d3e0569b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#gaca469123f115c3e6586e9503d3e0569b">INPUTMUX_AON_QTMR0_TMR_INP</a>(x)</td></tr>
-<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">SOC_GLUE_XOR0_IN - SOC_GLUE_XOR0 trigger input connections</div></td></tr>
-<tr class="memitem:ga8a3d121ba9b6e1a9f2e358dc6daebfe7" id="r_ga8a3d121ba9b6e1a9f2e358dc6daebfe7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_XOR0_IN_INP_MASK</b></td></tr>
-<tr class="memitem:ga3debaef8364c2e4ce66f157d358bc9ba" id="r_ga3debaef8364c2e4ce66f157d358bc9ba"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_XOR0_IN_INP_SHIFT</b></td></tr>
-<tr class="memitem:ga4b509eae9bb9d6aaaa5f0b1979fdfc29" id="r_ga4b509eae9bb9d6aaaa5f0b1979fdfc29"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga4b509eae9bb9d6aaaa5f0b1979fdfc29">INPUTMUX_AON_SOC_GLUE_XOR0_IN_INP</a>(x)</td></tr>
-<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">SOC_GLUE_CMPPADS_PCTRL_XOR_IN0 - SOC_GLUE_CMPPADS_PCTRL_XOR_IN0 trigger input connections</div></td></tr>
-<tr class="memitem:ga649bd002e28042cc6e5084b98236a13f" id="r_ga649bd002e28042cc6e5084b98236a13f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_CMPPADS_PCTRL_XOR_IN0_INP_MASK</b></td></tr>
-<tr class="memitem:gaa3cd55299175e27d749efd6fc9fe43fd" id="r_gaa3cd55299175e27d749efd6fc9fe43fd"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_CMPPADS_PCTRL_XOR_IN0_INP_SHIFT</b></td></tr>
-<tr class="memitem:gab7fe0fdcf61e3d86f28fffcb530e9ce9" id="r_gab7fe0fdcf61e3d86f28fffcb530e9ce9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#gab7fe0fdcf61e3d86f28fffcb530e9ce9">INPUTMUX_AON_SOC_GLUE_CMPPADS_PCTRL_XOR_IN0_INP</a>(x)</td></tr>
-<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">SOC_GLUE_CTRLPADS_PCTRL_XOR_IN0 - SOC_GLUE_CTRLPADS_PCTRL_XOR_IN0 trigger input connections</div></td></tr>
-<tr class="memitem:ga340236e9b2373cf9719b2e6bdf1d0d52" id="r_ga340236e9b2373cf9719b2e6bdf1d0d52"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_CTRLPADS_PCTRL_XOR_IN0_INP_MASK</b></td></tr>
-<tr class="memitem:gad3c48aabbff3fa007581c0214c8d937c" id="r_gad3c48aabbff3fa007581c0214c8d937c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_SOC_GLUE_CTRLPADS_PCTRL_XOR_IN0_INP_SHIFT</b></td></tr>
-<tr class="memitem:ga0121361914403bbef068a77a1249b80b" id="r_ga0121361914403bbef068a77a1249b80b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga0121361914403bbef068a77a1249b80b">INPUTMUX_AON_SOC_GLUE_CTRLPADS_PCTRL_XOR_IN0_INP</a>(x)</td></tr>
-<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">QTMR1_TMR - QTMR1 Input Connections</div></td></tr>
-<tr class="memitem:gaec9fb5def20039bfb146d567bcc2a93e" id="r_gaec9fb5def20039bfb146d567bcc2a93e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_QTMR1_TMR_INP_MASK</b></td></tr>
-<tr class="memitem:ga151605f59e3c12e3e89c5c49f4bcabaa" id="r_ga151605f59e3c12e3e89c5c49f4bcabaa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_QTMR1_TMR_INP_SHIFT</b></td></tr>
-<tr class="memitem:ga37fd550bee8f9dfb02c8fdd0dd271514" id="r_ga37fd550bee8f9dfb02c8fdd0dd271514"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga37fd550bee8f9dfb02c8fdd0dd271514">INPUTMUX_AON_QTMR1_TMR_INP</a>(x)</td></tr>
-<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">LC_ROT_SOC_LOGIC_IN - LC_ROT_SOC_LOGIC_IN trigger input connections</div></td></tr>
-<tr class="memitem:ga1050304b2141b12b553507302ca5389a" id="r_ga1050304b2141b12b553507302ca5389a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LC_ROT_SOC_LOGIC_IN_INP_MASK</b></td></tr>
-<tr class="memitem:ga8c4993be9166657a3bb5af9d3468e871" id="r_ga8c4993be9166657a3bb5af9d3468e871"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LC_ROT_SOC_LOGIC_IN_INP_SHIFT</b></td></tr>
-<tr class="memitem:ga6ab05c0c4d56cf3fa4d51952844d8e91" id="r_ga6ab05c0c4d56cf3fa4d51952844d8e91"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga6ab05c0c4d56cf3fa4d51952844d8e91">INPUTMUX_AON_LC_ROT_SOC_LOGIC_IN_INP</a>(x)</td></tr>
-<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">LCSENSE_SEQ_PTRIG_GLUE_IN - LCSENSE_SEQ_PTRIG_GLUE_IN trigger input connections</div></td></tr>
-<tr class="memitem:ga830bc5b22a5bfefbaf9f9e570b2eecf7" id="r_ga830bc5b22a5bfefbaf9f9e570b2eecf7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LCSENSE_SEQ_PTRIG_GLUE_IN_INP_MASK</b></td></tr>
-<tr class="memitem:ga573cc07d5aaffb75e2a7673464c4b5a4" id="r_ga573cc07d5aaffb75e2a7673464c4b5a4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LCSENSE_SEQ_PTRIG_GLUE_IN_INP_SHIFT</b></td></tr>
-<tr class="memitem:ga15dbdf9bd339eca75d20f17a668a7fd6" id="r_ga15dbdf9bd339eca75d20f17a668a7fd6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga15dbdf9bd339eca75d20f17a668a7fd6">INPUTMUX_AON_LCSENSE_SEQ_PTRIG_GLUE_IN_INP</a>(x)</td></tr>
-<tr id="define-members-7" class="groupHeader"><td colspan="2"><div class="groupHeader">LCSENSE_SEQ_TICKS_GLUE_IN - LCSENSE_SEQ_TICKS_GLUE_IN trigger input connections</div></td></tr>
-<tr class="memitem:gab5a6e33d0d9a7f270affa6a34ffb8a2d" id="r_gab5a6e33d0d9a7f270affa6a34ffb8a2d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LCSENSE_SEQ_TICKS_GLUE_IN_INP_MASK</b></td></tr>
-<tr class="memitem:gab7cce7c67b3e3d6ce9c22dbdd08457ea" id="r_gab7cce7c67b3e3d6ce9c22dbdd08457ea"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LCSENSE_SEQ_TICKS_GLUE_IN_INP_SHIFT</b></td></tr>
-<tr class="memitem:ga5e83376eaf8f6f30da52af4f097b688b" id="r_ga5e83376eaf8f6f30da52af4f097b688b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga5e83376eaf8f6f30da52af4f097b688b">INPUTMUX_AON_LCSENSE_SEQ_TICKS_GLUE_IN_INP</a>(x)</td></tr>
-<tr id="define-members-8" class="groupHeader"><td colspan="2"><div class="groupHeader">ACMP0_TRIG - ACMP0 Input Connections</div></td></tr>
-<tr class="memitem:gad87973f5b923056546ca0c40023c59c3" id="r_gad87973f5b923056546ca0c40023c59c3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_ACMP0_TRIG_TRIGIN_MASK</b></td></tr>
-<tr class="memitem:gad924cab05ce9937facad77dce01b4f9e" id="r_gad924cab05ce9937facad77dce01b4f9e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_ACMP0_TRIG_TRIGIN_SHIFT</b></td></tr>
-<tr class="memitem:gaa618c99b014c825baa73458f3561546b" id="r_gaa618c99b014c825baa73458f3561546b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#gaa618c99b014c825baa73458f3561546b">INPUTMUX_AON_ACMP0_TRIG_TRIGIN</a>(x)</td></tr>
-<tr id="define-members-9" class="groupHeader"><td colspan="2"><div class="groupHeader">LPADC0_TRIG - LPADC trigger input connections</div></td></tr>
-<tr class="memitem:ga528bd1679fe8656c569a611d085f9b79" id="r_ga528bd1679fe8656c569a611d085f9b79"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPADC0_TRIG_TRIGIN_MASK</b></td></tr>
-<tr class="memitem:ga06a93be6e512ea09af5d2dd3d89401a5" id="r_ga06a93be6e512ea09af5d2dd3d89401a5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPADC0_TRIG_TRIGIN_SHIFT</b></td></tr>
-<tr class="memitem:ga5a80513e6834fb3d3f3fc09f613423ab" id="r_ga5a80513e6834fb3d3f3fc09f613423ab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga5a80513e6834fb3d3f3fc09f613423ab">INPUTMUX_AON_LPADC0_TRIG_TRIGIN</a>(x)</td></tr>
-<tr id="define-members-10" class="groupHeader"><td colspan="2"><div class="groupHeader">AON_TRIG_OUT - AON Trigger Output Connections</div></td></tr>
-<tr class="memitem:ga652b12782a58b77eb8ebb6e7006692b4" id="r_ga652b12782a58b77eb8ebb6e7006692b4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_AON_TRIG_OUT_INP_MASK</b></td></tr>
-<tr class="memitem:gaa14051c2520795bab0e881e306bf9d6c" id="r_gaa14051c2520795bab0e881e306bf9d6c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_AON_TRIG_OUT_INP_SHIFT</b></td></tr>
-<tr class="memitem:gab7e5cc0b34827e418f422fd5a23edd1c" id="r_gab7e5cc0b34827e418f422fd5a23edd1c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#gab7e5cc0b34827e418f422fd5a23edd1c">INPUTMUX_AON_AON_TRIG_OUT_INP</a>(x)</td></tr>
-<tr id="define-members-11" class="groupHeader"><td colspan="2"><div class="groupHeader">CMP0_SAMPLE - ACMP0 SAMPLE trigger input connections</div></td></tr>
-<tr class="memitem:ga2d181a60a36e08c5beffe28313a37401" id="r_ga2d181a60a36e08c5beffe28313a37401"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_CMP0_SAMPLE_TRIGIN_MASK</b></td></tr>
-<tr class="memitem:ga9ee8a398680c8b55fdd951d0c70188be" id="r_ga9ee8a398680c8b55fdd951d0c70188be"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_CMP0_SAMPLE_TRIGIN_SHIFT</b></td></tr>
-<tr class="memitem:ga52c8ad9d173ff199d05d7e234b40026b" id="r_ga52c8ad9d173ff199d05d7e234b40026b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga52c8ad9d173ff199d05d7e234b40026b">INPUTMUX_AON_CMP0_SAMPLE_TRIGIN</a>(x)</td></tr>
-<tr id="define-members-12" class="groupHeader"><td colspan="2"><div class="groupHeader">CMP0_RR_TRIG - ACMP0 RR trigger input connections</div></td></tr>
-<tr class="memitem:gaa5b07df6fea6572ac814f5f23d1562e9" id="r_gaa5b07df6fea6572ac814f5f23d1562e9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_CMP0_RR_TRIG_TRIGIN_MASK</b></td></tr>
-<tr class="memitem:ga317b7e02b4cdbd865923427fe08c8dc0" id="r_ga317b7e02b4cdbd865923427fe08c8dc0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_CMP0_RR_TRIG_TRIGIN_SHIFT</b></td></tr>
-<tr class="memitem:ga395b49fe1850e014ba99c3b6042a718a" id="r_ga395b49fe1850e014ba99c3b6042a718a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga395b49fe1850e014ba99c3b6042a718a">INPUTMUX_AON_CMP0_RR_TRIG_TRIGIN</a>(x)</td></tr>
-<tr id="define-members-13" class="groupHeader"><td colspan="2"><div class="groupHeader">LPI2C0_TRIG - LPI2C0 trigger input connections</div></td></tr>
-<tr class="memitem:ga77fa8d6ed26c8b8969ce17abe40ca224" id="r_ga77fa8d6ed26c8b8969ce17abe40ca224"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPI2C0_TRIG_INP_MASK</b></td></tr>
-<tr class="memitem:ga7088f0bae74059a007a44a6e569d66ba" id="r_ga7088f0bae74059a007a44a6e569d66ba"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPI2C0_TRIG_INP_SHIFT</b></td></tr>
-<tr class="memitem:gab73c72d15d31130485ed0773765a2753" id="r_gab73c72d15d31130485ed0773765a2753"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#gab73c72d15d31130485ed0773765a2753">INPUTMUX_AON_LPI2C0_TRIG_INP</a>(x)</td></tr>
-<tr id="define-members-14" class="groupHeader"><td colspan="2"><div class="groupHeader">LPUART0 - LPUART0 trigger input connections</div></td></tr>
-<tr class="memitem:ga67767539b4bc883f6cb84d5b3460049d" id="r_ga67767539b4bc883f6cb84d5b3460049d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPUART0_INP_MASK</b></td></tr>
-<tr class="memitem:gaec56665b8a8220cd642570c7c08326b4" id="r_gaec56665b8a8220cd642570c7c08326b4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>INPUTMUX_AON_LPUART0_INP_SHIFT</b></td></tr>
-<tr class="memitem:ga62dad4f7b44b0be26152e525274bb1db" id="r_ga62dad4f7b44b0be26152e525274bb1db"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01779.html#ga62dad4f7b44b0be26152e525274bb1db">INPUTMUX_AON_LPUART0_INP</a>(x)</td></tr>
+<tr class="memitem:a5c99d037b9cc4a23a52ec77b0af37f26" id="r_a5c99d037b9cc4a23a52ec77b0af37f26"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5c99d037b9cc4a23a52ec77b0af37f26">PERI_INPUTMUX_MAIN_H_</a></td></tr>
+<tr class="memdesc:a5c99d037b9cc4a23a52ec77b0af37f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
+<tr class="memitem:ga4e22db6e05793c1e1bc3ff6d1f427d4e" id="r_ga4e22db6e05793c1e1bc3ff6d1f427d4e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01775.html#ga4e22db6e05793c1e1bc3ff6d1f427d4e">INPUTMUX_MAIN_CTIMERA_COUNT</a></td></tr>
+<tr class="memdesc:ga4e22db6e05793c1e1bc3ff6d1f427d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">INPUTMUX_MAIN - Size of Registers Arrays.  <br /></td></tr>
+<tr class="memitem:ga92ae4f1c2b4f4ccf9965c76cee762ddf" id="r_ga92ae4f1c2b4f4ccf9965c76cee762ddf"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMERB_COUNT</b></td></tr>
+<tr class="memitem:ga7aa0f51e5e90743cc1e8710f3ab96d0e" id="r_ga7aa0f51e5e90743cc1e8710f3ab96d0e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMERC_COUNT</b></td></tr>
+<tr class="memitem:gaa5f4840426252420cd3ced9d7c3a0395" id="r_gaa5f4840426252420cd3ced9d7c3a0395"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_ADC0_TRIGM_COUNT</b></td></tr>
+<tr class="memitem:ga1e1fc4b727e2e319ebfcf73b02eae0ab" id="r_ga1e1fc4b727e2e319ebfcf73b02eae0ab"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_AOI0_MUXK_COUNT</b></td></tr>
+<tr class="memitem:ga0f7eebdcae2eda8f8e4d388f6dcd0d5f" id="r_ga0f7eebdcae2eda8f8e4d388f6dcd0d5f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_EXT_TRIGN_COUNT</b></td></tr>
+<tr class="memitem:ga1a71a73187751e520bd7940e1809cbb6" id="r_ga1a71a73187751e520bd7940e1809cbb6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER0CAP_COUNT</b></td></tr>
+<tr class="memitem:gaf0d635dc0dbe2c38c1e837a97579b49f" id="r_gaf0d635dc0dbe2c38c1e837a97579b49f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER1CAP_COUNT</b></td></tr>
+<tr class="memitem:ga9dba0bf4a4635321db375deb3bb76bda" id="r_ga9dba0bf4a4635321db375deb3bb76bda"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER2CAP_COUNT</b></td></tr>
+<tr class="memitem:ga91264dcd591b1d6ba3a2ac14c10901c7" id="r_ga91264dcd591b1d6ba3a2ac14c10901c7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_ADC0_TRIG_COUNT</b></td></tr>
+<tr class="memitem:gac82828135f1a8076c5c53b878b0bb48f" id="r_gac82828135f1a8076c5c53b878b0bb48f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_AOI0_MUX_COUNT</b></td></tr>
+<tr class="memitem:ga7796c4d49542608ad5b16765fd45f372" id="r_ga7796c4d49542608ad5b16765fd45f372"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_EXT_TRIG_COUNT</b></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">CTIMER0CAP - Capture select register for CTIMER0 inputs</div></td></tr>
+<tr class="memitem:gaf31d13b03dc1446b4062b5346532f4ce" id="r_gaf31d13b03dc1446b4062b5346532f4ce"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER0CAP_INP_MASK</b></td></tr>
+<tr class="memitem:gaa35a6d3a4713717760c00c24338b4e89" id="r_gaa35a6d3a4713717760c00c24338b4e89"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER0CAP_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga87aa491e30c790a3e2ab1bb968ef4437" id="r_ga87aa491e30c790a3e2ab1bb968ef4437"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga87aa491e30c790a3e2ab1bb968ef4437">INPUTMUX_MAIN_CTIMER0CAP_INP</a>(x)</td></tr>
+<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">CTIMER0TRIG - Trigger register for CTIMER0</div></td></tr>
+<tr class="memitem:ga1f9796ccc77a70e8dc61c9bfbab19495" id="r_ga1f9796ccc77a70e8dc61c9bfbab19495"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER0TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:ga8013c58b2c25ed80b6ac8c49a71d5f7b" id="r_ga8013c58b2c25ed80b6ac8c49a71d5f7b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER0TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga470f6dd9a007f1598f8a6a9f3f1f95fd" id="r_ga470f6dd9a007f1598f8a6a9f3f1f95fd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga470f6dd9a007f1598f8a6a9f3f1f95fd">INPUTMUX_MAIN_CTIMER0TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">CTIMER1CAP - Capture select register for CTIMER1 inputs</div></td></tr>
+<tr class="memitem:ga8ad80fb1b5ba5f15229e060f34effc59" id="r_ga8ad80fb1b5ba5f15229e060f34effc59"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER1CAP_INP_MASK</b></td></tr>
+<tr class="memitem:ga6ec0e88801f7677e621e6cc34914ee9e" id="r_ga6ec0e88801f7677e621e6cc34914ee9e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER1CAP_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga4e1efeddb33ccfe5bbf274047c018bf3" id="r_ga4e1efeddb33ccfe5bbf274047c018bf3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga4e1efeddb33ccfe5bbf274047c018bf3">INPUTMUX_MAIN_CTIMER1CAP_INP</a>(x)</td></tr>
+<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">CTIMER1TRIG - Trigger register for CTIMER1</div></td></tr>
+<tr class="memitem:ga1f6afe71cb535ccd0a3b695c54d46895" id="r_ga1f6afe71cb535ccd0a3b695c54d46895"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER1TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:ga73ef2d427f131494bb2a58faecd7dda6" id="r_ga73ef2d427f131494bb2a58faecd7dda6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER1TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:gaa419078eefca141f711264b124be96c3" id="r_gaa419078eefca141f711264b124be96c3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#gaa419078eefca141f711264b124be96c3">INPUTMUX_MAIN_CTIMER1TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">CTIMER2CAP - Capture select register for CTIMER2 inputs</div></td></tr>
+<tr class="memitem:ga0dac46153732b1400314e04a43d4ad60" id="r_ga0dac46153732b1400314e04a43d4ad60"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER2CAP_INP_MASK</b></td></tr>
+<tr class="memitem:ga012e11764919932f76ef388d3b9e9556" id="r_ga012e11764919932f76ef388d3b9e9556"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER2CAP_INP_SHIFT</b></td></tr>
+<tr class="memitem:gad7a0c337e69c669d314bddce00da2fc8" id="r_gad7a0c337e69c669d314bddce00da2fc8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#gad7a0c337e69c669d314bddce00da2fc8">INPUTMUX_MAIN_CTIMER2CAP_INP</a>(x)</td></tr>
+<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">CTIMER2TRIG - Trigger register for CTIMER2 inputs</div></td></tr>
+<tr class="memitem:gaca8f734179df0d5e20e4ee7765c6d2c6" id="r_gaca8f734179df0d5e20e4ee7765c6d2c6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER2TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:ga94d93873b0b90eeda52db6c787a15217" id="r_ga94d93873b0b90eeda52db6c787a15217"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CTIMER2TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga65174ecd43da90760b992403effef62d" id="r_ga65174ecd43da90760b992403effef62d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga65174ecd43da90760b992403effef62d">INPUTMUX_MAIN_CTIMER2TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">FREQMEAS_REF - Selection for frequency measurement reference clock</div></td></tr>
+<tr class="memitem:ga40ff9a8316e0e255549684235b67bc16" id="r_ga40ff9a8316e0e255549684235b67bc16"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_FREQMEAS_REF_INP_MASK</b></td></tr>
+<tr class="memitem:ga0cad1e5aee815485f671aca7ffb3fe15" id="r_ga0cad1e5aee815485f671aca7ffb3fe15"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_FREQMEAS_REF_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga7ba0bbfee9f0a475879c31efba1f2a88" id="r_ga7ba0bbfee9f0a475879c31efba1f2a88"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga7ba0bbfee9f0a475879c31efba1f2a88">INPUTMUX_MAIN_FREQMEAS_REF_INP</a>(x)</td></tr>
+<tr id="define-members-7" class="groupHeader"><td colspan="2"><div class="groupHeader">FREQMEAS_TAR - Selection for frequency measurement target clock</div></td></tr>
+<tr class="memitem:gaa686c5b0731067615a34623398005b5f" id="r_gaa686c5b0731067615a34623398005b5f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_FREQMEAS_TAR_INP_MASK</b></td></tr>
+<tr class="memitem:ga762a54bebdb7b986cecccb1c91136d6f" id="r_ga762a54bebdb7b986cecccb1c91136d6f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_FREQMEAS_TAR_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga85f5c19a3d8ce33e0dfdc8307e05d053" id="r_ga85f5c19a3d8ce33e0dfdc8307e05d053"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga85f5c19a3d8ce33e0dfdc8307e05d053">INPUTMUX_MAIN_FREQMEAS_TAR_INP</a>(x)</td></tr>
+<tr id="define-members-8" class="groupHeader"><td colspan="2"><div class="groupHeader">CMP0_TRIG - CMP0 Input Connections</div></td></tr>
+<tr class="memitem:ga2ae6bb29aa9f1fc42e7929475e044bfc" id="r_ga2ae6bb29aa9f1fc42e7929475e044bfc"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CMP0_TRIG_TRIGIN_MASK</b></td></tr>
+<tr class="memitem:gabf672643b5b04adb2e5f85c051d55401" id="r_gabf672643b5b04adb2e5f85c051d55401"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_CMP0_TRIG_TRIGIN_SHIFT</b></td></tr>
+<tr class="memitem:ga739490c06e2e03ff531ef2320f356b92" id="r_ga739490c06e2e03ff531ef2320f356b92"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga739490c06e2e03ff531ef2320f356b92">INPUTMUX_MAIN_CMP0_TRIG_TRIGIN</a>(x)</td></tr>
+<tr id="define-members-9" class="groupHeader"><td colspan="2"><div class="groupHeader">ADC0_TRIG - ADC Trigger Input Connections</div></td></tr>
+<tr class="memitem:ga422c10a2aac4fb636185893db498ad01" id="r_ga422c10a2aac4fb636185893db498ad01"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_ADC0_TRIG_TRIGIN_MASK</b></td></tr>
+<tr class="memitem:ga150d96418df79d69804280b9d0137a5a" id="r_ga150d96418df79d69804280b9d0137a5a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_ADC0_TRIG_TRIGIN_SHIFT</b></td></tr>
+<tr class="memitem:gab83a9ed68c05c2a84b99fa80b65f2b04" id="r_gab83a9ed68c05c2a84b99fa80b65f2b04"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#gab83a9ed68c05c2a84b99fa80b65f2b04">INPUTMUX_MAIN_ADC0_TRIG_TRIGIN</a>(x)</td></tr>
+<tr id="define-members-10" class="groupHeader"><td colspan="2"><div class="groupHeader">AOI0_MUX - AOI0 Trigger Input Connections</div></td></tr>
+<tr class="memitem:gaa82f2d9c914227d6d2dfd66df7b14a7e" id="r_gaa82f2d9c914227d6d2dfd66df7b14a7e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_AOI0_MUX_INP_MASK</b></td></tr>
+<tr class="memitem:gade551f1403d258c8106e46c7514d827a" id="r_gade551f1403d258c8106e46c7514d827a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_AOI0_MUX_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga24f2c1e9882c07c2d7cae5798382b2d4" id="r_ga24f2c1e9882c07c2d7cae5798382b2d4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga24f2c1e9882c07c2d7cae5798382b2d4">INPUTMUX_MAIN_AOI0_MUX_INP</a>(x)</td></tr>
+<tr id="define-members-11" class="groupHeader"><td colspan="2"><div class="groupHeader">EXT_TRIG - EXT Trigger Connections</div></td></tr>
+<tr class="memitem:ga3e7e7abd64d7db1925ca6a236a1ecac6" id="r_ga3e7e7abd64d7db1925ca6a236a1ecac6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_EXT_TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:gaa23cab6d3bbd7a74288feb2e589b6091" id="r_gaa23cab6d3bbd7a74288feb2e589b6091"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_EXT_TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga9c0c604e8ce9a97bbf93e6c18d06edb1" id="r_ga9c0c604e8ce9a97bbf93e6c18d06edb1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga9c0c604e8ce9a97bbf93e6c18d06edb1">INPUTMUX_MAIN_EXT_TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-12" class="groupHeader"><td colspan="2"><div class="groupHeader">LPI2C0_TRIG - LPI2C0 Trigger Input Connections</div></td></tr>
+<tr class="memitem:ga6dc3665741ec525fa971548eec02550c" id="r_ga6dc3665741ec525fa971548eec02550c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPI2C0_TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:gad7e580a83c5206325bdce6b073856bf6" id="r_gad7e580a83c5206325bdce6b073856bf6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPI2C0_TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga5728b2c5155245fe73d6c9c2e14e0d0a" id="r_ga5728b2c5155245fe73d6c9c2e14e0d0a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga5728b2c5155245fe73d6c9c2e14e0d0a">INPUTMUX_MAIN_LPI2C0_TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-13" class="groupHeader"><td colspan="2"><div class="groupHeader">LPI2C1_TRIG - LPI2C1 Trigger Input Connections</div></td></tr>
+<tr class="memitem:ga1cc9a69e705389d12a632d6cda215993" id="r_ga1cc9a69e705389d12a632d6cda215993"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPI2C1_TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:ga9d0a972d1b921d55625886cce160b974" id="r_ga9d0a972d1b921d55625886cce160b974"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPI2C1_TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:gaac2c59565ddac8519b69ad677dad091a" id="r_gaac2c59565ddac8519b69ad677dad091a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#gaac2c59565ddac8519b69ad677dad091a">INPUTMUX_MAIN_LPI2C1_TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-14" class="groupHeader"><td colspan="2"><div class="groupHeader">LPSPI0_TRIG - LPSPI0 Trigger Input Connections</div></td></tr>
+<tr class="memitem:ga5ffde40791ce9bb1e2da7149caffc3af" id="r_ga5ffde40791ce9bb1e2da7149caffc3af"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPSPI0_TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:gacee87981e72dd24f1a43e2204c0513bb" id="r_gacee87981e72dd24f1a43e2204c0513bb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPSPI0_TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga962c18acef854ef112c9242a34179818" id="r_ga962c18acef854ef112c9242a34179818"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga962c18acef854ef112c9242a34179818">INPUTMUX_MAIN_LPSPI0_TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-15" class="groupHeader"><td colspan="2"><div class="groupHeader">LPSPI1_TRIG - LPSPI1 Trigger Input Connections</div></td></tr>
+<tr class="memitem:ga6977fa1563d9e50cafc20f0ce661d9b1" id="r_ga6977fa1563d9e50cafc20f0ce661d9b1"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPSPI1_TRIG_INP_MASK</b></td></tr>
+<tr class="memitem:gafec34c8e2b7dab237bd1f21614010d3c" id="r_gafec34c8e2b7dab237bd1f21614010d3c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPSPI1_TRIG_INP_SHIFT</b></td></tr>
+<tr class="memitem:gae6569b20a3a0546d1565da3f997ca18d" id="r_gae6569b20a3a0546d1565da3f997ca18d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#gae6569b20a3a0546d1565da3f997ca18d">INPUTMUX_MAIN_LPSPI1_TRIG_INP</a>(x)</td></tr>
+<tr id="define-members-16" class="groupHeader"><td colspan="2"><div class="groupHeader">LPUART0 - LPUART0 Trigger Input Connections</div></td></tr>
+<tr class="memitem:ga4ff58112ce7634f2e1ad8075531093b4" id="r_ga4ff58112ce7634f2e1ad8075531093b4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPUART0_INP_MASK</b></td></tr>
+<tr class="memitem:gab0a29a04d0e8c8bc915bc42d89cf64fe" id="r_gab0a29a04d0e8c8bc915bc42d89cf64fe"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPUART0_INP_SHIFT</b></td></tr>
+<tr class="memitem:ga71b1b867c38bf0eef2584848950b2cee" id="r_ga71b1b867c38bf0eef2584848950b2cee"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#ga71b1b867c38bf0eef2584848950b2cee">INPUTMUX_MAIN_LPUART0_INP</a>(x)</td></tr>
+<tr id="define-members-17" class="groupHeader"><td colspan="2"><div class="groupHeader">LPUART1 - LPUART1 Trigger Input Connections</div></td></tr>
+<tr class="memitem:gaa563052077b90433bbbf5f2310bf17e0" id="r_gaa563052077b90433bbbf5f2310bf17e0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPUART1_INP_MASK</b></td></tr>
+<tr class="memitem:ga7106c2845d2055cced6b99101de5b5e7" id="r_ga7106c2845d2055cced6b99101de5b5e7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>INPUTMUX_MAIN_LPUART1_INP_SHIFT</b></td></tr>
+<tr class="memitem:gac209b954920a8d1a83e017bddb784104" id="r_gac209b954920a8d1a83e017bddb784104"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01776.html#gac209b954920a8d1a83e017bddb784104">INPUTMUX_MAIN_LPUART1_INP</a>(x)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>CMSIS Peripheral Access Layer for INPUTMUX_AON. </p>
+<div class="textblock"><p>CMSIS Peripheral Access Layer for INPUTMUX_MAIN. </p>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2025-06-13 </dd></dl>
-<p>CMSIS Peripheral Access Layer for INPUTMUX_AON </p>
+<p>CMSIS Peripheral Access Layer for INPUTMUX_MAIN </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ae5271d12bdf48b3aba950f11eb1f0df1" name="ae5271d12bdf48b3aba950f11eb1f0df1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5271d12bdf48b3aba950f11eb1f0df1">&#9670;&#160;</a></span>PERI_INPUTMUX_AON_H_</h2>
+<a id="a5c99d037b9cc4a23a52ec77b0af37f26" name="a5c99d037b9cc4a23a52ec77b0af37f26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c99d037b9cc4a23a52ec77b0af37f26">&#9670;&#160;</a></span>PERI_INPUTMUX_MAIN_H_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PERI_INPUTMUX_AON_H_</td>
+          <td class="memname">#define PERI_INPUTMUX_MAIN_H_</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -270,7 +288,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a01286.html">PERI_INPUTMUX_AON.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a01286.html">PERI_INPUTMUX_MAIN.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

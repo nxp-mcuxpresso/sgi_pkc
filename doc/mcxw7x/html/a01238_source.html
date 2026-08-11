@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa2xx/PERI_WAKETIMER.h Source File</title>
+<title>MCUX CLNS: platform/mcxa2xx/PERI_VBAT.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ $(function(){initNavTree('a01238_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PERI_WAKETIMER.h</div></div>
+  <div class="headertitle"><div class="title">PERI_VBAT.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01238.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
@@ -129,7 +129,7 @@ $(function(){initNavTree('a01238_source.html','',''); });
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">**     Build:               b250804</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">**</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">**     Abstract:</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">**         CMSIS Peripheral Access Layer for WAKETIMER</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">**         CMSIS Peripheral Access Layer for VBAT</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">**</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">**     Copyright 1997-2016 Freescale Semiconductor, Inc.</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">**     Copyright 2016-2025 NXP</span></div>
@@ -146,8 +146,8 @@ $(function(){initNavTree('a01238_source.html','',''); });
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#if !defined(PERI_WAKETIMER_H_)</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a01238.html#a3d40e547b79ea6c8bbc44d303bf20fee">   58</a></span><span class="preprocessor">#define PERI_WAKETIMER_H_                        </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#if !defined(PERI_VBAT_H_)</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a01238.html#a8b443f2f351050b2ca1ac007f48c9ab2">   58</a></span><span class="preprocessor">#define PERI_VBAT_H_                             </span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#if (defined(CPU_MCXA345VLH) || defined(CPU_MCXA345VLL) || defined(CPU_MCXA345VLQ) || defined(CPU_MCXA345VPN))</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &quot;MCXA345_COMMON.h&quot;</span></div>
@@ -160,7 +160,7 @@ $(function(){initNavTree('a01238_source.html','',''); });
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#elif (defined(CPU_MCXA365VLH) || defined(CPU_MCXA365VLL) || defined(CPU_MCXA365VLQ) || defined(CPU_MCXA365VPN))</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#include &quot;MCXA365_COMMON.h&quot;</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#elif (defined(CPU_MCXA366VLH) || defined(CPU_MCXA366VLL) || defined(CPU_MCXA366VLQ) || defined(CPU_MCXA366VPN))</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#include &quot;<a class="code" href="a01085.html">MCXA366_COMMON.h</a>&quot;</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#include &quot;<a class="code" href="a01088.html">MCXA366_COMMON.h</a>&quot;</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">  #error &quot;No valid CPU defined!&quot;</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif</span></div>
@@ -191,84 +191,122 @@ $(function(){initNavTree('a01238_source.html','',''); });
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">   -- WAKETIMER Peripheral Access Layer</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">   -- VBAT Peripheral Access Layer</span></div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span></div>
-<div class="foldopen" id="foldopen00115" data-start="{" data-end="};">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a02423.html">  115</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a01658.html#gaf0dc5e192602b33862a518421e55f778">  116</a></span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a01658.html#gaf0dc5e192602b33862a518421e55f778">WAKE_TIMER_CTRL</a>;                   </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>       uint8_t RESERVED_0[8];</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a01658.html#ga53a9eb1761ed12f6b227b5042b2ead84">  118</a></span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a01658.html#ga53a9eb1761ed12f6b227b5042b2ead84">WAKE_TIMER_CNT</a>;                    </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>} <a class="code hl_struct" href="a02423.html">WAKETIMER_Type</a>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a01727.html#gaa76b216b626d0061d63979f24888ee54">  115</a></span><span class="preprocessor">#define VBAT_WAKEUP_COUNT                         2u</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="};">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a02410.html">  118</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a01653.html#ga8cb0efab2c28e95104d4ea9ec9ec5e1e">  119</a></span>  <a class="code hl_define" href="a03527.html#af63697ed9952cc71e1225efe205f6cd3">__I</a>  uint32_t <a class="code hl_variable" href="a01653.html#ga8cb0efab2c28e95104d4ea9ec9ec5e1e">VERID</a>;                             </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>       uint8_t RESERVED_0[508];</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="a01653.html#gaa53a44e422834d4030c4d1ca2bc76a2a">  121</a></span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a01653.html#gaa53a44e422834d4030c4d1ca2bc76a2a">FROCTLA</a>;                           </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>       uint8_t RESERVED_1[20];</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a01653.html#ga3eebbdec44a79502825618c7d433d918">  123</a></span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a01653.html#ga3eebbdec44a79502825618c7d433d918">FROLCKA</a>;                           </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>       uint8_t RESERVED_2[4];</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a01653.html#ga214b33b14941e4f76f9e3eb74cd62ec6">  125</a></span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a01653.html#ga214b33b14941e4f76f9e3eb74cd62ec6">FROCLKE</a>;                           </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>       uint8_t RESERVED_3[1244];</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  <span class="keyword">struct </span>{                                         <span class="comment">/* offset: 0x700, array step: 0x8 */</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="a01653.html#gaf89bf7eb85967876644057892044b0da">  128</a></span>    <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a01653.html#gaf89bf7eb85967876644057892044b0da">WAKEUPA</a>;                           </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>         uint8_t RESERVED_0[4];</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>  } WAKEUP[<a class="code hl_define" href="a01727.html#gaa76b216b626d0061d63979f24888ee54">VBAT_WAKEUP_COUNT</a>];</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>       uint8_t RESERVED_4[232];</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="a01653.html#ga26327490f48de3aa84843cd1a1b8b2ee">  132</a></span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a01653.html#ga26327490f48de3aa84843cd1a1b8b2ee">WAKLCKA</a>;                           </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>} <a class="code hl_struct" href="a02410.html">VBAT_Type</a>;</div>
 </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">   -- WAKETIMER Register Masks</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_WAKE_FLAG_MASK (0x2U)</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_WAKE_FLAG_SHIFT (1U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="a01735.html#ga2c6712406b97dc174b633f10582284af">  139</a></span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_WAKE_FLAG(x)   (((uint32_t)(((uint32_t)(x)) &lt;&lt; WAKETIMER_WAKE_TIMER_CTRL_WAKE_FLAG_SHIFT)) &amp; WAKETIMER_WAKE_TIMER_CTRL_WAKE_FLAG_MASK)</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_CLR_WAKE_TIMER_MASK (0x4U)</span></div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_CLR_WAKE_TIMER_SHIFT (2U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="a01735.html#gaa3417df384849a3545385453cbf91e36">  147</a></span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_CLR_WAKE_TIMER(x) (((uint32_t)(((uint32_t)(x)) &lt;&lt; WAKETIMER_WAKE_TIMER_CTRL_CLR_WAKE_TIMER_SHIFT)) &amp; WAKETIMER_WAKE_TIMER_CTRL_CLR_WAKE_TIMER_MASK)</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_OSC_DIV_ENA_MASK (0x10U)</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_OSC_DIV_ENA_SHIFT (4U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="a01735.html#gada051b4c64f8cc4cfaad6f0380dfc8ae">  155</a></span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_OSC_DIV_ENA(x) (((uint32_t)(((uint32_t)(x)) &lt;&lt; WAKETIMER_WAKE_TIMER_CTRL_OSC_DIV_ENA_SHIFT)) &amp; WAKETIMER_WAKE_TIMER_CTRL_OSC_DIV_ENA_MASK)</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">   -- VBAT Register Masks</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">#define VBAT_VERID_FEATURE_MASK                  (0xFFFFU)</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">#define VBAT_VERID_FEATURE_SHIFT                 (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="a01728.html#ga25c166e8bc8b685bcee2436e1af93b58">  150</a></span><span class="preprocessor">#define VBAT_VERID_FEATURE(x)                    (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_VERID_FEATURE_SHIFT)) &amp; VBAT_VERID_FEATURE_MASK)</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="preprocessor">#define VBAT_VERID_MINOR_MASK                    (0xFF0000U)</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">#define VBAT_VERID_MINOR_SHIFT                   (16U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="a01728.html#gae2f571a12bb7468c8d2b394486b7c2a9">  155</a></span><span class="preprocessor">#define VBAT_VERID_MINOR(x)                      (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_VERID_MINOR_SHIFT)) &amp; VBAT_VERID_MINOR_MASK)</span></div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_INTR_EN_MASK   (0x20U)</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_INTR_EN_SHIFT  (5U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="a01735.html#ga8fe6358b0bd214065c0568164e807c96">  163</a></span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CTRL_INTR_EN(x)     (((uint32_t)(((uint32_t)(x)) &lt;&lt; WAKETIMER_WAKE_TIMER_CTRL_INTR_EN_SHIFT)) &amp; WAKETIMER_WAKE_TIMER_CTRL_INTR_EN_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CNT_WAKE_CNT_MASK   (0xFFFFFFFFU)</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CNT_WAKE_CNT_SHIFT  (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="a01735.html#ga0070910cc02ac7cc2e1299893bf35346">  172</a></span><span class="preprocessor">#define WAKETIMER_WAKE_TIMER_CNT_WAKE_CNT(x)     (((uint32_t)(((uint32_t)(x)) &lt;&lt; WAKETIMER_WAKE_TIMER_CNT_WAKE_CNT_SHIFT)) &amp; WAKETIMER_WAKE_TIMER_CNT_WAKE_CNT_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> <span class="comment">/* end of group WAKETIMER_Register_Masks */</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> <span class="comment">/* end of group WAKETIMER_Peripheral_Access_Layer */</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">** End of section using anonymous unions</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="preprocessor">#define VBAT_VERID_MAJOR_MASK                    (0xFF000000U)</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#define VBAT_VERID_MAJOR_SHIFT                   (24U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="a01728.html#ga7ea0a994deebecb8916aa2f287ee3d0f">  160</a></span><span class="preprocessor">#define VBAT_VERID_MAJOR(x)                      (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_VERID_MAJOR_SHIFT)) &amp; VBAT_VERID_MAJOR_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="preprocessor">#define VBAT_FROCTLA_FRO_EN_MASK                 (0x1U)</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="preprocessor">#define VBAT_FROCTLA_FRO_EN_SHIFT                (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="a01728.html#ga8e3c3757015eb38cbc5b066614fe739e">  172</a></span><span class="preprocessor">#define VBAT_FROCTLA_FRO_EN(x)                   (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_FROCTLA_FRO_EN_SHIFT)) &amp; VBAT_FROCTLA_FRO_EN_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#define VBAT_FROLCKA_LOCK_MASK                   (0x1U)</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor">#define VBAT_FROLCKA_LOCK_SHIFT                  (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="a01728.html#ga963426157f1967c1eb764b6f2952cedd">  184</a></span><span class="preprocessor">#define VBAT_FROLCKA_LOCK(x)                     (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_FROLCKA_LOCK_SHIFT)) &amp; VBAT_FROLCKA_LOCK_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span></div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">    #pragma clang diagnostic pop</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">  #else</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor">    #pragma pop</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">  #endif</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>  <span class="comment">/* leave anonymous unions enabled */</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="preprocessor">  #pragma language=default</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="preprocessor">  #error Not supported compiler type</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> <span class="comment">/* end of group Peripheral_access_layer */</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="preprocessor">#endif  </span><span class="comment">/* PERI_WAKETIMER_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#define VBAT_FROCLKE_CLKE_MASK                   (0x3U)</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor">#define VBAT_FROCLKE_CLKE_SHIFT                  (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="a01728.html#gaf230dd0b294c83aff4558031839cdfec">  193</a></span><span class="preprocessor">#define VBAT_FROCLKE_CLKE(x)                     (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_FROCLKE_CLKE_SHIFT)) &amp; VBAT_FROCLKE_CLKE_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="preprocessor">#define VBAT_WAKEUP_WAKEUPA_REG_MASK             (0xFFFFFFFFU)</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="preprocessor">#define VBAT_WAKEUP_WAKEUPA_REG_SHIFT            (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="a01728.html#ga0bdb2ef1266190c1ef869ada0e51e071">  202</a></span><span class="preprocessor">#define VBAT_WAKEUP_WAKEUPA_REG(x)               (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_WAKEUP_WAKEUPA_REG_SHIFT)) &amp; VBAT_WAKEUP_WAKEUPA_REG_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment">/* The count of VBAT_WAKEUP_WAKEUPA */</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="preprocessor">#define VBAT_WAKEUP_WAKEUPA_COUNT                (2U)</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span></div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">MCXA366_COMMON.h</a></div><div class="ttdoc">CMSIS Peripheral Access Layer for MCXA366.</div></div>
-<div class="ttc" id="aa01658_html_ga53a9eb1761ed12f6b227b5042b2ead84"><div class="ttname"><a href="a01658.html#ga53a9eb1761ed12f6b227b5042b2ead84">WAKETIMER_Type::WAKE_TIMER_CNT</a></div><div class="ttdeci">__IO uint32_t WAKE_TIMER_CNT</div><div class="ttdoc">Wake Timer Counter, offset: 0xC.</div><div class="ttdef"><b>Definition</b> PERI_WAKETIMER.h:118</div></div>
-<div class="ttc" id="aa01658_html_gaf0dc5e192602b33862a518421e55f778"><div class="ttname"><a href="a01658.html#gaf0dc5e192602b33862a518421e55f778">WAKETIMER_Type::WAKE_TIMER_CTRL</a></div><div class="ttdeci">__IO uint32_t WAKE_TIMER_CTRL</div><div class="ttdoc">Wake Timer Control, offset: 0x0.</div><div class="ttdef"><b>Definition</b> PERI_WAKETIMER.h:116</div></div>
-<div class="ttc" id="aa02423_html"><div class="ttname"><a href="a02423.html">WAKETIMER_Type</a></div><div class="ttdoc">WAKETIMER - Register Layout Typedef.</div><div class="ttdef"><b>Definition</b> PERI_WAKETIMER.h:115</div></div>
-<div class="ttc" id="aa03533_html_aec43007d9998a0a0e01faede4133d6be"><div class="ttname"><a href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a></div><div class="ttdeci">#define __IO</div><div class="ttdef"><b>Definition</b> core_cm33.h:276</div></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">#define VBAT_WAKLCKA_LOCK_MASK                   (0x1U)</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">#define VBAT_WAKLCKA_LOCK_SHIFT                  (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="a01728.html#gab94a8a9497678c3851daf525be4b6b22">  217</a></span><span class="preprocessor">#define VBAT_WAKLCKA_LOCK(x)                     (((uint32_t)(((uint32_t)(x)) &lt;&lt; VBAT_WAKLCKA_LOCK_SHIFT)) &amp; VBAT_WAKLCKA_LOCK_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> <span class="comment">/* end of group VBAT_Register_Masks */</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> <span class="comment">/* end of group VBAT_Peripheral_Access_Layer */</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">** End of section using anonymous unions</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">    #pragma clang diagnostic pop</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">  #else</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="preprocessor">    #pragma pop</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="preprocessor">  #endif</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>  <span class="comment">/* leave anonymous unions enabled */</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">  #pragma language=default</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">  #error Not supported compiler type</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> <span class="comment">/* end of group Peripheral_access_layer */</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">#endif  </span><span class="comment">/* PERI_VBAT_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">MCXA366_COMMON.h</a></div><div class="ttdoc">CMSIS Peripheral Access Layer for MCXA366.</div></div>
+<div class="ttc" id="aa01653_html_ga214b33b14941e4f76f9e3eb74cd62ec6"><div class="ttname"><a href="a01653.html#ga214b33b14941e4f76f9e3eb74cd62ec6">VBAT_Type::FROCLKE</a></div><div class="ttdeci">__IO uint32_t FROCLKE</div><div class="ttdoc">FRO16K Clock Enable, offset: 0x220.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:125</div></div>
+<div class="ttc" id="aa01653_html_ga26327490f48de3aa84843cd1a1b8b2ee"><div class="ttname"><a href="a01653.html#ga26327490f48de3aa84843cd1a1b8b2ee">VBAT_Type::WAKLCKA</a></div><div class="ttdeci">__IO uint32_t WAKLCKA</div><div class="ttdoc">Wakeup Lock A, offset: 0x7F8.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:132</div></div>
+<div class="ttc" id="aa01653_html_ga3eebbdec44a79502825618c7d433d918"><div class="ttname"><a href="a01653.html#ga3eebbdec44a79502825618c7d433d918">VBAT_Type::FROLCKA</a></div><div class="ttdeci">__IO uint32_t FROLCKA</div><div class="ttdoc">FRO16K Lock A, offset: 0x218.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:123</div></div>
+<div class="ttc" id="aa01653_html_ga8cb0efab2c28e95104d4ea9ec9ec5e1e"><div class="ttname"><a href="a01653.html#ga8cb0efab2c28e95104d4ea9ec9ec5e1e">VBAT_Type::VERID</a></div><div class="ttdeci">__I uint32_t VERID</div><div class="ttdoc">Version ID, offset: 0x0.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:119</div></div>
+<div class="ttc" id="aa01653_html_gaa53a44e422834d4030c4d1ca2bc76a2a"><div class="ttname"><a href="a01653.html#gaa53a44e422834d4030c4d1ca2bc76a2a">VBAT_Type::FROCTLA</a></div><div class="ttdeci">__IO uint32_t FROCTLA</div><div class="ttdoc">FRO16K Control A, offset: 0x200.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:121</div></div>
+<div class="ttc" id="aa01653_html_gaf89bf7eb85967876644057892044b0da"><div class="ttname"><a href="a01653.html#gaf89bf7eb85967876644057892044b0da">VBAT_Type::WAKEUPA</a></div><div class="ttdeci">__IO uint32_t WAKEUPA</div><div class="ttdoc">Wakeup 0 Register A, array offset: 0x700, array step: 0x8.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:128</div></div>
+<div class="ttc" id="aa01727_html_gaa76b216b626d0061d63979f24888ee54"><div class="ttname"><a href="a01727.html#gaa76b216b626d0061d63979f24888ee54">VBAT_WAKEUP_COUNT</a></div><div class="ttdeci">#define VBAT_WAKEUP_COUNT</div><div class="ttdoc">VBAT - Size of Registers Arrays.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:115</div></div>
+<div class="ttc" id="aa02410_html"><div class="ttname"><a href="a02410.html">VBAT_Type</a></div><div class="ttdoc">VBAT - Register Layout Typedef.</div><div class="ttdef"><b>Definition</b> PERI_VBAT.h:118</div></div>
+<div class="ttc" id="aa03527_html_aec43007d9998a0a0e01faede4133d6be"><div class="ttname"><a href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a></div><div class="ttdeci">#define __IO</div><div class="ttdef"><b>Definition</b> core_cm33.h:276</div></div>
+<div class="ttc" id="aa03527_html_af63697ed9952cc71e1225efe205f6cd3"><div class="ttname"><a href="a03527.html#af63697ed9952cc71e1225efe205f6cd3">__I</a></div><div class="ttdeci">#define __I</div><div class="ttdef"><b>Definition</b> core_cm33.h:273</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a01238.html">PERI_WAKETIMER.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a01238.html">PERI_VBAT.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

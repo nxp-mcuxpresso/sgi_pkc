@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLFFDH_WAPKC</title>
+<title>MCUX CLNS: Device Peripheral Access Layer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,239 +102,144 @@ $(function(){initNavTree('a01629.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLFFDH_WAPKC <div class="ingroups"><a class="el" href="a01381.html">mcuxClFfdh</a> &raquo; <a class="el" href="a01600.html">mcuxClFfdh_MemoryConsumption</a></div></div></div>
+  <div class="headertitle"><div class="title">Device Peripheral Access Layer <div class="ingroups"><a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01653.html">Eim_error_injection_channel_enable</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01797.html">Edma_request</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Define the PKC workarea size required by mcuxClFfdh APIs.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:gae12ec5b9e75ad7f58e01459b56c933e6" id="r_gae12ec5b9e75ad7f58e01459b56c933e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae12ec5b9e75ad7f58e01459b56c933e6">MCUXCLFFDH_PKC_WORDSIZE</a></td></tr>
-<tr class="memdesc:gae12ec5b9e75ad7f58e01459b56c933e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC wordsize in FFDH component.  <br /></td></tr>
-<tr class="memitem:ga5d5caf1e1f06650f73b517eae3128099" id="r_ga5d5caf1e1f06650f73b517eae3128099"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5d5caf1e1f06650f73b517eae3128099">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</a></td></tr>
-<tr class="memdesc:ga5d5caf1e1f06650f73b517eae3128099"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p.  <br /></td></tr>
-<tr class="memitem:ga2829efb30e6330694a2148c6675e094c" id="r_ga2829efb30e6330694a2148c6675e094c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2829efb30e6330694a2148c6675e094c">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</a></td></tr>
-<tr class="memdesc:ga2829efb30e6330694a2148c6675e094c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
-<tr class="memitem:ga601b88078391610dbba0a3f25ed5f1c8" id="r_ga601b88078391610dbba0a3f25ed5f1c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga601b88078391610dbba0a3f25ed5f1c8">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</a></td></tr>
-<tr class="memdesc:ga601b88078391610dbba0a3f25ed5f1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
-<tr class="memitem:ga582c385c4f459f10dc282c6d7a84390f" id="r_ga582c385c4f459f10dc282c6d7a84390f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga582c385c4f459f10dc282c6d7a84390f">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</a></td></tr>
-<tr class="memdesc:ga582c385c4f459f10dc282c6d7a84390f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
-<tr class="memitem:ga469bca95a7be11074c4cd93e77cff342" id="r_ga469bca95a7be11074c4cd93e77cff342"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga469bca95a7be11074c4cd93e77cff342">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</a></td></tr>
-<tr class="memdesc:ga469bca95a7be11074c4cd93e77cff342"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
-<tr class="memitem:gae12ec5b9e75ad7f58e01459b56c933e6" id="r_gae12ec5b9e75ad7f58e01459b56c933e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae12ec5b9e75ad7f58e01459b56c933e6">MCUXCLFFDH_PKC_WORDSIZE</a></td></tr>
-<tr class="memdesc:gae12ec5b9e75ad7f58e01459b56c933e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC wordsize in FFDH component.  <br /></td></tr>
-<tr class="memitem:ga5d5caf1e1f06650f73b517eae3128099" id="r_ga5d5caf1e1f06650f73b517eae3128099"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5d5caf1e1f06650f73b517eae3128099">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</a></td></tr>
-<tr class="memdesc:ga5d5caf1e1f06650f73b517eae3128099"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p.  <br /></td></tr>
-<tr class="memitem:ga2829efb30e6330694a2148c6675e094c" id="r_ga2829efb30e6330694a2148c6675e094c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2829efb30e6330694a2148c6675e094c">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</a></td></tr>
-<tr class="memdesc:ga2829efb30e6330694a2148c6675e094c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
-<tr class="memitem:ga601b88078391610dbba0a3f25ed5f1c8" id="r_ga601b88078391610dbba0a3f25ed5f1c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga601b88078391610dbba0a3f25ed5f1c8">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</a></td></tr>
-<tr class="memdesc:ga601b88078391610dbba0a3f25ed5f1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
-<tr class="memitem:ga582c385c4f459f10dc282c6d7a84390f" id="r_ga582c385c4f459f10dc282c6d7a84390f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga582c385c4f459f10dc282c6d7a84390f">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</a></td></tr>
-<tr class="memdesc:ga582c385c4f459f10dc282c6d7a84390f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
-<tr class="memitem:ga469bca95a7be11074c4cd93e77cff342" id="r_ga469bca95a7be11074c4cd93e77cff342"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga469bca95a7be11074c4cd93e77cff342">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</a></td></tr>
-<tr class="memdesc:ga469bca95a7be11074c4cd93e77cff342"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Topics</h2></td></tr>
+<tr class="memitem:ADC_5FPeripheral_5FAccess_5FLayer" id="r_ADC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01630.html">ADC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:AOI_5FPeripheral_5FAccess_5FLayer" id="r_AOI_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01632.html">AOI Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CAN_5FPeripheral_5FAccess_5FLayer" id="r_CAN_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01634.html">CAN Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CDOG_5FPeripheral_5FAccess_5FLayer" id="r_CDOG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01636.html">CDOG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CMC_5FPeripheral_5FAccess_5FLayer" id="r_CMC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01638.html">CMC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CRC_5FPeripheral_5FAccess_5FLayer" id="r_CRC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01640.html">CRC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CTIMER_5FPeripheral_5FAccess_5FLayer" id="r_CTIMER_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01642.html">CTIMER Peripheral Access Layer</a></td></tr>
+<tr class="memitem:DEBUGMAILBOX_5FPeripheral_5FAccess_5FLayer" id="r_DEBUGMAILBOX_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01644.html">DEBUGMAILBOX Peripheral Access Layer</a></td></tr>
+<tr class="memitem:DIGTMP_5FPeripheral_5FAccess_5FLayer" id="r_DIGTMP_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01646.html">DIGTMP Peripheral Access Layer</a></td></tr>
+<tr class="memitem:DMA_5FPeripheral_5FAccess_5FLayer" id="r_DMA_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01650.html">DMA Peripheral Access Layer</a></td></tr>
+<tr class="memitem:EIM_5FPeripheral_5FAccess_5FLayer" id="r_EIM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01654.html">EIM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:EQDC_5FPeripheral_5FAccess_5FLayer" id="r_EQDC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01656.html">EQDC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ERM_5FPeripheral_5FAccess_5FLayer" id="r_ERM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01659.html">ERM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:FLEXIO_5FPeripheral_5FAccess_5FLayer" id="r_FLEXIO_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01661.html">FLEXIO Peripheral Access Layer</a></td></tr>
+<tr class="memitem:FMC_5FPeripheral_5FAccess_5FLayer" id="r_FMC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01663.html">FMC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:FMU_5FPeripheral_5FAccess_5FLayer" id="r_FMU_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01665.html">FMU Peripheral Access Layer</a></td></tr>
+<tr class="memitem:FREQME_5FPeripheral_5FAccess_5FLayer" id="r_FREQME_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01667.html">FREQME Peripheral Access Layer</a></td></tr>
+<tr class="memitem:GLIKEY_5FPeripheral_5FAccess_5FLayer" id="r_GLIKEY_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01669.html">GLIKEY Peripheral Access Layer</a></td></tr>
+<tr class="memitem:GPIO_5FPeripheral_5FAccess_5FLayer" id="r_GPIO_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01671.html">GPIO Peripheral Access Layer</a></td></tr>
+<tr class="memitem:I3C_5FPeripheral_5FAccess_5FLayer" id="r_I3C_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01673.html">I3C Peripheral Access Layer</a></td></tr>
+<tr class="memitem:INPUTMUX_5FPeripheral_5FAccess_5FLayer" id="r_INPUTMUX_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01675.html">INPUTMUX Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LCD_5FPeripheral_5FAccess_5FLayer" id="r_LCD_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01677.html">LCD Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPCMP_5FPeripheral_5FAccess_5FLayer" id="r_LPCMP_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01679.html">LPCMP Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPDAC_5FPeripheral_5FAccess_5FLayer" id="r_LPDAC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01681.html">LPDAC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPI2C_5FPeripheral_5FAccess_5FLayer" id="r_LPI2C_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01683.html">LPI2C Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPSPI_5FPeripheral_5FAccess_5FLayer" id="r_LPSPI_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01685.html">LPSPI Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPTMR_5FPeripheral_5FAccess_5FLayer" id="r_LPTMR_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01687.html">LPTMR Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPUART_5FPeripheral_5FAccess_5FLayer" id="r_LPUART_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01689.html">LPUART Peripheral Access Layer</a></td></tr>
+<tr class="memitem:MAU_5FPeripheral_5FAccess_5FLayer" id="r_MAU_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01691.html">MAU Peripheral Access Layer</a></td></tr>
+<tr class="memitem:MRCC_5FPeripheral_5FAccess_5FLayer" id="r_MRCC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01693.html">MRCC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:OPAMP_5FPeripheral_5FAccess_5FLayer" id="r_OPAMP_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01695.html">OPAMP Peripheral Access Layer</a></td></tr>
+<tr class="memitem:OSTIMER_5FPeripheral_5FAccess_5FLayer" id="r_OSTIMER_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01697.html">OSTIMER Peripheral Access Layer</a></td></tr>
+<tr class="memitem:PKC_5FPeripheral_5FAccess_5FLayer" id="r_PKC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01699.html">PKC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:PORT_5FPeripheral_5FAccess_5FLayer" id="r_PORT_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01701.html">PORT Peripheral Access Layer</a></td></tr>
+<tr class="memitem:PWM_5FPeripheral_5FAccess_5FLayer" id="r_PWM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01703.html">PWM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:RTC_5FPeripheral_5FAccess_5FLayer" id="r_RTC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01705.html">RTC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SCG_5FPeripheral_5FAccess_5FLayer" id="r_SCG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01707.html">SCG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SGI_5FPeripheral_5FAccess_5FLayer" id="r_SGI_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01709.html">SGI Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SMARTDMA_5FPeripheral_5FAccess_5FLayer" id="r_SMARTDMA_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01711.html">SMARTDMA Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SPC_5FPeripheral_5FAccess_5FLayer" id="r_SPC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01713.html">SPC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SYSCON_5FPeripheral_5FAccess_5FLayer" id="r_SYSCON_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01715.html">SYSCON Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TRDC_5FPeripheral_5FAccess_5FLayer" id="r_TRDC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01717.html">TRDC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TRNG_5FPeripheral_5FAccess_5FLayer" id="r_TRNG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01719.html">TRNG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:UDF_5FPeripheral_5FAccess_5FLayer" id="r_UDF_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01721.html">UDF Peripheral Access Layer</a></td></tr>
+<tr class="memitem:USB_5FPeripheral_5FAccess_5FLayer" id="r_USB_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01723.html">USB Peripheral Access Layer</a></td></tr>
+<tr class="memitem:UTICK_5FPeripheral_5FAccess_5FLayer" id="r_UTICK_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01725.html">UTICK Peripheral Access Layer</a></td></tr>
+<tr class="memitem:VBAT_5FPeripheral_5FAccess_5FLayer" id="r_VBAT_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01727.html">VBAT Peripheral Access Layer</a></td></tr>
+<tr class="memitem:WAKETIMER_5FPeripheral_5FAccess_5FLayer" id="r_WAKETIMER_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01729.html">WAKETIMER Peripheral Access Layer</a></td></tr>
+<tr class="memitem:WUU_5FPeripheral_5FAccess_5FLayer" id="r_WUU_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01731.html">WUU Peripheral Access Layer</a></td></tr>
+<tr class="memitem:WWDT_5FPeripheral_5FAccess_5FLayer" id="r_WWDT_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01733.html">WWDT Peripheral Access Layer</a></td></tr>
+<tr class="memitem:AHBSC_5FPeripheral_5FAccess_5FLayer" id="r_AHBSC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01735.html">AHBSC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ATX_5FPeripheral_5FAccess_5FLayer" id="r_ATX_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01737.html">ATX Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ENET_5FQOS_5FPeripheral_5FAccess_5FLayer" id="r_ENET_5FQOS_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01739.html">ENET_QOS Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ESPI_5FPeripheral_5FAccess_5FLayer" id="r_ESPI_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01741.html">ESPI Peripheral Access Layer</a></td></tr>
+<tr class="memitem:EWM_5FPeripheral_5FAccess_5FLayer" id="r_EWM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01743.html">EWM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:FLEXSPI_5FPeripheral_5FAccess_5FLayer" id="r_FLEXSPI_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01745.html">FLEXSPI Peripheral Access Layer</a></td></tr>
+<tr class="memitem:FMUTEST_5FPeripheral_5FAccess_5FLayer" id="r_FMUTEST_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01747.html">FMUTEST Peripheral Access Layer</a></td></tr>
+<tr class="memitem:GDET_5FPeripheral_5FAccess_5FLayer" id="r_GDET_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01749.html">GDET Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ITRC_5FPeripheral_5FAccess_5FLayer" id="r_ITRC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01751.html">ITRC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ROMCP_5FPeripheral_5FAccess_5FLayer" id="r_ROMCP_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01753.html">ROMCP Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SECCON_5FPeripheral_5FAccess_5FLayer" id="r_SECCON_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01755.html">SECCON Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SPI_5FFILTER_5FPeripheral_5FAccess_5FLayer" id="r_SPI_5FFILTER_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01757.html">SPI_FILTER Peripheral Access Layer</a></td></tr>
+<tr class="memitem:T1S_5FPeripheral_5FAccess_5FLayer" id="r_T1S_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01759.html">T1S Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TSI_5FPeripheral_5FAccess_5FLayer" id="r_TSI_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01761.html">TSI Peripheral Access Layer</a></td></tr>
+<tr class="memitem:USBHS_5FPeripheral_5FAccess_5FLayer" id="r_USBHS_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01763.html">USBHS Peripheral Access Layer</a></td></tr>
+<tr class="memitem:USBNC_5FPeripheral_5FAccess_5FLayer" id="r_USBNC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01765.html">USBNC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:USBPHY_5FPeripheral_5FAccess_5FLayer" id="r_USBPHY_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01767.html">USBPHY Peripheral Access Layer</a></td></tr>
+<tr class="memitem:VREF_5FPeripheral_5FAccess_5FLayer" id="r_VREF_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01769.html">VREF Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CGU_5FPeripheral_5FAccess_5FLayer" id="r_CGU_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01771.html">CGU Peripheral Access Layer</a></td></tr>
+<tr class="memitem:INPUTMUX_5FAON_5FPeripheral_5FAccess_5FLayer" id="r_INPUTMUX_5FAON_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01773.html">INPUTMUX_AON Peripheral Access Layer</a></td></tr>
+<tr class="memitem:INPUTMUX_5FMAIN_5FPeripheral_5FAccess_5FLayer" id="r_INPUTMUX_5FMAIN_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01775.html">INPUTMUX_MAIN Peripheral Access Layer</a></td></tr>
+<tr class="memitem:KPP_5FPeripheral_5FAccess_5FLayer" id="r_KPP_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01777.html">KPP Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPACMP_5FPeripheral_5FAccess_5FLayer" id="r_LPACMP_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01779.html">LPACMP Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPADC_5FPeripheral_5FAccess_5FLayer" id="r_LPADC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01781.html">LPADC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:MU_5FPeripheral_5FAccess_5FLayer" id="r_MU_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01783.html">MU Peripheral Access Layer</a></td></tr>
+<tr class="memitem:PMU_5FPeripheral_5FAccess_5FLayer" id="r_PMU_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01785.html">PMU Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SGLCD_5FCONTROL_5FPeripheral_5FAccess_5FLayer" id="r_SGLCD_5FCONTROL_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01787.html">SGLCD_CONTROL Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SGLCD_5FFAULT_5FDETECT_5FPeripheral_5FAccess_5FLayer" id="r_SGLCD_5FFAULT_5FDETECT_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01789.html">SGLCD_FAULT_DETECT Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SMM_5FPeripheral_5FAccess_5FLayer" id="r_SMM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01791.html">SMM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SYSCON_5FAON_5FPeripheral_5FAccess_5FLayer" id="r_SYSCON_5FAON_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01793.html">SYSCON_AON Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TMR_5FPeripheral_5FAccess_5FLayer" id="r_TMR_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01795.html">TMR Peripheral Access Layer</a></td></tr>
+<tr class="memitem:AXBS_5FPeripheral_5FAccess_5FLayer" id="r_AXBS_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01799.html">AXBS Peripheral Access Layer</a></td></tr>
+<tr class="memitem:BLE2_5FREG_5FPeripheral_5FAccess_5FLayer" id="r_BLE2_5FREG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01801.html">BLE2_REG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:BRIC_5FPeripheral_5FAccess_5FLayer" id="r_BRIC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01803.html">BRIC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:BTRTU1_5FPeripheral_5FAccess_5FLayer" id="r_BTRTU1_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01805.html">BTRTU1 Peripheral Access Layer</a></td></tr>
+<tr class="memitem:BTU2_5FPeripheral_5FAccess_5FLayer" id="r_BTU2_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01807.html">BTU2 Peripheral Access Layer</a></td></tr>
+<tr class="memitem:BTU2_5FREG_5FPeripheral_5FAccess_5FLayer" id="r_BTU2_5FREG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01809.html">BTU2_REG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CCM32K_5FPeripheral_5FAccess_5FLayer" id="r_CCM32K_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01811.html">CCM32K Peripheral Access Layer</a></td></tr>
+<tr class="memitem:CIU2_5FPeripheral_5FAccess_5FLayer" id="r_CIU2_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01813.html">CIU2 Peripheral Access Layer</a></td></tr>
+<tr class="memitem:DGDET_5FPeripheral_5FAccess_5FLayer" id="r_DGDET_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01815.html">DGDET Peripheral Access Layer</a></td></tr>
+<tr class="memitem:DSB_5FPeripheral_5FAccess_5FLayer" id="r_DSB_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01817.html">DSB Peripheral Access Layer</a></td></tr>
+<tr class="memitem:FLASH_5FARB_5FWRAP_5FSYN_5FPeripheral_5FAccess_5FLayer" id="r_FLASH_5FARB_5FWRAP_5FSYN_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01819.html">FLASH_ARB_WRAP_SYN Peripheral Access Layer</a></td></tr>
+<tr class="memitem:GEN4PHY_5FPeripheral_5FAccess_5FLayer" id="r_GEN4PHY_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01821.html">GEN4PHY Peripheral Access Layer</a></td></tr>
+<tr class="memitem:GENFSK_5FPeripheral_5FAccess_5FLayer" id="r_GENFSK_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01823.html">GENFSK Peripheral Access Layer</a></td></tr>
+<tr class="memitem:INTM_5FPeripheral_5FAccess_5FLayer" id="r_INTM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01825.html">INTM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ISP_5FAP_5FPeripheral_5FAccess_5FLayer" id="r_ISP_5FAP_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01827.html">ISP_AP Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LPIT_5FPeripheral_5FAccess_5FLayer" id="r_LPIT_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01829.html">LPIT Peripheral Access Layer</a></td></tr>
+<tr class="memitem:LTC_5FPeripheral_5FAccess_5FLayer" id="r_LTC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01831.html">LTC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:MSCM_5FPeripheral_5FAccess_5FLayer" id="r_MSCM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01833.html">MSCM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:MSF1_5FB_5Ftest_5FPeripheral_5FAccess_5FLayer" id="r_MSF1_5FB_5Ftest_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01835.html">MSF1_B_test Peripheral Access Layer</a></td></tr>
+<tr class="memitem:NPX_5FPeripheral_5FAccess_5FLayer" id="r_NPX_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01837.html">NPX Peripheral Access Layer</a></td></tr>
+<tr class="memitem:PPB_5FMCM2_5FCM4_5FPeripheral_5FAccess_5FLayer" id="r_PPB_5FMCM2_5FCM4_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01839.html">PPB_MCM2_CM4 Peripheral Access Layer</a></td></tr>
+<tr class="memitem:RADIO_5FCTRL_5FPeripheral_5FAccess_5FLayer" id="r_RADIO_5FCTRL_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01841.html">RADIO_CTRL Peripheral Access Layer</a></td></tr>
+<tr class="memitem:RBME_5FPeripheral_5FAccess_5FLayer" id="r_RBME_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01843.html">RBME Peripheral Access Layer</a></td></tr>
+<tr class="memitem:REGFILE_5FPeripheral_5FAccess_5FLayer" id="r_REGFILE_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01845.html">REGFILE Peripheral Access Layer</a></td></tr>
+<tr class="memitem:RFMC_5FPeripheral_5FAccess_5FLayer" id="r_RFMC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01847.html">RFMC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:RF_5FCMC1_5FPeripheral_5FAccess_5FLayer" id="r_RF_5FCMC1_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01849.html">RF_CMC1 Peripheral Access Layer</a></td></tr>
+<tr class="memitem:RTU_5FPeripheral_5FAccess_5FLayer" id="r_RTU_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01851.html">RTU Peripheral Access Layer</a></td></tr>
+<tr class="memitem:RX_5FPACKET_5FRAM_5FPeripheral_5FAccess_5FLayer" id="r_RX_5FPACKET_5FRAM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01853.html">RX_PACKET_RAM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SEMA42_5FPeripheral_5FAccess_5FLayer" id="r_SEMA42_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01855.html">SEMA42 Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SFA_5FPeripheral_5FAccess_5FLayer" id="r_SFA_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01857.html">SFA Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SMSCM_5FPeripheral_5FAccess_5FLayer" id="r_SMSCM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01859.html">SMSCM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SRTC_5FPeripheral_5FAccess_5FLayer" id="r_SRTC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01861.html">SRTC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:SYSPM_5FPeripheral_5FAccess_5FLayer" id="r_SYSPM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01863.html">SYSPM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TDET_5FPeripheral_5FAccess_5FLayer" id="r_TDET_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01865.html">TDET Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TPM_5FPeripheral_5FAccess_5FLayer" id="r_TPM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01867.html">TPM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TRGMUX_5FPeripheral_5FAccess_5FLayer" id="r_TRGMUX_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01869.html">TRGMUX Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TSTMR_5FPeripheral_5FAccess_5FLayer" id="r_TSTMR_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01871.html">TSTMR Peripheral Access Layer</a></td></tr>
+<tr class="memitem:TX_5FPACKET_5FRAM_5FPeripheral_5FAccess_5FLayer" id="r_TX_5FPACKET_5FRAM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01873.html">TX_PACKET_RAM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:WDOG_5FPeripheral_5FAccess_5FLayer" id="r_WDOG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01875.html">WDOG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:WOR_5FPeripheral_5FAccess_5FLayer" id="r_WOR_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01877.html">WOR Peripheral Access Layer</a></td></tr>
+<tr class="memitem:XCVR_5FANALOG_5FPeripheral_5FAccess_5FLayer" id="r_XCVR_5FANALOG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01879.html">XCVR_ANALOG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:XCVR_5FMISC_5FPeripheral_5FAccess_5FLayer" id="r_XCVR_5FMISC_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01881.html">XCVR_MISC Peripheral Access Layer</a></td></tr>
+<tr class="memitem:XCVR_5FPLL_5FDIG_5FPeripheral_5FAccess_5FLayer" id="r_XCVR_5FPLL_5FDIG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01883.html">XCVR_PLL_DIG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:XCVR_5FRX_5FDIG_5FPeripheral_5FAccess_5FLayer" id="r_XCVR_5FRX_5FDIG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01885.html">XCVR_RX_DIG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:XCVR_5FTSM_5FPeripheral_5FAccess_5FLayer" id="r_XCVR_5FTSM_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01887.html">XCVR_TSM Peripheral Access Layer</a></td></tr>
+<tr class="memitem:XCVR_5FTX_5FDIG_5FPeripheral_5FAccess_5FLayer" id="r_XCVR_5FTX_5FDIG_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01889.html">XCVR_TX_DIG Peripheral Access Layer</a></td></tr>
+<tr class="memitem:XCVR_5FZBDEMOD_5FPeripheral_5FAccess_5FLayer" id="r_XCVR_5FZBDEMOD_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01891.html">XCVR_ZBDEMOD Peripheral Access Layer</a></td></tr>
+<tr class="memitem:ZLL_5FPeripheral_5FAccess_5FLayer" id="r_ZLL_5FPeripheral_5FAccess_5FLayer"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01893.html">ZLL Peripheral Access Layer</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Define the PKC workarea size required by mcuxClFfdh APIs. </p>
-<p>Define the PKC workarea size required by mcuxClFfdh APIs.</p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="gae12ec5b9e75ad7f58e01459b56c933e6" name="gae12ec5b9e75ad7f58e01459b56c933e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae12ec5b9e75ad7f58e01459b56c933e6">&#9670;&#160;</a></span>MCUXCLFFDH_PKC_WORDSIZE <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLFFDH_PKC_WORDSIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC wordsize in FFDH component. </p>
-
-</div>
-</div>
-<a id="ga5d5caf1e1f06650f73b517eae3128099" name="ga5d5caf1e1f06650f73b517eae3128099"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5d5caf1e1f06650f73b517eae3128099">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p. </p>
-<p>PKC workarea size (in bytes) for ffdhe2048 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga2829efb30e6330694a2148c6675e094c" name="ga2829efb30e6330694a2148c6675e094c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2829efb30e6330694a2148c6675e094c">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga601b88078391610dbba0a3f25ed5f1c8" name="ga601b88078391610dbba0a3f25ed5f1c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga601b88078391610dbba0a3f25ed5f1c8">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga582c385c4f459f10dc282c6d7a84390f" name="ga582c385c4f459f10dc282c6d7a84390f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga582c385c4f459f10dc282c6d7a84390f">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga469bca95a7be11074c4cd93e77cff342" name="ga469bca95a7be11074c4cd93e77cff342"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga469bca95a7be11074c4cd93e77cff342">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="gae12ec5b9e75ad7f58e01459b56c933e6" name="gae12ec5b9e75ad7f58e01459b56c933e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae12ec5b9e75ad7f58e01459b56c933e6">&#9670;&#160;</a></span>MCUXCLFFDH_PKC_WORDSIZE <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLFFDH_PKC_WORDSIZE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC wordsize in FFDH component. </p>
-
-</div>
-</div>
-<a id="ga5d5caf1e1f06650f73b517eae3128099" name="ga5d5caf1e1f06650f73b517eae3128099"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5d5caf1e1f06650f73b517eae3128099">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p. </p>
-<p>PKC workarea size (in bytes) for ffdhe2048 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga2829efb30e6330694a2148c6675e094c" name="ga2829efb30e6330694a2148c6675e094c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2829efb30e6330694a2148c6675e094c">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga601b88078391610dbba0a3f25ed5f1c8" name="ga601b88078391610dbba0a3f25ed5f1c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga601b88078391610dbba0a3f25ed5f1c8">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga582c385c4f459f10dc282c6d7a84390f" name="ga582c385c4f459f10dc282c6d7a84390f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga582c385c4f459f10dc282c6d7a84390f">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-<a id="ga469bca95a7be11074c4cd93e77cff342" name="ga469bca95a7be11074c4cd93e77cff342"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga469bca95a7be11074c4cd93e77cff342">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01419.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"></div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -1,11 +1,17 @@
 var a00524 =
 [
-    [ "mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain", "a00524.html#a3954c538e371697ea74a09dc2d710ba2", null ],
-    [ "mcuxClEcc_Encoding_WeierECC_PublicKey_Plain", "a00524.html#a5824381f3ef97a6c5f1314791c1a2745", null ],
-    [ "mcuxClEcc_Encoding_EdDSA_PrivateKey_Plain", "a00524.html#a5733b2352173c5a0d113962db5b6b65b", null ],
-    [ "mcuxClEcc_Encoding_EdDSA_PublicKey_Plain", "a00524.html#a71506d15195b1eb2e58020b2ec4891c6", null ],
-    [ "mcuxClEcc_EncodingDescriptor_WeierECC_PrivateKey_Plain", "a00524.html#ac818d4e126f2a1ea88dcaa2302214bd9", null ],
-    [ "mcuxClEcc_EncodingDescriptor_WeierECC_PublicKey_Plain", "a00524.html#a04f6a2f26c6d8c524f38e6d6cbd8d590", null ],
-    [ "mcuxClEcc_EncodingDescriptor_EdDSA_PrivateKey_Plain", "a00524.html#a4dbd001e356d11814e77f274acd45734", null ],
-    [ "mcuxClEcc_EncodingDescriptor_EdDSA_PublicKey_Plain", "a00524.html#a22e345562245711e8e94e5fa8eed5642", null ]
+    [ "mcuxClKey_TypeDescriptor_EdDSA_Ed25519_Priv", "a01369.html#gab98021bcb61d1707d87106ddae87439c", null ],
+    [ "mcuxClKey_Type_EdDSA_Ed25519_Priv", "a01369.html#ga4f21b03709a5cac0b713f4e930102af8", null ],
+    [ "mcuxClKey_TypeDescriptor_EdDSA_Ed25519_Pub", "a01369.html#ga3adea0c5fb26beb91e9d5cc798b167fd", null ],
+    [ "mcuxClKey_Type_EdDSA_Ed25519_Pub", "a01369.html#gab1d91d013e28a086fd4e13175252c049", null ],
+    [ "mcuxClKey_GenerationDescriptor_ECDH", "a01370.html#ga0172e9b22cb169b988a92b53f66e38c2", null ],
+    [ "mcuxClKey_Generation_ECDH", "a01370.html#gac4b12ce8bf78dbea254d4ee74f55e6c9", null ],
+    [ "mcuxClKey_GenerationDescriptor_ECDSA", "a01370.html#ga3dc0014c787cc578dfb4712012f5a585", null ],
+    [ "mcuxClKey_Generation_ECDSA", "a01370.html#gaf478f6dfe868e5c07e681d879ca15998", null ],
+    [ "mcuxClKey_AgreementDescriptor_ECDH", "a01371.html#gaa8f7ba354fdad5294ea9cf738b0a5b30", null ],
+    [ "mcuxClKey_Agreement_ECDH", "a01371.html#ga17bcc12a56c33f015f913d6bed36f8cc", null ],
+    [ "mcuxClKey_ValidationDesc_WeierECC_PublicKey", "a01372.html#ga2866ca19e82ee9c37495d3c56f54fc74", null ],
+    [ "mcuxClKey_Validation_WeierECC_PublicKey", "a01372.html#gae2ba2f0108e57953f7527dbac699b1d2", null ],
+    [ "mcuxClKey_ValidationDesc_WeierECC_PrivateKey", "a01372.html#ga8820de1ce20036a45507e2f35466bb0a", null ],
+    [ "mcuxClKey_Validation_WeierECC_PrivateKey", "a01372.html#ga72cdc55ad107db9b013a7f178afe4f24", null ]
 ];

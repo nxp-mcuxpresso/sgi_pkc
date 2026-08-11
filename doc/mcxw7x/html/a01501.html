@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUX CSSL – Implementations</title>
+<title>MCUX CLNS: Data Integrity Configuration</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,29 +102,56 @@ $(function(){initNavTree('a01501.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUX CSSL &ndash; Implementations </div></div>
+  <div class="headertitle"><div class="title">Data Integrity Configuration <div class="ingroups"><a class="el" href="a01500.html">MCUX CSSL &amp;ndash; Configurations</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Configuration options for the data integrity mechanism.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:mcuxCsslDataIntegrity_5FAsm" id="r_mcuxCsslDataIntegrity_5FAsm"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01502.html">Data Integrity: Assembly implementation</a></td></tr>
-<tr class="memdesc:a01502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assembly implementation of the data integrity mechanism. <br /></td></tr>
-<tr class="memitem:mcuxCsslDataIntegrity_5FNone" id="r_mcuxCsslDataIntegrity_5FNone"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01505.html">Data Integrity: Disabled</a></td></tr>
-<tr class="memdesc:a01505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the data integrity mechanism. <br /></td></tr>
-<tr class="memitem:mcuxCsslDataIntegrity_5FSC" id="r_mcuxCsslDataIntegrity_5FSC"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01508.html">Data Integrity: Secure Counter</a></td></tr>
-<tr class="memdesc:a01508"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the CSSL data integrity mechanism, based on secure counter. <br /></td></tr>
-<tr class="memitem:mcuxCsslFlowProtection_5FNone" id="r_mcuxCsslFlowProtection_5FNone"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01519.html">Flow Protection: Disabled</a></td></tr>
-<tr class="memdesc:a01519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the flow protection mechanism. <br /></td></tr>
-<tr class="memitem:mcuxCsslFlowProtection_5FSecureCounter" id="r_mcuxCsslFlowProtection_5FSecureCounter"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01526.html">Flow Protection: Secure Counter</a></td></tr>
-<tr class="memdesc:a01526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure counter based implementation for the flow protection mechanism. <br /></td></tr>
-<tr class="memitem:mcuxCsslSecureCounter_5FNone" id="r_mcuxCsslSecureCounter_5FNone"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01564.html">Secure Counter: Disabled</a></td></tr>
-<tr class="memdesc:a01564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the secure counter mechanism. <br /></td></tr>
-<tr class="memitem:mcuxCsslSecureCounter_5FSwLocal" id="r_mcuxCsslSecureCounter_5FSwLocal"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01569.html">Secure Counter: SW Local</a></td></tr>
-<tr class="memdesc:a01569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure counter mechanism implementation using a local variable. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gad14940e758b00b26f2e699b4fc0144bb" id="r_gad14940e758b00b26f2e699b4fc0144bb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad14940e758b00b26f2e699b4fc0144bb">MCUX_CSSL_DI_USE_SECURE_COUNTER</a></td></tr>
+<tr class="memdesc:gad14940e758b00b26f2e699b4fc0144bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to 1, use the data integrity mechanism implementation based on the CSSL secure counter mechanism.  <br /></td></tr>
+<tr class="memitem:ga4f0cea555852c5171e55303b6cb062be" id="r_ga4f0cea555852c5171e55303b6cb062be"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f0cea555852c5171e55303b6cb062be">MCUX_CSSL_DI_USE_NONE</a></td></tr>
+<tr class="memdesc:ga4f0cea555852c5171e55303b6cb062be"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to 1, do not use the data integrity mechanism.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"></div></div><!-- contents -->
+<div class="textblock"><p>Configuration options for the data integrity mechanism. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="gad14940e758b00b26f2e699b4fc0144bb" name="gad14940e758b00b26f2e699b4fc0144bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad14940e758b00b26f2e699b4fc0144bb">&#9670;&#160;</a></span>MCUX_CSSL_DI_USE_SECURE_COUNTER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_DI_USE_SECURE_COUNTER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If set to 1, use the data integrity mechanism implementation based on the CSSL secure counter mechanism. </p>
+
+</div>
+</div>
+<a id="ga4f0cea555852c5171e55303b6cb062be" name="ga4f0cea555852c5171e55303b6cb062be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f0cea555852c5171e55303b6cb062be">&#9670;&#160;</a></span>MCUX_CSSL_DI_USE_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_DI_USE_NONE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If set to 1, do not use the data integrity mechanism. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

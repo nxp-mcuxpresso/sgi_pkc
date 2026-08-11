@@ -1,15 +1,15 @@
 var a04034 =
 [
-    [ "MCUXCLXOF_COMPUTE_CPU_WA_BUFFER_SIZE_MAX", "a01614.html#ga410fdad893b06fdc9e284a5dbf00b324", null ],
-    [ "MCUXCLXOF_INIT_CPU_WA_BUFFER_SIZE", "a01614.html#ga59ce7fe78d7bb45337fd7738c05be9f8", null ],
-    [ "MCUXCLXOF_PROCESS_CPU_WA_BUFFER_SIZE_MAX", "a01614.html#ga9b7f25aa3392fcb2e46fce95475a7a0f", null ],
-    [ "MCUXCLXOF_GENERATE_CPU_WA_BUFFER_SIZE_MAX", "a01614.html#gabaff1ed79ad63145f27d02efad85d7f3", null ],
-    [ "MCUXCLXOF_FINISH_CPU_WA_BUFFER_SIZE_MAX", "a01614.html#ga128217b8f1438d4cf0d5ca7e1c3c06ae", null ],
-    [ "MCUXCLXOF_MAX_CPU_WA_BUFFER_SIZE", "a01614.html#ga0106b987a46069864fa37cf4e019e235", null ],
-    [ "MCUXCLXOF_CONTEXT_SIZE", "a01614.html#ga0b0653c62a708308a4a71b134e44ec06", null ],
-    [ "MCUXCLXOF_CONTEXT_SIZE_IN_WORDS", "a01614.html#ga04852ad00528fb349bcdf11d12b199ce", null ],
-    [ "MCUXCLXOF_SHAKE128_CONTEXT_SIZE", "a01614.html#ga050cae3a8f2844f420ec48f69bd2333a", null ],
-    [ "MCUXCLXOF_SHAKE256_CONTEXT_SIZE", "a01614.html#gaa9c969db7b5e0cc72a637d7925a7ac2f", null ],
-    [ "MCUXCLXOF_SECSHAKE128_CONTEXT_SIZE", "a01614.html#gaea4b056291e0dd87792dfc3c648a2695", null ],
-    [ "MCUXCLXOF_SECSHAKE256_CONTEXT_SIZE", "a01614.html#ga7dbc4b7861d029aa344ed4ce7363e72f", null ]
+    [ "PERI_WWDT_H_", "a04034.html#a3f56abfa08058fbff09111b73d6d4896", null ],
+    [ "WWDT_MOD_WDEN", "a01734.html#ga879a4cde884d73acf7ff0c02f2f02e7d", null ],
+    [ "WWDT_MOD_WDRESET", "a01734.html#gaa44384444f297edf348dfce47705c373", null ],
+    [ "WWDT_MOD_WDTOF", "a01734.html#gac47eb075f5ec5988ccc6a10057983e26", null ],
+    [ "WWDT_MOD_WDINT", "a01734.html#gae8521fecbf8915248bf005a2373f054e", null ],
+    [ "WWDT_MOD_WDPROTECT", "a01734.html#ga3da6b9abb42ac803f8f89fe7e5ad8e3a", null ],
+    [ "WWDT_MOD_LOCK", "a01734.html#ga664a1c322d16cce98097df17c9728f1c", null ],
+    [ "WWDT_TC_COUNT", "a01734.html#ga82e0ea703fa8afd9c94e9cd124064dbd", null ],
+    [ "WWDT_FEED_FEED", "a01734.html#ga6d7226bde49a1d7a06ad7523cb6f5d00", null ],
+    [ "WWDT_TV_COUNT", "a01734.html#ga2cca266f03727f9e988e12abcbb46673", null ],
+    [ "WWDT_WARNINT_WARNINT", "a01734.html#ga14a543557885101c4627e88059326e82", null ],
+    [ "WWDT_WINDOW_WINDOW", "a01734.html#gafa0c6a469d78e5fae63ec5b9160f4641", null ]
 ];

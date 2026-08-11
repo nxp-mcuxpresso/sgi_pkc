@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxl2xx/PERI_KPP.h Source File</title>
+<title>MCUX CLNS: platform/mcxl2xx/PERI_LPACMP.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ $(function(){initNavTree('a01292_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PERI_KPP.h</div></div>
+  <div class="headertitle"><div class="title">PERI_LPACMP.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01292.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
@@ -117,7 +117,7 @@ $(function(){initNavTree('a01292_source.html','',''); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">**     Build:               b250901</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">**</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">**     Abstract:</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">**         CMSIS Peripheral Access Layer for KPP</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">**         CMSIS Peripheral Access Layer for LPACMP</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">**</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">**     Copyright 1997-2016 Freescale Semiconductor, Inc.</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">**     Copyright 2016-2025 NXP</span></div>
@@ -134,8 +134,8 @@ $(function(){initNavTree('a01292_source.html','',''); });
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#if !defined(PERI_KPP_H_)</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a01292.html#a24d259a7bfcc72135487ab69b9bcf213">   46</a></span><span class="preprocessor">#define PERI_KPP_H_                              </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#if !defined(PERI_LPACMP_H_)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a01292.html#adcc386df3e7a4a02b98512d48a450c58">   46</a></span><span class="preprocessor">#define PERI_LPACMP_H_                           </span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &quot;MCXL253_cm0plus_COMMON.h&quot;</span></div>
@@ -148,7 +148,7 @@ $(function(){initNavTree('a01292_source.html','',''); });
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#elif (defined(CPU_MCXL255VDF_cm0plus) || defined(CPU_MCXL255VLL_cm0plus))</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &quot;MCXL255_cm0plus_COMMON.h&quot;</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#elif (defined(CPU_MCXL255VDF_cm33) || defined(CPU_MCXL255VLL_cm33))</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &quot;<a class="code" href="a01268.html">MCXL255_cm33_COMMON.h</a>&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &quot;<a class="code" href="a01265.html">MCXL255_cm33_COMMON.h</a>&quot;</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">  #error &quot;No valid CPU defined!&quot;</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
@@ -179,117 +179,143 @@ $(function(){initNavTree('a01292_source.html','',''); });
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">   -- KPP Peripheral Access Layer</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">   -- LPACMP Peripheral Access Layer</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
-<div class="foldopen" id="foldopen00103" data-start="{" data-end="};">
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a02835.html">  103</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a02835.html#a9087f25fbd740c88357ffbdd5d4f2717">  104</a></span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint16_t <a class="code hl_variable" href="a02835.html#a9087f25fbd740c88357ffbdd5d4f2717">KPCR</a>;                              </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a02835.html#a365dab67e83e999813aa7b882f18ba73">  105</a></span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint16_t <a class="code hl_variable" href="a02835.html#a365dab67e83e999813aa7b882f18ba73">KPSR</a>;                              </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a02835.html#a51ee01ecd77ea7ef284fe8660bc12c92">  106</a></span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint16_t <a class="code hl_variable" href="a02835.html#a51ee01ecd77ea7ef284fe8660bc12c92">KDDR</a>;                              </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a02835.html#a1c515a5949c8041b567f9c5b4f650812">  107</a></span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint16_t <a class="code hl_variable" href="a02835.html#a1c515a5949c8041b567f9c5b4f650812">KPDR</a>;                              </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>} <a class="code hl_struct" href="a02835.html">KPP_Type</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a01779.html#ga4f5dc872ac70ca7c4e89c28e25efa310">  103</a></span><span class="preprocessor">#define LPACMP_EXT_TRIG_COUNT                     4u</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="};">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a02834.html">  106</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a02834.html#ab1901f7a223c36bfefbb6c8ada7b8830">  107</a></span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a02834.html#ab1901f7a223c36bfefbb6c8ada7b8830">CTRL</a>;                              </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a02834.html#a6cff5921f4ecaeb1aacd4d66655c01da">  108</a></span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a02834.html#a6cff5921f4ecaeb1aacd4d66655c01da">INTERVAL</a>;                          </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a02834.html#aad86c46bc9da8952b8e076f5f1ef7e7b">  109</a></span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a02834.html#aad86c46bc9da8952b8e076f5f1ef7e7b">COMP_IF</a>;                           </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>       uint8_t RESERVED_0[4];</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  <span class="keyword">struct </span>{                                         <span class="comment">/* offset: 0x10, array step: 0x10 */</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a02834.html#aff631e999738bd1cf5b5a7882225b07f">  112</a></span>    <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a02834.html#aff631e999738bd1cf5b5a7882225b07f">SEL</a>;                               </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a02834.html#a5e74f5c58a1c112962fd0717b38343d6">  113</a></span>    <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a02834.html#a5e74f5c58a1c112962fd0717b38343d6">DELAY</a>;                             </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a02834.html#a3325bf006a995676e84cf7c183082309">  114</a></span>    <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t <a class="code hl_variable" href="a02834.html#a3325bf006a995676e84cf7c183082309">STATUS</a>;                            </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>         uint8_t RESERVED_0[4];</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  } EXT_TRIG[<a class="code hl_define" href="a01779.html#ga4f5dc872ac70ca7c4e89c28e25efa310">LPACMP_EXT_TRIG_COUNT</a>];</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>} <a class="code hl_struct" href="a02834.html">LPACMP_Type</a>;</div>
 </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">   -- KPP Register Masks</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#define KPP_KPCR_KRE_MASK                        (0xFFU)</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#define KPP_KPCR_KRE_SHIFT                       (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="a01783.html#ga272400626fa2c82a618bc6a3e77d6b12">  128</a></span><span class="preprocessor">#define KPP_KPCR_KRE(x)                          (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPCR_KRE_SHIFT)) &amp; KPP_KPCR_KRE_MASK)</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#define KPP_KPCR_KCO_MASK                        (0xFF00U)</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#define KPP_KPCR_KCO_SHIFT                       (8U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="a01783.html#gae2c0eee17b48b167d60c4640246b38b5">  136</a></span><span class="preprocessor">#define KPP_KPCR_KCO(x)                          (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPCR_KCO_SHIFT)) &amp; KPP_KPCR_KCO_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">#define KPP_KPSR_KPKD_MASK                       (0x1U)</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="preprocessor">#define KPP_KPSR_KPKD_SHIFT                      (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="a01783.html#ga3ab663999557c154dd0c61144cac0f0e">  148</a></span><span class="preprocessor">#define KPP_KPSR_KPKD(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPSR_KPKD_SHIFT)) &amp; KPP_KPSR_KPKD_MASK)</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#define KPP_KPSR_KPKR_MASK                       (0x2U)</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">#define KPP_KPSR_KPKR_SHIFT                      (1U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="a01783.html#ga29f7896b59843aa3689a7e40d03e9ddf">  156</a></span><span class="preprocessor">#define KPP_KPSR_KPKR(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPSR_KPKR_SHIFT)) &amp; KPP_KPSR_KPKR_MASK)</span></div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#define KPP_KPSR_KDSC_MASK                       (0x4U)</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">#define KPP_KPSR_KDSC_SHIFT                      (2U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="a01783.html#ga403654465ee5ac06df583836f1616cbb">  164</a></span><span class="preprocessor">#define KPP_KPSR_KDSC(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPSR_KDSC_SHIFT)) &amp; KPP_KPSR_KDSC_MASK)</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="preprocessor">#define KPP_KPSR_KRSS_MASK                       (0x8U)</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="preprocessor">#define KPP_KPSR_KRSS_SHIFT                      (3U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="a01783.html#gabd962d447de0fe5f162cedf59e471a1b">  172</a></span><span class="preprocessor">#define KPP_KPSR_KRSS(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPSR_KRSS_SHIFT)) &amp; KPP_KPSR_KRSS_MASK)</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="preprocessor">#define KPP_KPSR_KDIE_MASK                       (0x100U)</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">#define KPP_KPSR_KDIE_SHIFT                      (8U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="a01783.html#ga00751be6e5c408770e4dcff595e952a0">  180</a></span><span class="preprocessor">#define KPP_KPSR_KDIE(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPSR_KDIE_SHIFT)) &amp; KPP_KPSR_KDIE_MASK)</span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">#define KPP_KPSR_KRIE_MASK                       (0x200U)</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="preprocessor">#define KPP_KPSR_KRIE_SHIFT                      (9U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="a01783.html#gac81cbc9cf71539129cf35d0c8ef9d417">  188</a></span><span class="preprocessor">#define KPP_KPSR_KRIE(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPSR_KRIE_SHIFT)) &amp; KPP_KPSR_KRIE_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor">#define KPP_KDDR_KRDD_MASK                       (0xFFU)</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">#define KPP_KDDR_KRDD_SHIFT                      (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="a01783.html#ga03ec4671be3172071c1c27e793f9fd16">  200</a></span><span class="preprocessor">#define KPP_KDDR_KRDD(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KDDR_KRDD_SHIFT)) &amp; KPP_KDDR_KRDD_MASK)</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="preprocessor">#define KPP_KDDR_KCDD_MASK                       (0xFF00U)</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="preprocessor">#define KPP_KDDR_KCDD_SHIFT                      (8U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="a01783.html#ga1e4acfe68232fe98a34a8a5d0c095afb">  208</a></span><span class="preprocessor">#define KPP_KDDR_KCDD(x)                         (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KDDR_KCDD_SHIFT)) &amp; KPP_KDDR_KCDD_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="preprocessor">#define KPP_KPDR_KRD_MASK                        (0xFFU)</span></div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="preprocessor">#define KPP_KPDR_KRD_SHIFT                       (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="a01783.html#gab183f9b4941283b60765b3f26b2e6670">  217</a></span><span class="preprocessor">#define KPP_KPDR_KRD(x)                          (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPDR_KRD_SHIFT)) &amp; KPP_KPDR_KRD_MASK)</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="preprocessor">#define KPP_KPDR_KCD_MASK                        (0xFF00U)</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="preprocessor">#define KPP_KPDR_KCD_SHIFT                       (8U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="a01783.html#ga0c6dd45de2d80a1578b6fc8ee5f639a0">  222</a></span><span class="preprocessor">#define KPP_KPDR_KCD(x)                          (((uint16_t)(((uint16_t)(x)) &lt;&lt; KPP_KPDR_KCD_SHIFT)) &amp; KPP_KPDR_KCD_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> <span class="comment">/* end of group KPP_Register_Masks */</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> <span class="comment">/* end of group KPP_Peripheral_Access_Layer */</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">** End of section using anonymous unions</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="preprocessor">    #pragma clang diagnostic pop</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">  #else</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">    #pragma pop</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="preprocessor">  #endif</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>  <span class="comment">/* leave anonymous unions enabled */</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="preprocessor">  #pragma language=default</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="preprocessor">  #error Not supported compiler type</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> <span class="comment">/* end of group Peripheral_access_layer */</span></div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">#endif  </span><span class="comment">/* PERI_KPP_H_ */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
-<div class="ttc" id="aa01268_html"><div class="ttname"><a href="a01268.html">MCXL255_cm33_COMMON.h</a></div><div class="ttdoc">CMSIS Peripheral Access Layer for MCXL255_cm33.</div></div>
-<div class="ttc" id="aa02835_html"><div class="ttname"><a href="a02835.html">KPP_Type</a></div><div class="ttdoc">KPP - Register Layout Typedef.</div><div class="ttdef"><b>Definition</b> PERI_KPP.h:103</div></div>
-<div class="ttc" id="aa02835_html_a1c515a5949c8041b567f9c5b4f650812"><div class="ttname"><a href="a02835.html#a1c515a5949c8041b567f9c5b4f650812">KPP_Type::KPDR</a></div><div class="ttdeci">__IO uint16_t KPDR</div><div class="ttdoc">Keypad Data Register, offset: 0x6.</div><div class="ttdef"><b>Definition</b> PERI_KPP.h:107</div></div>
-<div class="ttc" id="aa02835_html_a365dab67e83e999813aa7b882f18ba73"><div class="ttname"><a href="a02835.html#a365dab67e83e999813aa7b882f18ba73">KPP_Type::KPSR</a></div><div class="ttdeci">__IO uint16_t KPSR</div><div class="ttdoc">Keypad Status Register, offset: 0x2.</div><div class="ttdef"><b>Definition</b> PERI_KPP.h:105</div></div>
-<div class="ttc" id="aa02835_html_a51ee01ecd77ea7ef284fe8660bc12c92"><div class="ttname"><a href="a02835.html#a51ee01ecd77ea7ef284fe8660bc12c92">KPP_Type::KDDR</a></div><div class="ttdeci">__IO uint16_t KDDR</div><div class="ttdoc">Keypad Data Direction Register, offset: 0x4.</div><div class="ttdef"><b>Definition</b> PERI_KPP.h:106</div></div>
-<div class="ttc" id="aa02835_html_a9087f25fbd740c88357ffbdd5d4f2717"><div class="ttname"><a href="a02835.html#a9087f25fbd740c88357ffbdd5d4f2717">KPP_Type::KPCR</a></div><div class="ttdeci">__IO uint16_t KPCR</div><div class="ttdoc">Keypad Control Register, offset: 0x0.</div><div class="ttdef"><b>Definition</b> PERI_KPP.h:104</div></div>
-<div class="ttc" id="aa03533_html_aec43007d9998a0a0e01faede4133d6be"><div class="ttname"><a href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a></div><div class="ttdeci">#define __IO</div><div class="ttdef"><b>Definition</b> core_cm33.h:276</div></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">   -- LPACMP Register Masks</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#define LPACMP_CTRL_BLOCK_EN_MASK                (0x1U)</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">#define LPACMP_CTRL_BLOCK_EN_SHIFT               (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a01780.html#gab4ef963686b21bfd7609d326e917c07e">  137</a></span><span class="preprocessor">#define LPACMP_CTRL_BLOCK_EN(x)                  (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_CTRL_BLOCK_EN_SHIFT)) &amp; LPACMP_CTRL_BLOCK_EN_MASK)</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="preprocessor">#define LPACMP_CTRL_MODE_MASK                    (0x6U)</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">#define LPACMP_CTRL_MODE_SHIFT                   (1U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="a01780.html#ga50035b97e441f86a162867f981351e03">  146</a></span><span class="preprocessor">#define LPACMP_CTRL_MODE(x)                      (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_CTRL_MODE_SHIFT)) &amp; LPACMP_CTRL_MODE_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="preprocessor">#define LPACMP_INTERVAL_INVL_MASK                (0xFFFFU)</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">#define LPACMP_INTERVAL_INVL_SHIFT               (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="a01780.html#ga30c0cbb3684ae3cdebe3dac02a3dcc84">  155</a></span><span class="preprocessor">#define LPACMP_INTERVAL_INVL(x)                  (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_INTERVAL_INVL_SHIFT)) &amp; LPACMP_INTERVAL_INVL_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="preprocessor">#define LPACMP_COMP_IF_MATCH_IF_MASK             (0xFFU)</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">#define LPACMP_COMP_IF_MATCH_IF_SHIFT            (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="a01780.html#ga37277156bf9aeadc10817c554acc66da">  169</a></span><span class="preprocessor">#define LPACMP_COMP_IF_MATCH_IF(x)               (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_COMP_IF_MATCH_IF_SHIFT)) &amp; LPACMP_COMP_IF_MATCH_IF_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">#define LPACMP_SEL_INP_SEL_MASK                  (0x7U)</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">#define LPACMP_SEL_INP_SEL_SHIFT                 (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="a01780.html#gae3ca16ca91494a17f36d55c544289460">  187</a></span><span class="preprocessor">#define LPACMP_SEL_INP_SEL(x)                    (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_SEL_INP_SEL_SHIFT)) &amp; LPACMP_SEL_INP_SEL_MASK)</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="preprocessor">#define LPACMP_SEL_HIGHER_MASK                   (0x8U)</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#define LPACMP_SEL_HIGHER_SHIFT                  (3U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="a01780.html#gae6672604135016da367e3a47db7c0ab5">  195</a></span><span class="preprocessor">#define LPACMP_SEL_HIGHER(x)                     (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_SEL_HIGHER_SHIFT)) &amp; LPACMP_SEL_HIGHER_MASK)</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="preprocessor">#define LPACMP_SEL_INN_SEL_MASK                  (0xF00U)</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">#define LPACMP_SEL_INN_SEL_SHIFT                 (8U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="a01780.html#ga9bb2d99991d498daad1992fea21d1e8b">  217</a></span><span class="preprocessor">#define LPACMP_SEL_INN_SEL(x)                    (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_SEL_INN_SEL_SHIFT)) &amp; LPACMP_SEL_INN_SEL_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment">/* The count of LPACMP_SEL */</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="preprocessor">#define LPACMP_SEL_COUNT                         (4U)</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="preprocessor">#define LPACMP_DELAY_DEL_MASK                    (0xFFFFU)</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="preprocessor">#define LPACMP_DELAY_DEL_SHIFT                   (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="a01780.html#ga2a748c424acd6ed0bdc5cf2ddea7560c">  229</a></span><span class="preprocessor">#define LPACMP_DELAY_DEL(x)                      (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_DELAY_DEL_SHIFT)) &amp; LPACMP_DELAY_DEL_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">/* The count of LPACMP_DELAY */</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="preprocessor">#define LPACMP_DELAY_COUNT                       (4U)</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">#define LPACMP_STATUS_CHNL_EN_MASK               (0x1U)</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="preprocessor">#define LPACMP_STATUS_CHNL_EN_SHIFT              (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a01780.html#gaf981a8b296ba8c37e0cb0b395d537523">  244</a></span><span class="preprocessor">#define LPACMP_STATUS_CHNL_EN(x)                 (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_STATUS_CHNL_EN_SHIFT)) &amp; LPACMP_STATUS_CHNL_EN_MASK)</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">#define LPACMP_STATUS_MATCH_IE_MASK              (0x2U)</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#define LPACMP_STATUS_MATCH_IE_SHIFT             (1U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="a01780.html#gaf965904ac8b70b670fafdfcad6f9bcf8">  252</a></span><span class="preprocessor">#define LPACMP_STATUS_MATCH_IE(x)                (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_STATUS_MATCH_IE_SHIFT)) &amp; LPACMP_STATUS_MATCH_IE_MASK)</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">#define LPACMP_STATUS_TRGOP_EN_MASK              (0x4U)</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">#define LPACMP_STATUS_TRGOP_EN_SHIFT             (2U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="a01780.html#gab4c4871b3251d51c5bf52008eabbb66c">  260</a></span><span class="preprocessor">#define LPACMP_STATUS_TRGOP_EN(x)                (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_STATUS_TRGOP_EN_SHIFT)) &amp; LPACMP_STATUS_TRGOP_EN_MASK)</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">#define LPACMP_STATUS_WAKEUPEN_MASK              (0x8U)</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="preprocessor">#define LPACMP_STATUS_WAKEUPEN_SHIFT             (3U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="a01780.html#ga51dc9594c9a8c026bee860344e50d9ee">  268</a></span><span class="preprocessor">#define LPACMP_STATUS_WAKEUPEN(x)                (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_STATUS_WAKEUPEN_SHIFT)) &amp; LPACMP_STATUS_WAKEUPEN_MASK)</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">#define LPACMP_STATUS_TRGOPWDH_MASK              (0xFF00U)</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">#define LPACMP_STATUS_TRGOPWDH_SHIFT             (8U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="a01780.html#ga99d1e43af88c7e8b453a959e653d1c4f">  273</a></span><span class="preprocessor">#define LPACMP_STATUS_TRGOPWDH(x)                (((uint32_t)(((uint32_t)(x)) &lt;&lt; LPACMP_STATUS_TRGOPWDH_SHIFT)) &amp; LPACMP_STATUS_TRGOPWDH_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment">/* The count of LPACMP_STATUS */</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="preprocessor">#define LPACMP_STATUS_COUNT                      (4U)</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> <span class="comment">/* end of group LPACMP_Register_Masks */</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> <span class="comment">/* end of group LPACMP_Peripheral_Access_Layer */</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment">** End of section using anonymous unions</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="preprocessor">    #pragma clang diagnostic pop</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="preprocessor">  #else</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">    #pragma pop</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="preprocessor">  #endif</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>  <span class="comment">/* leave anonymous unions enabled */</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="preprocessor">  #pragma language=default</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="preprocessor">  #error Not supported compiler type</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> <span class="comment">/* end of group Peripheral_access_layer */</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">#endif  </span><span class="comment">/* PERI_LPACMP_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="ttc" id="aa01265_html"><div class="ttname"><a href="a01265.html">MCXL255_cm33_COMMON.h</a></div><div class="ttdoc">CMSIS Peripheral Access Layer for MCXL255_cm33.</div></div>
+<div class="ttc" id="aa01779_html_ga4f5dc872ac70ca7c4e89c28e25efa310"><div class="ttname"><a href="a01779.html#ga4f5dc872ac70ca7c4e89c28e25efa310">LPACMP_EXT_TRIG_COUNT</a></div><div class="ttdeci">#define LPACMP_EXT_TRIG_COUNT</div><div class="ttdoc">LPACMP - Size of Registers Arrays.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:103</div></div>
+<div class="ttc" id="aa02834_html"><div class="ttname"><a href="a02834.html">LPACMP_Type</a></div><div class="ttdoc">LPACMP - Register Layout Typedef.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:106</div></div>
+<div class="ttc" id="aa02834_html_a3325bf006a995676e84cf7c183082309"><div class="ttname"><a href="a02834.html#a3325bf006a995676e84cf7c183082309">LPACMP_Type::STATUS</a></div><div class="ttdeci">__IO uint32_t STATUS</div><div class="ttdoc">Status, array offset: 0x18, array step: 0x10.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:114</div></div>
+<div class="ttc" id="aa02834_html_a5e74f5c58a1c112962fd0717b38343d6"><div class="ttname"><a href="a02834.html#a5e74f5c58a1c112962fd0717b38343d6">LPACMP_Type::DELAY</a></div><div class="ttdeci">__IO uint32_t DELAY</div><div class="ttdoc">Delay, array offset: 0x14, array step: 0x10.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:113</div></div>
+<div class="ttc" id="aa02834_html_a6cff5921f4ecaeb1aacd4d66655c01da"><div class="ttname"><a href="a02834.html#a6cff5921f4ecaeb1aacd4d66655c01da">LPACMP_Type::INTERVAL</a></div><div class="ttdeci">__IO uint32_t INTERVAL</div><div class="ttdoc">Interval, offset: 0x4.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:108</div></div>
+<div class="ttc" id="aa02834_html_aad86c46bc9da8952b8e076f5f1ef7e7b"><div class="ttname"><a href="a02834.html#aad86c46bc9da8952b8e076f5f1ef7e7b">LPACMP_Type::COMP_IF</a></div><div class="ttdeci">__IO uint32_t COMP_IF</div><div class="ttdoc">Comparison, offset: 0x8.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:109</div></div>
+<div class="ttc" id="aa02834_html_ab1901f7a223c36bfefbb6c8ada7b8830"><div class="ttname"><a href="a02834.html#ab1901f7a223c36bfefbb6c8ada7b8830">LPACMP_Type::CTRL</a></div><div class="ttdeci">__IO uint32_t CTRL</div><div class="ttdoc">Control, offset: 0x0.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:107</div></div>
+<div class="ttc" id="aa02834_html_aff631e999738bd1cf5b5a7882225b07f"><div class="ttname"><a href="a02834.html#aff631e999738bd1cf5b5a7882225b07f">LPACMP_Type::SEL</a></div><div class="ttdeci">__IO uint32_t SEL</div><div class="ttdoc">Select, array offset: 0x10, array step: 0x10.</div><div class="ttdef"><b>Definition</b> PERI_LPACMP.h:112</div></div>
+<div class="ttc" id="aa03527_html_aec43007d9998a0a0e01faede4133d6be"><div class="ttname"><a href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a></div><div class="ttdeci">#define __IO</div><div class="ttdef"><b>Definition</b> core_cm33.h:276</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a01292.html">PERI_KPP.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a01292.html">PERI_LPACMP.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

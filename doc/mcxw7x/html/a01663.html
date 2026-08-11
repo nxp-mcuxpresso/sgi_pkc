@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Erm_memory_channel</title>
+<title>MCUX CLNS: FMC Peripheral Access Layer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,158 +102,93 @@ $(function(){initNavTree('a01663.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Erm_memory_channel <div class="ingroups"><a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01654.html">Dma_request</a> &raquo; <a class="el" href="a01657.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01658.html">Eim_error_injection_channel_enable</a></div></div></div>
+  <div class="headertitle"><div class="title">FMC Peripheral Access Layer <div class="ingroups"><a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01649.html">Dma_request</a> &raquo; <a class="el" href="a01652.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01653.html">Eim_error_injection_channel_enable</a> &#124; <a class="el" href="a01648.html">Mapping Information</a> &raquo; <a class="el" href="a01797.html">Edma_request</a> &raquo; <a class="el" href="a01629.html">Device Peripheral Access Layer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Mapping Information.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gaeb7d69e29ef95dce925b10a24625690c" id="r_gaeb7d69e29ef95dce925b10a24625690c"><td class="memItemLeft">typedef enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a></td></tr>
-<tr class="memdesc:gaeb7d69e29ef95dce925b10a24625690c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the erm_memory_channel.  <br /></td></tr>
-<tr class="memitem:gaeb7d69e29ef95dce925b10a24625690c" id="r_gaeb7d69e29ef95dce925b10a24625690c"><td class="memItemLeft">typedef enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a></td></tr>
-<tr class="memdesc:gaeb7d69e29ef95dce925b10a24625690c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the erm_memory_channel.  <br /></td></tr>
-<tr class="memitem:gaeb7d69e29ef95dce925b10a24625690c" id="r_gaeb7d69e29ef95dce925b10a24625690c"><td class="memItemLeft">typedef enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a></td></tr>
-<tr class="memdesc:gaeb7d69e29ef95dce925b10a24625690c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the erm_memory_channel.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Topics</h2></td></tr>
+<tr class="memitem:FMC_5FRegister_5FMasks" id="r_FMC_5FRegister_5FMasks"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01664.html">FMC Register Masks</a></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gab709919ba09c106adaa1e02203b5657f" id="r_gab709919ba09c106adaa1e02203b5657f"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a> { <a class="el" href="#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4">kERM_MemoryChannelRAMA0</a>
-, <a class="el" href="#ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79">kERM_MemoryChannelFLASH</a>
- }</td></tr>
-<tr class="memdesc:gab709919ba09c106adaa1e02203b5657f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the erm_memory_channel.  <a href="#gab709919ba09c106adaa1e02203b5657f">More...</a><br /></td></tr>
-<tr class="memitem:gab709919ba09c106adaa1e02203b5657f" id="r_gab709919ba09c106adaa1e02203b5657f"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a> { <a class="el" href="#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4">kERM_MemoryChannelRAMA0</a>
-, <a class="el" href="#ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79">kERM_MemoryChannelFLASH</a>
- }</td></tr>
-<tr class="memdesc:gab709919ba09c106adaa1e02203b5657f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the erm_memory_channel.  <a href="#gab709919ba09c106adaa1e02203b5657f">More...</a><br /></td></tr>
-<tr class="memitem:gab709919ba09c106adaa1e02203b5657f" id="r_gab709919ba09c106adaa1e02203b5657f"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a> { <a class="el" href="#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4">kERM_MemoryChannelRAMA0</a>
-, <a class="el" href="#ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b">kERM_MemoryChannelFMU0</a>
- }</td></tr>
-<tr class="memdesc:gab709919ba09c106adaa1e02203b5657f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the erm_memory_channel.  <a href="#gab709919ba09c106adaa1e02203b5657f">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:FMC_5FType" id="r_FMC_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02202.html">FMC_Type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FMC - Register Layout Typedef.  <a href="a02202.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gae740c2a0fea44908b6a40ffe4e19ebd0" id="r_gae740c2a0fea44908b6a40ffe4e19ebd0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae740c2a0fea44908b6a40ffe4e19ebd0">FMC0_BASE</a></td></tr>
+<tr class="memdesc:gae740c2a0fea44908b6a40ffe4e19ebd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral FMC0 base address.  <br /></td></tr>
+<tr class="memitem:ga1a6b1a285c37e6f058dec8013af2cabf" id="r_ga1a6b1a285c37e6f058dec8013af2cabf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1a6b1a285c37e6f058dec8013af2cabf">FMC0</a></td></tr>
+<tr class="memdesc:ga1a6b1a285c37e6f058dec8013af2cabf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral FMC0 base pointer.  <br /></td></tr>
+<tr class="memitem:ga37283f414971381846ab9da2c77096b3" id="r_ga37283f414971381846ab9da2c77096b3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga37283f414971381846ab9da2c77096b3">FMC_BASE_ADDRS</a></td></tr>
+<tr class="memdesc:ga37283f414971381846ab9da2c77096b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array initializer of FMC peripheral base addresses.  <br /></td></tr>
+<tr class="memitem:ga7ad26eb02eedda3bb7e2863700c32017" id="r_ga7ad26eb02eedda3bb7e2863700c32017"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7ad26eb02eedda3bb7e2863700c32017">FMC_BASE_PTRS</a></td></tr>
+<tr class="memdesc:ga7ad26eb02eedda3bb7e2863700c32017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array initializer of FMC peripheral base pointers.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Mapping Information. </p>
-</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
-<a id="gaeb7d69e29ef95dce925b10a24625690c" name="gaeb7d69e29ef95dce925b10a24625690c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeb7d69e29ef95dce925b10a24625690c">&#9670;&#160;</a></span>erm_memory_channel_t <span class="overload">[1/3]</span></h2>
+<div class="textblock"></div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="gae740c2a0fea44908b6a40ffe4e19ebd0" name="gae740c2a0fea44908b6a40ffe4e19ebd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae740c2a0fea44908b6a40ffe4e19ebd0">&#9670;&#160;</a></span>FMC0_BASE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a> <a class="el" href="#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a></td>
+          <td class="memname">#define FMC0_BASE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Structure for the erm_memory_channel. </p>
-<p>Defines the structure for the ERM resource collections. </p>
+<p>Peripheral FMC0 base address. </p>
 
 </div>
 </div>
-<a id="gaeb7d69e29ef95dce925b10a24625690c" name="gaeb7d69e29ef95dce925b10a24625690c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeb7d69e29ef95dce925b10a24625690c">&#9670;&#160;</a></span>erm_memory_channel_t <span class="overload">[2/3]</span></h2>
+<a id="ga1a6b1a285c37e6f058dec8013af2cabf" name="ga1a6b1a285c37e6f058dec8013af2cabf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1a6b1a285c37e6f058dec8013af2cabf">&#9670;&#160;</a></span>FMC0</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a> <a class="el" href="#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a></td>
+          <td class="memname">#define FMC0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Structure for the erm_memory_channel. </p>
-<p>Defines the structure for the ERM resource collections. </p>
+<p>Peripheral FMC0 base pointer. </p>
 
 </div>
 </div>
-<a id="gaeb7d69e29ef95dce925b10a24625690c" name="gaeb7d69e29ef95dce925b10a24625690c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeb7d69e29ef95dce925b10a24625690c">&#9670;&#160;</a></span>erm_memory_channel_t <span class="overload">[3/3]</span></h2>
+<a id="ga37283f414971381846ab9da2c77096b3" name="ga37283f414971381846ab9da2c77096b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga37283f414971381846ab9da2c77096b3">&#9670;&#160;</a></span>FMC_BASE_ADDRS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a> <a class="el" href="#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a></td>
+          <td class="memname">#define FMC_BASE_ADDRS</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Structure for the erm_memory_channel. </p>
-<p>Defines the structure for the ERM resource collections. </p>
+<p>Array initializer of FMC peripheral base addresses. </p>
 
 </div>
 </div>
-<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
-<a id="gab709919ba09c106adaa1e02203b5657f" name="gab709919ba09c106adaa1e02203b5657f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab709919ba09c106adaa1e02203b5657f">&#9670;&#160;</a></span>_erm_memory_channel <span class="overload">[1/3]</span></h2>
+<a id="ga7ad26eb02eedda3bb7e2863700c32017" name="ga7ad26eb02eedda3bb7e2863700c32017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ad26eb02eedda3bb7e2863700c32017">&#9670;&#160;</a></span>FMC_BASE_PTRS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a></td>
+          <td class="memname">#define FMC_BASE_PTRS</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Structure for the erm_memory_channel. </p>
-<p>Defines the structure for the ERM resource collections. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4" name="ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4"></a>kERM_MemoryChannelRAMA0&#160;</td><td class="fielddoc"><p>Memory RAMA0. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79" name="ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79"></a>kERM_MemoryChannelFLASH&#160;</td><td class="fielddoc"><p>Memory FLASH. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a id="gab709919ba09c106adaa1e02203b5657f" name="gab709919ba09c106adaa1e02203b5657f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab709919ba09c106adaa1e02203b5657f">&#9670;&#160;</a></span>_erm_memory_channel <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Structure for the erm_memory_channel. </p>
-<p>Defines the structure for the ERM resource collections. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4" name="ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4"></a>kERM_MemoryChannelRAMA0&#160;</td><td class="fielddoc"><p>Memory RAMA0. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79" name="ggab709919ba09c106adaa1e02203b5657faac5ec5ef211a420d3f33f195d26efa79"></a>kERM_MemoryChannelFLASH&#160;</td><td class="fielddoc"><p>Memory FLASH. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a id="gab709919ba09c106adaa1e02203b5657f" name="gab709919ba09c106adaa1e02203b5657f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab709919ba09c106adaa1e02203b5657f">&#9670;&#160;</a></span>_erm_memory_channel <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Structure for the erm_memory_channel. </p>
-<p>Defines the structure for the ERM resource collections. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4" name="ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4"></a>kERM_MemoryChannelRAMA0&#160;</td><td class="fielddoc"><p>Memory RAMA0. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b" name="ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b"></a>kERM_MemoryChannelFMU0&#160;</td><td class="fielddoc"><p>Memory FLASH. </p>
-</td></tr>
-</table>
+<p>Array initializer of FMC peripheral base pointers. </p>
 
 </div>
 </div>

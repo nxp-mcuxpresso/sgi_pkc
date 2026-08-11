@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClResource_Types</title>
+<title>MCUX CLNS: mcuxClResource status of HW resource and option to request HW resource</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,97 +102,70 @@ $(function(){initNavTree('a01457.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClResource_Types <div class="ingroups"><a class="el" href="a01455.html">mcuxClResource</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClResource status of HW resource and option to request HW resource <div class="ingroups"><a class="el" href="a01452.html">mcuxClResource</a> &raquo; <a class="el" href="a01455.html">mcuxClResource_Constants</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines all types of <a class="el" href="a01455.html" title="mcuxClResource">mcuxClResource</a>.  
+<p>Defines of hardware request options.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gac97f228ebeeb4983ef932cadb7a1ec08" id="r_gac97f228ebeeb4983ef932cadb7a1ec08"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a></td></tr>
-<tr class="memdesc:gac97f228ebeeb4983ef932cadb7a1ec08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type for mcuxClResource status codes.  <br /></td></tr>
-<tr class="memitem:ga27045c7d3df5d8a5d0d6ba46a28d3c1d" id="r_ga27045c7d3df5d8a5d0d6ba46a28d3c1d"><td class="memItemLeft">typedef struct mcuxClResource_Context&#160;</td><td class="memItemRight"><a class="el" href="#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a></td></tr>
-<tr class="memdesc:ga27045c7d3df5d8a5d0d6ba46a28d3c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource context type.  <br /></td></tr>
-<tr class="memitem:ga79faae48b423d302179cd7f0045ecf23" id="r_ga79faae48b423d302179cd7f0045ecf23"><td class="memItemLeft">typedef uint32_t(*&#160;</td><td class="memItemRight"><a class="el" href="#ga79faae48b423d302179cd7f0045ecf23">mcuxClResource_MutexAcquire_Callback_t</a>) (uint32_t value)</td></tr>
-<tr class="memdesc:ga79faae48b423d302179cd7f0045ecf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for acquiring a mutex.  <br /></td></tr>
-<tr class="memitem:ga2a5336cef83f9f7017bd63a70ab83987" id="r_ga2a5336cef83f9f7017bd63a70ab83987"><td class="memItemLeft">typedef uint32_t(*&#160;</td><td class="memItemRight"><a class="el" href="#ga2a5336cef83f9f7017bd63a70ab83987">mcuxClResource_MutexRelease_Callback_t</a>) (uint32_t value)</td></tr>
-<tr class="memdesc:ga2a5336cef83f9f7017bd63a70ab83987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for releasing a mutex.  <br /></td></tr>
-<tr class="memitem:gaf45a9aed520628954ab550122065a592" id="r_gaf45a9aed520628954ab550122065a592"><td class="memItemLeft"><a id="gaf45a9aed520628954ab550122065a592" name="gaf45a9aed520628954ab550122065a592"></a>
-typedef uint32_t&#160;</td><td class="memItemRight"><b>mcuxClResource_HwId_t</b></td></tr>
-<tr class="memitem:ga9a1271b2a94604920632d597a8faada3" id="r_ga9a1271b2a94604920632d597a8faada3"><td class="memItemLeft"><a id="ga9a1271b2a94604920632d597a8faada3" name="ga9a1271b2a94604920632d597a8faada3"></a>
-typedef uint32_t&#160;</td><td class="memItemRight"><b>mcuxClResource_HwStatus_t</b></td></tr>
-<tr class="memitem:gad1c3c5db596aa5d30b7df0b8e7c4af76" id="r_gad1c3c5db596aa5d30b7df0b8e7c4af76"><td class="memItemLeft"><a id="gad1c3c5db596aa5d30b7df0b8e7c4af76" name="gad1c3c5db596aa5d30b7df0b8e7c4af76"></a>
-typedef uint32_t&#160;</td><td class="memItemRight"><b>mcuxClResource_Interrupt_t</b></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gac38fe43eba55a7f8c788c87b5cb07cb1" id="r_gac38fe43eba55a7f8c788c87b5cb07cb1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac38fe43eba55a7f8c788c87b5cb07cb1">MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS</a></td></tr>
+<tr class="memdesc:gac38fe43eba55a7f8c788c87b5cb07cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">bit length of HW request option  <br /></td></tr>
+<tr class="memitem:ga3976ca493ab75d898bb3512fc8c0c489" id="r_ga3976ca493ab75d898bb3512fc8c0c489"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3976ca493ab75d898bb3512fc8c0c489">MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE</a></td></tr>
+<tr class="memdesc:ga3976ca493ab75d898bb3512fc8c0c489"><td class="mdescLeft">&#160;</td><td class="mdescRight">option to request HW as interruptible  <br /></td></tr>
+<tr class="memitem:ga395aa5ac0c63ae9517057980ec521734" id="r_ga395aa5ac0c63ae9517057980ec521734"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga395aa5ac0c63ae9517057980ec521734">MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE</a></td></tr>
+<tr class="memdesc:ga395aa5ac0c63ae9517057980ec521734"><td class="mdescLeft">&#160;</td><td class="mdescRight">option to request HW as non-interruptible  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines all types of <a class="el" href="a01455.html" title="mcuxClResource">mcuxClResource</a>. </p>
-</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
-<a id="gac97f228ebeeb4983ef932cadb7a1ec08" name="gac97f228ebeeb4983ef932cadb7a1ec08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac97f228ebeeb4983ef932cadb7a1ec08">&#9670;&#160;</a></span>mcuxClResource_Status_t</h2>
+<div class="textblock"><p>Defines of hardware request options. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="gac38fe43eba55a7f8c788c87b5cb07cb1" name="gac38fe43eba55a7f8c788c87b5cb07cb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac38fe43eba55a7f8c788c87b5cb07cb1">&#9670;&#160;</a></span>MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef uint32_t <a class="el" href="#gac97f228ebeeb4983ef932cadb7a1ec08">mcuxClResource_Status_t</a></td>
+          <td class="memname">#define MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Type for mcuxClResource status codes. </p>
-<p>This type provides information about the status of the Resource operation that has been performed. </p>
+<p>bit length of HW request option </p>
 
 </div>
 </div>
-<a id="ga27045c7d3df5d8a5d0d6ba46a28d3c1d" name="ga27045c7d3df5d8a5d0d6ba46a28d3c1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">&#9670;&#160;</a></span>mcuxClResource_Context_t</h2>
+<a id="ga3976ca493ab75d898bb3512fc8c0c489" name="ga3976ca493ab75d898bb3512fc8c0c489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3976ca493ab75d898bb3512fc8c0c489">&#9670;&#160;</a></span>MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct mcuxClResource_Context <a class="el" href="#ga27045c7d3df5d8a5d0d6ba46a28d3c1d">mcuxClResource_Context_t</a></td>
+          <td class="memname">#define MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resource context type. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03330.html#_a1">mcuxClCipherModes_Cbc_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03332.html#_a1">mcuxClCipherModes_Cbc_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03336.html#_a1">mcuxClCipherModes_Ctr_Aes128_Multipart_Dma_NonBlocking_example.c</a>, <a class="el" href="a03338.html#_a1">mcuxClCipherModes_Ctr_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03343.html#_a1">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_MultipleProcess_example.c</a>, <a class="el" href="a03342.html#_a1">mcuxClCipherModes_Ecb_Aes128_Multipart_PaddingZero_Dma_NonBlocking_example.c</a>, <a class="el" href="a03345.html#_a1">mcuxClCipherModes_Ecb_Aes128_Oneshot_Dma_NonBlocking_example.c</a>, <a class="el" href="a03380.html#_a2">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a03382.html#_a2">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03410.html#_a1">mcuxClMacModes_Cmac_Aes128_Compute_Dma_NonBlocking_example.c</a>, and <a class="el" href="a03413.html#_a1">mcuxClMacModes_Cmac_Aes128_Multipart_Dma_NonBlocking_example.c</a>.</dd>
-</dl>
+<p>option to request HW as interruptible </p>
 
 </div>
 </div>
-<a id="ga79faae48b423d302179cd7f0045ecf23" name="ga79faae48b423d302179cd7f0045ecf23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga79faae48b423d302179cd7f0045ecf23">&#9670;&#160;</a></span>mcuxClResource_MutexAcquire_Callback_t</h2>
+<a id="ga395aa5ac0c63ae9517057980ec521734" name="ga395aa5ac0c63ae9517057980ec521734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga395aa5ac0c63ae9517057980ec521734">&#9670;&#160;</a></span>MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef uint32_t(* mcuxClResource_MutexAcquire_Callback_t) (uint32_t value)</td>
+          <td class="memname">#define MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback type for acquiring a mutex. </p>
-
-</div>
-</div>
-<a id="ga2a5336cef83f9f7017bd63a70ab83987" name="ga2a5336cef83f9f7017bd63a70ab83987"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2a5336cef83f9f7017bd63a70ab83987">&#9670;&#160;</a></span>mcuxClResource_MutexRelease_Callback_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef uint32_t(* mcuxClResource_MutexRelease_Callback_t) (uint32_t value)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback type for releasing a mutex. </p>
+<p>option to request HW as non-interruptible </p>
 
 </div>
 </div>

@@ -1,5 +1,9 @@
 var a01350 =
 [
-    [ "mcuxClAes_EncodingDescriptor_Rfc3394", "a01350.html#ga476271edf73ec93ed27a65969a602817", null ],
-    [ "mcuxClAes_Encoding_Rfc3394", "a01350.html#ga0a0b95171f3244efecc718424e2dc377", null ]
+    [ "Buffer initialization functionality", "a01351.html", "a01351" ],
+    [ "Buffer manipulation functionality", "a01352.html", "a01352" ],
+    [ "mcuxClBuffer_Constants", "a01353.html", null ],
+    [ "Buffer type definitions", "a01354.html", "a01354" ],
+    [ "MCUXCLBUFFER_USE_OBJECT", "a01350.html#ga85034de8f2101add06e8d4763bb2216d", null ],
+    [ "MCUXCLBUFFER_USE_POINTER", "a01350.html#ga98960703c96d974f33e9c87ff9ad8556", null ]
 ];

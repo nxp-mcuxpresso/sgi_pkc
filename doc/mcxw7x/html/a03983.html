@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa2xx/PERI_TRNG.h File Reference</title>
+<title>MCUX CLNS: platform/mcxa2xx/PERI_SCG.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,739 +102,607 @@ $(function(){initNavTree('a03983.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PERI_TRNG.h File Reference</div></div>
+  <div class="headertitle"><div class="title">PERI_SCG.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>CMSIS Peripheral Access Layer for TRNG.  
+<p>CMSIS Peripheral Access Layer for SCG.  
 <a href="#details">More...</a></p>
 
 <p><a href="a03983_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:TRNG_5FType" id="r_TRNG_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02351.html">TRNG_Type</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">TRNG - Register Layout Typedef.  <a href="a02351.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SCG_5FType" id="r_SCG_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02318.html">SCG_Type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SCG - Register Layout Typedef.  <a href="a02318.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ab0c8e4a2effcd3d52431672b8e3198ee" id="r_ab0c8e4a2effcd3d52431672b8e3198ee"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab0c8e4a2effcd3d52431672b8e3198ee">PERI_TRNG_H_</a></td></tr>
-<tr class="memdesc:ab0c8e4a2effcd3d52431672b8e3198ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
-<tr class="memitem:gaf46e8a475e48cdf00b9e9676896fe40d" id="r_gaf46e8a475e48cdf00b9e9676896fe40d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01724.html#gaf46e8a475e48cdf00b9e9676896fe40d">TRNG_ENTA_COUNT</a></td></tr>
-<tr class="memdesc:gaf46e8a475e48cdf00b9e9676896fe40d"><td class="mdescLeft">&#160;</td><td class="mdescRight">TRNG - Size of Registers Arrays.  <br /></td></tr>
-<tr class="memitem:ga5bae2657c572b0037d63506ab7a47b0e" id="r_ga5bae2657c572b0037d63506ab7a47b0e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_ENTA_ENT_COUNT</b></td></tr>
-<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">MCTL - Miscellaneous Control Register</div></td></tr>
-<tr class="memitem:gab755db873f0ca9e08e3a1f892f985f91" id="r_gab755db873f0ca9e08e3a1f892f985f91"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_OSC_DIV_MASK</b></td></tr>
-<tr class="memitem:gada1e7809c4d35f9ac20a7101f1b35ba5" id="r_gada1e7809c4d35f9ac20a7101f1b35ba5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_OSC_DIV_SHIFT</b></td></tr>
-<tr class="memitem:ga24b787ff705447939adcdd1f8cf0d633" id="r_ga24b787ff705447939adcdd1f8cf0d633"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga24b787ff705447939adcdd1f8cf0d633">TRNG_MCTL_OSC_DIV</a>(x)</td></tr>
-<tr class="memitem:gaa8153c6ecf55f2b895c48446a6b8722c" id="r_gaa8153c6ecf55f2b895c48446a6b8722c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_TRNG_ACC_MASK</b></td></tr>
-<tr class="memitem:ga2828ff6155f6973fe27922af69da5e81" id="r_ga2828ff6155f6973fe27922af69da5e81"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_TRNG_ACC_SHIFT</b></td></tr>
-<tr class="memitem:ga32eedc55e4bb66292bcd3a6b2b6c727d" id="r_ga32eedc55e4bb66292bcd3a6b2b6c727d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga32eedc55e4bb66292bcd3a6b2b6c727d">TRNG_MCTL_TRNG_ACC</a>(x)</td></tr>
-<tr class="memitem:ga4f8533671d17f9339cb8f73d9ad8bc35" id="r_ga4f8533671d17f9339cb8f73d9ad8bc35"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_RST_DEF_MASK</b></td></tr>
-<tr class="memitem:ga78d5f40eec501f3891d1f0d68c2bb610" id="r_ga78d5f40eec501f3891d1f0d68c2bb610"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_RST_DEF_SHIFT</b></td></tr>
-<tr class="memitem:ga1fd0582604f03156d769b01644c2bd76" id="r_ga1fd0582604f03156d769b01644c2bd76"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga1fd0582604f03156d769b01644c2bd76">TRNG_MCTL_RST_DEF</a>(x)</td></tr>
-<tr class="memitem:ga13a3d6c25b0dc581530bbffd6194640b" id="r_ga13a3d6c25b0dc581530bbffd6194640b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_FCT_FAIL_MASK</b></td></tr>
-<tr class="memitem:ga92a6ff0289eda44fa16268e2c7bb8b4c" id="r_ga92a6ff0289eda44fa16268e2c7bb8b4c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_FCT_FAIL_SHIFT</b></td></tr>
-<tr class="memitem:gac16706c7a9dc4b03e583eef5ee8dca84" id="r_gac16706c7a9dc4b03e583eef5ee8dca84"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gac16706c7a9dc4b03e583eef5ee8dca84">TRNG_MCTL_FCT_FAIL</a>(x)</td></tr>
-<tr class="memitem:ga1e7a1808923bf9cfdcedf2a689907240" id="r_ga1e7a1808923bf9cfdcedf2a689907240"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_FCT_VAL_MASK</b></td></tr>
-<tr class="memitem:gab1228dcf0a84bb102f7e79bff7313172" id="r_gab1228dcf0a84bb102f7e79bff7313172"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_FCT_VAL_SHIFT</b></td></tr>
-<tr class="memitem:ga1195d0ad056749aba5340ddc45bf36b1" id="r_ga1195d0ad056749aba5340ddc45bf36b1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga1195d0ad056749aba5340ddc45bf36b1">TRNG_MCTL_FCT_VAL</a>(x)</td></tr>
-<tr class="memitem:gabe8047b7fc65a5e06f643d76c39f2b7e" id="r_gabe8047b7fc65a5e06f643d76c39f2b7e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_ENT_VAL_MASK</b></td></tr>
-<tr class="memitem:ga67c70fb7931d1709432d3dceec3bcc79" id="r_ga67c70fb7931d1709432d3dceec3bcc79"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_ENT_VAL_SHIFT</b></td></tr>
-<tr class="memitem:gab567dd1cd496981c444a446b0fa7963d" id="r_gab567dd1cd496981c444a446b0fa7963d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gab567dd1cd496981c444a446b0fa7963d">TRNG_MCTL_ENT_VAL</a>(x)</td></tr>
-<tr class="memitem:ga065dd11f648021fd0040d8127002a762" id="r_ga065dd11f648021fd0040d8127002a762"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_ERR_MASK</b></td></tr>
-<tr class="memitem:gae70a3af20c73874e4be584017b63d52d" id="r_gae70a3af20c73874e4be584017b63d52d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_ERR_SHIFT</b></td></tr>
-<tr class="memitem:ga6c63effe7ce0eb956e54d747b919e873" id="r_ga6c63effe7ce0eb956e54d747b919e873"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga6c63effe7ce0eb956e54d747b919e873">TRNG_MCTL_ERR</a>(x)</td></tr>
-<tr class="memitem:gab1a7959d3352d4556af75df649608d01" id="r_gab1a7959d3352d4556af75df649608d01"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_TSTOP_OK_MASK</b></td></tr>
-<tr class="memitem:ga4588962265383d8e96abda2a0d9ba0b0" id="r_ga4588962265383d8e96abda2a0d9ba0b0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_TSTOP_OK_SHIFT</b></td></tr>
-<tr class="memitem:ga60e5b328a1344fed57aded9b909d9fe5" id="r_ga60e5b328a1344fed57aded9b909d9fe5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga60e5b328a1344fed57aded9b909d9fe5">TRNG_MCTL_TSTOP_OK</a>(x)</td></tr>
-<tr class="memitem:gab29a8d6bcbe0be849149a483568fb46a" id="r_gab29a8d6bcbe0be849149a483568fb46a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_OSC2_FAIL_MASK</b></td></tr>
-<tr class="memitem:ga061b19058e94fdeda7630f1c00f66b66" id="r_ga061b19058e94fdeda7630f1c00f66b66"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_OSC2_FAIL_SHIFT</b></td></tr>
-<tr class="memitem:ga74b6dd872b9ad82f4d473df38f70fb0a" id="r_ga74b6dd872b9ad82f4d473df38f70fb0a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga74b6dd872b9ad82f4d473df38f70fb0a">TRNG_MCTL_OSC2_FAIL</a>(x)</td></tr>
-<tr class="memitem:ga0a22bc41f8d3b66e3cb842852cc7f906" id="r_ga0a22bc41f8d3b66e3cb842852cc7f906"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_PRGM_MASK</b></td></tr>
-<tr class="memitem:ga3dc1470f0e9d2235a559068ae6a7ee3b" id="r_ga3dc1470f0e9d2235a559068ae6a7ee3b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_PRGM_SHIFT</b></td></tr>
-<tr class="memitem:ga524686b0682873c4804194a88c19ac6e" id="r_ga524686b0682873c4804194a88c19ac6e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga524686b0682873c4804194a88c19ac6e">TRNG_MCTL_PRGM</a>(x)</td></tr>
-<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">MCTL - Miscellaneous Control Register</div></td></tr>
-<tr class="memitem:ga5057f4b2b1024d793e9ba2b084a639de" id="r_ga5057f4b2b1024d793e9ba2b084a639de"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_DIS_SLF_TST_MASK</b></td></tr>
-<tr class="memitem:ga2f2a5573d65e9118c4d75a267de26686" id="r_ga2f2a5573d65e9118c4d75a267de26686"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_DIS_SLF_TST_SHIFT</b></td></tr>
-<tr class="memitem:ga8f3e7b8566cd6c7545c3363f4e7b1b6f" id="r_ga8f3e7b8566cd6c7545c3363f4e7b1b6f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga8f3e7b8566cd6c7545c3363f4e7b1b6f">TRNG_MCTL_DIS_SLF_TST</a>(x)</td></tr>
-<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">MCTL - Miscellaneous Control Register</div></td></tr>
-<tr class="memitem:ga271eabe76bdeebfd1bc65e0f3471d18b" id="r_ga271eabe76bdeebfd1bc65e0f3471d18b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_INTG_ERR_MASK</b></td></tr>
-<tr class="memitem:gac15f8fb208bcfb8c9cb22130d9b0ef56" id="r_gac15f8fb208bcfb8c9cb22130d9b0ef56"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_MCTL_INTG_ERR_SHIFT</b></td></tr>
-<tr class="memitem:gaf19722f4649976cee483df95a0560107" id="r_gaf19722f4649976cee483df95a0560107"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gaf19722f4649976cee483df95a0560107">TRNG_MCTL_INTG_ERR</a>(x)</td></tr>
-<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">SCMISC - Statistical Check Miscellaneous Register</div></td></tr>
-<tr class="memitem:gacd4a1317549f77f01891d6bb225aa6dd" id="r_gacd4a1317549f77f01891d6bb225aa6dd"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMISC_LRUN_MAX_MASK</b></td></tr>
-<tr class="memitem:gaaa1b348912524ecc357db4f0b45b362c" id="r_gaaa1b348912524ecc357db4f0b45b362c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMISC_LRUN_MAX_SHIFT</b></td></tr>
-<tr class="memitem:ga905afc0bb6f24ff91d59c92f161d9cab" id="r_ga905afc0bb6f24ff91d59c92f161d9cab"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMISC_LRUN_MAX</b>(x)</td></tr>
-<tr class="memitem:ga54d13da92a1cb6badb03b6b8bf080e9a" id="r_ga54d13da92a1cb6badb03b6b8bf080e9a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMISC_RTY_CT_MASK</b></td></tr>
-<tr class="memitem:ga788ce01a26e32b311785e1b4e1ce2f6a" id="r_ga788ce01a26e32b311785e1b4e1ce2f6a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMISC_RTY_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga6b54902fe68d841beb8007ce866b02c6" id="r_ga6b54902fe68d841beb8007ce866b02c6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMISC_RTY_CT</b>(x)</td></tr>
-<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRRNG - Poker Range Register</div></td></tr>
-<tr class="memitem:gadf18c5e01d253edf3363711bede7d42d" id="r_gadf18c5e01d253edf3363711bede7d42d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRRNG_PKR_RNG_MASK</b></td></tr>
-<tr class="memitem:ga30ba8bf617fcfdfa578974df2d2bacd9" id="r_ga30ba8bf617fcfdfa578974df2d2bacd9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRRNG_PKR_RNG_SHIFT</b></td></tr>
-<tr class="memitem:ga5273dc55a94a77c29fe3435885e0c8bd" id="r_ga5273dc55a94a77c29fe3435885e0c8bd"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRRNG_PKR_RNG</b>(x)</td></tr>
-<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRMAX - Poker Maximum Limit Register</div></td></tr>
-<tr class="memitem:gae0b3cfa66c63e2d254db4eab8a113817" id="r_gae0b3cfa66c63e2d254db4eab8a113817"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRMAX_PKR_MAX_MASK</b></td></tr>
-<tr class="memitem:gaac40039f483e210680becf2985646084" id="r_gaac40039f483e210680becf2985646084"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRMAX_PKR_MAX_SHIFT</b></td></tr>
-<tr class="memitem:ga0c4910b483a6022d1f4cfa33cabca3aa" id="r_ga0c4910b483a6022d1f4cfa33cabca3aa"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga0c4910b483a6022d1f4cfa33cabca3aa">TRNG_PKRMAX_PKR_MAX</a>(x)</td></tr>
-<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRSQ - Poker Square Calculation Result Register</div></td></tr>
-<tr class="memitem:ga5b8407853d9f9451e355e67715aacc34" id="r_ga5b8407853d9f9451e355e67715aacc34"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRSQ_PKR_SQ_MASK</b></td></tr>
-<tr class="memitem:gac24f1fc572910f42940245df1ef88420" id="r_gac24f1fc572910f42940245df1ef88420"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRSQ_PKR_SQ_SHIFT</b></td></tr>
-<tr class="memitem:gaae279f34412a34c679e96c0f075b7b66" id="r_gaae279f34412a34c679e96c0f075b7b66"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gaae279f34412a34c679e96c0f075b7b66">TRNG_PKRSQ_PKR_SQ</a>(x)</td></tr>
-<tr id="define-members-7" class="groupHeader"><td colspan="2"><div class="groupHeader">SDCTL - Seed Control Register</div></td></tr>
-<tr class="memitem:ga792f1629c50d9c1e12ec2f51ceeec27c" id="r_ga792f1629c50d9c1e12ec2f51ceeec27c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SDCTL_SAMP_SIZE_MASK</b></td></tr>
-<tr class="memitem:ga9b6127fd244de43a5603bf8f529a0bc8" id="r_ga9b6127fd244de43a5603bf8f529a0bc8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SDCTL_SAMP_SIZE_SHIFT</b></td></tr>
-<tr class="memitem:ga0fb616964ea23159a68dce2be18e359d" id="r_ga0fb616964ea23159a68dce2be18e359d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SDCTL_SAMP_SIZE</b>(x)</td></tr>
-<tr class="memitem:ga0214c5224eb286774c8b33c0c5fb406b" id="r_ga0214c5224eb286774c8b33c0c5fb406b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SDCTL_ENT_DLY_MASK</b></td></tr>
-<tr class="memitem:ga8394539fc1768811af9293b76b8990f7" id="r_ga8394539fc1768811af9293b76b8990f7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SDCTL_ENT_DLY_SHIFT</b></td></tr>
-<tr class="memitem:ga52107d5cb5029570cb21449405c27069" id="r_ga52107d5cb5029570cb21449405c27069"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SDCTL_ENT_DLY</b>(x)</td></tr>
-<tr id="define-members-8" class="groupHeader"><td colspan="2"><div class="groupHeader">SBLIM - Sparse Bit Limit Register</div></td></tr>
-<tr class="memitem:ga956817fbc675cbc03b52bd00e829064c" id="r_ga956817fbc675cbc03b52bd00e829064c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SBLIM_SB_LIM_MASK</b></td></tr>
-<tr class="memitem:ga1a2e258036cf3f8f5ac91b8945cd9c82" id="r_ga1a2e258036cf3f8f5ac91b8945cd9c82"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SBLIM_SB_LIM_SHIFT</b></td></tr>
-<tr class="memitem:gaf947f9d34f324d2c004d32eeaf9a77c2" id="r_gaf947f9d34f324d2c004d32eeaf9a77c2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SBLIM_SB_LIM</b>(x)</td></tr>
-<tr id="define-members-9" class="groupHeader"><td colspan="2"><div class="groupHeader">TOTSAM - Total Samples Register</div></td></tr>
-<tr class="memitem:ga3961931b7833bcfca65270003ae13444" id="r_ga3961931b7833bcfca65270003ae13444"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_TOTSAM_TOT_SAM_MASK</b></td></tr>
-<tr class="memitem:gaf3ce62ba5034952a935fefb0e86aab9e" id="r_gaf3ce62ba5034952a935fefb0e86aab9e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_TOTSAM_TOT_SAM_SHIFT</b></td></tr>
-<tr class="memitem:ga508d165e704bb970579bc20d1514a97b" id="r_ga508d165e704bb970579bc20d1514a97b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_TOTSAM_TOT_SAM</b>(x)</td></tr>
-<tr id="define-members-10" class="groupHeader"><td colspan="2"><div class="groupHeader">FRQMIN - Frequency Count Minimum Limit Register</div></td></tr>
-<tr class="memitem:gae6a05c566020d214b4be52c3afad6e76" id="r_gae6a05c566020d214b4be52c3afad6e76"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQMIN_FRQ_MIN_MASK</b></td></tr>
-<tr class="memitem:ga8a3f6eeb0fe57d79ae36a19b5cdc6be4" id="r_ga8a3f6eeb0fe57d79ae36a19b5cdc6be4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQMIN_FRQ_MIN_SHIFT</b></td></tr>
-<tr class="memitem:gae4f6a8d631d96bce79193888d657aa54" id="r_gae4f6a8d631d96bce79193888d657aa54"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQMIN_FRQ_MIN</b>(x)</td></tr>
-<tr id="define-members-11" class="groupHeader"><td colspan="2"><div class="groupHeader">OSC2_FRQCNT - Oscillator-2 Frequency Count Register</div></td></tr>
-<tr class="memitem:ga9228dcbfa99149f14025ca08ea750463" id="r_ga9228dcbfa99149f14025ca08ea750463"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_FRQCNT_OSC2_FRQ_CT_MASK</b></td></tr>
-<tr class="memitem:ga094eeef797405ac651e47aa8dbfda3e5" id="r_ga094eeef797405ac651e47aa8dbfda3e5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_FRQCNT_OSC2_FRQ_CT_SHIFT</b></td></tr>
-<tr class="memitem:gaf026ff31e4e7763607291d7230636b05" id="r_gaf026ff31e4e7763607291d7230636b05"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_FRQCNT_OSC2_FRQ_CT</b>(x)</td></tr>
-<tr id="define-members-12" class="groupHeader"><td colspan="2"><div class="groupHeader">FRQCNT - Frequency Count Register</div></td></tr>
-<tr class="memitem:ga33cbaf932a8ce94b188c1cb32796507e" id="r_ga33cbaf932a8ce94b188c1cb32796507e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQCNT_FRQ_CT_MASK</b></td></tr>
-<tr class="memitem:gadc1dc18dae1734c53a067c088baa3163" id="r_gadc1dc18dae1734c53a067c088baa3163"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQCNT_FRQ_CT_SHIFT</b></td></tr>
-<tr class="memitem:gaeb19324935253124cc0e9e0cc2fa82b3" id="r_gaeb19324935253124cc0e9e0cc2fa82b3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQCNT_FRQ_CT</b>(x)</td></tr>
-<tr id="define-members-13" class="groupHeader"><td colspan="2"><div class="groupHeader">FRQMAX - Frequency Count Maximum Limit Register</div></td></tr>
-<tr class="memitem:gaa5d2071e329d0c5fe945c06d4d6d5bdf" id="r_gaa5d2071e329d0c5fe945c06d4d6d5bdf"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQMAX_FRQ_MAX_MASK</b></td></tr>
-<tr class="memitem:gae14508c06679b0fd3fcf40d5ceb10198" id="r_gae14508c06679b0fd3fcf40d5ceb10198"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQMAX_FRQ_MAX_SHIFT</b></td></tr>
-<tr class="memitem:ga2d756008b8974f2f09be75aa4d2a35a2" id="r_ga2d756008b8974f2f09be75aa4d2a35a2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_FRQMAX_FRQ_MAX</b>(x)</td></tr>
-<tr id="define-members-14" class="groupHeader"><td colspan="2"><div class="groupHeader">SCMC - Statistical Check Monobit Count Register</div></td></tr>
-<tr class="memitem:gac007dd710e8a6c44941928cb871f25a9" id="r_gac007dd710e8a6c44941928cb871f25a9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMC_MONO_CT_MASK</b></td></tr>
-<tr class="memitem:ga27729fdd49da0a6ae0cde14b8005af8a" id="r_ga27729fdd49da0a6ae0cde14b8005af8a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMC_MONO_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga5d63d93f629b7ebe3dc1c227e84a2072" id="r_ga5d63d93f629b7ebe3dc1c227e84a2072"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCMC_MONO_CT</b>(x)</td></tr>
-<tr id="define-members-15" class="groupHeader"><td colspan="2"><div class="groupHeader">SCML - Statistical Check Monobit Limit Register</div></td></tr>
-<tr class="memitem:ga8adc2e4f33587f87c46ae7ce5bbb789e" id="r_ga8adc2e4f33587f87c46ae7ce5bbb789e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCML_MONO_MAX_MASK</b></td></tr>
-<tr class="memitem:ga56f30e22882a200329446084f8373539" id="r_ga56f30e22882a200329446084f8373539"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCML_MONO_MAX_SHIFT</b></td></tr>
-<tr class="memitem:gaaf8e2276a8164c3c1bb4bd202549ec2e" id="r_gaaf8e2276a8164c3c1bb4bd202549ec2e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCML_MONO_MAX</b>(x)</td></tr>
-<tr class="memitem:ga5aef6a6df96b2c2ffe31e4f68e4cc359" id="r_ga5aef6a6df96b2c2ffe31e4f68e4cc359"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCML_MONO_RNG_MASK</b></td></tr>
-<tr class="memitem:gaf1ecdb7ff2baf12e78a6466841ea0ff5" id="r_gaf1ecdb7ff2baf12e78a6466841ea0ff5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCML_MONO_RNG_SHIFT</b></td></tr>
-<tr class="memitem:gaa8f124c5753452012bc1a3a09d9d62f5" id="r_gaa8f124c5753452012bc1a3a09d9d62f5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCML_MONO_RNG</b>(x)</td></tr>
-<tr id="define-members-16" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR1C - Statistical Check Run Length 1 Count Register</div></td></tr>
-<tr class="memitem:ga6f7c9607f036f07149adf79a45c03164" id="r_ga6f7c9607f036f07149adf79a45c03164"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1C_R1_0_CT_MASK</b></td></tr>
-<tr class="memitem:gadc77c3446872e0f82836f1307c5c4013" id="r_gadc77c3446872e0f82836f1307c5c4013"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1C_R1_0_CT_SHIFT</b></td></tr>
-<tr class="memitem:gafd9bed8261f86db75d598f4ef81b7ea8" id="r_gafd9bed8261f86db75d598f4ef81b7ea8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gafd9bed8261f86db75d598f4ef81b7ea8">TRNG_SCR1C_R1_0_CT</a>(x)</td></tr>
-<tr class="memitem:ga266ee1e76ab11046dd00902f2adfc3be" id="r_ga266ee1e76ab11046dd00902f2adfc3be"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1C_R1_1_CT_MASK</b></td></tr>
-<tr class="memitem:ga0800e06f7f16d93688db158e359360f9" id="r_ga0800e06f7f16d93688db158e359360f9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1C_R1_1_CT_SHIFT</b></td></tr>
-<tr class="memitem:gae13292260a841d1cf0c1f7f6486b1075" id="r_gae13292260a841d1cf0c1f7f6486b1075"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gae13292260a841d1cf0c1f7f6486b1075">TRNG_SCR1C_R1_1_CT</a>(x)</td></tr>
-<tr id="define-members-17" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR1L - Statistical Check Run Length 1 Limit Register</div></td></tr>
-<tr class="memitem:ga018ae03b83d89f84811c12e6d7d9cf5c" id="r_ga018ae03b83d89f84811c12e6d7d9cf5c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1L_RUN1_MAX_MASK</b></td></tr>
-<tr class="memitem:ga39bcea33551cd5b1fa1e7aadbf3d1410" id="r_ga39bcea33551cd5b1fa1e7aadbf3d1410"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1L_RUN1_MAX_SHIFT</b></td></tr>
-<tr class="memitem:gaa36d5be510692d1a742c2ff93ceb8341" id="r_gaa36d5be510692d1a742c2ff93ceb8341"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gaa36d5be510692d1a742c2ff93ceb8341">TRNG_SCR1L_RUN1_MAX</a>(x)</td></tr>
-<tr class="memitem:ga6e59b601b9161f144fde8af68094984f" id="r_ga6e59b601b9161f144fde8af68094984f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1L_RUN1_RNG_MASK</b></td></tr>
-<tr class="memitem:ga26e057de9e366e273f115c34ae5f09aa" id="r_ga26e057de9e366e273f115c34ae5f09aa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR1L_RUN1_RNG_SHIFT</b></td></tr>
-<tr class="memitem:gaee1254beca862f2f5d4d5a867356f74a" id="r_gaee1254beca862f2f5d4d5a867356f74a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gaee1254beca862f2f5d4d5a867356f74a">TRNG_SCR1L_RUN1_RNG</a>(x)</td></tr>
-<tr id="define-members-18" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR2C - Statistical Check Run Length 2 Count Register</div></td></tr>
-<tr class="memitem:ga8f2ff94336825a9241fe31adcc2b2d35" id="r_ga8f2ff94336825a9241fe31adcc2b2d35"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2C_R2_0_CT_MASK</b></td></tr>
-<tr class="memitem:gaf41e386ca7af40dcf1f53318fbc794f2" id="r_gaf41e386ca7af40dcf1f53318fbc794f2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2C_R2_0_CT_SHIFT</b></td></tr>
-<tr class="memitem:gab761a497202911196c443fd61dcf8ac3" id="r_gab761a497202911196c443fd61dcf8ac3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2C_R2_0_CT</b>(x)</td></tr>
-<tr class="memitem:ga1c9484b2b00882982018bdca3b67dcee" id="r_ga1c9484b2b00882982018bdca3b67dcee"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2C_R2_1_CT_MASK</b></td></tr>
-<tr class="memitem:ga2b9563650ab92eb9235b6c3f5c9b59a0" id="r_ga2b9563650ab92eb9235b6c3f5c9b59a0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2C_R2_1_CT_SHIFT</b></td></tr>
-<tr class="memitem:gab49af6ff7fca651fe31c9ab8be7d9085" id="r_gab49af6ff7fca651fe31c9ab8be7d9085"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2C_R2_1_CT</b>(x)</td></tr>
-<tr id="define-members-19" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR2L - Statistical Check Run Length 2 Limit Register</div></td></tr>
-<tr class="memitem:gac3efcdac1eeb82037250c80e47675aad" id="r_gac3efcdac1eeb82037250c80e47675aad"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2L_RUN2_MAX_MASK</b></td></tr>
-<tr class="memitem:ga85b6732e0fb7e69ee534a48e1ee3cc05" id="r_ga85b6732e0fb7e69ee534a48e1ee3cc05"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2L_RUN2_MAX_SHIFT</b></td></tr>
-<tr class="memitem:ga634ec63a857cc5eec09d0921ebbc70ad" id="r_ga634ec63a857cc5eec09d0921ebbc70ad"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2L_RUN2_MAX</b>(x)</td></tr>
-<tr class="memitem:ga32fa557fcc33f9013d93218b17126820" id="r_ga32fa557fcc33f9013d93218b17126820"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2L_RUN2_RNG_MASK</b></td></tr>
-<tr class="memitem:ga3371ea48800ccd9bdb40d7d058f4094b" id="r_ga3371ea48800ccd9bdb40d7d058f4094b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2L_RUN2_RNG_SHIFT</b></td></tr>
-<tr class="memitem:ga1c18441514a5717275a4118025eb1ff7" id="r_ga1c18441514a5717275a4118025eb1ff7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR2L_RUN2_RNG</b>(x)</td></tr>
-<tr id="define-members-20" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR3C - Statistical Check Run Length 3 Count Register</div></td></tr>
-<tr class="memitem:gadb659d4d9b069ce0d17b972d208ee20a" id="r_gadb659d4d9b069ce0d17b972d208ee20a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3C_R3_0_CT_MASK</b></td></tr>
-<tr class="memitem:ga16ed9671e96cf1ca23ca9a97bbdf087b" id="r_ga16ed9671e96cf1ca23ca9a97bbdf087b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3C_R3_0_CT_SHIFT</b></td></tr>
-<tr class="memitem:gaf0dedd2ad7cd4357b029eb2d15aa72db" id="r_gaf0dedd2ad7cd4357b029eb2d15aa72db"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3C_R3_0_CT</b>(x)</td></tr>
-<tr class="memitem:ga81549b5aa08f380f41c5b5813e6f2f21" id="r_ga81549b5aa08f380f41c5b5813e6f2f21"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3C_R3_1_CT_MASK</b></td></tr>
-<tr class="memitem:ga7d3fd4b6cd565639c71172ef70f0f61c" id="r_ga7d3fd4b6cd565639c71172ef70f0f61c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3C_R3_1_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga46b374528777ea053b26076717998303" id="r_ga46b374528777ea053b26076717998303"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3C_R3_1_CT</b>(x)</td></tr>
-<tr id="define-members-21" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR3L - Statistical Check Run Length 3 Limit Register</div></td></tr>
-<tr class="memitem:gaf0cc435e51102efdc6b29658030ec60c" id="r_gaf0cc435e51102efdc6b29658030ec60c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3L_RUN3_MAX_MASK</b></td></tr>
-<tr class="memitem:gac97bca9d64977295cb5305a2ba11f4d9" id="r_gac97bca9d64977295cb5305a2ba11f4d9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3L_RUN3_MAX_SHIFT</b></td></tr>
-<tr class="memitem:gaac70253befbfcd01ed11bff13d3c7fa3" id="r_gaac70253befbfcd01ed11bff13d3c7fa3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3L_RUN3_MAX</b>(x)</td></tr>
-<tr class="memitem:ga8f0c51ae1a041f431d76237b4ca81484" id="r_ga8f0c51ae1a041f431d76237b4ca81484"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3L_RUN3_RNG_MASK</b></td></tr>
-<tr class="memitem:ga2cd4e9cbbd393ffefaaf8ae4b6de9173" id="r_ga2cd4e9cbbd393ffefaaf8ae4b6de9173"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3L_RUN3_RNG_SHIFT</b></td></tr>
-<tr class="memitem:gabff5979f1ddb54b4bc5f57bd72277e45" id="r_gabff5979f1ddb54b4bc5f57bd72277e45"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR3L_RUN3_RNG</b>(x)</td></tr>
-<tr id="define-members-22" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR4C - Statistical Check Run Length 4 Count Register</div></td></tr>
-<tr class="memitem:ga65d150c6a8bba5da267d3be358b524cc" id="r_ga65d150c6a8bba5da267d3be358b524cc"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4C_R4_0_CT_MASK</b></td></tr>
-<tr class="memitem:ga0afa64c4610d32055f3a6314253c3861" id="r_ga0afa64c4610d32055f3a6314253c3861"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4C_R4_0_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga931a7904254072bd471d3dd74bac4487" id="r_ga931a7904254072bd471d3dd74bac4487"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4C_R4_0_CT</b>(x)</td></tr>
-<tr class="memitem:gae82ec3257d116f2d141a5b7b9f24d984" id="r_gae82ec3257d116f2d141a5b7b9f24d984"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4C_R4_1_CT_MASK</b></td></tr>
-<tr class="memitem:gae971cbcc57d43462501935bb23ee6016" id="r_gae971cbcc57d43462501935bb23ee6016"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4C_R4_1_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga7569e4f9d6a269e29bdee64d7800294a" id="r_ga7569e4f9d6a269e29bdee64d7800294a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4C_R4_1_CT</b>(x)</td></tr>
-<tr id="define-members-23" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR4L - Statistical Check Run Length 4 Limit Register</div></td></tr>
-<tr class="memitem:ga92737e9ee6b60a92d2cc772c27ca904c" id="r_ga92737e9ee6b60a92d2cc772c27ca904c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4L_RUN4_MAX_MASK</b></td></tr>
-<tr class="memitem:ga1ab53184afa3b20b62d9b5d51f437ac3" id="r_ga1ab53184afa3b20b62d9b5d51f437ac3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4L_RUN4_MAX_SHIFT</b></td></tr>
-<tr class="memitem:gabd9ca7ea9be08437982b3679bf39c118" id="r_gabd9ca7ea9be08437982b3679bf39c118"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4L_RUN4_MAX</b>(x)</td></tr>
-<tr class="memitem:ga8a4de94dd0796da5b27a22393dcaf91f" id="r_ga8a4de94dd0796da5b27a22393dcaf91f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4L_RUN4_RNG_MASK</b></td></tr>
-<tr class="memitem:ga26d37259bc49faf8337996464bf32f0c" id="r_ga26d37259bc49faf8337996464bf32f0c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4L_RUN4_RNG_SHIFT</b></td></tr>
-<tr class="memitem:gad22124e852b0dd65dc6052b2bd3c843a" id="r_gad22124e852b0dd65dc6052b2bd3c843a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR4L_RUN4_RNG</b>(x)</td></tr>
-<tr id="define-members-24" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR5C - Statistical Check Run Length 5 Count Register</div></td></tr>
-<tr class="memitem:ga03a3f25c94c49a739a714d808aaa38bd" id="r_ga03a3f25c94c49a739a714d808aaa38bd"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5C_R5_0_CT_MASK</b></td></tr>
-<tr class="memitem:ga05e78470c559a3f343543492c49f029a" id="r_ga05e78470c559a3f343543492c49f029a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5C_R5_0_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga1a2c0bdfff8dbf9c7947392e835a7632" id="r_ga1a2c0bdfff8dbf9c7947392e835a7632"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5C_R5_0_CT</b>(x)</td></tr>
-<tr class="memitem:ga4a4aa351ac52faf4ba7e62c566447edf" id="r_ga4a4aa351ac52faf4ba7e62c566447edf"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5C_R5_1_CT_MASK</b></td></tr>
-<tr class="memitem:gaa29b4c60f3e09596fc207d053e4576c8" id="r_gaa29b4c60f3e09596fc207d053e4576c8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5C_R5_1_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga5e192b6c8f92e2377ce31c7216740b20" id="r_ga5e192b6c8f92e2377ce31c7216740b20"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5C_R5_1_CT</b>(x)</td></tr>
-<tr id="define-members-25" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR5L - Statistical Check Run Length 5 Limit Register</div></td></tr>
-<tr class="memitem:gad8696ebd815d8a1d124d6fb398858af2" id="r_gad8696ebd815d8a1d124d6fb398858af2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5L_RUN5_MAX_MASK</b></td></tr>
-<tr class="memitem:ga6d52ef0ed043b7b8ccd58a51a08421ba" id="r_ga6d52ef0ed043b7b8ccd58a51a08421ba"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5L_RUN5_MAX_SHIFT</b></td></tr>
-<tr class="memitem:ga6b04c96af4048ebce2e46fc51aaf26c5" id="r_ga6b04c96af4048ebce2e46fc51aaf26c5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5L_RUN5_MAX</b>(x)</td></tr>
-<tr class="memitem:ga686dcffc288e09f37856ea6ec04d2006" id="r_ga686dcffc288e09f37856ea6ec04d2006"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5L_RUN5_RNG_MASK</b></td></tr>
-<tr class="memitem:ga94fab10fdd865523f0619213abc6c3a5" id="r_ga94fab10fdd865523f0619213abc6c3a5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5L_RUN5_RNG_SHIFT</b></td></tr>
-<tr class="memitem:gae6fddea9c1d0b36337e7c81aed189b17" id="r_gae6fddea9c1d0b36337e7c81aed189b17"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR5L_RUN5_RNG</b>(x)</td></tr>
-<tr id="define-members-26" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR6PC - Statistical Check Run Length 6+ Count Register</div></td></tr>
-<tr class="memitem:ga0f4eb60746d2ec6d2190edc3332e97da" id="r_ga0f4eb60746d2ec6d2190edc3332e97da"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PC_R6P_0_CT_MASK</b></td></tr>
-<tr class="memitem:ga5e002b6e551e5f5be38b0eff7f389586" id="r_ga5e002b6e551e5f5be38b0eff7f389586"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PC_R6P_0_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga0ee6a57fe24a9aeed2ff7e3ff0cfa6e1" id="r_ga0ee6a57fe24a9aeed2ff7e3ff0cfa6e1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PC_R6P_0_CT</b>(x)</td></tr>
-<tr class="memitem:ga1b6deea487e33ad85c9e44c9cbb18c9d" id="r_ga1b6deea487e33ad85c9e44c9cbb18c9d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PC_R6P_1_CT_MASK</b></td></tr>
-<tr class="memitem:gaffbd4f7a45e126ec856b1007ec31046b" id="r_gaffbd4f7a45e126ec856b1007ec31046b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PC_R6P_1_CT_SHIFT</b></td></tr>
-<tr class="memitem:gabde46a5f031496ef83d342d15d1b94a6" id="r_gabde46a5f031496ef83d342d15d1b94a6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PC_R6P_1_CT</b>(x)</td></tr>
-<tr id="define-members-27" class="groupHeader"><td colspan="2"><div class="groupHeader">SCR6PL - Statistical Check Run Length 6+ Limit Register</div></td></tr>
-<tr class="memitem:ga44e2e35b2ff6fc7243ad54c19b0b8009" id="r_ga44e2e35b2ff6fc7243ad54c19b0b8009"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PL_RUN6P_MAX_MASK</b></td></tr>
-<tr class="memitem:ga7a623d16ce3d26f147d8892c782bab2c" id="r_ga7a623d16ce3d26f147d8892c782bab2c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PL_RUN6P_MAX_SHIFT</b></td></tr>
-<tr class="memitem:ga3fb01c5857a96bf7479cd811c2cafaf2" id="r_ga3fb01c5857a96bf7479cd811c2cafaf2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PL_RUN6P_MAX</b>(x)</td></tr>
-<tr class="memitem:gadcc1b97eb7c22c174e5cf2583420039d" id="r_gadcc1b97eb7c22c174e5cf2583420039d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PL_RUN6P_RNG_MASK</b></td></tr>
-<tr class="memitem:ga8ffebfe25002f140f7a344ac0ca7f22a" id="r_ga8ffebfe25002f140f7a344ac0ca7f22a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PL_RUN6P_RNG_SHIFT</b></td></tr>
-<tr class="memitem:gafadf37a3bb834b0fb7d75d2b5d2f1875" id="r_gafadf37a3bb834b0fb7d75d2b5d2f1875"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SCR6PL_RUN6P_RNG</b>(x)</td></tr>
-<tr id="define-members-28" class="groupHeader"><td colspan="2"><div class="groupHeader">STATUS - Status Register</div></td></tr>
-<tr class="memitem:ga7442bc0a3902982152771302d3a94ae6" id="r_ga7442bc0a3902982152771302d3a94ae6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF1BR0_MASK</b></td></tr>
-<tr class="memitem:gaf4650403c6045333201a28f103e96260" id="r_gaf4650403c6045333201a28f103e96260"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF1BR0_SHIFT</b></td></tr>
-<tr class="memitem:ga854bf087dc80c95810ac3c87a850c213" id="r_ga854bf087dc80c95810ac3c87a850c213"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga854bf087dc80c95810ac3c87a850c213">TRNG_STATUS_TF1BR0</a>(x)</td></tr>
-<tr class="memitem:ga90b5730f457f86cb8b36034c6d1ed232" id="r_ga90b5730f457f86cb8b36034c6d1ed232"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF1BR1_MASK</b></td></tr>
-<tr class="memitem:gae5dc1a5550cff1683b12b6b2fe3e904d" id="r_gae5dc1a5550cff1683b12b6b2fe3e904d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF1BR1_SHIFT</b></td></tr>
-<tr class="memitem:ga068baffbf03d9e140e059e1b7e7d6787" id="r_ga068baffbf03d9e140e059e1b7e7d6787"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga068baffbf03d9e140e059e1b7e7d6787">TRNG_STATUS_TF1BR1</a>(x)</td></tr>
-<tr class="memitem:ga8e2f3173ccea1998c6d91820e2d3b414" id="r_ga8e2f3173ccea1998c6d91820e2d3b414"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF2BR0_MASK</b></td></tr>
-<tr class="memitem:gabf1de216106cbf9a048421b15d1ee4d5" id="r_gabf1de216106cbf9a048421b15d1ee4d5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF2BR0_SHIFT</b></td></tr>
-<tr class="memitem:gabbe7dc55585080c33a135c8c6496ad29" id="r_gabbe7dc55585080c33a135c8c6496ad29"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gabbe7dc55585080c33a135c8c6496ad29">TRNG_STATUS_TF2BR0</a>(x)</td></tr>
-<tr class="memitem:gabea375d0f59222e9ba99a9f2a13eb1b5" id="r_gabea375d0f59222e9ba99a9f2a13eb1b5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF2BR1_MASK</b></td></tr>
-<tr class="memitem:ga58106481a13ed2f390b55e0ff68de795" id="r_ga58106481a13ed2f390b55e0ff68de795"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF2BR1_SHIFT</b></td></tr>
-<tr class="memitem:ga176fca4f738f3e1b109287178f2231e0" id="r_ga176fca4f738f3e1b109287178f2231e0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga176fca4f738f3e1b109287178f2231e0">TRNG_STATUS_TF2BR1</a>(x)</td></tr>
-<tr class="memitem:gaed6181bcbecf2d805fce975366eaf9d9" id="r_gaed6181bcbecf2d805fce975366eaf9d9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF3BR0_MASK</b></td></tr>
-<tr class="memitem:ga4b684acda103a431eedb6ad9958395de" id="r_ga4b684acda103a431eedb6ad9958395de"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF3BR0_SHIFT</b></td></tr>
-<tr class="memitem:ga7fb0edd5bb21b39b3d31ed8a2bd8f4d3" id="r_ga7fb0edd5bb21b39b3d31ed8a2bd8f4d3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga7fb0edd5bb21b39b3d31ed8a2bd8f4d3">TRNG_STATUS_TF3BR0</a>(x)</td></tr>
-<tr class="memitem:gad885453444283e839951a5a99a2d61ff" id="r_gad885453444283e839951a5a99a2d61ff"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF3BR1_MASK</b></td></tr>
-<tr class="memitem:ga65df7f1937613b1ec212234ea84cbdbd" id="r_ga65df7f1937613b1ec212234ea84cbdbd"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF3BR1_SHIFT</b></td></tr>
-<tr class="memitem:ga0106dbc2c2c88df6da9944fc253c9036" id="r_ga0106dbc2c2c88df6da9944fc253c9036"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga0106dbc2c2c88df6da9944fc253c9036">TRNG_STATUS_TF3BR1</a>(x)</td></tr>
-<tr class="memitem:gaa71fd66d66fb8627f6c32e7ee9fe46e4" id="r_gaa71fd66d66fb8627f6c32e7ee9fe46e4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFLR_MASK</b></td></tr>
-<tr class="memitem:ga71f0c15172115be0e8f953c90d08a180" id="r_ga71f0c15172115be0e8f953c90d08a180"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFLR_SHIFT</b></td></tr>
-<tr class="memitem:ga4336bc6316b381fb3df78373ac99f7fd" id="r_ga4336bc6316b381fb3df78373ac99f7fd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga4336bc6316b381fb3df78373ac99f7fd">TRNG_STATUS_TFLR</a>(x)</td></tr>
-<tr class="memitem:ga68e06c6360146d80af854c2ddeb038d5" id="r_ga68e06c6360146d80af854c2ddeb038d5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFMB_MASK</b></td></tr>
-<tr class="memitem:ga1639a0a05fe4cc6ac095a1df7ab122d9" id="r_ga1639a0a05fe4cc6ac095a1df7ab122d9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFMB_SHIFT</b></td></tr>
-<tr class="memitem:gab2ea52d8c30915dc02596f468d0410ee" id="r_gab2ea52d8c30915dc02596f468d0410ee"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gab2ea52d8c30915dc02596f468d0410ee">TRNG_STATUS_TFMB</a>(x)</td></tr>
-<tr class="memitem:gab9b100764592e201c84662ae0f25fc7e" id="r_gab9b100764592e201c84662ae0f25fc7e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_RETRY_CT_MASK</b></td></tr>
-<tr class="memitem:ga5d2667b8809c17c4ee8e27566133627d" id="r_ga5d2667b8809c17c4ee8e27566133627d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_RETRY_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga76840389ef88d8356df111122cb9e23e" id="r_ga76840389ef88d8356df111122cb9e23e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_RETRY_CT</b>(x)</td></tr>
-<tr id="define-members-29" class="groupHeader"><td colspan="2"><div class="groupHeader">STATUS - Status Register</div></td></tr>
-<tr class="memitem:ga4c628ee98c482c62f35c03805b350647" id="r_ga4c628ee98c482c62f35c03805b350647"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF4BR0_MASK</b></td></tr>
-<tr class="memitem:ga58707a15fdf383506786834588643847" id="r_ga58707a15fdf383506786834588643847"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF4BR0_SHIFT</b></td></tr>
-<tr class="memitem:ga0988e6fb5d3a0b745c2f596358b69358" id="r_ga0988e6fb5d3a0b745c2f596358b69358"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga0988e6fb5d3a0b745c2f596358b69358">TRNG_STATUS_TF4BR0</a>(x)</td></tr>
-<tr class="memitem:ga8c23d3b409e01a747c7098bf32f6865d" id="r_ga8c23d3b409e01a747c7098bf32f6865d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF4BR1_MASK</b></td></tr>
-<tr class="memitem:ga0a38fefa0cce7c526230b6694e8b0f23" id="r_ga0a38fefa0cce7c526230b6694e8b0f23"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF4BR1_SHIFT</b></td></tr>
-<tr class="memitem:gafa17de2a2557ebd45a15aa492c956346" id="r_gafa17de2a2557ebd45a15aa492c956346"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gafa17de2a2557ebd45a15aa492c956346">TRNG_STATUS_TF4BR1</a>(x)</td></tr>
-<tr class="memitem:ga4c8ab02d592efa0f9281de72df11f627" id="r_ga4c8ab02d592efa0f9281de72df11f627"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF5BR0_MASK</b></td></tr>
-<tr class="memitem:ga90f507a9c8028ca70710849fb827fc6f" id="r_ga90f507a9c8028ca70710849fb827fc6f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF5BR0_SHIFT</b></td></tr>
-<tr class="memitem:ga56b403b891297d83c131475458168207" id="r_ga56b403b891297d83c131475458168207"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga56b403b891297d83c131475458168207">TRNG_STATUS_TF5BR0</a>(x)</td></tr>
-<tr class="memitem:ga78eb6fe2e17a1db0ffeb206e35c2489d" id="r_ga78eb6fe2e17a1db0ffeb206e35c2489d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF5BR1_MASK</b></td></tr>
-<tr class="memitem:ga66ff54052d493b9a094b7ca539ef259f" id="r_ga66ff54052d493b9a094b7ca539ef259f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF5BR1_SHIFT</b></td></tr>
-<tr class="memitem:gaadac2c914fc2955efc6052c123e88d1b" id="r_gaadac2c914fc2955efc6052c123e88d1b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gaadac2c914fc2955efc6052c123e88d1b">TRNG_STATUS_TF5BR1</a>(x)</td></tr>
-<tr class="memitem:ga98248298e3114eb2c4b01a1b7e78f883" id="r_ga98248298e3114eb2c4b01a1b7e78f883"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF6PBR0_MASK</b></td></tr>
-<tr class="memitem:ga9e47bb7e86b4f31b1bc7e9a84bb4a645" id="r_ga9e47bb7e86b4f31b1bc7e9a84bb4a645"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF6PBR0_SHIFT</b></td></tr>
-<tr class="memitem:ga7f49e0b1bb12b0ee806a7dcf57e84f38" id="r_ga7f49e0b1bb12b0ee806a7dcf57e84f38"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga7f49e0b1bb12b0ee806a7dcf57e84f38">TRNG_STATUS_TF6PBR0</a>(x)</td></tr>
-<tr class="memitem:ga963ebabc984f38346bf426438bd537d1" id="r_ga963ebabc984f38346bf426438bd537d1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF6PBR1_MASK</b></td></tr>
-<tr class="memitem:ga2e8f2449a5133af0c97746e74d1ee0c5" id="r_ga2e8f2449a5133af0c97746e74d1ee0c5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TF6PBR1_SHIFT</b></td></tr>
-<tr class="memitem:ga7e60a339c120b4eb2de33fcd360d6968" id="r_ga7e60a339c120b4eb2de33fcd360d6968"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga7e60a339c120b4eb2de33fcd360d6968">TRNG_STATUS_TF6PBR1</a>(x)</td></tr>
-<tr class="memitem:ga75e9b176996d2cbb60baa4bfdac15c1f" id="r_ga75e9b176996d2cbb60baa4bfdac15c1f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFSB_MASK</b></td></tr>
-<tr class="memitem:ga7521362e8e0275075a7c9111b45d683a" id="r_ga7521362e8e0275075a7c9111b45d683a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFSB_SHIFT</b></td></tr>
-<tr class="memitem:ga612312d7cbb9a21bc51a25e1aff0e7d5" id="r_ga612312d7cbb9a21bc51a25e1aff0e7d5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga612312d7cbb9a21bc51a25e1aff0e7d5">TRNG_STATUS_TFSB</a>(x)</td></tr>
-<tr class="memitem:ga56d16e576778dec50e23b55bf78d98d5" id="r_ga56d16e576778dec50e23b55bf78d98d5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFP_MASK</b></td></tr>
-<tr class="memitem:ga92281caf672958c7f3df9456af66d013" id="r_ga92281caf672958c7f3df9456af66d013"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_STATUS_TFP_SHIFT</b></td></tr>
-<tr class="memitem:ga77b5f1421852575d7e9e397712581ac9" id="r_ga77b5f1421852575d7e9e397712581ac9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga77b5f1421852575d7e9e397712581ac9">TRNG_STATUS_TFP</a>(x)</td></tr>
-<tr id="define-members-30" class="groupHeader"><td colspan="2"><div class="groupHeader">ENTA_ENT - Entropy Read Register</div></td></tr>
-<tr class="memitem:gae9ae5c9c8c053432723d201ae6a53522" id="r_gae9ae5c9c8c053432723d201ae6a53522"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_ENTA_ENT_ENT_MASK</b></td></tr>
-<tr class="memitem:gaadec675f8883a2fc75d7fa2390ed4483" id="r_gaadec675f8883a2fc75d7fa2390ed4483"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_ENTA_ENT_ENT_SHIFT</b></td></tr>
-<tr class="memitem:ga344dc84f869ec2f5cbb295ef92e82803" id="r_ga344dc84f869ec2f5cbb295ef92e82803"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_ENTA_ENT_ENT</b>(x)</td></tr>
-<tr id="define-members-31" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNT10 - Statistical Check Poker Count 1 and 0 Register</div></td></tr>
-<tr class="memitem:gaee94e52a4fef3efc8aa6d48cdc01e7de" id="r_gaee94e52a4fef3efc8aa6d48cdc01e7de"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT10_PKR_0_CT_MASK</b></td></tr>
-<tr class="memitem:ga266a0e46f401b241e122e962d0adfe04" id="r_ga266a0e46f401b241e122e962d0adfe04"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT10_PKR_0_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga08ecd9c4405ddf8bb0702a3ef0eca92a" id="r_ga08ecd9c4405ddf8bb0702a3ef0eca92a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT10_PKR_0_CT</b>(x)</td></tr>
-<tr class="memitem:ga649bda605a80474f8e8c0fce507e53b1" id="r_ga649bda605a80474f8e8c0fce507e53b1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT10_PKR_1_CT_MASK</b></td></tr>
-<tr class="memitem:ga4587f0037ad95102c5809f9e75501cde" id="r_ga4587f0037ad95102c5809f9e75501cde"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT10_PKR_1_CT_SHIFT</b></td></tr>
-<tr class="memitem:gaade3024672de2397daefdf0906d6a0ce" id="r_gaade3024672de2397daefdf0906d6a0ce"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT10_PKR_1_CT</b>(x)</td></tr>
-<tr id="define-members-32" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNT32 - Statistical Check Poker Count 3 and 2 Register</div></td></tr>
-<tr class="memitem:ga704e9bb24cef2b34045aed24514fbff4" id="r_ga704e9bb24cef2b34045aed24514fbff4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT32_PKR_2_CT_MASK</b></td></tr>
-<tr class="memitem:gab67a3f3fb2bcea255ae48d53eefadf98" id="r_gab67a3f3fb2bcea255ae48d53eefadf98"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT32_PKR_2_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga24d649a68ec1907668fb3fcdb54fc1ae" id="r_ga24d649a68ec1907668fb3fcdb54fc1ae"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT32_PKR_2_CT</b>(x)</td></tr>
-<tr class="memitem:gad978ae3769664a9c8a6e864d1efd726e" id="r_gad978ae3769664a9c8a6e864d1efd726e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT32_PKR_3_CT_MASK</b></td></tr>
-<tr class="memitem:ga84d7bf57482bc6b66ee42f735a39c6e7" id="r_ga84d7bf57482bc6b66ee42f735a39c6e7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT32_PKR_3_CT_SHIFT</b></td></tr>
-<tr class="memitem:gadb74723e95ccfde73a8a2e235c05200f" id="r_gadb74723e95ccfde73a8a2e235c05200f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT32_PKR_3_CT</b>(x)</td></tr>
-<tr id="define-members-33" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNT54 - Statistical Check Poker Count 5 and 4 Register</div></td></tr>
-<tr class="memitem:ga11957deafcb833b12024b5380f396cf6" id="r_ga11957deafcb833b12024b5380f396cf6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT54_PKR_4_CT_MASK</b></td></tr>
-<tr class="memitem:ga56977f1b5bf93a45f7b9811dd33cb731" id="r_ga56977f1b5bf93a45f7b9811dd33cb731"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT54_PKR_4_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga4733e4e32ff656bdbe8b8f58bf9304a4" id="r_ga4733e4e32ff656bdbe8b8f58bf9304a4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT54_PKR_4_CT</b>(x)</td></tr>
-<tr class="memitem:ga252b49cccf698fc9c98f5ce53373964b" id="r_ga252b49cccf698fc9c98f5ce53373964b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT54_PKR_5_CT_MASK</b></td></tr>
-<tr class="memitem:gacafb2f88bd01ca18c54ed74426bb5eee" id="r_gacafb2f88bd01ca18c54ed74426bb5eee"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT54_PKR_5_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga0865f2fd3828228d7a3fd0127f1cd487" id="r_ga0865f2fd3828228d7a3fd0127f1cd487"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT54_PKR_5_CT</b>(x)</td></tr>
-<tr id="define-members-34" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNT76 - Statistical Check Poker Count 7 and 6 Register</div></td></tr>
-<tr class="memitem:ga1e70b0ca01ed7a36333c34ada75467e4" id="r_ga1e70b0ca01ed7a36333c34ada75467e4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT76_PKR_6_CT_MASK</b></td></tr>
-<tr class="memitem:ga7a2f2bd77e4a68a6722e08a0ac0af5f5" id="r_ga7a2f2bd77e4a68a6722e08a0ac0af5f5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT76_PKR_6_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga5199d77b78bf2844c0e19f4444aa3eea" id="r_ga5199d77b78bf2844c0e19f4444aa3eea"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT76_PKR_6_CT</b>(x)</td></tr>
-<tr class="memitem:ga7ad0b708519b99117d884cb44031a7b5" id="r_ga7ad0b708519b99117d884cb44031a7b5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT76_PKR_7_CT_MASK</b></td></tr>
-<tr class="memitem:gaa71d69fdfa23fdf5d9ea76f8b8bcc860" id="r_gaa71d69fdfa23fdf5d9ea76f8b8bcc860"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT76_PKR_7_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga4dbb2c0d8e6fcd37571bb190dc10f2f5" id="r_ga4dbb2c0d8e6fcd37571bb190dc10f2f5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT76_PKR_7_CT</b>(x)</td></tr>
-<tr id="define-members-35" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNT98 - Statistical Check Poker Count 9 and 8 Register</div></td></tr>
-<tr class="memitem:ga8d4828563837a12a3bea3594152385ad" id="r_ga8d4828563837a12a3bea3594152385ad"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT98_PKR_8_CT_MASK</b></td></tr>
-<tr class="memitem:ga5b13526e58b94b10dfa0cecfc52dacc9" id="r_ga5b13526e58b94b10dfa0cecfc52dacc9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT98_PKR_8_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga79ed22399726d9a08fc49888d44c3d4d" id="r_ga79ed22399726d9a08fc49888d44c3d4d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga79ed22399726d9a08fc49888d44c3d4d">TRNG_PKRCNT98_PKR_8_CT</a>(x)</td></tr>
-<tr class="memitem:gac202d6a591d15ba69688808ba0a83da9" id="r_gac202d6a591d15ba69688808ba0a83da9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT98_PKR_9_CT_MASK</b></td></tr>
-<tr class="memitem:gaef9207b0a460a8fd4bb3e1d51fd5053d" id="r_gaef9207b0a460a8fd4bb3e1d51fd5053d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNT98_PKR_9_CT_SHIFT</b></td></tr>
-<tr class="memitem:gac4ce7787544fe4c8f87770cde6ea5255" id="r_gac4ce7787544fe4c8f87770cde6ea5255"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gac4ce7787544fe4c8f87770cde6ea5255">TRNG_PKRCNT98_PKR_9_CT</a>(x)</td></tr>
-<tr id="define-members-36" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNTBA - Statistical Check Poker Count B and A Register</div></td></tr>
-<tr class="memitem:ga1aa8b3ce4c085edc7739f994992a595e" id="r_ga1aa8b3ce4c085edc7739f994992a595e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTBA_PKR_A_CT_MASK</b></td></tr>
-<tr class="memitem:ga5c54d287bfbfb516a752a044064cae79" id="r_ga5c54d287bfbfb516a752a044064cae79"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTBA_PKR_A_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga6f67e6964180ddcee9eba79136dce2ee" id="r_ga6f67e6964180ddcee9eba79136dce2ee"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga6f67e6964180ddcee9eba79136dce2ee">TRNG_PKRCNTBA_PKR_A_CT</a>(x)</td></tr>
-<tr class="memitem:gab3f87977b737dc083d29e45c31a9601a" id="r_gab3f87977b737dc083d29e45c31a9601a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTBA_PKR_B_CT_MASK</b></td></tr>
-<tr class="memitem:ga089e84e0e8fc0d945965f28e6b7a2fde" id="r_ga089e84e0e8fc0d945965f28e6b7a2fde"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTBA_PKR_B_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga821161a8be8d0712acfd72af555192ae" id="r_ga821161a8be8d0712acfd72af555192ae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga821161a8be8d0712acfd72af555192ae">TRNG_PKRCNTBA_PKR_B_CT</a>(x)</td></tr>
-<tr id="define-members-37" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNTDC - Statistical Check Poker Count D and C Register</div></td></tr>
-<tr class="memitem:ga511ed41d50f27408ec29c446f30e672f" id="r_ga511ed41d50f27408ec29c446f30e672f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTDC_PKR_C_CT_MASK</b></td></tr>
-<tr class="memitem:ga04ad9ac8ae630caf381e576db12b02d3" id="r_ga04ad9ac8ae630caf381e576db12b02d3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTDC_PKR_C_CT_SHIFT</b></td></tr>
-<tr class="memitem:gadbd9a3d3d8a7949796d79f0473dc6f6d" id="r_gadbd9a3d3d8a7949796d79f0473dc6f6d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gadbd9a3d3d8a7949796d79f0473dc6f6d">TRNG_PKRCNTDC_PKR_C_CT</a>(x)</td></tr>
-<tr class="memitem:ga4fe2d7c81b2d8ff43159e46dce639863" id="r_ga4fe2d7c81b2d8ff43159e46dce639863"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTDC_PKR_D_CT_MASK</b></td></tr>
-<tr class="memitem:gab9fbea2492994c44998f9e1a0614e720" id="r_gab9fbea2492994c44998f9e1a0614e720"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTDC_PKR_D_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga3cbad9dcf53851f34db669a4c33cc86b" id="r_ga3cbad9dcf53851f34db669a4c33cc86b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga3cbad9dcf53851f34db669a4c33cc86b">TRNG_PKRCNTDC_PKR_D_CT</a>(x)</td></tr>
-<tr id="define-members-38" class="groupHeader"><td colspan="2"><div class="groupHeader">PKRCNTFE - Statistical Check Poker Count F and E Register</div></td></tr>
-<tr class="memitem:gac81e849ddec182d760ff8c5999d212c5" id="r_gac81e849ddec182d760ff8c5999d212c5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTFE_PKR_E_CT_MASK</b></td></tr>
-<tr class="memitem:gacada4e20b5ad0d5763138e720116d945" id="r_gacada4e20b5ad0d5763138e720116d945"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTFE_PKR_E_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga3c72fb1f534d666ef8abd0a4b1ab97b0" id="r_ga3c72fb1f534d666ef8abd0a4b1ab97b0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTFE_PKR_E_CT</b>(x)</td></tr>
-<tr class="memitem:ga47e5d41b77975be10a21cc3ffb37137e" id="r_ga47e5d41b77975be10a21cc3ffb37137e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTFE_PKR_F_CT_MASK</b></td></tr>
-<tr class="memitem:ga04c23db3735d636eafc731756ff180a8" id="r_ga04c23db3735d636eafc731756ff180a8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTFE_PKR_F_CT_SHIFT</b></td></tr>
-<tr class="memitem:ga8aa287d1d08e0852aac9db140d18f885" id="r_ga8aa287d1d08e0852aac9db140d18f885"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_PKRCNTFE_PKR_F_CT</b>(x)</td></tr>
-<tr id="define-members-39" class="groupHeader"><td colspan="2"><div class="groupHeader">SEC_CFG - Security Configuration Register</div></td></tr>
-<tr class="memitem:ga054276e13de9280f43767d3468d7dfa2" id="r_ga054276e13de9280f43767d3468d7dfa2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SEC_CFG_NO_PRGM_MASK</b></td></tr>
-<tr class="memitem:ga55ff73a8a55ecd93568de3ecaa7fc2d4" id="r_ga55ff73a8a55ecd93568de3ecaa7fc2d4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_SEC_CFG_NO_PRGM_SHIFT</b></td></tr>
-<tr class="memitem:gab1686cd7a4c126494edccb309b7c6dac" id="r_gab1686cd7a4c126494edccb309b7c6dac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gab1686cd7a4c126494edccb309b7c6dac">TRNG_SEC_CFG_NO_PRGM</a>(x)</td></tr>
-<tr id="define-members-40" class="groupHeader"><td colspan="2"><div class="groupHeader">INT_CTRL - Interrupt Control Register</div></td></tr>
-<tr class="memitem:ga61742a85f84bf0b418e0d97269fd60dc" id="r_ga61742a85f84bf0b418e0d97269fd60dc"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_HW_ERR_MASK</b></td></tr>
-<tr class="memitem:gae982ac1aadb3470504c6fa22884fe5b2" id="r_gae982ac1aadb3470504c6fa22884fe5b2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_HW_ERR_SHIFT</b></td></tr>
-<tr class="memitem:ga792f9d56edebe39da59c8baadd771664" id="r_ga792f9d56edebe39da59c8baadd771664"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga792f9d56edebe39da59c8baadd771664">TRNG_INT_CTRL_HW_ERR</a>(x)</td></tr>
-<tr class="memitem:ga4aae79df675605028d002056d310c693" id="r_ga4aae79df675605028d002056d310c693"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_ENT_VAL_MASK</b></td></tr>
-<tr class="memitem:ga6e9685a840332d199a2c2a8cb4d2ef6c" id="r_ga6e9685a840332d199a2c2a8cb4d2ef6c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_ENT_VAL_SHIFT</b></td></tr>
-<tr class="memitem:ga9e6338f00206d45a054f6ae2b32f523b" id="r_ga9e6338f00206d45a054f6ae2b32f523b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga9e6338f00206d45a054f6ae2b32f523b">TRNG_INT_CTRL_ENT_VAL</a>(x)</td></tr>
-<tr class="memitem:ga989d42e23bd601c877d8eab73484a117" id="r_ga989d42e23bd601c877d8eab73484a117"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_FRQ_CT_FAIL_MASK</b></td></tr>
-<tr class="memitem:gafe007dfc3f04f97bdfcf73da5ba7dc79" id="r_gafe007dfc3f04f97bdfcf73da5ba7dc79"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_FRQ_CT_FAIL_SHIFT</b></td></tr>
-<tr class="memitem:gab4346920b038ec34a623e69ad54c1e59" id="r_gab4346920b038ec34a623e69ad54c1e59"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gab4346920b038ec34a623e69ad54c1e59">TRNG_INT_CTRL_FRQ_CT_FAIL</a>(x)</td></tr>
-<tr class="memitem:ga58efe72bc6837951a0ed06ee8e71d349" id="r_ga58efe72bc6837951a0ed06ee8e71d349"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_INTG_FLT_MASK</b></td></tr>
-<tr class="memitem:ga1c2efc465adbca01068c0d64bfd9e8c5" id="r_ga1c2efc465adbca01068c0d64bfd9e8c5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_CTRL_INTG_FLT_SHIFT</b></td></tr>
-<tr class="memitem:ga6b40d4e65ee6f4b48ef127a53761bb11" id="r_ga6b40d4e65ee6f4b48ef127a53761bb11"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga6b40d4e65ee6f4b48ef127a53761bb11">TRNG_INT_CTRL_INTG_FLT</a>(x)</td></tr>
-<tr id="define-members-41" class="groupHeader"><td colspan="2"><div class="groupHeader">INT_MASK - Mask Register</div></td></tr>
-<tr class="memitem:ga844b5b248328d196103f02f4478a140f" id="r_ga844b5b248328d196103f02f4478a140f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_HW_ERR_MASK</b></td></tr>
-<tr class="memitem:gadde1fea5252000ff685ad8ef18cf0ac5" id="r_gadde1fea5252000ff685ad8ef18cf0ac5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_HW_ERR_SHIFT</b></td></tr>
-<tr class="memitem:gaadfce3ece8f8379ef51293d9bf1cad31" id="r_gaadfce3ece8f8379ef51293d9bf1cad31"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gaadfce3ece8f8379ef51293d9bf1cad31">TRNG_INT_MASK_HW_ERR</a>(x)</td></tr>
-<tr class="memitem:ga5506e3b60b2a50a3a7259e39ac732629" id="r_ga5506e3b60b2a50a3a7259e39ac732629"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_ENT_VAL_MASK</b></td></tr>
-<tr class="memitem:ga4aec61965500c9e318b123fdf25940c1" id="r_ga4aec61965500c9e318b123fdf25940c1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_ENT_VAL_SHIFT</b></td></tr>
-<tr class="memitem:ga0e7c5296446aa4df26c18af04863eaa6" id="r_ga0e7c5296446aa4df26c18af04863eaa6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga0e7c5296446aa4df26c18af04863eaa6">TRNG_INT_MASK_ENT_VAL</a>(x)</td></tr>
-<tr class="memitem:ga402be859135feaec750958ff1b8d149d" id="r_ga402be859135feaec750958ff1b8d149d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_FRQ_CT_FAIL_MASK</b></td></tr>
-<tr class="memitem:ga82fbf19df7b0b406e6fa676cb76d8289" id="r_ga82fbf19df7b0b406e6fa676cb76d8289"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_FRQ_CT_FAIL_SHIFT</b></td></tr>
-<tr class="memitem:ga99ca2a85b029b3e3ea0e92bb7cabaa7d" id="r_ga99ca2a85b029b3e3ea0e92bb7cabaa7d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga99ca2a85b029b3e3ea0e92bb7cabaa7d">TRNG_INT_MASK_FRQ_CT_FAIL</a>(x)</td></tr>
-<tr class="memitem:ga5a5da990cfad52005e60cf7f45e619dc" id="r_ga5a5da990cfad52005e60cf7f45e619dc"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_INTG_FLT_MASK</b></td></tr>
-<tr class="memitem:ga51824782b0406c0ef84f68f663ab8444" id="r_ga51824782b0406c0ef84f68f663ab8444"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_MASK_INTG_FLT_SHIFT</b></td></tr>
-<tr class="memitem:gac746e5b3bb1d797d34a8daabc944465d" id="r_gac746e5b3bb1d797d34a8daabc944465d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gac746e5b3bb1d797d34a8daabc944465d">TRNG_INT_MASK_INTG_FLT</a>(x)</td></tr>
-<tr id="define-members-42" class="groupHeader"><td colspan="2"><div class="groupHeader">INT_STATUS - Interrupt Status Register</div></td></tr>
-<tr class="memitem:gabb92881dd21219f52d5e8b44ebb84540" id="r_gabb92881dd21219f52d5e8b44ebb84540"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_HW_ERR_MASK</b></td></tr>
-<tr class="memitem:ga9191f74f70ff1a212a860a2f1c29a613" id="r_ga9191f74f70ff1a212a860a2f1c29a613"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_HW_ERR_SHIFT</b></td></tr>
-<tr class="memitem:ga6d224d4406c67bb32672519dd27f0912" id="r_ga6d224d4406c67bb32672519dd27f0912"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga6d224d4406c67bb32672519dd27f0912">TRNG_INT_STATUS_HW_ERR</a>(x)</td></tr>
-<tr class="memitem:gacc624a1b87ef6a4a9b0c8865b3fb7342" id="r_gacc624a1b87ef6a4a9b0c8865b3fb7342"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_ENT_VAL_MASK</b></td></tr>
-<tr class="memitem:ga78edda89664c4b2937310076da46f2a8" id="r_ga78edda89664c4b2937310076da46f2a8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_ENT_VAL_SHIFT</b></td></tr>
-<tr class="memitem:ga936350d4cb8328e65d9b6d7caada286a" id="r_ga936350d4cb8328e65d9b6d7caada286a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga936350d4cb8328e65d9b6d7caada286a">TRNG_INT_STATUS_ENT_VAL</a>(x)</td></tr>
-<tr class="memitem:ga40b99fa3c8a416ab92aefa26795c81d1" id="r_ga40b99fa3c8a416ab92aefa26795c81d1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_FRQ_CT_FAIL_MASK</b></td></tr>
-<tr class="memitem:gad33da40f3a53c9b87087eed78ac934a7" id="r_gad33da40f3a53c9b87087eed78ac934a7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_FRQ_CT_FAIL_SHIFT</b></td></tr>
-<tr class="memitem:ga5fc849b18f3b665699eea09ef872c62d" id="r_ga5fc849b18f3b665699eea09ef872c62d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga5fc849b18f3b665699eea09ef872c62d">TRNG_INT_STATUS_FRQ_CT_FAIL</a>(x)</td></tr>
-<tr class="memitem:ga28b5a1c00bae878042dbf0096252137c" id="r_ga28b5a1c00bae878042dbf0096252137c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_INTG_FLT_MASK</b></td></tr>
-<tr class="memitem:ga0403aa6681cc9bfa8123289dce257cce" id="r_ga0403aa6681cc9bfa8123289dce257cce"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_INT_STATUS_INTG_FLT_SHIFT</b></td></tr>
-<tr class="memitem:gac3a487d6253c0cb611d2cb40b07eccb5" id="r_gac3a487d6253c0cb611d2cb40b07eccb5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gac3a487d6253c0cb611d2cb40b07eccb5">TRNG_INT_STATUS_INTG_FLT</a>(x)</td></tr>
-<tr id="define-members-43" class="groupHeader"><td colspan="2"><div class="groupHeader">CSER - Common Security Error Register</div></td></tr>
-<tr class="memitem:ga5ceaaddead8109337626ff31d7be9cd6" id="r_ga5ceaaddead8109337626ff31d7be9cd6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_RED_SIGS_MASK</b></td></tr>
-<tr class="memitem:ga9084b2353f84a934d57b92314f6fd671" id="r_ga9084b2353f84a934d57b92314f6fd671"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_RED_SIGS_SHIFT</b></td></tr>
-<tr class="memitem:ga1a33dd1ba3da1c8134d9d4698a99cab4" id="r_ga1a33dd1ba3da1c8134d9d4698a99cab4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga1a33dd1ba3da1c8134d9d4698a99cab4">TRNG_CSER_RED_SIGS</a>(x)</td></tr>
-<tr class="memitem:ga8cc82d0f8a920e0d27eb1c9846352e8f" id="r_ga8cc82d0f8a920e0d27eb1c9846352e8f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_LOCAL_EDC_MASK</b></td></tr>
-<tr class="memitem:ga303f984e3c5dd8035c5d04f1fe467a8e" id="r_ga303f984e3c5dd8035c5d04f1fe467a8e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_LOCAL_EDC_SHIFT</b></td></tr>
-<tr class="memitem:ga9ae4d2243e68bc6af918e1e2cbcdb327" id="r_ga9ae4d2243e68bc6af918e1e2cbcdb327"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga9ae4d2243e68bc6af918e1e2cbcdb327">TRNG_CSER_LOCAL_EDC</a>(x)</td></tr>
-<tr class="memitem:ga531c2c6d77396d4da38f115280631e0b" id="r_ga531c2c6d77396d4da38f115280631e0b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_BUS_EDC_MASK</b></td></tr>
-<tr class="memitem:gafba13df84cf0df11a8bef8dcbb361d04" id="r_gafba13df84cf0df11a8bef8dcbb361d04"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_BUS_EDC_SHIFT</b></td></tr>
-<tr class="memitem:gacdf55c2b5d4ed111b9b5036d23e5f7d7" id="r_gacdf55c2b5d4ed111b9b5036d23e5f7d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gacdf55c2b5d4ed111b9b5036d23e5f7d7">TRNG_CSER_BUS_EDC</a>(x)</td></tr>
-<tr id="define-members-44" class="groupHeader"><td colspan="2"><div class="groupHeader">CSER - Common Security Error Register</div></td></tr>
-<tr class="memitem:ga7e0085c21dcc621efb0e23fcfb6f13a0" id="r_ga7e0085c21dcc621efb0e23fcfb6f13a0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_RED_FSM_MASK</b></td></tr>
-<tr class="memitem:ga31f75acb4b7c41b92eab69a45f0c263c" id="r_ga31f75acb4b7c41b92eab69a45f0c263c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSER_RED_FSM_SHIFT</b></td></tr>
-<tr class="memitem:gac4a70be9ea91451cb795e3c6c98aed09" id="r_gac4a70be9ea91451cb795e3c6c98aed09"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gac4a70be9ea91451cb795e3c6c98aed09">TRNG_CSER_RED_FSM</a>(x)</td></tr>
-<tr id="define-members-45" class="groupHeader"><td colspan="2"><div class="groupHeader">CSCLR - Common Security Clear Register</div></td></tr>
-<tr class="memitem:gaf7b58fccbc143999c1669d03027bdac4" id="r_gaf7b58fccbc143999c1669d03027bdac4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_RED_SIGS_CLR_MASK</b></td></tr>
-<tr class="memitem:ga38e93dbaf7c90e7aac5de6522d7f98fa" id="r_ga38e93dbaf7c90e7aac5de6522d7f98fa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_RED_SIGS_CLR_SHIFT</b></td></tr>
-<tr class="memitem:gaea57b41aae3d9740040e42bb52863d68" id="r_gaea57b41aae3d9740040e42bb52863d68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gaea57b41aae3d9740040e42bb52863d68">TRNG_CSCLR_RED_SIGS_CLR</a>(x)</td></tr>
-<tr class="memitem:gae60cc9e9534bee24576622dc19116e94" id="r_gae60cc9e9534bee24576622dc19116e94"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_LOCAL_EDC_CLR_MASK</b></td></tr>
-<tr class="memitem:gad6863a70e170b9be69f9317cf93f10ee" id="r_gad6863a70e170b9be69f9317cf93f10ee"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_LOCAL_EDC_CLR_SHIFT</b></td></tr>
-<tr class="memitem:gace944500301931138dcb1989cd3a08ba" id="r_gace944500301931138dcb1989cd3a08ba"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gace944500301931138dcb1989cd3a08ba">TRNG_CSCLR_LOCAL_EDC_CLR</a>(x)</td></tr>
-<tr class="memitem:gaef7d7cf4ff2190cacfcacdf89300142e" id="r_gaef7d7cf4ff2190cacfcacdf89300142e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_BUS_EDC_CLR_MASK</b></td></tr>
-<tr class="memitem:ga0378dd545737b2d72ee5dd972b59ed61" id="r_ga0378dd545737b2d72ee5dd972b59ed61"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_BUS_EDC_CLR_SHIFT</b></td></tr>
-<tr class="memitem:gae6eda631c64b6f0a2d802196bdf6c62a" id="r_gae6eda631c64b6f0a2d802196bdf6c62a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gae6eda631c64b6f0a2d802196bdf6c62a">TRNG_CSCLR_BUS_EDC_CLR</a>(x)</td></tr>
-<tr id="define-members-46" class="groupHeader"><td colspan="2"><div class="groupHeader">CSCLR - Common Security Clear Register</div></td></tr>
-<tr class="memitem:gaf7711e4d88f7acaaa6e642d97ff12a0e" id="r_gaf7711e4d88f7acaaa6e642d97ff12a0e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_RED_FSM_CLR_MASK</b></td></tr>
-<tr class="memitem:gae534fac029ac1e9d4ab9eb94757b0932" id="r_gae534fac029ac1e9d4ab9eb94757b0932"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_CSCLR_RED_FSM_CLR_SHIFT</b></td></tr>
-<tr class="memitem:ga9af1f7db2298a44a9a38c45a63959762" id="r_ga9af1f7db2298a44a9a38c45a63959762"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga9af1f7db2298a44a9a38c45a63959762">TRNG_CSCLR_RED_FSM_CLR</a>(x)</td></tr>
-<tr id="define-members-47" class="groupHeader"><td colspan="2"><div class="groupHeader">OSC2_CTL - TRNG Oscillator 2 Control Register</div></td></tr>
-<tr class="memitem:ga46274d250caee641ab538a5dd0c52301" id="r_ga46274d250caee641ab538a5dd0c52301"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_TRNG_ENT_CTL_MASK</b></td></tr>
-<tr class="memitem:ga90cbe7b2aa47c32b725da7726836ea34" id="r_ga90cbe7b2aa47c32b725da7726836ea34"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_TRNG_ENT_CTL_SHIFT</b></td></tr>
-<tr class="memitem:ga565f90e4778a43749c36a993bcd526fe" id="r_ga565f90e4778a43749c36a993bcd526fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga565f90e4778a43749c36a993bcd526fe">TRNG_OSC2_CTL_TRNG_ENT_CTL</a>(x)</td></tr>
-<tr class="memitem:ga2146686b344787171928802434dbeb16" id="r_ga2146686b344787171928802434dbeb16"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC2_DIV_MASK</b></td></tr>
-<tr class="memitem:ga12b62cd82c4f91c52b1e1e51ac373b66" id="r_ga12b62cd82c4f91c52b1e1e51ac373b66"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC2_DIV_SHIFT</b></td></tr>
-<tr class="memitem:gace6781c3393f8bf3f847fa108b4d9c9e" id="r_gace6781c3393f8bf3f847fa108b4d9c9e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gace6781c3393f8bf3f847fa108b4d9c9e">TRNG_OSC2_CTL_OSC2_DIV</a>(x)</td></tr>
-<tr class="memitem:gad28b1ff668a1963626c5f65295e83650" id="r_gad28b1ff668a1963626c5f65295e83650"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC2_OUT_EN_MASK</b></td></tr>
-<tr class="memitem:ga2dd8f3b7ebb72ada8670c2474d6a1aaa" id="r_ga2dd8f3b7ebb72ada8670c2474d6a1aaa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC2_OUT_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga31e2c307f43ac67c4fe47fdc0448b73f" id="r_ga31e2c307f43ac67c4fe47fdc0448b73f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga31e2c307f43ac67c4fe47fdc0448b73f">TRNG_OSC2_CTL_OSC2_OUT_EN</a>(x)</td></tr>
-<tr class="memitem:ga565c2a67177e872db3c6b5ebf88c425c" id="r_ga565c2a67177e872db3c6b5ebf88c425c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC2_FCT_VAL_MASK</b></td></tr>
-<tr class="memitem:ga51c0688e99738297a44161d89eb24aeb" id="r_ga51c0688e99738297a44161d89eb24aeb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC2_FCT_VAL_SHIFT</b></td></tr>
-<tr class="memitem:gacf3b98600d6d456391a02ad781f9c8ec" id="r_gacf3b98600d6d456391a02ad781f9c8ec"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#gacf3b98600d6d456391a02ad781f9c8ec">TRNG_OSC2_CTL_OSC2_FCT_VAL</a>(x)</td></tr>
-<tr class="memitem:ga3ab62a47a959ec80ac004f137cb694e0" id="r_ga3ab62a47a959ec80ac004f137cb694e0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC_FAILSAFE_LMT_MASK</b></td></tr>
-<tr class="memitem:gae3e36075d9415f1f8a498948e39f7a29" id="r_gae3e36075d9415f1f8a498948e39f7a29"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC_FAILSAFE_LMT_SHIFT</b></td></tr>
-<tr class="memitem:ga0f0f624ec68e48ae38e39e95f36575dc" id="r_ga0f0f624ec68e48ae38e39e95f36575dc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga0f0f624ec68e48ae38e39e95f36575dc">TRNG_OSC2_CTL_OSC_FAILSAFE_LMT</a>(x)</td></tr>
-<tr class="memitem:gab40467b8bdbf957a64d7166c2e29a8b2" id="r_gab40467b8bdbf957a64d7166c2e29a8b2"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC_FAILSAFE_TEST_MASK</b></td></tr>
-<tr class="memitem:gaa0474e1db53c3007bad6a06befa15764" id="r_gaa0474e1db53c3007bad6a06befa15764"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_OSC2_CTL_OSC_FAILSAFE_TEST_SHIFT</b></td></tr>
-<tr class="memitem:ga52de0e307140e8b7174bc47b4daa17dd" id="r_ga52de0e307140e8b7174bc47b4daa17dd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga52de0e307140e8b7174bc47b4daa17dd">TRNG_OSC2_CTL_OSC_FAILSAFE_TEST</a>(x)</td></tr>
-<tr id="define-members-48" class="groupHeader"><td colspan="2"><div class="groupHeader">VID1 - Version ID Register (MS)</div></td></tr>
-<tr class="memitem:ga98a3809483faa5d8f3cc4df2534de16a" id="r_ga98a3809483faa5d8f3cc4df2534de16a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID1_MIN_REV_MASK</b></td></tr>
-<tr class="memitem:ga4ada104484c49065bbe29faa6a23f1c3" id="r_ga4ada104484c49065bbe29faa6a23f1c3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID1_MIN_REV_SHIFT</b></td></tr>
-<tr class="memitem:ga62fcccd962f7ad58210c3c0b306e0178" id="r_ga62fcccd962f7ad58210c3c0b306e0178"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga62fcccd962f7ad58210c3c0b306e0178">TRNG_VID1_MIN_REV</a>(x)</td></tr>
-<tr class="memitem:gafb02d6a8674411d9329d67974d8d4263" id="r_gafb02d6a8674411d9329d67974d8d4263"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID1_MAJ_REV_MASK</b></td></tr>
-<tr class="memitem:ga79f789e6e213bf19d1e3e73f57e2bd76" id="r_ga79f789e6e213bf19d1e3e73f57e2bd76"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID1_MAJ_REV_SHIFT</b></td></tr>
-<tr class="memitem:ga3f443856c280cb5b8dd9996dd23f7e6e" id="r_ga3f443856c280cb5b8dd9996dd23f7e6e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga3f443856c280cb5b8dd9996dd23f7e6e">TRNG_VID1_MAJ_REV</a>(x)</td></tr>
-<tr class="memitem:ga423c3c2d8c136404ad1e426d90c21716" id="r_ga423c3c2d8c136404ad1e426d90c21716"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID1_IP_ID_MASK</b></td></tr>
-<tr class="memitem:ga2faadcbfacf48c7e844d74bff1597920" id="r_ga2faadcbfacf48c7e844d74bff1597920"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID1_IP_ID_SHIFT</b></td></tr>
-<tr class="memitem:ga52cb5dc183fb914a456f82155f38bd73" id="r_ga52cb5dc183fb914a456f82155f38bd73"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga52cb5dc183fb914a456f82155f38bd73">TRNG_VID1_IP_ID</a>(x)</td></tr>
-<tr id="define-members-49" class="groupHeader"><td colspan="2"><div class="groupHeader">VID2 - Version ID Register (LS)</div></td></tr>
-<tr class="memitem:ga19ee862ba09953256255f08e1d826aea" id="r_ga19ee862ba09953256255f08e1d826aea"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_CONFIG_OPT_MASK</b></td></tr>
-<tr class="memitem:gabfe5ace4f27e4b07f14fa5e2c02d128d" id="r_gabfe5ace4f27e4b07f14fa5e2c02d128d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_CONFIG_OPT_SHIFT</b></td></tr>
-<tr class="memitem:ga7506d5f7a04108bc2484f1a13dfad6fc" id="r_ga7506d5f7a04108bc2484f1a13dfad6fc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga7506d5f7a04108bc2484f1a13dfad6fc">TRNG_VID2_CONFIG_OPT</a>(x)</td></tr>
-<tr class="memitem:ga1a15aecf80907f2d6d958c4d26d04002" id="r_ga1a15aecf80907f2d6d958c4d26d04002"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_ECO_REV_MASK</b></td></tr>
-<tr class="memitem:gaf454b4532d57192c8b78a69d4fb1c041" id="r_gaf454b4532d57192c8b78a69d4fb1c041"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_ECO_REV_SHIFT</b></td></tr>
-<tr class="memitem:ga1a819c1aaac1d4b82f200ff9700b5840" id="r_ga1a819c1aaac1d4b82f200ff9700b5840"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga1a819c1aaac1d4b82f200ff9700b5840">TRNG_VID2_ECO_REV</a>(x)</td></tr>
-<tr class="memitem:ga1a6606daf96749ecc030a0cc5a2cef3c" id="r_ga1a6606daf96749ecc030a0cc5a2cef3c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_INTG_OPT_MASK</b></td></tr>
-<tr class="memitem:ga62e504a6f5dc3109888bd599578ea21f" id="r_ga62e504a6f5dc3109888bd599578ea21f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_INTG_OPT_SHIFT</b></td></tr>
-<tr class="memitem:ga489ebac15dd45bc418355c2b46e9165c" id="r_ga489ebac15dd45bc418355c2b46e9165c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga489ebac15dd45bc418355c2b46e9165c">TRNG_VID2_INTG_OPT</a>(x)</td></tr>
-<tr class="memitem:ga5aad0c2f47d1c8f2e0a1ddacd1a9d30b" id="r_ga5aad0c2f47d1c8f2e0a1ddacd1a9d30b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_ERA_MASK</b></td></tr>
-<tr class="memitem:gaa403790d70f44d9168f2d6202e7f4f39" id="r_gaa403790d70f44d9168f2d6202e7f4f39"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>TRNG_VID2_ERA_SHIFT</b></td></tr>
-<tr class="memitem:ga05ffc4efdb4680b0c1c1306d5e24a28e" id="r_ga05ffc4efdb4680b0c1c1306d5e24a28e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01725.html#ga05ffc4efdb4680b0c1c1306d5e24a28e">TRNG_VID2_ERA</a>(x)</td></tr>
+<tr class="memitem:adc6394a83dcbb7802816425625585fc1" id="r_adc6394a83dcbb7802816425625585fc1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#adc6394a83dcbb7802816425625585fc1">PERI_SCG_H_</a></td></tr>
+<tr class="memdesc:adc6394a83dcbb7802816425625585fc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">VERID - Version ID Register</div></td></tr>
+<tr class="memitem:ga64ac9590180f0ef1ca664a6afbeabf4b" id="r_ga64ac9590180f0ef1ca664a6afbeabf4b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_VERID_VERSION_MASK</b></td></tr>
+<tr class="memitem:ga749bf0b02e0da07225346f9be173092c" id="r_ga749bf0b02e0da07225346f9be173092c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_VERID_VERSION_SHIFT</b></td></tr>
+<tr class="memitem:ga08f07a412d5b65c24f8c69a21ac31cfc" id="r_ga08f07a412d5b65c24f8c69a21ac31cfc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga08f07a412d5b65c24f8c69a21ac31cfc">SCG_VERID_VERSION</a>(x)</td></tr>
+<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">PARAM - Parameter</div></td></tr>
+<tr class="memitem:gad9c66e89006f75ba1bc8a44f670a0505" id="r_gad9c66e89006f75ba1bc8a44f670a0505"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_SOSCCLKPRES_MASK</b></td></tr>
+<tr class="memitem:ga0f70020fec080bc163336e3f4f31a0a5" id="r_ga0f70020fec080bc163336e3f4f31a0a5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_SOSCCLKPRES_SHIFT</b></td></tr>
+<tr class="memitem:gacfc0696185008e9d0ad658f2d7cffd2d" id="r_gacfc0696185008e9d0ad658f2d7cffd2d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gacfc0696185008e9d0ad658f2d7cffd2d">SCG_PARAM_SOSCCLKPRES</a>(x)</td></tr>
+<tr class="memitem:ga2022866dd84badfe7fece04fb689d9e3" id="r_ga2022866dd84badfe7fece04fb689d9e3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_SPLLCLKPRES_MASK</b></td></tr>
+<tr class="memitem:gaf6c7fd15e3d9c5236136d77262eb6999" id="r_gaf6c7fd15e3d9c5236136d77262eb6999"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_SPLLCLKPRES_SHIFT</b></td></tr>
+<tr class="memitem:gacc8e076c08f048dcdd8d7ff390f45da7" id="r_gacc8e076c08f048dcdd8d7ff390f45da7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gacc8e076c08f048dcdd8d7ff390f45da7">SCG_PARAM_SPLLCLKPRES</a>(x)</td></tr>
+<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">PARAM - Parameter</div></td></tr>
+<tr class="memitem:ga90f48acc7a308d469e86b616ba541413" id="r_ga90f48acc7a308d469e86b616ba541413"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_SIRCCLKPRES_MASK</b></td></tr>
+<tr class="memitem:ga84863ae332dc61a9b222ab34b04f288d" id="r_ga84863ae332dc61a9b222ab34b04f288d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_SIRCCLKPRES_SHIFT</b></td></tr>
+<tr class="memitem:ga7411854e4e98ba66957c0321e07c4281" id="r_ga7411854e4e98ba66957c0321e07c4281"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga7411854e4e98ba66957c0321e07c4281">SCG_PARAM_SIRCCLKPRES</a>(x)</td></tr>
+<tr class="memitem:gad71a19e1d4a5c36fb0c8bd60186a6d47" id="r_gad71a19e1d4a5c36fb0c8bd60186a6d47"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_FIRCCLKPRES_MASK</b></td></tr>
+<tr class="memitem:ga300e2b34675727511a94015fd7fafc2e" id="r_ga300e2b34675727511a94015fd7fafc2e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_FIRCCLKPRES_SHIFT</b></td></tr>
+<tr class="memitem:gad1c29ea65bd6a3e12e7d08f48907933c" id="r_gad1c29ea65bd6a3e12e7d08f48907933c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gad1c29ea65bd6a3e12e7d08f48907933c">SCG_PARAM_FIRCCLKPRES</a>(x)</td></tr>
+<tr class="memitem:gaf52ceb0c22d6815d72d918e38cbf1e8a" id="r_gaf52ceb0c22d6815d72d918e38cbf1e8a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_ROSCCLKPRES_MASK</b></td></tr>
+<tr class="memitem:gaae287b3fda49de5c88525cd8f890cbfb" id="r_gaae287b3fda49de5c88525cd8f890cbfb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_PARAM_ROSCCLKPRES_SHIFT</b></td></tr>
+<tr class="memitem:gaff31b6771b8f687f6fd252fcf88b535c" id="r_gaff31b6771b8f687f6fd252fcf88b535c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaff31b6771b8f687f6fd252fcf88b535c">SCG_PARAM_ROSCCLKPRES</a>(x)</td></tr>
+<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">TRIM_LOCK - TRIM LOCK register</div></td></tr>
+<tr class="memitem:ga8b48cba4824c9c27106fd02aee7e6db8" id="r_ga8b48cba4824c9c27106fd02aee7e6db8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_TRIM_LOCK_TRIM_UNLOCK_MASK</b></td></tr>
+<tr class="memitem:ga9f8431edae8a55934bc5fb16afec98bf" id="r_ga9f8431edae8a55934bc5fb16afec98bf"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_TRIM_LOCK_TRIM_UNLOCK_SHIFT</b></td></tr>
+<tr class="memitem:ga48d78f9e061f93a2e7752bff372300fb" id="r_ga48d78f9e061f93a2e7752bff372300fb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga48d78f9e061f93a2e7752bff372300fb">SCG_TRIM_LOCK_TRIM_UNLOCK</a>(x)</td></tr>
+<tr class="memitem:gadc5d5a9b8aad33ba477a593445938d8b" id="r_gadc5d5a9b8aad33ba477a593445938d8b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_TRIM_LOCK_IFR_DISABLE_MASK</b></td></tr>
+<tr class="memitem:ga307e5c926ff82a72afd5d7a889dc766f" id="r_ga307e5c926ff82a72afd5d7a889dc766f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_TRIM_LOCK_IFR_DISABLE_SHIFT</b></td></tr>
+<tr class="memitem:gae6e9b488a43d41cf987ac7912db12793" id="r_gae6e9b488a43d41cf987ac7912db12793"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gae6e9b488a43d41cf987ac7912db12793">SCG_TRIM_LOCK_IFR_DISABLE</a>(x)</td></tr>
+<tr class="memitem:ga98074ea5b5f7eecd6ffd367d6b00d3c8" id="r_ga98074ea5b5f7eecd6ffd367d6b00d3c8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_TRIM_LOCK_TRIM_LOCK_KEY_MASK</b></td></tr>
+<tr class="memitem:ga2ed2b21b165b8f3336cb903f85f21d78" id="r_ga2ed2b21b165b8f3336cb903f85f21d78"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_TRIM_LOCK_TRIM_LOCK_KEY_SHIFT</b></td></tr>
+<tr class="memitem:ga7b2f731ea7af14d9fda3a49cdb844e68" id="r_ga7b2f731ea7af14d9fda3a49cdb844e68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga7b2f731ea7af14d9fda3a49cdb844e68">SCG_TRIM_LOCK_TRIM_LOCK_KEY</a>(x)</td></tr>
+<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">CSR - Clock Status Register</div></td></tr>
+<tr class="memitem:ga40847fcec9342f299b8d83fb7e59c164" id="r_ga40847fcec9342f299b8d83fb7e59c164"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_CSR_SCS_MASK</b></td></tr>
+<tr class="memitem:ga920b77a6e8f7f0101e9ac76a7a3fe27c" id="r_ga920b77a6e8f7f0101e9ac76a7a3fe27c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_CSR_SCS_SHIFT</b></td></tr>
+<tr class="memitem:ga340149bb4ff425e5a55fd2a1261365ec" id="r_ga340149bb4ff425e5a55fd2a1261365ec"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga340149bb4ff425e5a55fd2a1261365ec">SCG_CSR_SCS</a>(x)</td></tr>
+<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">RCCR - Run Clock Control Register</div></td></tr>
+<tr class="memitem:ga355f4b03c7196642c14dd2c9567879ac" id="r_ga355f4b03c7196642c14dd2c9567879ac"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_RCCR_SCS_MASK</b></td></tr>
+<tr class="memitem:gaadd491a7d7e4325724344921b9dffac3" id="r_gaadd491a7d7e4325724344921b9dffac3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_RCCR_SCS_SHIFT</b></td></tr>
+<tr class="memitem:gaabb85f05d0caa843ae4ae4f4e824d715" id="r_gaabb85f05d0caa843ae4ae4f4e824d715"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaabb85f05d0caa843ae4ae4f4e824d715">SCG_RCCR_SCS</a>(x)</td></tr>
+<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">SOSCCSR - System OSC Control Status Register</div></td></tr>
+<tr class="memitem:gad43c94dfce8039966a3ef736b17a7ea5" id="r_gad43c94dfce8039966a3ef736b17a7ea5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCEN_MASK</b></td></tr>
+<tr class="memitem:gad265364aef0d807da75cea9b33fc9f8b" id="r_gad265364aef0d807da75cea9b33fc9f8b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCEN_SHIFT</b></td></tr>
+<tr class="memitem:ga5e4c72c2df35e12cfe0a186743e89da3" id="r_ga5e4c72c2df35e12cfe0a186743e89da3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga5e4c72c2df35e12cfe0a186743e89da3">SCG_SOSCCSR_SOSCEN</a>(x)</td></tr>
+<tr class="memitem:ga3cff700a62968b38fdec89bc045fcc0b" id="r_ga3cff700a62968b38fdec89bc045fcc0b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCSTEN_MASK</b></td></tr>
+<tr class="memitem:gab621a555a7cdf76e7a028346a016d24d" id="r_gab621a555a7cdf76e7a028346a016d24d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCSTEN_SHIFT</b></td></tr>
+<tr class="memitem:ga191a1ead8e560708b9b33b57b312bb21" id="r_ga191a1ead8e560708b9b33b57b312bb21"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga191a1ead8e560708b9b33b57b312bb21">SCG_SOSCCSR_SOSCSTEN</a>(x)</td></tr>
+<tr class="memitem:gab8baba8ffdec95c3c11c622cfa325c1b" id="r_gab8baba8ffdec95c3c11c622cfa325c1b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCCM_MASK</b></td></tr>
+<tr class="memitem:gafd39ac4fb08b2cb3eda16b16a2640602" id="r_gafd39ac4fb08b2cb3eda16b16a2640602"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCCM_SHIFT</b></td></tr>
+<tr class="memitem:gacf0ce1a156e6de04845cc6995967f623" id="r_gacf0ce1a156e6de04845cc6995967f623"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gacf0ce1a156e6de04845cc6995967f623">SCG_SOSCCSR_SOSCCM</a>(x)</td></tr>
+<tr class="memitem:ga51291899833200fab91e50bacdf83801" id="r_ga51291899833200fab91e50bacdf83801"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCCMRE_MASK</b></td></tr>
+<tr class="memitem:ga16002a9bb904328fb044f008aa7888a5" id="r_ga16002a9bb904328fb044f008aa7888a5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCCMRE_SHIFT</b></td></tr>
+<tr class="memitem:ga721cd6f626d1fc1dffea442c4b09abfd" id="r_ga721cd6f626d1fc1dffea442c4b09abfd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga721cd6f626d1fc1dffea442c4b09abfd">SCG_SOSCCSR_SOSCCMRE</a>(x)</td></tr>
+<tr class="memitem:gab1bd4b4f03a8e47d74f157acf41180ba" id="r_gab1bd4b4f03a8e47d74f157acf41180ba"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_LK_MASK</b></td></tr>
+<tr class="memitem:ga46d8b9d9c93808e9c0ce974084dafb1c" id="r_ga46d8b9d9c93808e9c0ce974084dafb1c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_LK_SHIFT</b></td></tr>
+<tr class="memitem:gacb40f4a1018fef1a6f2ef10b491b4a41" id="r_gacb40f4a1018fef1a6f2ef10b491b4a41"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gacb40f4a1018fef1a6f2ef10b491b4a41">SCG_SOSCCSR_LK</a>(x)</td></tr>
+<tr class="memitem:ga1e4fa63766517862e36bdaff384136f0" id="r_ga1e4fa63766517862e36bdaff384136f0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCVLD_MASK</b></td></tr>
+<tr class="memitem:gab610383fc0d3d32b68283fe62f2b0817" id="r_gab610383fc0d3d32b68283fe62f2b0817"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCVLD_SHIFT</b></td></tr>
+<tr class="memitem:ga8e9cae5dc053853625de24b008044855" id="r_ga8e9cae5dc053853625de24b008044855"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga8e9cae5dc053853625de24b008044855">SCG_SOSCCSR_SOSCVLD</a>(x)</td></tr>
+<tr class="memitem:gab724366f76a067a7e6611d3aec88ef4b" id="r_gab724366f76a067a7e6611d3aec88ef4b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCSEL_MASK</b></td></tr>
+<tr class="memitem:ga86d1c50d8bfa71645c3a1123cac6a872" id="r_ga86d1c50d8bfa71645c3a1123cac6a872"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCSEL_SHIFT</b></td></tr>
+<tr class="memitem:gae5bec2aaa0a5e5d3733c2ed96cea2992" id="r_gae5bec2aaa0a5e5d3733c2ed96cea2992"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gae5bec2aaa0a5e5d3733c2ed96cea2992">SCG_SOSCCSR_SOSCSEL</a>(x)</td></tr>
+<tr class="memitem:ga51680b5d6abaa490beb262cf01f41450" id="r_ga51680b5d6abaa490beb262cf01f41450"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCERR_MASK</b></td></tr>
+<tr class="memitem:ga8f65fc10963b0d90c64779f104ab3764" id="r_ga8f65fc10963b0d90c64779f104ab3764"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCERR_SHIFT</b></td></tr>
+<tr class="memitem:ga73e4a0a38120f7ddd1c09fe17148a77c" id="r_ga73e4a0a38120f7ddd1c09fe17148a77c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga73e4a0a38120f7ddd1c09fe17148a77c">SCG_SOSCCSR_SOSCERR</a>(x)</td></tr>
+<tr id="define-members-7" class="groupHeader"><td colspan="2"><div class="groupHeader">SOSCCSR - SOSC Control Status</div></td></tr>
+<tr class="memitem:gaf51c162d4ce9f4789398c62c4111ec11" id="r_gaf51c162d4ce9f4789398c62c4111ec11"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCVLD_IE_MASK</b></td></tr>
+<tr class="memitem:gabf9c828e82fd1b9a29ccaac06059d6a8" id="r_gabf9c828e82fd1b9a29ccaac06059d6a8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCSR_SOSCVLD_IE_SHIFT</b></td></tr>
+<tr class="memitem:gadaf7a65227ab4e93c0ae63bd9dbac9a7" id="r_gadaf7a65227ab4e93c0ae63bd9dbac9a7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gadaf7a65227ab4e93c0ae63bd9dbac9a7">SCG_SOSCCSR_SOSCVLD_IE</a>(x)</td></tr>
+<tr id="define-members-8" class="groupHeader"><td colspan="2"><div class="groupHeader">SOSCCFG - SOSC Configuration</div></td></tr>
+<tr class="memitem:gacafd0c062d56dafa530627b4baa20b8e" id="r_gacafd0c062d56dafa530627b4baa20b8e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCFG_EREFS_MASK</b></td></tr>
+<tr class="memitem:gad0e136950d9d99f67ee4fbb1581d71a0" id="r_gad0e136950d9d99f67ee4fbb1581d71a0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCFG_EREFS_SHIFT</b></td></tr>
+<tr class="memitem:ga14c0663fd12011a5753702475e114259" id="r_ga14c0663fd12011a5753702475e114259"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga14c0663fd12011a5753702475e114259">SCG_SOSCCFG_EREFS</a>(x)</td></tr>
+<tr class="memitem:ga00ce4e8e6dfd327d34ba80a5d0ddd696" id="r_ga00ce4e8e6dfd327d34ba80a5d0ddd696"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCFG_RANGE_MASK</b></td></tr>
+<tr class="memitem:ga7e7aa07ad1a22b625171085a61ce8d47" id="r_ga7e7aa07ad1a22b625171085a61ce8d47"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SOSCCFG_RANGE_SHIFT</b></td></tr>
+<tr class="memitem:ga3a6ee6cb7db0f7381c8877fb7bced8f0" id="r_ga3a6ee6cb7db0f7381c8877fb7bced8f0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga3a6ee6cb7db0f7381c8877fb7bced8f0">SCG_SOSCCFG_RANGE</a>(x)</td></tr>
+<tr id="define-members-9" class="groupHeader"><td colspan="2"><div class="groupHeader">SIRCCSR - Slow IRC Control Status Register</div></td></tr>
+<tr class="memitem:ga80342077b04578ac1afcf9a504954ba4" id="r_ga80342077b04578ac1afcf9a504954ba4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCSTEN_MASK</b></td></tr>
+<tr class="memitem:gacf41271305c9c4b5aebb745f8c108db3" id="r_gacf41271305c9c4b5aebb745f8c108db3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCSTEN_SHIFT</b></td></tr>
+<tr class="memitem:gafd1d5d091da1c5067b2cfcbcfdc4a624" id="r_gafd1d5d091da1c5067b2cfcbcfdc4a624"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gafd1d5d091da1c5067b2cfcbcfdc4a624">SCG_SIRCCSR_SIRCSTEN</a>(x)</td></tr>
+<tr class="memitem:ga85e967da035bcf8d1eb00f009a35272c" id="r_ga85e967da035bcf8d1eb00f009a35272c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_LK_MASK</b></td></tr>
+<tr class="memitem:gaba02c9006119dc4e6945b4422b985b1f" id="r_gaba02c9006119dc4e6945b4422b985b1f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_LK_SHIFT</b></td></tr>
+<tr class="memitem:gae2d23d08f99d2d63b392797e348665ed" id="r_gae2d23d08f99d2d63b392797e348665ed"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gae2d23d08f99d2d63b392797e348665ed">SCG_SIRCCSR_LK</a>(x)</td></tr>
+<tr class="memitem:gaaf5993010e1a77fec69945857ad5965a" id="r_gaaf5993010e1a77fec69945857ad5965a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCVLD_MASK</b></td></tr>
+<tr class="memitem:gad6600893327ab4fdb9b4a954f6081523" id="r_gad6600893327ab4fdb9b4a954f6081523"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCVLD_SHIFT</b></td></tr>
+<tr class="memitem:gaab346ade6ccb3ebe9c474f42b802f411" id="r_gaab346ade6ccb3ebe9c474f42b802f411"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaab346ade6ccb3ebe9c474f42b802f411">SCG_SIRCCSR_SIRCVLD</a>(x)</td></tr>
+<tr class="memitem:ga26f72369774e1433fc303893b115ff32" id="r_ga26f72369774e1433fc303893b115ff32"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCSEL_MASK</b></td></tr>
+<tr class="memitem:ga574090dfd79b8adc8367f4360deb8282" id="r_ga574090dfd79b8adc8367f4360deb8282"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCSEL_SHIFT</b></td></tr>
+<tr class="memitem:ga7e97470f2f075c31a98222fc5a18b391" id="r_ga7e97470f2f075c31a98222fc5a18b391"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga7e97470f2f075c31a98222fc5a18b391">SCG_SIRCCSR_SIRCSEL</a>(x)</td></tr>
+<tr id="define-members-10" class="groupHeader"><td colspan="2"><div class="groupHeader">SIRCCSR - SIRC Control Status</div></td></tr>
+<tr class="memitem:ga79938cae29c25b6cb4b09fc63db40ab0" id="r_ga79938cae29c25b6cb4b09fc63db40ab0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRC_CLK_PERIPH_EN_MASK</b></td></tr>
+<tr class="memitem:ga7d0fe48af8eb2f71d3ba8eec9fa19f92" id="r_ga7d0fe48af8eb2f71d3ba8eec9fa19f92"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRC_CLK_PERIPH_EN_SHIFT</b></td></tr>
+<tr class="memitem:gaec18c1002f412a11450a2324e4faef1c" id="r_gaec18c1002f412a11450a2324e4faef1c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaec18c1002f412a11450a2324e4faef1c">SCG_SIRCCSR_SIRC_CLK_PERIPH_EN</a>(x)</td></tr>
+<tr class="memitem:gae46f19ffe2562b5c325eba94fda0a870" id="r_gae46f19ffe2562b5c325eba94fda0a870"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCTREN_MASK</b></td></tr>
+<tr class="memitem:gab2c37317832a86eac14effd9e3ba0e6e" id="r_gab2c37317832a86eac14effd9e3ba0e6e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCTREN_SHIFT</b></td></tr>
+<tr class="memitem:ga1061bdce1866a92935e1679e3cb8e338" id="r_ga1061bdce1866a92935e1679e3cb8e338"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga1061bdce1866a92935e1679e3cb8e338">SCG_SIRCCSR_SIRCTREN</a>(x)</td></tr>
+<tr class="memitem:ga4d4228f0e92851a27a8c4d6b724f7482" id="r_ga4d4228f0e92851a27a8c4d6b724f7482"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCTRUP_MASK</b></td></tr>
+<tr class="memitem:gaa28310b601b715675a32b44069acaa84" id="r_gaa28310b601b715675a32b44069acaa84"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCTRUP_SHIFT</b></td></tr>
+<tr class="memitem:gac900e57203645403b8b468b9c548f32d" id="r_gac900e57203645403b8b468b9c548f32d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gac900e57203645403b8b468b9c548f32d">SCG_SIRCCSR_SIRCTRUP</a>(x)</td></tr>
+<tr class="memitem:ga6cfa29001f4a2fe5a9d4fc95797d4ed3" id="r_ga6cfa29001f4a2fe5a9d4fc95797d4ed3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_TRIM_LOCK_MASK</b></td></tr>
+<tr class="memitem:ga794912918b7881a5259e09ad7cbe26a0" id="r_ga794912918b7881a5259e09ad7cbe26a0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_TRIM_LOCK_SHIFT</b></td></tr>
+<tr class="memitem:ga71b312a34c36158c96b06241adda20f6" id="r_ga71b312a34c36158c96b06241adda20f6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga71b312a34c36158c96b06241adda20f6">SCG_SIRCCSR_TRIM_LOCK</a>(x)</td></tr>
+<tr class="memitem:ga8073ce0b337b7b8b22c59a54fb028431" id="r_ga8073ce0b337b7b8b22c59a54fb028431"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_COARSE_TRIM_BYPASS_MASK</b></td></tr>
+<tr class="memitem:gaf914a1641f375d95377494d47f8a00e4" id="r_gaf914a1641f375d95377494d47f8a00e4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_COARSE_TRIM_BYPASS_SHIFT</b></td></tr>
+<tr class="memitem:gaaf56f62e7a528328b6f5912eab77962b" id="r_gaaf56f62e7a528328b6f5912eab77962b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaaf56f62e7a528328b6f5912eab77962b">SCG_SIRCCSR_COARSE_TRIM_BYPASS</a>(x)</td></tr>
+<tr class="memitem:ga565adfdf452792af2110dfae972aa20f" id="r_ga565adfdf452792af2110dfae972aa20f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCERR_MASK</b></td></tr>
+<tr class="memitem:gad5e0bc6b688559b3eef2d75e8ec726bd" id="r_gad5e0bc6b688559b3eef2d75e8ec726bd"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCERR_SHIFT</b></td></tr>
+<tr class="memitem:gadeb65a72db79020f34bf9bd0a80ed46a" id="r_gadeb65a72db79020f34bf9bd0a80ed46a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gadeb65a72db79020f34bf9bd0a80ed46a">SCG_SIRCCSR_SIRCERR</a>(x)</td></tr>
+<tr class="memitem:ga92b18514fefeab7c2eaf072e5710c44d" id="r_ga92b18514fefeab7c2eaf072e5710c44d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCERR_IE_MASK</b></td></tr>
+<tr class="memitem:ga3a06c92a46d6aae390c1e3faaafabeab" id="r_ga3a06c92a46d6aae390c1e3faaafabeab"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCCSR_SIRCERR_IE_SHIFT</b></td></tr>
+<tr class="memitem:gadbf43b5704ad4227b8106e16dcde2658" id="r_gadbf43b5704ad4227b8106e16dcde2658"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gadbf43b5704ad4227b8106e16dcde2658">SCG_SIRCCSR_SIRCERR_IE</a>(x)</td></tr>
+<tr id="define-members-11" class="groupHeader"><td colspan="2"><div class="groupHeader">SIRCTCFG - SIRC Trim Configuration</div></td></tr>
+<tr class="memitem:ga865e5490c295914cf58e126dec327303" id="r_ga865e5490c295914cf58e126dec327303"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTCFG_TRIMSRC_MASK</b></td></tr>
+<tr class="memitem:ga9bcd5fc5a490bef725efd7e91b0de8c1" id="r_ga9bcd5fc5a490bef725efd7e91b0de8c1"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTCFG_TRIMSRC_SHIFT</b></td></tr>
+<tr class="memitem:gad406f679fe933ac8a9686edf3615389d" id="r_gad406f679fe933ac8a9686edf3615389d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gad406f679fe933ac8a9686edf3615389d">SCG_SIRCTCFG_TRIMSRC</a>(x)</td></tr>
+<tr id="define-members-12" class="groupHeader"><td colspan="2"><div class="groupHeader">SIRCTCFG - SIRC Trim Configuration</div></td></tr>
+<tr class="memitem:gab503b447b4bf4e9209e6cde8fd937ea7" id="r_gab503b447b4bf4e9209e6cde8fd937ea7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTCFG_TRIMDIV_MASK</b></td></tr>
+<tr class="memitem:gaf2f0ed33b9b6ef2236c72f2973e97cb3" id="r_gaf2f0ed33b9b6ef2236c72f2973e97cb3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTCFG_TRIMDIV_SHIFT</b></td></tr>
+<tr class="memitem:gaf86fde374f660e6981a485b747fd84ff" id="r_gaf86fde374f660e6981a485b747fd84ff"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaf86fde374f660e6981a485b747fd84ff">SCG_SIRCTCFG_TRIMDIV</a>(x)</td></tr>
+<tr id="define-members-13" class="groupHeader"><td colspan="2"><div class="groupHeader">SIRCTRIM - Slow IRC Trim Register</div></td></tr>
+<tr class="memitem:gacda15b243f09de2fd5574dfdb85aa767" id="r_gacda15b243f09de2fd5574dfdb85aa767"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_CCOTRIM_MASK</b></td></tr>
+<tr class="memitem:ga4775a58110038a9f8130a951aac109a0" id="r_ga4775a58110038a9f8130a951aac109a0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_CCOTRIM_SHIFT</b></td></tr>
+<tr class="memitem:ga464ef787c0997d7224ae62ed81661f20" id="r_ga464ef787c0997d7224ae62ed81661f20"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga464ef787c0997d7224ae62ed81661f20">SCG_SIRCTRIM_CCOTRIM</a>(x)</td></tr>
+<tr class="memitem:ga18217b8df870b0c8d53e9f18395caa1c" id="r_ga18217b8df870b0c8d53e9f18395caa1c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_CLTRIM_MASK</b></td></tr>
+<tr class="memitem:ga35d83263669102f9519fc34b65715006" id="r_ga35d83263669102f9519fc34b65715006"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_CLTRIM_SHIFT</b></td></tr>
+<tr class="memitem:ga1b2b157d2c54b068ed898be78c8edd34" id="r_ga1b2b157d2c54b068ed898be78c8edd34"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga1b2b157d2c54b068ed898be78c8edd34">SCG_SIRCTRIM_CLTRIM</a>(x)</td></tr>
+<tr class="memitem:ga2f9405f3ff93ed4bf9de283a0b6de919" id="r_ga2f9405f3ff93ed4bf9de283a0b6de919"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_TCTRIM_MASK</b></td></tr>
+<tr class="memitem:gaa2ab4ba64c4ce744247d30bef6676f03" id="r_gaa2ab4ba64c4ce744247d30bef6676f03"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_TCTRIM_SHIFT</b></td></tr>
+<tr class="memitem:ga842626c3eade437e96aebb93edbe0885" id="r_ga842626c3eade437e96aebb93edbe0885"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga842626c3eade437e96aebb93edbe0885">SCG_SIRCTRIM_TCTRIM</a>(x)</td></tr>
+<tr class="memitem:gaa8c3c6e5316a6dc90a374522d4f3872c" id="r_gaa8c3c6e5316a6dc90a374522d4f3872c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_FVCHTRIM_MASK</b></td></tr>
+<tr class="memitem:ga2e8bbe18f204fc99f21ac2c255ea4bd3" id="r_ga2e8bbe18f204fc99f21ac2c255ea4bd3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_FVCHTRIM_SHIFT</b></td></tr>
+<tr class="memitem:ga645f4fe8e34fe08245b52b4d00ce8986" id="r_ga645f4fe8e34fe08245b52b4d00ce8986"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCTRIM_FVCHTRIM</b>(x)</td></tr>
+<tr id="define-members-14" class="groupHeader"><td colspan="2"><div class="groupHeader">SIRCSTAT - SIRC Auto-trimming Status</div></td></tr>
+<tr class="memitem:gacce07dcc26eb2f463ec34439dd55ca51" id="r_gacce07dcc26eb2f463ec34439dd55ca51"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCSTAT_CCOTRIM_MASK</b></td></tr>
+<tr class="memitem:gaa27b6177a4b23d38f596d3f753f0f7f6" id="r_gaa27b6177a4b23d38f596d3f753f0f7f6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCSTAT_CCOTRIM_SHIFT</b></td></tr>
+<tr class="memitem:ga12b07bf0ea55b8b33237f4c95d5603fd" id="r_ga12b07bf0ea55b8b33237f4c95d5603fd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga12b07bf0ea55b8b33237f4c95d5603fd">SCG_SIRCSTAT_CCOTRIM</a>(x)</td></tr>
+<tr class="memitem:ga6001ec2f817942b047bd63ade2b1b617" id="r_ga6001ec2f817942b047bd63ade2b1b617"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCSTAT_CLTRIM_MASK</b></td></tr>
+<tr class="memitem:ga4e375396b941c655ce39584086254e60" id="r_ga4e375396b941c655ce39584086254e60"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SIRCSTAT_CLTRIM_SHIFT</b></td></tr>
+<tr class="memitem:ga9a88d6576b473b1c8e2b5eadd701d6fd" id="r_ga9a88d6576b473b1c8e2b5eadd701d6fd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga9a88d6576b473b1c8e2b5eadd701d6fd">SCG_SIRCSTAT_CLTRIM</a>(x)</td></tr>
+<tr id="define-members-15" class="groupHeader"><td colspan="2"><div class="groupHeader">FIRCCSR - Fast IRC Control Status Register</div></td></tr>
+<tr class="memitem:gaa9a5b9dbfe3850d8fe2ef6509677835a" id="r_gaa9a5b9dbfe3850d8fe2ef6509677835a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCEN_MASK</b></td></tr>
+<tr class="memitem:ga4f77c90be77c8a93071e695c00ebe9a3" id="r_ga4f77c90be77c8a93071e695c00ebe9a3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCEN_SHIFT</b></td></tr>
+<tr class="memitem:ga96faf1478c8afd41c2664950731710f8" id="r_ga96faf1478c8afd41c2664950731710f8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga96faf1478c8afd41c2664950731710f8">SCG_FIRCCSR_FIRCEN</a>(x)</td></tr>
+<tr class="memitem:gaa6502dc7d6ddffe65f028708cb294744" id="r_gaa6502dc7d6ddffe65f028708cb294744"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCSTEN_MASK</b></td></tr>
+<tr class="memitem:ga35d77a2ab09643707bd9ad9a4590834a" id="r_ga35d77a2ab09643707bd9ad9a4590834a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCSTEN_SHIFT</b></td></tr>
+<tr class="memitem:ga549c5b1a1768968aa1fadbc54cd68328" id="r_ga549c5b1a1768968aa1fadbc54cd68328"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga549c5b1a1768968aa1fadbc54cd68328">SCG_FIRCCSR_FIRCSTEN</a>(x)</td></tr>
+<tr class="memitem:ga6eb949ce8e1faf50bfb440d670d9f325" id="r_ga6eb949ce8e1faf50bfb440d670d9f325"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_LK_MASK</b></td></tr>
+<tr class="memitem:ga005620b5bad058249aca53d047a72674" id="r_ga005620b5bad058249aca53d047a72674"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_LK_SHIFT</b></td></tr>
+<tr class="memitem:ga8677f500360f2e6b27ffae9e333ef83a" id="r_ga8677f500360f2e6b27ffae9e333ef83a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga8677f500360f2e6b27ffae9e333ef83a">SCG_FIRCCSR_LK</a>(x)</td></tr>
+<tr class="memitem:ga22d4f04c6514151f122fc005b603f569" id="r_ga22d4f04c6514151f122fc005b603f569"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCVLD_MASK</b></td></tr>
+<tr class="memitem:ga9b38025ad6f91c5b9eabe6e78cada079" id="r_ga9b38025ad6f91c5b9eabe6e78cada079"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCVLD_SHIFT</b></td></tr>
+<tr class="memitem:ga6a3de070566c0bd64d63c80a61841317" id="r_ga6a3de070566c0bd64d63c80a61841317"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga6a3de070566c0bd64d63c80a61841317">SCG_FIRCCSR_FIRCVLD</a>(x)</td></tr>
+<tr class="memitem:ga468922593dd6db5550baf28bb46b8998" id="r_ga468922593dd6db5550baf28bb46b8998"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCSEL_MASK</b></td></tr>
+<tr class="memitem:ga5a8009ab2386d8d7c96a3d3110d36848" id="r_ga5a8009ab2386d8d7c96a3d3110d36848"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCSEL_SHIFT</b></td></tr>
+<tr class="memitem:ga08d803695a897667b6896de3a20ef07b" id="r_ga08d803695a897667b6896de3a20ef07b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga08d803695a897667b6896de3a20ef07b">SCG_FIRCCSR_FIRCSEL</a>(x)</td></tr>
+<tr class="memitem:ga751e1ee607f68cbcb962c8f113d815ca" id="r_ga751e1ee607f68cbcb962c8f113d815ca"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCERR_MASK</b></td></tr>
+<tr class="memitem:ga69c50c74ac9afb6b92e075c321bd7cb1" id="r_ga69c50c74ac9afb6b92e075c321bd7cb1"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCERR_SHIFT</b></td></tr>
+<tr class="memitem:ga45cd608a4dfd356ee48e76d1ad79b60d" id="r_ga45cd608a4dfd356ee48e76d1ad79b60d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga45cd608a4dfd356ee48e76d1ad79b60d">SCG_FIRCCSR_FIRCERR</a>(x)</td></tr>
+<tr id="define-members-16" class="groupHeader"><td colspan="2"><div class="groupHeader">FIRCCSR - FIRC Control Status</div></td></tr>
+<tr class="memitem:gafaa32112544914e62d9397dbeb914281" id="r_gafaa32112544914e62d9397dbeb914281"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN_MASK</b></td></tr>
+<tr class="memitem:ga2f23a6291b70774234a001d178c96b0b" id="r_ga2f23a6291b70774234a001d178c96b0b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN_SHIFT</b></td></tr>
+<tr class="memitem:ga781895e170cb422b30118149e669c88d" id="r_ga781895e170cb422b30118149e669c88d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga781895e170cb422b30118149e669c88d">SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN</a>(x)</td></tr>
+<tr class="memitem:ga07acea02bcef6386f508e21287884726" id="r_ga07acea02bcef6386f508e21287884726"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRC_FCLK_PERIPH_EN_MASK</b></td></tr>
+<tr class="memitem:ga5c01be3b7f2a24d91620908e053c69ec" id="r_ga5c01be3b7f2a24d91620908e053c69ec"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRC_FCLK_PERIPH_EN_SHIFT</b></td></tr>
+<tr class="memitem:ga76b5789c9a76563315992a376968c051" id="r_ga76b5789c9a76563315992a376968c051"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga76b5789c9a76563315992a376968c051">SCG_FIRCCSR_FIRC_FCLK_PERIPH_EN</a>(x)</td></tr>
+<tr class="memitem:ga5c1c3f004a3134a27b9072de6b7458f4" id="r_ga5c1c3f004a3134a27b9072de6b7458f4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCERR_IE_MASK</b></td></tr>
+<tr class="memitem:gafd6df000e827511f7eb0cf4bc0af1712" id="r_gafd6df000e827511f7eb0cf4bc0af1712"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCERR_IE_SHIFT</b></td></tr>
+<tr class="memitem:ga6e8079092fac77473580037843eb53a1" id="r_ga6e8079092fac77473580037843eb53a1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga6e8079092fac77473580037843eb53a1">SCG_FIRCCSR_FIRCERR_IE</a>(x)</td></tr>
+<tr class="memitem:gad5bb8e6d2db7aa07a2e0a613bbfe8461" id="r_gad5bb8e6d2db7aa07a2e0a613bbfe8461"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCACC_IE_MASK</b></td></tr>
+<tr class="memitem:ga3175c08777a86330a4351c46c8d0652b" id="r_ga3175c08777a86330a4351c46c8d0652b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCACC_IE_SHIFT</b></td></tr>
+<tr class="memitem:gaa8333bd7a565a8a5df33d25e00052332" id="r_gaa8333bd7a565a8a5df33d25e00052332"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaa8333bd7a565a8a5df33d25e00052332">SCG_FIRCCSR_FIRCACC_IE</a>(x)</td></tr>
+<tr class="memitem:ga98bcb800b7fabf23941c814bb9c64576" id="r_ga98bcb800b7fabf23941c814bb9c64576"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCACC_MASK</b></td></tr>
+<tr class="memitem:ga7bec4fdaa894c92bb544902abd9b8641" id="r_ga7bec4fdaa894c92bb544902abd9b8641"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCSR_FIRCACC_SHIFT</b></td></tr>
+<tr class="memitem:ga8676b9688354535c048f719c26559bb7" id="r_ga8676b9688354535c048f719c26559bb7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga8676b9688354535c048f719c26559bb7">SCG_FIRCCSR_FIRCACC</a>(x)</td></tr>
+<tr id="define-members-17" class="groupHeader"><td colspan="2"><div class="groupHeader">FIRCCFG - FIRC Configuration</div></td></tr>
+<tr class="memitem:gad5523b0a4b0dd5bac1e22875b4ca3d8b" id="r_gad5523b0a4b0dd5bac1e22875b4ca3d8b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCFG_FREQ_SEL_MASK</b></td></tr>
+<tr class="memitem:gaf5db4316e8f406e9ed98c36779eabdb5" id="r_gaf5db4316e8f406e9ed98c36779eabdb5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCCFG_FREQ_SEL_SHIFT</b></td></tr>
+<tr class="memitem:ga1e72bcca2c6c7be09d045710736ec621" id="r_ga1e72bcca2c6c7be09d045710736ec621"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga1e72bcca2c6c7be09d045710736ec621">SCG_FIRCCFG_FREQ_SEL</a>(x)</td></tr>
+<tr id="define-members-18" class="groupHeader"><td colspan="2"><div class="groupHeader">FIRCTRIM - Fast IRC Trim Register</div></td></tr>
+<tr class="memitem:ga000e613d54898e62b45c19feeb601344" id="r_ga000e613d54898e62b45c19feeb601344"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMFINE_MASK</b></td></tr>
+<tr class="memitem:gae84aea8c67878dce701a79542a770e9d" id="r_gae84aea8c67878dce701a79542a770e9d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMFINE_SHIFT</b></td></tr>
+<tr class="memitem:gaf7dbbf65a5dc7ee23f274779f75953fa" id="r_gaf7dbbf65a5dc7ee23f274779f75953fa"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaf7dbbf65a5dc7ee23f274779f75953fa">SCG_FIRCTRIM_TRIMFINE</a>(x)</td></tr>
+<tr class="memitem:ga5529908a868832529f01f08552eb5069" id="r_ga5529908a868832529f01f08552eb5069"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMCOAR_MASK</b></td></tr>
+<tr class="memitem:gac817298f63e7d6d39577642b6795dc84" id="r_gac817298f63e7d6d39577642b6795dc84"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMCOAR_SHIFT</b></td></tr>
+<tr class="memitem:ga87bb764bde12d40874a54878123efac7" id="r_ga87bb764bde12d40874a54878123efac7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga87bb764bde12d40874a54878123efac7">SCG_FIRCTRIM_TRIMCOAR</a>(x)</td></tr>
+<tr class="memitem:gac96bc6491ca6ef3fb139064485a7f793" id="r_gac96bc6491ca6ef3fb139064485a7f793"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMTEMP_MASK</b></td></tr>
+<tr class="memitem:gac81748ef527c68c3cd95cea9ffdfd0b4" id="r_gac81748ef527c68c3cd95cea9ffdfd0b4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMTEMP_SHIFT</b></td></tr>
+<tr class="memitem:gab4d881187e16443af149afc97b3fd9bd" id="r_gab4d881187e16443af149afc97b3fd9bd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gab4d881187e16443af149afc97b3fd9bd">SCG_FIRCTRIM_TRIMTEMP</a>(x)</td></tr>
+<tr id="define-members-19" class="groupHeader"><td colspan="2"><div class="groupHeader">FIRCTRIM - FIRC Trim</div></td></tr>
+<tr class="memitem:ga51729bc568a1cb2a10cf456b0df75907" id="r_ga51729bc568a1cb2a10cf456b0df75907"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMSTART_MASK</b></td></tr>
+<tr class="memitem:gadc959c19ab2cbde4f973bb0e525035ed" id="r_gadc959c19ab2cbde4f973bb0e525035ed"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_FIRCTRIM_TRIMSTART_SHIFT</b></td></tr>
+<tr class="memitem:ga2f0fd8ddf927dfe774bae83de22d5ace" id="r_ga2f0fd8ddf927dfe774bae83de22d5ace"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga2f0fd8ddf927dfe774bae83de22d5ace">SCG_FIRCTRIM_TRIMSTART</a>(x)</td></tr>
+<tr id="define-members-20" class="groupHeader"><td colspan="2"><div class="groupHeader">ROSCCSR - RTC OSC Control Status Register</div></td></tr>
+<tr class="memitem:ga376b309dd939d3fece9a39e82541f79d" id="r_ga376b309dd939d3fece9a39e82541f79d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_LK_MASK</b></td></tr>
+<tr class="memitem:gad7323cdcec69e632e9887dc1f9f5a379" id="r_gad7323cdcec69e632e9887dc1f9f5a379"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_LK_SHIFT</b></td></tr>
+<tr class="memitem:gaebfb96c5e2f695f2097eb65bc832738a" id="r_gaebfb96c5e2f695f2097eb65bc832738a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaebfb96c5e2f695f2097eb65bc832738a">SCG_ROSCCSR_LK</a>(x)</td></tr>
+<tr class="memitem:ga41cd85b0578013b4374c4591436bf77a" id="r_ga41cd85b0578013b4374c4591436bf77a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_ROSCVLD_MASK</b></td></tr>
+<tr class="memitem:gaa702db0eabdd1d5016e9385520b48593" id="r_gaa702db0eabdd1d5016e9385520b48593"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_ROSCVLD_SHIFT</b></td></tr>
+<tr class="memitem:gaacaa626a53b6e3d1a03d134d07d659ec" id="r_gaacaa626a53b6e3d1a03d134d07d659ec"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaacaa626a53b6e3d1a03d134d07d659ec">SCG_ROSCCSR_ROSCVLD</a>(x)</td></tr>
+<tr class="memitem:ga16a070c6dc9dd78b37d9a53a2ceefbee" id="r_ga16a070c6dc9dd78b37d9a53a2ceefbee"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_ROSCSEL_MASK</b></td></tr>
+<tr class="memitem:ga34b511664687857a241a4cea0ade22ca" id="r_ga34b511664687857a241a4cea0ade22ca"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_ROSCSEL_SHIFT</b></td></tr>
+<tr class="memitem:ga377a3a42dc79404457523ec159e8d5ac" id="r_ga377a3a42dc79404457523ec159e8d5ac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga377a3a42dc79404457523ec159e8d5ac">SCG_ROSCCSR_ROSCSEL</a>(x)</td></tr>
+<tr class="memitem:ga1921ea557971466970f97b454b4c6adc" id="r_ga1921ea557971466970f97b454b4c6adc"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_ROSCERR_MASK</b></td></tr>
+<tr class="memitem:gaddd83ba4eeff4c61de2db8da2e5173e7" id="r_gaddd83ba4eeff4c61de2db8da2e5173e7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_ROSCCSR_ROSCERR_SHIFT</b></td></tr>
+<tr class="memitem:ga34c7705659b752a4d33c1961ceaa1163" id="r_ga34c7705659b752a4d33c1961ceaa1163"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga34c7705659b752a4d33c1961ceaa1163">SCG_ROSCCSR_ROSCERR</a>(x)</td></tr>
+<tr id="define-members-21" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLCSR - SPLL Control Status</div></td></tr>
+<tr class="memitem:ga05c3b941b3042f0053944348d5315d2f" id="r_ga05c3b941b3042f0053944348d5315d2f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLPWREN_MASK</b></td></tr>
+<tr class="memitem:gae5e397f19849052ca57fe027542bec4e" id="r_gae5e397f19849052ca57fe027542bec4e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLPWREN_SHIFT</b></td></tr>
+<tr class="memitem:ga4c38566a57aa3146dbeda635d0350fee" id="r_ga4c38566a57aa3146dbeda635d0350fee"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga4c38566a57aa3146dbeda635d0350fee">SCG_SPLLCSR_SPLLPWREN</a>(x)</td></tr>
+<tr class="memitem:ga78a59a631cea92760eb76f65a54ea91b" id="r_ga78a59a631cea92760eb76f65a54ea91b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLCLKEN_MASK</b></td></tr>
+<tr class="memitem:gac3bd53622e0b50cc11bbdd9bc95f29c9" id="r_gac3bd53622e0b50cc11bbdd9bc95f29c9"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLCLKEN_SHIFT</b></td></tr>
+<tr class="memitem:ga1332e7afcd371fc2d95e16ccdd1370b2" id="r_ga1332e7afcd371fc2d95e16ccdd1370b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga1332e7afcd371fc2d95e16ccdd1370b2">SCG_SPLLCSR_SPLLCLKEN</a>(x)</td></tr>
+<tr class="memitem:ga5d518dfbd590bd2c19286c6cf5f0d166" id="r_ga5d518dfbd590bd2c19286c6cf5f0d166"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLSTEN_MASK</b></td></tr>
+<tr class="memitem:ga4953a73d7b534bfcfdd56a8628a20c7d" id="r_ga4953a73d7b534bfcfdd56a8628a20c7d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLSTEN_SHIFT</b></td></tr>
+<tr class="memitem:ga5190e3d187871819391f3724c35e18db" id="r_ga5190e3d187871819391f3724c35e18db"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga5190e3d187871819391f3724c35e18db">SCG_SPLLCSR_SPLLSTEN</a>(x)</td></tr>
+<tr class="memitem:gad3074d54fcbb20ecdeccfebbac24129b" id="r_gad3074d54fcbb20ecdeccfebbac24129b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_FRM_CLOCKSTABLE_MASK</b></td></tr>
+<tr class="memitem:ga3f350d4312b85e4a1baf988e6f2f9399" id="r_ga3f350d4312b85e4a1baf988e6f2f9399"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_FRM_CLOCKSTABLE_SHIFT</b></td></tr>
+<tr class="memitem:gaa07561570a4645b6d4293d6b33566a97" id="r_gaa07561570a4645b6d4293d6b33566a97"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaa07561570a4645b6d4293d6b33566a97">SCG_SPLLCSR_FRM_CLOCKSTABLE</a>(x)</td></tr>
+<tr class="memitem:gafa15c68e3bc7c2a48fc2f58f47ff25c9" id="r_gafa15c68e3bc7c2a48fc2f58f47ff25c9"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLCM_MASK</b></td></tr>
+<tr class="memitem:ga6d02dc6e4f4395a55321ca8e4526177b" id="r_ga6d02dc6e4f4395a55321ca8e4526177b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLCM_SHIFT</b></td></tr>
+<tr class="memitem:ga4cf8199105b240dcca8644894ec66ccf" id="r_ga4cf8199105b240dcca8644894ec66ccf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga4cf8199105b240dcca8644894ec66ccf">SCG_SPLLCSR_SPLLCM</a>(x)</td></tr>
+<tr class="memitem:gaae16f01647b94e8859bfeba6ff6f9392" id="r_gaae16f01647b94e8859bfeba6ff6f9392"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLCMRE_MASK</b></td></tr>
+<tr class="memitem:ga0b079c887ab3d6e7e311b8c3755d1dd6" id="r_ga0b079c887ab3d6e7e311b8c3755d1dd6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLCMRE_SHIFT</b></td></tr>
+<tr class="memitem:ga57c7cfe0e7e3990dd4be9564a080e385" id="r_ga57c7cfe0e7e3990dd4be9564a080e385"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga57c7cfe0e7e3990dd4be9564a080e385">SCG_SPLLCSR_SPLLCMRE</a>(x)</td></tr>
+<tr class="memitem:ga0510a9ef4d01c9643ce4d9cbe3d39d5c" id="r_ga0510a9ef4d01c9643ce4d9cbe3d39d5c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_LK_MASK</b></td></tr>
+<tr class="memitem:ga28e85e8d86be635e3738c4a1a6274e07" id="r_ga28e85e8d86be635e3738c4a1a6274e07"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_LK_SHIFT</b></td></tr>
+<tr class="memitem:ga253fb394cc3e200ebbf7b10471d22609" id="r_ga253fb394cc3e200ebbf7b10471d22609"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga253fb394cc3e200ebbf7b10471d22609">SCG_SPLLCSR_LK</a>(x)</td></tr>
+<tr class="memitem:ga133f6821c090298a712bc4e383068a5a" id="r_ga133f6821c090298a712bc4e383068a5a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLL_LOCK_MASK</b></td></tr>
+<tr class="memitem:ga41e55885b71c4ad2fc53486110e3201e" id="r_ga41e55885b71c4ad2fc53486110e3201e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLL_LOCK_SHIFT</b></td></tr>
+<tr class="memitem:ga02ee4db9e6786ea89128a54734df2b82" id="r_ga02ee4db9e6786ea89128a54734df2b82"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga02ee4db9e6786ea89128a54734df2b82">SCG_SPLLCSR_SPLL_LOCK</a>(x)</td></tr>
+<tr class="memitem:gaa60a46311a8a58a74dc7fb8b4a55bb2a" id="r_gaa60a46311a8a58a74dc7fb8b4a55bb2a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLSEL_MASK</b></td></tr>
+<tr class="memitem:ga21a64781e8cc72d687e83bd4ade03f84" id="r_ga21a64781e8cc72d687e83bd4ade03f84"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLSEL_SHIFT</b></td></tr>
+<tr class="memitem:ga6f9391752283be669b0bb7f64fd1cdf3" id="r_ga6f9391752283be669b0bb7f64fd1cdf3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga6f9391752283be669b0bb7f64fd1cdf3">SCG_SPLLCSR_SPLLSEL</a>(x)</td></tr>
+<tr class="memitem:ga1d986127dcba600833d59f516e41039f" id="r_ga1d986127dcba600833d59f516e41039f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLERR_MASK</b></td></tr>
+<tr class="memitem:ga4594b8973feff186d16ecc9e5b6c8117" id="r_ga4594b8973feff186d16ecc9e5b6c8117"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLLERR_SHIFT</b></td></tr>
+<tr class="memitem:ga8c063734be216978011bf7bd7aeffdb9" id="r_ga8c063734be216978011bf7bd7aeffdb9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga8c063734be216978011bf7bd7aeffdb9">SCG_SPLLCSR_SPLLERR</a>(x)</td></tr>
+<tr class="memitem:ga778dc7852bd40e154ce8d1e7f2f8d02f" id="r_ga778dc7852bd40e154ce8d1e7f2f8d02f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLL_LOCK_IE_MASK</b></td></tr>
+<tr class="memitem:gabafcbf42f4ad5aafff1fc094aa9f8b94" id="r_gabafcbf42f4ad5aafff1fc094aa9f8b94"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCSR_SPLL_LOCK_IE_SHIFT</b></td></tr>
+<tr class="memitem:ga751ee026395af6392a82b95c75bb0ea7" id="r_ga751ee026395af6392a82b95c75bb0ea7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga751ee026395af6392a82b95c75bb0ea7">SCG_SPLLCSR_SPLL_LOCK_IE</a>(x)</td></tr>
+<tr id="define-members-22" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLCTRL - SPLL Control</div></td></tr>
+<tr class="memitem:ga3a00e240717ba3d0fd221d6e1f6ea7fb" id="r_ga3a00e240717ba3d0fd221d6e1f6ea7fb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SELR_MASK</b></td></tr>
+<tr class="memitem:ga598cf7d5f45370c6edeed59b2785db78" id="r_ga598cf7d5f45370c6edeed59b2785db78"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SELR_SHIFT</b></td></tr>
+<tr class="memitem:gae1a4449ecf8b0cd8e92c03c4ac55f474" id="r_gae1a4449ecf8b0cd8e92c03c4ac55f474"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gae1a4449ecf8b0cd8e92c03c4ac55f474">SCG_SPLLCTRL_SELR</a>(x)</td></tr>
+<tr class="memitem:gadfd0294142ba392f8e37716b6f853e16" id="r_gadfd0294142ba392f8e37716b6f853e16"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SELI_MASK</b></td></tr>
+<tr class="memitem:ga33462a2a21480e432c1811a9fb80bb38" id="r_ga33462a2a21480e432c1811a9fb80bb38"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SELI_SHIFT</b></td></tr>
+<tr class="memitem:ga3a510503f3ae7e4b256f13deb6b6c5d7" id="r_ga3a510503f3ae7e4b256f13deb6b6c5d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga3a510503f3ae7e4b256f13deb6b6c5d7">SCG_SPLLCTRL_SELI</a>(x)</td></tr>
+<tr class="memitem:gaf7db4b6adfbc4851e13a29d4c75b6f9f" id="r_gaf7db4b6adfbc4851e13a29d4c75b6f9f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SELP_MASK</b></td></tr>
+<tr class="memitem:ga93f59156bb11c3847460a87ee2a50dde" id="r_ga93f59156bb11c3847460a87ee2a50dde"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SELP_SHIFT</b></td></tr>
+<tr class="memitem:gabd3601ccaf5a753101a49d1f1af7bd74" id="r_gabd3601ccaf5a753101a49d1f1af7bd74"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gabd3601ccaf5a753101a49d1f1af7bd74">SCG_SPLLCTRL_SELP</a>(x)</td></tr>
+<tr class="memitem:ga470247d19750de133bef61986616ef2b" id="r_ga470247d19750de133bef61986616ef2b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BYPASSPOSTDIV2_MASK</b></td></tr>
+<tr class="memitem:ga99c17c8bd59df788bada7f8e9df5e3b7" id="r_ga99c17c8bd59df788bada7f8e9df5e3b7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BYPASSPOSTDIV2_SHIFT</b></td></tr>
+<tr class="memitem:ga7a6e51fd237dc30081f5fb17a8a28eee" id="r_ga7a6e51fd237dc30081f5fb17a8a28eee"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga7a6e51fd237dc30081f5fb17a8a28eee">SCG_SPLLCTRL_BYPASSPOSTDIV2</a>(x)</td></tr>
+<tr class="memitem:ga5630b8972e01ba65ba40883eb002a0a8" id="r_ga5630b8972e01ba65ba40883eb002a0a8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_LIMUPOFF_MASK</b></td></tr>
+<tr class="memitem:ga6c96edef251559cd9aeeeee1554b9620" id="r_ga6c96edef251559cd9aeeeee1554b9620"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_LIMUPOFF_SHIFT</b></td></tr>
+<tr class="memitem:gad8c5b23baadf2feb0c7ce30d2e652d29" id="r_gad8c5b23baadf2feb0c7ce30d2e652d29"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gad8c5b23baadf2feb0c7ce30d2e652d29">SCG_SPLLCTRL_LIMUPOFF</a>(x)</td></tr>
+<tr class="memitem:gac8aaeb3f70fed1fc46bfec77a4084d60" id="r_gac8aaeb3f70fed1fc46bfec77a4084d60"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BANDDIRECT_MASK</b></td></tr>
+<tr class="memitem:gaf11b001aeaec892cd22d8acaa6d1d4a5" id="r_gaf11b001aeaec892cd22d8acaa6d1d4a5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BANDDIRECT_SHIFT</b></td></tr>
+<tr class="memitem:gae0c6b3732d614448e8bcf20973b9ef19" id="r_gae0c6b3732d614448e8bcf20973b9ef19"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gae0c6b3732d614448e8bcf20973b9ef19">SCG_SPLLCTRL_BANDDIRECT</a>(x)</td></tr>
+<tr class="memitem:gab39bf55282cd54f8fe47d614987b525d" id="r_gab39bf55282cd54f8fe47d614987b525d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BYPASSPREDIV_MASK</b></td></tr>
+<tr class="memitem:gab1f9db5dec49775eec5f9c4099689b88" id="r_gab1f9db5dec49775eec5f9c4099689b88"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BYPASSPREDIV_SHIFT</b></td></tr>
+<tr class="memitem:gac5743f887a9b04ae6dcafc55c2660e9d" id="r_gac5743f887a9b04ae6dcafc55c2660e9d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gac5743f887a9b04ae6dcafc55c2660e9d">SCG_SPLLCTRL_BYPASSPREDIV</a>(x)</td></tr>
+<tr class="memitem:ga65e0b3492880264ab88da061c1a4d6e5" id="r_ga65e0b3492880264ab88da061c1a4d6e5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BYPASSPOSTDIV_MASK</b></td></tr>
+<tr class="memitem:ga9c626fd57ab5d90fd56e508844b76c72" id="r_ga9c626fd57ab5d90fd56e508844b76c72"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_BYPASSPOSTDIV_SHIFT</b></td></tr>
+<tr class="memitem:ga4a2b9bf883b49460bc69474b9e9db6b3" id="r_ga4a2b9bf883b49460bc69474b9e9db6b3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga4a2b9bf883b49460bc69474b9e9db6b3">SCG_SPLLCTRL_BYPASSPOSTDIV</a>(x)</td></tr>
+<tr class="memitem:ga704e71b635f7e4fbb12fdaf92a10b76b" id="r_ga704e71b635f7e4fbb12fdaf92a10b76b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_FRM_MASK</b></td></tr>
+<tr class="memitem:gaf2082d9f89e063afd10974b40f4de353" id="r_gaf2082d9f89e063afd10974b40f4de353"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_FRM_SHIFT</b></td></tr>
+<tr class="memitem:ga8b5eb5b35cdd82bc53fd19e218fb508a" id="r_ga8b5eb5b35cdd82bc53fd19e218fb508a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga8b5eb5b35cdd82bc53fd19e218fb508a">SCG_SPLLCTRL_FRM</a>(x)</td></tr>
+<tr class="memitem:ga851507209d5118c820677490b6cb9d19" id="r_ga851507209d5118c820677490b6cb9d19"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SOURCE_MASK</b></td></tr>
+<tr class="memitem:gad4ab4ed7b50befee3feea8fff30bb3e6" id="r_gad4ab4ed7b50befee3feea8fff30bb3e6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLCTRL_SOURCE_SHIFT</b></td></tr>
+<tr class="memitem:ga800977afa65e0b53f57b1e81573a4e9b" id="r_ga800977afa65e0b53f57b1e81573a4e9b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga800977afa65e0b53f57b1e81573a4e9b">SCG_SPLLCTRL_SOURCE</a>(x)</td></tr>
+<tr id="define-members-23" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLSTAT - SPLL Status</div></td></tr>
+<tr class="memitem:ga94aaed62aa33db3b9c342ea62529f868" id="r_ga94aaed62aa33db3b9c342ea62529f868"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_NDIVACK_MASK</b></td></tr>
+<tr class="memitem:ga0a5a1dc1bea46957448b91b26dffde2b" id="r_ga0a5a1dc1bea46957448b91b26dffde2b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_NDIVACK_SHIFT</b></td></tr>
+<tr class="memitem:gaa15f02a16e845d1ff77ec389baa41cab" id="r_gaa15f02a16e845d1ff77ec389baa41cab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaa15f02a16e845d1ff77ec389baa41cab">SCG_SPLLSTAT_NDIVACK</a>(x)</td></tr>
+<tr class="memitem:gad86e74b3b09e56a3796a73aca121886e" id="r_gad86e74b3b09e56a3796a73aca121886e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_MDIVACK_MASK</b></td></tr>
+<tr class="memitem:ga6fa7bb7b1c281f50363fabdc92411b93" id="r_ga6fa7bb7b1c281f50363fabdc92411b93"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_MDIVACK_SHIFT</b></td></tr>
+<tr class="memitem:ga6b0d76047ab91505b6480c6f82d3dba2" id="r_ga6b0d76047ab91505b6480c6f82d3dba2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga6b0d76047ab91505b6480c6f82d3dba2">SCG_SPLLSTAT_MDIVACK</a>(x)</td></tr>
+<tr class="memitem:ga5400964920c4f523535194430e7350bb" id="r_ga5400964920c4f523535194430e7350bb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_PDIVACK_MASK</b></td></tr>
+<tr class="memitem:ga0236b46386bab487c1dd1035f9e7971b" id="r_ga0236b46386bab487c1dd1035f9e7971b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_PDIVACK_SHIFT</b></td></tr>
+<tr class="memitem:ga6da593105a9750ac9e5494ec878b0787" id="r_ga6da593105a9750ac9e5494ec878b0787"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga6da593105a9750ac9e5494ec878b0787">SCG_SPLLSTAT_PDIVACK</a>(x)</td></tr>
+<tr class="memitem:ga2e4fb4b46bfc85b1fc48264b11f8a7c0" id="r_ga2e4fb4b46bfc85b1fc48264b11f8a7c0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_FRMDET_MASK</b></td></tr>
+<tr class="memitem:ga9e2f0da094409d56cf0f7130120e7667" id="r_ga9e2f0da094409d56cf0f7130120e7667"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSTAT_FRMDET_SHIFT</b></td></tr>
+<tr class="memitem:ga30f0a785fb7464191badcb1d9743bdd4" id="r_ga30f0a785fb7464191badcb1d9743bdd4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga30f0a785fb7464191badcb1d9743bdd4">SCG_SPLLSTAT_FRMDET</a>(x)</td></tr>
+<tr id="define-members-24" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLNDIV - SPLL N Divider</div></td></tr>
+<tr class="memitem:ga2f18fbe7675bfcb53d5e4b94e8812c2e" id="r_ga2f18fbe7675bfcb53d5e4b94e8812c2e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLNDIV_NDIV_MASK</b></td></tr>
+<tr class="memitem:ga262377dea7b1211962b401875bcd4df9" id="r_ga262377dea7b1211962b401875bcd4df9"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLNDIV_NDIV_SHIFT</b></td></tr>
+<tr class="memitem:ga14bc0f5755d7a0bd1fae146202962579" id="r_ga14bc0f5755d7a0bd1fae146202962579"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga14bc0f5755d7a0bd1fae146202962579">SCG_SPLLNDIV_NDIV</a>(x)</td></tr>
+<tr class="memitem:ga0b890fcebccdaeda94930da1eaad7902" id="r_ga0b890fcebccdaeda94930da1eaad7902"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLNDIV_NREQ_MASK</b></td></tr>
+<tr class="memitem:ga8e7dd9b8ec8bc3595e380ac8a22a86c9" id="r_ga8e7dd9b8ec8bc3595e380ac8a22a86c9"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLNDIV_NREQ_SHIFT</b></td></tr>
+<tr class="memitem:ga3660fa3ea890194d7354d88681a03193" id="r_ga3660fa3ea890194d7354d88681a03193"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga3660fa3ea890194d7354d88681a03193">SCG_SPLLNDIV_NREQ</a>(x)</td></tr>
+<tr id="define-members-25" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLMDIV - SPLL M Divider</div></td></tr>
+<tr class="memitem:gad8b4ebb9b07dd2852cb6f20f5c376466" id="r_gad8b4ebb9b07dd2852cb6f20f5c376466"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLMDIV_MDIV_MASK</b></td></tr>
+<tr class="memitem:gae4d6987be8d16c0f8d9c85520662ad46" id="r_gae4d6987be8d16c0f8d9c85520662ad46"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLMDIV_MDIV_SHIFT</b></td></tr>
+<tr class="memitem:ga639dc2ce63ebe8cc0e04b6b0c37b4643" id="r_ga639dc2ce63ebe8cc0e04b6b0c37b4643"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga639dc2ce63ebe8cc0e04b6b0c37b4643">SCG_SPLLMDIV_MDIV</a>(x)</td></tr>
+<tr class="memitem:gaabebd7e601878c8a6b2582fd567c408a" id="r_gaabebd7e601878c8a6b2582fd567c408a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLMDIV_MREQ_MASK</b></td></tr>
+<tr class="memitem:ga8d91fc3887f0b1d842cb9c6fc5539b9e" id="r_ga8d91fc3887f0b1d842cb9c6fc5539b9e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLMDIV_MREQ_SHIFT</b></td></tr>
+<tr class="memitem:gab249a17ba2ab39901c2130637cf913b9" id="r_gab249a17ba2ab39901c2130637cf913b9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gab249a17ba2ab39901c2130637cf913b9">SCG_SPLLMDIV_MREQ</a>(x)</td></tr>
+<tr id="define-members-26" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLPDIV - SPLL P Divider</div></td></tr>
+<tr class="memitem:ga8d8418f59374f3c59ad41f46f3092d97" id="r_ga8d8418f59374f3c59ad41f46f3092d97"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLPDIV_PDIV_MASK</b></td></tr>
+<tr class="memitem:gae99af91d8365dfe1673367fe3152e76e" id="r_gae99af91d8365dfe1673367fe3152e76e"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLPDIV_PDIV_SHIFT</b></td></tr>
+<tr class="memitem:gab3b7985d7b3243af95537903ab42052a" id="r_gab3b7985d7b3243af95537903ab42052a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gab3b7985d7b3243af95537903ab42052a">SCG_SPLLPDIV_PDIV</a>(x)</td></tr>
+<tr class="memitem:ga9a1b1c23502125d2d688061aecd50d8a" id="r_ga9a1b1c23502125d2d688061aecd50d8a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLPDIV_PREQ_MASK</b></td></tr>
+<tr class="memitem:ga6f34a1d6459ed94f68b1d3d887222de1" id="r_ga6f34a1d6459ed94f68b1d3d887222de1"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLPDIV_PREQ_SHIFT</b></td></tr>
+<tr class="memitem:gac9a1c822ff43e56d8dab13dbdc771de9" id="r_gac9a1c822ff43e56d8dab13dbdc771de9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gac9a1c822ff43e56d8dab13dbdc771de9">SCG_SPLLPDIV_PREQ</a>(x)</td></tr>
+<tr id="define-members-27" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLLOCK_CNFG - SPLL LOCK Configuration</div></td></tr>
+<tr class="memitem:gaf4d57c91737c8c671734623d9c519ba9" id="r_gaf4d57c91737c8c671734623d9c519ba9"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLLOCK_CNFG_LOCK_TIME_MASK</b></td></tr>
+<tr class="memitem:gae6dbb4158f5370742416d869de86c666" id="r_gae6dbb4158f5370742416d869de86c666"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLLOCK_CNFG_LOCK_TIME_SHIFT</b></td></tr>
+<tr class="memitem:gad664dbebdbd3edd108293191e105f4ba" id="r_gad664dbebdbd3edd108293191e105f4ba"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gad664dbebdbd3edd108293191e105f4ba">SCG_SPLLLOCK_CNFG_LOCK_TIME</a>(x)</td></tr>
+<tr id="define-members-28" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLSSCGSTAT - SPLL SSCG Status</div></td></tr>
+<tr class="memitem:gad16eab03c9f3add5677d90d9327f35ea" id="r_gad16eab03c9f3add5677d90d9327f35ea"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCGSTAT_SS_MDIV_ACK_MASK</b></td></tr>
+<tr class="memitem:ga4eddee14a7ae017284202b6a5d575d33" id="r_ga4eddee14a7ae017284202b6a5d575d33"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCGSTAT_SS_MDIV_ACK_SHIFT</b></td></tr>
+<tr class="memitem:ga0ee30b88d54fb8a52fb3c68f22834585" id="r_ga0ee30b88d54fb8a52fb3c68f22834585"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga0ee30b88d54fb8a52fb3c68f22834585">SCG_SPLLSSCGSTAT_SS_MDIV_ACK</a>(x)</td></tr>
+<tr id="define-members-29" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLSSCG0 - SPLL Spread Spectrum Control 0</div></td></tr>
+<tr class="memitem:ga19739f8c6476c4604c11792436ee242d" id="r_ga19739f8c6476c4604c11792436ee242d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG0_SS_MDIV_LSB_MASK</b></td></tr>
+<tr class="memitem:gabbd90d31bdf4d77a8f98935df5234bfa" id="r_gabbd90d31bdf4d77a8f98935df5234bfa"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG0_SS_MDIV_LSB_SHIFT</b></td></tr>
+<tr class="memitem:ga0f48ef22b8ac114cb3792b1a32e81c53" id="r_ga0f48ef22b8ac114cb3792b1a32e81c53"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga0f48ef22b8ac114cb3792b1a32e81c53">SCG_SPLLSSCG0_SS_MDIV_LSB</a>(x)</td></tr>
+<tr id="define-members-30" class="groupHeader"><td colspan="2"><div class="groupHeader">SPLLSSCG1 - SPLL Spread Spectrum Control 1</div></td></tr>
+<tr class="memitem:gac7780e3aeaba26f5b3d42059c9d1cfa5" id="r_gac7780e3aeaba26f5b3d42059c9d1cfa5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SS_MDIV_MSB_MASK</b></td></tr>
+<tr class="memitem:gae8d07e182f2902127b68314d6c92205b" id="r_gae8d07e182f2902127b68314d6c92205b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SS_MDIV_MSB_SHIFT</b></td></tr>
+<tr class="memitem:gabdb73b76d3cfca4426a0f7715e6bbe37" id="r_gabdb73b76d3cfca4426a0f7715e6bbe37"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gabdb73b76d3cfca4426a0f7715e6bbe37">SCG_SPLLSSCG1_SS_MDIV_MSB</a>(x)</td></tr>
+<tr class="memitem:ga3afdee6bd31f635fe95282573dc7f16a" id="r_ga3afdee6bd31f635fe95282573dc7f16a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SS_MDIV_REQ_MASK</b></td></tr>
+<tr class="memitem:ga9d7e7ac2c2009e84ca6bf86005efe3ed" id="r_ga9d7e7ac2c2009e84ca6bf86005efe3ed"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SS_MDIV_REQ_SHIFT</b></td></tr>
+<tr class="memitem:ga2ceb66f2804079829da21de28bd013fc" id="r_ga2ceb66f2804079829da21de28bd013fc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga2ceb66f2804079829da21de28bd013fc">SCG_SPLLSSCG1_SS_MDIV_REQ</a>(x)</td></tr>
+<tr class="memitem:ga398cc1ca861feb755c241dfa42f4925b" id="r_ga398cc1ca861feb755c241dfa42f4925b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_MF_MASK</b></td></tr>
+<tr class="memitem:gafdba720f97250b262731a15f66622711" id="r_gafdba720f97250b262731a15f66622711"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_MF_SHIFT</b></td></tr>
+<tr class="memitem:ga8b9be91e226c44a0f2aa825545951598" id="r_ga8b9be91e226c44a0f2aa825545951598"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga8b9be91e226c44a0f2aa825545951598">SCG_SPLLSSCG1_MF</a>(x)</td></tr>
+<tr class="memitem:ga293cdc4fa378b69c3eae931678a236a3" id="r_ga293cdc4fa378b69c3eae931678a236a3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_MR_MASK</b></td></tr>
+<tr class="memitem:gac2bab0d834cd16515f9b96e698d7aea6" id="r_gac2bab0d834cd16515f9b96e698d7aea6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_MR_SHIFT</b></td></tr>
+<tr class="memitem:gae1269c0d7504b7da3841fcfe902519ca" id="r_gae1269c0d7504b7da3841fcfe902519ca"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gae1269c0d7504b7da3841fcfe902519ca">SCG_SPLLSSCG1_MR</a>(x)</td></tr>
+<tr class="memitem:ga5e77279ff8e7d1173edecfc786fb36f7" id="r_ga5e77279ff8e7d1173edecfc786fb36f7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_MC_MASK</b></td></tr>
+<tr class="memitem:gab0da0f7028083f48c4b9fdd468fd30ad" id="r_gab0da0f7028083f48c4b9fdd468fd30ad"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_MC_SHIFT</b></td></tr>
+<tr class="memitem:ga8b046f1da994284af86b64971151a8c1" id="r_ga8b046f1da994284af86b64971151a8c1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga8b046f1da994284af86b64971151a8c1">SCG_SPLLSSCG1_MC</a>(x)</td></tr>
+<tr class="memitem:ga632e1b4fd33e51575bbf14411df34005" id="r_ga632e1b4fd33e51575bbf14411df34005"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_DITHER_MASK</b></td></tr>
+<tr class="memitem:gad66bb9e60261796a2a3e1085e8410e34" id="r_gad66bb9e60261796a2a3e1085e8410e34"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_DITHER_SHIFT</b></td></tr>
+<tr class="memitem:gafc31a4b3588abbbb079b4a21cbdc28c8" id="r_gafc31a4b3588abbbb079b4a21cbdc28c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gafc31a4b3588abbbb079b4a21cbdc28c8">SCG_SPLLSSCG1_DITHER</a>(x)</td></tr>
+<tr class="memitem:ga43d4148f968e2181462f68d0ba5fec23" id="r_ga43d4148f968e2181462f68d0ba5fec23"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SEL_SS_MDIV_MASK</b></td></tr>
+<tr class="memitem:ga346e65cb40ffb49dd8c24f57e9df909b" id="r_ga346e65cb40ffb49dd8c24f57e9df909b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SEL_SS_MDIV_SHIFT</b></td></tr>
+<tr class="memitem:ga7f538a061d2c79613a2f70f609fcf813" id="r_ga7f538a061d2c79613a2f70f609fcf813"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga7f538a061d2c79613a2f70f609fcf813">SCG_SPLLSSCG1_SEL_SS_MDIV</a>(x)</td></tr>
+<tr class="memitem:gac5caad345705977eb33f81eea5f49703" id="r_gac5caad345705977eb33f81eea5f49703"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SS_PD_MASK</b></td></tr>
+<tr class="memitem:ga90a3694f43312ba01b50d20279112c26" id="r_ga90a3694f43312ba01b50d20279112c26"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_SPLLSSCG1_SS_PD_SHIFT</b></td></tr>
+<tr class="memitem:gaf642b5b507d5aa3830ea2be00b4f3987" id="r_gaf642b5b507d5aa3830ea2be00b4f3987"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#gaf642b5b507d5aa3830ea2be00b4f3987">SCG_SPLLSSCG1_SS_PD</a>(x)</td></tr>
+<tr id="define-members-31" class="groupHeader"><td colspan="2"><div class="groupHeader">LDOCSR - LDO Control and Status</div></td></tr>
+<tr class="memitem:ga9958720fd25c18af71e773ca054e47bd" id="r_ga9958720fd25c18af71e773ca054e47bd"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_LDOEN_MASK</b></td></tr>
+<tr class="memitem:ga7e40213f7439516044af28f45170e8fa" id="r_ga7e40213f7439516044af28f45170e8fa"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_LDOEN_SHIFT</b></td></tr>
+<tr class="memitem:ga0dd335b36a02730b75d573b1f70d15bc" id="r_ga0dd335b36a02730b75d573b1f70d15bc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga0dd335b36a02730b75d573b1f70d15bc">SCG_LDOCSR_LDOEN</a>(x)</td></tr>
+<tr class="memitem:ga1326a6fdf36cc47cf5c30f86fdb437ed" id="r_ga1326a6fdf36cc47cf5c30f86fdb437ed"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_VOUT_SEL_MASK</b></td></tr>
+<tr class="memitem:ga6d18a7c55959b6cb79e632cc919bdd55" id="r_ga6d18a7c55959b6cb79e632cc919bdd55"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_VOUT_SEL_SHIFT</b></td></tr>
+<tr class="memitem:ga10a2f2fe50af12b1ae59b2bf72b10877" id="r_ga10a2f2fe50af12b1ae59b2bf72b10877"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga10a2f2fe50af12b1ae59b2bf72b10877">SCG_LDOCSR_VOUT_SEL</a>(x)</td></tr>
+<tr class="memitem:ga94d430d9c728b5c0259a3744ce899a41" id="r_ga94d430d9c728b5c0259a3744ce899a41"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_LDOBYPASS_MASK</b></td></tr>
+<tr class="memitem:gac46c4374806d637d5e94f8f93692d96a" id="r_gac46c4374806d637d5e94f8f93692d96a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_LDOBYPASS_SHIFT</b></td></tr>
+<tr class="memitem:ga3dac75acff583aa023a8c292c81e9261" id="r_ga3dac75acff583aa023a8c292c81e9261"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga3dac75acff583aa023a8c292c81e9261">SCG_LDOCSR_LDOBYPASS</a>(x)</td></tr>
+<tr class="memitem:gab73645489d2100885701e52d83218cd7" id="r_gab73645489d2100885701e52d83218cd7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_VOUT_OK_MASK</b></td></tr>
+<tr class="memitem:ga25b77d3cbb2e735a5f91df0146a33c06" id="r_ga25b77d3cbb2e735a5f91df0146a33c06"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>SCG_LDOCSR_VOUT_OK_SHIFT</b></td></tr>
+<tr class="memitem:ga952469f8382d571b3297fb06abdea9aa" id="r_ga952469f8382d571b3297fb06abdea9aa"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01708.html#ga952469f8382d571b3297fb06abdea9aa">SCG_LDOCSR_VOUT_OK</a>(x)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>CMSIS Peripheral Access Layer for TRNG. </p>
+<div class="textblock"><p>CMSIS Peripheral Access Layer for SCG. </p>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-11-21 </dd></dl>
-<p>CMSIS Peripheral Access Layer for TRNG </p>
+<p>CMSIS Peripheral Access Layer for SCG </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ab0c8e4a2effcd3d52431672b8e3198ee" name="ab0c8e4a2effcd3d52431672b8e3198ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0c8e4a2effcd3d52431672b8e3198ee">&#9670;&#160;</a></span>PERI_TRNG_H_</h2>
+<a id="adc6394a83dcbb7802816425625585fc1" name="adc6394a83dcbb7802816425625585fc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc6394a83dcbb7802816425625585fc1">&#9670;&#160;</a></span>PERI_SCG_H_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PERI_TRNG_H_</td>
+          <td class="memname">#define PERI_SCG_H_</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -856,7 +724,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a03983.html">PERI_TRNG.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a03983.html">PERI_SCG.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

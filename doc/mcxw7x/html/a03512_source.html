@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa5xx/cmsis_iccarm.h Source File</title>
+<title>MCUX CLNS: platform/mcxw7x/cmsis_iccarm.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -313,7 +313,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="preprocessor">#ifndef __UNALIGNED_UINT32   </span><span class="comment">/* deprecated */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="preprocessor">#pragma language=save</span></div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="preprocessor">#pragma language=extended</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>__packed <span class="keyword">struct  </span><a class="code hl_struct" href="a01943.html">__iar_u32</a> { uint32_t v; };</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>__packed <span class="keyword">struct  </span><a class="code hl_struct" href="a01938.html">__iar_u32</a> { uint32_t v; };</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="preprocessor">#pragma language=restore</span></div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="preprocessor">#define __UNALIGNED_UINT32(PTR) (((struct __iar_u32 *)(PTR))-&gt;v)</span></div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="preprocessor">#endif</span></div>
@@ -471,7 +471,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span><span class="preprocessor">  #define __REV     __iar_builtin_REV</span></div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span><span class="preprocessor">  #define __REV16   __iar_builtin_REV16</span></div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>  __IAR_FT int16_t <a class="code hl_define" href="a01575.html#gae580812686119c9c5cf3c11a7519a404">__REVSH</a>(int16_t val)</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>  __IAR_FT int16_t <a class="code hl_define" href="a01572.html#gae580812686119c9c5cf3c11a7519a404">__REVSH</a>(int16_t val)</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>  {</div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="keywordflow">return</span> (int16_t) __iar_builtin_REVSH(val);</div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>  }</div>
@@ -593,7 +593,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span><span class="preprocessor">    #undef __RBIT</span></div>
 <div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span><span class="preprocessor">    #undef __get_APSR</span></div>
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span> </div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    __STATIC_INLINE uint8_t <a class="code hl_define" href="a01575.html#ga5d5bb1527e042be4a9fa5a33f65cc248">__CLZ</a>(uint32_t data)</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    __STATIC_INLINE uint8_t <a class="code hl_define" href="a01572.html#ga5d5bb1527e042be4a9fa5a33f65cc248">__CLZ</a>(uint32_t data)</div>
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>    {</div>
 <div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>      <span class="keywordflow">if</span> (data == 0U) { <span class="keywordflow">return</span> 32U; }</div>
 <div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span> </div>
@@ -608,7 +608,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>      <span class="keywordflow">return</span> count;</div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    }</div>
 <div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span> </div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    __STATIC_INLINE uint32_t <a class="code hl_define" href="a01575.html#gab83768933a612816fad669db5488366f">__RBIT</a>(uint32_t v)</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    __STATIC_INLINE uint32_t <a class="code hl_define" href="a01572.html#gab83768933a612816fad669db5488366f">__RBIT</a>(uint32_t v)</div>
 <div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    {</div>
 <div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>      uint8_t sc = 31U;</div>
 <div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>      uint32_t r = v;</div>
@@ -621,7 +621,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>      <span class="keywordflow">return</span> (r &lt;&lt; sc);</div>
 <div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>    }</div>
 <div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span> </div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    __STATIC_INLINE  uint32_t <a class="code hl_function" href="a01574.html#gadff4f1e599946e8ae96fba17b5245f04">__get_APSR</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    __STATIC_INLINE  uint32_t <a class="code hl_function" href="a01571.html#gadff4f1e599946e8ae96fba17b5245f04">__get_APSR</a>(<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    {</div>
 <div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>      uint32_t res;</div>
 <div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>      __asm(<span class="stringliteral">&quot;MRS      %0,APSR&quot;</span> : <span class="stringliteral">&quot;=r&quot;</span> (res));</div>
@@ -683,7 +683,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span> </div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span><span class="preprocessor">  #endif </span><span class="comment">/* (__CORTEX_M &gt;= 0x03) */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span> </div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>  __IAR_FT uint32_t <a class="code hl_define" href="a01575.html#ga95b9bd281ddeda378b85afdb8f2ced86">__ROR</a>(uint32_t op1, uint32_t op2)</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>  __IAR_FT uint32_t <a class="code hl_define" href="a01572.html#ga95b9bd281ddeda378b85afdb8f2ced86">__ROR</a>(uint32_t op1, uint32_t op2)</div>
 <div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>  {</div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    <span class="keywordflow">return</span> (op1 &gt;&gt; op2) | (op1 &lt;&lt; ((<span class="keyword">sizeof</span>(op1)*8)-op2));</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>  }</div>
@@ -865,7 +865,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span><span class="preprocessor">#define __BKPT(value)    __asm volatile (&quot;BKPT     %0&quot; : : &quot;i&quot;(value))</span></div>
 <div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span> </div>
 <div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span><span class="preprocessor">#if __IAR_M0_FAMILY</span></div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>  __STATIC_INLINE int32_t <a class="code hl_function" href="a01575.html#ga372c0535573dde3e37f0f08c774a3487">__SSAT</a>(int32_t val, uint32_t sat)</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>  __STATIC_INLINE int32_t <a class="code hl_function" href="a01572.html#ga372c0535573dde3e37f0f08c774a3487">__SSAT</a>(int32_t val, uint32_t sat)</div>
 <div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>  {</div>
 <div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>    <span class="keywordflow">if</span> ((sat &gt;= 1U) &amp;&amp; (sat &lt;= 32U))</div>
 <div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    {</div>
@@ -883,7 +883,7 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>    <span class="keywordflow">return</span> val;</div>
 <div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>  }</div>
 <div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span> </div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>  __STATIC_INLINE uint32_t <a class="code hl_function" href="a01575.html#ga6562dbd8182d1571e22dbca7ebdfa9bc">__USAT</a>(int32_t val, uint32_t sat)</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>  __STATIC_INLINE uint32_t <a class="code hl_function" href="a01572.html#ga6562dbd8182d1571e22dbca7ebdfa9bc">__USAT</a>(int32_t val, uint32_t sat)</div>
 <div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>  {</div>
 <div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>    <span class="keywordflow">if</span> (sat &lt;= 31U)</div>
 <div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>    {</div>
@@ -1033,21 +1033,21 @@ $(function(){initNavTree('a03512_source.html','',''); });
 <div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span><span class="preprocessor">#pragma diag_default=Pe177</span></div>
 <div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span> </div>
 <div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span><span class="preprocessor">#endif </span><span class="comment">/* __CMSIS_ICCARM_H__ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aa01574_html_gadff4f1e599946e8ae96fba17b5245f04"><div class="ttname"><a href="a01574.html#gadff4f1e599946e8ae96fba17b5245f04">__get_APSR</a></div><div class="ttdeci">__STATIC_INLINE uint32_t __get_APSR(void)</div><div class="ttdoc">Get APSR Register.</div><div class="ttdef"><b>Definition</b> cmsis_armcc.h:170</div></div>
-<div class="ttc" id="aa01575_html_ga372c0535573dde3e37f0f08c774a3487"><div class="ttname"><a href="a01575.html#ga372c0535573dde3e37f0f08c774a3487">__SSAT</a></div><div class="ttdeci">__STATIC_FORCEINLINE int32_t __SSAT(int32_t val, uint32_t sat)</div><div class="ttdoc">Signed Saturate.</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:1139</div></div>
-<div class="ttc" id="aa01575_html_ga5d5bb1527e042be4a9fa5a33f65cc248"><div class="ttname"><a href="a01575.html#ga5d5bb1527e042be4a9fa5a33f65cc248">__CLZ</a></div><div class="ttdeci">#define __CLZ</div><div class="ttdoc">Count leading zeros.</div><div class="ttdef"><b>Definition</b> cmsis_armcc.h:544</div></div>
-<div class="ttc" id="aa01575_html_ga6562dbd8182d1571e22dbca7ebdfa9bc"><div class="ttname"><a href="a01575.html#ga6562dbd8182d1571e22dbca7ebdfa9bc">__USAT</a></div><div class="ttdeci">__STATIC_FORCEINLINE uint32_t __USAT(int32_t val, uint32_t sat)</div><div class="ttdoc">Unsigned Saturate.</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:1164</div></div>
-<div class="ttc" id="aa01575_html_ga95b9bd281ddeda378b85afdb8f2ced86"><div class="ttname"><a href="a01575.html#ga95b9bd281ddeda378b85afdb8f2ced86">__ROR</a></div><div class="ttdeci">#define __ROR</div><div class="ttdoc">Rotate Right in unsigned value (32 bit).</div><div class="ttdef"><b>Definition</b> cmsis_armcc.h:497</div></div>
-<div class="ttc" id="aa01575_html_gab83768933a612816fad669db5488366f"><div class="ttname"><a href="a01575.html#gab83768933a612816fad669db5488366f">__RBIT</a></div><div class="ttdeci">#define __RBIT</div><div class="ttdoc">Reverse bit order of value.</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:905</div></div>
-<div class="ttc" id="aa01575_html_gae580812686119c9c5cf3c11a7519a404"><div class="ttname"><a href="a01575.html#gae580812686119c9c5cf3c11a7519a404">__REVSH</a></div><div class="ttdeci">#define __REVSH(value)</div><div class="ttdoc">Reverse byte order (16 bit).</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:868</div></div>
-<div class="ttc" id="aa01943_html"><div class="ttname"><a href="a01943.html">__iar_u32</a></div><div class="ttdef"><b>Definition</b> cmsis_iccarm.h:221</div></div>
+<div class="ttc" id="aa01571_html_gadff4f1e599946e8ae96fba17b5245f04"><div class="ttname"><a href="a01571.html#gadff4f1e599946e8ae96fba17b5245f04">__get_APSR</a></div><div class="ttdeci">__STATIC_INLINE uint32_t __get_APSR(void)</div><div class="ttdoc">Get APSR Register.</div><div class="ttdef"><b>Definition</b> cmsis_armcc.h:170</div></div>
+<div class="ttc" id="aa01572_html_ga372c0535573dde3e37f0f08c774a3487"><div class="ttname"><a href="a01572.html#ga372c0535573dde3e37f0f08c774a3487">__SSAT</a></div><div class="ttdeci">__STATIC_FORCEINLINE int32_t __SSAT(int32_t val, uint32_t sat)</div><div class="ttdoc">Signed Saturate.</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:1139</div></div>
+<div class="ttc" id="aa01572_html_ga5d5bb1527e042be4a9fa5a33f65cc248"><div class="ttname"><a href="a01572.html#ga5d5bb1527e042be4a9fa5a33f65cc248">__CLZ</a></div><div class="ttdeci">#define __CLZ</div><div class="ttdoc">Count leading zeros.</div><div class="ttdef"><b>Definition</b> cmsis_armcc.h:544</div></div>
+<div class="ttc" id="aa01572_html_ga6562dbd8182d1571e22dbca7ebdfa9bc"><div class="ttname"><a href="a01572.html#ga6562dbd8182d1571e22dbca7ebdfa9bc">__USAT</a></div><div class="ttdeci">__STATIC_FORCEINLINE uint32_t __USAT(int32_t val, uint32_t sat)</div><div class="ttdoc">Unsigned Saturate.</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:1164</div></div>
+<div class="ttc" id="aa01572_html_ga95b9bd281ddeda378b85afdb8f2ced86"><div class="ttname"><a href="a01572.html#ga95b9bd281ddeda378b85afdb8f2ced86">__ROR</a></div><div class="ttdeci">#define __ROR</div><div class="ttdoc">Rotate Right in unsigned value (32 bit).</div><div class="ttdef"><b>Definition</b> cmsis_armcc.h:497</div></div>
+<div class="ttc" id="aa01572_html_gab83768933a612816fad669db5488366f"><div class="ttname"><a href="a01572.html#gab83768933a612816fad669db5488366f">__RBIT</a></div><div class="ttdeci">#define __RBIT</div><div class="ttdoc">Reverse bit order of value.</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:905</div></div>
+<div class="ttc" id="aa01572_html_gae580812686119c9c5cf3c11a7519a404"><div class="ttname"><a href="a01572.html#gae580812686119c9c5cf3c11a7519a404">__REVSH</a></div><div class="ttdeci">#define __REVSH(value)</div><div class="ttdoc">Reverse byte order (16 bit).</div><div class="ttdef"><b>Definition</b> cmsis_armclang.h:868</div></div>
+<div class="ttc" id="aa01938_html"><div class="ttname"><a href="a01938.html">__iar_u32</a></div><div class="ttdef"><b>Definition</b> cmsis_iccarm.h:221</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa5xx</b></li><li class="navelem"><a href="a03512.html">cmsis_iccarm.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxw7x</b></li><li class="navelem"><a href="a03512.html">cmsis_iccarm.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

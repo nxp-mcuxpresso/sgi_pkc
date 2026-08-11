@@ -1,8 +1,7 @@
 var a01524 =
 [
-    [ "MCUX_CSSL_FP_BRANCH_DECL_IMPL", "a01524.html#gaf4e4c76c10150fa1b5e8944f33720c44", null ],
-    [ "MCUX_CSSL_FP_BRANCH_POSITIVE_IMPL", "a01524.html#gadff057603f2018ef9440b0e981353a48", null ],
-    [ "MCUX_CSSL_FP_BRANCH_NEGATIVE_IMPL", "a01524.html#gaf7f462f39963033ea44c0f7c7f41a76f", null ],
-    [ "MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE_IMPL", "a01524.html#gaae07d1c658effb2daa3df7a75214b0f1", null ],
-    [ "MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE_IMPL", "a01524.html#ga2142ecf918cf320bf1b15b8d8cfe5253", null ]
+    [ "MCUX_CSSL_FP_DECL_NAME", "a01524.html#ga116350fa9fa1a37d3fca3d3a15f010f3", null ],
+    [ "MCUX_CSSL_FP_DECL_IMPL", "a01524.html#gab0919c85280cbf0aa51daaec18cb524a", null ],
+    [ "MCUX_CSSL_FP_ID_IMPL", "a01524.html#ga6bc8b7f3f35325ca98c1b5d0f7658061", null ],
+    [ "MCUX_CSSL_FP_COUNTER_STMT_IMPL", "a01524.html#ga206162408638fe12dc1d021fa3cb8ad5", null ]
 ];

@@ -1,5 +1,11 @@
 var a01374 =
 [
-    [ "mcuxClKey_AgreementDescriptor_ECDH", "a01374.html#gaa8f7ba354fdad5294ea9cf738b0a5b30", null ],
-    [ "mcuxClKey_Agreement_ECDH", "a01374.html#ga17bcc12a56c33f015f913d6bed36f8cc", null ]
+    [ "mcuxClEcc_KeyTypeDescriptors", "a01369.html", "a01369" ],
+    [ "mcuxClEcc_KeyGenerationDescriptors", "a01370.html", "a01370" ],
+    [ "mcuxClEcc_KeyAgreementDescriptors", "a01371.html", "a01371" ],
+    [ "mcuxClEcc_KeyValidationDescriptors", "a01372.html", "a01372" ],
+    [ "mcuxClEcc_DomainParamsDescriptor", "a01375.html", null ],
+    [ "mcuxClEcc_WeierECC_PointEncDescriptor", "a01376.html", "a01376" ],
+    [ "mcuxClEcc_ArithmeticOperation", "a01377.html", null ],
+    [ "McuxClEcc_ECDSADescriptors", "a01616.html", "a01616" ]
 ];

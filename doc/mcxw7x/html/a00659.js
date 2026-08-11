@@ -1,6 +1,8 @@
 var a00659 =
 [
-    [ "mcuxClKey_Derivation_ModeConstructor_HKDF", "a01406.html#ga41b1c050855c5d77dc2dc532f780c01e", null ],
-    [ "mcuxClKey_DerivationAlgorithmDescriptor_HKDF", "a01406.html#ga7ee513befe1e6f0a25ad20b7429d9013", null ],
-    [ "mcuxClKey_DerivationAlgorithm_HKDF", "a01406.html#gafc23edf213502f0f0afe0234daca24c6", null ]
+    [ "mcuxClKey_Derivation_ModeConstructor_NIST_SP800_108", "a01404.html#gafdf995c2c5f6f8079f670343eb025a96", null ],
+    [ "mcuxClKey_DerivationAlgorithmDescriptor_NIST_SP800_108", "a01404.html#ga2cc13bea6fc32a2d17c13045d4040444", null ],
+    [ "mcuxClKey_DerivationAlgorithm_NIST_SP800_108", "a01404.html#ga89f293f2a1b992ce349166b8be785925", null ],
+    [ "mcuxClKey_DerivationMode_SP800_108_CM_CMAC", "a01404.html#ga2b8ad21966f286740593bb9519bb7c37", null ],
+    [ "mcuxClKdfModes_SP800_108_CM_CMAC", "a01404.html#ga29515e4d52cbe25be0cd917fe075f981", null ]
 ];

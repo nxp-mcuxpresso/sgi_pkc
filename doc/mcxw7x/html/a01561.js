@@ -1,7 +1,7 @@
 var a01561 =
 [
-    [ "MCUX_CSSL_SC_SUB", "a01561.html#ga270e4467ff02a10df72b1da177385858", null ],
-    [ "MCUX_CSSL_SC_SUB_0x1", "a01561.html#ga7df8a7a4e7798142da2e668ca21f3a5e", null ],
-    [ "MCUX_CSSL_SC_SUB_0x10", "a01561.html#gabb6f649421ad8405aa47812615301933", null ],
-    [ "MCUX_CSSL_SC_SUB_0x100", "a01561.html#gacf7c177e9dbd78d8c5a81fe3b9b4b5cb", null ]
+    [ "Secure counter core functionality", "a01562.html", "a01562" ],
+    [ "Secure counter increment", "a01563.html", "a01563" ],
+    [ "Secure counter decrement", "a01564.html", "a01564" ],
+    [ "Secure counter direct access", "a01565.html", "a01565" ]
 ];

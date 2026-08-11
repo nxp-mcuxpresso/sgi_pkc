@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClResource status of HW resource and option to request HW resource</title>
+<title>MCUX CLNS: Key Type Descriptors</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,74 +102,35 @@ $(function(){initNavTree('a01460.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClResource status of HW resource and option to request HW resource <div class="ingroups"><a class="el" href="a01455.html">mcuxClResource</a> &raquo; <a class="el" href="a01458.html">mcuxClResource_Constants</a></div></div></div>
+  <div class="headertitle"><div class="title">Key Type Descriptors <div class="ingroups"><a class="el" href="a01458.html">mcuxClRsa</a> &raquo; <a class="el" href="a01470.html">mcuxClRsa_Descriptors</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines of hardware request options.  
+<p>Definition of supported key types in <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a> component, see also <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a> component.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:gac38fe43eba55a7f8c788c87b5cb07cb1" id="r_gac38fe43eba55a7f8c788c87b5cb07cb1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac38fe43eba55a7f8c788c87b5cb07cb1">MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS</a></td></tr>
-<tr class="memdesc:gac38fe43eba55a7f8c788c87b5cb07cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">bit length of HW request option  <br /></td></tr>
-<tr class="memitem:ga3976ca493ab75d898bb3512fc8c0c489" id="r_ga3976ca493ab75d898bb3512fc8c0c489"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3976ca493ab75d898bb3512fc8c0c489">MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE</a></td></tr>
-<tr class="memdesc:ga3976ca493ab75d898bb3512fc8c0c489"><td class="mdescLeft">&#160;</td><td class="mdescRight">option to request HW as interruptible  <br /></td></tr>
-<tr class="memitem:ga395aa5ac0c63ae9517057980ec521734" id="r_ga395aa5ac0c63ae9517057980ec521734"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga395aa5ac0c63ae9517057980ec521734">MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE</a></td></tr>
-<tr class="memdesc:ga395aa5ac0c63ae9517057980ec521734"><td class="mdescLeft">&#160;</td><td class="mdescRight">option to request HW as non-interruptible  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Topics</h2></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPublic_5FStructures" id="r_mcuxClRsa_5FKeyTypes_5FPublic_5FStructures"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01461.html">RSA public key type structures</a></td></tr>
+<tr class="memdesc:a01461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type structures for RSA public keys of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPublic_5FPointers" id="r_mcuxClRsa_5FKeyTypes_5FPublic_5FPointers"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01462.html">RSA public key type pointers</a></td></tr>
+<tr class="memdesc:a01462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type pointers for public RSA keys of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPrivatePlain_5FStructures" id="r_mcuxClRsa_5FKeyTypes_5FPrivatePlain_5FStructures"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01463.html">RSA private plain key type structures</a></td></tr>
+<tr class="memdesc:a01463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type structures for RSA private plain keys of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPrivatePlain_5FPointers" id="r_mcuxClRsa_5FKeyTypes_5FPrivatePlain_5FPointers"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01464.html">RSA private plain key type pointers</a></td></tr>
+<tr class="memdesc:a01464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type pointers for private plain RSA keys of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPrivateCrt_5FStructures" id="r_mcuxClRsa_5FKeyTypes_5FPrivateCrt_5FStructures"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01465.html">RSA private CRT key type structures</a></td></tr>
+<tr class="memdesc:a01465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type structures for RSA private CRT keys of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPrivateCRT_5FPointers" id="r_mcuxClRsa_5FKeyTypes_5FPrivateCRT_5FPointers"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01466.html">RSA private CRT key type pointers</a></td></tr>
+<tr class="memdesc:a01466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type pointers for private CRT RSA keys of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPrivateCrt_5FDFA_5FStructures" id="r_mcuxClRsa_5FKeyTypes_5FPrivateCrt_5FDFA_5FStructures"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01467.html">RSA private CRT_DFA key type structures with</a></td></tr>
+<tr class="memdesc:a01467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type structures for RSA private CRT keys with DFA protection enabled of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
+<tr class="memitem:mcuxClRsa_5FKeyTypes_5FPrivateCrt_5FDFA_5FPointers" id="r_mcuxClRsa_5FKeyTypes_5FPrivateCrt_5FDFA_5FPointers"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01468.html">RSA private CRT_DFA key type pointers with</a></td></tr>
+<tr class="memdesc:a01468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key type pointers for RSA private CRT keys with DFA protection enabled of <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines of hardware request options. </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="gac38fe43eba55a7f8c788c87b5cb07cb1" name="gac38fe43eba55a7f8c788c87b5cb07cb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac38fe43eba55a7f8c788c87b5cb07cb1">&#9670;&#160;</a></span>MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRESOURCE_HWSTATUS_SIZE_IN_BITS</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>bit length of HW request option </p>
-
-</div>
-</div>
-<a id="ga3976ca493ab75d898bb3512fc8c0c489" name="ga3976ca493ab75d898bb3512fc8c0c489"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3976ca493ab75d898bb3512fc8c0c489">&#9670;&#160;</a></span>MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRESOURCE_HWSTATUS_INTERRUPTABLE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>option to request HW as interruptible </p>
-
-</div>
-</div>
-<a id="ga395aa5ac0c63ae9517057980ec521734" name="ga395aa5ac0c63ae9517057980ec521734"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga395aa5ac0c63ae9517057980ec521734">&#9670;&#160;</a></span>MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MCUXCLRESOURCE_HWSTATUS_NON_INTERRUPTABLE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>option to request HW as non-interruptible </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Definition of supported key types in <a class="el" href="a01458.html" title="mcuxClRsa">mcuxClRsa</a> component, see also <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a> component. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

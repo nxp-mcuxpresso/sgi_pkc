@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLKEY_LOADSTATUS_</title>
+<title>MCUX CLNS: mcuxClKey_KeyLoadOption</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,160 +102,274 @@ $(function(){initNavTree('a01414.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLKEY_LOADSTATUS_ <div class="ingroups"><a class="el" href="a01411.html">mcuxClKey</a> &raquo; <a class="el" href="a01412.html">mcuxClKey_Macros</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClKey_KeyLoadOption <div class="ingroups"><a class="el" href="a01408.html">mcuxClKey</a> &raquo; <a class="el" href="a01409.html">mcuxClKey_Macros</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Load location options.  
+<p>Defines all key load options (slots, others) of <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga8ce719dd938dbdc0cf859fbb1e602a0e" id="r_ga8ce719dd938dbdc0cf859fbb1e602a0e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8ce719dd938dbdc0cf859fbb1e602a0e">MCUXCLKEY_LOADSTATUS_NOTLOADED</a></td></tr>
-<tr class="memdesc:ga8ce719dd938dbdc0cf859fbb1e602a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key not loaded.  <br /></td></tr>
-<tr class="memitem:ga2d87bb14ba03cbffd6c11d0f7d3f6ee3" id="r_ga2d87bb14ba03cbffd6c11d0f7d3f6ee3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2d87bb14ba03cbffd6c11d0f7d3f6ee3">MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED</a></td></tr>
-<tr class="memdesc:ga2d87bb14ba03cbffd6c11d0f7d3f6ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is not loaded yet, but the HW IP slot is set for the key.  <br /></td></tr>
-<tr class="memitem:ga32aed5dbc24926c542e6c346fe5c8e02" id="r_ga32aed5dbc24926c542e6c346fe5c8e02"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga32aed5dbc24926c542e6c346fe5c8e02">MCUXCLKEY_LOADSTATUS_LOCATION_MASK</a></td></tr>
-<tr class="memdesc:ga32aed5dbc24926c542e6c346fe5c8e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask for the key location.  <br /></td></tr>
-<tr class="memitem:gae2da6715b590e0eba9414468862d44f8" id="r_gae2da6715b590e0eba9414468862d44f8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae2da6715b590e0eba9414468862d44f8">MCUXCLKEY_LOADSTATUS_LOCATION_NONE</a></td></tr>
-<tr class="memdesc:gae2da6715b590e0eba9414468862d44f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is not loaded to any location.  <br /></td></tr>
-<tr class="memitem:gad1bb0f23959496e4b61eb39deacc9c78" id="r_gad1bb0f23959496e4b61eb39deacc9c78"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad1bb0f23959496e4b61eb39deacc9c78">MCUXCLKEY_LOADSTATUS_LOCATION_COPRO</a></td></tr>
-<tr class="memdesc:gad1bb0f23959496e4b61eb39deacc9c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is loaded to a HW IP slot.  <br /></td></tr>
-<tr class="memitem:ga5fbb658f32b6a78386a0f5b7b25bf059" id="r_ga5fbb658f32b6a78386a0f5b7b25bf059"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5fbb658f32b6a78386a0f5b7b25bf059">MCUXCLKEY_LOADSTATUS_OPTIONS_MASK</a></td></tr>
-<tr class="memdesc:ga5fbb658f32b6a78386a0f5b7b25bf059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask for additional option bits of a key load status.  <br /></td></tr>
-<tr class="memitem:ga35789114c2273c2e8e9db164a668294e" id="r_ga35789114c2273c2e8e9db164a668294e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga35789114c2273c2e8e9db164a668294e">MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED</a></td></tr>
-<tr class="memdesc:ga35789114c2273c2e8e9db164a668294e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do not flush the key after the operation (for Symmetric and ECCKI keys only).  <br /></td></tr>
-<tr class="memitem:ga2313214ad9f182ecdec879bebd2a1d3d" id="r_ga2313214ad9f182ecdec879bebd2a1d3d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2313214ad9f182ecdec879bebd2a1d3d">MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY</a></td></tr>
-<tr class="memdesc:ga2313214ad9f182ecdec879bebd2a1d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is loaded to a location that is write-only (e.g., SGI WO key slots).  <br /></td></tr>
+<tr class="memitem:ga5789d8d6ebba7d3965ef9e49c54a56cb" id="r_ga5789d8d6ebba7d3965ef9e49c54a56cb"><td class="memItemLeft"><a id="ga5789d8d6ebba7d3965ef9e49c54a56cb" name="ga5789d8d6ebba7d3965ef9e49c54a56cb"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_MASK</b></td></tr>
+<tr class="memitem:ga3b59d79469cf73d905f884168c09e0b4" id="r_ga3b59d79469cf73d905f884168c09e0b4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3b59d79469cf73d905f884168c09e0b4">MCUXCLKEY_LOADOPTION_SLOT_MASK</a></td></tr>
+<tr class="memdesc:ga3b59d79469cf73d905f884168c09e0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines for supported key slots.  <br /></td></tr>
+<tr class="memitem:ga1df1ee69a05617fd8e3806a908e688e9" id="r_ga1df1ee69a05617fd8e3806a908e688e9"><td class="memItemLeft"><a id="ga1df1ee69a05617fd8e3806a908e688e9" name="ga1df1ee69a05617fd8e3806a908e688e9"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_SLOT_INVALID</b></td></tr>
+<tr class="memitem:gaf6a047ba164c2cd01ba15662ba7f5faa" id="r_gaf6a047ba164c2cd01ba15662ba7f5faa"><td class="memItemLeft"><a id="gaf6a047ba164c2cd01ba15662ba7f5faa" name="gaf6a047ba164c2cd01ba15662ba7f5faa"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_SLOT_COPRO_MASK</b></td></tr>
+<tr class="memitem:ga0adea068fb1a85c988718f8ffc08fad1" id="r_ga0adea068fb1a85c988718f8ffc08fad1"><td class="memItemLeft"><a id="ga0adea068fb1a85c988718f8ffc08fad1" name="ga0adea068fb1a85c988718f8ffc08fad1"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_SLOT_COPRO_SHIFT</b></td></tr>
+<tr class="memitem:gabd2db80596cfdb3a4966054e40784e72" id="r_gabd2db80596cfdb3a4966054e40784e72"><td class="memItemLeft"><a id="gabd2db80596cfdb3a4966054e40784e72" name="gabd2db80596cfdb3a4966054e40784e72"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_SLOT_COPRO_SGI</b></td></tr>
+<tr class="memitem:gaf7c7d4c0e4fd932be4635e477f570c1c" id="r_gaf7c7d4c0e4fd932be4635e477f570c1c"><td class="memItemLeft"><a id="gaf7c7d4c0e4fd932be4635e477f570c1c" name="gaf7c7d4c0e4fd932be4635e477f570c1c"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_SLOT_SLOT_MASK</b></td></tr>
+<tr class="memitem:ga1f94848694116972979f2c3422e76f47" id="r_ga1f94848694116972979f2c3422e76f47"><td class="memItemLeft"><a id="ga1f94848694116972979f2c3422e76f47" name="ga1f94848694116972979f2c3422e76f47"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_SLOT_SLOT_SHIFT</b></td></tr>
+<tr class="memitem:ga3e9a6b739bcdcf5eb5e6924fd0caa155" id="r_ga3e9a6b739bcdcf5eb5e6924fd0caa155"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3e9a6b739bcdcf5eb5e6924fd0caa155">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_0</a></td></tr>
+<tr class="memdesc:ga3e9a6b739bcdcf5eb5e6924fd0caa155"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 0. Reserved for CL internal key usage.  <br /></td></tr>
+<tr class="memitem:ga67ef1951a618422141f28c28551c0803" id="r_ga67ef1951a618422141f28c28551c0803"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga67ef1951a618422141f28c28551c0803">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_1</a></td></tr>
+<tr class="memdesc:ga67ef1951a618422141f28c28551c0803"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 1. Reserved for CL internal key usage.  <br /></td></tr>
+<tr class="memitem:ga1f07bf813f39c700adf2c9945328ea17" id="r_ga1f07bf813f39c700adf2c9945328ea17"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1f07bf813f39c700adf2c9945328ea17">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_2</a></td></tr>
+<tr class="memdesc:ga1f07bf813f39c700adf2c9945328ea17"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 2.  <br /></td></tr>
+<tr class="memitem:ga0bc75cfe2cb282d23a6593c87f88b6ba" id="r_ga0bc75cfe2cb282d23a6593c87f88b6ba"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0bc75cfe2cb282d23a6593c87f88b6ba">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_3</a></td></tr>
+<tr class="memdesc:ga0bc75cfe2cb282d23a6593c87f88b6ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 3.  <br /></td></tr>
+<tr class="memitem:gab7024bd22638c74cf9553e7752fa144e" id="r_gab7024bd22638c74cf9553e7752fa144e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab7024bd22638c74cf9553e7752fa144e">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_4</a></td></tr>
+<tr class="memdesc:gab7024bd22638c74cf9553e7752fa144e"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 4.  <br /></td></tr>
+<tr class="memitem:ga1f971246faa81482561e52221d1dfeda" id="r_ga1f971246faa81482561e52221d1dfeda"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1f971246faa81482561e52221d1dfeda">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_5</a></td></tr>
+<tr class="memdesc:ga1f971246faa81482561e52221d1dfeda"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 5.  <br /></td></tr>
+<tr class="memitem:gaaace2a5d7926bb12b4e9cb827bbd355a" id="r_gaaace2a5d7926bb12b4e9cb827bbd355a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaaace2a5d7926bb12b4e9cb827bbd355a">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</a></td></tr>
+<tr class="memdesc:gaaace2a5d7926bb12b4e9cb827bbd355a"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 6.  <br /></td></tr>
+<tr class="memitem:gad6715a20046b352b00e12c97c1f3d155" id="r_gad6715a20046b352b00e12c97c1f3d155"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad6715a20046b352b00e12c97c1f3d155">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_7</a></td></tr>
+<tr class="memdesc:gad6715a20046b352b00e12c97c1f3d155"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI key slot 7.  <br /></td></tr>
+<tr class="memitem:ga46fb193b6c8a3a030443bfe05397d5c4" id="r_ga46fb193b6c8a3a030443bfe05397d5c4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga46fb193b6c8a3a030443bfe05397d5c4">MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP</a></td></tr>
+<tr class="memdesc:ga46fb193b6c8a3a030443bfe05397d5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sgi key slot containing an RFC3394 unwrapped key.  <br /></td></tr>
+<tr class="memitem:ga482487588bc0ce17ad6bbbccdba6f1ec" id="r_ga482487588bc0ce17ad6bbbccdba6f1ec"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga482487588bc0ce17ad6bbbccdba6f1ec">MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK</a></td></tr>
+<tr class="memdesc:ga482487588bc0ce17ad6bbbccdba6f1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines for other key options that can be encoded in a slot.  <br /></td></tr>
+<tr class="memitem:gafd6a496f955448f25838c659ee1a02b0" id="r_gafd6a496f955448f25838c659ee1a02b0"><td class="memItemLeft"><a id="gafd6a496f955448f25838c659ee1a02b0" name="gafd6a496f955448f25838c659ee1a02b0"></a>
+#define&#160;</td><td class="memItemRight"><b>MCUXCLKEY_LOADOPTION_ALREADYLOADED_SHIFT</b></td></tr>
+<tr class="memitem:gace2f11c195c9044f5fa5c4457f65d36b" id="r_gace2f11c195c9044f5fa5c4457f65d36b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gace2f11c195c9044f5fa5c4457f65d36b">MCUXCLKEY_LOADOPTION_ALREADYLOADED</a></td></tr>
+<tr class="memdesc:gace2f11c195c9044f5fa5c4457f65d36b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option: the key is already loaded; only set the fields in the key object.  <br /></td></tr>
+<tr class="memitem:ga3a14b2c1c5138a9393a6a780384b0101" id="r_ga3a14b2c1c5138a9393a6a780384b0101"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3a14b2c1c5138a9393a6a780384b0101">MCUXCLKEY_LOADOPTION_RFU_MASK</a></td></tr>
+<tr class="memdesc:ga3a14b2c1c5138a9393a6a780384b0101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines for RFU bits.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Load location options. </p>
+<div class="textblock"><p>Defines all key load options (slots, others) of <a class="el" href="a01408.html" title="mcuxClKey">mcuxClKey</a>. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga8ce719dd938dbdc0cf859fbb1e602a0e" name="ga8ce719dd938dbdc0cf859fbb1e602a0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8ce719dd938dbdc0cf859fbb1e602a0e">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_NOTLOADED</h2>
+<a id="ga3b59d79469cf73d905f884168c09e0b4" name="ga3b59d79469cf73d905f884168c09e0b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3b59d79469cf73d905f884168c09e0b4">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_MASK</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_NOTLOADED</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_MASK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key not loaded. </p>
+<p>Defines for supported key slots. </p>
 
 </div>
 </div>
-<a id="ga2d87bb14ba03cbffd6c11d0f7d3f6ee3" name="ga2d87bb14ba03cbffd6c11d0f7d3f6ee3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2d87bb14ba03cbffd6c11d0f7d3f6ee3">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED</h2>
+<a id="ga3e9a6b739bcdcf5eb5e6924fd0caa155" name="ga3e9a6b739bcdcf5eb5e6924fd0caa155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3e9a6b739bcdcf5eb5e6924fd0caa155">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_0</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key is not loaded yet, but the HW IP slot is set for the key. </p>
+<p>SGI key slot 0. Reserved for CL internal key usage. </p>
 
 </div>
 </div>
-<a id="ga32aed5dbc24926c542e6c346fe5c8e02" name="ga32aed5dbc24926c542e6c346fe5c8e02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga32aed5dbc24926c542e6c346fe5c8e02">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_LOCATION_MASK</h2>
+<a id="ga67ef1951a618422141f28c28551c0803" name="ga67ef1951a618422141f28c28551c0803"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga67ef1951a618422141f28c28551c0803">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_LOCATION_MASK</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_1</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit mask for the key location. </p>
+<p>SGI key slot 1. Reserved for CL internal key usage. </p>
 
 </div>
 </div>
-<a id="gae2da6715b590e0eba9414468862d44f8" name="gae2da6715b590e0eba9414468862d44f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae2da6715b590e0eba9414468862d44f8">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_LOCATION_NONE</h2>
+<a id="ga1f07bf813f39c700adf2c9945328ea17" name="ga1f07bf813f39c700adf2c9945328ea17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1f07bf813f39c700adf2c9945328ea17">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_2</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_LOCATION_NONE</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_2</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key is not loaded to any location. </p>
+<p>SGI key slot 2. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03318.html#_a10">mcuxClAeadModes_Ccm_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a03345.html#_a10">mcuxClCipherModes_Ecb_Aes128_Oneshot_PreloadedKey_example.c</a>, <a class="el" href="a03399.html#_a10">mcuxClKey_Load_Flush_Sgi_example.c</a>, <a class="el" href="a03400.html#_a12">mcuxClKey_Rewrap_Rfc3394_Sgi_example.c</a>, and <a class="el" href="a03406.html#_a9">mcuxClMacModes_Cmac_Aes128_Compute_PreloadedKey_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>
-<a id="gad1bb0f23959496e4b61eb39deacc9c78" name="gad1bb0f23959496e4b61eb39deacc9c78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad1bb0f23959496e4b61eb39deacc9c78">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_LOCATION_COPRO</h2>
+<a id="ga0bc75cfe2cb282d23a6593c87f88b6ba" name="ga0bc75cfe2cb282d23a6593c87f88b6ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0bc75cfe2cb282d23a6593c87f88b6ba">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_3</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_LOCATION_COPRO</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_3</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key is loaded to a HW IP slot. </p>
+<p>SGI key slot 3. </p>
 
 </div>
 </div>
-<a id="ga5fbb658f32b6a78386a0f5b7b25bf059" name="ga5fbb658f32b6a78386a0f5b7b25bf059"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5fbb658f32b6a78386a0f5b7b25bf059">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_OPTIONS_MASK</h2>
+<a id="gab7024bd22638c74cf9553e7752fa144e" name="gab7024bd22638c74cf9553e7752fa144e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab7024bd22638c74cf9553e7752fa144e">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_4</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_OPTIONS_MASK</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_4</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit mask for additional option bits of a key load status. </p>
+<p>SGI key slot 4. </p>
 
 </div>
 </div>
-<a id="ga35789114c2273c2e8e9db164a668294e" name="ga35789114c2273c2e8e9db164a668294e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga35789114c2273c2e8e9db164a668294e">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED</h2>
+<a id="ga1f971246faa81482561e52221d1dfeda" name="ga1f971246faa81482561e52221d1dfeda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1f971246faa81482561e52221d1dfeda">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_5</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_5</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Do not flush the key after the operation (for Symmetric and ECCKI keys only). </p>
+<p>SGI key slot 5. </p>
 
 </div>
 </div>
-<a id="ga2313214ad9f182ecdec879bebd2a1d3d" name="ga2313214ad9f182ecdec879bebd2a1d3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2313214ad9f182ecdec879bebd2a1d3d">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY</h2>
+<a id="gaaace2a5d7926bb12b4e9cb827bbd355a" name="gaaace2a5d7926bb12b4e9cb827bbd355a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaace2a5d7926bb12b4e9cb827bbd355a">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY</td>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_6</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key is loaded to a location that is write-only (e.g., SGI WO key slots). </p>
+<p>SGI key slot 6. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03323.html#_a11">mcuxClCipherModes_Cbc_Aes128_Multipart_KeyRfc3394Encoding_example.c</a>, <a class="el" href="a03400.html#_a16">mcuxClKey_Rewrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a03401.html#_a11">mcuxClKey_Unwrap_Rfc3394_Sgi_example.c</a>, <a class="el" href="a03403.html#_a12">mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example.c</a>, and <a class="el" href="a03402.html#_a12">mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="gad6715a20046b352b00e12c97c1f3d155" name="gad6715a20046b352b00e12c97c1f3d155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad6715a20046b352b00e12c97c1f3d155">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_7</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SGI key slot 7. </p>
+
+</div>
+</div>
+<a id="ga46fb193b6c8a3a030443bfe05397d5c4" name="ga46fb193b6c8a3a030443bfe05397d5c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga46fb193b6c8a3a030443bfe05397d5c4">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_SLOT_SGI_KEY_UNWRAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sgi key slot containing an RFC3394 unwrapped key. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03401.html#_a15">mcuxClKey_Unwrap_Rfc3394_Sgi_example.c</a>, and <a class="el" href="a03403.html#_a16">mcuxClKey_WrapAndLoad_Rfc3394_Sgi_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga482487588bc0ce17ad6bbbccdba6f1ec" name="ga482487588bc0ce17ad6bbbccdba6f1ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga482487588bc0ce17ad6bbbccdba6f1ec">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_ALREADYLOADED_MASK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines for other key options that can be encoded in a slot. </p>
+
+</div>
+</div>
+<a id="gace2f11c195c9044f5fa5c4457f65d36b" name="gace2f11c195c9044f5fa5c4457f65d36b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace2f11c195c9044f5fa5c4457f65d36b">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_ALREADYLOADED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_ALREADYLOADED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option: the key is already loaded; only set the fields in the key object. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03402.html#_a13">mcuxClKey_Wrap_Rfc3394_Sgi_kwkAlreadyLoaded_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga3a14b2c1c5138a9393a6a780384b0101" name="ga3a14b2c1c5138a9393a6a780384b0101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3a14b2c1c5138a9393a6a780384b0101">&#9670;&#160;</a></span>MCUXCLKEY_LOADOPTION_RFU_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADOPTION_RFU_MASK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines for RFU bits. </p>
 
 </div>
 </div>

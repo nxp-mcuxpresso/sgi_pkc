@@ -1,5 +1,4 @@
 var a01441 =
 [
-    [ "MCUXCLMEMORY_STATUS_", "a01435.html", "a01435" ],
-    [ "MCUXCLMEMORY_API", "a01441.html#ga2469abde1e59b6b478ba8c393dc3e95a", null ]
+    [ "MCUXCLPADDING_STATUS_ERROR", "a01441.html#ga27d0fc33860c93a2241e1d6b37a92d94", null ]
 ];

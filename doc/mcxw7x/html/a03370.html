@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</title>
+<title>MCUX CLNS: mcuxClFfdh_KeyAgreement_ffdhe6144_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,13 @@ $(function(){initNavTree('a03370.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxClFfdh_KeyAgreement_ffdhe6144_example.c</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example for the mcuxClEcc component.</p>
-<p>Example for the mcuxClEcc component</p>
+<p>Example for the mcuxClFfdh component.</p>
+<p>Example for the mcuxClFfdh component</p>
 <div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2022-2025 NXP                                                  */</span></div>
+<div class="line"><span class="comment">/* Copyright 2025-2026 NXP                                                  */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
 <div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
@@ -142,286 +142,402 @@ $(function(){initNavTree('a03370.html','',''); });
 <div class="line"></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClToolchain.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00839.html">mcuxClSession.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00671.html">mcuxClKey.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00599.html">mcuxClFfdh.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00842.html">mcuxClSession.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00422.html">mcuxClBuffer.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00461.html">mcuxClCore_Macros.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_Session_Helper.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_RNG_Helper.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00674.html">mcuxClKey.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00476.html">mcuxClEcc.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00764.html">mcuxClRandom.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00767.html">mcuxClRandomModes.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00761.html">mcuxClRandom.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">mcuxClCore_Macros.h</a>&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#define BN256_BYTE_LEN_P  (32u)</span></div>
-<div class="line"><span class="preprocessor">#define BN256_BYTE_LEN_N  (32u)</span></div>
+<div class="line"><span class="preprocessor">#define MAX_CPUWA_SIZE (MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_6144)</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t BN_P256_P[BN256_BYTE_LEN_P] =</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">/* p = 0xFFFFFFFFFFFCF0CD46E5F25EEE71A49F0CDC65FB12980A82D3292DDBAED33013 */</span></div>
-<div class="line">    0xFFu, 0xFFu, 0xFFu, 0xFFu, 0xFFu, 0xFCu, 0xF0u, 0xCDu,</div>
-<div class="line">    0x46u, 0xE5u, 0xF2u, 0x5Eu, 0xEEu, 0x71u, 0xA4u, 0x9Fu,</div>
-<div class="line">    0x0Cu, 0xDCu, 0x65u, 0xFBu, 0x12u, 0x98u, 0x0Au, 0x82u,</div>
-<div class="line">    0xD3u, 0x29u, 0x2Du, 0xDBu, 0xAEu, 0xD3u, 0x30u, 0x13u};</div>
+<div class="line"><span class="preprocessor">#define MAX_PKCWA_SIZE (MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144)</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t BN_P256_A[BN256_BYTE_LEN_P] =</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">/* a = 0x0000000000000000000000000000000000000000000000000000000000000000 */</span></div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u</div>
+<div class="line"><span class="comment">/* Private key Alice (randomly generated) [BE] 0x169b6dfc68431dfc0f83f7d45b13220e38378239fcac6cb8f47b464ed254c006f79217db2bccd78487a5233df5acac03662cc4063315c14b022b1eb6e1000bc45a31ac0aff1b25428c3220a51f59ef23827a46710623ac800e2beac99f03d56c12cf82c80bd6821e41b9e012c7d65d5c2e3d081a36914978903536c99bd034f6f5cb65e582426f52ec2d35d269c65bd12b8f0ea6632cd8a1eec52c035d32db9a6d79899e2ac0ee6b756a1a3193d95bdf85583283903eb3e562d7054b3f8c13f306763ad3bafb8ced73aaba78dce275b86ce64939e0b7b6236fe3b6e815bb5c8213410c39e0b00eac26c0f3531248019330ca7ea2b5f8c02575ad7d0e005964dc50bb7c53e2bc7d3bf463e4cdfcdad38c7eb50a95fca761156f3ef1791642d849f6ac456a138d83eace33eef8be5b91d936f484a6a92a8431c95ffeda37ae2bcf0c690606f1edf5c5119a82b25f88c5e656afca6f3b8c05d8ce007c4004dbfdba7d9af94f7343c8e1dc5d4e4a0c9343f8a797b7158744f36d6d68ed3b27890dccbb49e0f40cc09b29badb3a1df178d32ac0f5329cc5e227a335a5ea86c3e0d0e6e1ebea8cebc5c360ae8073518d0e4bcd1e064f76198d3328499a503ddd22c7c8fc182157272938d0ee18a5b7e5d9657000666e7d1f8d5616eb11fb3d5b48446c685f50c293c54cd361a916f015a7b79fb20c99552904e237c61f5c635fd7d82643b724cf01ea4c36bae162042294d2dde49617339a13bc028c606f0971cb17f818861ffff2bfdb52fcae645662b6d805bbb3354b9007ad647fe1ee3850ae55c81554f1a6106fc8755e354ed4922db0581b1e6cf9756acaa021b69588dd891465ef17cfb3e3d1f64f7ad27f27561be81939ba0539771193e8e6a91880ebdad464606f32880865c769b65dbfd9d986be0e1585f4326848ec323bfd4b0e9145fec406a4968dd94e7f48f5fbcc951a38021ae8b31e51a4c7fd3f0e556b470ec3b699564d08bffb5e259bad3fedc75cf8ca37eb0876592034575f8f55a549f783adb885ebc53562437630e8fa68d1c3df553e9fdd437f72e9c9cfcddae73424bf28d8 */</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pAlicePrivKeyData[MCUXCLFFDH_FFDHE6144_SIZE_PRIVATEKEY] = {</div>
+<div class="line">  0x16U, 0x9BU, 0x6DU, 0xFCU, 0x68U, 0x43U, 0x1DU, 0xFCU, 0x0FU, 0x83U, 0xF7U, 0xD4U, 0x5BU, 0x13U, 0x22U, 0x0EU,</div>
+<div class="line">  0x38U, 0x37U, 0x82U, 0x39U, 0xFCU, 0xACU, 0x6CU, 0xB8U, 0xF4U, 0x7BU, 0x46U, 0x4EU, 0xD2U, 0x54U, 0xC0U, 0x06U,</div>
+<div class="line">  0xF7U, 0x92U, 0x17U, 0xDBU, 0x2BU, 0xCCU, 0xD7U, 0x84U, 0x87U, 0xA5U, 0x23U, 0x3DU, 0xF5U, 0xACU, 0xACU, 0x03U,</div>
+<div class="line">  0x66U, 0x2CU, 0xC4U, 0x06U, 0x33U, 0x15U, 0xC1U, 0x4BU, 0x02U, 0x2BU, 0x1EU, 0xB6U, 0xE1U, 0x00U, 0x0BU, 0xC4U,</div>
+<div class="line">  0x5AU, 0x31U, 0xACU, 0x0AU, 0xFFU, 0x1BU, 0x25U, 0x42U, 0x8CU, 0x32U, 0x20U, 0xA5U, 0x1FU, 0x59U, 0xEFU, 0x23U,</div>
+<div class="line">  0x82U, 0x7AU, 0x46U, 0x71U, 0x06U, 0x23U, 0xACU, 0x80U, 0x0EU, 0x2BU, 0xEAU, 0xC9U, 0x9FU, 0x03U, 0xD5U, 0x6CU,</div>
+<div class="line">  0x12U, 0xCFU, 0x82U, 0xC8U, 0x0BU, 0xD6U, 0x82U, 0x1EU, 0x41U, 0xB9U, 0xE0U, 0x12U, 0xC7U, 0xD6U, 0x5DU, 0x5CU,</div>
+<div class="line">  0x2EU, 0x3DU, 0x08U, 0x1AU, 0x36U, 0x91U, 0x49U, 0x78U, 0x90U, 0x35U, 0x36U, 0xC9U, 0x9BU, 0xD0U, 0x34U, 0xF6U,</div>
+<div class="line">  0xF5U, 0xCBU, 0x65U, 0xE5U, 0x82U, 0x42U, 0x6FU, 0x52U, 0xECU, 0x2DU, 0x35U, 0xD2U, 0x69U, 0xC6U, 0x5BU, 0xD1U,</div>
+<div class="line">  0x2BU, 0x8FU, 0x0EU, 0xA6U, 0x63U, 0x2CU, 0xD8U, 0xA1U, 0xEEU, 0xC5U, 0x2CU, 0x03U, 0x5DU, 0x32U, 0xDBU, 0x9AU,</div>
+<div class="line">  0x6DU, 0x79U, 0x89U, 0x9EU, 0x2AU, 0xC0U, 0xEEU, 0x6BU, 0x75U, 0x6AU, 0x1AU, 0x31U, 0x93U, 0xD9U, 0x5BU, 0xDFU,</div>
+<div class="line">  0x85U, 0x58U, 0x32U, 0x83U, 0x90U, 0x3EU, 0xB3U, 0xE5U, 0x62U, 0xD7U, 0x05U, 0x4BU, 0x3FU, 0x8CU, 0x13U, 0xF3U,</div>
+<div class="line">  0x06U, 0x76U, 0x3AU, 0xD3U, 0xBAU, 0xFBU, 0x8CU, 0xEDU, 0x73U, 0xAAU, 0xBAU, 0x78U, 0xDCU, 0xE2U, 0x75U, 0xB8U,</div>
+<div class="line">  0x6CU, 0xE6U, 0x49U, 0x39U, 0xE0U, 0xB7U, 0xB6U, 0x23U, 0x6FU, 0xE3U, 0xB6U, 0xE8U, 0x15U, 0xBBU, 0x5CU, 0x82U,</div>
+<div class="line">  0x13U, 0x41U, 0x0CU, 0x39U, 0xE0U, 0xB0U, 0x0EU, 0xACU, 0x26U, 0xC0U, 0xF3U, 0x53U, 0x12U, 0x48U, 0x01U, 0x93U,</div>
+<div class="line">  0x30U, 0xCAU, 0x7EU, 0xA2U, 0xB5U, 0xF8U, 0xC0U, 0x25U, 0x75U, 0xADU, 0x7DU, 0x0EU, 0x00U, 0x59U, 0x64U, 0xDCU,</div>
+<div class="line">  0x50U, 0xBBU, 0x7CU, 0x53U, 0xE2U, 0xBCU, 0x7DU, 0x3BU, 0xF4U, 0x63U, 0xE4U, 0xCDU, 0xFCU, 0xDAU, 0xD3U, 0x8CU,</div>
+<div class="line">  0x7EU, 0xB5U, 0x0AU, 0x95U, 0xFCU, 0xA7U, 0x61U, 0x15U, 0x6FU, 0x3EU, 0xF1U, 0x79U, 0x16U, 0x42U, 0xD8U, 0x49U,</div>
+<div class="line">  0xF6U, 0xACU, 0x45U, 0x6AU, 0x13U, 0x8DU, 0x83U, 0xEAU, 0xCEU, 0x33U, 0xEEU, 0xF8U, 0xBEU, 0x5BU, 0x91U, 0xD9U,</div>
+<div class="line">  0x36U, 0xF4U, 0x84U, 0xA6U, 0xA9U, 0x2AU, 0x84U, 0x31U, 0xC9U, 0x5FU, 0xFEU, 0xDAU, 0x37U, 0xAEU, 0x2BU, 0xCFU,</div>
+<div class="line">  0x0CU, 0x69U, 0x06U, 0x06U, 0xF1U, 0xEDU, 0xF5U, 0xC5U, 0x11U, 0x9AU, 0x82U, 0xB2U, 0x5FU, 0x88U, 0xC5U, 0xE6U,</div>
+<div class="line">  0x56U, 0xAFU, 0xCAU, 0x6FU, 0x3BU, 0x8CU, 0x05U, 0xD8U, 0xCEU, 0x00U, 0x7CU, 0x40U, 0x04U, 0xDBU, 0xFDU, 0xBAU,</div>
+<div class="line">  0x7DU, 0x9AU, 0xF9U, 0x4FU, 0x73U, 0x43U, 0xC8U, 0xE1U, 0xDCU, 0x5DU, 0x4EU, 0x4AU, 0x0CU, 0x93U, 0x43U, 0xF8U,</div>
+<div class="line">  0xA7U, 0x97U, 0xB7U, 0x15U, 0x87U, 0x44U, 0xF3U, 0x6DU, 0x6DU, 0x68U, 0xEDU, 0x3BU, 0x27U, 0x89U, 0x0DU, 0xCCU,</div>
+<div class="line">  0xBBU, 0x49U, 0xE0U, 0xF4U, 0x0CU, 0xC0U, 0x9BU, 0x29U, 0xBAU, 0xDBU, 0x3AU, 0x1DU, 0xF1U, 0x78U, 0xD3U, 0x2AU,</div>
+<div class="line">  0xC0U, 0xF5U, 0x32U, 0x9CU, 0xC5U, 0xE2U, 0x27U, 0xA3U, 0x35U, 0xA5U, 0xEAU, 0x86U, 0xC3U, 0xE0U, 0xD0U, 0xE6U,</div>
+<div class="line">  0xE1U, 0xEBU, 0xEAU, 0x8CU, 0xEBU, 0xC5U, 0xC3U, 0x60U, 0xAEU, 0x80U, 0x73U, 0x51U, 0x8DU, 0x0EU, 0x4BU, 0xCDU,</div>
+<div class="line">  0x1EU, 0x06U, 0x4FU, 0x76U, 0x19U, 0x8DU, 0x33U, 0x28U, 0x49U, 0x9AU, 0x50U, 0x3DU, 0xDDU, 0x22U, 0xC7U, 0xC8U,</div>
+<div class="line">  0xFCU, 0x18U, 0x21U, 0x57U, 0x27U, 0x29U, 0x38U, 0xD0U, 0xEEU, 0x18U, 0xA5U, 0xB7U, 0xE5U, 0xD9U, 0x65U, 0x70U,</div>
+<div class="line">  0x00U, 0x66U, 0x6EU, 0x7DU, 0x1FU, 0x8DU, 0x56U, 0x16U, 0xEBU, 0x11U, 0xFBU, 0x3DU, 0x5BU, 0x48U, 0x44U, 0x6CU,</div>
+<div class="line">  0x68U, 0x5FU, 0x50U, 0xC2U, 0x93U, 0xC5U, 0x4CU, 0xD3U, 0x61U, 0xA9U, 0x16U, 0xF0U, 0x15U, 0xA7U, 0xB7U, 0x9FU,</div>
+<div class="line">  0xB2U, 0x0CU, 0x99U, 0x55U, 0x29U, 0x04U, 0xE2U, 0x37U, 0xC6U, 0x1FU, 0x5CU, 0x63U, 0x5FU, 0xD7U, 0xD8U, 0x26U,</div>
+<div class="line">  0x43U, 0xB7U, 0x24U, 0xCFU, 0x01U, 0xEAU, 0x4CU, 0x36U, 0xBAU, 0xE1U, 0x62U, 0x04U, 0x22U, 0x94U, 0xD2U, 0xDDU,</div>
+<div class="line">  0xE4U, 0x96U, 0x17U, 0x33U, 0x9AU, 0x13U, 0xBCU, 0x02U, 0x8CU, 0x60U, 0x6FU, 0x09U, 0x71U, 0xCBU, 0x17U, 0xF8U,</div>
+<div class="line">  0x18U, 0x86U, 0x1FU, 0xFFU, 0xF2U, 0xBFU, 0xDBU, 0x52U, 0xFCU, 0xAEU, 0x64U, 0x56U, 0x62U, 0xB6U, 0xD8U, 0x05U,</div>
+<div class="line">  0xBBU, 0xB3U, 0x35U, 0x4BU, 0x90U, 0x07U, 0xADU, 0x64U, 0x7FU, 0xE1U, 0xEEU, 0x38U, 0x50U, 0xAEU, 0x55U, 0xC8U,</div>
+<div class="line">  0x15U, 0x54U, 0xF1U, 0xA6U, 0x10U, 0x6FU, 0xC8U, 0x75U, 0x5EU, 0x35U, 0x4EU, 0xD4U, 0x92U, 0x2DU, 0xB0U, 0x58U,</div>
+<div class="line">  0x1BU, 0x1EU, 0x6CU, 0xF9U, 0x75U, 0x6AU, 0xCAU, 0xA0U, 0x21U, 0xB6U, 0x95U, 0x88U, 0xDDU, 0x89U, 0x14U, 0x65U,</div>
+<div class="line">  0xEFU, 0x17U, 0xCFU, 0xB3U, 0xE3U, 0xD1U, 0xF6U, 0x4FU, 0x7AU, 0xD2U, 0x7FU, 0x27U, 0x56U, 0x1BU, 0xE8U, 0x19U,</div>
+<div class="line">  0x39U, 0xBAU, 0x05U, 0x39U, 0x77U, 0x11U, 0x93U, 0xE8U, 0xE6U, 0xA9U, 0x18U, 0x80U, 0xEBU, 0xDAU, 0xD4U, 0x64U,</div>
+<div class="line">  0x60U, 0x6FU, 0x32U, 0x88U, 0x08U, 0x65U, 0xC7U, 0x69U, 0xB6U, 0x5DU, 0xBFU, 0xD9U, 0xD9U, 0x86U, 0xBEU, 0x0EU,</div>
+<div class="line">  0x15U, 0x85U, 0xF4U, 0x32U, 0x68U, 0x48U, 0xECU, 0x32U, 0x3BU, 0xFDU, 0x4BU, 0x0EU, 0x91U, 0x45U, 0xFEU, 0xC4U,</div>
+<div class="line">  0x06U, 0xA4U, 0x96U, 0x8DU, 0xD9U, 0x4EU, 0x7FU, 0x48U, 0xF5U, 0xFBU, 0xCCU, 0x95U, 0x1AU, 0x38U, 0x02U, 0x1AU,</div>
+<div class="line">  0xE8U, 0xB3U, 0x1EU, 0x51U, 0xA4U, 0xC7U, 0xFDU, 0x3FU, 0x0EU, 0x55U, 0x6BU, 0x47U, 0x0EU, 0xC3U, 0xB6U, 0x99U,</div>
+<div class="line">  0x56U, 0x4DU, 0x08U, 0xBFU, 0xFBU, 0x5EU, 0x25U, 0x9BU, 0xADU, 0x3FU, 0xEDU, 0xC7U, 0x5CU, 0xF8U, 0xCAU, 0x37U,</div>
+<div class="line">  0xEBU, 0x08U, 0x76U, 0x59U, 0x20U, 0x34U, 0x57U, 0x5FU, 0x8FU, 0x55U, 0xA5U, 0x49U, 0xF7U, 0x83U, 0xADU, 0xB8U,</div>
+<div class="line">  0x85U, 0xEBU, 0xC5U, 0x35U, 0x62U, 0x43U, 0x76U, 0x30U, 0xE8U, 0xFAU, 0x68U, 0xD1U, 0xC3U, 0xDFU, 0x55U, 0x3EU,</div>
+<div class="line">  0x9FU, 0xDDU, 0x43U, 0x7FU, 0x72U, 0xE9U, 0xC9U, 0xCFU, 0xCDU, 0xDAU, 0xE7U, 0x34U, 0x24U, 0xBFU, 0x28U, 0xD8U</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t BN_P256_B[BN256_BYTE_LEN_P] =</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">/* b = 0x0000000000000000000000000000000000000000000000000000000000000003 */</span></div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x03u</div>
+<div class="line"><span class="comment">/* Public key Alice [BE] 0x1c2ea8ea8488f6ca75b604b5a5bfe4d8b27f416fbc65a7ec5130c2ff101c61a09b5ce9e382c746c1c0fc7869d30083cd4572b93cc555236e6c8966bafcc045fab42b30511ed75b1a68a6de34cf0dc5525f22fa11cbcf37227dd72e536406a175601eff79117c3c88be5cb0087b8687ad6ddf96e8f6c90ef031ea6fd1ee6f01be11fb0acc9f5693d95d01ffd9998e8fbf17b6d5b19bb2e16eeffe1a2347a18ceb1d3bf151c766c661116c34172d80b58a5a8f092bbbb7f026788841ef7991b689860d57d627775b3b95eb198e868a5c1fc97ed99b79b2c8115a8b625e3fc0d35e766097a57ad96528d04a7fd78d0f7f405fbec171c1c44ebdd6031b3cd1f82d57dca335b447582541cc65b50bfa34378089f2fedd6821766a9d780d0cb74e52a2e3885256f630c18d12b1f7bcbf1f8cbb612b1fd7242c822297c04c6e52aac3dc354457be0e30336c36af0bebc594cca2ed44c2edf559744fededc410096e975b560d85dc08c25d014fc198e3d1eb1b5d4ec5dd20abb3bc3faa0cc1aa382696fac51d2fdf476647be09ad170b019656dc95635151da7a256babeb200328a1336b8b3815c7480c7206338d4c06a00d3be1a049ac37461479fd73a5aab636a1465a601829df9e9a6d89e3a96193f37497c714b96e665e70a530017db658b65a2f6eb65e6bd549beb785c04eb32ed43e28637c98e59c108a1e71dbd2b9abd932f703ea3e5498036103ec3fba612eff4a8410515b63103cdd734e91e7f4a595c537eee1ba157864e3a338efa0758c52262f926fa85fadcf069e124b5164971a5612e69c138075768f9222637a71fffca5ea96cc15a7badd1863436ca117826bd630e28ecc77ff244ef8f3d674d616a54b78f8b55b7aca5804aa238bc6fb68e68a67eb83d17a65fae202f2fced7fed5d4126cf48c2c39d322da588d4793f4deafe228e9d6a977573ec7a659c8b720ae728cd6031d33680cc71a00bfdca5328f67477f7b8e2c68ab0a31bf3ba55bda3cc2ca56be958863464507cd044dfbe2e2286a2c31cc181266b3d6c9754d44950341d8155a1ac7d1fbdf6c131f7a76a42fd656a02 */</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pAlicePubKeyData[MCUXCLFFDH_FFDHE6144_SIZE_PUBLICKEY] = {</div>
+<div class="line">  0x1CU, 0x2EU, 0xA8U, 0xEAU, 0x84U, 0x88U, 0xF6U, 0xCAU, 0x75U, 0xB6U, 0x04U, 0xB5U, 0xA5U, 0xBFU, 0xE4U, 0xD8U,</div>
+<div class="line">  0xB2U, 0x7FU, 0x41U, 0x6FU, 0xBCU, 0x65U, 0xA7U, 0xECU, 0x51U, 0x30U, 0xC2U, 0xFFU, 0x10U, 0x1CU, 0x61U, 0xA0U,</div>
+<div class="line">  0x9BU, 0x5CU, 0xE9U, 0xE3U, 0x82U, 0xC7U, 0x46U, 0xC1U, 0xC0U, 0xFCU, 0x78U, 0x69U, 0xD3U, 0x00U, 0x83U, 0xCDU,</div>
+<div class="line">  0x45U, 0x72U, 0xB9U, 0x3CU, 0xC5U, 0x55U, 0x23U, 0x6EU, 0x6CU, 0x89U, 0x66U, 0xBAU, 0xFCU, 0xC0U, 0x45U, 0xFAU,</div>
+<div class="line">  0xB4U, 0x2BU, 0x30U, 0x51U, 0x1EU, 0xD7U, 0x5BU, 0x1AU, 0x68U, 0xA6U, 0xDEU, 0x34U, 0xCFU, 0x0DU, 0xC5U, 0x52U,</div>
+<div class="line">  0x5FU, 0x22U, 0xFAU, 0x11U, 0xCBU, 0xCFU, 0x37U, 0x22U, 0x7DU, 0xD7U, 0x2EU, 0x53U, 0x64U, 0x06U, 0xA1U, 0x75U,</div>
+<div class="line">  0x60U, 0x1EU, 0xFFU, 0x79U, 0x11U, 0x7CU, 0x3CU, 0x88U, 0xBEU, 0x5CU, 0xB0U, 0x08U, 0x7BU, 0x86U, 0x87U, 0xADU,</div>
+<div class="line">  0x6DU, 0xDFU, 0x96U, 0xE8U, 0xF6U, 0xC9U, 0x0EU, 0xF0U, 0x31U, 0xEAU, 0x6FU, 0xD1U, 0xEEU, 0x6FU, 0x01U, 0xBEU,</div>
+<div class="line">  0x11U, 0xFBU, 0x0AU, 0xCCU, 0x9FU, 0x56U, 0x93U, 0xD9U, 0x5DU, 0x01U, 0xFFU, 0xD9U, 0x99U, 0x8EU, 0x8FU, 0xBFU,</div>
+<div class="line">  0x17U, 0xB6U, 0xD5U, 0xB1U, 0x9BU, 0xB2U, 0xE1U, 0x6EU, 0xEFU, 0xFEU, 0x1AU, 0x23U, 0x47U, 0xA1U, 0x8CU, 0xEBU,</div>
+<div class="line">  0x1DU, 0x3BU, 0xF1U, 0x51U, 0xC7U, 0x66U, 0xC6U, 0x61U, 0x11U, 0x6CU, 0x34U, 0x17U, 0x2DU, 0x80U, 0xB5U, 0x8AU,</div>
+<div class="line">  0x5AU, 0x8FU, 0x09U, 0x2BU, 0xBBU, 0xB7U, 0xF0U, 0x26U, 0x78U, 0x88U, 0x41U, 0xEFU, 0x79U, 0x91U, 0xB6U, 0x89U,</div>
+<div class="line">  0x86U, 0x0DU, 0x57U, 0xD6U, 0x27U, 0x77U, 0x5BU, 0x3BU, 0x95U, 0xEBU, 0x19U, 0x8EU, 0x86U, 0x8AU, 0x5CU, 0x1FU,</div>
+<div class="line">  0xC9U, 0x7EU, 0xD9U, 0x9BU, 0x79U, 0xB2U, 0xC8U, 0x11U, 0x5AU, 0x8BU, 0x62U, 0x5EU, 0x3FU, 0xC0U, 0xD3U, 0x5EU,</div>
+<div class="line">  0x76U, 0x60U, 0x97U, 0xA5U, 0x7AU, 0xD9U, 0x65U, 0x28U, 0xD0U, 0x4AU, 0x7FU, 0xD7U, 0x8DU, 0x0FU, 0x7FU, 0x40U,</div>
+<div class="line">  0x5FU, 0xBEU, 0xC1U, 0x71U, 0xC1U, 0xC4U, 0x4EU, 0xBDU, 0xD6U, 0x03U, 0x1BU, 0x3CU, 0xD1U, 0xF8U, 0x2DU, 0x57U,</div>
+<div class="line">  0xDCU, 0xA3U, 0x35U, 0xB4U, 0x47U, 0x58U, 0x25U, 0x41U, 0xCCU, 0x65U, 0xB5U, 0x0BU, 0xFAU, 0x34U, 0x37U, 0x80U,</div>
+<div class="line">  0x89U, 0xF2U, 0xFEU, 0xDDU, 0x68U, 0x21U, 0x76U, 0x6AU, 0x9DU, 0x78U, 0x0DU, 0x0CU, 0xB7U, 0x4EU, 0x52U, 0xA2U,</div>
+<div class="line">  0xE3U, 0x88U, 0x52U, 0x56U, 0xF6U, 0x30U, 0xC1U, 0x8DU, 0x12U, 0xB1U, 0xF7U, 0xBCU, 0xBFU, 0x1FU, 0x8CU, 0xBBU,</div>
+<div class="line">  0x61U, 0x2BU, 0x1FU, 0xD7U, 0x24U, 0x2CU, 0x82U, 0x22U, 0x97U, 0xC0U, 0x4CU, 0x6EU, 0x52U, 0xAAU, 0xC3U, 0xDCU,</div>
+<div class="line">  0x35U, 0x44U, 0x57U, 0xBEU, 0x0EU, 0x30U, 0x33U, 0x6CU, 0x36U, 0xAFU, 0x0BU, 0xEBU, 0xC5U, 0x94U, 0xCCU, 0xA2U,</div>
+<div class="line">  0xEDU, 0x44U, 0xC2U, 0xEDU, 0xF5U, 0x59U, 0x74U, 0x4FU, 0xEDU, 0xEDU, 0xC4U, 0x10U, 0x09U, 0x6EU, 0x97U, 0x5BU,</div>
+<div class="line">  0x56U, 0x0DU, 0x85U, 0xDCU, 0x08U, 0xC2U, 0x5DU, 0x01U, 0x4FU, 0xC1U, 0x98U, 0xE3U, 0xD1U, 0xEBU, 0x1BU, 0x5DU,</div>
+<div class="line">  0x4EU, 0xC5U, 0xDDU, 0x20U, 0xABU, 0xB3U, 0xBCU, 0x3FU, 0xAAU, 0x0CU, 0xC1U, 0xAAU, 0x38U, 0x26U, 0x96U, 0xFAU,</div>
+<div class="line">  0xC5U, 0x1DU, 0x2FU, 0xDFU, 0x47U, 0x66U, 0x47U, 0xBEU, 0x09U, 0xADU, 0x17U, 0x0BU, 0x01U, 0x96U, 0x56U, 0xDCU,</div>
+<div class="line">  0x95U, 0x63U, 0x51U, 0x51U, 0xDAU, 0x7AU, 0x25U, 0x6BU, 0xABU, 0xEBU, 0x20U, 0x03U, 0x28U, 0xA1U, 0x33U, 0x6BU,</div>
+<div class="line">  0x8BU, 0x38U, 0x15U, 0xC7U, 0x48U, 0x0CU, 0x72U, 0x06U, 0x33U, 0x8DU, 0x4CU, 0x06U, 0xA0U, 0x0DU, 0x3BU, 0xE1U,</div>
+<div class="line">  0xA0U, 0x49U, 0xACU, 0x37U, 0x46U, 0x14U, 0x79U, 0xFDU, 0x73U, 0xA5U, 0xAAU, 0xB6U, 0x36U, 0xA1U, 0x46U, 0x5AU,</div>
+<div class="line">  0x60U, 0x18U, 0x29U, 0xDFU, 0x9EU, 0x9AU, 0x6DU, 0x89U, 0xE3U, 0xA9U, 0x61U, 0x93U, 0xF3U, 0x74U, 0x97U, 0xC7U,</div>
+<div class="line">  0x14U, 0xB9U, 0x6EU, 0x66U, 0x5EU, 0x70U, 0xA5U, 0x30U, 0x01U, 0x7DU, 0xB6U, 0x58U, 0xB6U, 0x5AU, 0x2FU, 0x6EU,</div>
+<div class="line">  0xB6U, 0x5EU, 0x6BU, 0xD5U, 0x49U, 0xBEU, 0xB7U, 0x85U, 0xC0U, 0x4EU, 0xB3U, 0x2EU, 0xD4U, 0x3EU, 0x28U, 0x63U,</div>
+<div class="line">  0x7CU, 0x98U, 0xE5U, 0x9CU, 0x10U, 0x8AU, 0x1EU, 0x71U, 0xDBU, 0xD2U, 0xB9U, 0xABU, 0xD9U, 0x32U, 0xF7U, 0x03U,</div>
+<div class="line">  0xEAU, 0x3EU, 0x54U, 0x98U, 0x03U, 0x61U, 0x03U, 0xECU, 0x3FU, 0xBAU, 0x61U, 0x2EU, 0xFFU, 0x4AU, 0x84U, 0x10U,</div>
+<div class="line">  0x51U, 0x5BU, 0x63U, 0x10U, 0x3CU, 0xDDU, 0x73U, 0x4EU, 0x91U, 0xE7U, 0xF4U, 0xA5U, 0x95U, 0xC5U, 0x37U, 0xEEU,</div>
+<div class="line">  0xE1U, 0xBAU, 0x15U, 0x78U, 0x64U, 0xE3U, 0xA3U, 0x38U, 0xEFU, 0xA0U, 0x75U, 0x8CU, 0x52U, 0x26U, 0x2FU, 0x92U,</div>
+<div class="line">  0x6FU, 0xA8U, 0x5FU, 0xADU, 0xCFU, 0x06U, 0x9EU, 0x12U, 0x4BU, 0x51U, 0x64U, 0x97U, 0x1AU, 0x56U, 0x12U, 0xE6U,</div>
+<div class="line">  0x9CU, 0x13U, 0x80U, 0x75U, 0x76U, 0x8FU, 0x92U, 0x22U, 0x63U, 0x7AU, 0x71U, 0xFFU, 0xFCU, 0xA5U, 0xEAU, 0x96U,</div>
+<div class="line">  0xCCU, 0x15U, 0xA7U, 0xBAU, 0xDDU, 0x18U, 0x63U, 0x43U, 0x6CU, 0xA1U, 0x17U, 0x82U, 0x6BU, 0xD6U, 0x30U, 0xE2U,</div>
+<div class="line">  0x8EU, 0xCCU, 0x77U, 0xFFU, 0x24U, 0x4EU, 0xF8U, 0xF3U, 0xD6U, 0x74U, 0xD6U, 0x16U, 0xA5U, 0x4BU, 0x78U, 0xF8U,</div>
+<div class="line">  0xB5U, 0x5BU, 0x7AU, 0xCAU, 0x58U, 0x04U, 0xAAU, 0x23U, 0x8BU, 0xC6U, 0xFBU, 0x68U, 0xE6U, 0x8AU, 0x67U, 0xEBU,</div>
+<div class="line">  0x83U, 0xD1U, 0x7AU, 0x65U, 0xFAU, 0xE2U, 0x02U, 0xF2U, 0xFCU, 0xEDU, 0x7FU, 0xEDU, 0x5DU, 0x41U, 0x26U, 0xCFU,</div>
+<div class="line">  0x48U, 0xC2U, 0xC3U, 0x9DU, 0x32U, 0x2DU, 0xA5U, 0x88U, 0xD4U, 0x79U, 0x3FU, 0x4DU, 0xEAU, 0xFEU, 0x22U, 0x8EU,</div>
+<div class="line">  0x9DU, 0x6AU, 0x97U, 0x75U, 0x73U, 0xECU, 0x7AU, 0x65U, 0x9CU, 0x8BU, 0x72U, 0x0AU, 0xE7U, 0x28U, 0xCDU, 0x60U,</div>
+<div class="line">  0x31U, 0xD3U, 0x36U, 0x80U, 0xCCU, 0x71U, 0xA0U, 0x0BU, 0xFDU, 0xCAU, 0x53U, 0x28U, 0xF6U, 0x74U, 0x77U, 0xF7U,</div>
+<div class="line">  0xB8U, 0xE2U, 0xC6U, 0x8AU, 0xB0U, 0xA3U, 0x1BU, 0xF3U, 0xBAU, 0x55U, 0xBDU, 0xA3U, 0xCCU, 0x2CU, 0xA5U, 0x6BU,</div>
+<div class="line">  0xE9U, 0x58U, 0x86U, 0x34U, 0x64U, 0x50U, 0x7CU, 0xD0U, 0x44U, 0xDFU, 0xBEU, 0x2EU, 0x22U, 0x86U, 0xA2U, 0xC3U,</div>
+<div class="line">  0x1CU, 0xC1U, 0x81U, 0x26U, 0x6BU, 0x3DU, 0x6CU, 0x97U, 0x54U, 0xD4U, 0x49U, 0x50U, 0x34U, 0x1DU, 0x81U, 0x55U,</div>
+<div class="line">  0xA1U, 0xACU, 0x7DU, 0x1FU, 0xBDU, 0xF6U, 0xC1U, 0x31U, 0xF7U, 0xA7U, 0x6AU, 0x42U, 0xFDU, 0x65U, 0x6AU, 0x02U</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t BN_P256_G[2u * BN256_BYTE_LEN_P] =</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">/* G = (x,y) with</span></div>
-<div class="line"><span class="comment">     * x = 0x0000000000000000000000000000000000000000000000000000000000000001 */</span></div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x01u,</div>
-<div class="line">    <span class="comment">/* y = 0x0000000000000000000000000000000000000000000000000000000000000002 */</span></div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u,</div>
-<div class="line">    0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x02u</div>
+<div class="line"><span class="comment">/* Private key Bob (randomly generated) [BE] 0x16963af3466d0ec4a70dec53b5fb4d50c097c69152dcb092816032520b11b7494763e328803cdb5cb87cd139f8a4a1583db0b469ca19c7bce40052267d946d4223436918505cea8955d7a3c12faeafa5ec22fa5dfde3028ac4dcbc25331d82fb38a93d08a6d2c134136014d0fc521e55efa6379408f9617747c30917b001562cec972f04e6c09ea00b17c04ca378327d47f526dd64733cf69de1670988107cf62d3d13317e266822ea0c7cf2c25bd62811d76011377f24f0bff761ac043f3120a4e0934b7736d5e707576fb93b7cc4def9fd535887d2e5f4f802d89f7e6c65896abfd775752a220ab23f9714609eb9669c61f5ac7c0734f6d37568d1c89276090b022e13ca3e95d264978347f4d2d6af655a27f617a7350f3af5c2426237b9123b0e9e01c3f171bb333790bc8df741d53990b9d0a720200b3f52dd3c1504b3bf66d66af256edb615fbd2e731cb4a60fb446025eed0df6c88efe110e4113a307a4d9940d6827f0cb20ba21abfa490435f8712efbbf965cc820927caadc0f74d65af5462d6bdc0b49a186569ca50694031bf1788c5d7af506320fc347fa8615fc927426ad4f0295b045abe12e8221785e5d28b5162a9fdbc882aee7a678212706394b7a54feb554f954c227d8b6c776429e9614ad56ad43770fe65afb0bef9c90463b4c8ea3d7118e299c7d17a38cd09de85527025e38d77be308a4cf79593de27c89cdee88469c7dff6490a3c5fd9cf38e1e5fe6cbd3f9ccb2545f748305c41b8dc56f49199c8b4f9896f40dc7aa50a015d731e10062aed29ce0ca6b6b4c8f1bd550f67270a0073b405fb53d942b0de26b0e23aa761a1ab320519d93d64613783c7d362383f9d6d359f1a028471f02d2dec0a4a1ff09ff650f2a2c68e6860f9b1f5bb423ddc33016cb5661fbc0a4c0ec35b0d7277c4fabeeb4e1595624ae3658a482af71a7a1e67832a9a995130ce13220ab28091ac044e35adc2d62632ab9c0eef9286a1a2798a05651ec89c1d0eb8c64f22b25ddce447f1ab7e1ae37f67025bcbe1b7fa1cce11ec5c11850679f4b12d4a83b6045753344ce161b72c0dd1e2e9 */</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pBobPrivKeyData[MCUXCLFFDH_FFDHE6144_SIZE_PRIVATEKEY] = {</div>
+<div class="line">  0x16U, 0x96U, 0x3AU, 0xF3U, 0x46U, 0x6DU, 0x0EU, 0xC4U, 0xA7U, 0x0DU, 0xECU, 0x53U, 0xB5U, 0xFBU, 0x4DU, 0x50U,</div>
+<div class="line">  0xC0U, 0x97U, 0xC6U, 0x91U, 0x52U, 0xDCU, 0xB0U, 0x92U, 0x81U, 0x60U, 0x32U, 0x52U, 0x0BU, 0x11U, 0xB7U, 0x49U,</div>
+<div class="line">  0x47U, 0x63U, 0xE3U, 0x28U, 0x80U, 0x3CU, 0xDBU, 0x5CU, 0xB8U, 0x7CU, 0xD1U, 0x39U, 0xF8U, 0xA4U, 0xA1U, 0x58U,</div>
+<div class="line">  0x3DU, 0xB0U, 0xB4U, 0x69U, 0xCAU, 0x19U, 0xC7U, 0xBCU, 0xE4U, 0x00U, 0x52U, 0x26U, 0x7DU, 0x94U, 0x6DU, 0x42U,</div>
+<div class="line">  0x23U, 0x43U, 0x69U, 0x18U, 0x50U, 0x5CU, 0xEAU, 0x89U, 0x55U, 0xD7U, 0xA3U, 0xC1U, 0x2FU, 0xAEU, 0xAFU, 0xA5U,</div>
+<div class="line">  0xECU, 0x22U, 0xFAU, 0x5DU, 0xFDU, 0xE3U, 0x02U, 0x8AU, 0xC4U, 0xDCU, 0xBCU, 0x25U, 0x33U, 0x1DU, 0x82U, 0xFBU,</div>
+<div class="line">  0x38U, 0xA9U, 0x3DU, 0x08U, 0xA6U, 0xD2U, 0xC1U, 0x34U, 0x13U, 0x60U, 0x14U, 0xD0U, 0xFCU, 0x52U, 0x1EU, 0x55U,</div>
+<div class="line">  0xEFU, 0xA6U, 0x37U, 0x94U, 0x08U, 0xF9U, 0x61U, 0x77U, 0x47U, 0xC3U, 0x09U, 0x17U, 0xB0U, 0x01U, 0x56U, 0x2CU,</div>
+<div class="line">  0xECU, 0x97U, 0x2FU, 0x04U, 0xE6U, 0xC0U, 0x9EU, 0xA0U, 0x0BU, 0x17U, 0xC0U, 0x4CU, 0xA3U, 0x78U, 0x32U, 0x7DU,</div>
+<div class="line">  0x47U, 0xF5U, 0x26U, 0xDDU, 0x64U, 0x73U, 0x3CU, 0xF6U, 0x9DU, 0xE1U, 0x67U, 0x09U, 0x88U, 0x10U, 0x7CU, 0xF6U,</div>
+<div class="line">  0x2DU, 0x3DU, 0x13U, 0x31U, 0x7EU, 0x26U, 0x68U, 0x22U, 0xEAU, 0x0CU, 0x7CU, 0xF2U, 0xC2U, 0x5BU, 0xD6U, 0x28U,</div>
+<div class="line">  0x11U, 0xD7U, 0x60U, 0x11U, 0x37U, 0x7FU, 0x24U, 0xF0U, 0xBFU, 0xF7U, 0x61U, 0xACU, 0x04U, 0x3FU, 0x31U, 0x20U,</div>
+<div class="line">  0xA4U, 0xE0U, 0x93U, 0x4BU, 0x77U, 0x36U, 0xD5U, 0xE7U, 0x07U, 0x57U, 0x6FU, 0xB9U, 0x3BU, 0x7CU, 0xC4U, 0xDEU,</div>
+<div class="line">  0xF9U, 0xFDU, 0x53U, 0x58U, 0x87U, 0xD2U, 0xE5U, 0xF4U, 0xF8U, 0x02U, 0xD8U, 0x9FU, 0x7EU, 0x6CU, 0x65U, 0x89U,</div>
+<div class="line">  0x6AU, 0xBFU, 0xD7U, 0x75U, 0x75U, 0x2AU, 0x22U, 0x0AU, 0xB2U, 0x3FU, 0x97U, 0x14U, 0x60U, 0x9EU, 0xB9U, 0x66U,</div>
+<div class="line">  0x9CU, 0x61U, 0xF5U, 0xACU, 0x7CU, 0x07U, 0x34U, 0xF6U, 0xD3U, 0x75U, 0x68U, 0xD1U, 0xC8U, 0x92U, 0x76U, 0x09U,</div>
+<div class="line">  0x0BU, 0x02U, 0x2EU, 0x13U, 0xCAU, 0x3EU, 0x95U, 0xD2U, 0x64U, 0x97U, 0x83U, 0x47U, 0xF4U, 0xD2U, 0xD6U, 0xAFU,</div>
+<div class="line">  0x65U, 0x5AU, 0x27U, 0xF6U, 0x17U, 0xA7U, 0x35U, 0x0FU, 0x3AU, 0xF5U, 0xC2U, 0x42U, 0x62U, 0x37U, 0xB9U, 0x12U,</div>
+<div class="line">  0x3BU, 0x0EU, 0x9EU, 0x01U, 0xC3U, 0xF1U, 0x71U, 0xBBU, 0x33U, 0x37U, 0x90U, 0xBCU, 0x8DU, 0xF7U, 0x41U, 0xD5U,</div>
+<div class="line">  0x39U, 0x90U, 0xB9U, 0xD0U, 0xA7U, 0x20U, 0x20U, 0x0BU, 0x3FU, 0x52U, 0xDDU, 0x3CU, 0x15U, 0x04U, 0xB3U, 0xBFU,</div>
+<div class="line">  0x66U, 0xD6U, 0x6AU, 0xF2U, 0x56U, 0xEDU, 0xB6U, 0x15U, 0xFBU, 0xD2U, 0xE7U, 0x31U, 0xCBU, 0x4AU, 0x60U, 0xFBU,</div>
+<div class="line">  0x44U, 0x60U, 0x25U, 0xEEU, 0xD0U, 0xDFU, 0x6CU, 0x88U, 0xEFU, 0xE1U, 0x10U, 0xE4U, 0x11U, 0x3AU, 0x30U, 0x7AU,</div>
+<div class="line">  0x4DU, 0x99U, 0x40U, 0xD6U, 0x82U, 0x7FU, 0x0CU, 0xB2U, 0x0BU, 0xA2U, 0x1AU, 0xBFU, 0xA4U, 0x90U, 0x43U, 0x5FU,</div>
+<div class="line">  0x87U, 0x12U, 0xEFU, 0xBBU, 0xF9U, 0x65U, 0xCCU, 0x82U, 0x09U, 0x27U, 0xCAU, 0xADU, 0xC0U, 0xF7U, 0x4DU, 0x65U,</div>
+<div class="line">  0xAFU, 0x54U, 0x62U, 0xD6U, 0xBDU, 0xC0U, 0xB4U, 0x9AU, 0x18U, 0x65U, 0x69U, 0xCAU, 0x50U, 0x69U, 0x40U, 0x31U,</div>
+<div class="line">  0xBFU, 0x17U, 0x88U, 0xC5U, 0xD7U, 0xAFU, 0x50U, 0x63U, 0x20U, 0xFCU, 0x34U, 0x7FU, 0xA8U, 0x61U, 0x5FU, 0xC9U,</div>
+<div class="line">  0x27U, 0x42U, 0x6AU, 0xD4U, 0xF0U, 0x29U, 0x5BU, 0x04U, 0x5AU, 0xBEU, 0x12U, 0xE8U, 0x22U, 0x17U, 0x85U, 0xE5U,</div>
+<div class="line">  0xD2U, 0x8BU, 0x51U, 0x62U, 0xA9U, 0xFDU, 0xBCU, 0x88U, 0x2AU, 0xEEU, 0x7AU, 0x67U, 0x82U, 0x12U, 0x70U, 0x63U,</div>
+<div class="line">  0x94U, 0xB7U, 0xA5U, 0x4FU, 0xEBU, 0x55U, 0x4FU, 0x95U, 0x4CU, 0x22U, 0x7DU, 0x8BU, 0x6CU, 0x77U, 0x64U, 0x29U,</div>
+<div class="line">  0xE9U, 0x61U, 0x4AU, 0xD5U, 0x6AU, 0xD4U, 0x37U, 0x70U, 0xFEU, 0x65U, 0xAFU, 0xB0U, 0xBEU, 0xF9U, 0xC9U, 0x04U,</div>
+<div class="line">  0x63U, 0xB4U, 0xC8U, 0xEAU, 0x3DU, 0x71U, 0x18U, 0xE2U, 0x99U, 0xC7U, 0xD1U, 0x7AU, 0x38U, 0xCDU, 0x09U, 0xDEU,</div>
+<div class="line">  0x85U, 0x52U, 0x70U, 0x25U, 0xE3U, 0x8DU, 0x77U, 0xBEU, 0x30U, 0x8AU, 0x4CU, 0xF7U, 0x95U, 0x93U, 0xDEU, 0x27U,</div>
+<div class="line">  0xC8U, 0x9CU, 0xDEU, 0xE8U, 0x84U, 0x69U, 0xC7U, 0xDFU, 0xF6U, 0x49U, 0x0AU, 0x3CU, 0x5FU, 0xD9U, 0xCFU, 0x38U,</div>
+<div class="line">  0xE1U, 0xE5U, 0xFEU, 0x6CU, 0xBDU, 0x3FU, 0x9CU, 0xCBU, 0x25U, 0x45U, 0xF7U, 0x48U, 0x30U, 0x5CU, 0x41U, 0xB8U,</div>
+<div class="line">  0xDCU, 0x56U, 0xF4U, 0x91U, 0x99U, 0xC8U, 0xB4U, 0xF9U, 0x89U, 0x6FU, 0x40U, 0xDCU, 0x7AU, 0xA5U, 0x0AU, 0x01U,</div>
+<div class="line">  0x5DU, 0x73U, 0x1EU, 0x10U, 0x06U, 0x2AU, 0xEDU, 0x29U, 0xCEU, 0x0CU, 0xA6U, 0xB6U, 0xB4U, 0xC8U, 0xF1U, 0xBDU,</div>
+<div class="line">  0x55U, 0x0FU, 0x67U, 0x27U, 0x0AU, 0x00U, 0x73U, 0xB4U, 0x05U, 0xFBU, 0x53U, 0xD9U, 0x42U, 0xB0U, 0xDEU, 0x26U,</div>
+<div class="line">  0xB0U, 0xE2U, 0x3AU, 0xA7U, 0x61U, 0xA1U, 0xABU, 0x32U, 0x05U, 0x19U, 0xD9U, 0x3DU, 0x64U, 0x61U, 0x37U, 0x83U,</div>
+<div class="line">  0xC7U, 0xD3U, 0x62U, 0x38U, 0x3FU, 0x9DU, 0x6DU, 0x35U, 0x9FU, 0x1AU, 0x02U, 0x84U, 0x71U, 0xF0U, 0x2DU, 0x2DU,</div>
+<div class="line">  0xECU, 0x0AU, 0x4AU, 0x1FU, 0xF0U, 0x9FU, 0xF6U, 0x50U, 0xF2U, 0xA2U, 0xC6U, 0x8EU, 0x68U, 0x60U, 0xF9U, 0xB1U,</div>
+<div class="line">  0xF5U, 0xBBU, 0x42U, 0x3DU, 0xDCU, 0x33U, 0x01U, 0x6CU, 0xB5U, 0x66U, 0x1FU, 0xBCU, 0x0AU, 0x4CU, 0x0EU, 0xC3U,</div>
+<div class="line">  0x5BU, 0x0DU, 0x72U, 0x77U, 0xC4U, 0xFAU, 0xBEU, 0xEBU, 0x4EU, 0x15U, 0x95U, 0x62U, 0x4AU, 0xE3U, 0x65U, 0x8AU,</div>
+<div class="line">  0x48U, 0x2AU, 0xF7U, 0x1AU, 0x7AU, 0x1EU, 0x67U, 0x83U, 0x2AU, 0x9AU, 0x99U, 0x51U, 0x30U, 0xCEU, 0x13U, 0x22U,</div>
+<div class="line">  0x0AU, 0xB2U, 0x80U, 0x91U, 0xACU, 0x04U, 0x4EU, 0x35U, 0xADU, 0xC2U, 0xD6U, 0x26U, 0x32U, 0xABU, 0x9CU, 0x0EU,</div>
+<div class="line">  0xEFU, 0x92U, 0x86U, 0xA1U, 0xA2U, 0x79U, 0x8AU, 0x05U, 0x65U, 0x1EU, 0xC8U, 0x9CU, 0x1DU, 0x0EU, 0xB8U, 0xC6U,</div>
+<div class="line">  0x4FU, 0x22U, 0xB2U, 0x5DU, 0xDCU, 0xE4U, 0x47U, 0xF1U, 0xABU, 0x7EU, 0x1AU, 0xE3U, 0x7FU, 0x67U, 0x02U, 0x5BU,</div>
+<div class="line">  0xCBU, 0xE1U, 0xB7U, 0xFAU, 0x1CU, 0xCEU, 0x11U, 0xECU, 0x5CU, 0x11U, 0x85U, 0x06U, 0x79U, 0xF4U, 0xB1U, 0x2DU,</div>
+<div class="line">  0x4AU, 0x83U, 0xB6U, 0x04U, 0x57U, 0x53U, 0x34U, 0x4CU, 0xE1U, 0x61U, 0xB7U, 0x2CU, 0x0DU, 0xD1U, 0xE2U, 0xE9U</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t BN_P256_N[BN256_BYTE_LEN_N] =</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">/* n = 0xFFFFFFFFFFFCF0CD46E5F25EEE71A49E0CDC65FB1299921AF62D536CD10B500D */</span></div>
-<div class="line">    0xFFu, 0xFFu, 0xFFu, 0xFFu, 0xFFu, 0xFCu, 0xF0u, 0xCDu,</div>
-<div class="line">    0x46u, 0xE5u, 0xF2u, 0x5Eu, 0xEEu, 0x71u, 0xA4u, 0x9Eu,</div>
-<div class="line">    0x0Cu, 0xDCu, 0x65u, 0xFBu, 0x12u, 0x99u, 0x92u, 0x1Au,</div>
-<div class="line">    0xF6u, 0x2Du, 0x53u, 0x6Cu, 0xD1u, 0x0Bu, 0x50u, 0x0Du</div>
+<div class="line"><span class="comment">/* Public key Bob [BE] 0xb64b434312605320fdd2cac6dc9b4e8854790c4541f98a31a7f6d9e748c2f235ffeb3b4ca729913595602391ff893e0c13981ca3d5e51eb04c3af324a667098b7c02718a91e8ddb20e3c9d96d3f45f504f198732c87bd08616ff0721c4aba5a7ba4b5e4f312529c837689417d0bf3fd450e4b9731cfb36b8dcbfcc0bbb1317ca7e39e1b6b26f9f912f0652d37fc1d8778bf2a7f6a34b198c9f906900b8b874ff49d265eefaa712705cf0edec072baf4d7f538971e6fd7a35e5861d4ccc5245b7e4726e51ebc47401c67513af5f74633ff5fb27004367ee9f31eb1c7c69d14b7f83f121086e73db2af0e8f5b194160737fd38f949aa216082be259ed4dff4890e23a56dac0064cb8b958237df9fa85b0efaf2fe8fe7e596b5fbb90646568fdee304897d15b4d2256ce22ea749897e99798b20cc6c026b481c902c2ce4827f62681df4eead365e15385b2305458ac266efde065e56b9c22737b893d43a2d59561c07f37e5ea6855127341ab2077ed16131accbeed7475e88353a640dbb6b97d05c0c5644e5ecefd0b932361cbefbe7da92784659a8351dc96c0821af68cd117d47e4e8f4cc89c39bbaaaffb9d1cd6701a4791b41bf7ce0f36031624a7e06fa0eb73298058f6069e2b462c85a8d2bfdd931112db3c51725a6b5038de7936782bed7e821d5e611758c4e984bfb9c8a27c2c3b22a05ef3d2844a2b860b9f2ef5c1b024c67e97a8b90da27820866a074385f36b3fd7f731a9cf61a870aaaa16dbb1dd9693bcfba4edc456f418b4056615805d4541cab0fc4bf8d59b21eb1f4b51b2477b872bb506202673c84f2f2400c0a965f616efe9c5370f1c69e97c842a51e3626877e1e1eede4f5ff59ebfcfcbfe7025e875527587da61f3c7cc45eaf4515614cbec6bb71b8afef015bfc0d8f7429973f7cf8f76f26e12e1ea0fe7e0329c34797aab03103048bc16c0a5aad588f49156353240deb47c7773a0f7f08b0e7c64d94c859c94fc79039e3fae5fd90200727201903f1af66cc1e825d6265851daa26c7c913a23519b5f9c69dcbd70a35860d67abf66ad5925b7ec12318d40f21a84c4f */</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> ALIGNED uint8_t pBobPubKeyData[MCUXCLFFDH_FFDHE6144_SIZE_PUBLICKEY] = {</div>
+<div class="line">  0xB6U, 0x4BU, 0x43U, 0x43U, 0x12U, 0x60U, 0x53U, 0x20U, 0xFDU, 0xD2U, 0xCAU, 0xC6U, 0xDCU, 0x9BU, 0x4EU, 0x88U,</div>
+<div class="line">  0x54U, 0x79U, 0x0CU, 0x45U, 0x41U, 0xF9U, 0x8AU, 0x31U, 0xA7U, 0xF6U, 0xD9U, 0xE7U, 0x48U, 0xC2U, 0xF2U, 0x35U,</div>
+<div class="line">  0xFFU, 0xEBU, 0x3BU, 0x4CU, 0xA7U, 0x29U, 0x91U, 0x35U, 0x95U, 0x60U, 0x23U, 0x91U, 0xFFU, 0x89U, 0x3EU, 0x0CU,</div>
+<div class="line">  0x13U, 0x98U, 0x1CU, 0xA3U, 0xD5U, 0xE5U, 0x1EU, 0xB0U, 0x4CU, 0x3AU, 0xF3U, 0x24U, 0xA6U, 0x67U, 0x09U, 0x8BU,</div>
+<div class="line">  0x7CU, 0x02U, 0x71U, 0x8AU, 0x91U, 0xE8U, 0xDDU, 0xB2U, 0x0EU, 0x3CU, 0x9DU, 0x96U, 0xD3U, 0xF4U, 0x5FU, 0x50U,</div>
+<div class="line">  0x4FU, 0x19U, 0x87U, 0x32U, 0xC8U, 0x7BU, 0xD0U, 0x86U, 0x16U, 0xFFU, 0x07U, 0x21U, 0xC4U, 0xABU, 0xA5U, 0xA7U,</div>
+<div class="line">  0xBAU, 0x4BU, 0x5EU, 0x4FU, 0x31U, 0x25U, 0x29U, 0xC8U, 0x37U, 0x68U, 0x94U, 0x17U, 0xD0U, 0xBFU, 0x3FU, 0xD4U,</div>
+<div class="line">  0x50U, 0xE4U, 0xB9U, 0x73U, 0x1CU, 0xFBU, 0x36U, 0xB8U, 0xDCU, 0xBFU, 0xCCU, 0x0BU, 0xBBU, 0x13U, 0x17U, 0xCAU,</div>
+<div class="line">  0x7EU, 0x39U, 0xE1U, 0xB6U, 0xB2U, 0x6FU, 0x9FU, 0x91U, 0x2FU, 0x06U, 0x52U, 0xD3U, 0x7FU, 0xC1U, 0xD8U, 0x77U,</div>
+<div class="line">  0x8BU, 0xF2U, 0xA7U, 0xF6U, 0xA3U, 0x4BU, 0x19U, 0x8CU, 0x9FU, 0x90U, 0x69U, 0x00U, 0xB8U, 0xB8U, 0x74U, 0xFFU,</div>
+<div class="line">  0x49U, 0xD2U, 0x65U, 0xEEU, 0xFAU, 0xA7U, 0x12U, 0x70U, 0x5CU, 0xF0U, 0xEDU, 0xECU, 0x07U, 0x2BU, 0xAFU, 0x4DU,</div>
+<div class="line">  0x7FU, 0x53U, 0x89U, 0x71U, 0xE6U, 0xFDU, 0x7AU, 0x35U, 0xE5U, 0x86U, 0x1DU, 0x4CU, 0xCCU, 0x52U, 0x45U, 0xB7U,</div>
+<div class="line">  0xE4U, 0x72U, 0x6EU, 0x51U, 0xEBU, 0xC4U, 0x74U, 0x01U, 0xC6U, 0x75U, 0x13U, 0xAFU, 0x5FU, 0x74U, 0x63U, 0x3FU,</div>
+<div class="line">  0xF5U, 0xFBU, 0x27U, 0x00U, 0x43U, 0x67U, 0xEEU, 0x9FU, 0x31U, 0xEBU, 0x1CU, 0x7CU, 0x69U, 0xD1U, 0x4BU, 0x7FU,</div>
+<div class="line">  0x83U, 0xF1U, 0x21U, 0x08U, 0x6EU, 0x73U, 0xDBU, 0x2AU, 0xF0U, 0xE8U, 0xF5U, 0xB1U, 0x94U, 0x16U, 0x07U, 0x37U,</div>
+<div class="line">  0xFDU, 0x38U, 0xF9U, 0x49U, 0xAAU, 0x21U, 0x60U, 0x82U, 0xBEU, 0x25U, 0x9EU, 0xD4U, 0xDFU, 0xF4U, 0x89U, 0x0EU,</div>
+<div class="line">  0x23U, 0xA5U, 0x6DU, 0xACU, 0x00U, 0x64U, 0xCBU, 0x8BU, 0x95U, 0x82U, 0x37U, 0xDFU, 0x9FU, 0xA8U, 0x5BU, 0x0EU,</div>
+<div class="line">  0xFAU, 0xF2U, 0xFEU, 0x8FU, 0xE7U, 0xE5U, 0x96U, 0xB5U, 0xFBU, 0xB9U, 0x06U, 0x46U, 0x56U, 0x8FU, 0xDEU, 0xE3U,</div>
+<div class="line">  0x04U, 0x89U, 0x7DU, 0x15U, 0xB4U, 0xD2U, 0x25U, 0x6CU, 0xE2U, 0x2EU, 0xA7U, 0x49U, 0x89U, 0x7EU, 0x99U, 0x79U,</div>
+<div class="line">  0x8BU, 0x20U, 0xCCU, 0x6CU, 0x02U, 0x6BU, 0x48U, 0x1CU, 0x90U, 0x2CU, 0x2CU, 0xE4U, 0x82U, 0x7FU, 0x62U, 0x68U,</div>
+<div class="line">  0x1DU, 0xF4U, 0xEEU, 0xADU, 0x36U, 0x5EU, 0x15U, 0x38U, 0x5BU, 0x23U, 0x05U, 0x45U, 0x8AU, 0xC2U, 0x66U, 0xEFU,</div>
+<div class="line">  0xDEU, 0x06U, 0x5EU, 0x56U, 0xB9U, 0xC2U, 0x27U, 0x37U, 0xB8U, 0x93U, 0xD4U, 0x3AU, 0x2DU, 0x59U, 0x56U, 0x1CU,</div>
+<div class="line">  0x07U, 0xF3U, 0x7EU, 0x5EU, 0xA6U, 0x85U, 0x51U, 0x27U, 0x34U, 0x1AU, 0xB2U, 0x07U, 0x7EU, 0xD1U, 0x61U, 0x31U,</div>
+<div class="line">  0xACU, 0xCBU, 0xEEU, 0xD7U, 0x47U, 0x5EU, 0x88U, 0x35U, 0x3AU, 0x64U, 0x0DU, 0xBBU, 0x6BU, 0x97U, 0xD0U, 0x5CU,</div>
+<div class="line">  0x0CU, 0x56U, 0x44U, 0xE5U, 0xECU, 0xEFU, 0xD0U, 0xB9U, 0x32U, 0x36U, 0x1CU, 0xBEU, 0xFBU, 0xE7U, 0xDAU, 0x92U,</div>
+<div class="line">  0x78U, 0x46U, 0x59U, 0xA8U, 0x35U, 0x1DU, 0xC9U, 0x6CU, 0x08U, 0x21U, 0xAFU, 0x68U, 0xCDU, 0x11U, 0x7DU, 0x47U,</div>
+<div class="line">  0xE4U, 0xE8U, 0xF4U, 0xCCU, 0x89U, 0xC3U, 0x9BU, 0xBAU, 0xAAU, 0xFFU, 0xB9U, 0xD1U, 0xCDU, 0x67U, 0x01U, 0xA4U,</div>
+<div class="line">  0x79U, 0x1BU, 0x41U, 0xBFU, 0x7CU, 0xE0U, 0xF3U, 0x60U, 0x31U, 0x62U, 0x4AU, 0x7EU, 0x06U, 0xFAU, 0x0EU, 0xB7U,</div>
+<div class="line">  0x32U, 0x98U, 0x05U, 0x8FU, 0x60U, 0x69U, 0xE2U, 0xB4U, 0x62U, 0xC8U, 0x5AU, 0x8DU, 0x2BU, 0xFDU, 0xD9U, 0x31U,</div>
+<div class="line">  0x11U, 0x2DU, 0xB3U, 0xC5U, 0x17U, 0x25U, 0xA6U, 0xB5U, 0x03U, 0x8DU, 0xE7U, 0x93U, 0x67U, 0x82U, 0xBEU, 0xD7U,</div>
+<div class="line">  0xE8U, 0x21U, 0xD5U, 0xE6U, 0x11U, 0x75U, 0x8CU, 0x4EU, 0x98U, 0x4BU, 0xFBU, 0x9CU, 0x8AU, 0x27U, 0xC2U, 0xC3U,</div>
+<div class="line">  0xB2U, 0x2AU, 0x05U, 0xEFU, 0x3DU, 0x28U, 0x44U, 0xA2U, 0xB8U, 0x60U, 0xB9U, 0xF2U, 0xEFU, 0x5CU, 0x1BU, 0x02U,</div>
+<div class="line">  0x4CU, 0x67U, 0xE9U, 0x7AU, 0x8BU, 0x90U, 0xDAU, 0x27U, 0x82U, 0x08U, 0x66U, 0xA0U, 0x74U, 0x38U, 0x5FU, 0x36U,</div>
+<div class="line">  0xB3U, 0xFDU, 0x7FU, 0x73U, 0x1AU, 0x9CU, 0xF6U, 0x1AU, 0x87U, 0x0AU, 0xAAU, 0xA1U, 0x6DU, 0xBBU, 0x1DU, 0xD9U,</div>
+<div class="line">  0x69U, 0x3BU, 0xCFU, 0xBAU, 0x4EU, 0xDCU, 0x45U, 0x6FU, 0x41U, 0x8BU, 0x40U, 0x56U, 0x61U, 0x58U, 0x05U, 0xD4U,</div>
+<div class="line">  0x54U, 0x1CU, 0xABU, 0x0FU, 0xC4U, 0xBFU, 0x8DU, 0x59U, 0xB2U, 0x1EU, 0xB1U, 0xF4U, 0xB5U, 0x1BU, 0x24U, 0x77U,</div>
+<div class="line">  0xB8U, 0x72U, 0xBBU, 0x50U, 0x62U, 0x02U, 0x67U, 0x3CU, 0x84U, 0xF2U, 0xF2U, 0x40U, 0x0CU, 0x0AU, 0x96U, 0x5FU,</div>
+<div class="line">  0x61U, 0x6EU, 0xFEU, 0x9CU, 0x53U, 0x70U, 0xF1U, 0xC6U, 0x9EU, 0x97U, 0xC8U, 0x42U, 0xA5U, 0x1EU, 0x36U, 0x26U,</div>
+<div class="line">  0x87U, 0x7EU, 0x1EU, 0x1EU, 0xEDU, 0xE4U, 0xF5U, 0xFFU, 0x59U, 0xEBU, 0xFCU, 0xFCU, 0xBFU, 0xE7U, 0x02U, 0x5EU,</div>
+<div class="line">  0x87U, 0x55U, 0x27U, 0x58U, 0x7DU, 0xA6U, 0x1FU, 0x3CU, 0x7CU, 0xC4U, 0x5EU, 0xAFU, 0x45U, 0x15U, 0x61U, 0x4CU,</div>
+<div class="line">  0xBEU, 0xC6U, 0xBBU, 0x71U, 0xB8U, 0xAFU, 0xEFU, 0x01U, 0x5BU, 0xFCU, 0x0DU, 0x8FU, 0x74U, 0x29U, 0x97U, 0x3FU,</div>
+<div class="line">  0x7CU, 0xF8U, 0xF7U, 0x6FU, 0x26U, 0xE1U, 0x2EU, 0x1EU, 0xA0U, 0xFEU, 0x7EU, 0x03U, 0x29U, 0xC3U, 0x47U, 0x97U,</div>
+<div class="line">  0xAAU, 0xB0U, 0x31U, 0x03U, 0x04U, 0x8BU, 0xC1U, 0x6CU, 0x0AU, 0x5AU, 0xADU, 0x58U, 0x8FU, 0x49U, 0x15U, 0x63U,</div>
+<div class="line">  0x53U, 0x24U, 0x0DU, 0xEBU, 0x47U, 0xC7U, 0x77U, 0x3AU, 0x0FU, 0x7FU, 0x08U, 0xB0U, 0xE7U, 0xC6U, 0x4DU, 0x94U,</div>
+<div class="line">  0xC8U, 0x59U, 0xC9U, 0x4FU, 0xC7U, 0x90U, 0x39U, 0xE3U, 0xFAU, 0xE5U, 0xFDU, 0x90U, 0x20U, 0x07U, 0x27U, 0x20U,</div>
+<div class="line">  0x19U, 0x03U, 0xF1U, 0xAFU, 0x66U, 0xCCU, 0x1EU, 0x82U, 0x5DU, 0x62U, 0x65U, 0x85U, 0x1DU, 0xAAU, 0x26U, 0xC7U,</div>
+<div class="line">  0xC9U, 0x13U, 0xA2U, 0x35U, 0x19U, 0xB5U, 0xF9U, 0xC6U, 0x9DU, 0xCBU, 0xD7U, 0x0AU, 0x35U, 0x86U, 0x0DU, 0x67U,</div>
+<div class="line">  0xABU, 0xF6U, 0x6AU, 0xD5U, 0x92U, 0x5BU, 0x7EU, 0xC1U, 0x23U, 0x18U, 0xD4U, 0x0FU, 0x21U, 0xA8U, 0x4CU, 0x4FU</div>
 <div class="line">};</div>
 <div class="line"> </div>
+<div class="line"><span class="comment">/* shared secret ZZ [BE] 0x707faae243f409581a92d8620df5e51329a0b3062fce82c6e0af602b8c0cba2482d76c7bf86d58eb1bd6c9eed8c12b653dc086a2be6bc0d4c7b3b21e2d7d63be14f431c093f1f137b050907b2e1b2837cbfd24333238506e33d98b92842a32cec21af3f4d4dfeedb5a6a0d16c724107ac20adc34d3cb8c4763f77832e54555931c0f443783fcbd78d4626bc6b1569b14cc880da9c680a06e9434b9c9961dc228c8823c41a071f435e682043ded719c46b84d70454e36c263215f2aecc98c0007362774bf0c7b1ef21b47bc3b9775c291d769d93897fa5cc49a5bf415ab0f44f89fe03df7d1aa7aff4b89265e5d86868dc058be3266e895962abe9085d1587ba59e203ddf0aac4bad158e7301050ee0eddf544983d88005bd0145d50673056c546ed3b396e37ce8070f8ea66c3d34b666aedf773cdf9646a26bbe8af91e87899a0845b40aba75670c0614476b59b6b5d4a1095e1470b7c285ce9a10489bb4b95e057a717477dd6c974489c4e3b04b6d5c315699218f03f6e22975bd06ef24171c6552d73c4b201b226314a76021ff8c4224009c1f9e71a0a454f7e08c307a56fa41a430f273a22232acfad0c88614c1cd6030b06d35b5f5116e63567c3a0dcd201d1f542ac409984f50904154cb5dfc67618f9f497dab3c8c93054f51818864fce449d3dc34383d36067174178dd6b8a988f9d6e7a5e21d8e116a7a053f4daaea66b16b2f2b39d46b31f7de5398af47a78f0ddc7f5b194d9735062cfe749ca23664b7e2d6f615e6e11f5be3308d8e645a02af9e49209b00d2ee370c31cb9e9b1b631828649155e2025997e7694cc2c548e1586363e5ed288a7209dbc78fefc93765dbd2db6f97fde86b5fe5528b31502298179fbf85e4d8e8031520fccab9d8e8d12a6a36d55e9ef7238bfc7f6d685af0af0237157b237270ce6356b3cbf5905a49e4dc9e61d1c21c530e0843e7dc04de9b770fbe8452d3b0665ccbeb7d030937f4c374fba81ce131e1abf004112b211cc576c810dcbd3415adbbd72787b2c608e87b0d1083d3f0811475ca4f7b67859e084abc11fe93be2afca2c61be6511ef8 */</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#define MAX_CPUWA_SIZE MCUXCLCORE_MAX(MCUXCLRANDOM_NCINIT_WACPU_SIZE, \</span></div>
-<div class="line"><span class="preprocessor">                       MCUXCLCORE_MAX(MCUXCLRANDOMMODES_INIT_WACPU_SIZE, \</span></div>
-<div class="line"><span class="preprocessor">                       MCUXCLCORE_MAX(MCUXCLECC_WEIERECC_GENERATEDOMAINPARAMS_WACPU_SIZE, \</span></div>
-<div class="line"><span class="preprocessor">                                     MCUXCLKEY_GENERATEKEYPAIR_WEIERECC_WACPU_SIZE)))</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#define MAX_PKCWA_SIZE MCUXCLCORE_MAX(MCUXCLECC_WEIERECC_GENERATEDOMAINPARAMS_WAPKC_SIZE_256, \</span></div>
-<div class="line"><span class="preprocessor">                                     MCUXCLKEY_GENERATEKEYPAIR_WEIERECC_WAPKC_SIZE_256)</span></div>
-<div class="line"></div>
-<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClEcc_WeierECC_CustomEccWeierType_BN256_example)</div>
+<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClFfdh_KeyAgreement_ffdhe6144_example)</div>
 <div class="line">{</div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Preparation                                                            */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Preparation                                                            */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Setup one session to be used by all functions called */</span></div>
-<div class="line">    mcuxClSession_Descriptor_t sessionDesc;</div>
-<div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
-<div class="line">    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MAX_CPUWA_SIZE, MAX_PKCWA_SIZE);</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Create structure providing custom domain parameters (BN_P256), which   */</span></div>
-<div class="line">    <span class="comment">/* will be converted to the optimized form accepted by mcuxClEcc APIs      */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">    <a id="a1" name="a1"></a><a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(buffP, NULL, BN_P256_P, BN256_BYTE_LEN_P);</div>
-<div class="line">    <a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(buffA, NULL, BN_P256_A, BN256_BYTE_LEN_P);</div>
-<div class="line">    <a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(buffB, NULL, BN_P256_B, BN256_BYTE_LEN_P);</div>
-<div class="line">    <a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(buffG, NULL, BN_P256_G, BN256_BYTE_LEN_P * 2u);</div>
-<div class="line">    <a class="code hl_define" href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(buffN, NULL, BN_P256_N, BN256_BYTE_LEN_N);</div>
-<div class="line"> </div>
-<div class="line">    <a id="_a2" name="_a2"></a><a class="code hl_struct" href="a01903.html">mcuxClEcc_Weier_BasicDomainParams_t</a> EccWeierBasicDomainParams;</div>
-<div class="line">    EccWeierBasicDomainParams.<a id="a3" name="a3"></a>pP   = buffP;</div>
-<div class="line">    EccWeierBasicDomainParams.<a id="a4" name="a4"></a>pLen = BN256_BYTE_LEN_P;</div>
-<div class="line">    EccWeierBasicDomainParams.<a id="a5" name="a5"></a>pA   = buffA;</div>
-<div class="line">    EccWeierBasicDomainParams.<a id="a6" name="a6"></a>pB   = buffB;</div>
-<div class="line">    EccWeierBasicDomainParams.<a id="a7" name="a7"></a>pG   = buffG;</div>
-<div class="line">    EccWeierBasicDomainParams.<a id="a8" name="a8"></a>pN   = buffN;</div>
-<div class="line">    EccWeierBasicDomainParams.<a id="a9" name="a9"></a>nLen = BN256_BYTE_LEN_N;</div>
+<div class="line">  <span class="comment">/* Setup one session to be used by all functions called */</span></div>
+<div class="line">  mcuxClSession_Descriptor_t sessionDesc;</div>
+<div class="line">  <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
+<div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session,</div>
+<div class="line">                                              MAX_CPUWA_SIZE,</div>
+<div class="line">                                              MAX_PKCWA_SIZE);</div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Convert custom domain parameters (BN_P256) and store it in             */</span></div>
-<div class="line">    <span class="comment">/* the optimized form accepted by mcuxClEcc APIs                           */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Allocate space for and initialize Alice&#39;s private key handle for an ffdhe6144 private key */</span></div>
+<div class="line">  uint32_t alicePrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a id="_a1" name="_a1"></a><a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> alicePrivKey = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;alicePrivKeyDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line"> </div>
-<div class="line">    uint32_t eccWeierDomainParams[<a id="a10" name="a10"></a><a class="code hl_define" href="a01599.html#gac8895d8165cf3c84b10ac986a30c37e4">MCUXCLECC_CUSTOMWEIERECCDOMAINPARAMS_SIZE</a>(BN256_BYTE_LEN_P, BN256_BYTE_LEN_N) / (<span class="keyword">sizeof</span>(uint32_t))];</div>
-<div class="line">    <a id="_a11" name="_a11"></a><a class="code hl_typedef" href="a01376.html#gafe84edad82c8934ef1634e9f29effa55">mcuxClEcc_Weier_DomainParams_t</a> *pEccWeierDomainParams = (<a class="code hl_typedef" href="a01376.html#gafe84edad82c8934ef1634e9f29effa55">mcuxClEcc_Weier_DomainParams_t</a> *) eccWeierDomainParams;</div>
+<div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(aliceprivkeyinit_result, aliceprivkeyinit_token, <a id="_a3" name="_a3"></a><a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> alicePrivKey,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="_a4" name="_a4"></a><a class="code hl_variable" href="a01380.html#gab3510cce7eb3e906bc7a5008ff9429a9">mcuxClKey_Type_Ffdh_ffdhe6144_Priv</a>,</div>
+<div class="line">  <span class="comment">/* const uint8_t * pKeyData              */</span> pAlicePrivKeyData,</div>
+<div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> MCUXCLFFDH_FFDHE6144_SIZE_PRIVATEKEY));</div>
 <div class="line"> </div>
-<div class="line">    <a id="a12" name="a12"></a><a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(genOptEccParams_status, genOptEccParams_token,</div>
-<div class="line">        <a id="a13" name="a13"></a><a class="code hl_function" href="a01371.html#ga1deb22c96b88674a4513e56cdd2dfe3a">mcuxClEcc_WeierECC_GenerateDomainParams</a>(session,</div>
-<div class="line">                                               pEccWeierDomainParams,</div>
-<div class="line">                                               &amp;EccWeierBasicDomainParams,</div>
-<div class="line">                                               MCUXCLECC_OPTION_GENERATEPRECPOINT_YES)</div>
-<div class="line">    );</div>
+<div class="line">  if((<a id="_a5" name="_a5"></a><a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != aliceprivkeyinit_token) || (<a id="_a6" name="_a6"></a><a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != aliceprivkeyinit_result))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a id="a7" name="a7"></a><a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span>((<a id="a14" name="a14"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01371.html#ga1deb22c96b88674a4513e56cdd2dfe3a">mcuxClEcc_WeierECC_GenerateDomainParams</a>) != genOptEccParams_token) || (<a id="_a15" name="_a15"></a><a class="code hl_define" href="a01615.html#gafed6866e44c300e1946713be81aefb9c">MCUXCLECC_STATUS_OK</a> != genOptEccParams_status))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a id="a16" name="a16"></a><a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <span class="comment">/* Allocate space for and initialize Alice&#39;s public key handle for an ffdhe6144 public key */</span></div>
+<div class="line">  uint32_t alicePubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> alicePubKey = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;alicePubKeyDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(alicepubkeyinit_result, alicepubkeyinit_token, <a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> alicePubKey,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="_a8" name="_a8"></a><a class="code hl_variable" href="a01380.html#gabb96cc627cf9ac4163b1972ebf346872">mcuxClKey_Type_Ffdh_ffdhe6144_Pub</a>,</div>
+<div class="line">  <span class="comment">/* const uint8_t * pKeyData              */</span> pAlicePubKeyData,</div>
+<div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> MCUXCLFFDH_FFDHE6144_SIZE_PUBLICKEY));</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Generate custom private and public key types for BN_P256               */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != alicepubkeyinit_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != alicepubkeyinit_result))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    uint32_t customPrivKeyTypeDescriptor[MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE_IN_WORDS] = {0};</div>
-<div class="line">    <a id="_a17" name="_a17"></a><a class="code hl_typedef" href="a01420.html#ga4249d6ccc1dab6d15b46270da3c3d6d4">mcuxClKey_CustomType_t</a> customPrivKeyType = (<a class="code hl_typedef" href="a01420.html#ga4249d6ccc1dab6d15b46270da3c3d6d4">mcuxClKey_CustomType_t</a>) customPrivKeyTypeDescriptor;</div>
+<div class="line">  <span class="comment">/* Allocate space for and initialize Bob&#39;s private key handle for an ffdhe6144 private key */</span></div>
+<div class="line">  uint32_t bobPrivKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> bobPrivKey = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;bobPrivKeyDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(genPrivKeyType_status, genPrivKeyType_token, <a id="a18" name="a18"></a><a class="code hl_function" href="a01371.html#gaf5bdc4291b8564a9d6cab3794456b840">mcuxClEcc_WeierECC_GenerateCustomKeyType</a>(</div>
-<div class="line">        <span class="comment">/* mcuxClKey_CustomType_t customType     */</span> customPrivKeyType,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_AlgorithmId_t algoId        */</span> <a id="_a19" name="_a19"></a><a class="code hl_define" href="a01415.html#ga8de9456ab126f7227b1077462fbca3b4">MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM</a> | <a id="_a20" name="_a20"></a><a class="code hl_define" href="a01415.html#ga18dcc408cf88d59a8d55fcfd3efd3b75">MCUXCLKEY_ALGO_ID_PRIVATE_KEY</a>,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_Size_t size                 */</span> <a id="_a21" name="_a21"></a><a class="code hl_define" href="a01416.html#ga16f615ca2af0dcc6dad9930cbfc21b89">MCUXCLKEY_SIZE_256</a>,</div>
-<div class="line">        <span class="comment">/* void *pCustomParams                  */</span> (<span class="keywordtype">void</span> *) pEccWeierDomainParams,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_Encoding_t plainEncoding    */</span> <a id="_a22" name="_a22"></a><a class="code hl_define" href="a00524.html#a3954c538e371697ea74a09dc2d710ba2">mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain</a>)</div>
-<div class="line">    );</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(bobprivkeyinit_result, bobprivkeyinit_token, <a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> bobPrivKey,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a class="code hl_variable" href="a01380.html#gab3510cce7eb3e906bc7a5008ff9429a9">mcuxClKey_Type_Ffdh_ffdhe6144_Priv</a>,</div>
+<div class="line">  <span class="comment">/* const uint8_t * pKeyData              */</span> pBobPrivKeyData,</div>
+<div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> MCUXCLFFDH_FFDHE6144_SIZE_PRIVATEKEY));</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01371.html#gaf5bdc4291b8564a9d6cab3794456b840">mcuxClEcc_WeierECC_GenerateCustomKeyType</a>) != genPrivKeyType_token) || (<a class="code hl_define" href="a01615.html#gafed6866e44c300e1946713be81aefb9c">MCUXCLECC_STATUS_OK</a> != genPrivKeyType_status))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != bobprivkeyinit_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != bobprivkeyinit_result))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    uint32_t customPubKeyTypeDescriptor[MCUXCLKEY_CUSTOMTYPEDESCRIPTOR_SIZE_IN_WORDS] = {0};</div>
-<div class="line">    <a class="code hl_typedef" href="a01420.html#ga4249d6ccc1dab6d15b46270da3c3d6d4">mcuxClKey_CustomType_t</a> customPubKeyType = (<a class="code hl_typedef" href="a01420.html#ga4249d6ccc1dab6d15b46270da3c3d6d4">mcuxClKey_CustomType_t</a>) customPubKeyTypeDescriptor;</div>
+<div class="line">  <span class="comment">/* Allocate space for and initialize Bob&#39;s public key handle for an ffdhe6144 public key */</span></div>
+<div class="line">  uint32_t bobPubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> bobPubKey = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;bobPubKeyDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(genPubKeyType_status, genPubKeyType_token, <a class="code hl_function" href="a01371.html#gaf5bdc4291b8564a9d6cab3794456b840">mcuxClEcc_WeierECC_GenerateCustomKeyType</a>(</div>
-<div class="line">        <span class="comment">/* mcuxClKey_CustomType_t customType     */</span> customPubKeyType,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_AlgorithmId_t algoId        */</span> <a class="code hl_define" href="a01415.html#ga8de9456ab126f7227b1077462fbca3b4">MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM</a> | <a id="_a23" name="_a23"></a><a class="code hl_define" href="a01415.html#ga59fde148cf2683ed4371524df7ae3f06">MCUXCLKEY_ALGO_ID_PUBLIC_KEY</a>,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_Size_t size                 */</span> <a id="_a24" name="_a24"></a><a class="code hl_define" href="a01416.html#ga7dd4afbbc02c2612af98796af352b875">MCUXCLKEY_SIZE_512</a>,</div>
-<div class="line">        <span class="comment">/* void *pCustomParams                  */</span> (<span class="keywordtype">void</span> *) pEccWeierDomainParams,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_Encoding_t plainEncoding    */</span> <a id="_a25" name="_a25"></a><a class="code hl_define" href="a00524.html#a5824381f3ef97a6c5f1314791c1a2745">mcuxClEcc_Encoding_WeierECC_PublicKey_Plain</a>)</div>
-<div class="line">    );</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(bobpubkeyinit_result, bobpubkeyinit_token, <a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">  <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Handle_t key                 */</span> bobPubKey,</div>
+<div class="line">  <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a class="code hl_variable" href="a01380.html#gabb96cc627cf9ac4163b1972ebf346872">mcuxClKey_Type_Ffdh_ffdhe6144_Pub</a>,</div>
+<div class="line">  <span class="comment">/* const uint8_t * pKeyData              */</span> pBobPubKeyData,</div>
+<div class="line">  <span class="comment">/* uint32_t keyDataLength                */</span> MCUXCLFFDH_FFDHE6144_SIZE_PUBLICKEY));</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01371.html#gaf5bdc4291b8564a9d6cab3794456b840">mcuxClEcc_WeierECC_GenerateCustomKeyType</a>) != genPubKeyType_token) || (<a class="code hl_define" href="a01615.html#gafed6866e44c300e1946713be81aefb9c">MCUXCLECC_STATUS_OK</a> != genPubKeyType_status))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != bobpubkeyinit_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != bobpubkeyinit_result))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Allocate space for and initialize private key handle for an BN_P256 private key */</span></div>
-<div class="line">    uint32_t privKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    <a id="_a26" name="_a26"></a><a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> privKey = (<a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;privKeyDesc;</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    ALIGNED uint8_t pPrivKeyData[<a class="code hl_define" href="a01416.html#ga16f615ca2af0dcc6dad9930cbfc21b89">MCUXCLKEY_SIZE_256</a>];</div>
+<div class="line">  <span class="comment">/* Initialize the PRNG */</span></div>
+<div class="line">  MCUXCLEXAMPLE_INITIALIZE_PRNG(session);</div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ki_priv_status, ki_priv_token, <a id="_a27" name="_a27"></a><a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key                 */</span> privKey,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Type_t type                  */</span> customPrivKeyType,</div>
-<div class="line">    <span class="comment">/* const uint8_t * pKeyData              */</span> pPrivKeyData,</div>
-<div class="line">    <span class="comment">/* uint32_t keyDataLength                */</span> <a class="code hl_define" href="a01416.html#ga16f615ca2af0dcc6dad9930cbfc21b89">MCUXCLKEY_SIZE_256</a>)</div>
-<div class="line">    );</div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* FFDH key agreement on ffdhe6144                                        */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line">    if((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != ki_priv_token) || (<a id="_a28" name="_a28"></a><a class="code hl_define" href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != ki_priv_status))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <span class="comment">/* Alice computes the shared key, additionalInputs parameter is not required */</span></div>
+<div class="line">  uint8_t aliceSharedSecret[MCUXCLFFDH_FFDHE6144_SIZE_SHAREDSECRET];</div>
+<div class="line">  uint32_t aliceSharedSecretSize = 0U;</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(alice_keyagreement_result, alice_keyagreement_token, <a id="a9" name="a9"></a><a class="code hl_function" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a">mcuxClKey_agreement</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t pSession:                          */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Agreement_t agreement:                          */</span> <a id="_a10" name="_a10"></a><a class="code hl_variable" href="a01381.html#ga4644875a7cbdeed88ef6365a5a4c263d">mcuxClKey_Agreement_FFDH</a>,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:                                   */</span> alicePrivKey,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t otherKey:                              */</span> bobPubKey,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT(<span class="stringliteral">&quot;NULL is used in code&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Agreement_AdditionalInput_t additionalInputs[]: */</span> NULL,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()</div>
+<div class="line">    <span class="comment">/* uint32_t numberOfInputs:                                 */</span> 0U,</div>
+<div class="line">    <span class="comment">/* uint8_t * pOut:                                          */</span> aliceSharedSecret,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutLength:                             */</span> &amp;aliceSharedSecretSize));</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Allocate space for and initialize public key handle for an BN_P256 public key */</span></div>
-<div class="line">    uint32_t pubKeyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    <a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> pubKey = (<a class="code hl_typedef" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) &amp;pubKeyDesc;</div>
-<div class="line">    MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
-<div class="line">    ALIGNED uint8_t pPubKeyData[MCUXCLECC_WEIERECC_NIST_P256_SIZE_PUBLICKEY];</div>
+<div class="line">  <span class="keywordflow">if</span> ((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a">mcuxClKey_agreement</a>) != alice_keyagreement_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != alice_keyagreement_result) || (aliceSharedSecretSize != MCUXCLFFDH_FFDHE6144_SIZE_SHAREDSECRET))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ki_pub_status, ki_pub_token, <a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
-<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key                 */</span> pubKey,</div>
-<div class="line">    <span class="comment">/* mcuxClKey_Type_t type                  */</span> customPubKeyType,</div>
-<div class="line">    <span class="comment">/* const uint8_t * pKeyData              */</span> pPubKeyData,</div>
-<div class="line">    <span class="comment">/* uint32_t keyDataLength                */</span> <a class="code hl_define" href="a01416.html#ga7dd4afbbc02c2612af98796af352b875">MCUXCLKEY_SIZE_512</a>)</div>
-<div class="line">    );</div>
+<div class="line">  <span class="comment">/* Bob computes the shared key, additionalInputs parameter is not required */</span></div>
+<div class="line">  uint8_t bobSharedSecret[MCUXCLFFDH_FFDHE6144_SIZE_SHAREDSECRET];</div>
+<div class="line">  uint32_t bobSharedSecretSize = 0U;</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(bob_keyagreement_result, bob_keyagreement_token, <a class="code hl_function" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a">mcuxClKey_agreement</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t pSession:                          */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Agreement_t agreement:                          */</span> <a class="code hl_variable" href="a01381.html#ga4644875a7cbdeed88ef6365a5a4c263d">mcuxClKey_Agreement_FFDH</a>,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key:                                   */</span> bobPrivKey,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t otherKey:                              */</span> alicePubKey,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_NULL_POINTER_CONSTANT(<span class="stringliteral">&quot;NULL is used in code&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Agreement_AdditionalInput_t additionalInputs[]: */</span> NULL,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_NULL_POINTER_CONSTANT()</div>
+<div class="line">    <span class="comment">/* uint32_t numberOfInputs:                                 */</span> 0U,</div>
+<div class="line">    <span class="comment">/* uint8_t * pOut:                                          */</span> bobSharedSecret,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutLength:                             */</span> &amp;bobSharedSecretSize));</div>
 <div class="line"> </div>
-<div class="line">    if((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != ki_pub_token) || (<a class="code hl_define" href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != ki_pub_status))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">  <span class="keywordflow">if</span> ((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a">mcuxClKey_agreement</a>) != bob_keyagreement_token) || (<a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != bob_keyagreement_result) || (bobSharedSecretSize != MCUXCLFFDH_FFDHE6144_SIZE_SHAREDSECRET))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the RNG context and Initialize the PRNG */</span></div>
-<div class="line"><span class="preprocessor">  #if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)</span></div>
-<div class="line">    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3);</div>
-<div class="line"><span class="preprocessor">  #elif defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128)</span></div>
-<div class="line">    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES128_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES128_DRG3);</div>
-<div class="line"><span class="preprocessor">  #else</span></div>
-<div class="line"><span class="preprocessor">    #error &quot;Example not supported for target&quot;</span></div>
-<div class="line"><span class="preprocessor">  #endif</span></div>
+<div class="line">  <span class="comment">/* Verify that Alice and Bob computed the same shared key */</span></div>
+<div class="line">  <span class="keywordflow">if</span>(!mcuxClCore_assertEqual(bobSharedSecret, aliceSharedSecret, MCUXCLFFDH_FFDHE6144_SIZE_SHAREDSECRET))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Key pair generation for ECDSA on BN_P256                               */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(gkp_status, gkp_token, <a id="a29" name="a29"></a><a class="code hl_function" href="a01419.html#gabe229dce364a13239b307a5c9cfeb343">mcuxClKey_generate_keypair</a>(</div>
-<div class="line">        <span class="comment">/* mcuxClSession_Handle_t session:    */</span> session,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_Generation_t generation: */</span> <a id="_a30" name="_a30"></a><a class="code hl_variable" href="a01373.html#gaf478f6dfe868e5c07e681d879ca15998">mcuxClKey_Generation_ECDSA</a>,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_Handle_t privKey:        */</span> privKey,</div>
-<div class="line">        <span class="comment">/* mcuxClKey_Handle_t pubKey:         */</span> pubKey)</div>
-<div class="line">    );</div>
+<div class="line">  <span class="comment">/* Destroy Session and cleanup Session */</span></div>
+<div class="line">  <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01419.html#gabe229dce364a13239b307a5c9cfeb343">mcuxClKey_generate_keypair</a>) != gkp_token) || (<a class="code hl_define" href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != gkp_status))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line">    <span class="comment">/* Clean session                                                          */</span></div>
-<div class="line"><span class="comment">    /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
+<div class="line">  <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa00422_html"><div class="ttname"><a href="a00422.html">mcuxClBuffer.h</a></div><div class="ttdoc">Top-level include file for the mcuxClBuffer component.</div></div>
-<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00461_html"><div class="ttname"><a href="a00461.html">mcuxClCore_Macros.h</a></div><div class="ttdoc">Definition of macros.</div></div>
-<div class="ttc" id="aa00476_html"><div class="ttname"><a href="a00476.html">mcuxClEcc.h</a></div><div class="ttdoc">Top level header of mcuxClEcc component.</div></div>
-<div class="ttc" id="aa00524_html_a3954c538e371697ea74a09dc2d710ba2"><div class="ttname"><a href="a00524.html#a3954c538e371697ea74a09dc2d710ba2">mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain</a></div><div class="ttdeci">#define mcuxClEcc_Encoding_WeierECC_PrivateKey_Plain</div><div class="ttdoc">Key encoding for a WeierECC private key.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_KeyEncodingMechanisms.h:61</div></div>
-<div class="ttc" id="aa00524_html_a5824381f3ef97a6c5f1314791c1a2745"><div class="ttname"><a href="a00524.html#a5824381f3ef97a6c5f1314791c1a2745">mcuxClEcc_Encoding_WeierECC_PublicKey_Plain</a></div><div class="ttdeci">#define mcuxClEcc_Encoding_WeierECC_PublicKey_Plain</div><div class="ttdoc">Key encoding for a WeierECC public key.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_KeyEncodingMechanisms.h:70</div></div>
-<div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">mcuxClKey.h</a></div><div class="ttdoc">Top-level include file for the mcuxClKey component.</div></div>
-<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">mcuxClRandom.h</a></div><div class="ttdoc">Top level header of mcuxClRandom component.</div></div>
-<div class="ttc" id="aa00767_html"><div class="ttname"><a href="a00767.html">mcuxClRandomModes.h</a></div><div class="ttdoc">Top level header of mcuxClRandomModes component.</div></div>
-<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa01354_html_gaa0ed06160ed0bb21bbef3def4479d9ce"><div class="ttname"><a href="a01354.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RO(name, info, ptr, size)</div><div class="ttdoc">Initialize an input buffer (mcuxCl_InputBuffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:104</div></div>
-<div class="ttc" id="aa01371_html_ga1deb22c96b88674a4513e56cdd2dfe3a"><div class="ttname"><a href="a01371.html#ga1deb22c96b88674a4513e56cdd2dfe3a">mcuxClEcc_WeierECC_GenerateDomainParams</a></div><div class="ttdeci">mcuxClEcc_Status_t mcuxClEcc_WeierECC_GenerateDomainParams(mcuxClSession_Handle_t pSession, mcuxClEcc_Weier_DomainParams_t *pEccWeierDomainParams, mcuxClEcc_Weier_BasicDomainParams_t *pEccWeierBasicDomainParams, uint32_t options)</div><div class="ttdoc">ECC Weierstrass custom domain parameter generation function.</div></div>
-<div class="ttc" id="aa01371_html_gaf5bdc4291b8564a9d6cab3794456b840"><div class="ttname"><a href="a01371.html#gaf5bdc4291b8564a9d6cab3794456b840">mcuxClEcc_WeierECC_GenerateCustomKeyType</a></div><div class="ttdeci">mcuxClEcc_Status_t mcuxClEcc_WeierECC_GenerateCustomKeyType(mcuxClKey_CustomType_t customType, mcuxClKey_AlgorithmId_t algoId, mcuxClKey_Size_t size, void *pCustomParams, mcuxClKey_Encoding_t plainEncoding)</div><div class="ttdoc">Key type constructor.</div></div>
-<div class="ttc" id="aa01373_html_gaf478f6dfe868e5c07e681d879ca15998"><div class="ttname"><a href="a01373.html#gaf478f6dfe868e5c07e681d879ca15998">mcuxClKey_Generation_ECDSA</a></div><div class="ttdeci">static mcuxClKey_Generation_t mcuxClKey_Generation_ECDSA</div><div class="ttdoc">ECDSA Key generation algorithm.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_KeyTypes.h:1251</div></div>
-<div class="ttc" id="aa01376_html_gafe84edad82c8934ef1634e9f29effa55"><div class="ttname"><a href="a01376.html#gafe84edad82c8934ef1634e9f29effa55">mcuxClEcc_Weier_DomainParams_t</a></div><div class="ttdeci">struct mcuxClEcc_Weier_DomainParams mcuxClEcc_Weier_DomainParams_t</div><div class="ttdoc">Type for Weierstrass ECC domain parameters.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Types.h:123</div></div>
-<div class="ttc" id="aa01413_html_ga3cac3b08cb53d2949698e19319010c49"><div class="ttname"><a href="a01413.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_OK</div><div class="ttdoc">Key operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:60</div></div>
-<div class="ttc" id="aa01415_html_ga18dcc408cf88d59a8d55fcfd3efd3b75"><div class="ttname"><a href="a01415.html#ga18dcc408cf88d59a8d55fcfd3efd3b75">MCUXCLKEY_ALGO_ID_PRIVATE_KEY</a></div><div class="ttdeci">#define MCUXCLKEY_ALGO_ID_PRIVATE_KEY</div><div class="ttdoc">Private key.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:117</div></div>
-<div class="ttc" id="aa01415_html_ga59fde148cf2683ed4371524df7ae3f06"><div class="ttname"><a href="a01415.html#ga59fde148cf2683ed4371524df7ae3f06">MCUXCLKEY_ALGO_ID_PUBLIC_KEY</a></div><div class="ttdeci">#define MCUXCLKEY_ALGO_ID_PUBLIC_KEY</div><div class="ttdoc">Public key.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:116</div></div>
-<div class="ttc" id="aa01415_html_ga8de9456ab126f7227b1077462fbca3b4"><div class="ttname"><a href="a01415.html#ga8de9456ab126f7227b1077462fbca3b4">MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM</a></div><div class="ttdeci">#define MCUXCLKEY_ALGO_ID_ECC_SHWS_GFP_STATIC_CUSTOM</div><div class="ttdoc">ECC key using Short Weierstrass Curve over GF(p) with static custom domain parameters.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:108</div></div>
-<div class="ttc" id="aa01416_html_ga16f615ca2af0dcc6dad9930cbfc21b89"><div class="ttname"><a href="a01416.html#ga16f615ca2af0dcc6dad9930cbfc21b89">MCUXCLKEY_SIZE_256</a></div><div class="ttdeci">#define MCUXCLKEY_SIZE_256</div><div class="ttdoc">256 bit key, size in bytes</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:138</div></div>
-<div class="ttc" id="aa01416_html_ga7dd4afbbc02c2612af98796af352b875"><div class="ttname"><a href="a01416.html#ga7dd4afbbc02c2612af98796af352b875">MCUXCLKEY_SIZE_512</a></div><div class="ttdeci">#define MCUXCLKEY_SIZE_512</div><div class="ttdoc">512 bit key, size in bytes</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:141</div></div>
-<div class="ttc" id="aa01419_html_ga5faf77a895683e1e7d904bd323abc38d"><div class="ttname"><a href="a01419.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_init(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Type_t type, const uint8_t *pKeyData, uint32_t keyDataLength)</div><div class="ttdoc">Initializes a key handle.</div></div>
-<div class="ttc" id="aa01419_html_gabe229dce364a13239b307a5c9cfeb343"><div class="ttname"><a href="a01419.html#gabe229dce364a13239b307a5c9cfeb343">mcuxClKey_generate_keypair</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_generate_keypair(mcuxClSession_Handle_t session, mcuxClKey_Generation_t generation, mcuxClKey_Handle_t privKey, mcuxClKey_Handle_t pubKey)</div><div class="ttdoc">Key-pair generation function.</div></div>
-<div class="ttc" id="aa01420_html_ga4249d6ccc1dab6d15b46270da3c3d6d4"><div class="ttname"><a href="a01420.html#ga4249d6ccc1dab6d15b46270da3c3d6d4">mcuxClKey_CustomType_t</a></div><div class="ttdeci">mcuxClKey_TypeDescriptor_t * mcuxClKey_CustomType_t</div><div class="ttdoc">Custom key type handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:141</div></div>
-<div class="ttc" id="aa01420_html_gafe84fa2aa66094f542164e0627a54c5d"><div class="ttname"><a href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></div><div class="ttdeci">mcuxClKey_Descriptor_t *const mcuxClKey_Handle_t</div><div class="ttdoc">Key handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:111</div></div>
-<div class="ttc" id="aa01483_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
-<div class="ttc" id="aa01513_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01513_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
-<div class="ttc" id="aa01599_html_gac8895d8165cf3c84b10ac986a30c37e4"><div class="ttname"><a href="a01599.html#gac8895d8165cf3c84b10ac986a30c37e4">MCUXCLECC_CUSTOMWEIERECCDOMAINPARAMS_SIZE</a></div><div class="ttdeci">#define MCUXCLECC_CUSTOMWEIERECCDOMAINPARAMS_SIZE(byteLenP, byteLenN)</div><div class="ttdoc">Define for the buffer size (in bytes) for optimized custom ECC Weierstrass domain parameters.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_MemoryConsumption.h:349</div></div>
-<div class="ttc" id="aa01615_html_gafed6866e44c300e1946713be81aefb9c"><div class="ttname"><a href="a01615.html#gafed6866e44c300e1946713be81aefb9c">MCUXCLECC_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLECC_STATUS_OK</div><div class="ttdoc">Operation was successful.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Constants.h:66</div></div>
-<div class="ttc" id="aa01903_html"><div class="ttname"><a href="a01903.html">mcuxClEcc_Weier_BasicDomainParams_t</a></div><div class="ttdoc">Structure to define basic custom domain parameters for (short) Weierstrass curves with cofactor 1.</div><div class="ttdef"><b>Definition</b> mcuxClEcc_Types.h:156</div></div>
+<div class="ttc" id="aa00455_html"><div class="ttname"><a href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
+<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">mcuxClCore_Macros.h</a></div><div class="ttdoc">Definition of macros.</div></div>
+<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">mcuxClFfdh.h</a></div><div class="ttdoc">Top level header of mcuxClFfdh component.</div></div>
+<div class="ttc" id="aa00671_html"><div class="ttname"><a href="a00671.html">mcuxClKey.h</a></div><div class="ttdoc">Top-level include file for the mcuxClKey component.</div></div>
+<div class="ttc" id="aa00761_html"><div class="ttname"><a href="a00761.html">mcuxClRandom.h</a></div><div class="ttdoc">Top level header of mcuxClRandom component.</div></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa01380_html_gab3510cce7eb3e906bc7a5008ff9429a9"><div class="ttname"><a href="a01380.html#gab3510cce7eb3e906bc7a5008ff9429a9">mcuxClKey_Type_Ffdh_ffdhe6144_Priv</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Ffdh_ffdhe6144_Priv</div><div class="ttdoc">Key type pointer for private FFDHE6144 keys.</div><div class="ttdef"><b>Definition</b> mcuxClFfdh_KeyTypes.h:184</div></div>
+<div class="ttc" id="aa01380_html_gabb96cc627cf9ac4163b1972ebf346872"><div class="ttname"><a href="a01380.html#gabb96cc627cf9ac4163b1972ebf346872">mcuxClKey_Type_Ffdh_ffdhe6144_Pub</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Ffdh_ffdhe6144_Pub</div><div class="ttdoc">Key type pointer for public FFDHE6144 keys.</div><div class="ttdef"><b>Definition</b> mcuxClFfdh_KeyTypes.h:170</div></div>
+<div class="ttc" id="aa01381_html_ga4644875a7cbdeed88ef6365a5a4c263d"><div class="ttname"><a href="a01381.html#ga4644875a7cbdeed88ef6365a5a4c263d">mcuxClKey_Agreement_FFDH</a></div><div class="ttdeci">static mcuxClKey_Agreement_t mcuxClKey_Agreement_FFDH</div><div class="ttdoc">FFDH Key agreement algorithm.</div><div class="ttdef"><b>Definition</b> mcuxClFfdh_KeyTypes.h:244</div></div>
+<div class="ttc" id="aa01410_html_ga3cac3b08cb53d2949698e19319010c49"><div class="ttname"><a href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_OK</div><div class="ttdoc">Key operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:60</div></div>
+<div class="ttc" id="aa01416_html_ga5faf77a895683e1e7d904bd323abc38d"><div class="ttname"><a href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_init(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Type_t type, const uint8_t *pKeyData, uint32_t keyDataLength)</div><div class="ttdoc">Initializes a key handle.</div></div>
+<div class="ttc" id="aa01416_html_gaea7419f6a10d0d173250a9de5d39765a"><div class="ttname"><a href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a">mcuxClKey_agreement</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_agreement(mcuxClSession_Handle_t session, mcuxClKey_Agreement_t agreement, mcuxClKey_Handle_t key, mcuxClKey_Handle_t otherKey, mcuxClKey_Agreement_AdditionalInput_t additionalInputs[], uint32_t numberOfInputs, uint8_t *pOut, uint32_t *const pOutLength)</div><div class="ttdoc">Key agreement function.</div></div>
+<div class="ttc" id="aa01417_html_gafe84fa2aa66094f542164e0627a54c5d"><div class="ttname"><a href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></div><div class="ttdeci">mcuxClKey_Descriptor_t *const mcuxClKey_Handle_t</div><div class="ttdoc">Key handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:111</div></div>
+<div class="ttc" id="aa01480_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
+<div class="ttc" id="aa01510_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
+<div class="ttc" id="aa01510_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
+<div class="ttc" id="aa01510_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

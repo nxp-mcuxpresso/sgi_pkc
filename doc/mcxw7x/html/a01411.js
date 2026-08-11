@@ -1,8 +1,11 @@
 var a01411 =
 [
-    [ "mcuxClKey_Macros", "a01412.html", "a01412" ],
-    [ "mcuxClKey_EncodingMechanisms", "a01418.html", null ],
-    [ "mcuxClKey_Functions", "a01419.html", "a01419" ],
-    [ "mcuxClKey_Types", "a01420.html", "a01420" ],
-    [ "mcuxClKey_MemoryConsumption", "a01604.html", null ]
+    [ "MCUXCLKEY_LOADSTATUS_NOTLOADED", "a01411.html#ga8ce719dd938dbdc0cf859fbb1e602a0e", null ],
+    [ "MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED", "a01411.html#ga2d87bb14ba03cbffd6c11d0f7d3f6ee3", null ],
+    [ "MCUXCLKEY_LOADSTATUS_LOCATION_MASK", "a01411.html#ga32aed5dbc24926c542e6c346fe5c8e02", null ],
+    [ "MCUXCLKEY_LOADSTATUS_LOCATION_NONE", "a01411.html#gae2da6715b590e0eba9414468862d44f8", null ],
+    [ "MCUXCLKEY_LOADSTATUS_LOCATION_COPRO", "a01411.html#gad1bb0f23959496e4b61eb39deacc9c78", null ],
+    [ "MCUXCLKEY_LOADSTATUS_OPTIONS_MASK", "a01411.html#ga5fbb658f32b6a78386a0f5b7b25bf059", null ],
+    [ "MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED", "a01411.html#ga35789114c2273c2e8e9db164a668294e", null ],
+    [ "MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY", "a01411.html#ga2313214ad9f182ecdec879bebd2a1d3d", null ]
 ];

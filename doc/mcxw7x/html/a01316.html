@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxl2xx/PERI_SYSCON_AON.h File Reference</title>
+<title>MCUX CLNS: platform/mcxl2xx/PERI_TMR.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,264 +102,333 @@ $(function(){initNavTree('a01316.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PERI_SYSCON_AON.h File Reference</div></div>
+  <div class="headertitle"><div class="title">PERI_TMR.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>CMSIS Peripheral Access Layer for SYSCON_AON.  
+<p>CMSIS Peripheral Access Layer for TMR.  
 <a href="#details">More...</a></p>
 
 <p><a href="a01316_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:SYSCON_5FAON_5FType" id="r_SYSCON_5FAON_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02875.html">SYSCON_AON_Type</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SYSCON_AON - Register Layout Typedef.  <a href="a02875.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TMR_5FType" id="r_TMR_5FType"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02874.html">TMR_Type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMR - Register Layout Typedef.  <a href="a02874.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ab6670f87c6c403132d687aa0fe940ab9" id="r_ab6670f87c6c403132d687aa0fe940ab9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab6670f87c6c403132d687aa0fe940ab9">PERI_SYSCON_AON_H_</a></td></tr>
-<tr class="memdesc:ab6670f87c6c403132d687aa0fe940ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
-<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">SEQUENCE_TICK - LC Sense sequence tick</div></td></tr>
-<tr class="memitem:ga2be751cea99cd206ff6ccfd3a63aa5b8" id="r_ga2be751cea99cd206ff6ccfd3a63aa5b8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_OVERRIDE_SEQ_CTRL_MASK</b></td></tr>
-<tr class="memitem:ga79762fa8d6200ea8c45e577e74c61f38" id="r_ga79762fa8d6200ea8c45e577e74c61f38"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_OVERRIDE_SEQ_CTRL_SHIFT</b></td></tr>
-<tr class="memitem:gaff2e8320dc3b63a574acf8f98c3160a2" id="r_gaff2e8320dc3b63a574acf8f98c3160a2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gaff2e8320dc3b63a574acf8f98c3160a2">SYSCON_AON_SEQUENCE_TICK_SW_OVERRIDE_SEQ_CTRL</a>(x)</td></tr>
-<tr class="memitem:ga0106e718813ddd191073e94f212f702e" id="r_ga0106e718813ddd191073e94f212f702e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_PARKED_MASK</b></td></tr>
-<tr class="memitem:ga3e16e12bef69ef12ed3d9d94d5b2a153" id="r_ga3e16e12bef69ef12ed3d9d94d5b2a153"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_PARKED_SHIFT</b></td></tr>
-<tr class="memitem:ga88b14b8983ae012e20c76c86dacd8321" id="r_ga88b14b8983ae012e20c76c86dacd8321"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga88b14b8983ae012e20c76c86dacd8321">SYSCON_AON_SEQUENCE_TICK_SW_PARKED</a>(x)</td></tr>
-<tr class="memitem:ga8677563d58132c209794eb3bbdcbd166" id="r_ga8677563d58132c209794eb3bbdcbd166"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_OVERRIDE_MASK</b></td></tr>
-<tr class="memitem:gad8ac6d43fe5e0828cb7b63e85267a201" id="r_gad8ac6d43fe5e0828cb7b63e85267a201"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_OVERRIDE_SHIFT</b></td></tr>
-<tr class="memitem:gaafae0c94f5ddc726e52d46e43d1a8ff3" id="r_gaafae0c94f5ddc726e52d46e43d1a8ff3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gaafae0c94f5ddc726e52d46e43d1a8ff3">SYSCON_AON_SEQUENCE_TICK_SW_OVERRIDE</a>(x)</td></tr>
-<tr class="memitem:ga4f4a50d18eb72ba0a72ad7ba8a1f7178" id="r_ga4f4a50d18eb72ba0a72ad7ba8a1f7178"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_CHANNEL_EN_MASK</b></td></tr>
-<tr class="memitem:gae63ad86dcb365ecb096a135ebe348802" id="r_gae63ad86dcb365ecb096a135ebe348802"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SEQUENCE_TICK_SW_CHANNEL_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga563fa124624269f4cc852cd0caf55026" id="r_ga563fa124624269f4cc852cd0caf55026"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga563fa124624269f4cc852cd0caf55026">SYSCON_AON_SEQUENCE_TICK_SW_CHANNEL_EN</a>(x)</td></tr>
-<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">LC_ROT_LOGIC - LC Rotating Logic</div></td></tr>
-<tr class="memitem:ga11a6c45c2be7af29d6659467178d179d" id="r_ga11a6c45c2be7af29d6659467178d179d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_SW_OVERRIDE_ACMP_OUT_MASK</b></td></tr>
-<tr class="memitem:ga93364b485ce87eb5e84fc98f98aa0cd0" id="r_ga93364b485ce87eb5e84fc98f98aa0cd0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_SW_OVERRIDE_ACMP_OUT_SHIFT</b></td></tr>
-<tr class="memitem:gad9936067d802fee5fc28276b36d22662" id="r_gad9936067d802fee5fc28276b36d22662"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gad9936067d802fee5fc28276b36d22662">SYSCON_AON_LC_ROT_LOGIC_SW_OVERRIDE_ACMP_OUT</a>(x)</td></tr>
-<tr class="memitem:gac7052cbb08e4b89c525c65459dfab34d" id="r_gac7052cbb08e4b89c525c65459dfab34d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_SW_OVERRIDE_VALUE_MASK</b></td></tr>
-<tr class="memitem:gac1248ad40e328be384ecb3c5b36d6fbb" id="r_gac1248ad40e328be384ecb3c5b36d6fbb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_SW_OVERRIDE_VALUE_SHIFT</b></td></tr>
-<tr class="memitem:ga208a0e9731f357a6105c378fb95f8230" id="r_ga208a0e9731f357a6105c378fb95f8230"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga208a0e9731f357a6105c378fb95f8230">SYSCON_AON_LC_ROT_LOGIC_SW_OVERRIDE_VALUE</a>(x)</td></tr>
-<tr class="memitem:ga0f3b9d1aa1aa64498b350e33e0bdb74b" id="r_ga0f3b9d1aa1aa64498b350e33e0bdb74b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_CH_COMP_OUT_MASK</b></td></tr>
-<tr class="memitem:gae00efa4388728826395c88d47cd95e39" id="r_gae00efa4388728826395c88d47cd95e39"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_CH_COMP_OUT_SHIFT</b></td></tr>
-<tr class="memitem:ga1091e63913368ff05c49c1f3d5065f19" id="r_ga1091e63913368ff05c49c1f3d5065f19"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga1091e63913368ff05c49c1f3d5065f19">SYSCON_AON_LC_ROT_LOGIC_CH_COMP_OUT</a>(x)</td></tr>
-<tr class="memitem:gaf3843d48c8fbf3fa3fd3036e4704d7f7" id="r_gaf3843d48c8fbf3fa3fd3036e4704d7f7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_QTMR0_CTR0_OUT_MASK</b></td></tr>
-<tr class="memitem:ga56bbdbea47b0036e257c9bbd1533ddad" id="r_ga56bbdbea47b0036e257c9bbd1533ddad"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_QTMR0_CTR0_OUT_SHIFT</b></td></tr>
-<tr class="memitem:gab4287d9bbe8792cfc2ad6451c259159d" id="r_gab4287d9bbe8792cfc2ad6451c259159d"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LC_ROT_LOGIC_QTMR0_CTR0_OUT</b>(x)</td></tr>
-<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">POLARITY_CONTROL - Polarity Control</div></td></tr>
-<tr class="memitem:gad8f85c37b8bb0db7543d5281a523949f" id="r_gad8f85c37b8bb0db7543d5281a523949f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CONTROL_PADS_POLARITY_CTRL_MASK</b></td></tr>
-<tr class="memitem:gaad51375774c924d0473647fbd26cbb40" id="r_gaad51375774c924d0473647fbd26cbb40"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CONTROL_PADS_POLARITY_CTRL_SHIFT</b></td></tr>
-<tr class="memitem:gae93a1493f52b194bb39007fbfa0f3b89" id="r_gae93a1493f52b194bb39007fbfa0f3b89"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gae93a1493f52b194bb39007fbfa0f3b89">SYSCON_AON_POLARITY_CONTROL_CONTROL_PADS_POLARITY_CTRL</a>(x)</td></tr>
-<tr class="memitem:gab9813a116ebfaf0988d3e1557d3ab7b1" id="r_gab9813a116ebfaf0988d3e1557d3ab7b1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CTRL_PADS_VALUE_CTRL_MASK</b></td></tr>
-<tr class="memitem:gac8563e4c92f42f0f1a30fb8fb7e2b032" id="r_gac8563e4c92f42f0f1a30fb8fb7e2b032"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CTRL_PADS_VALUE_CTRL_SHIFT</b></td></tr>
-<tr class="memitem:ga796475dfe39495d63bd8d575228b8477" id="r_ga796475dfe39495d63bd8d575228b8477"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga796475dfe39495d63bd8d575228b8477">SYSCON_AON_POLARITY_CONTROL_CTRL_PADS_VALUE_CTRL</a>(x)</td></tr>
-<tr class="memitem:ga56952c8473c2de6bd0f673ec087cd4c8" id="r_ga56952c8473c2de6bd0f673ec087cd4c8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CMP_PADS_DIG_CTRL_EN_MASK</b></td></tr>
-<tr class="memitem:gab7b333d8b083e9d8dbb01a9186dc984f" id="r_gab7b333d8b083e9d8dbb01a9186dc984f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CMP_PADS_DIG_CTRL_EN_SHIFT</b></td></tr>
-<tr class="memitem:gacf42e129bdb78898169498fec5d09b5b" id="r_gacf42e129bdb78898169498fec5d09b5b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gacf42e129bdb78898169498fec5d09b5b">SYSCON_AON_POLARITY_CONTROL_CMP_PADS_DIG_CTRL_EN</a>(x)</td></tr>
-<tr class="memitem:ga3c2e5c589fffaef8a65a95874859348e" id="r_ga3c2e5c589fffaef8a65a95874859348e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CMP_PADS_VALUE_CTRL_MASK</b></td></tr>
-<tr class="memitem:ga59dea24d0f93e8e715f08ad1091e7a8e" id="r_ga59dea24d0f93e8e715f08ad1091e7a8e"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CMP_PADS_VALUE_CTRL_SHIFT</b></td></tr>
-<tr class="memitem:gac3e7c4463ab8bb97f2d7653b257c5704" id="r_gac3e7c4463ab8bb97f2d7653b257c5704"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gac3e7c4463ab8bb97f2d7653b257c5704">SYSCON_AON_POLARITY_CONTROL_CMP_PADS_VALUE_CTRL</a>(x)</td></tr>
-<tr class="memitem:gae8224c58c180e9e7c663fed78d0ff8e8" id="r_gae8224c58c180e9e7c663fed78d0ff8e8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CMP_PADS_POLARITY_CTRL_MASK</b></td></tr>
-<tr class="memitem:ga3d3e9ee720ee72d727c6f346b9141ef3" id="r_ga3d3e9ee720ee72d727c6f346b9141ef3"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_POLARITY_CONTROL_CMP_PADS_POLARITY_CTRL_SHIFT</b></td></tr>
-<tr class="memitem:ga6597b853713aa07b947f868e16fe9028" id="r_ga6597b853713aa07b947f868e16fe9028"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga6597b853713aa07b947f868e16fe9028">SYSCON_AON_POLARITY_CONTROL_CMP_PADS_POLARITY_CTRL</a>(x)</td></tr>
-<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">INTR_MASK - LCD Interrupt Mask</div></td></tr>
-<tr class="memitem:ga7c5559b453781a0eb3184e73330874fb" id="r_ga7c5559b453781a0eb3184e73330874fb"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_INTR_MASK_LCD_MAIN_INTR_MASK_MASK</b></td></tr>
-<tr class="memitem:ga23b5f6d9ea0c20b00ed30fbb5b8b664b" id="r_ga23b5f6d9ea0c20b00ed30fbb5b8b664b"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_INTR_MASK_LCD_MAIN_INTR_MASK_SHIFT</b></td></tr>
-<tr class="memitem:ga17bb34e6c9c97a190022c837b3308508" id="r_ga17bb34e6c9c97a190022c837b3308508"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga17bb34e6c9c97a190022c837b3308508">SYSCON_AON_INTR_MASK_LCD_MAIN_INTR_MASK</a>(x)</td></tr>
-<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">LPTMR_CTRL - LPTMR Source Control</div></td></tr>
-<tr class="memitem:ga973c35bf4adde63a05809ae1c1338caf" id="r_ga973c35bf4adde63a05809ae1c1338caf"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_0_MASK</b></td></tr>
-<tr class="memitem:gaada6e899e615558ae979587bac751091" id="r_gaada6e899e615558ae979587bac751091"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_0_SHIFT</b></td></tr>
-<tr class="memitem:gab93633c193aadd66c4530e941e3002ae" id="r_gab93633c193aadd66c4530e941e3002ae"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gab93633c193aadd66c4530e941e3002ae">SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_0</a>(x)</td></tr>
-<tr class="memitem:gacb7ade00998bc892cdd37c2ad8f6f529" id="r_gacb7ade00998bc892cdd37c2ad8f6f529"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_1_MASK</b></td></tr>
-<tr class="memitem:ga822f0ecc536c6980a0dd7dff0992fdc9" id="r_ga822f0ecc536c6980a0dd7dff0992fdc9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_1_SHIFT</b></td></tr>
-<tr class="memitem:ga07b3ef7fef82b3797d5d430e010d677a" id="r_ga07b3ef7fef82b3797d5d430e010d677a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga07b3ef7fef82b3797d5d430e010d677a">SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_1</a>(x)</td></tr>
-<tr class="memitem:gaf27e98f449379f6ea934adfe36445d0c" id="r_gaf27e98f449379f6ea934adfe36445d0c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_2_MASK</b></td></tr>
-<tr class="memitem:gae2bcc72213badfac27a734ee9022dd92" id="r_gae2bcc72213badfac27a734ee9022dd92"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_2_SHIFT</b></td></tr>
-<tr class="memitem:ga132a9b53b6fcb6e9139ed1a987ce0429" id="r_ga132a9b53b6fcb6e9139ed1a987ce0429"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga132a9b53b6fcb6e9139ed1a987ce0429">SYSCON_AON_LPTMR_CTRL_LPTMR_CTRL_2</a>(x)</td></tr>
-<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">CPU_SLEEP_SELECT - CPU Sleep Select</div></td></tr>
-<tr class="memitem:gaae91bcc53bc25b56e46ad85b8aef943c" id="r_gaae91bcc53bc25b56e46ad85b8aef943c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_CPU_SLEEP_SELECT_IPG_DOZE_CM0_SEL_MASK</b></td></tr>
-<tr class="memitem:gac12d13b2986f3a7b714151f7cc2564bd" id="r_gac12d13b2986f3a7b714151f7cc2564bd"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_CPU_SLEEP_SELECT_IPG_DOZE_CM0_SEL_SHIFT</b></td></tr>
-<tr class="memitem:gaa198090a7cbd117e66784daec2399adf" id="r_gaa198090a7cbd117e66784daec2399adf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gaa198090a7cbd117e66784daec2399adf">SYSCON_AON_CPU_SLEEP_SELECT_IPG_DOZE_CM0_SEL</a>(x)</td></tr>
-<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">PULSE_CAP_ACMP_CLK_MUXSEL - CMP Pulse Capture Clock MUXSEL</div></td></tr>
-<tr class="memitem:ga3affe864937e9cc48ffd7b894d49f0f1" id="r_ga3affe864937e9cc48ffd7b894d49f0f1"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_PULSE_CAP_ACMP_CLK_MUXSEL_ACMP0_PULSE_CAP_SYNC_CLK_MUX_SEL_MASK</b></td></tr>
-<tr class="memitem:ga2ba6754f842b478099cafe199ea77ae5" id="r_ga2ba6754f842b478099cafe199ea77ae5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_PULSE_CAP_ACMP_CLK_MUXSEL_ACMP0_PULSE_CAP_SYNC_CLK_MUX_SEL_SHIFT</b></td></tr>
-<tr class="memitem:ga9a381b058d60364815e660b5d61ab20f" id="r_ga9a381b058d60364815e660b5d61ab20f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga9a381b058d60364815e660b5d61ab20f">SYSCON_AON_PULSE_CAP_ACMP_CLK_MUXSEL_ACMP0_PULSE_CAP_SYNC_CLK_MUX_SEL</a>(x)</td></tr>
-<tr id="define-members-7" class="groupHeader"><td colspan="2"><div class="groupHeader">INPUTMUXCLKCTRL - INPUTMUX Clock Control</div></td></tr>
-<tr class="memitem:ga66fe8e7d48e4fe0fa5051d1b6fff6e05" id="r_ga66fe8e7d48e4fe0fa5051d1b6fff6e05"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_INPUTMUXCLKCTRL_INPUTMUX_CLK_CTRL_MASK</b></td></tr>
-<tr class="memitem:ga52de377c07f3ece6e0c3cad4d4f118b7" id="r_ga52de377c07f3ece6e0c3cad4d4f118b7"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_INPUTMUXCLKCTRL_INPUTMUX_CLK_CTRL_SHIFT</b></td></tr>
-<tr class="memitem:ga114b2b83ef69339b644d76aabddf8b3c" id="r_ga114b2b83ef69339b644d76aabddf8b3c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga114b2b83ef69339b644d76aabddf8b3c">SYSCON_AON_INPUTMUXCLKCTRL_INPUTMUX_CLK_CTRL</a>(x)</td></tr>
-<tr id="define-members-8" class="groupHeader"><td colspan="2"><div class="groupHeader">SYNC_EN_INPUTMUX_AON - Synchronization Enable INPUTMUX</div></td></tr>
-<tr class="memitem:ga339294070515deec1c9bf22f82540040" id="r_ga339294070515deec1c9bf22f82540040"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR1_AON_TMR3_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga82f2463fd1aa601ecd99efeb6edfc4e0" id="r_ga82f2463fd1aa601ecd99efeb6edfc4e0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR1_AON_TMR3_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:gaecdaf518dbd1c857c8389a1692f99a33" id="r_gaecdaf518dbd1c857c8389a1692f99a33"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gaecdaf518dbd1c857c8389a1692f99a33">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR1_AON_TMR3_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga41340e501142301348f690d526357618" id="r_ga41340e501142301348f690d526357618"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR2_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga3e2f81635c4bb696b0fa59ba5e20c915" id="r_ga3e2f81635c4bb696b0fa59ba5e20c915"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR2_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga446a53ea0c25d2676300962ed8d379af" id="r_ga446a53ea0c25d2676300962ed8d379af"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga446a53ea0c25d2676300962ed8d379af">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR2_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga545c12eae213616710675e40ca311a21" id="r_ga545c12eae213616710675e40ca311a21"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR1_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga591c714669fd2b6c66a65496f942e7ac" id="r_ga591c714669fd2b6c66a65496f942e7ac"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR1_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:gaaa60b3e41c0f0ab359ce4ed4572eaf9f" id="r_gaaa60b3e41c0f0ab359ce4ed4572eaf9f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gaaa60b3e41c0f0ab359ce4ed4572eaf9f">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR1_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga3693ed7769b520fee550fa49800321e6" id="r_ga3693ed7769b520fee550fa49800321e6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR0_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:gae730b68d084b7cdf801e3eb546d61c14" id="r_gae730b68d084b7cdf801e3eb546d61c14"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR0_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:gae042002ea6e883f351ceaaea5350144b" id="r_gae042002ea6e883f351ceaaea5350144b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gae042002ea6e883f351ceaaea5350144b">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR1_AON_TMR0_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga1be25618b7e885640361dc10d3c9df81" id="r_ga1be25618b7e885640361dc10d3c9df81"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR0_AON_TMR3_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga6f06e97a086917a71527e8bf8665dbea" id="r_ga6f06e97a086917a71527e8bf8665dbea"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR0_AON_TMR3_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga2cfd7efca3c1a928efcd9df255754f5c" id="r_ga2cfd7efca3c1a928efcd9df255754f5c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga2cfd7efca3c1a928efcd9df255754f5c">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR0_AON_TMR3_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:gaa508bb719fae5ebcdeb728d5901066ee" id="r_gaa508bb719fae5ebcdeb728d5901066ee"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR0_AON_TMR2_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:gae8e0255cb3c3a1453c35bafb15ad12a5" id="r_gae8e0255cb3c3a1453c35bafb15ad12a5"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR0_AON_TMR2_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga66054c10ed48755c380eac3661ea6819" id="r_ga66054c10ed48755c380eac3661ea6819"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga66054c10ed48755c380eac3661ea6819">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QMTR0_AON_TMR2_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga357d929a261a375a007e3a4eb9283a89" id="r_ga357d929a261a375a007e3a4eb9283a89"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR_AON_TMR1_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:gaad3deeeb16dcba062c93e767f10c228c" id="r_gaad3deeeb16dcba062c93e767f10c228c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR_AON_TMR1_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:gac29fc012f8f876b632e24be7e758caf5" id="r_gac29fc012f8f876b632e24be7e758caf5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gac29fc012f8f876b632e24be7e758caf5">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR_AON_TMR1_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga03c1196f3e0a73c7d9fc211a30d70ae4" id="r_ga03c1196f3e0a73c7d9fc211a30d70ae4"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR0_AON_TMR0_PIN_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga7899d32429cbb2b0efe7a7bdbab5c012" id="r_ga7899d32429cbb2b0efe7a7bdbab5c012"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR0_AON_TMR0_PIN_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga516d6508b0106ea056f2c845358a59f7" id="r_ga516d6508b0106ea056f2c845358a59f7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga516d6508b0106ea056f2c845358a59f7">SYSCON_AON_SYNC_EN_INPUTMUX_AON_QTMR0_AON_TMR0_PIN_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga03323d597aeea98850f46ac87b060ed0" id="r_ga03323d597aeea98850f46ac87b060ed0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPUART0_AON_TRIG_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga17d87bd140e552a8fdeeb14c109dcc34" id="r_ga17d87bd140e552a8fdeeb14c109dcc34"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPUART0_AON_TRIG_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga625ca88d82fef0553f589108e37e5892" id="r_ga625ca88d82fef0553f589108e37e5892"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga625ca88d82fef0553f589108e37e5892">SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPUART0_AON_TRIG_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga4bfd70457c57e0d3ab558815fbf54581" id="r_ga4bfd70457c57e0d3ab558815fbf54581"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPTMR0_AON_DMA_DONE_TRIG_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga9a261fe4e3ce92cf4b23ad92cb78c8f0" id="r_ga9a261fe4e3ce92cf4b23ad92cb78c8f0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPTMR0_AON_DMA_DONE_TRIG_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga7d28a829a20faddd25e296a1183a90bc" id="r_ga7d28a829a20faddd25e296a1183a90bc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga7d28a829a20faddd25e296a1183a90bc">SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPTMR0_AON_DMA_DONE_TRIG_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:gaf0d5023fc5d814beda0cb6ed2480b71a" id="r_gaf0d5023fc5d814beda0cb6ed2480b71a"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG3_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:gad56ae52496eedb243ee6b333877d9224" id="r_gad56ae52496eedb243ee6b333877d9224"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG3_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga3e619ee6e4abc8e8a5150f527ea1caa7" id="r_ga3e619ee6e4abc8e8a5150f527ea1caa7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga3e619ee6e4abc8e8a5150f527ea1caa7">SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG3_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga611abb0676a72485b9fe5ffa1d6742d6" id="r_ga611abb0676a72485b9fe5ffa1d6742d6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG2_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga5bb5e673593a2b9ce71791183ae55503" id="r_ga5bb5e673593a2b9ce71791183ae55503"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG2_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga43197d428ef79f141826b304eb8f8f08" id="r_ga43197d428ef79f141826b304eb8f8f08"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga43197d428ef79f141826b304eb8f8f08">SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG2_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga000337ed585052f0b59d14ed8ecc493c" id="r_ga000337ed585052f0b59d14ed8ecc493c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG1_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga878161683fa1d51a6b5d05a46f2355c9" id="r_ga878161683fa1d51a6b5d05a46f2355c9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG1_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:gab4eab23c65d172e23d4368192897cc4c" id="r_gab4eab23c65d172e23d4368192897cc4c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gab4eab23c65d172e23d4368192897cc4c">SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG1_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:gaadf9a2fa18aeead3cef7d87722d07a15" id="r_gaadf9a2fa18aeead3cef7d87722d07a15"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG0_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga79dd5d82c96508db8bde172c5d7c50c0" id="r_ga79dd5d82c96508db8bde172c5d7c50c0"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG0_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:gabea572afe1b4c8177a6a0d64959583a3" id="r_gabea572afe1b4c8177a6a0d64959583a3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gabea572afe1b4c8177a6a0d64959583a3">SYSCON_AON_SYNC_EN_INPUTMUX_AON_LPACMP_TRIG0_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:ga80dc6a2d802677a02099638dacef2069" id="r_ga80dc6a2d802677a02099638dacef2069"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LC_SENSE_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga48ff2a36a99d014b52f73a7069c5b3bf" id="r_ga48ff2a36a99d014b52f73a7069c5b3bf"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_LC_SENSE_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga5cdc2ddc5d454dde55145c7afd2122d3" id="r_ga5cdc2ddc5d454dde55145c7afd2122d3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga5cdc2ddc5d454dde55145c7afd2122d3">SYSCON_AON_SYNC_EN_INPUTMUX_AON_LC_SENSE_SYNC_EN</a>(x)</td></tr>
-<tr class="memitem:gaece2bd8464f59c4c41e74672e903db29" id="r_gaece2bd8464f59c4c41e74672e903db29"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_ACMP0_AON_SAMPLE_SYNC_EN_MASK</b></td></tr>
-<tr class="memitem:ga6296524a6108c83bae0e8205f0e5eae9" id="r_ga6296524a6108c83bae0e8205f0e5eae9"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SYNC_EN_INPUTMUX_AON_ACMP0_AON_SAMPLE_SYNC_EN_SHIFT</b></td></tr>
-<tr class="memitem:gade69da379a33ffa91de607c956631dbf" id="r_gade69da379a33ffa91de607c956631dbf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gade69da379a33ffa91de607c956631dbf">SYSCON_AON_SYNC_EN_INPUTMUX_AON_ACMP0_AON_SAMPLE_SYNC_EN</a>(x)</td></tr>
-<tr id="define-members-9" class="groupHeader"><td colspan="2"><div class="groupHeader">IPG_DEBUG_ENABLE - IPG Debug Enable</div></td></tr>
-<tr class="memitem:ga87341ce273bcee7e942701479a62929c" id="r_ga87341ce273bcee7e942701479a62929c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_IPG_DEBUG_ENABLE_IPG_DEBUGEN_CM0_SEL_MASK</b></td></tr>
-<tr class="memitem:ga125b70d22ab5ca9e01d6ee6c4644430c" id="r_ga125b70d22ab5ca9e01d6ee6c4644430c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_IPG_DEBUG_ENABLE_IPG_DEBUGEN_CM0_SEL_SHIFT</b></td></tr>
-<tr class="memitem:gacde99ef39d261787b12874f00aee41d9" id="r_gacde99ef39d261787b12874f00aee41d9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gacde99ef39d261787b12874f00aee41d9">SYSCON_AON_IPG_DEBUG_ENABLE_IPG_DEBUGEN_CM0_SEL</a>(x)</td></tr>
-<tr class="memitem:gac97fcc5aec0f82adf6e5d45eb0be1e9f" id="r_gac97fcc5aec0f82adf6e5d45eb0be1e9f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_IPG_DEBUG_ENABLE_IPG_DEBUGEN_CM33_SEL_MASK</b></td></tr>
-<tr class="memitem:ga753a47e1fddbd12deac67551bcd46bca" id="r_ga753a47e1fddbd12deac67551bcd46bca"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_IPG_DEBUG_ENABLE_IPG_DEBUGEN_CM33_SEL_SHIFT</b></td></tr>
-<tr class="memitem:gafaf9ea0f7f1ecb3acc0b6051b25f07a5" id="r_gafaf9ea0f7f1ecb3acc0b6051b25f07a5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gafaf9ea0f7f1ecb3acc0b6051b25f07a5">SYSCON_AON_IPG_DEBUG_ENABLE_IPG_DEBUGEN_CM33_SEL</a>(x)</td></tr>
-<tr id="define-members-10" class="groupHeader"><td colspan="2"><div class="groupHeader">XTAL_32K_CLKCTRL -</div></td></tr>
-<tr class="memitem:gade59c0704944ce2ec5b9c1bf7aea267f" id="r_gade59c0704944ce2ec5b9c1bf7aea267f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_XTAL_32K_CLKCTRL_XTAL_32K_CLK_CTRL_MASK</b></td></tr>
-<tr class="memitem:ga565f5cf699b4221413f3acad46be20e8" id="r_ga565f5cf699b4221413f3acad46be20e8"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_XTAL_32K_CLKCTRL_XTAL_32K_CLK_CTRL_SHIFT</b></td></tr>
-<tr class="memitem:ga404613613e1812e663d150e6722d0615" id="r_ga404613613e1812e663d150e6722d0615"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga404613613e1812e663d150e6722d0615">SYSCON_AON_XTAL_32K_CLKCTRL_XTAL_32K_CLK_CTRL</a>(x)</td></tr>
-<tr id="define-members-11" class="groupHeader"><td colspan="2"><div class="groupHeader">TAMPER_FLT_STAT - Tamper Fault Status</div></td></tr>
-<tr class="memitem:gaeddd0b38ab806bbac0b87ce56f835f2c" id="r_gaeddd0b38ab806bbac0b87ce56f835f2c"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_TAMPER_FLT_STAT_LC_TAMPER_FAULT_MASK</b></td></tr>
-<tr class="memitem:ga0ab103ccaf4cf0bf3600e58395be22aa" id="r_ga0ab103ccaf4cf0bf3600e58395be22aa"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_TAMPER_FLT_STAT_LC_TAMPER_FAULT_SHIFT</b></td></tr>
-<tr class="memitem:gac5a6497583ecaa84abb5d3e8daaa45fc" id="r_gac5a6497583ecaa84abb5d3e8daaa45fc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#gac5a6497583ecaa84abb5d3e8daaa45fc">SYSCON_AON_TAMPER_FLT_STAT_LC_TAMPER_FAULT</a>(x)</td></tr>
-<tr id="define-members-12" class="groupHeader"><td colspan="2"><div class="groupHeader">TAMPER_FLT_EN - Tamper Fault Enable</div></td></tr>
-<tr class="memitem:ga9a0a02d50dbcdaf98d9f7801e14ff93f" id="r_ga9a0a02d50dbcdaf98d9f7801e14ff93f"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_TAMPER_FLT_EN_LC_TAMPER_FAULT_ENABLE_MASK</b></td></tr>
-<tr class="memitem:ga46989c80c82665f0453b2df6ba88f5c6" id="r_ga46989c80c82665f0453b2df6ba88f5c6"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_TAMPER_FLT_EN_LC_TAMPER_FAULT_ENABLE_SHIFT</b></td></tr>
-<tr class="memitem:ga22888f8a86f0e0317ac31de6f56c9b3b" id="r_ga22888f8a86f0e0317ac31de6f56c9b3b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga22888f8a86f0e0317ac31de6f56c9b3b">SYSCON_AON_TAMPER_FLT_EN_LC_TAMPER_FAULT_ENABLE</a>(x)</td></tr>
-<tr id="define-members-13" class="groupHeader"><td colspan="2"><div class="groupHeader">SECURITY_GLITCH_DETECT_ENABLE - Security Glitch Detect Enable</div></td></tr>
-<tr class="memitem:gaaac496377097e43e8333bc4e0b390218" id="r_gaaac496377097e43e8333bc4e0b390218"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SECURITY_GLITCH_DETECT_ENABLE_SEC_GLITCH_DET_EN_MASK</b></td></tr>
-<tr class="memitem:ga5d039adac9e2a26f13f49a6a9f4db593" id="r_ga5d039adac9e2a26f13f49a6a9f4db593"><td class="memItemLeft">
-#define&#160;</td><td class="memItemRight"><b>SYSCON_AON_SECURITY_GLITCH_DETECT_ENABLE_SEC_GLITCH_DET_EN_SHIFT</b></td></tr>
-<tr class="memitem:ga16b44990e65e26de88b80eb7611579a4" id="r_ga16b44990e65e26de88b80eb7611579a4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01799.html#ga16b44990e65e26de88b80eb7611579a4">SYSCON_AON_SECURITY_GLITCH_DETECT_ENABLE_SEC_GLITCH_DET_EN</a>(x)</td></tr>
+<tr class="memitem:a7c8634b1529fbd1c6b8dfead306f78f5" id="r_a7c8634b1529fbd1c6b8dfead306f78f5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7c8634b1529fbd1c6b8dfead306f78f5">PERI_TMR_H_</a></td></tr>
+<tr class="memdesc:a7c8634b1529fbd1c6b8dfead306f78f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbol preventing repeated inclusion.  <br /></td></tr>
+<tr class="memitem:ga2065d681fd65805b40e8c9ab67be2440" id="r_ga2065d681fd65805b40e8c9ab67be2440"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01795.html#ga2065d681fd65805b40e8c9ab67be2440">TMR_CHANNEL_COUNT</a></td></tr>
+<tr class="memdesc:ga2065d681fd65805b40e8c9ab67be2440"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMR - Size of Registers Arrays.  <br /></td></tr>
+<tr class="memitem:gaf4e62667856992dd887819e9111b7fcf" id="r_gaf4e62667856992dd887819e9111b7fcf"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_COMP1_COUNT</b></td></tr>
+<tr class="memitem:ga246bd939637938af2d38859199e0d976" id="r_ga246bd939637938af2d38859199e0d976"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_COMP2_COUNT</b></td></tr>
+<tr class="memitem:ga763c68122bd66f292010c0b73796cb33" id="r_ga763c68122bd66f292010c0b73796cb33"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CAPT_COUNT</b></td></tr>
+<tr class="memitem:gafb0633df1580db168b373d17a635f87f" id="r_gafb0633df1580db168b373d17a635f87f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_LOAD_COUNT</b></td></tr>
+<tr class="memitem:gaaf51af899693eb2d844140279c709bbd" id="r_gaaf51af899693eb2d844140279c709bbd"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_HOLD_COUNT</b></td></tr>
+<tr class="memitem:gae3713d1f18a8f2719b6aa1ed50ba7b05" id="r_gae3713d1f18a8f2719b6aa1ed50ba7b05"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CNTR_COUNT</b></td></tr>
+<tr class="memitem:gaebea2322139359a86e38492d655fb465" id="r_gaebea2322139359a86e38492d655fb465"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_COUNT</b></td></tr>
+<tr class="memitem:ga7a7da25546666afe90f3c60836aa3f70" id="r_ga7a7da25546666afe90f3c60836aa3f70"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_COUNT</b></td></tr>
+<tr class="memitem:gae30f93b017f92dbb11b716d6c6d2c4c1" id="r_gae30f93b017f92dbb11b716d6c6d2c4c1"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CMPLD1_COUNT</b></td></tr>
+<tr class="memitem:gacafcd5beb45cd695c5a4b1792d3ebe63" id="r_gacafcd5beb45cd695c5a4b1792d3ebe63"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CMPLD2_COUNT</b></td></tr>
+<tr class="memitem:ga51ed8ab01b6ffd7eca1ec5dfda447efb" id="r_ga51ed8ab01b6ffd7eca1ec5dfda447efb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_COUNT</b></td></tr>
+<tr class="memitem:gaaf0210f62faa5a5fae5ebe75d16c50fc" id="r_gaaf0210f62faa5a5fae5ebe75d16c50fc"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_FILT_COUNT</b></td></tr>
+<tr class="memitem:ga1c943ef923565db0b4c8ba0b99843a56" id="r_ga1c943ef923565db0b4c8ba0b99843a56"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_DMA_COUNT</b></td></tr>
+<tr class="memitem:gade3589bc59c69abe1263e46c864e9c61" id="r_gade3589bc59c69abe1263e46c864e9c61"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_ENBL_COUNT</b></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">COMP1 - Timer Channel Compare Register 1</div></td></tr>
+<tr class="memitem:ga1f59c6762d4633ca0f6e118d456bc192" id="r_ga1f59c6762d4633ca0f6e118d456bc192"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_COMP1_COMPARISON_1_MASK</b></td></tr>
+<tr class="memitem:gaca6a8fe8ca9635403f70772276c95670" id="r_gaca6a8fe8ca9635403f70772276c95670"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_COMP1_COMPARISON_1_SHIFT</b></td></tr>
+<tr class="memitem:gae03641cc0dbedbec12f09d3f618affb3" id="r_gae03641cc0dbedbec12f09d3f618affb3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gae03641cc0dbedbec12f09d3f618affb3">TMR_COMP1_COMPARISON_1</a>(x)</td></tr>
+<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">COMP2 - Timer Channel Compare Register 2</div></td></tr>
+<tr class="memitem:gabf1eb2a0b3ea8194759207eb73823009" id="r_gabf1eb2a0b3ea8194759207eb73823009"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_COMP2_COMPARISON_2_MASK</b></td></tr>
+<tr class="memitem:ga0e387e99b6f423b1abdc72c4ecff37e8" id="r_ga0e387e99b6f423b1abdc72c4ecff37e8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_COMP2_COMPARISON_2_SHIFT</b></td></tr>
+<tr class="memitem:ga80c3c68e37c39283e422574b287fc39f" id="r_ga80c3c68e37c39283e422574b287fc39f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga80c3c68e37c39283e422574b287fc39f">TMR_COMP2_COMPARISON_2</a>(x)</td></tr>
+<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">CAPT - Timer Channel Capture Register</div></td></tr>
+<tr class="memitem:gad4e4a186d03d671cc753e79a3ea113e6" id="r_gad4e4a186d03d671cc753e79a3ea113e6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CAPT_CAPTURE_MASK</b></td></tr>
+<tr class="memitem:ga95f053dab6157a9c5d759bac6c676f55" id="r_ga95f053dab6157a9c5d759bac6c676f55"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CAPT_CAPTURE_SHIFT</b></td></tr>
+<tr class="memitem:ga7fd1e3d603bbdd0622667457010ba909" id="r_ga7fd1e3d603bbdd0622667457010ba909"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga7fd1e3d603bbdd0622667457010ba909">TMR_CAPT_CAPTURE</a>(x)</td></tr>
+<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">LOAD - Timer Channel Load Register</div></td></tr>
+<tr class="memitem:ga4b93c9133bf262cfdbab7d5bcf3f41e1" id="r_ga4b93c9133bf262cfdbab7d5bcf3f41e1"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_LOAD_LOAD_MASK</b></td></tr>
+<tr class="memitem:gaaea3ec37a2dc4fafa1046ae7eb6569f0" id="r_gaaea3ec37a2dc4fafa1046ae7eb6569f0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_LOAD_LOAD_SHIFT</b></td></tr>
+<tr class="memitem:ga83f0369ae65c8063110d64b9ea5dcbbf" id="r_ga83f0369ae65c8063110d64b9ea5dcbbf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga83f0369ae65c8063110d64b9ea5dcbbf">TMR_LOAD_LOAD</a>(x)</td></tr>
+<tr id="define-members-4" class="groupHeader"><td colspan="2"><div class="groupHeader">HOLD - Timer Channel Hold Register</div></td></tr>
+<tr class="memitem:gaf9d96524ab72ce69f3a585adb39ff602" id="r_gaf9d96524ab72ce69f3a585adb39ff602"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_HOLD_HOLD_MASK</b></td></tr>
+<tr class="memitem:ga800271558aace8cac806de06e117260c" id="r_ga800271558aace8cac806de06e117260c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_HOLD_HOLD_SHIFT</b></td></tr>
+<tr class="memitem:gaa8d69af02efbf4e0db13e99c289f24ff" id="r_gaa8d69af02efbf4e0db13e99c289f24ff"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gaa8d69af02efbf4e0db13e99c289f24ff">TMR_HOLD_HOLD</a>(x)</td></tr>
+<tr id="define-members-5" class="groupHeader"><td colspan="2"><div class="groupHeader">CNTR - Timer Channel Counter Register</div></td></tr>
+<tr class="memitem:ga99339747e6a92ce0464088b9c7f04819" id="r_ga99339747e6a92ce0464088b9c7f04819"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CNTR_COUNTER_MASK</b></td></tr>
+<tr class="memitem:ga0aac3a9a5b2f90d9da728c095b4443c4" id="r_ga0aac3a9a5b2f90d9da728c095b4443c4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CNTR_COUNTER_SHIFT</b></td></tr>
+<tr class="memitem:ga961471c2352413672a54faa4eb6f75b4" id="r_ga961471c2352413672a54faa4eb6f75b4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga961471c2352413672a54faa4eb6f75b4">TMR_CNTR_COUNTER</a>(x)</td></tr>
+<tr id="define-members-6" class="groupHeader"><td colspan="2"><div class="groupHeader">CTRL - Timer Channel Control Register</div></td></tr>
+<tr class="memitem:gac199eb8417766effa167c0623c22a5b7" id="r_gac199eb8417766effa167c0623c22a5b7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_OUTMODE_MASK</b></td></tr>
+<tr class="memitem:ga2078e3ed4e9eaff8b317e3f34b6f7ea8" id="r_ga2078e3ed4e9eaff8b317e3f34b6f7ea8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_OUTMODE_SHIFT</b></td></tr>
+<tr class="memitem:gadb3d89655cdff7fbbefe762c38e1681c" id="r_gadb3d89655cdff7fbbefe762c38e1681c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gadb3d89655cdff7fbbefe762c38e1681c">TMR_CTRL_OUTMODE</a>(x)</td></tr>
+<tr class="memitem:gad98d54cfe8a27e0e97ce73680f2d1812" id="r_gad98d54cfe8a27e0e97ce73680f2d1812"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_COINIT_MASK</b></td></tr>
+<tr class="memitem:gaac517f3f683f9e8d89d71c033eb74827" id="r_gaac517f3f683f9e8d89d71c033eb74827"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_COINIT_SHIFT</b></td></tr>
+<tr class="memitem:ga976116f0719cb9f2e194883e9cd58d68" id="r_ga976116f0719cb9f2e194883e9cd58d68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga976116f0719cb9f2e194883e9cd58d68">TMR_CTRL_COINIT</a>(x)</td></tr>
+<tr class="memitem:ga1d3f7a1081c3b1d17196fe7dadb64c27" id="r_ga1d3f7a1081c3b1d17196fe7dadb64c27"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_DIR_MASK</b></td></tr>
+<tr class="memitem:ga95b9b44e4eab402e2760cc528534fdaa" id="r_ga95b9b44e4eab402e2760cc528534fdaa"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_DIR_SHIFT</b></td></tr>
+<tr class="memitem:ga46972c079cf444cede0aee335330619d" id="r_ga46972c079cf444cede0aee335330619d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga46972c079cf444cede0aee335330619d">TMR_CTRL_DIR</a>(x)</td></tr>
+<tr class="memitem:ga3317c56e6e28bd98c626d4ac229df28a" id="r_ga3317c56e6e28bd98c626d4ac229df28a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_LENGTH_MASK</b></td></tr>
+<tr class="memitem:gaf0880308032059dd890af313e9d69da7" id="r_gaf0880308032059dd890af313e9d69da7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_LENGTH_SHIFT</b></td></tr>
+<tr class="memitem:gafc83280bca926aa47b2f5a51d9f73bca" id="r_gafc83280bca926aa47b2f5a51d9f73bca"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gafc83280bca926aa47b2f5a51d9f73bca">TMR_CTRL_LENGTH</a>(x)</td></tr>
+<tr class="memitem:ga7a62603d8a382862618468bb1f814b30" id="r_ga7a62603d8a382862618468bb1f814b30"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_ONCE_MASK</b></td></tr>
+<tr class="memitem:gaca772604dfee1006c3b8ff264959cc7c" id="r_gaca772604dfee1006c3b8ff264959cc7c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_ONCE_SHIFT</b></td></tr>
+<tr class="memitem:ga4e3e1f5b82b895a20424d41fe99c29d7" id="r_ga4e3e1f5b82b895a20424d41fe99c29d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga4e3e1f5b82b895a20424d41fe99c29d7">TMR_CTRL_ONCE</a>(x)</td></tr>
+<tr class="memitem:gab33e667eee850dfe628be3cece812b11" id="r_gab33e667eee850dfe628be3cece812b11"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_SCS_MASK</b></td></tr>
+<tr class="memitem:ga91603c85d62d09a58c59bdf511eb8d57" id="r_ga91603c85d62d09a58c59bdf511eb8d57"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_SCS_SHIFT</b></td></tr>
+<tr class="memitem:ga233713c5654e08d71411f536f8b6f382" id="r_ga233713c5654e08d71411f536f8b6f382"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga233713c5654e08d71411f536f8b6f382">TMR_CTRL_SCS</a>(x)</td></tr>
+<tr class="memitem:ga27bd9b5ded2b8d2d6bae06a05166e080" id="r_ga27bd9b5ded2b8d2d6bae06a05166e080"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_PCS_MASK</b></td></tr>
+<tr class="memitem:ga983e1b936faa6c39cf534fc9b9d04882" id="r_ga983e1b936faa6c39cf534fc9b9d04882"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_PCS_SHIFT</b></td></tr>
+<tr class="memitem:ga6680f2d47b6c8d220fc8c3c8f30a19f7" id="r_ga6680f2d47b6c8d220fc8c3c8f30a19f7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga6680f2d47b6c8d220fc8c3c8f30a19f7">TMR_CTRL_PCS</a>(x)</td></tr>
+<tr class="memitem:ga9587b5c65a031e20b1198fd7fcc774fc" id="r_ga9587b5c65a031e20b1198fd7fcc774fc"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_CM_MASK</b></td></tr>
+<tr class="memitem:ga987af131b0c6aa9338a377954e897eeb" id="r_ga987af131b0c6aa9338a377954e897eeb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CTRL_CM_SHIFT</b></td></tr>
+<tr class="memitem:gad2879da5e0a1c7cfa76451b8e230d10f" id="r_gad2879da5e0a1c7cfa76451b8e230d10f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gad2879da5e0a1c7cfa76451b8e230d10f">TMR_CTRL_CM</a>(x)</td></tr>
+<tr id="define-members-7" class="groupHeader"><td colspan="2"><div class="groupHeader">SCTRL - Timer Channel Status and Control Register</div></td></tr>
+<tr class="memitem:gabfff08b3f468070621c54ef1c16af3cf" id="r_gabfff08b3f468070621c54ef1c16af3cf"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_OEN_MASK</b></td></tr>
+<tr class="memitem:ga1f9a80470bdea7bb9fe4f779bfb46955" id="r_ga1f9a80470bdea7bb9fe4f779bfb46955"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_OEN_SHIFT</b></td></tr>
+<tr class="memitem:ga3d589a6a9683a6a58436db8c7958a5aa" id="r_ga3d589a6a9683a6a58436db8c7958a5aa"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga3d589a6a9683a6a58436db8c7958a5aa">TMR_SCTRL_OEN</a>(x)</td></tr>
+<tr class="memitem:gadd618d0b4d534e0edc09a47643d76248" id="r_gadd618d0b4d534e0edc09a47643d76248"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_OPS_MASK</b></td></tr>
+<tr class="memitem:ga2553ed8a853126c3aef56c26521b52bf" id="r_ga2553ed8a853126c3aef56c26521b52bf"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_OPS_SHIFT</b></td></tr>
+<tr class="memitem:ga6102868db584041fc9dd0b0fec9fe700" id="r_ga6102868db584041fc9dd0b0fec9fe700"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga6102868db584041fc9dd0b0fec9fe700">TMR_SCTRL_OPS</a>(x)</td></tr>
+<tr class="memitem:ga8bc2bdcc43e003c6709113e01e1fa5c2" id="r_ga8bc2bdcc43e003c6709113e01e1fa5c2"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_FORCE_MASK</b></td></tr>
+<tr class="memitem:gac8fef586d1bd4ba730ee67cea2347098" id="r_gac8fef586d1bd4ba730ee67cea2347098"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_FORCE_SHIFT</b></td></tr>
+<tr class="memitem:ga2c9aaf5d4fba8e2c96e5fb7cb9f23ae8" id="r_ga2c9aaf5d4fba8e2c96e5fb7cb9f23ae8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga2c9aaf5d4fba8e2c96e5fb7cb9f23ae8">TMR_SCTRL_FORCE</a>(x)</td></tr>
+<tr class="memitem:ga4304688c53a1586610d9c6b344efa77c" id="r_ga4304688c53a1586610d9c6b344efa77c"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_VAL_MASK</b></td></tr>
+<tr class="memitem:gaf0f0d537f6b5f64a1739d4907b103b52" id="r_gaf0f0d537f6b5f64a1739d4907b103b52"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_VAL_SHIFT</b></td></tr>
+<tr class="memitem:ga4a5639c2956e1230c8098b361fe3d4ea" id="r_ga4a5639c2956e1230c8098b361fe3d4ea"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga4a5639c2956e1230c8098b361fe3d4ea">TMR_SCTRL_VAL</a>(x)</td></tr>
+<tr class="memitem:ga2683b1b8222a11b47269ff070c76aeff" id="r_ga2683b1b8222a11b47269ff070c76aeff"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_EEOF_MASK</b></td></tr>
+<tr class="memitem:ga588b452c8a779b06f4cc7b55e5cd94e0" id="r_ga588b452c8a779b06f4cc7b55e5cd94e0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_EEOF_SHIFT</b></td></tr>
+<tr class="memitem:gaa8f99d528b52e0419b6b13d49be691f3" id="r_gaa8f99d528b52e0419b6b13d49be691f3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gaa8f99d528b52e0419b6b13d49be691f3">TMR_SCTRL_EEOF</a>(x)</td></tr>
+<tr class="memitem:gac04425a3fd479551de0708e06903f085" id="r_gac04425a3fd479551de0708e06903f085"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_MSTR_MASK</b></td></tr>
+<tr class="memitem:ga9fa06e7fa47f40bcd53eb7cf0b4a9ba3" id="r_ga9fa06e7fa47f40bcd53eb7cf0b4a9ba3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_MSTR_SHIFT</b></td></tr>
+<tr class="memitem:gae976b2af8031e272e5f76c6a9fa2c521" id="r_gae976b2af8031e272e5f76c6a9fa2c521"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gae976b2af8031e272e5f76c6a9fa2c521">TMR_SCTRL_MSTR</a>(x)</td></tr>
+<tr class="memitem:gad50c6970df17b1f185fc89337304f3a2" id="r_gad50c6970df17b1f185fc89337304f3a2"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_CAPTURE_MODE_MASK</b></td></tr>
+<tr class="memitem:gae930f96b9aa39d269c88231f3e7636c0" id="r_gae930f96b9aa39d269c88231f3e7636c0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_CAPTURE_MODE_SHIFT</b></td></tr>
+<tr class="memitem:ga3e7d0f3d6e33b64226e4e6b2452911a9" id="r_ga3e7d0f3d6e33b64226e4e6b2452911a9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga3e7d0f3d6e33b64226e4e6b2452911a9">TMR_SCTRL_CAPTURE_MODE</a>(x)</td></tr>
+<tr class="memitem:gabcc16b3031412d9393fe84a1dffc6ee5" id="r_gabcc16b3031412d9393fe84a1dffc6ee5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_INPUT_MASK</b></td></tr>
+<tr class="memitem:gadc5be660609d9b4f896a4d836cda19f0" id="r_gadc5be660609d9b4f896a4d836cda19f0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_INPUT_SHIFT</b></td></tr>
+<tr class="memitem:gaf8c98b4708c9f731604f5e666e534e73" id="r_gaf8c98b4708c9f731604f5e666e534e73"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gaf8c98b4708c9f731604f5e666e534e73">TMR_SCTRL_INPUT</a>(x)</td></tr>
+<tr class="memitem:ga42ae5161fe663fa6239294e6ab3ad6c8" id="r_ga42ae5161fe663fa6239294e6ab3ad6c8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_IPS_MASK</b></td></tr>
+<tr class="memitem:ga5ad40bb6a472033bf7df3cc7e0e9a9ae" id="r_ga5ad40bb6a472033bf7df3cc7e0e9a9ae"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_IPS_SHIFT</b></td></tr>
+<tr class="memitem:gacf8115606bf1772c4fcd84019fbda921" id="r_gacf8115606bf1772c4fcd84019fbda921"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gacf8115606bf1772c4fcd84019fbda921">TMR_SCTRL_IPS</a>(x)</td></tr>
+<tr class="memitem:ga4e8437e1ed4cffda4af2e799629d3fea" id="r_ga4e8437e1ed4cffda4af2e799629d3fea"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_IEFIE_MASK</b></td></tr>
+<tr class="memitem:gaf68208a2c8c66447ca147b78154ee23f" id="r_gaf68208a2c8c66447ca147b78154ee23f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_IEFIE_SHIFT</b></td></tr>
+<tr class="memitem:ga69f2266c448931add51780ffa8b05741" id="r_ga69f2266c448931add51780ffa8b05741"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga69f2266c448931add51780ffa8b05741">TMR_SCTRL_IEFIE</a>(x)</td></tr>
+<tr class="memitem:ga5bd450521545d33203b3143cc78fc7bd" id="r_ga5bd450521545d33203b3143cc78fc7bd"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_IEF_MASK</b></td></tr>
+<tr class="memitem:ga253fb2a62e5780719a87f103df737d17" id="r_ga253fb2a62e5780719a87f103df737d17"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_IEF_SHIFT</b></td></tr>
+<tr class="memitem:gad17d21bfc817c0f02123b27cdb98e73e" id="r_gad17d21bfc817c0f02123b27cdb98e73e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gad17d21bfc817c0f02123b27cdb98e73e">TMR_SCTRL_IEF</a>(x)</td></tr>
+<tr class="memitem:ga949b51a3403f7d554728e5a3e07ffbe5" id="r_ga949b51a3403f7d554728e5a3e07ffbe5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TOFIE_MASK</b></td></tr>
+<tr class="memitem:ga339185f917d9a0ae63b687e3216d455d" id="r_ga339185f917d9a0ae63b687e3216d455d"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TOFIE_SHIFT</b></td></tr>
+<tr class="memitem:gac4811628f2494985726e1834becf9853" id="r_gac4811628f2494985726e1834becf9853"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gac4811628f2494985726e1834becf9853">TMR_SCTRL_TOFIE</a>(x)</td></tr>
+<tr class="memitem:gabfb29a72e93ef3f30d90c8e807629f09" id="r_gabfb29a72e93ef3f30d90c8e807629f09"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TOF_MASK</b></td></tr>
+<tr class="memitem:ga5bdf082d0a7a88789a45198d492f979b" id="r_ga5bdf082d0a7a88789a45198d492f979b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TOF_SHIFT</b></td></tr>
+<tr class="memitem:gab03b4e3d1659eb4da5814d0158b6baf4" id="r_gab03b4e3d1659eb4da5814d0158b6baf4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gab03b4e3d1659eb4da5814d0158b6baf4">TMR_SCTRL_TOF</a>(x)</td></tr>
+<tr class="memitem:ga0159eb2fde7507783448281cdb0c0a8f" id="r_ga0159eb2fde7507783448281cdb0c0a8f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TCFIE_MASK</b></td></tr>
+<tr class="memitem:ga00460a41d3ffe2b0588eb01cc6f6983b" id="r_ga00460a41d3ffe2b0588eb01cc6f6983b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TCFIE_SHIFT</b></td></tr>
+<tr class="memitem:gadd448e9524cecbc12b6f7886f54ff659" id="r_gadd448e9524cecbc12b6f7886f54ff659"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gadd448e9524cecbc12b6f7886f54ff659">TMR_SCTRL_TCFIE</a>(x)</td></tr>
+<tr class="memitem:gaeae77ef1d71d213d0ef4ffbe818c99e4" id="r_gaeae77ef1d71d213d0ef4ffbe818c99e4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TCF_MASK</b></td></tr>
+<tr class="memitem:ga668a47d1d03ae04b736232ce6749dcea" id="r_ga668a47d1d03ae04b736232ce6749dcea"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_SCTRL_TCF_SHIFT</b></td></tr>
+<tr class="memitem:gab0d23aea4ebbff4ef78c533b16412199" id="r_gab0d23aea4ebbff4ef78c533b16412199"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gab0d23aea4ebbff4ef78c533b16412199">TMR_SCTRL_TCF</a>(x)</td></tr>
+<tr id="define-members-8" class="groupHeader"><td colspan="2"><div class="groupHeader">CMPLD1 - Timer Channel Comparator Load Register 1</div></td></tr>
+<tr class="memitem:gaa2d4dc0f9dba488d0f89b22790098567" id="r_gaa2d4dc0f9dba488d0f89b22790098567"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CMPLD1_COMPARATOR_LOAD_1_MASK</b></td></tr>
+<tr class="memitem:gaa810d47dab55ec77896e20bc303a0806" id="r_gaa810d47dab55ec77896e20bc303a0806"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CMPLD1_COMPARATOR_LOAD_1_SHIFT</b></td></tr>
+<tr class="memitem:ga0d6f8a5c1af7babe3e7eea6e1d1b36dd" id="r_ga0d6f8a5c1af7babe3e7eea6e1d1b36dd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga0d6f8a5c1af7babe3e7eea6e1d1b36dd">TMR_CMPLD1_COMPARATOR_LOAD_1</a>(x)</td></tr>
+<tr id="define-members-9" class="groupHeader"><td colspan="2"><div class="groupHeader">CMPLD2 - Timer Channel Comparator Load Register 2</div></td></tr>
+<tr class="memitem:gaccde7de1109a118b76ef3a7bc5b06c52" id="r_gaccde7de1109a118b76ef3a7bc5b06c52"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CMPLD2_COMPARATOR_LOAD_2_MASK</b></td></tr>
+<tr class="memitem:ga43aa457ca34af565db9718efbba1d724" id="r_ga43aa457ca34af565db9718efbba1d724"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CMPLD2_COMPARATOR_LOAD_2_SHIFT</b></td></tr>
+<tr class="memitem:ga9260c44f35d4d36e987a17b29ddf9920" id="r_ga9260c44f35d4d36e987a17b29ddf9920"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga9260c44f35d4d36e987a17b29ddf9920">TMR_CMPLD2_COMPARATOR_LOAD_2</a>(x)</td></tr>
+<tr id="define-members-10" class="groupHeader"><td colspan="2"><div class="groupHeader">CSCTRL - Timer Channel Comparator Status and Control Register</div></td></tr>
+<tr class="memitem:ga6769eea04054e3f77c49838c63d1e692" id="r_ga6769eea04054e3f77c49838c63d1e692"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_CL1_MASK</b></td></tr>
+<tr class="memitem:ga59dd7f283b297d9c2047a31fc87678f6" id="r_ga59dd7f283b297d9c2047a31fc87678f6"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_CL1_SHIFT</b></td></tr>
+<tr class="memitem:gac57348c38aa3451b0e51d2eca7aa18d8" id="r_gac57348c38aa3451b0e51d2eca7aa18d8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gac57348c38aa3451b0e51d2eca7aa18d8">TMR_CSCTRL_CL1</a>(x)</td></tr>
+<tr class="memitem:gaa1737fe8caa156c5dad3865590210866" id="r_gaa1737fe8caa156c5dad3865590210866"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_CL2_MASK</b></td></tr>
+<tr class="memitem:gae7a9ddbec5e9df70d41e524e2634c585" id="r_gae7a9ddbec5e9df70d41e524e2634c585"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_CL2_SHIFT</b></td></tr>
+<tr class="memitem:gae994f5e12c85bde0aedfa0703f29f472" id="r_gae994f5e12c85bde0aedfa0703f29f472"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gae994f5e12c85bde0aedfa0703f29f472">TMR_CSCTRL_CL2</a>(x)</td></tr>
+<tr class="memitem:gabadff3cad196bd10154f8c0c76aff67f" id="r_gabadff3cad196bd10154f8c0c76aff67f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF1_MASK</b></td></tr>
+<tr class="memitem:ga46e46b49cdff541fb4a8ce0a3b9a1ff8" id="r_ga46e46b49cdff541fb4a8ce0a3b9a1ff8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF1_SHIFT</b></td></tr>
+<tr class="memitem:gae876689c0c69e1197c08e3615f0648ed" id="r_gae876689c0c69e1197c08e3615f0648ed"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gae876689c0c69e1197c08e3615f0648ed">TMR_CSCTRL_TCF1</a>(x)</td></tr>
+<tr class="memitem:gabbc0543b474648af7cb4bdb7ae0951ef" id="r_gabbc0543b474648af7cb4bdb7ae0951ef"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF2_MASK</b></td></tr>
+<tr class="memitem:gac5c5fde063134fde203ce4ee9ef75dc7" id="r_gac5c5fde063134fde203ce4ee9ef75dc7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF2_SHIFT</b></td></tr>
+<tr class="memitem:ga26a9b7823c5bfd5f136f50ee9601357d" id="r_ga26a9b7823c5bfd5f136f50ee9601357d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga26a9b7823c5bfd5f136f50ee9601357d">TMR_CSCTRL_TCF2</a>(x)</td></tr>
+<tr class="memitem:ga00e6833174f37d64237e698348e268b0" id="r_ga00e6833174f37d64237e698348e268b0"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF1EN_MASK</b></td></tr>
+<tr class="memitem:ga80917ed123e41b8c5acffe6e685c3933" id="r_ga80917ed123e41b8c5acffe6e685c3933"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF1EN_SHIFT</b></td></tr>
+<tr class="memitem:gab9ae175ff5340a87f6aba8ff0bcb151e" id="r_gab9ae175ff5340a87f6aba8ff0bcb151e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gab9ae175ff5340a87f6aba8ff0bcb151e">TMR_CSCTRL_TCF1EN</a>(x)</td></tr>
+<tr class="memitem:ga28a5d70b5c2525018ea268b68e3a3b9f" id="r_ga28a5d70b5c2525018ea268b68e3a3b9f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF2EN_MASK</b></td></tr>
+<tr class="memitem:ga581bc05c4ba2d9b756c207dc4399da6f" id="r_ga581bc05c4ba2d9b756c207dc4399da6f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCF2EN_SHIFT</b></td></tr>
+<tr class="memitem:gac1b297c14c429042ae7af4979b3de223" id="r_gac1b297c14c429042ae7af4979b3de223"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gac1b297c14c429042ae7af4979b3de223">TMR_CSCTRL_TCF2EN</a>(x)</td></tr>
+<tr class="memitem:ga7f63013da15736675b335557b14974d2" id="r_ga7f63013da15736675b335557b14974d2"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_OFLAG_MASK</b></td></tr>
+<tr class="memitem:gab08a44331696987c5a74b36571f334bd" id="r_gab08a44331696987c5a74b36571f334bd"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_OFLAG_SHIFT</b></td></tr>
+<tr class="memitem:ga3a102d06abddbbc2ff37d5454aed84b8" id="r_ga3a102d06abddbbc2ff37d5454aed84b8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga3a102d06abddbbc2ff37d5454aed84b8">TMR_CSCTRL_OFLAG</a>(x)</td></tr>
+<tr class="memitem:gaad067200bc750af14a606e2cc3459567" id="r_gaad067200bc750af14a606e2cc3459567"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_UP_MASK</b></td></tr>
+<tr class="memitem:ga9b251eddc17f51dc09a294f505707a0b" id="r_ga9b251eddc17f51dc09a294f505707a0b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_UP_SHIFT</b></td></tr>
+<tr class="memitem:ga9b11692e1e37944482cfb2f687630459" id="r_ga9b11692e1e37944482cfb2f687630459"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga9b11692e1e37944482cfb2f687630459">TMR_CSCTRL_UP</a>(x)</td></tr>
+<tr class="memitem:ga0b999d07267af48bcd962b9acb25549f" id="r_ga0b999d07267af48bcd962b9acb25549f"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCI_MASK</b></td></tr>
+<tr class="memitem:ga4deabc46f62f7f2e51980c25dbc89b84" id="r_ga4deabc46f62f7f2e51980c25dbc89b84"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_TCI_SHIFT</b></td></tr>
+<tr class="memitem:ga7e73f59a8dee687f1493f3c72cf2a986" id="r_ga7e73f59a8dee687f1493f3c72cf2a986"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga7e73f59a8dee687f1493f3c72cf2a986">TMR_CSCTRL_TCI</a>(x)</td></tr>
+<tr class="memitem:gae63f4dfebeba7cffe32511073ac5122b" id="r_gae63f4dfebeba7cffe32511073ac5122b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_ROC_MASK</b></td></tr>
+<tr class="memitem:ga1727c2a56bb0a63479336d3a380b27b8" id="r_ga1727c2a56bb0a63479336d3a380b27b8"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_ROC_SHIFT</b></td></tr>
+<tr class="memitem:ga6ad452ac6eaa1332274b33e7f1bbcef9" id="r_ga6ad452ac6eaa1332274b33e7f1bbcef9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga6ad452ac6eaa1332274b33e7f1bbcef9">TMR_CSCTRL_ROC</a>(x)</td></tr>
+<tr class="memitem:ga62a906d50f48288cff806f716cdf96f2" id="r_ga62a906d50f48288cff806f716cdf96f2"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_ALT_LOAD_MASK</b></td></tr>
+<tr class="memitem:ga9f3136d9a53f6cc6d67193a586f7f58a" id="r_ga9f3136d9a53f6cc6d67193a586f7f58a"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_ALT_LOAD_SHIFT</b></td></tr>
+<tr class="memitem:gaaaf00d3fa02a9da70f1296a25add224e" id="r_gaaaf00d3fa02a9da70f1296a25add224e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gaaaf00d3fa02a9da70f1296a25add224e">TMR_CSCTRL_ALT_LOAD</a>(x)</td></tr>
+<tr class="memitem:ga95d92cbb49326524a2e6c30baae785a7" id="r_ga95d92cbb49326524a2e6c30baae785a7"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_FAULT_MASK</b></td></tr>
+<tr class="memitem:ga40fa2c7b070250619fded3ea72abc5d4" id="r_ga40fa2c7b070250619fded3ea72abc5d4"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_FAULT_SHIFT</b></td></tr>
+<tr class="memitem:ga62337b09fc350a237f99e354f59c4a9f" id="r_ga62337b09fc350a237f99e354f59c4a9f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga62337b09fc350a237f99e354f59c4a9f">TMR_CSCTRL_FAULT</a>(x)</td></tr>
+<tr class="memitem:ga830b81b821840fccdb1fe1dc1239fc85" id="r_ga830b81b821840fccdb1fe1dc1239fc85"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_DBG_EN_MASK</b></td></tr>
+<tr class="memitem:ga301bc8cf64b8fc2dffa0ef9bb5cecb3b" id="r_ga301bc8cf64b8fc2dffa0ef9bb5cecb3b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_CSCTRL_DBG_EN_SHIFT</b></td></tr>
+<tr class="memitem:gabeec9b677565182963ae04149fbed841" id="r_gabeec9b677565182963ae04149fbed841"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gabeec9b677565182963ae04149fbed841">TMR_CSCTRL_DBG_EN</a>(x)</td></tr>
+<tr id="define-members-11" class="groupHeader"><td colspan="2"><div class="groupHeader">FILT - Timer Channel Input Filter Register</div></td></tr>
+<tr class="memitem:ga6754f5063fb3048bed7a62542a6a27c5" id="r_ga6754f5063fb3048bed7a62542a6a27c5"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_FILT_FILT_PER_MASK</b></td></tr>
+<tr class="memitem:ga62de27c86349e9a17fa0515b4378cac3" id="r_ga62de27c86349e9a17fa0515b4378cac3"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_FILT_FILT_PER_SHIFT</b></td></tr>
+<tr class="memitem:ga5bec174d312c3e2f9d59911d76c30c2a" id="r_ga5bec174d312c3e2f9d59911d76c30c2a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga5bec174d312c3e2f9d59911d76c30c2a">TMR_FILT_FILT_PER</a>(x)</td></tr>
+<tr class="memitem:gac4780c154c159a0a64ab996ff3315604" id="r_gac4780c154c159a0a64ab996ff3315604"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_FILT_FILT_CNT_MASK</b></td></tr>
+<tr class="memitem:gae9354d2ee169b6876f94ee5795c55365" id="r_gae9354d2ee169b6876f94ee5795c55365"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_FILT_FILT_CNT_SHIFT</b></td></tr>
+<tr class="memitem:ga34f62be584a66fd691173adba0733651" id="r_ga34f62be584a66fd691173adba0733651"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga34f62be584a66fd691173adba0733651">TMR_FILT_FILT_CNT</a>(x)</td></tr>
+<tr id="define-members-12" class="groupHeader"><td colspan="2"><div class="groupHeader">DMA - Timer Channel DMA Enable Register</div></td></tr>
+<tr class="memitem:gae52effdd1d6fde3cdc8a2e696349f01b" id="r_gae52effdd1d6fde3cdc8a2e696349f01b"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_DMA_IEFDE_MASK</b></td></tr>
+<tr class="memitem:ga9b59cf663d43f88153b281656d907315" id="r_ga9b59cf663d43f88153b281656d907315"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_DMA_IEFDE_SHIFT</b></td></tr>
+<tr class="memitem:gafdccfafc10222dfab918f9717b4147d7" id="r_gafdccfafc10222dfab918f9717b4147d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gafdccfafc10222dfab918f9717b4147d7">TMR_DMA_IEFDE</a>(x)</td></tr>
+<tr class="memitem:ga554ed136ed547203b899f4a2a8acf134" id="r_ga554ed136ed547203b899f4a2a8acf134"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_DMA_CMPLD1DE_MASK</b></td></tr>
+<tr class="memitem:ga5ecf0802dd5945d1a4cde300e7a8c1bb" id="r_ga5ecf0802dd5945d1a4cde300e7a8c1bb"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_DMA_CMPLD1DE_SHIFT</b></td></tr>
+<tr class="memitem:ga6368c9f25be7281a746c28f5493f10ab" id="r_ga6368c9f25be7281a746c28f5493f10ab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga6368c9f25be7281a746c28f5493f10ab">TMR_DMA_CMPLD1DE</a>(x)</td></tr>
+<tr class="memitem:gad77f226e5947c8334dda4bcd80de6e82" id="r_gad77f226e5947c8334dda4bcd80de6e82"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_DMA_CMPLD2DE_MASK</b></td></tr>
+<tr class="memitem:ga704b44b5653970992a79c585e2aaa446" id="r_ga704b44b5653970992a79c585e2aaa446"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_DMA_CMPLD2DE_SHIFT</b></td></tr>
+<tr class="memitem:gaebfdd6ba850c45b8c651d317ea6f43d6" id="r_gaebfdd6ba850c45b8c651d317ea6f43d6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#gaebfdd6ba850c45b8c651d317ea6f43d6">TMR_DMA_CMPLD2DE</a>(x)</td></tr>
+<tr id="define-members-13" class="groupHeader"><td colspan="2"><div class="groupHeader">ENBL - Timer Channel Enable Register</div></td></tr>
+<tr class="memitem:ga9bdb087419fa81b6aca5cbe168c46c72" id="r_ga9bdb087419fa81b6aca5cbe168c46c72"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_ENBL_ENBL_MASK</b></td></tr>
+<tr class="memitem:gaf2573f6e1f96add70b6ecd5bf2b61a64" id="r_gaf2573f6e1f96add70b6ecd5bf2b61a64"><td class="memItemLeft">
+#define&#160;</td><td class="memItemRight"><b>TMR_ENBL_ENBL_SHIFT</b></td></tr>
+<tr class="memitem:ga454ae3bfde8e6d39f6164ccd02d75c94" id="r_ga454ae3bfde8e6d39f6164ccd02d75c94"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01796.html#ga454ae3bfde8e6d39f6164ccd02d75c94">TMR_ENBL_ENBL</a>(x)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>CMSIS Peripheral Access Layer for SYSCON_AON. </p>
+<div class="textblock"><p>CMSIS Peripheral Access Layer for TMR. </p>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2025-06-13 </dd></dl>
-<p>CMSIS Peripheral Access Layer for SYSCON_AON </p>
+<p>CMSIS Peripheral Access Layer for TMR </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ab6670f87c6c403132d687aa0fe940ab9" name="ab6670f87c6c403132d687aa0fe940ab9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6670f87c6c403132d687aa0fe940ab9">&#9670;&#160;</a></span>PERI_SYSCON_AON_H_</h2>
+<a id="a7c8634b1529fbd1c6b8dfead306f78f5" name="a7c8634b1529fbd1c6b8dfead306f78f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c8634b1529fbd1c6b8dfead306f78f5">&#9670;&#160;</a></span>PERI_TMR_H_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PERI_SYSCON_AON_H_</td>
+          <td class="memname">#define PERI_TMR_H_</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -381,7 +450,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a01316.html">PERI_SYSCON_AON.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a01316.html">PERI_TMR.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

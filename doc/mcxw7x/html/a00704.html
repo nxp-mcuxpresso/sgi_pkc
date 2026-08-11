@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClMac_Constants.h File Reference</title>
+<title>MCUX CLNS: mcuxClMac_Functions.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,39 +102,34 @@ $(function(){initNavTree('a00704.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClMac_Constants.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClMac_Functions.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Constants and status codes for the mcuxClMac component.  
+<p>Top-level API of the mcuxClMac component.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;mcuxClConfig.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00845_source.html">mcuxClSession_Types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00683_source.html">mcuxClKey_Types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00707_source.html">mcuxClMac_Types.h</a>&gt;</code><br />
+<code>#include &lt;mcuxClCore_Platform.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00419_source.html">mcuxClBuffer.h</a>&gt;</code><br />
 </div>
 <p><a href="a00704_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga29a0556d236921ec9e6680cd049f784b" id="r_ga29a0556d236921ec9e6680cd049f784b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga29a0556d236921ec9e6680cd049f784b">MCUXCLMAC_STATUS_ERROR</a></td></tr>
-<tr class="memdesc:ga29a0556d236921ec9e6680cd049f784b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functional error detected in MAC operation.  <br /></td></tr>
-<tr class="memitem:gaeee9d7aded8807ac014d1030847457a2" id="r_gaeee9d7aded8807ac014d1030847457a2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#gaeee9d7aded8807ac014d1030847457a2">MCUXCLMAC_STATUS_FAILURE</a></td></tr>
-<tr class="memdesc:gaeee9d7aded8807ac014d1030847457a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functional failure detected.  <br /></td></tr>
-<tr class="memitem:ga8eb86baa218d3f14c65c4cf1fd4a9a6b" id="r_ga8eb86baa218d3f14c65c4cf1fd4a9a6b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga8eb86baa218d3f14c65c4cf1fd4a9a6b">MCUXCLMAC_STATUS_INVALID_PARAM</a></td></tr>
-<tr class="memdesc:ga8eb86baa218d3f14c65c4cf1fd4a9a6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid input provided.  <br /></td></tr>
-<tr class="memitem:ga025cf49de0fa3225a6d15fd972bf3c64" id="r_ga025cf49de0fa3225a6d15fd972bf3c64"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga025cf49de0fa3225a6d15fd972bf3c64">MCUXCLMAC_STATUS_FAULT_ATTACK</a></td></tr>
-<tr class="memdesc:ga025cf49de0fa3225a6d15fd972bf3c64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack detected.  <br /></td></tr>
-<tr class="memitem:ga7df50ebdaad50cfe8661c930df6c43df" id="r_ga7df50ebdaad50cfe8661c930df6c43df"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga7df50ebdaad50cfe8661c930df6c43df">MCUXCLMAC_STATUS_OK</a></td></tr>
-<tr class="memdesc:ga7df50ebdaad50cfe8661c930df6c43df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking operation finished successfully.  <br /></td></tr>
-<tr class="memitem:ga322f2ecd934013fbc12b609d7f92b49f" id="r_ga322f2ecd934013fbc12b609d7f92b49f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga322f2ecd934013fbc12b609d7f92b49f">MCUXCLMAC_STATUS_COMPARE_NOK</a></td></tr>
-<tr class="memdesc:ga322f2ecd934013fbc12b609d7f92b49f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking operation finished, invalid tag detected.  <br /></td></tr>
-<tr class="memitem:gaa4205233c5a383270d954c792515a935" id="r_gaa4205233c5a383270d954c792515a935"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#gaa4205233c5a383270d954c792515a935">MCUXCLMAC_STATUS_JOB_STARTED</a></td></tr>
-<tr class="memdesc:gaa4205233c5a383270d954c792515a935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-blocking operation started successfully.  <br /></td></tr>
-<tr class="memitem:ga2fb1d85d0758aa314cfa6684291edff8" id="r_ga2fb1d85d0758aa314cfa6684291edff8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga2fb1d85d0758aa314cfa6684291edff8">MCUXCLMAC_STATUS_JOB_COMPLETED</a></td></tr>
-<tr class="memdesc:ga2fb1d85d0758aa314cfa6684291edff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-blocking operation finished successfully.  <br /></td></tr>
-<tr class="memitem:ga26a3e698b35633850eb2347a188891d8" id="r_ga26a3e698b35633850eb2347a188891d8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga26a3e698b35633850eb2347a188891d8">MCUXCLMAC_STATUS_JOB_COMPLETED_COMPARE_NOK</a></td></tr>
-<tr class="memdesc:ga26a3e698b35633850eb2347a188891d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-blocking operation finished, invalid tag detected.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gad2fe8b5e17f2b468fbe8a61f8fee5400" id="r_gad2fe8b5e17f2b468fbe8a61f8fee5400"><td class="memItemLeft"><a class="el" href="a01423.html#gaca63aa917056a18f99a911f329f3971b">mcuxClMac_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01421.html#gad2fe8b5e17f2b468fbe8a61f8fee5400">mcuxClMac_compute</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01423.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> mode, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inLength, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pMac, uint32_t *const pMacLength)</td></tr>
+<tr class="memdesc:gad2fe8b5e17f2b468fbe8a61f8fee5400"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot message authentication code (MAC) computation function.  <br /></td></tr>
+<tr class="memitem:ga803bd7822372bdca8dfd0c81b5db96eb" id="r_ga803bd7822372bdca8dfd0c81b5db96eb"><td class="memItemLeft"><a class="el" href="a01423.html#gaca63aa917056a18f99a911f329f3971b">mcuxClMac_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga803bd7822372bdca8dfd0c81b5db96eb">mcuxClMac_init</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01423.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a> *const pContext, <a class="el" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01423.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a> mode)</td></tr>
+<tr class="memdesc:ga803bd7822372bdca8dfd0c81b5db96eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization for a multipart MAC computation.  <br /></td></tr>
+<tr class="memitem:ga2749e40209d4308f21ebe761485d4d56" id="r_ga2749e40209d4308f21ebe761485d4d56"><td class="memItemLeft"><a class="el" href="a01423.html#gaca63aa917056a18f99a911f329f3971b">mcuxClMac_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga2749e40209d4308f21ebe761485d4d56">mcuxClMac_process</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01423.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a> *const pContext, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inLength)</td></tr>
+<tr class="memdesc:ga2749e40209d4308f21ebe761485d4d56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data processing for a multipart MAC computation.  <br /></td></tr>
+<tr class="memitem:ga9d66c6e242ff75b6ff4826fdcb784e08" id="r_ga9d66c6e242ff75b6ff4826fdcb784e08"><td class="memItemLeft"><a class="el" href="a01423.html#gaca63aa917056a18f99a911f329f3971b">mcuxClMac_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01422.html#ga9d66c6e242ff75b6ff4826fdcb784e08">mcuxClMac_finish</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01423.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a> *const pContext, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pMac, uint32_t *const pMacLength)</td></tr>
+<tr class="memdesc:ga9d66c6e242ff75b6ff4826fdcb784e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize a MAC generation for a multipart MAC computation.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Constants and status codes for the mcuxClMac component. </p>
+<div class="textblock"><p>Top-level API of the mcuxClMac component. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -148,7 +143,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00704.html">mcuxClMac_Constants.h</a></li>
+    <li class="navelem"><a href="a00704.html">mcuxClMac_Functions.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

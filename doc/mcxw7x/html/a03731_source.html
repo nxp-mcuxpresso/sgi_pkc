@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxa2xx/mcuxClSession_MemoryConsumption.h Source File</title>
+<title>MCUX CLNS: platform/mcxa2xx/mcuxClSession_Internal_AssemblyHeader.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a03731_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClSession_MemoryConsumption.h</div></div>
+  <div class="headertitle"><div class="title">mcuxClSession_Internal_AssemblyHeader.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a03731.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023-2025 NXP                                                  */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2024 NXP                                                       */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -132,21 +132,35 @@ $(function(){initNavTree('a03731_source.html','',''); });
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef MCUXCLSESSION_MEMORYCONSUMPTION_H_</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MCUXCLSESSION_MEMORYCONSUMPTION_H_</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef MCUXCLSESSION_INTERNAL_ASSEMBLYHEADER_H_</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MCUXCLSESSION_INTERNAL_ASSEMBLYHEADER_H_</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03731.html#ad0e94a9ac887cecd6bfcaea63626454f">   43</a></span><span class="preprocessor">#define MCUXCLSESSION_DESCRIPTOR_SIZE           (92u) </span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a03731.html#a93f27564ed0a28649f23e849dfb94959">   44</a></span><span class="preprocessor">#define MCUXCLSESSION_DESCRIPTOR_SIZE_IN_WORDS  (MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLSESSION_DESCRIPTOR_SIZE)) </span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLSESSION_MEMORYCONSUMPTION_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define MCUXCLSESSION_STATUS_ASM_API_ENTERED     ((3822 &lt;&lt; 16) | 11847)</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define MCUXCLSESSION_STATUS_ASM_EXIT_FA         ((3822 &lt;&lt; 16) | 61680)</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define WORDLEN                     (4)                                   </span><span class="comment">/* CPU word length */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define APICALL_OFFSET              (85 - 1)                         </span><span class="comment">/* Index of apiCall in struct mcuxClSession_Descriptor */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define FAULTSTATUS_OFFSET          (1 - 1)              </span><span class="comment">/* Index of faultStatus in struct mcuxClSession_apiCall */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define DIBACKUP_OFFSET             (5 - 1)                 </span><span class="comment">/* Index of diBackup in struct mcuxClSession_apiCall */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define PREVIOUS_OFFSET             (9 - 1)                 </span><span class="comment">/* Index of previous in struct mcuxClSession_apiCall */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define CPUREGISTERBACKUP_OFFSET    (13 - 1)        </span><span class="comment">/* Index of cpuRegisterBackup in struct mcuxClSession_apiCall */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define CPUREGISTERBACKUP_NUMBEROF_S_REGISTERS  (8)                                             </span><span class="comment">/* Number of S registers to backup */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define CPUREGISTERBACKUP_S(s_index)            (CPUREGISTERBACKUP_OFFSET + s_index * WORDLEN)  </span><span class="comment">/* Index of S register in cpuRegisterBackup */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#define CPUREGISTERBACKUP_RA                    (CPUREGISTERBACKUP_OFFSET + CPUREGISTERBACKUP_NUMBEROF_S_REGISTERS * WORDLEN)       </span><span class="comment">/* Index of RA register in cpuRegisterBackup */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#define CPUREGISTERBACKUP_SP                    (CPUREGISTERBACKUP_OFFSET + (CPUREGISTERBACKUP_NUMBEROF_S_REGISTERS + 1) * WORDLEN) </span><span class="comment">/* Index of SP register in cpuRegisterBackup */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define CPUREGISTERBACKUP_UPCSSTATE             (CPUREGISTERBACKUP_OFFSET + (CPUREGISTERBACKUP_NUMBEROF_S_REGISTERS + 2) * WORDLEN) </span><span class="comment">/* Index of UPCSSTATE register in cpuRegisterBackup */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLSESSION_INTERNAL_ASSEMBLYHEADER_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a03731.html">mcuxClSession_MemoryConsumption.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxa2xx</b></li><li class="navelem"><a href="a03731.html">mcuxClSession_Internal_AssemblyHeader.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,10 +1,9 @@
 var a01476 =
 [
-    [ "MCUXCLRSA_STATUS_", "a01477.html", "a01477" ],
-    [ "MCUXCLRSA_OPTION_", "a01478.html", null ],
-    [ "MCUXCLRSA_SIGN_WA", "a01608.html", "a01608" ],
-    [ "MCUXCLRSA_VERIFY_WA", "a01609.html", "a01609" ],
-    [ "MCUXCLRSA_KEYGENERATION_CRT_WA", "a01610.html", "a01610" ],
-    [ "MCUXCLRSA_KEYGENERATION_PLAIN_WA", "a01611.html", "a01611" ],
-    [ "MCUXCLRSA_KEYGENERATION_KEY_DATA_SIZE", "a01612.html", "a01612" ]
+    [ "Rsa Key Types", "a01469.html", "a01469" ],
+    [ "__attribute__", "a01918.html", [
+      [ "pKeyEntryData", "a01918.html#abdf7dca920e7c2535abbc6dc626daabd", null ],
+      [ "keyEntryLength", "a01918.html#ae3517e1160b688cc010e30fa2868a019", null ]
+    ] ],
+    [ "mcuxClRsa_Status_t", "a01476.html#gab654093108d59a4690e464f314356e69", null ]
 ];

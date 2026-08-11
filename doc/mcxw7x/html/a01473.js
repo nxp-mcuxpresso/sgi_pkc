@@ -1,6 +1,10 @@
 var a01473 =
 [
-    [ "Key Type Descriptors", "a01463.html", "a01463" ],
-    [ "Signature RSA mode definitions", "a01474.html", "a01474" ],
-    [ "Key Generation RSA mode descriptor", "a01475.html", "a01475" ]
+    [ "MCUXCLRSA_STATUS_", "a01474.html", "a01474" ],
+    [ "MCUXCLRSA_OPTION_", "a01475.html", null ],
+    [ "MCUXCLRSA_SIGN_WA", "a01606.html", "a01606" ],
+    [ "MCUXCLRSA_VERIFY_WA", "a01607.html", "a01607" ],
+    [ "MCUXCLRSA_KEYGENERATION_CRT_WA", "a01608.html", "a01608" ],
+    [ "MCUXCLRSA_KEYGENERATION_PLAIN_WA", "a01609.html", "a01609" ],
+    [ "MCUXCLRSA_KEYGENERATION_KEY_DATA_SIZE", "a01610.html", "a01610" ]
 ];

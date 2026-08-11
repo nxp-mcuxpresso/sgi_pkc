@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: RSA private CRT_DFA key type pointers with</title>
+<title>MCUX CLNS: Signature RSA mode definitions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,122 +102,129 @@ $(function(){initNavTree('a01471.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">RSA private CRT_DFA key type pointers with <div class="ingroups"><a class="el" href="a01461.html">mcuxClRsa</a> &raquo; <a class="el" href="a01473.html">mcuxClRsa_Descriptors</a> &raquo; <a class="el" href="a01463.html">Key Type Descriptors</a></div></div></div>
+  <div class="headertitle"><div class="title">Signature RSA mode definitions <div class="ingroups"><a class="el" href="a01458.html">mcuxClRsa</a> &raquo; <a class="el" href="a01470.html">mcuxClRsa_Descriptors</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines key type pointers for RSA private CRT keys with DFA protection enabled of <a class="el" href="a01461.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>.  
+<p>Modes used by the Signature operations with RSA.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ga614ec91c86278e9b4e1d5f70071e6aab" id="r_ga614ec91c86278e9b4e1d5f70071e6aab"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga614ec91c86278e9b4e1d5f70071e6aab">mcuxClKey_Type_Rsa_PrivateCRT_DFA_1024</a></td></tr>
-<tr class="memdesc:ga614ec91c86278e9b4e1d5f70071e6aab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT_DFA key and key size 1024 bits.  <br /></td></tr>
-<tr class="memitem:gaf7aed5cd69c57404fec8cf75deb00bd0" id="r_gaf7aed5cd69c57404fec8cf75deb00bd0"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf7aed5cd69c57404fec8cf75deb00bd0">mcuxClKey_Type_Rsa_PrivateCRT_DFA_2048</a></td></tr>
-<tr class="memdesc:gaf7aed5cd69c57404fec8cf75deb00bd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT_DFA key and key size 2048 bits.  <br /></td></tr>
-<tr class="memitem:ga803292ebb6a10e3fb524741b4806a276" id="r_ga803292ebb6a10e3fb524741b4806a276"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga803292ebb6a10e3fb524741b4806a276">mcuxClKey_Type_Rsa_PrivateCRT_DFA_3072</a></td></tr>
-<tr class="memdesc:ga803292ebb6a10e3fb524741b4806a276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT_DFA key and key size 3072 bits.  <br /></td></tr>
-<tr class="memitem:ga95857b9c3cab5b15d7b3411283d55f99" id="r_ga95857b9c3cab5b15d7b3411283d55f99"><td class="memItemLeft">static const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga95857b9c3cab5b15d7b3411283d55f99">mcuxClKey_Type_Rsa_PrivateCRT_DFA_4096</a></td></tr>
-<tr class="memdesc:ga95857b9c3cab5b15d7b3411283d55f99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type pointer for RSA private CRT_DFA key and key size 4096 bits.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gac27ef43d6a29a324e66dd4be4f62ff33" id="r_gac27ef43d6a29a324e66dd4be4f62ff33"><td class="memItemLeft"><a id="gac27ef43d6a29a324e66dd4be4f62ff33" name="gac27ef43d6a29a324e66dd4be4f62ff33"></a>
+typedef struct mcuxClRsa_Signature_ProtocolDescriptor&#160;</td><td class="memItemRight"><b>mcuxClRsa_SignatureProtocolDescriptor_t</b></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gaab758388401bbf25d6468dadffe2b609" id="r_gaab758388401bbf25d6468dadffe2b609"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaab758388401bbf25d6468dadffe2b609">mcuxClRsa_SignatureModeConstructor_RSASSA_PSS</a> (<a class="el" href="a01487.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *pSignatureMode, mcuxClRsa_SignatureProtocolDescriptor_t *pProtocolDescriptor, <a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> hashAlgorithm, uint32_t saltLength, uint32_t options)</td></tr>
+<tr class="memdesc:gaab758388401bbf25d6468dadffe2b609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode constructor for RSASSA-PSS signature generation and verification.  <br /></td></tr>
+<tr class="memitem:gaaf6495523ab98b18cb05980369dbf8e7" id="r_gaaf6495523ab98b18cb05980369dbf8e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaaf6495523ab98b18cb05980369dbf8e7">mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5</a> (<a class="el" href="a01487.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *pSignatureMode, mcuxClRsa_SignatureProtocolDescriptor_t *pProtocolDescriptor, <a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> hashAlgorithm, uint32_t options)</td></tr>
+<tr class="memdesc:gaaf6495523ab98b18cb05980369dbf8e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode constructor for RSASSA-PKCS1-v1_5 signature generation and verification.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines key type pointers for RSA private CRT keys with DFA protection enabled of <a class="el" href="a01461.html" title="mcuxClRsa">mcuxClRsa</a>, see <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>. </p>
-</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="ga614ec91c86278e9b4e1d5f70071e6aab" name="ga614ec91c86278e9b4e1d5f70071e6aab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga614ec91c86278e9b4e1d5f70071e6aab">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_DFA_1024</h2>
+<div class="textblock"><p>Modes used by the Signature operations with RSA. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="gaab758388401bbf25d6468dadffe2b609" name="gaab758388401bbf25d6468dadffe2b609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaab758388401bbf25d6468dadffe2b609">&#9670;&#160;</a></span>mcuxClRsa_SignatureModeConstructor_RSASSA_PSS()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_DFA_1024</td>
+          <td class="memname">void mcuxClRsa_SignatureModeConstructor_RSASSA_PSS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01487.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pSignatureMode</em></span>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Key type pointer for RSA private CRT_DFA key and key size 1024 bits. </p>
-
-</div>
-</div>
-<a id="gaf7aed5cd69c57404fec8cf75deb00bd0" name="gaf7aed5cd69c57404fec8cf75deb00bd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf7aed5cd69c57404fec8cf75deb00bd0">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_DFA_2048</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_DFA_2048</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">mcuxClRsa_SignatureProtocolDescriptor_t *</td>          <td class="paramname"><span class="paramname"><em>pProtocolDescriptor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>hashAlgorithm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>saltLength</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Key type pointer for RSA private CRT_DFA key and key size 2048 bits. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03425.html#_a7">mcuxClRsa_Cipher_RSAES_PKCS1_v1_5_example.c</a>.</dd>
+<p>Mode constructor for RSASSA-PSS signature generation and verification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pSignatureMode</td><td>Pointer to a mode descriptor that will be updated by this function. </td></tr>
+    <tr><td class="paramname">pProtocolDescriptor</td><td>Pointer to an RSA protocol descriptor that will be updated by this function. </td></tr>
+    <tr><td class="paramname">hashAlgorithm</td><td>Hash algorithm that should be used. </td></tr>
+    <tr><td class="paramname">saltLength</td><td>Number of bytes of the salt. </td></tr>
+    <tr><td class="paramname">options</td><td>RSA options:<ul>
+<li>MCUXCLRSA_OPTION_VERIFY_NOHWACC: perform pure SW verification, without using HW acceleration</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><ul>
+<li>The RNG context must be initialized before performing an RSA signature generation with RSASSA-PSS. </li>
+</ul>
+</dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03422.html#_a14">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="ga803292ebb6a10e3fb524741b4806a276" name="ga803292ebb6a10e3fb524741b4806a276"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga803292ebb6a10e3fb524741b4806a276">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_DFA_3072</h2>
+<a id="gaaf6495523ab98b18cb05980369dbf8e7" name="gaaf6495523ab98b18cb05980369dbf8e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaf6495523ab98b18cb05980369dbf8e7">&#9670;&#160;</a></span>mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_DFA_3072</td>
+          <td class="memname">void mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01487.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pSignatureMode</em></span>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Key type pointer for RSA private CRT_DFA key and key size 3072 bits. </p>
-
-</div>
-</div>
-<a id="ga95857b9c3cab5b15d7b3411283d55f99" name="ga95857b9c3cab5b15d7b3411283d55f99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga95857b9c3cab5b15d7b3411283d55f99">&#9670;&#160;</a></span>mcuxClKey_Type_Rsa_PrivateCRT_DFA_4096</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> mcuxClKey_Type_Rsa_PrivateCRT_DFA_4096</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">mcuxClRsa_SignatureProtocolDescriptor_t *</td>          <td class="paramname"><span class="paramname"><em>pProtocolDescriptor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>hashAlgorithm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Key type pointer for RSA private CRT_DFA key and key size 4096 bits. </p>
+<p>Mode constructor for RSASSA-PKCS1-v1_5 signature generation and verification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pSignatureMode</td><td>Pointer to a mode descriptor that will be updated by this function. </td></tr>
+    <tr><td class="paramname">pProtocolDescriptor</td><td>Pointer to an RSA protocol descriptor that will be updated by this function. </td></tr>
+    <tr><td class="paramname">hashAlgorithm</td><td>Hash algorithm that should be used. </td></tr>
+    <tr><td class="paramname">options</td><td>RSA options:<ul>
+<li>MCUXCLRSA_OPTION_VERIFY_NOHWACC: perform pure SW verification, without using HW acceleration </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03421.html#_a14">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>

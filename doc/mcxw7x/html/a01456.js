@@ -1,5 +1,7 @@
 var a01456 =
 [
-    [ "mcuxClResource_init", "a01456.html#gad93d8ac6ebe62ec3d274b44ef27a4b79", null ],
-    [ "mcuxClResource_handle_interrupt", "a01456.html#gaf083fd1ec859bfe9e6e71a93a8d7e1c0", null ]
+    [ "MCUXCLRESOURCE_STATUS_OK", "a01456.html#gaafc8964b2e6e576ec94cde857b6cec59", null ],
+    [ "MCUXCLRESOURCE_STATUS_UNAVAILABLE", "a01456.html#gafbaac9fa90070887de71bd51caac8e77", null ],
+    [ "MCUXCLRESOURCE_STATUS_ERROR", "a01456.html#ga645e736b3303b3a09350980cad311193", null ],
+    [ "MCUXCLRESOURCE_STATUS_FAULT_ATTACK", "a01456.html#ga8c3f2cbc88e178d264ddcb3903270505", null ]
 ];

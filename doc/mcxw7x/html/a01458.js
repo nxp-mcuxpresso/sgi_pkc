@@ -1,5 +1,7 @@
 var a01458 =
 [
-    [ "mcuxClResource return code definitions", "a01459.html", "a01459" ],
-    [ "mcuxClResource status of HW resource and option to request HW resource", "a01460.html", "a01460" ]
+    [ "mcuxClRsa_Functions", "a01459.html", null ],
+    [ "mcuxClRsa_Descriptors", "a01470.html", "a01470" ],
+    [ "mcuxClRsa_Macros", "a01473.html", "a01473" ],
+    [ "mcuxClRsa_Types", "a01476.html", "a01476" ]
 ];

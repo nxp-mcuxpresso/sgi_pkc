@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClKey_EncodingMechanisms</title>
+<title>MCUX CLNS: mcuxClMac</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,28 @@ $(function(){initNavTree('a01418.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClKey_EncodingMechanisms <div class="ingroups"><a class="el" href="a01411.html">mcuxClKey</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClMac </div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Mechanisms used by the Key operations.  
-</p>
-<div class="textblock"><p>Mechanisms used by the Key operations. </p>
+<p>Message Authentication Code (MAC) component.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Topics</h2></td></tr>
+<tr class="memitem:mcuxClMac_5FConstants" id="r_mcuxClMac_5FConstants"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01419.html">mcuxClMac_Constants</a></td></tr>
+<tr class="memdesc:a01419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of <a class="el" href="a01418.html" title="mcuxClMac">mcuxClMac</a> component. <br /></td></tr>
+<tr class="memitem:mcuxClMac_5FFunctions" id="r_mcuxClMac_5FFunctions"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01420.html">mcuxClMac_Functions</a></td></tr>
+<tr class="memdesc:a01420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all functions of <a class="el" href="a01418.html" title="mcuxClMac">mcuxClMac</a>. <br /></td></tr>
+<tr class="memitem:mcuxClMac_5FTypes" id="r_mcuxClMac_5FTypes"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01423.html">mcuxClMac_Types</a></td></tr>
+<tr class="memdesc:a01423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all types of the <a class="el" href="a01418.html" title="mcuxClMac">mcuxClMac</a> component. <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Message Authentication Code (MAC) component. </p>
+<p>The mcuxClMac component implements Message Authentication Code (MAC) calculation, based on either HMAC or CMAC.</p>
+<p>An example of how to use the <a class="el" href="a01418.html" title="mcuxClMac">mcuxClMac</a> component can be found in /mcuxClMac/ex.</p>
+<p>The MAC can either be computed in one shot, using the mcuxClMac_compute function, or the input can be split into multiple parts. In that case, an initialization has to be performed first by calling the mcuxClMac_init function. Now zero, one, or more messages can be added for authentication by calling mcuxClMac_process. Finally, the MAC is generated when the mcuxClMac_finish function is called.</p>
+<p>The mode to be used, HMAC or CMAC, is defined by passing the corresponding mode descriptor (<a class="el" href="a01423.html#ga8e9aa3b88af43aaf819650568abc471f" title="MAC mode/algorithm type.">mcuxClMac_Mode_t</a>) to mcuxClMac_compute or mcuxClMac_init. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

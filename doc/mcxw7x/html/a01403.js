@@ -1,5 +1,6 @@
 var a01403 =
 [
-    [ "mcuxClKey_TypeDescriptor_Hmac_variableLength", "a01403.html#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f", null ],
-    [ "mcuxClKey_Type_Hmac_variableLength", "a01403.html#ga42eb018ca876c87b3d4539532ab2154d", null ]
+    [ "mcuxClKey_Derivation_ModeConstructor_HKDF", "a01403.html#ga41b1c050855c5d77dc2dc532f780c01e", null ],
+    [ "mcuxClKey_DerivationAlgorithmDescriptor_HKDF", "a01403.html#ga7ee513befe1e6f0a25ad20b7429d9013", null ],
+    [ "mcuxClKey_DerivationAlgorithm_HKDF", "a01403.html#gafc23edf213502f0f0afe0234daca24c6", null ]
 ];

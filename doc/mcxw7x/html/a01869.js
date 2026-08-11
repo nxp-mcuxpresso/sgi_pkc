@@ -1,21 +1,25 @@
 var a01869 =
 [
-    [ "SYSPM_CFGSS_ID", "a01869.html#ga2accaed8babb94e5eb35866b96f7432b", null ],
-    [ "SYSPM_CFGSS_HRL", "a01869.html#gadb03b79dd551f653608988e88edff800", null ],
-    [ "SYSPM_CFGSS_NCTRS", "a01869.html#ga0cf4cd11d5479480473971edb7ccfa09", null ],
-    [ "SYSPM_CFGSS_MSC", "a01869.html#gac63ea027094a7bde6d5aaa7a00748666", null ],
-    [ "SYSPM_PMCR_MENB", "a01869.html#ga94e0de4a160d6077ebe05a23fdf8fd6b", null ],
-    [ "SYSPM_PMCR_SSC", "a01869.html#ga60c12a3a27bf747e9bbcbc00e827a843", null ],
-    [ "SYSPM_PMCR_CMODE", "a01869.html#gaa6c0e566851edefaac225f771eceef2d", null ],
-    [ "SYSPM_PMCR_RICTR", "a01869.html#gace8b1ebccc54264122199738c7d50f95", null ],
-    [ "SYSPM_PMCR_RECTR1", "a01869.html#gad3712af591dec3393275c295e4747bf5", null ],
-    [ "SYSPM_PMCR_RECTR2", "a01869.html#gada7023895fa1517b5c3560ac795b34b8", null ],
-    [ "SYSPM_PMCR_RECTR3", "a01869.html#gaf3cd85afdf30d5c24560d529f99ad0e3", null ],
-    [ "SYSPM_PMCR_SELEVT1", "a01869.html#ga9ca32310de3ce98bec22c287c8ce8d77", null ],
-    [ "SYSPM_PMCR_SELEVT2", "a01869.html#ga9653182de237480f89b9d9654d9649b5", null ],
-    [ "SYSPM_PMCR_SELEVT3", "a01869.html#gae050bac9e22ec8fff4e7994e76fda38b", null ],
-    [ "SYSPM_PMICTR_HI_ICTR", "a01869.html#gae91100d7788f5193051c901f15852d0e", null ],
-    [ "SYSPM_PMICTR_LO_ICTR", "a01869.html#ga983056376b63e1f60ea17002977eef83", null ],
-    [ "SYSPM_HI_ECTR", "a01869.html#gaac6ea8f61b831672f6693e2204835f82", null ],
-    [ "SYSPM_LO_ECTR", "a01869.html#ga6c2849da1a0458d5ca1bef36b0d7faf7", null ]
+    [ "TRGMUX Register Masks", "a01870.html", "a01870" ],
+    [ "TRGMUX_Type", "a03242.html", [
+      [ "TRGMUX_OUT0", "a01797.html#ga315adc13b39db3257db8fc3cfe1f59c3", null ],
+      [ "LPIT0", "a01797.html#ga8ae3d551a49aedfa50b8581f9e7cfa75", null ],
+      [ "TPM0", "a01797.html#gae6d1da91fc7134a4339332fc7de8c4fa", null ],
+      [ "TPM3", "a01797.html#ga3a610f18e0b9ae3cc310d9174a670601", null ],
+      [ "TPM4", "a01797.html#ga32ded22e5393397e8f225d4a78b2576d", null ],
+      [ "LPI2C0r", "a01797.html#ga10c5bc5f18c9cb26c60e9ba351da0a42", null ],
+      [ "LPI2C1r", "a01797.html#gab8fa6c434a4f83d00afaa3dee09d5200", null ],
+      [ "LPSPI0r", "a01797.html#ga0204c268e80f3cf07c8e72b4eb8c8a06", null ],
+      [ "LPSPI1r", "a01797.html#ga38f775113d4fd5b03e9bfa4e4016ee0c", null ],
+      [ "LPSPI2r", "a01797.html#ga0da592d52710e7a279aba16221a9a5f5", null ],
+      [ "LPUART0r", "a01797.html#gab728c0573a8227754084cd5cda99be01", null ],
+      [ "LPUART1r", "a01797.html#ga63f301c4928687b5d4380a876c3a441d", null ],
+      [ "ADC_GP0", "a01797.html#ga7dc07635c45230c539d875a73ea52016", null ],
+      [ "CMP_GP0", "a01797.html#ga867d728e6abb0f8ac112feb962dfd32a", null ],
+      [ "CAN0r", "a01797.html#ga89981eee183c59465d050150f25094ca", null ]
+    ] ],
+    [ "TRGMUX_0_BASE", "a01869.html#ga1fa5f5ee2bc5e16776dc9462e8d98c67", null ],
+    [ "TRGMUX_0", "a01869.html#gab3f1a027a71cfc92ce0ff0fa0fe69490", null ],
+    [ "TRGMUX_BASE_ADDRS", "a01869.html#ga1154c06ed244699926335a83dc4bc9f5", null ],
+    [ "TRGMUX_BASE_PTRS", "a01869.html#ga7404aa0c990311a88182486b5f17d6f2", null ]
 ];

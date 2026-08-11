@@ -1,13 +1,12 @@
 var a01419 =
 [
-    [ "mcuxClKey_init", "a01419.html#ga5faf77a895683e1e7d904bd323abc38d", null ],
-    [ "mcuxClKey_linkKeyPair", "a01419.html#ga402689a88f77b5b5a766d805b022bfc1", null ],
-    [ "mcuxClKey_setEncoding", "a01419.html#gaaa4221b7ecf50384d8d461091f4ddf93", null ],
-    [ "mcuxClKey_loadCopro", "a01419.html#ga9a0d1cd7e8d8c172394eaeb14cf390ba", null ],
-    [ "mcuxClKey_flush", "a01419.html#ga60cc1680589d37633bf78ad59fedcc43", null ],
-    [ "mcuxClKey_generate_keypair", "a01419.html#gabe229dce364a13239b307a5c9cfeb343", null ],
-    [ "mcuxClKey_agreement", "a01419.html#gaea7419f6a10d0d173250a9de5d39765a", null ],
-    [ "mcuxClKey_encode", "a01419.html#gae683449f5dd4a3cb10a9f9a1f68bf22b", null ],
-    [ "mcuxClKey_recode", "a01419.html#ga23b7ef120668ff1550b43a10d22043ce", null ],
-    [ "mcuxClKey_validate", "a01419.html#ga9da98381c1d94578097ed203f8f6084c", null ]
+    [ "MCUXCLMAC_STATUS_ERROR", "a01419.html#ga29a0556d236921ec9e6680cd049f784b", null ],
+    [ "MCUXCLMAC_STATUS_FAILURE", "a01419.html#gaeee9d7aded8807ac014d1030847457a2", null ],
+    [ "MCUXCLMAC_STATUS_INVALID_PARAM", "a01419.html#ga8eb86baa218d3f14c65c4cf1fd4a9a6b", null ],
+    [ "MCUXCLMAC_STATUS_FAULT_ATTACK", "a01419.html#ga025cf49de0fa3225a6d15fd972bf3c64", null ],
+    [ "MCUXCLMAC_STATUS_OK", "a01419.html#ga7df50ebdaad50cfe8661c930df6c43df", null ],
+    [ "MCUXCLMAC_STATUS_COMPARE_NOK", "a01419.html#ga322f2ecd934013fbc12b609d7f92b49f", null ],
+    [ "MCUXCLMAC_STATUS_JOB_STARTED", "a01419.html#gaa4205233c5a383270d954c792515a935", null ],
+    [ "MCUXCLMAC_STATUS_JOB_COMPLETED", "a01419.html#ga2fb1d85d0758aa314cfa6684291edff8", null ],
+    [ "MCUXCLMAC_STATUS_JOB_COMPLETED_COMPARE_NOK", "a01419.html#ga26a3e698b35633850eb2347a188891d8", null ]
 ];

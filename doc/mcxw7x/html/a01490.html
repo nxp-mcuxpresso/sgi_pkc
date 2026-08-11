@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClSignature_Types</title>
+<title>MCUX CLNS: mcuxClXof_Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,132 +102,322 @@ $(function(){initNavTree('a01490.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClSignature_Types <div class="ingroups"><a class="el" href="a01488.html">mcuxClSignature</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClXof_Functions <div class="ingroups"><a class="el" href="a01488.html">mcuxClXof</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Types used by the Signature operations.  
+<p>Defines all functions of <a class="el" href="a01488.html" title="mcuxClXof">mcuxClXof</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gac7698895768cf6208b4617d6ddf8c180" id="r_gac7698895768cf6208b4617d6ddf8c180"><td class="memItemLeft">typedef struct mcuxClSignature_ModeDescriptor&#160;</td><td class="memItemRight"><a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a></td></tr>
-<tr class="memdesc:gac7698895768cf6208b4617d6ddf8c180"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature mode/algorithm descriptor type.  <br /></td></tr>
-<tr class="memitem:ga6ac41432794064bbed527293f3004584" id="r_ga6ac41432794064bbed527293f3004584"><td class="memItemLeft">typedef const <a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></td></tr>
-<tr class="memdesc:ga6ac41432794064bbed527293f3004584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature mode/algorithm type.  <br /></td></tr>
-<tr class="memitem:ga672adb417c023f01ae78b0819d4d38ee" id="r_ga672adb417c023f01ae78b0819d4d38ee"><td class="memItemLeft">typedef struct mcuxClSignature_TestDescriptor&#160;</td><td class="memItemRight"><a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a></td></tr>
-<tr class="memdesc:ga672adb417c023f01ae78b0819d4d38ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature selftest mode/algorithm descriptor type.  <br /></td></tr>
-<tr class="memitem:ga27896a9732ea6f2ed497b26796bf5348" id="r_ga27896a9732ea6f2ed497b26796bf5348"><td class="memItemLeft">typedef const <a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="#ga27896a9732ea6f2ed497b26796bf5348">mcuxClSignature_Test_t</a></td></tr>
-<tr class="memdesc:ga27896a9732ea6f2ed497b26796bf5348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature selftest mode/algorithm type.  <br /></td></tr>
-<tr class="memitem:ga3006d0f7ee6302bda8fa5edb1437f04a" id="r_ga3006d0f7ee6302bda8fa5edb1437f04a"><td class="memItemLeft">typedef struct mcuxClSignature_Context&#160;</td><td class="memItemRight"><a class="el" href="#ga3006d0f7ee6302bda8fa5edb1437f04a">mcuxClSignature_Context_t</a></td></tr>
-<tr class="memdesc:ga3006d0f7ee6302bda8fa5edb1437f04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature context type.  <br /></td></tr>
-<tr class="memitem:ga2fdcf305b7ceacbb173a35887ead78c7" id="r_ga2fdcf305b7ceacbb173a35887ead78c7"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a></td></tr>
-<tr class="memdesc:ga2fdcf305b7ceacbb173a35887ead78c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature status code.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga9d9dc1e485b0a5251be63d96c4fd5723" id="r_ga9d9dc1e485b0a5251be63d96c4fd5723"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga9d9dc1e485b0a5251be63d96c4fd5723">mcuxClXof_compute</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a> algorithm, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pCustomization, uint32_t customizationSize, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t outSize)</td></tr>
+<tr class="memdesc:ga9d9dc1e485b0a5251be63d96c4fd5723"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot Xof computation function.  <br /></td></tr>
+<tr class="memitem:ga68799488ebfd17e3cdf1d6a212ea7f0e" id="r_ga68799488ebfd17e3cdf1d6a212ea7f0e"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga68799488ebfd17e3cdf1d6a212ea7f0e">mcuxClXof_init</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext, <a class="el" href="a01491.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a> algorithm, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pCustomization, uint32_t customizationSize)</td></tr>
+<tr class="memdesc:ga68799488ebfd17e3cdf1d6a212ea7f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof initialization function.  <br /></td></tr>
+<tr class="memitem:gae4acffc293e8774cf6b52f5e7d67755f" id="r_gae4acffc293e8774cf6b52f5e7d67755f"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gae4acffc293e8774cf6b52f5e7d67755f">mcuxClXof_process</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize)</td></tr>
+<tr class="memdesc:gae4acffc293e8774cf6b52f5e7d67755f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof processing function.  <br /></td></tr>
+<tr class="memitem:gaaaae29a01783e703c055cdaccf99b0b9" id="r_gaaaae29a01783e703c055cdaccf99b0b9"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaaaae29a01783e703c055cdaccf99b0b9">mcuxClXof_generate</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t outSize)</td></tr>
+<tr class="memdesc:gaaaae29a01783e703c055cdaccf99b0b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof generation function.  <br /></td></tr>
+<tr class="memitem:ga64bb8f44359cc8437057f474601ac9d5" id="r_ga64bb8f44359cc8437057f474601ac9d5"><td class="memItemLeft"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga64bb8f44359cc8437057f474601ac9d5">mcuxClXof_finish</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a> pContext)</td></tr>
+<tr class="memdesc:ga64bb8f44359cc8437057f474601ac9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Xof computation cleanup function.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Types used by the Signature operations. </p>
-</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
-<a id="gac7698895768cf6208b4617d6ddf8c180" name="gac7698895768cf6208b4617d6ddf8c180"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac7698895768cf6208b4617d6ddf8c180">&#9670;&#160;</a></span>mcuxClSignature_ModeDescriptor_t</h2>
+<div class="textblock"><p>Defines all functions of <a class="el" href="a01488.html" title="mcuxClXof">mcuxClXof</a>. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga9d9dc1e485b0a5251be63d96c4fd5723" name="ga9d9dc1e485b0a5251be63d96c4fd5723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d9dc1e485b0a5251be63d96c4fd5723">&#9670;&#160;</a></span>mcuxClXof_compute()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct mcuxClSignature_ModeDescriptor <a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a></td>
+          <td class="memname"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a> mcuxClXof_compute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01491.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>algorithm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pIn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pCustomization</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>customizationSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pOut</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>outSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Signature mode/algorithm descriptor type. </p>
-<p>This type captures all the information that the Signature interfaces need to know about a particular Signature mode/algorithm. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03363.html#_a14">mcuxClEcc_EdDSA_Ed25519ctx_example.c</a>, <a class="el" href="a03364.html#_a14">mcuxClEcc_EdDSA_Ed25519ph_example.c</a>, <a class="el" href="a03427.html#_a11">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>, and <a class="el" href="a03428.html#_a12">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
+<p>One-shot Xof computation function. </p>
+<p>This function performs an Xof (eXtendable Output Function) computation over the input message <code class="param">pIn</code>, using the Xof function provided by the <code class="param">algorithm</code> input parameter, in one shot. Up to 2^32 bytes of data can be handled with this function. The optional <code class="param">pCustomization</code> buffer can be used to customize the output for some Xof functions. If none is used, <code class="param">customizationSize</code> shall be set to 0.</p>
+<p>For example, to perform a cSHAKE128 computation, the following needs to be provided:</p><ul>
+<li>cSHAKE128 algorithm</li>
+<li>Input data</li>
+<li>(Optional) customization data</li>
+<li>Output buffer</li>
+<li>Requested output size</li>
+</ul>
+<p>The input parameter <code class="param">session</code> has to be initialized by the function mcuxClSession_init prior to calling this function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">algorithm</td><td>Xof algorithm that should be used during the computation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that needs to be handled. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCustomization</td><td>Pointer to the customization buffer that contains additional data to be used in the computation (Optional) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">customizationSize</td><td>Number of bytes of data in the <code class="param">pCustomization</code> buffer. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pOut</td><td>Pointer to the output buffer where the computed Xof value is written. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">outSize</td><td>Indicates the requested byte length of the output</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01489.html#gada8f5f1ffa3fbc721c3a812bde70edbc" title="Xof operation successful.">MCUXCLXOF_STATUS_OK</a></td><td>Xof operation successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga2da5b372b5dd0993a587347ae702b45e" title="Xof operation failed.">MCUXCLXOF_STATUS_FAILURE</a></td><td>Error occured during Xof operation </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga3db6fb6dabf8503ebd5543d7e5f4adba" title="Fault attack (unexpected behavior) detected.">MCUXCLXOF_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03425.html#a5">mcuxClXofModes_shake_256_oneshot_example.c</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="ga6ac41432794064bbed527293f3004584" name="ga6ac41432794064bbed527293f3004584"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6ac41432794064bbed527293f3004584">&#9670;&#160;</a></span>mcuxClSignature_Mode_t</h2>
+<a id="ga68799488ebfd17e3cdf1d6a212ea7f0e" name="ga68799488ebfd17e3cdf1d6a212ea7f0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga68799488ebfd17e3cdf1d6a212ea7f0e">&#9670;&#160;</a></span>mcuxClXof_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef const <a class="el" href="#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a>* const <a class="el" href="#ga6ac41432794064bbed527293f3004584">mcuxClSignature_Mode_t</a></td>
+          <td class="memname"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a> mcuxClXof_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01491.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>algorithm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pCustomization</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>customizationSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Signature mode/algorithm type. </p>
-<p>This type is used to refer to a Signature mode/algorithm. </p>
+<p>Multi-part Xof initialization function. </p>
+<p>This function performs the initialization for a multi-part Xof operation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pContext</td><td>Xof context (word-aligned) which is used to maintain the state and store other relevant information about the operation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">algorithm</td><td>Xof algorithm that should be used during the computation operation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCustomization</td><td>Pointer to the customization buffer that contains additional data to be used in the computation (Optional) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">customizationSize</td><td>Number of bytes of data in the <code class="param">pCustomization</code> buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01489.html#gada8f5f1ffa3fbc721c3a812bde70edbc" title="Xof operation successful.">MCUXCLXOF_STATUS_OK</a></td><td>Initialization successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga2da5b372b5dd0993a587347ae702b45e" title="Xof operation failed.">MCUXCLXOF_STATUS_FAILURE</a></td><td>Error occurred during initialization function </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga3db6fb6dabf8503ebd5543d7e5f4adba" title="Fault attack (unexpected behavior) detected.">MCUXCLXOF_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03424.html#a6">mcuxClXofModes_shake_256_more_streaming_example.c</a>, and <a class="el" href="a03426.html#a6">mcuxClXofModes_shake_256_streaming_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>
-<a id="ga672adb417c023f01ae78b0819d4d38ee" name="ga672adb417c023f01ae78b0819d4d38ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga672adb417c023f01ae78b0819d4d38ee">&#9670;&#160;</a></span>mcuxClSignature_TestDescriptor_t</h2>
+<a id="gae4acffc293e8774cf6b52f5e7d67755f" name="gae4acffc293e8774cf6b52f5e7d67755f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae4acffc293e8774cf6b52f5e7d67755f">&#9670;&#160;</a></span>mcuxClXof_process()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct mcuxClSignature_TestDescriptor <a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a></td>
+          <td class="memname"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a> mcuxClXof_process </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pIn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Signature selftest mode/algorithm descriptor type. </p>
-<p>This type captures all the information that the Signature selftest interfaces need to know about a particular Signature selftest mode/algorithm. </p>
+<p>Multi-part Xof processing function. </p>
+<p>This function performs the processing of (a part of) a data stream for a Xof operation. The algorithm to be used will be determined based on the context that is provided. It can be called several times but before the first call, mcuxClXof_init needs to be called to prepare a context.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">pContext</td><td>Xof context (word-aligned) which is used to maintain the state and store other relevant information about the operation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that needs to be processed. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01489.html#gada8f5f1ffa3fbc721c3a812bde70edbc" title="Xof operation successful.">MCUXCLXOF_STATUS_OK</a></td><td>Xof operation successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga2da5b372b5dd0993a587347ae702b45e" title="Xof operation failed.">MCUXCLXOF_STATUS_FAILURE</a></td><td>Error occurred during Xof operation </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga3db6fb6dabf8503ebd5543d7e5f4adba" title="Fault attack (unexpected behavior) detected.">MCUXCLXOF_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03424.html#a10">mcuxClXofModes_shake_256_more_streaming_example.c</a>, and <a class="el" href="a03426.html#a10">mcuxClXofModes_shake_256_streaming_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>
-<a id="ga27896a9732ea6f2ed497b26796bf5348" name="ga27896a9732ea6f2ed497b26796bf5348"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga27896a9732ea6f2ed497b26796bf5348">&#9670;&#160;</a></span>mcuxClSignature_Test_t</h2>
+<a id="gaaaae29a01783e703c055cdaccf99b0b9" name="gaaaae29a01783e703c055cdaccf99b0b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaaae29a01783e703c055cdaccf99b0b9">&#9670;&#160;</a></span>mcuxClXof_generate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef const <a class="el" href="#ga672adb417c023f01ae78b0819d4d38ee">mcuxClSignature_TestDescriptor_t</a>* const <a class="el" href="#ga27896a9732ea6f2ed497b26796bf5348">mcuxClSignature_Test_t</a></td>
+          <td class="memname"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a> mcuxClXof_generate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pOut</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>outSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Signature selftest mode/algorithm type. </p>
-<p>This type is used to refer to a Signature selftest mode/algorithm. </p>
+<p>Multi-part Xof generation function. </p>
+<p>This function is used to obtain (part of) a data stream for a Xof operation after all input has been processed. The algorithm to be used will be determined based on the context that is provided. It can be called several times but before the first call, mcuxClXof_init needs to be called to prepare a context. After the first call to mcuxClXof_generate, adding additional data with mcuxClXof_process will result in an error.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">pContext</td><td>Xof context (word-aligned) which is used to maintain the state and store other relevant information about the operation. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pOut</td><td>Pointer to the output buffer where the computed Xof value is written. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">outSize</td><td>Indicates the requested byte length of the output</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01489.html#gada8f5f1ffa3fbc721c3a812bde70edbc" title="Xof operation successful.">MCUXCLXOF_STATUS_OK</a></td><td>Xof operation successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga2da5b372b5dd0993a587347ae702b45e" title="Xof operation failed.">MCUXCLXOF_STATUS_FAILURE</a></td><td>Error occurred during Xof operation </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga3db6fb6dabf8503ebd5543d7e5f4adba" title="Fault attack (unexpected behavior) detected.">MCUXCLXOF_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03424.html#a11">mcuxClXofModes_shake_256_more_streaming_example.c</a>, and <a class="el" href="a03426.html#a11">mcuxClXofModes_shake_256_streaming_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>
-<a id="ga3006d0f7ee6302bda8fa5edb1437f04a" name="ga3006d0f7ee6302bda8fa5edb1437f04a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3006d0f7ee6302bda8fa5edb1437f04a">&#9670;&#160;</a></span>mcuxClSignature_Context_t</h2>
+<a id="ga64bb8f44359cc8437057f474601ac9d5" name="ga64bb8f44359cc8437057f474601ac9d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga64bb8f44359cc8437057f474601ac9d5">&#9670;&#160;</a></span>mcuxClXof_finish()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct mcuxClSignature_Context <a class="el" href="#ga3006d0f7ee6302bda8fa5edb1437f04a">mcuxClSignature_Context_t</a></td>
+          <td class="memname"><a class="el" href="a01491.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a> mcuxClXof_finish </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Signature context type. </p>
-<p>This type is used in the multi-part interfaces to store the information about the current operation and the relevant internal state. </p>
-
-</div>
-</div>
-<a id="ga2fdcf305b7ceacbb173a35887ead78c7" name="ga2fdcf305b7ceacbb173a35887ead78c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2fdcf305b7ceacbb173a35887ead78c7">&#9670;&#160;</a></span>mcuxClSignature_Status_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">typedef uint32_t <a class="el" href="#ga2fdcf305b7ceacbb173a35887ead78c7">mcuxClSignature_Status_t</a></td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01491.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Signature status code. </p>
-<p>This type provides information about the status of the Signature operation that has been performed. </p>
+<p>Multi-part Xof computation cleanup function. </p>
+<p>This function performs the cleanup of a multi-part Xof computation operation. It should be called after all required output has been generated using mcuxClXof_generate. The given Xof context is destroyed and can no longer be used to output additional data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">session</td><td>Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">pContext</td><td>Xof context (word-aligned) which is used to maintain the state and store other relevant information about the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01489.html#gada8f5f1ffa3fbc721c3a812bde70edbc" title="Xof operation successful.">MCUXCLXOF_STATUS_OK</a></td><td>Xof cleanup successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga2da5b372b5dd0993a587347ae702b45e" title="Xof operation failed.">MCUXCLXOF_STATUS_FAILURE</a></td><td>Error occurred during Xof cleanup </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01489.html#ga3db6fb6dabf8503ebd5543d7e5f4adba" title="Fault attack (unexpected behavior) detected.">MCUXCLXOF_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03424.html#a13">mcuxClXofModes_shake_256_more_streaming_example.c</a>, and <a class="el" href="a03426.html#a13">mcuxClXofModes_shake_256_streaming_example.c</a>.</dd>
+</dl>
 
 </div>
 </div>

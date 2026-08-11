@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClMac_Types.h File Reference</title>
+<title>MCUX CLNS: mcuxClMath_ExactDivideOdd_FUP.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,37 +102,25 @@ $(function(){initNavTree('a00710.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClMac_Types.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClMath_ExactDivideOdd_FUP.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Type definitions for the mcuxClMac component.  
+<p>defines FUP programs byte arrays  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &lt;stddef.h&gt;</code><br />
-<code>#include &lt;mcuxClConfig.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00848_source.html">mcuxClSession_Types.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00917_source.html">mcuxCsslFlowProtection.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00458_source.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;internal/mcuxClPkc_FupMacros.h&gt;</code><br />
 </div>
 <p><a href="a00710_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gaca63aa917056a18f99a911f329f3971b" id="r_gaca63aa917056a18f99a911f329f3971b"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01426.html#gaca63aa917056a18f99a911f329f3971b">mcuxClMac_Status_t</a></td></tr>
-<tr class="memdesc:gaca63aa917056a18f99a911f329f3971b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type for Mac component error codes.  <br /></td></tr>
-<tr class="memitem:gaad5e6326d43f28d324ef2d98ac3ad2cc" id="r_gaad5e6326d43f28d324ef2d98ac3ad2cc"><td class="memItemLeft">typedef struct mcuxClMac_ModeDescriptor&#160;</td><td class="memItemRight"><a class="el" href="a01426.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a></td></tr>
-<tr class="memdesc:gaad5e6326d43f28d324ef2d98ac3ad2cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC mode/algorithm descriptor type.  <br /></td></tr>
-<tr class="memitem:ga8e9aa3b88af43aaf819650568abc471f" id="r_ga8e9aa3b88af43aaf819650568abc471f"><td class="memItemLeft">typedef const <a class="el" href="a01426.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="a01426.html#ga8e9aa3b88af43aaf819650568abc471f">mcuxClMac_Mode_t</a></td></tr>
-<tr class="memdesc:ga8e9aa3b88af43aaf819650568abc471f"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC mode/algorithm type.  <br /></td></tr>
-<tr class="memitem:ga55e9279a13efd1dd87affcc88f3eb34a" id="r_ga55e9279a13efd1dd87affcc88f3eb34a"><td class="memItemLeft">typedef <a class="el" href="a01426.html#gaad5e6326d43f28d324ef2d98ac3ad2cc">mcuxClMac_ModeDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="a01426.html#ga55e9279a13efd1dd87affcc88f3eb34a">mcuxClMac_CustomMode_t</a></td></tr>
-<tr class="memdesc:ga55e9279a13efd1dd87affcc88f3eb34a"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC custom mode/algorithm type.  <br /></td></tr>
-<tr class="memitem:gaf804dbff6e0d68d2d877b21995ed5c34" id="r_gaf804dbff6e0d68d2d877b21995ed5c34"><td class="memItemLeft">typedef struct mcuxClMac_Context&#160;</td><td class="memItemRight"><a class="el" href="a01426.html#gaf804dbff6e0d68d2d877b21995ed5c34">mcuxClMac_Context_t</a></td></tr>
-<tr class="memdesc:gaf804dbff6e0d68d2d877b21995ed5c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mac context type.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aaf6cc1e91be98f26e5d509c01e4dce7e" id="r_aaf6cc1e91be98f26e5d509c01e4dce7e"><td class="memItemLeft"><a id="aaf6cc1e91be98f26e5d509c01e4dce7e" name="aaf6cc1e91be98f26e5d509c01e4dce7e"></a>
+const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_Fup_ExactDivideOdd_DivideLoop</b> [5]</td></tr>
+<tr class="memitem:a00274cd6ed54bfb07933d359c6a81be0" id="r_a00274cd6ed54bfb07933d359c6a81be0"><td class="memItemLeft"><a id="a00274cd6ed54bfb07933d359c6a81be0" name="a00274cd6ed54bfb07933d359c6a81be0"></a>
+const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_Fup_ExactDivideOdd_NDashY</b> [4]</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Type definitions for the mcuxClMac component. </p>
+<div class="textblock"><p>defines FUP programs byte arrays </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -146,7 +134,7 @@ Typedefs</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00710.html">mcuxClMac_Types.h</a></li>
+    <li class="navelem"><a href="a00710.html">mcuxClMath_ExactDivideOdd_FUP.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

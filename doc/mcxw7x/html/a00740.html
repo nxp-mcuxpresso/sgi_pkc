@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClMemory_Copy_Reversed.h File Reference</title>
+<title>MCUX CLNS: mcuxClMemory_Endianness.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,31 +102,33 @@ $(function(){initNavTree('a00740.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClMemory_Copy_Reversed.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClMemory_Endianness.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Memory header for reversed copy functions.  
+<p>Memory header for endianness support functions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;mcuxClCore_Platform.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00749_source.html">mcuxClMemory_Types.h</a>&gt;</code><br />
-<code>#include &lt;mcuxCsslAnalysis.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00746_source.html">mcuxClMemory_Types.h</a>&gt;</code><br />
+<code>#include &lt;mcuxClConfig.h&gt;</code><br />
 </div>
 <p><a href="a00740_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga34f4a48eda22ae64759db5d7893d0c36" id="r_ga34f4a48eda22ae64759db5d7893d0c36"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01437.html#ga34f4a48eda22ae64759db5d7893d0c36">MCUXCLMEMORY_FP_MEMORY_COPY_REVERSED</a>(pTarget,  pSource,  byteLen)</td></tr>
-<tr class="memdesc:ga34f4a48eda22ae64759db5d7893d0c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to call <a class="el" href="a01437.html#gafc918d181009c3af7638604e5e4b9281" title="Copies a memory buffer to another location reversely.">mcuxClMemory_copy_reversed</a> with flow protection.  <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gafc918d181009c3af7638604e5e4b9281" id="r_gafc918d181009c3af7638604e5e4b9281"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="a01437.html#gafc918d181009c3af7638604e5e4b9281">mcuxClMemory_copy_reversed</a> (uint8_t *pDst, uint8_t const *pSrc, size_t length, size_t bufLength)</td></tr>
-<tr class="memdesc:gafc918d181009c3af7638604e5e4b9281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a memory buffer to another location reversely.  <br /></td></tr>
+<tr class="memitem:gaef4886d199c2539b209458a8c62378cd" id="r_gaef4886d199c2539b209458a8c62378cd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#gaef4886d199c2539b209458a8c62378cd">mcuxClMemory_StoreLittleEndian32</a>(destination,  value)</td></tr>
+<tr class="memdesc:gaef4886d199c2539b209458a8c62378cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit unsigned integer to a little-endian order <code>uint8_t</code> array .  <br /></td></tr>
+<tr class="memitem:ga84f8097975ebea39deaea4ab9306d2ce" id="r_ga84f8097975ebea39deaea4ab9306d2ce"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#ga84f8097975ebea39deaea4ab9306d2ce">mcuxClMemory_StoreBigEndian32</a>(destination,  value)</td></tr>
+<tr class="memdesc:ga84f8097975ebea39deaea4ab9306d2ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit unsigned integer to a big-endian order <code>uint8_t</code> array.  <br /></td></tr>
+<tr class="memitem:gaa3eba98f422623a6a02f15898449c874" id="r_gaa3eba98f422623a6a02f15898449c874"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#gaa3eba98f422623a6a02f15898449c874">mcuxClMemory_LoadLittleEndian32</a>(source)</td></tr>
+<tr class="memdesc:gaa3eba98f422623a6a02f15898449c874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a little-endian order <code>uint8_t</code> array to a 32-bit unsigned integer.  <br /></td></tr>
+<tr class="memitem:gabd3fd1c7ee32c2cd202a67bce5036778" id="r_gabd3fd1c7ee32c2cd202a67bce5036778"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#gabd3fd1c7ee32c2cd202a67bce5036778">mcuxClMemory_LoadBigEndian32</a>(source)</td></tr>
+<tr class="memdesc:gabd3fd1c7ee32c2cd202a67bce5036778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a big-endian order <code>uint8_t</code> array to a 32-bit unsigned integer.  <br /></td></tr>
+<tr class="memitem:gac426a079f1808ff0183d2851ead720c5" id="r_gac426a079f1808ff0183d2851ead720c5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="a01435.html#gac426a079f1808ff0183d2851ead720c5">MCUXCLMEMORY_SWITCH_4BYTE_ENDIANNESS</a>(input)</td></tr>
+<tr class="memdesc:gac426a079f1808ff0183d2851ead720c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">MACRO that switches byte endianness of given CPU word.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Memory header for reversed copy functions. </p>
-<p>This header exposes functions that enable using memory reversed copy function. </p>
+<div class="textblock"><p>Memory header for endianness support functions. </p>
+<p>This header exposes macros that enable using endianness support functions. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -140,7 +142,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00740.html">mcuxClMemory_Copy_Reversed.h</a></li>
+    <li class="navelem"><a href="a00740.html">mcuxClMemory_Endianness.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

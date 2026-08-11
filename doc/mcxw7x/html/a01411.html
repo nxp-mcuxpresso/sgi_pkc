@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClKey</title>
+<title>MCUX CLNS: MCUXCLKEY_LOADSTATUS_</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,29 +102,164 @@ $(function(){initNavTree('a01411.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClKey </div></div>
+  <div class="headertitle"><div class="title">MCUXCLKEY_LOADSTATUS_ <div class="ingroups"><a class="el" href="a01408.html">mcuxClKey</a> &raquo; <a class="el" href="a01409.html">mcuxClKey_Macros</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>mcuxClKey component  
+<p>Load location options.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:mcuxClKey_5FMacros" id="r_mcuxClKey_5FMacros"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01412.html">mcuxClKey_Macros</a></td></tr>
-<tr class="memdesc:a01412"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all macros of <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
-<tr class="memitem:mcuxClKey_5FEncodingMechanisms" id="r_mcuxClKey_5FEncodingMechanisms"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01418.html">mcuxClKey_EncodingMechanisms</a></td></tr>
-<tr class="memdesc:a01418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mechanisms used by the Key operations. <br /></td></tr>
-<tr class="memitem:mcuxClKey_5FFunctions" id="r_mcuxClKey_5FFunctions"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01419.html">mcuxClKey_Functions</a></td></tr>
-<tr class="memdesc:a01419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all functions of <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
-<tr class="memitem:mcuxClKey_5FTypes" id="r_mcuxClKey_5FTypes"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01420.html">mcuxClKey_Types</a></td></tr>
-<tr class="memdesc:a01420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all types of <a class="el" href="a01411.html" title="mcuxClKey">mcuxClKey</a>. <br /></td></tr>
-<tr class="memitem:mcuxClKey_5FMemoryConsumption" id="r_mcuxClKey_5FMemoryConsumption"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01604.html">mcuxClKey_MemoryConsumption</a></td></tr>
-<tr class="memdesc:a01604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the memory consumption for the mcuxClKey component. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga8ce719dd938dbdc0cf859fbb1e602a0e" id="r_ga8ce719dd938dbdc0cf859fbb1e602a0e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8ce719dd938dbdc0cf859fbb1e602a0e">MCUXCLKEY_LOADSTATUS_NOTLOADED</a></td></tr>
+<tr class="memdesc:ga8ce719dd938dbdc0cf859fbb1e602a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key not loaded.  <br /></td></tr>
+<tr class="memitem:ga2d87bb14ba03cbffd6c11d0f7d3f6ee3" id="r_ga2d87bb14ba03cbffd6c11d0f7d3f6ee3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2d87bb14ba03cbffd6c11d0f7d3f6ee3">MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED</a></td></tr>
+<tr class="memdesc:ga2d87bb14ba03cbffd6c11d0f7d3f6ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is not loaded yet, but the HW IP slot is set for the key.  <br /></td></tr>
+<tr class="memitem:ga32aed5dbc24926c542e6c346fe5c8e02" id="r_ga32aed5dbc24926c542e6c346fe5c8e02"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga32aed5dbc24926c542e6c346fe5c8e02">MCUXCLKEY_LOADSTATUS_LOCATION_MASK</a></td></tr>
+<tr class="memdesc:ga32aed5dbc24926c542e6c346fe5c8e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask for the key location.  <br /></td></tr>
+<tr class="memitem:gae2da6715b590e0eba9414468862d44f8" id="r_gae2da6715b590e0eba9414468862d44f8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae2da6715b590e0eba9414468862d44f8">MCUXCLKEY_LOADSTATUS_LOCATION_NONE</a></td></tr>
+<tr class="memdesc:gae2da6715b590e0eba9414468862d44f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is not loaded to any location.  <br /></td></tr>
+<tr class="memitem:gad1bb0f23959496e4b61eb39deacc9c78" id="r_gad1bb0f23959496e4b61eb39deacc9c78"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad1bb0f23959496e4b61eb39deacc9c78">MCUXCLKEY_LOADSTATUS_LOCATION_COPRO</a></td></tr>
+<tr class="memdesc:gad1bb0f23959496e4b61eb39deacc9c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is loaded to a HW IP slot.  <br /></td></tr>
+<tr class="memitem:ga5fbb658f32b6a78386a0f5b7b25bf059" id="r_ga5fbb658f32b6a78386a0f5b7b25bf059"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5fbb658f32b6a78386a0f5b7b25bf059">MCUXCLKEY_LOADSTATUS_OPTIONS_MASK</a></td></tr>
+<tr class="memdesc:ga5fbb658f32b6a78386a0f5b7b25bf059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask for additional option bits of a key load status.  <br /></td></tr>
+<tr class="memitem:ga35789114c2273c2e8e9db164a668294e" id="r_ga35789114c2273c2e8e9db164a668294e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga35789114c2273c2e8e9db164a668294e">MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED</a></td></tr>
+<tr class="memdesc:ga35789114c2273c2e8e9db164a668294e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do not flush the key after the operation (for Symmetric and ECCKI keys only).  <br /></td></tr>
+<tr class="memitem:ga2313214ad9f182ecdec879bebd2a1d3d" id="r_ga2313214ad9f182ecdec879bebd2a1d3d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2313214ad9f182ecdec879bebd2a1d3d">MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY</a></td></tr>
+<tr class="memdesc:ga2313214ad9f182ecdec879bebd2a1d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key is loaded to a location that is write-only (e.g., SGI WO key slots).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>mcuxClKey component </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Load location options. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="ga8ce719dd938dbdc0cf859fbb1e602a0e" name="ga8ce719dd938dbdc0cf859fbb1e602a0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8ce719dd938dbdc0cf859fbb1e602a0e">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_NOTLOADED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_NOTLOADED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Key not loaded. </p>
+
+</div>
+</div>
+<a id="ga2d87bb14ba03cbffd6c11d0f7d3f6ee3" name="ga2d87bb14ba03cbffd6c11d0f7d3f6ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2d87bb14ba03cbffd6c11d0f7d3f6ee3">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_NOTLOADED_SLOTDEFINED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Key is not loaded yet, but the HW IP slot is set for the key. </p>
+
+</div>
+</div>
+<a id="ga32aed5dbc24926c542e6c346fe5c8e02" name="ga32aed5dbc24926c542e6c346fe5c8e02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga32aed5dbc24926c542e6c346fe5c8e02">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_LOCATION_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_LOCATION_MASK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit mask for the key location. </p>
+
+</div>
+</div>
+<a id="gae2da6715b590e0eba9414468862d44f8" name="gae2da6715b590e0eba9414468862d44f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2da6715b590e0eba9414468862d44f8">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_LOCATION_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_LOCATION_NONE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Key is not loaded to any location. </p>
+
+</div>
+</div>
+<a id="gad1bb0f23959496e4b61eb39deacc9c78" name="gad1bb0f23959496e4b61eb39deacc9c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad1bb0f23959496e4b61eb39deacc9c78">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_LOCATION_COPRO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_LOCATION_COPRO</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Key is loaded to a HW IP slot. </p>
+
+</div>
+</div>
+<a id="ga5fbb658f32b6a78386a0f5b7b25bf059" name="ga5fbb658f32b6a78386a0f5b7b25bf059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5fbb658f32b6a78386a0f5b7b25bf059">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_OPTIONS_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_OPTIONS_MASK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit mask for additional option bits of a key load status. </p>
+
+</div>
+</div>
+<a id="ga35789114c2273c2e8e9db164a668294e" name="ga35789114c2273c2e8e9db164a668294e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35789114c2273c2e8e9db164a668294e">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_OPTIONS_KEEPLOADED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Do not flush the key after the operation (for Symmetric and ECCKI keys only). </p>
+
+</div>
+</div>
+<a id="ga2313214ad9f182ecdec879bebd2a1d3d" name="ga2313214ad9f182ecdec879bebd2a1d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2313214ad9f182ecdec879bebd2a1d3d">&#9670;&#160;</a></span>MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_LOADSTATUS_OPTIONS_WRITEONLY</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Key is loaded to a location that is write-only (e.g., SGI WO key slots). </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

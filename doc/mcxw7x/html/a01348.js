@@ -1,7 +1,7 @@
 var a01348 =
 [
-    [ "mcuxClAes_Constants", "a01349.html", "a01349" ],
-    [ "mcuxClAes_EncodingMechanisms", "a01350.html", "a01350" ],
-    [ "mcuxClAes_KeyTypes", "a01351.html", "a01351" ],
-    [ "mcuxClAes_Types", "a01352.html", "a01352" ]
+    [ "mcuxClKey_TypeDescriptor_Aes128", "a01348.html#ga8f7fce2b87e12c68354d223b9a75dc37", null ],
+    [ "mcuxClKey_Type_Aes128", "a01348.html#ga8f0a74b8ec63f9bcfff2723f37602d0d", null ],
+    [ "mcuxClKey_TypeDescriptor_Aes256", "a01348.html#ga5a8d0b88ec6b1da1730d861ca6fb7f97", null ],
+    [ "mcuxClKey_Type_Aes256", "a01348.html#ga1249b014f089397821eceab3fd04ed5c", null ]
 ];

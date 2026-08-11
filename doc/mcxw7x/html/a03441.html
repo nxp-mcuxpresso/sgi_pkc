@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxCsslMemory_SecureCopy_example.c</title>
+<title>MCUX CLNS: General User Security Guidance</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,111 +101,121 @@ $(function(){initNavTree('a03441.html','',''); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">mcuxCsslMemory_SecureCopy_example.c</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">General User Security Guidance </div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example for the secure copy function.</p>
-<p>Example for the secure copy function</p>
-<div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2022-2023, 2025 NXP                                            */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* Redistribution and use in source and binary forms, with or without       */</span></div>
-<div class="line"><span class="comment">/* modification, are permitted provided that the following conditions are   */</span></div>
-<div class="line"><span class="comment">/* met:                                                                     */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* 1. Redistributions of source code must retain the above copyright        */</span></div>
-<div class="line"><span class="comment">/*    notice, this list of conditions and the following disclaimer.         */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* 2. Redistributions in binary form must reproduce the above copyright     */</span></div>
-<div class="line"><span class="comment">/*    notice, this list of conditions and the following disclaimer in the   */</span></div>
-<div class="line"><span class="comment">/*    documentation and/or other materials provided with the distribution.  */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* 3. Neither the name of the copyright holder nor the names of its         */</span></div>
-<div class="line"><span class="comment">/*    contributors may be used to endorse or promote products derived from  */</span></div>
-<div class="line"><span class="comment">/*    this software without specific prior written permission.              */</span></div>
-<div class="line"><span class="comment">/*                                                                          */</span></div>
-<div class="line"><span class="comment">/* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS  */</span></div>
-<div class="line"><span class="comment">/* IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    */</span></div>
-<div class="line"><span class="comment">/* TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          */</span></div>
-<div class="line"><span class="comment">/* PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT       */</span></div>
-<div class="line"><span class="comment">/* HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,   */</span></div>
-<div class="line"><span class="comment">/* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED */</span></div>
-<div class="line"><span class="comment">/* TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR   */</span></div>
-<div class="line"><span class="comment">/* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   */</span></div>
-<div class="line"><span class="comment">/* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     */</span></div>
-<div class="line"><span class="comment">/* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       */</span></div>
-<div class="line"><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
-<div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"></div>
+<div class="textblock"><h1>Good pratices</h1>
+<h2>Handling CLNS return values &amp; using safe defaults</h2>
+<p>Whenever you call a CLNS function which returns a status code - and especially whenever a security-critical decision depends on the result of a CLNS function - please take care of securely initializing the variable with a safe default value. For example, if you need to validate a cryptographic signature, you should initialize the variable for the result with <span class="tt">NXPCLSIGNATURE_STATUS_FAILURE</span>, then perform the signature verification, and check the actual return value afterwards. This way you will be able to detect a skipped function call.</p>
+<p>In general, the return values of all CLNS API functions must be checked. These checks should ideally be written in such a way that, on an assembly code level, the code for the <em>error condition</em> is executed by default. This means that skipping all branch instructions must lead to an error condition, which helps avoid fault injection vulnerabilities. Depending on the architecture, the compiler may generate branch instructions or conditional instructions to reach the code for the success condition. We encourage that you check this manually.</p>
+<h2>Buffer clearing</h2>
+<p>In order to keep the chance of secret values leaking low, please clear any buffers used by CLNS properly by using <span class="tt">nxpClSession_cleanup</span>.</p>
+<h2>Code-flow monitoring</h2>
+<p>Most CLNS API functions monitor the code path taken internally and calculate a protection value that must be verified by the caller of the library. This can be done with e.g. the following code snippet:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;nxpCsslFlowProtection.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;nxpClEls.h&gt;</span></div>
 <div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00941.html">mcuxCsslMemory.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;mcuxCsslMemory_Examples.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00974.html">mcuxCsslParamIntegrity.h</a>&gt;</span></div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#define BYTELEN_SOURCE 64u</span></div>
-<div class="line"><span class="preprocessor">#define BYTELEN_TARGET 80u</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/* Array of 0x00 ~ 0x3F */</span></div>
-<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t source[BYTELEN_SOURCE / (<span class="keyword">sizeof</span>(uint32_t))] =</div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
-<div class="line">    0x03020100u, 0x07060504u, 0x0B0A0908u, 0x0F0E0D0Cu,</div>
-<div class="line">    0x13121110u, 0x17161514u, 0x1B1A1918u, 0x1F1E1D1Cu,</div>
-<div class="line">    0x23222120u, 0x27262524u, 0x2B2A2928u, 0x2F2E2D2Cu,</div>
-<div class="line">    0x33323130u, 0x37363534u, 0x3B3A3938u, 0x3F3E3D3Cu</div>
-<div class="line">};</div>
+<div class="line">    <span class="comment">/* Enable the ELS.</span></div>
+<div class="line"><span class="comment">     *</span></div>
+<div class="line"><span class="comment">     * This macro opens a new scope `{}`.</span></div>
+<div class="line"><span class="comment">     * `result` and `token` are variables which are only valid in this scope.</span></div>
+<div class="line"><span class="comment">     * </span></div>
+<div class="line"><span class="comment">     * - `result` contains the function&#39;s return value.</span></div>
+<div class="line"><span class="comment">     * - `token`, referred to in the documentation as the protection token, contains the monitored code path check value.</span></div>
+<div class="line"><span class="comment">     *     Under normal circumstances, this token must be equal to the reference value `NXP_CSSL_FP_FUNCTION_CALLED(nxpClEls_WaitForOperation)`.</span></div>
+<div class="line"><span class="comment">     *     If the two differ, the code path has been altered, pointing to a fault injection attack.</span></div>
+<div class="line"><span class="comment">     */</span></div>
+<div class="line">    NXP_CSSL_FP_FUNCTION_CALL_BEGIN(result, token, nxpClEls_Enable_Async());</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">bool</span> mcuxCsslMemory_SecureCopy_example(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line">    uint8_t target[BYTELEN_TARGET] = {0};</div>
+<div class="line">        <span class="comment">/* Check the protection token and result. If an attack occurred, handle it here. */</span></div>
+<div class="line">        <span class="keywordflow">if</span>(NXP_CSSL_FP_FUNCTION_CALLED(nxpClEls_WaitForOperation) != token || NXPCLELS_STATUS_SW_FAULT == result || NXPCLELS_STATUS_HW_FAULT == result)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">/* Attack handling */</span></div>
+<div class="line">            resetDevice();</div>
+<div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">    <span class="keyword">const</span> uint8_t * pSource = (<span class="keyword">const</span> uint8_t *) source;</div>
-<div class="line">    uint8_t * pTarget = (uint8_t *) target;</div>
+<div class="line">        <span class="comment">/* Check the result for functional errors. */</span></div>
+<div class="line">        <span class="keywordflow">if</span>(NXPCLELS_STATUS_OK != result)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">/* Error handling */</span></div>
+<div class="line">            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Example of mcuxCsslMemory_SecureCopy with KEEP_ORDER. */</span></div>
-<div class="line">    <a id="a0" name="a0"></a><a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(resultSecureCopy, tokenSecureCopy,</div>
-<div class="line">        <a id="a1" name="a1"></a><a class="code hl_function" href="a01545.html#ga5b9703e03d0250408a0342755fe575b3">mcuxCsslMemory_SecureCopy</a>(MCUX_CSSL_PI_PROTECT(pSource, pTarget, BYTELEN_TARGET, BYTELEN_SOURCE, <a id="_a2" name="_a2"></a><a class="code hl_define" href="a01539.html#ga0072c925d0ab8c5b0b071abd1d5218af">MCUXCSSLMEMORY_KEEP_ORDER</a>),</div>
-<div class="line">                                 pSource, pTarget, BYTELEN_TARGET, BYTELEN_SOURCE, <a class="code hl_define" href="a01539.html#ga0072c925d0ab8c5b0b071abd1d5218af">MCUXCSSLMEMORY_KEEP_ORDER</a>) );</div>
-<div class="line">    <span class="keywordflow">if</span> (   (<a id="a3" name="a3"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01545.html#ga5b9703e03d0250408a0342755fe575b3">mcuxCsslMemory_SecureCopy</a>) != tokenSecureCopy)</div>
-<div class="line">        || (<a id="_a4" name="_a4"></a><a class="code hl_define" href="a01539.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a> != resultSecureCopy))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a id="a5" name="a5"></a><a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">    <span class="comment">/* This macro closes the scope `{}`. After this point, the variables `result` and `token` are no longer visible. */</span></div>
+<div class="line">    NXP_CSSL_FP_FUNCTION_CALL_END();</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">/* Example of mcuxCsslMemory_SecureCopy with REVERSE_ORDER. */</span></div>
-<div class="line">    <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(resultSecureCopyRev, tokenSecureCopyRev,</div>
-<div class="line">        <a class="code hl_function" href="a01545.html#ga5b9703e03d0250408a0342755fe575b3">mcuxCsslMemory_SecureCopy</a>(MCUX_CSSL_PI_PROTECT(pSource, pTarget, BYTELEN_TARGET, BYTELEN_SOURCE, <a id="_a6" name="_a6"></a><a class="code hl_define" href="a01539.html#ga9c4cf10d8106eca9894d9e3b131b52f9">MCUXCSSLMEMORY_REVERSE_ORDER</a>),</div>
-<div class="line">                                 pSource, pTarget, BYTELEN_TARGET, BYTELEN_SOURCE, <a class="code hl_define" href="a01539.html#ga9c4cf10d8106eca9894d9e3b131b52f9">MCUXCSSLMEMORY_REVERSE_ORDER</a>) );</div>
-<div class="line">    <span class="keywordflow">if</span> (   (<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01545.html#ga5b9703e03d0250408a0342755fe575b3">mcuxCsslMemory_SecureCopy</a>) != tokenSecureCopyRev)</div>
-<div class="line">        || (<a class="code hl_define" href="a01539.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a> != resultSecureCopyRev))</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_ERROR;</div>
-<div class="line">    }</div>
-<div class="line">    <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line">    <span class="comment">/* Don&#39;t forget to do the same for nxpClEls_WaitForOperation()! */</span></div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCSSLMEMORY_EX_OK;</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">mcuxCsslFlowProtection_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00941_html"><div class="ttname"><a href="a00941.html">mcuxCsslMemory.h</a></div><div class="ttdoc">Top-level include file for the CSSL memory functions.</div></div>
-<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">mcuxCsslParamIntegrity.h</a></div><div class="ttdoc">Top-level include file for the parameter integrity protection mechanism.</div></div>
-<div class="ttc" id="aa01513_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01513_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
-<div class="ttc" id="aa01539_html_ga0072c925d0ab8c5b0b071abd1d5218af"><div class="ttname"><a href="a01539.html#ga0072c925d0ab8c5b0b071abd1d5218af">MCUXCSSLMEMORY_KEEP_ORDER</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_KEEP_ORDER</div><div class="ttdoc">Data storing in destination buffer in original order.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:75</div></div>
-<div class="ttc" id="aa01539_html_ga9c4cf10d8106eca9894d9e3b131b52f9"><div class="ttname"><a href="a01539.html#ga9c4cf10d8106eca9894d9e3b131b52f9">MCUXCSSLMEMORY_REVERSE_ORDER</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_REVERSE_ORDER</div><div class="ttdoc">Data storing in destination buffer with reversed order.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:76</div></div>
-<div class="ttc" id="aa01539_html_gab2993c75e7ef98fed36f03946630e41c"><div class="ttname"><a href="a01539.html#gab2993c75e7ef98fed36f03946630e41c">MCUXCSSLMEMORY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCSSLMEMORY_STATUS_OK</div><div class="ttdoc">The operation was successful.</div><div class="ttdef"><b>Definition</b> mcuxCsslMemory_Constants.h:68</div></div>
-<div class="ttc" id="aa01545_html_ga5b9703e03d0250408a0342755fe575b3"><div class="ttname"><a href="a01545.html#ga5b9703e03d0250408a0342755fe575b3">mcuxCsslMemory_SecureCopy</a></div><div class="ttdeci">mcuxCsslMemory_Status_t mcuxCsslMemory_SecureCopy(mcuxCsslParamIntegrity_Checksum_t chk, void const *pSrc, void *pDst, uint32_t dstLength, uint32_t length, uint32_t order)</div><div class="ttdoc">Copies length bytes of data from pSrc to pDst.</div></div>
-</div><!-- fragment --> </div><!-- contents -->
+</div><!-- fragment --><p>In cases where the attack handling and error handling methods are identical, the two if-statements may be merged like this:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;nxpCsslFlowProtection.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;nxpClEls.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">/* Enable the ELS. */</span></div>
+<div class="line">    NXP_CSSL_FP_FUNCTION_CALL_BEGIN(result, token, nxpClEls_Enable_Async());</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">/* Check for attacks and/or errors. */</span></div>
+<div class="line">        <span class="keywordflow">if</span>(NXP_CSSL_FP_FUNCTION_CALLED(nxpClEls_WaitForOperation) != token || NXPCLELS_STATUS_OK != result)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">/* Attack and error handling */</span></div>
+<div class="line">            resetDevice();</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">    NXP_CSSL_FP_FUNCTION_CALL_END();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Don&#39;t forget to do the same for nxpClEls_WaitForOperation()! */</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>CLNS API functions which support this feature can be identified by their declaration: if <span class="tt">NXP_CSSL_FP_FUNCTION_DECL</span> is part of the declaration, the function supports code flow monitoring.</p>
+<p>The underlying monitoring functionality is provided by a library called CSSL, which is bundled together with CLNS. For details, you may want to check the CSSL documentation.</p>
+<h2>Parameter integrity protection</h2>
+<h3>Protection with Checksum (used with CSSL APIs)</h3>
+<p>Some CLNS API functions use parameter integrity protection, which provides additional assurance against fault injection attacks. The first parameter of such functions has the type <span class="tt">nxpCsslParamIntegrity_Checksum_t</span>. In order to call these functions correctly, you must first calculate the parameter checksum. See the example below:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;nxpCsslMemory.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;nxpCsslFlowProtection.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;nxpCsslParamIntegrity.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div>
+<div class="line">    uint8_t arr1[33U] = {0xe4u, 0xf9u, 0x26u, 0x4cu, 0x65u, 0xe2u, 0x13u, 0xa3u, 0x9au, 0x40u, 0xd7u, 0x87u, 0xccu, 0x0bu, 0x31u, 0x18u, 0xacu, 0x55u, 0xb5u, 0x7du, 0x06u, 0x7fu, 0xceu, 0xe4u, 0xb2u, 0x7eu, 0xd5u, 0xaau, 0x90u, 0x9au, 0x42u, 0x56u, 0x76u};</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">/* Compare arr1 with itself. Compute the parameter checksum and pass it to the function.</span></div>
+<div class="line"><span class="comment">     * The first parameter here is the number of arguments, and is followed by the actual arguments.</span></div>
+<div class="line"><span class="comment">     */</span></div>
+<div class="line">    nxpCsslParamIntegrity_Checksum_t checksum = NXP_CSSL_PI_PROTECT(arr1, arr1, <span class="keyword">sizeof</span>(arr1));</div>
+<div class="line"> </div>
+<div class="line">    NXP_CSSL_FP_FUNCTION_CALL_BEGIN(result, token, nxpCsslMemory_Compare(checksum, arr1, arr1, <span class="keyword">sizeof</span>(arr1)));</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">/* Check for attacks and/or errors. */</span></div>
+<div class="line">        <span class="keywordflow">if</span>(NXP_CSSL_FP_FUNCTION_CALLED(nxpCsslMemory_Compare) != token || NXPCSSLMEMORY_STATUS_EQUAL != result)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">/* Attack and error handling */</span></div>
+<div class="line">            <span class="keywordflow">return</span> -1;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">    NXP_CSSL_FP_FUNCTION_CALL_END();</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2>Side-channel analysis resistance</h2>
+<p>All sensitive data (such as private keys), including sensitive CLNS API function parameters, shall be aligned on a 4-byte (or CPU word size, whichever is greater) boundary to provide some protection against side-channel analysis.</p>
+<p>For claims regarding side-channel analysis resistance of the hardware used by CLNS, please refer to your product's Security Guidance Manual or Reference Manual.</p>
+<h2>Input sanitization and preventing privilege escalation</h2>
+<p>Do not use unsanitized input to compute input values to CLNS functions.</p>
+<p>If you integrate CLNS so that it runs at a privileged execution level and can be called from a lower privileged level, take special care that the following types of input, which are directly used as pointers by CLNS (and called at the privilege level of CLNS), are not derived in any way from unsanitized input:</p><ul>
+<li>(callback) function pointers passed to CLNS functions</li>
+<li>mode pointers passed to CLNS functions (e.g. MAC, Hash or Cipher algorithms)</li>
+</ul>
+<p>Otherwise privilege escalation attacks will be possible. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->

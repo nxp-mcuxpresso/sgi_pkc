@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClRandom_PRNG_Seed_example.c</title>
+<title>MCUX CLNS: mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,13 +102,13 @@ $(function(){initNavTree('a03417.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClRandom_PRNG_Seed_example.c</div></div>
+  <div class="headertitle"><div class="title">mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example.c</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example for the mcuxClRandom component with seeding for Prng.</p>
-<p>Example for the mcuxClRandom component with seeding for Prng</p>
+<p>Example for the mcuxClRandomModes component.</p>
+<p>Example for the mcuxClRandomModes component</p>
 <div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><span class="comment">/* Copyright 2025 NXP                                                       */</span></div>
+<div class="line"><span class="comment">/* Copyright 2023-2024 NXP                                                  */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
 <div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><span class="comment">/*                                                                          */</span></div>
@@ -141,119 +141,186 @@ $(function(){initNavTree('a03417.html','',''); });
 <div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span>            <span class="comment">// Defines and assertions for examples</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClToolchain.h&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00422.html">mcuxClBuffer.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00761.html">mcuxClRandom.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00764.html">mcuxClRandomModes.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00839.html">mcuxClSession.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mcuxClExample_Session_Helper.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00764.html">mcuxClRandom.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00842.html">mcuxClSession.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">mcuxClCore_Macros.h</a>&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#define randomDataSize (16u)</span></div>
-<div class="line"><span class="preprocessor">#define randomDataWordSize ((randomDataSize) / sizeof(uint32_t))</span></div>
-<div class="line"></div>
-<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClRandom_PRNG_Seed_example)</div>
+<div class="line"><span class="comment">/* CAVP test vectors */</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t entropyAndNonceInputInit[MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES256_INIT_ENTROPY_SIZE)] =</div>
 <div class="line">{</div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Preparation                                                            */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">    0xC895B09Fu, 0xDC8A7855u, 0x30D29197u, 0xFFB78DEBu, 0xE05FBED6u, 0xFA18E8BCu, 0x08181916u, 0x22BC51E4u,</div>
+<div class="line">    0xC88B1DF5u, 0x15343BC6u, 0xD132B62Fu, 0xBC64248Bu, 0xDBFCEBBEu, 0x3CBA96E9u, 0x54FEC285u, 0x51008B28u</div>
+<div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* In mcuxClSession_init(), the PRNG seed will be reseeded.                */</span></div>
-<div class="line">  <span class="comment">/* A reseed is neccessary after an SGI restart/flush because the seed is  */</span></div>
-<div class="line">  <span class="comment">/* initialized at 0x00.                                                   */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  mcuxClSession_Descriptor_t sessionDesc;</div>
-<div class="line">  <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
-<div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLRANDOM_NCINIT_WACPU_SIZE, 0u);</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t entropyInputReseed[MCUXCLCORE_NUM_OF_CPUWORDS_CEIL(MCUXCLRANDOMMODES_TESTMODE_CTR_DRBG_AES256_RESEED_ENTROPY_SIZE)] =</div>
+<div class="line">{</div>
+<div class="line">    0x875CBF2Bu, 0xB691D99Eu, 0x3CB29A98u, 0x46F88260u, 0xCE3BAFD4u, 0x9A39EE02u, 0x06B14989u, 0xF16F46B6u,</div>
+<div class="line">    0x25DC5BB4u, 0x1B8434F4u, 0x2B30D48Bu, 0xADB5F889u</div>
+<div class="line">};</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">/* Initialize PRNG. This initializes PRNG in normal / unpatched mode */</span></div>
-<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_DEREFERENCE_NULL_POINTER(<span class="stringliteral">&quot;session-&gt;apiCall is not NULL when accessed&quot;</span>)</div>
-<div class="line">  <a id="a1" name="a1"></a><a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(nci_status, nci_token, <a id="a2" name="a2"></a><a class="code hl_function" href="a01448.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a>(session));</div>
-<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DEREFERENCE_NULL_POINTER()</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span>((<a id="a3" name="a3"></a><a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01448.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a>) != nci_token) || (<a id="_a4" name="_a4"></a><a class="code hl_define" href="a01625.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != nci_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a id="a5" name="a5"></a><a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Generate data for the first time                                       */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  uint32_t pPrngData1[randomDataWordSize];</div>
-<div class="line">  <a id="a6" name="a6"></a><a class="code hl_define" href="a01354.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(pPrngBuffer1, session, pPrngData1, randomDataSize);</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Generate non cryptographic random values. */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(</div>
-<div class="line">    ncg_status1,</div>
-<div class="line">    ncg_token1,</div>
-<div class="line">    <a id="a7" name="a7"></a><a class="code hl_function" href="a01448.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>(session, pPrngBuffer1, randomDataSize)</div>
-<div class="line">  );</div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01448.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>) != ncg_token1) || (<a class="code hl_define" href="a01625.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ncg_status1))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Reseed the PRNG                                                        */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ncr_status, ncr_token, <a id="a8" name="a8"></a><a class="code hl_function" href="a01448.html#ga12855475402b5ff3b1023b3f5d19b685">mcuxClRandom_ncReseed</a>(session));</div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01448.html#ga12855475402b5ff3b1023b3f5d19b685">mcuxClRandom_ncReseed</a>) != ncr_token) || (<a class="code hl_define" href="a01625.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ncr_status))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Generate data for the second time                                      */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line"> </div>
-<div class="line">  uint8_t pPrngData2[randomDataSize];</div>
-<div class="line">  <a class="code hl_define" href="a01354.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(pPrngBuffer2, session, pPrngData2, randomDataSize);</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* Generate non cryptographic random values. */</span></div>
-<div class="line">  <a class="code hl_define" href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(</div>
-<div class="line">    ncg_status2,</div>
-<div class="line">    ncg_token2,</div>
-<div class="line">    <a class="code hl_function" href="a01448.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>(session, pPrngBuffer2, randomDataSize)</div>
-<div class="line">  );</div>
-<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01448.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a>) != ncg_token2) || (<a class="code hl_define" href="a01625.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ncg_status2))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
-<div class="line">  <a class="code hl_define" href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
-<div class="line">  <span class="comment">/* Cleanup                                                                */</span></div>
-<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint32_t refOutput[64u / <span class="keyword">sizeof</span>(uint32_t)] =</div>
+<div class="line">{</div>
+<div class="line">    0x75321468u, 0x42B48F90u, 0x166757D0u, 0x8C9BE44Eu, 0x667A3AF8u, 0x3CC0CF82u, 0x1AA1EEFEu, 0xFF968FB5u,</div>
+<div class="line">    0x9F8DA237u, 0x218C18B9u, 0x87A0EB74u, 0xF08F03B1u, 0xB91F5360u, 0x2903E42Bu, 0xC332CCEFu, 0x9BEF0FA2u</div>
+<div class="line">};</div>
 <div class="line"></div>
-<div class="line">  <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
-<div class="line">  {</div>
-<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
-<div class="line">  }</div>
+<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClRandomModes_TestMode_CtrDrbg_AES256_DRG4_example)</div>
+<div class="line">{</div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Preparation                                                            */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
+<div class="line">    mcuxClSession_Descriptor_t sessionDesc;</div>
+<div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
+<div class="line">    MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLRANDOMMODES_MAX_CPU_WA_BUFFER_SIZE, 0u);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Allocate space for a test mode descriptor for an AES-256 CTR_DRBG DRG4. */</span></div>
+<div class="line">    uint32_t testModeDescBytes[(MCUXCLRANDOMMODES_TESTMODE_DESCRIPTOR_SIZE + <span class="keyword">sizeof</span>(uint32_t) - 1U)/<span class="keyword">sizeof</span>(uint32_t)];</div>
+<div class="line">    <a id="_a1" name="_a1"></a><a class="code hl_typedef" href="a01447.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *pTestModeDesc = (<a class="code hl_typedef" href="a01447.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a> *) testModeDescBytes;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Test mode creation for an AES-256 CTR_DRBG DRG4 and preparation of     */</span></div>
+<div class="line">    <span class="comment">/* known entropy and nonce input for later DRBG instantiation             */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <a id="a2" name="a2"></a><a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(cp_status, cp_token, <a id="a3" name="a3"></a><a class="code hl_function" href="a01451.html#ga3e1e5c89df4eb0bce8b7f558d8cfb565">mcuxClRandomModes_createTestFromNormalMode</a>(</div>
+<div class="line">                                        pTestModeDesc,</div>
+<div class="line">                                        mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG4,</div>
+<div class="line">                                        entropyAndNonceInputInit</div>
+<div class="line">                                   ));</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span>((<a id="a4" name="a4"></a><a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01451.html#ga3e1e5c89df4eb0bce8b7f558d8cfb565">mcuxClRandomModes_createTestFromNormalMode</a>) != cp_token) || (<a id="_a5" name="_a5"></a><a class="code hl_define" href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != cp_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a id="a6" name="a6"></a><a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Test mode initialization with known entropy and nonce input            */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    uint32_t context[MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE_IN_WORDS] = {0};</div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ri_status, init_token, <a id="a7" name="a7"></a><a class="code hl_function" href="a01445.html#ga989cf9033b30c383d1548037f2ec8bc9">mcuxClRandom_init</a>(</div>
+<div class="line">                                        session,</div>
+<div class="line">                                        (<a id="_a8" name="_a8"></a><a class="code hl_typedef" href="a01447.html#gac2ce3a52788240794afde522cfad65c5">mcuxClRandom_Context_t</a>)context,</div>
+<div class="line">                                        pTestModeDesc</div>
+<div class="line">                                   ));</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01445.html#ga989cf9033b30c383d1548037f2ec8bc9">mcuxClRandom_init</a>) != init_token) || (<a class="code hl_define" href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ri_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Reseed the DRBG with a known entropy, and generate two random bytes    */</span></div>
+<div class="line">    <span class="comment">/* strings                                                                */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Buffers to store the generated random values in. */</span></div>
+<div class="line">    ALIGNED uint8_t drbg_data1[64u] = {0u};</div>
+<div class="line">    <a id="a9" name="a9"></a><a class="code hl_define" href="a01351.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(drbgBuf1, NULL, &amp;drbg_data1[0], 64u);</div>
+<div class="line">    ALIGNED uint8_t drbg_data2[64u] = {0u};</div>
+<div class="line">    <a class="code hl_define" href="a01351.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(drbgBuf2, NULL, &amp;drbg_data2[0], 64u);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Update entropy input to be taken for the upcoming reseeding */</span></div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ue_status, ue_token, <a id="a10" name="a10"></a><a class="code hl_function" href="a01451.html#gaeb1afe314ca3e55a6c4b3b9620779279">mcuxClRandomModes_updateEntropyInput</a>(pTestModeDesc, entropyInputReseed));</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01451.html#gaeb1afe314ca3e55a6c4b3b9620779279">mcuxClRandomModes_updateEntropyInput</a>) != ue_token) || (<a class="code hl_define" href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ue_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Reseed the DRBG with known entropy input */</span></div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(rr_status, reseed_token, <a id="a11" name="a11"></a><a class="code hl_function" href="a01445.html#ga89fe90a4ca175d03b4a821cf2fa2004f">mcuxClRandom_reseed</a>(session));</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01445.html#ga89fe90a4ca175d03b4a821cf2fa2004f">mcuxClRandom_reseed</a>) != reseed_token) || (<a class="code hl_define" href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != rr_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Generate random values of 512 bits */</span></div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(rg1_status, generate1_token, <a id="a12" name="a12"></a><a class="code hl_function" href="a01445.html#ga8abb91a3866764d86635358085f406ba">mcuxClRandom_generate</a>(</div>
+<div class="line">                                        session,</div>
+<div class="line">                                        drbgBuf1,</div>
+<div class="line">                                        <span class="keyword">sizeof</span>(drbg_data1)));</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01445.html#ga8abb91a3866764d86635358085f406ba">mcuxClRandom_generate</a>) != generate1_token) || (<a class="code hl_define" href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != rg1_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Generate random values of 512 bits */</span></div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(rg2_status, generate2_token, <a class="code hl_function" href="a01445.html#ga8abb91a3866764d86635358085f406ba">mcuxClRandom_generate</a>(</div>
+<div class="line">                                        session,</div>
+<div class="line">                                        drbgBuf2,</div>
+<div class="line">                                        <span class="keyword">sizeof</span>(drbg_data2)));</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01445.html#ga8abb91a3866764d86635358085f406ba">mcuxClRandom_generate</a>) != generate2_token) || (<a class="code hl_define" href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != rg2_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Compare the last generated random output to the expected output        */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordtype">bool</span> outputIsExpected = mcuxClCore_assertEqual((<span class="keyword">const</span> uint8_t*)drbg_data2, (<span class="keyword">const</span> uint8_t*)refOutput, <span class="keyword">sizeof</span>(drbg_data2));</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Return error if buffers are unequal */</span></div>
+<div class="line">    <span class="keywordflow">if</span>(!outputIsExpected)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line">    <span class="comment">/* Cleanup                                                                */</span></div>
+<div class="line"><span class="comment">    /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">/* Random uninit. */</span></div>
+<div class="line">    <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ru_status, uninit_token, <a id="a13" name="a13"></a><a class="code hl_function" href="a01445.html#ga92889d1e06ba33656278bd2a4110be99">mcuxClRandom_uninit</a>(session));</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01445.html#ga92889d1e06ba33656278bd2a4110be99">mcuxClRandom_uninit</a>) != uninit_token) || (<a class="code hl_define" href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a> != ru_status))</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span>(!mcuxClExample_Session_Clean(session))</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa00422_html"><div class="ttname"><a href="a00422.html">mcuxClBuffer.h</a></div><div class="ttdoc">Top-level include file for the mcuxClBuffer component.</div></div>
-<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
-<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">mcuxClRandom.h</a></div><div class="ttdoc">Top level header of mcuxClRandom component.</div></div>
-<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
-<div class="ttc" id="aa01354_html_ga00af3c9893f4c59ec8ac0675c8332da3"><div class="ttname"><a href="a01354.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT(name, info, ptr, size)</div><div class="ttdoc">Initialize an input/output buffer (mcuxCl_Buffer_t).</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:87</div></div>
-<div class="ttc" id="aa01448_html_ga12855475402b5ff3b1023b3f5d19b685"><div class="ttname"><a href="a01448.html#ga12855475402b5ff3b1023b3f5d19b685">mcuxClRandom_ncReseed</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_ncReseed(mcuxClSession_Handle_t pSession)</div><div class="ttdoc">Non-cryptographic PRNG reseed function.</div></div>
-<div class="ttc" id="aa01448_html_ga4522b9cfa28cb224b653003d481d7100"><div class="ttname"><a href="a01448.html#ga4522b9cfa28cb224b653003d481d7100">mcuxClRandom_ncInit</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_ncInit(mcuxClSession_Handle_t pSession)</div><div class="ttdoc">Non-cryptographic PRNG initialization function.</div></div>
-<div class="ttc" id="aa01448_html_gadb8ca3062045564b8f919d40a3da6569"><div class="ttname"><a href="a01448.html#gadb8ca3062045564b8f919d40a3da6569">mcuxClRandom_ncGenerate</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_ncGenerate(mcuxClSession_Handle_t pSession, mcuxCl_Buffer_t pOut, uint32_t outLength)</div><div class="ttdoc">Non-cryptographic PRNG data generation function.</div></div>
-<div class="ttc" id="aa01483_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
-<div class="ttc" id="aa01513_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01513.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
-<div class="ttc" id="aa01513_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01513.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
-<div class="ttc" id="aa01513_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01513.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
-<div class="ttc" id="aa01625_html_ga951990ff5179cd6fce7310de16002b20"><div class="ttname"><a href="a01625.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLRANDOM_STATUS_OK</div><div class="ttdoc">Random function returned successfully.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Constants.h:66</div></div>
+<div class="ttc" id="aa00455_html"><div class="ttname"><a href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
+<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">mcuxClCore_Macros.h</a></div><div class="ttdoc">Definition of macros.</div></div>
+<div class="ttc" id="aa00761_html"><div class="ttname"><a href="a00761.html">mcuxClRandom.h</a></div><div class="ttdoc">Top level header of mcuxClRandom component.</div></div>
+<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">mcuxClRandomModes.h</a></div><div class="ttdoc">Top level header of mcuxClRandomModes component.</div></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa01351_html_ga00af3c9893f4c59ec8ac0675c8332da3"><div class="ttname"><a href="a01351.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT(name, info, ptr, size)</div><div class="ttdoc">Initialize an input/output buffer (mcuxCl_Buffer_t).</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:87</div></div>
+<div class="ttc" id="aa01445_html_ga89fe90a4ca175d03b4a821cf2fa2004f"><div class="ttname"><a href="a01445.html#ga89fe90a4ca175d03b4a821cf2fa2004f">mcuxClRandom_reseed</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_reseed(mcuxClSession_Handle_t pSession)</div><div class="ttdoc">Random data generator reseed function.</div></div>
+<div class="ttc" id="aa01445_html_ga8abb91a3866764d86635358085f406ba"><div class="ttname"><a href="a01445.html#ga8abb91a3866764d86635358085f406ba">mcuxClRandom_generate</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_generate(mcuxClSession_Handle_t pSession, mcuxCl_Buffer_t pOut, uint32_t outLength)</div><div class="ttdoc">Random data generation function.</div></div>
+<div class="ttc" id="aa01445_html_ga92889d1e06ba33656278bd2a4110be99"><div class="ttname"><a href="a01445.html#ga92889d1e06ba33656278bd2a4110be99">mcuxClRandom_uninit</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_uninit(mcuxClSession_Handle_t pSession)</div><div class="ttdoc">Random data generator uninitialization function.</div></div>
+<div class="ttc" id="aa01445_html_ga989cf9033b30c383d1548037f2ec8bc9"><div class="ttname"><a href="a01445.html#ga989cf9033b30c383d1548037f2ec8bc9">mcuxClRandom_init</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandom_init(mcuxClSession_Handle_t pSession, mcuxClRandom_Context_t pContext, mcuxClRandom_Mode_t mode)</div><div class="ttdoc">Random data generator initialization function.</div></div>
+<div class="ttc" id="aa01447_html_gac2ce3a52788240794afde522cfad65c5"><div class="ttname"><a href="a01447.html#gac2ce3a52788240794afde522cfad65c5">mcuxClRandom_Context_t</a></div><div class="ttdeci">mcuxClRandom_ContextDescriptor_t * mcuxClRandom_Context_t</div><div class="ttdoc">Random context type.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Types.h:91</div></div>
+<div class="ttc" id="aa01447_html_gadcfae984a95f3e98617ca5fb9767f5cd"><div class="ttname"><a href="a01447.html#gadcfae984a95f3e98617ca5fb9767f5cd">mcuxClRandom_ModeDescriptor_t</a></div><div class="ttdeci">struct mcuxClRandom_ModeDescriptor mcuxClRandom_ModeDescriptor_t</div><div class="ttdoc">Random data generation mode/algorithm descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Types.h:107</div></div>
+<div class="ttc" id="aa01451_html_ga3e1e5c89df4eb0bce8b7f558d8cfb565"><div class="ttname"><a href="a01451.html#ga3e1e5c89df4eb0bce8b7f558d8cfb565">mcuxClRandomModes_createTestFromNormalMode</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandomModes_createTestFromNormalMode(mcuxClRandom_ModeDescriptor_t *pTestMode, mcuxClRandom_Mode_t normalMode, const uint32_t *const pCustomSeed)</div><div class="ttdoc">This function creates a TEST_MODE descriptor from an existing NORMAL_MODE one.</div></div>
+<div class="ttc" id="aa01451_html_gaeb1afe314ca3e55a6c4b3b9620779279"><div class="ttname"><a href="a01451.html#gaeb1afe314ca3e55a6c4b3b9620779279">mcuxClRandomModes_updateEntropyInput</a></div><div class="ttdeci">mcuxClRandom_Status_t mcuxClRandomModes_updateEntropyInput(mcuxClRandom_ModeDescriptor_t *pTestMode, const uint32_t *const pCustomSeed)</div><div class="ttdoc">This function updates the custom seed pointer in a TEST_MODE descriptor.</div></div>
+<div class="ttc" id="aa01480_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
+<div class="ttc" id="aa01510_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
+<div class="ttc" id="aa01510_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
+<div class="ttc" id="aa01510_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
+<div class="ttc" id="aa01620_html_ga951990ff5179cd6fce7310de16002b20"><div class="ttname"><a href="a01620.html#ga951990ff5179cd6fce7310de16002b20">MCUXCLRANDOM_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLRANDOM_STATUS_OK</div><div class="ttdoc">Random function returned successfully.</div><div class="ttdef"><b>Definition</b> mcuxClRandom_Constants.h:66</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

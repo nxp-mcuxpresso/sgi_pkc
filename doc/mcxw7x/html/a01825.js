@@ -1,23 +1,16 @@
 var a01825 =
 [
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_WR_WR_IE", "a01825.html#ga1bf9560d592e1eaf0267044064674213", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_RD_WR_IE", "a01825.html#ga6696f11b7c267c3524ca33d140c91784", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_RD_RD_IE", "a01825.html#ga0abe65db3e1792080f62af2be33b567c", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_CH0_WR_DISEN", "a01825.html#gaf871126a83cfbb009c9be7bd5b40eded", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_CH1_WR_DISEN", "a01825.html#gad446ce14d9eae09848dbf57bbb0a8082", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_FARB_RWSC", "a01825.html#gacc86388e9d93b05ba0957024ec34774d", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_FARB_PRI", "a01825.html#ga83157ecd249df52a0a08d0dc1e608335", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_ADDR_SEL", "a01825.html#ga858879ca478a9d3296bb626ba510b920", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBCTRL_FARB_RST", "a01825.html#ga4875472b76ac4a5fe876185302619cd6", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBSTATUS_WR_WR", "a01825.html#ga7d7f015705c94812cc7e0ef6f3e9c56e", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBSTATUS_RD_WR", "a01825.html#ga327095551649885e418e3425d92ebd8a", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBSTATUS_RD_RD", "a01825.html#ga1ab2c740bbbed986c6ffb1763eb489cd", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_ADDR", "a01825.html#gac1f0f879dc21dc7d1bc3fae6f52966f0", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_WR_CH0_BUSY", "a01825.html#gab66f529a99180438a3f99b184db7c315", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_WR_CH1_BUSY", "a01825.html#gaa6cc46d4538cda6df825c8a4a16e17bb", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_WR_AV_CH", "a01825.html#gaccaef324bc16792dba5527f3a1c148b7", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_WR_ON_CH", "a01825.html#ga343095f3d7145596433bc02414423ea9", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_RD_PD_CH", "a01825.html#gadf9a872482ac6bb2a9b050ce60df2c73", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_RD_PD", "a01825.html#ga84fc78ac938ddb4f056735e588c95123", null ],
-    [ "FLASH_ARB_WRAP_SYN_FARBRPT_RD_ON_CH", "a01825.html#ga1d94427bcf7adc27d31b45690a1aabb0", null ]
+    [ "INTM Register Masks", "a01826.html", "a01826" ],
+    [ "INTM_Type", "a03118.html", [
+      [ "INTM_MM", "a01797.html#gaa87d9818d27a521024e8ca26c27130e9", null ],
+      [ "INTM_IACK", "a01797.html#ga47345250a54fc1a712061daf40d1921b", null ],
+      [ "INTM_IRQSEL", "a01797.html#ga7a3d59a3962b8c144000f07c297ca5fe", null ],
+      [ "INTM_LATENCY", "a01797.html#ga159cb3b61aaeff2ea7d42076305eb0be", null ],
+      [ "INTM_TIMER", "a01797.html#gaf593ed23ce15d627c331d8a6c7566e0a", null ],
+      [ "INTM_STATUS", "a01797.html#ga05d7725f4321f36f327f51e7ff5ba9c2", null ]
+    ] ],
+    [ "INTM_0_BASE", "a01825.html#ga5ae9cacf83cb183edee4477ce3e68152", null ],
+    [ "INTM_0", "a01825.html#gab9857f4a3acd90856248c483aa3a7cf3", null ],
+    [ "INTM_BASE_ADDRS", "a01825.html#ga71d04a43f67b4dbd094720a304de037b", null ],
+    [ "INTM_BASE_PTRS", "a01825.html#ga5f138164d2613401ec86db64655b2d54", null ]
 ];

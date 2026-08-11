@@ -1,8 +1,5 @@
 var a01497 =
 [
-    [ "Data Integrity API", "a01498.html", "a01498" ],
-    [ "Flow Protection API", "a01511.html", "a01511" ],
-    [ "mcuxCsslMemory", "a01533.html", "a01533" ],
-    [ "Parameter Integrity API", "a01554.html", "a01554" ],
-    [ "Secure Counter API", "a01558.html", "a01558" ]
+    [ "MCUX_CSSL_DI_RECORD", "a01497.html#ga885885837b7340002b9782ffc41e4842", null ],
+    [ "MCUX_CSSL_DI_EXPUNGE", "a01497.html#ga3e10066c4efffa9040982cde10a52076", null ]
 ];

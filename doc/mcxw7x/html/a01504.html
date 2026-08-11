@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Data Integrity Configuration</title>
+<title>MCUX CLNS: Data integrity record</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,52 +102,80 @@ $(function(){initNavTree('a01504.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Data Integrity Configuration <div class="ingroups"><a class="el" href="a01503.html">MCUX CSSL &amp;ndash; Configurations</a></div></div></div>
+  <div class="headertitle"><div class="title">Data integrity record <div class="ingroups"><a class="el" href="a01498.html">MCUX CSSL &amp;ndash; Implementations</a> &raquo; <a class="el" href="a01502.html">Data Integrity: Disabled</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Configuration options for the data integrity mechanism.  
+<p>Support for recording a value in the data integrity register, when data integrity is disabled.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gad14940e758b00b26f2e699b4fc0144bb" id="r_gad14940e758b00b26f2e699b4fc0144bb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad14940e758b00b26f2e699b4fc0144bb">MCUX_CSSL_DI_USE_SECURE_COUNTER</a></td></tr>
-<tr class="memdesc:gad14940e758b00b26f2e699b4fc0144bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to 1, use the data integrity mechanism implementation based on the CSSL secure counter mechanism.  <br /></td></tr>
-<tr class="memitem:ga4f0cea555852c5171e55303b6cb062be" id="r_ga4f0cea555852c5171e55303b6cb062be"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4f0cea555852c5171e55303b6cb062be">MCUX_CSSL_DI_USE_NONE</a></td></tr>
-<tr class="memdesc:ga4f0cea555852c5171e55303b6cb062be"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to 1, do not use the data integrity mechanism.  <br /></td></tr>
+<tr class="memitem:ga528d28a827727ba460795460a30cccfd" id="r_ga528d28a827727ba460795460a30cccfd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga528d28a827727ba460795460a30cccfd">MCUX_CSSL_DI_RECORD_IMPL</a>(identifier,  value)</td></tr>
+<tr class="memdesc:ga528d28a827727ba460795460a30cccfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation: Record the value for data integrity checking.  <br /></td></tr>
+<tr class="memitem:gaac8a8ea1888347d41f58f27f11c9caab" id="r_gaac8a8ea1888347d41f58f27f11c9caab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaac8a8ea1888347d41f58f27f11c9caab">MCUX_CSSL_DI_EXPUNGE_IMPL</a>(identifier,  value)</td></tr>
+<tr class="memdesc:gaac8a8ea1888347d41f58f27f11c9caab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation: Expunge the record for value.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Configuration options for the data integrity mechanism. </p>
+<div class="textblock"><p>Support for recording a value in the data integrity register, when data integrity is disabled. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="gad14940e758b00b26f2e699b4fc0144bb" name="gad14940e758b00b26f2e699b4fc0144bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad14940e758b00b26f2e699b4fc0144bb">&#9670;&#160;</a></span>MCUX_CSSL_DI_USE_SECURE_COUNTER</h2>
+<a id="ga528d28a827727ba460795460a30cccfd" name="ga528d28a827727ba460795460a30cccfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga528d28a827727ba460795460a30cccfd">&#9670;&#160;</a></span>MCUX_CSSL_DI_RECORD_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_DI_USE_SECURE_COUNTER</td>
+          <td class="memname">#define MCUX_CSSL_DI_RECORD_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>identifier</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>If set to 1, use the data integrity mechanism implementation based on the CSSL secure counter mechanism. </p>
+<p>Implementation: Record the value for data integrity checking. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">identifier</td><td>Identifier for the value that will be recorded. </td></tr>
+    <tr><td class="paramname">value</td><td>Value which needs to be recorded for the given identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="ga4f0cea555852c5171e55303b6cb062be" name="ga4f0cea555852c5171e55303b6cb062be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4f0cea555852c5171e55303b6cb062be">&#9670;&#160;</a></span>MCUX_CSSL_DI_USE_NONE</h2>
+<a id="gaac8a8ea1888347d41f58f27f11c9caab" name="gaac8a8ea1888347d41f58f27f11c9caab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaac8a8ea1888347d41f58f27f11c9caab">&#9670;&#160;</a></span>MCUX_CSSL_DI_EXPUNGE_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_DI_USE_NONE</td>
+          <td class="memname">#define MCUX_CSSL_DI_EXPUNGE_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>identifier</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>If set to 1, do not use the data integrity mechanism. </p>
+<p>Implementation: Expunge the record for value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">identifier</td><td>Identifier for the value that will be expunged. </td></tr>
+    <tr><td class="paramname">value</td><td>Expected value that was recorded for the given identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

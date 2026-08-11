@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClCipher_Functions.h File Reference</title>
+<title>MCUX CLNS: mcuxClCipher_Types.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,38 +102,37 @@ $(function(){initNavTree('a00449.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClCipher_Functions.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClCipher_Types.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Top-level API of the mcuxClCipher component.  
+<p>Type definitions for the mcuxClCipher component.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;mcuxClConfig.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00848_source.html">mcuxClSession_Types.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00686_source.html">mcuxClKey_Types.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00452_source.html">mcuxClCipher_Types.h</a>&gt;</code><br />
-<code>#include &lt;mcuxClCore_Platform.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00422_source.html">mcuxClBuffer.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &lt;mcuxClConfig.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00839_source.html">mcuxClSession.h</a>&gt;</code><br />
 </div>
 <p><a href="a00449_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga3fc0622052c3727f34945bc66d8502c0" id="r_ga3fc0622052c3727f34945bc66d8502c0"><td class="memItemLeft"><a class="el" href="a01361.html#gadcf65a3850bca1bd4059213edf23df4f">mcuxClCipher_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga3fc0622052c3727f34945bc66d8502c0">mcuxClCipher_encrypt</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01361.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a> mode, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIv, uint32_t ivLength, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inLength, <a class="el" href="a01357.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t *const pOutLength)</td></tr>
-<tr class="memdesc:ga3fc0622052c3727f34945bc66d8502c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot encryption function.  <br /></td></tr>
-<tr class="memitem:ga7206fba58a10240ac14b0f9a08d36191" id="r_ga7206fba58a10240ac14b0f9a08d36191"><td class="memItemLeft"><a class="el" href="a01361.html#gadcf65a3850bca1bd4059213edf23df4f">mcuxClCipher_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga7206fba58a10240ac14b0f9a08d36191">mcuxClCipher_decrypt</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01361.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a> mode, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIv, uint32_t ivLength, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inLength, <a class="el" href="a01357.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t *const pOutLength)</td></tr>
-<tr class="memdesc:ga7206fba58a10240ac14b0f9a08d36191"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot decryption function.  <br /></td></tr>
-<tr class="memitem:ga4b27dce4ecc47ce6b51467e707afae73" id="r_ga4b27dce4ecc47ce6b51467e707afae73"><td class="memItemLeft"><a class="el" href="a01361.html#gadcf65a3850bca1bd4059213edf23df4f">mcuxClCipher_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga4b27dce4ecc47ce6b51467e707afae73">mcuxClCipher_init_encrypt</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01361.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a> *const pContext, <a class="el" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01361.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a> mode, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIv, uint32_t ivLength)</td></tr>
-<tr class="memdesc:ga4b27dce4ecc47ce6b51467e707afae73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part encryption initialization function.  <br /></td></tr>
-<tr class="memitem:gac3fc7d6b4d27c7d69a78ab542d0cbcc4" id="r_gac3fc7d6b4d27c7d69a78ab542d0cbcc4"><td class="memItemLeft"><a class="el" href="a01361.html#gadcf65a3850bca1bd4059213edf23df4f">mcuxClCipher_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#gac3fc7d6b4d27c7d69a78ab542d0cbcc4">mcuxClCipher_init_decrypt</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01361.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a> *const pContext, <a class="el" href="a01420.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key, <a class="el" href="a01361.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a> mode, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIv, uint32_t ivLength)</td></tr>
-<tr class="memdesc:gac3fc7d6b4d27c7d69a78ab542d0cbcc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part decryption initialization function.  <br /></td></tr>
-<tr class="memitem:ga1a5072096f7f82fbce313d414dbb438d" id="r_ga1a5072096f7f82fbce313d414dbb438d"><td class="memItemLeft"><a class="el" href="a01361.html#gadcf65a3850bca1bd4059213edf23df4f">mcuxClCipher_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga1a5072096f7f82fbce313d414dbb438d">mcuxClCipher_process</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01361.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a> *const pContext, <a class="el" href="a01357.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inLength, <a class="el" href="a01357.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t *const pOutLength)</td></tr>
-<tr class="memdesc:ga1a5072096f7f82fbce313d414dbb438d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part encryption/decryption processing function.  <br /></td></tr>
-<tr class="memitem:ga90ac41c7d96f333de0708126b0bce4be" id="r_ga90ac41c7d96f333de0708126b0bce4be"><td class="memItemLeft"><a class="el" href="a01361.html#gadcf65a3850bca1bd4059213edf23df4f">mcuxClCipher_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="a01360.html#ga90ac41c7d96f333de0708126b0bce4be">mcuxClCipher_finish</a> (<a class="el" href="a01483.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01361.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a> *const pContext, <a class="el" href="a01357.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t *const pOutLength)</td></tr>
-<tr class="memdesc:ga90ac41c7d96f333de0708126b0bce4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part encryption/decryption finalization function.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaa9586d961025bb80660a563be606451e" id="r_gaa9586d961025bb80660a563be606451e"><td class="memItemLeft">typedef struct mcuxClCipher_ModeDescriptor&#160;</td><td class="memItemRight"><a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a></td></tr>
+<tr class="memdesc:gaa9586d961025bb80660a563be606451e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher mode/algorithm descriptor type.  <br /></td></tr>
+<tr class="memitem:gacd434e81399ac5f9752f61d55ecfb305" id="r_gacd434e81399ac5f9752f61d55ecfb305"><td class="memItemLeft">typedef const <a class="el" href="a01358.html#gaa9586d961025bb80660a563be606451e">mcuxClCipher_ModeDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="a01358.html#gacd434e81399ac5f9752f61d55ecfb305">mcuxClCipher_Mode_t</a></td></tr>
+<tr class="memdesc:gacd434e81399ac5f9752f61d55ecfb305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher mode/algorithm type.  <br /></td></tr>
+<tr class="memitem:gae10b2dde7d4883d6992adb3e23d57714" id="r_gae10b2dde7d4883d6992adb3e23d57714"><td class="memItemLeft">typedef struct mcuxClCipher_TestDescriptor&#160;</td><td class="memItemRight"><a class="el" href="a01358.html#gae10b2dde7d4883d6992adb3e23d57714">mcuxClCipher_TestDescriptor_t</a></td></tr>
+<tr class="memdesc:gae10b2dde7d4883d6992adb3e23d57714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher selftest mode/algorithm descriptor type.  <br /></td></tr>
+<tr class="memitem:ga2d2ad865d5d552ea37a471acb2c48a74" id="r_ga2d2ad865d5d552ea37a471acb2c48a74"><td class="memItemLeft">typedef const <a class="el" href="a01358.html#gae10b2dde7d4883d6992adb3e23d57714">mcuxClCipher_TestDescriptor_t</a> *const&#160;</td><td class="memItemRight"><a class="el" href="a01358.html#ga2d2ad865d5d552ea37a471acb2c48a74">mcuxClCipher_Test_t</a></td></tr>
+<tr class="memdesc:ga2d2ad865d5d552ea37a471acb2c48a74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher selftest mode/algorithm type.  <br /></td></tr>
+<tr class="memitem:ga9faa78dbb34107f8f28344b36b91c93d" id="r_ga9faa78dbb34107f8f28344b36b91c93d"><td class="memItemLeft">typedef struct mcuxClCipher_Context&#160;</td><td class="memItemRight"><a class="el" href="a01358.html#ga9faa78dbb34107f8f28344b36b91c93d">mcuxClCipher_Context_t</a></td></tr>
+<tr class="memdesc:ga9faa78dbb34107f8f28344b36b91c93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher context type.  <br /></td></tr>
+<tr class="memitem:gadcf65a3850bca1bd4059213edf23df4f" id="r_gadcf65a3850bca1bd4059213edf23df4f"><td class="memItemLeft">typedef uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01358.html#gadcf65a3850bca1bd4059213edf23df4f">mcuxClCipher_Status_t</a></td></tr>
+<tr class="memdesc:gadcf65a3850bca1bd4059213edf23df4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher status code.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Top-level API of the mcuxClCipher component. </p>
+<div class="textblock"><p>Type definitions for the mcuxClCipher component. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -147,7 +146,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00449.html">mcuxClCipher_Functions.h</a></li>
+    <li class="navelem"><a href="a00449.html">mcuxClCipher_Types.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

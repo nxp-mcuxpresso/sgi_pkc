@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Flow Protection Configuration</title>
+<title>MCUX CLNS: Expectation handling</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,70 +102,127 @@ $(function(){initNavTree('a01518.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Flow Protection Configuration <div class="ingroups"><a class="el" href="a01503.html">MCUX CSSL &amp;ndash; Configurations</a></div></div></div>
+  <div class="headertitle"><div class="title">Expectation handling <div class="ingroups"><a class="el" href="a01498.html">MCUX CSSL &amp;ndash; Implementations</a> &raquo; <a class="el" href="a01516.html">Flow Protection: Disabled</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Configuration options for the flow protection mechanism.  
+<p>Expectation handling support functionality.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaeaecd08382d1bf7542d523e67c15b90b" id="r_gaeaecd08382d1bf7542d523e67c15b90b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaeaecd08382d1bf7542d523e67c15b90b">MCUX_CSSL_FP_USE_CODE_SIGNATURE</a></td></tr>
-<tr class="memdesc:gaeaecd08382d1bf7542d523e67c15b90b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to 1, use the flow protection mechanism implementation based on the Zen-V code signature HW mechanism.  <br /></td></tr>
-<tr class="memitem:ga645fafaa87e927ec807c9679dfa6d74e" id="r_ga645fafaa87e927ec807c9679dfa6d74e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga645fafaa87e927ec807c9679dfa6d74e">MCUX_CSSL_FP_USE_SECURE_COUNTER</a></td></tr>
-<tr class="memdesc:ga645fafaa87e927ec807c9679dfa6d74e"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to 1, use the flow protection mechanism implementation based on the CSSL secure counter mechanism.  <br /></td></tr>
-<tr class="memitem:ga8fcbc78b6821d4cd6ea67bdc3d4e3ba7" id="r_ga8fcbc78b6821d4cd6ea67bdc3d4e3ba7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8fcbc78b6821d4cd6ea67bdc3d4e3ba7">MCUX_CSSL_FP_USE_NONE</a></td></tr>
-<tr class="memdesc:ga8fcbc78b6821d4cd6ea67bdc3d4e3ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to 1, do not use the flow protection mechanism.  <br /></td></tr>
+<tr class="memitem:ga643cc00e2fecb3e73de572797618ad35" id="r_ga643cc00e2fecb3e73de572797618ad35"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga643cc00e2fecb3e73de572797618ad35">MCUX_CSSL_FP_CONDITIONAL_IMPL</a>(condition, ...)</td></tr>
+<tr class="memdesc:ga643cc00e2fecb3e73de572797618ad35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conditional expectation aggregation.  <br /></td></tr>
+<tr class="memitem:ga4ea20ab3d4d080887fdfc12f6c7f6bab" id="r_ga4ea20ab3d4d080887fdfc12f6c7f6bab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga4ea20ab3d4d080887fdfc12f6c7f6bab">MCUX_CSSL_FP_VOID_EXPECTATION_IMPL</a>()</td></tr>
+<tr class="memdesc:ga4ea20ab3d4d080887fdfc12f6c7f6bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of expectation of nothing.  <br /></td></tr>
+<tr class="memitem:ga7be0ed334bcf634f81d5d4b93a4c1657" id="r_ga7be0ed334bcf634f81d5d4b93a4c1657"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7be0ed334bcf634f81d5d4b93a4c1657">MCUX_CSSL_FP_EXPECT_IMPL</a>(...)</td></tr>
+<tr class="memdesc:ga7be0ed334bcf634f81d5d4b93a4c1657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration(s) of expected code flow behavior.  <br /></td></tr>
+<tr class="memitem:ga391e0f29868a1dd17bd0d23a4737c129" id="r_ga391e0f29868a1dd17bd0d23a4737c129"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga391e0f29868a1dd17bd0d23a4737c129">MCUX_CSSL_FP_ASSERT_IMPL</a>(...)</td></tr>
+<tr class="memdesc:ga391e0f29868a1dd17bd0d23a4737c129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert an expected state of the code flow.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Configuration options for the flow protection mechanism. </p>
+<div class="textblock"><p>Expectation handling support functionality. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="gaeaecd08382d1bf7542d523e67c15b90b" name="gaeaecd08382d1bf7542d523e67c15b90b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeaecd08382d1bf7542d523e67c15b90b">&#9670;&#160;</a></span>MCUX_CSSL_FP_USE_CODE_SIGNATURE</h2>
+<a id="ga643cc00e2fecb3e73de572797618ad35" name="ga643cc00e2fecb3e73de572797618ad35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga643cc00e2fecb3e73de572797618ad35">&#9670;&#160;</a></span>MCUX_CSSL_FP_CONDITIONAL_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_USE_CODE_SIGNATURE</td>
+          <td class="memname">#define MCUX_CSSL_FP_CONDITIONAL_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>If set to 1, use the flow protection mechanism implementation based on the Zen-V code signature HW mechanism. </p>
+<p>Conditional expectation aggregation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">condition</td><td>Condition under which the given expectations apply </td></tr>
+    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code code flow behavior. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Aggregated counter value for the given expectations, if condition is satisfied. Otherwise 0. </dd></dl>
 
 </div>
 </div>
-<a id="ga645fafaa87e927ec807c9679dfa6d74e" name="ga645fafaa87e927ec807c9679dfa6d74e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga645fafaa87e927ec807c9679dfa6d74e">&#9670;&#160;</a></span>MCUX_CSSL_FP_USE_SECURE_COUNTER</h2>
+<a id="ga4ea20ab3d4d080887fdfc12f6c7f6bab" name="ga4ea20ab3d4d080887fdfc12f6c7f6bab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4ea20ab3d4d080887fdfc12f6c7f6bab">&#9670;&#160;</a></span>MCUX_CSSL_FP_VOID_EXPECTATION_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_USE_SECURE_COUNTER</td>
+          <td class="memname">#define MCUX_CSSL_FP_VOID_EXPECTATION_IMPL</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>If set to 1, use the flow protection mechanism implementation based on the CSSL secure counter mechanism. </p>
+<p>Implementation of expectation of nothing. </p>
+<p>This expectation macro indicates to the flow protection mechanism that nothing is expected to happen. This is mainly intended for internal use (to ensure at least one expectation is passed). </p>
 
 </div>
 </div>
-<a id="ga8fcbc78b6821d4cd6ea67bdc3d4e3ba7" name="ga8fcbc78b6821d4cd6ea67bdc3d4e3ba7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8fcbc78b6821d4cd6ea67bdc3d4e3ba7">&#9670;&#160;</a></span>MCUX_CSSL_FP_USE_NONE</h2>
+<a id="ga7be0ed334bcf634f81d5d4b93a4c1657" name="ga7be0ed334bcf634f81d5d4b93a4c1657"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7be0ed334bcf634f81d5d4b93a4c1657">&#9670;&#160;</a></span>MCUX_CSSL_FP_EXPECT_IMPL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MCUX_CSSL_FP_USE_NONE</td>
+          <td class="memname">#define MCUX_CSSL_FP_EXPECT_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>If set to 1, do not use the flow protection mechanism. </p>
+<p>Declaration(s) of expected code flow behavior. </p>
+<p>This macro can be used to indicate expectations in the function body at another location than the function entry or exit.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01525.html#ga173c3887e1d02b5cace9e622d0a3225b" title="Expectation aggregation.">MCUX_CSSL_FP_EXPECTATIONS</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga391e0f29868a1dd17bd0d23a4737c129" name="ga391e0f29868a1dd17bd0d23a4737c129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga391e0f29868a1dd17bd0d23a4737c129">&#9670;&#160;</a></span>MCUX_CSSL_FP_ASSERT_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUX_CSSL_FP_ASSERT_IMPL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assert an expected state of the code flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expect</td><td>One or more (comma separated) declarations of expected code flow behavior. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

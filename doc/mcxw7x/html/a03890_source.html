@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: platform/mcxl2xx/PERI_GLIKEY.h Source File</title>
+<title>MCUX CLNS: platform/mcxl2xx/PERI_ERM.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ $(function(){initNavTree('a03890_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PERI_GLIKEY.h</div></div>
+  <div class="headertitle"><div class="title">PERI_ERM.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a03890.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
@@ -117,7 +117,7 @@ $(function(){initNavTree('a03890_source.html','',''); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">**     Build:               b250901</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">**</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">**     Abstract:</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">**         CMSIS Peripheral Access Layer for GLIKEY</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">**         CMSIS Peripheral Access Layer for ERM</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">**</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">**     Copyright 1997-2016 Freescale Semiconductor, Inc.</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">**     Copyright 2016-2025 NXP</span></div>
@@ -134,8 +134,8 @@ $(function(){initNavTree('a03890_source.html','',''); });
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#if !defined(PERI_GLIKEY_H_)</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03890.html#a422c6b29595fb8cefea3e877644217d5">   46</a></span><span class="preprocessor">#define PERI_GLIKEY_H_                           </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#if !defined(PERI_ERM_H_)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03890.html#a44213b401d09648401c6466d050aefe4">   46</a></span><span class="preprocessor">#define PERI_ERM_H_                              </span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &quot;MCXL253_cm0plus_COMMON.h&quot;</span></div>
@@ -148,206 +148,181 @@ $(function(){initNavTree('a03890_source.html','',''); });
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#elif (defined(CPU_MCXL255VDF_cm0plus) || defined(CPU_MCXL255VLL_cm0plus))</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &quot;MCXL255_cm0plus_COMMON.h&quot;</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#elif (defined(CPU_MCXL255VDF_cm33) || defined(CPU_MCXL255VLL_cm33))</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &quot;<a class="code" href="a01268.html">MCXL255_cm33_COMMON.h</a>&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &quot;<a class="code" href="a01265.html">MCXL255_cm33_COMMON.h</a>&quot;</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">  #error &quot;No valid CPU defined!&quot;</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">   -- Device Peripheral Access Layer</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">   -- Mapping Information</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">** Start of section using anonymous unions</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">    #pragma clang diagnostic push</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">  #else</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">    #pragma push</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">    #pragma anon_unions</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">  #endif</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="comment">/* anonymous unions are enabled by default */</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">  #pragma language=extended</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">  #error Not supported compiler type</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">   -- GLIKEY Peripheral Access Layer</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t CTRL_0;                            </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t CTRL_1;                            </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  <a class="code hl_define" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t INTR_CTRL;                         </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <a class="code hl_define" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a>  uint32_t STATUS;                            </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>       uint8_t RESERVED_0[236];</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  <a class="code hl_define" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a>  uint32_t VERSION;                           </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <a class="code hl_struct" href="a02223.html">GLIKEY_Type</a>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">   -- GLIKEY Register Masks</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#define GLIKEY_CTRL_0_WRITE_INDEX_MASK           (0xFFU)</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#define GLIKEY_CTRL_0_WRITE_INDEX_SHIFT          (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a01675.html#ga88dbe7840ae8ccd9181cabedcfe73f1f">  127</a></span><span class="preprocessor">#define GLIKEY_CTRL_0_WRITE_INDEX(x)             (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_0_WRITE_INDEX_SHIFT)) &amp; GLIKEY_CTRL_0_WRITE_INDEX_MASK)</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#define GLIKEY_CTRL_0_RESERVED15_MASK            (0xFF00U)</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#define GLIKEY_CTRL_0_RESERVED15_SHIFT           (8U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="a01675.html#gaa0dae71075a9dbb26bc5f7392eb27d98">  132</a></span><span class="preprocessor">#define GLIKEY_CTRL_0_RESERVED15(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_0_RESERVED15_SHIFT)) &amp; GLIKEY_CTRL_0_RESERVED15_MASK)</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#define GLIKEY_CTRL_0_WR_EN_0_MASK               (0x30000U)</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#define GLIKEY_CTRL_0_WR_EN_0_SHIFT              (16U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a01675.html#gaacef7490a8760b453da791079d4f7d78">  137</a></span><span class="preprocessor">#define GLIKEY_CTRL_0_WR_EN_0(x)                 (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_0_WR_EN_0_SHIFT)) &amp; GLIKEY_CTRL_0_WR_EN_0_MASK)</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="preprocessor">#define GLIKEY_CTRL_0_SFT_RST_MASK               (0x40000U)</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">#define GLIKEY_CTRL_0_SFT_RST_SHIFT              (18U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="a01675.html#ga9a04eb8e3e0f105809d4f2136c37d1c8">  145</a></span><span class="preprocessor">#define GLIKEY_CTRL_0_SFT_RST(x)                 (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_0_SFT_RST_SHIFT)) &amp; GLIKEY_CTRL_0_SFT_RST_MASK)</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">#define GLIKEY_CTRL_0_RESERVED31_MASK            (0xFFF80000U)</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">#define GLIKEY_CTRL_0_RESERVED31_SHIFT           (19U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="a01675.html#ga93069b7abd3c2ad7438569f7ef883b0a">  150</a></span><span class="preprocessor">#define GLIKEY_CTRL_0_RESERVED31(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_0_RESERVED31_SHIFT)) &amp; GLIKEY_CTRL_0_RESERVED31_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span></div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="preprocessor">#define GLIKEY_CTRL_1_READ_INDEX_MASK            (0xFFU)</span></div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="preprocessor">#define GLIKEY_CTRL_1_READ_INDEX_SHIFT           (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="a01675.html#gab01c3568befa16810cc273a5886f9ac1">  159</a></span><span class="preprocessor">#define GLIKEY_CTRL_1_READ_INDEX(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_1_READ_INDEX_SHIFT)) &amp; GLIKEY_CTRL_1_READ_INDEX_MASK)</span></div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="preprocessor">#define GLIKEY_CTRL_1_RESERVED15_MASK            (0xFF00U)</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">#define GLIKEY_CTRL_1_RESERVED15_SHIFT           (8U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="a01675.html#ga798543559c4a557fca4b87ddc5723ca8">  164</a></span><span class="preprocessor">#define GLIKEY_CTRL_1_RESERVED15(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_1_RESERVED15_SHIFT)) &amp; GLIKEY_CTRL_1_RESERVED15_MASK)</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="preprocessor">#define GLIKEY_CTRL_1_WR_EN_1_MASK               (0x30000U)</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="preprocessor">#define GLIKEY_CTRL_1_WR_EN_1_SHIFT              (16U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="a01675.html#gaff19759b8e0a832d1bb734082853ba03">  169</a></span><span class="preprocessor">#define GLIKEY_CTRL_1_WR_EN_1(x)                 (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_1_WR_EN_1_SHIFT)) &amp; GLIKEY_CTRL_1_WR_EN_1_MASK)</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="preprocessor">#define GLIKEY_CTRL_1_SFR_LOCK_MASK              (0x3C0000U)</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="preprocessor">#define GLIKEY_CTRL_1_SFR_LOCK_SHIFT             (18U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="a01675.html#gaf25d4a6898161aefaaccb4c836103c7b">  174</a></span><span class="preprocessor">#define GLIKEY_CTRL_1_SFR_LOCK(x)                (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_1_SFR_LOCK_SHIFT)) &amp; GLIKEY_CTRL_1_SFR_LOCK_MASK)</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">#define GLIKEY_CTRL_1_RESERVED31_MASK            (0xFFC00000U)</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="preprocessor">#define GLIKEY_CTRL_1_RESERVED31_SHIFT           (22U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="a01675.html#gaf26c3e9bd9b39af4f9c38e9a32ccf8ea">  179</a></span><span class="preprocessor">#define GLIKEY_CTRL_1_RESERVED31(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_CTRL_1_RESERVED31_SHIFT)) &amp; GLIKEY_CTRL_1_RESERVED31_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#if !defined(ERM_MEMORY_CHANNEL_T_)</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define ERM_MEMORY_CHANNEL_T_</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * Definitions</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="};">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a01658.html#gab709919ba09c106adaa1e02203b5657f">   91</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code hl_enumeration" href="a01658.html#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>{</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="a01658.html#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4">   93</a></span>    <a class="code hl_enumvalue" href="a01658.html#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4">kERM_MemoryChannelRAMA0</a>         = 0U,          </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a01658.html#ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b">   94</a></span>    <a class="code hl_enumvalue" href="a01658.html#ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b">kERM_MemoryChannelFMU0</a>          = 1U,          </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a01658.html#gaeb7d69e29ef95dce925b10a24625690c">   95</a></span>} <a class="code hl_typedef" href="a01658.html#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a>;</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">/* @} */</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#endif </span><span class="comment">/* ERM_MEMORY_CHANNEL_T_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> <span class="comment">/* end of group Mapping_Information */</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">   -- Device Peripheral Access Layer</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">** Start of section using anonymous unions</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">    #pragma clang diagnostic push</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">  #else</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">    #pragma push</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">    #pragma anon_unions</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">  #endif</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>  <span class="comment">/* anonymous unions are enabled by default */</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">  #pragma language=extended</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">  #error Not supported compiler type</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">   -- ERM Peripheral Access Layer</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t CR0;                               </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>       uint8_t RESERVED_0[12];</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t SR0;                               </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>       uint8_t RESERVED_1[236];</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  <a class="code hl_define" href="a03527.html#af63697ed9952cc71e1225efe205f6cd3">__I</a>  uint32_t EAR0;                              </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <a class="code hl_define" href="a03527.html#af63697ed9952cc71e1225efe205f6cd3">__I</a>  uint32_t SYN0;                              </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t CORR_ERR_CNT0;                     </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>       uint8_t RESERVED_2[12];</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  <a class="code hl_define" href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t CORR_ERR_CNT1;                     </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>} <a class="code hl_struct" href="a02194.html">ERM_Type</a>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">/* ----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">   -- ERM Register Masks</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment">   ---------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">#define ERM_CR0_ENCIE1_MASK                      (0x4000000U)</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#define ERM_CR0_ENCIE1_SHIFT                     (26U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="a01660.html#gad5c00b67ed8da522e212eebc9cd22d04">  175</a></span><span class="preprocessor">#define ERM_CR0_ENCIE1(x)                        (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_CR0_ENCIE1_SHIFT)) &amp; ERM_CR0_ENCIE1_MASK)</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="preprocessor">#define ERM_CR0_ESCIE1_MASK                      (0x8000000U)</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#define ERM_CR0_ESCIE1_SHIFT                     (27U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="a01660.html#gab9480c8b96e05c809d7c2d7c7cd48864">  183</a></span><span class="preprocessor">#define ERM_CR0_ESCIE1(x)                        (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_CR0_ESCIE1_SHIFT)) &amp; ERM_CR0_ESCIE1_MASK)</span></div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_EN_MASK             (0x1U)</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_EN_SHIFT            (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="a01675.html#gafc577af93bb9749f75436c486581b3cc">  188</a></span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_EN(x)               (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_INTR_CTRL_INT_EN_SHIFT)) &amp; GLIKEY_INTR_CTRL_INT_EN_MASK)</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_CLR_MASK            (0x2U)</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_CLR_SHIFT           (1U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="a01675.html#ga38af7dd207b89634ddcfcde77e5cec82">  193</a></span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_CLR(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_INTR_CTRL_INT_CLR_SHIFT)) &amp; GLIKEY_INTR_CTRL_INT_CLR_MASK)</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_SET_MASK            (0x4U)</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_SET_SHIFT           (2U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="a01675.html#ga92d0983689ee3cc352a54db8502126bf">  201</a></span><span class="preprocessor">#define GLIKEY_INTR_CTRL_INT_SET(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_INTR_CTRL_INT_SET_SHIFT)) &amp; GLIKEY_INTR_CTRL_INT_SET_MASK)</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_RESERVED31_MASK         (0xFFFFFFF8U)</span></div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">#define GLIKEY_INTR_CTRL_RESERVED31_SHIFT        (3U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="a01675.html#gad86a215a90957e8734065c9ad5045dc0">  206</a></span><span class="preprocessor">#define GLIKEY_INTR_CTRL_RESERVED31(x)           (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_INTR_CTRL_RESERVED31_SHIFT)) &amp; GLIKEY_INTR_CTRL_RESERVED31_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">#define GLIKEY_STATUS_INT_STATUS_MASK            (0x1U)</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="preprocessor">#define GLIKEY_STATUS_INT_STATUS_SHIFT           (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="a01675.html#gaaca39c2dba6446b684ce0134eb4369f4">  218</a></span><span class="preprocessor">#define GLIKEY_STATUS_INT_STATUS(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_STATUS_INT_STATUS_SHIFT)) &amp; GLIKEY_STATUS_INT_STATUS_MASK)</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="preprocessor">#define GLIKEY_STATUS_LOCK_STATUS_MASK           (0x2U)</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="preprocessor">#define GLIKEY_STATUS_LOCK_STATUS_SHIFT          (1U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="a01675.html#ga3510ca37d71e6f44efdae4d73ff62db8">  226</a></span><span class="preprocessor">#define GLIKEY_STATUS_LOCK_STATUS(x)             (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_STATUS_LOCK_STATUS_SHIFT)) &amp; GLIKEY_STATUS_LOCK_STATUS_MASK)</span></div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="preprocessor">#define GLIKEY_STATUS_ERROR_STATUS_MASK          (0x1CU)</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="preprocessor">#define GLIKEY_STATUS_ERROR_STATUS_SHIFT         (2U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="a01675.html#ga6189048aa3bf9e924164a0ed0282bb1e">  239</a></span><span class="preprocessor">#define GLIKEY_STATUS_ERROR_STATUS(x)            (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_STATUS_ERROR_STATUS_SHIFT)) &amp; GLIKEY_STATUS_ERROR_STATUS_MASK)</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">#define ERM_CR0_ENCIE0_MASK                      (0x40000000U)</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="preprocessor">#define ERM_CR0_ENCIE0_SHIFT                     (30U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="a01660.html#ga8f11cd50f70122df0c905eb4aeffebe5">  191</a></span><span class="preprocessor">#define ERM_CR0_ENCIE0(x)                        (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_CR0_ENCIE0_SHIFT)) &amp; ERM_CR0_ENCIE0_MASK)</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">#define ERM_CR0_ESCIE0_MASK                      (0x80000000U)</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor">#define ERM_CR0_ESCIE0_SHIFT                     (31U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="a01660.html#gaa7ae8044e8f3abf25c2fd005359bae1f">  199</a></span><span class="preprocessor">#define ERM_CR0_ESCIE0(x)                        (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_CR0_ESCIE0_SHIFT)) &amp; ERM_CR0_ESCIE0_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="preprocessor">#define ERM_SR0_NCE1_MASK                        (0x4000000U)</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="preprocessor">#define ERM_SR0_NCE1_SHIFT                       (26U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="a01660.html#ga7b33a37c1229b7e4ecc81a6b99912b17">  211</a></span><span class="preprocessor">#define ERM_SR0_NCE1(x)                          (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_SR0_NCE1_SHIFT)) &amp; ERM_SR0_NCE1_MASK)</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="preprocessor">#define ERM_SR0_SBC1_MASK                        (0x8000000U)</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="preprocessor">#define ERM_SR0_SBC1_SHIFT                       (27U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="a01660.html#gaa9feea7b48221b380e7218bb6bc68ce9">  219</a></span><span class="preprocessor">#define ERM_SR0_SBC1(x)                          (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_SR0_SBC1_SHIFT)) &amp; ERM_SR0_SBC1_MASK)</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="preprocessor">#define ERM_SR0_NCE0_MASK                        (0x40000000U)</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="preprocessor">#define ERM_SR0_NCE0_SHIFT                       (30U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="a01660.html#gaf43e221a72027dae472172433a4aec7c">  227</a></span><span class="preprocessor">#define ERM_SR0_NCE0(x)                          (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_SR0_NCE0_SHIFT)) &amp; ERM_SR0_NCE0_MASK)</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="preprocessor">#define ERM_SR0_SBC0_MASK                        (0x80000000U)</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="preprocessor">#define ERM_SR0_SBC0_SHIFT                       (31U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="a01660.html#ga4032be3f1ded62496f6d57d5091af6ce">  235</a></span><span class="preprocessor">#define ERM_SR0_SBC0(x)                          (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_SR0_SBC0_SHIFT)) &amp; ERM_SR0_SBC0_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span></div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#define GLIKEY_STATUS_RESERVED18_MASK            (0x7FFE0U)</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="preprocessor">#define GLIKEY_STATUS_RESERVED18_SHIFT           (5U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a01675.html#ga7fddeafb3a501b132b6e937807632203">  244</a></span><span class="preprocessor">#define GLIKEY_STATUS_RESERVED18(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_STATUS_RESERVED18_SHIFT)) &amp; GLIKEY_STATUS_RESERVED18_MASK)</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">#define GLIKEY_STATUS_FSM_STATE_MASK             (0xFFF80000U)</span></div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#define GLIKEY_STATUS_FSM_STATE_SHIFT            (19U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="a01675.html#gae5c3b3992e10fabc46e3d442295b82ad">  249</a></span><span class="preprocessor">#define GLIKEY_STATUS_FSM_STATE(x)               (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_STATUS_FSM_STATE_SHIFT)) &amp; GLIKEY_STATUS_FSM_STATE_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED3_MASK            (0xFU)</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED3_SHIFT           (0U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="a01675.html#ga8bc41fcc7166474062630f63fc25aba3">  258</a></span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED3(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_RESERVED3_SHIFT)) &amp; GLIKEY_VERSION_RESERVED3_MASK)</span></div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED7_MASK            (0xF0U)</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED7_SHIFT           (4U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="a01675.html#ga26ec3629f7e76043afa127be518f3c51">  263</a></span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED7(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_RESERVED7_SHIFT)) &amp; GLIKEY_VERSION_RESERVED7_MASK)</span></div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED11_MASK           (0xF00U)</span></div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED11_SHIFT          (8U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="a01675.html#ga82c10904958c9b7885c3ca9f0abc082e">  268</a></span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED11(x)             (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_RESERVED11_SHIFT)) &amp; GLIKEY_VERSION_RESERVED11_MASK)</span></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED15_MASK           (0xF000U)</span></div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED15_SHIFT          (12U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="a01675.html#gad33f9ff043aefd2aac55a80a5b7064e1">  273</a></span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED15(x)             (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_RESERVED15_SHIFT)) &amp; GLIKEY_VERSION_RESERVED15_MASK)</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="preprocessor">#define GLIKEY_VERSION_MILESTONE_MASK            (0x30000U)</span></div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="preprocessor">#define GLIKEY_VERSION_MILESTONE_SHIFT           (16U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno"><a class="line" href="a01675.html#ga98bf62a140975e2dbbdd81e1f1ed3fba">  278</a></span><span class="preprocessor">#define GLIKEY_VERSION_MILESTONE(x)              (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_MILESTONE_SHIFT)) &amp; GLIKEY_VERSION_MILESTONE_MASK)</span></div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="preprocessor">#define GLIKEY_VERSION_FSM_CONFIG_MASK           (0x40000U)</span></div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="preprocessor">#define GLIKEY_VERSION_FSM_CONFIG_SHIFT          (18U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="a01675.html#ga7e3c49e937d68c1345ead99974b6b5a6">  283</a></span><span class="preprocessor">#define GLIKEY_VERSION_FSM_CONFIG(x)             (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_FSM_CONFIG_SHIFT)) &amp; GLIKEY_VERSION_FSM_CONFIG_MASK)</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#define ERM_EAR0_EAR_MASK                        (0xFFFFFFFFU)</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="preprocessor">#define ERM_EAR0_EAR_SHIFT                       (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a01660.html#ga4f307f3205ac12a30a688db13f33f02b">  244</a></span><span class="preprocessor">#define ERM_EAR0_EAR(x)                          (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_EAR0_EAR_SHIFT)) &amp; ERM_EAR0_EAR_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="preprocessor">#define ERM_SYN0_SYNDROME_MASK                   (0xFF000000U)</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="preprocessor">#define ERM_SYN0_SYNDROME_SHIFT                  (24U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="a01660.html#ga7d35d19e00348dcd85c3af5d1c891f9e">  253</a></span><span class="preprocessor">#define ERM_SYN0_SYNDROME(x)                     (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_SYN0_SYNDROME_SHIFT)) &amp; ERM_SYN0_SYNDROME_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">#define ERM_CORR_ERR_CNT0_COUNT_MASK             (0xFFU)</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">#define ERM_CORR_ERR_CNT0_COUNT_SHIFT            (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="a01660.html#ga481a6707c3d66b14434dae81d9700211">  262</a></span><span class="preprocessor">#define ERM_CORR_ERR_CNT0_COUNT(x)               (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_CORR_ERR_CNT0_COUNT_SHIFT)) &amp; ERM_CORR_ERR_CNT0_COUNT_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="preprocessor">#define ERM_CORR_ERR_CNT1_COUNT_MASK             (0xFFU)</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="preprocessor">#define ERM_CORR_ERR_CNT1_COUNT_SHIFT            (0U)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno"><a class="line" href="a01660.html#gace759fca85aeadb0f61b07d5698c5d6d">  271</a></span><span class="preprocessor">#define ERM_CORR_ERR_CNT1_COUNT(x)               (((uint32_t)(((uint32_t)(x)) &lt;&lt; ERM_CORR_ERR_CNT1_COUNT_SHIFT)) &amp; ERM_CORR_ERR_CNT1_COUNT_MASK)</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> <span class="comment">/* end of group ERM_Register_Masks */</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> <span class="comment">/* end of group ERM_Peripheral_Access_Layer */</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="preprocessor">#define GLIKEY_VERSION_INDEX_CONFIG_MASK         (0x7F80000U)</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#define GLIKEY_VERSION_INDEX_CONFIG_SHIFT        (19U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno"><a class="line" href="a01675.html#ga5dba6fdf80b588d4cce80d5a58df6afc">  288</a></span><span class="preprocessor">#define GLIKEY_VERSION_INDEX_CONFIG(x)           (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_INDEX_CONFIG_SHIFT)) &amp; GLIKEY_VERSION_INDEX_CONFIG_MASK)</span></div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED31_MASK           (0xF8000000U)</span></div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED31_SHIFT          (27U)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno"><a class="line" href="a01675.html#ga3e9b96091cdd0805dcf653b353caa2dd">  293</a></span><span class="preprocessor">#define GLIKEY_VERSION_RESERVED31(x)             (((uint32_t)(((uint32_t)(x)) &lt;&lt; GLIKEY_VERSION_RESERVED31_SHIFT)) &amp; GLIKEY_VERSION_RESERVED31_MASK)</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> <span class="comment">/* end of group GLIKEY_Register_Masks */</span></div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> <span class="comment">/* end of group GLIKEY_Peripheral_Access_Layer */</span></div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="comment">** End of section using anonymous unions</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">    #pragma clang diagnostic pop</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="preprocessor">  #else</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="preprocessor">    #pragma pop</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="preprocessor">  #endif</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>  <span class="comment">/* leave anonymous unions enabled */</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">  #pragma language=default</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">  #error Not supported compiler type</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> <span class="comment">/* end of group Peripheral_access_layer */</span></div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="comment">** End of section using anonymous unions</span></div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="preprocessor">#if defined(__ARMCC_VERSION)</span></div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="preprocessor">  #if (__ARMCC_VERSION &gt;= 6010050)</span></div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">    #pragma clang diagnostic pop</span></div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="preprocessor">  #else</span></div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="preprocessor">    #pragma pop</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="preprocessor">  #endif</span></div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="preprocessor">#elif defined(__GNUC__)</span></div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>  <span class="comment">/* leave anonymous unions enabled */</span></div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="preprocessor">#elif defined(__IAR_SYSTEMS_ICC__)</span></div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">  #pragma language=default</span></div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="preprocessor">  #error Not supported compiler type</span></div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> <span class="comment">/* end of group Peripheral_access_layer */</span></div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="preprocessor">#endif  </span><span class="comment">/* PERI_GLIKEY_H_ */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="ttc" id="aa01268_html"><div class="ttname"><a href="a01268.html">MCXL255_cm33_COMMON.h</a></div><div class="ttdoc">CMSIS Peripheral Access Layer for MCXL255_cm33.</div></div>
-<div class="ttc" id="aa02223_html"><div class="ttname"><a href="a02223.html">GLIKEY_Type</a></div><div class="ttdoc">GLIKEY - Register Layout Typedef.</div><div class="ttdef"><b>Definition</b> PERI_GLIKEY.h:115</div></div>
-<div class="ttc" id="aa03533_html_aec43007d9998a0a0e01faede4133d6be"><div class="ttname"><a href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a></div><div class="ttdeci">#define __IO</div><div class="ttdef"><b>Definition</b> core_cm33.h:276</div></div>
-<div class="ttc" id="aa03533_html_af63697ed9952cc71e1225efe205f6cd3"><div class="ttname"><a href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a></div><div class="ttdeci">#define __I</div><div class="ttdef"><b>Definition</b> core_cm33.h:273</div></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="preprocessor">#endif  </span><span class="comment">/* PERI_ERM_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="ttc" id="aa01265_html"><div class="ttname"><a href="a01265.html">MCXL255_cm33_COMMON.h</a></div><div class="ttdoc">CMSIS Peripheral Access Layer for MCXL255_cm33.</div></div>
+<div class="ttc" id="aa01658_html_gab709919ba09c106adaa1e02203b5657f"><div class="ttname"><a href="a01658.html#gab709919ba09c106adaa1e02203b5657f">_erm_memory_channel</a></div><div class="ttdeci">_erm_memory_channel</div><div class="ttdoc">Structure for the erm_memory_channel.</div><div class="ttdef"><b>Definition</b> PERI_ERM.h:104</div></div>
+<div class="ttc" id="aa01658_html_gaeb7d69e29ef95dce925b10a24625690c"><div class="ttname"><a href="a01658.html#gaeb7d69e29ef95dce925b10a24625690c">erm_memory_channel_t</a></div><div class="ttdeci">enum _erm_memory_channel erm_memory_channel_t</div><div class="ttdoc">Structure for the erm_memory_channel.</div></div>
+<div class="ttc" id="aa01658_html_ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b"><div class="ttname"><a href="a01658.html#ggab709919ba09c106adaa1e02203b5657fa96446472c4ebd1382469e92b78bf2b9b">kERM_MemoryChannelFMU0</a></div><div class="ttdeci">@ kERM_MemoryChannelFMU0</div><div class="ttdoc">Memory FLASH.</div><div class="ttdef"><b>Definition</b> PERI_ERM.h:94</div></div>
+<div class="ttc" id="aa01658_html_ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4"><div class="ttname"><a href="a01658.html#ggab709919ba09c106adaa1e02203b5657faa3e70158a8a8b22d841ad49ac10f35b4">kERM_MemoryChannelRAMA0</a></div><div class="ttdeci">@ kERM_MemoryChannelRAMA0</div><div class="ttdoc">Memory RAMA0.</div><div class="ttdef"><b>Definition</b> PERI_ERM.h:105</div></div>
+<div class="ttc" id="aa02194_html"><div class="ttname"><a href="a02194.html">ERM_Type</a></div><div class="ttdoc">ERM - Register Layout Typedef.</div><div class="ttdef"><b>Definition</b> PERI_ERM.h:157</div></div>
+<div class="ttc" id="aa03527_html_aec43007d9998a0a0e01faede4133d6be"><div class="ttname"><a href="a03527.html#aec43007d9998a0a0e01faede4133d6be">__IO</a></div><div class="ttdeci">#define __IO</div><div class="ttdef"><b>Definition</b> core_cm33.h:276</div></div>
+<div class="ttc" id="aa03527_html_af63697ed9952cc71e1225efe205f6cd3"><div class="ttname"><a href="a03527.html#af63697ed9952cc71e1225efe205f6cd3">__I</a></div><div class="ttdeci">#define __I</div><div class="ttdef"><b>Definition</b> core_cm33.h:273</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a03890.html">PERI_GLIKEY.h</a></li>
+    <li class="navelem"><b>platform</b></li><li class="navelem"><b>mcxl2xx</b></li><li class="navelem"><a href="a03890.html">PERI_ERM.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

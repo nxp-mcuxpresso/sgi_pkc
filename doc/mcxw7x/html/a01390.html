@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClHash</title>
+<title>MCUX CLNS: mcuxClHash_Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,30 +102,258 @@ $(function(){initNavTree('a01390.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClHash </div></div>
+  <div class="headertitle"><div class="title">mcuxClHash_Functions <div class="ingroups"><a class="el" href="a01387.html">mcuxClHash</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Hash component.  
+<p>Defines all functions of <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
-Topics</h2></td></tr>
-<tr class="memitem:mcuxClHash_5FConstants" id="r_mcuxClHash_5FConstants"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01391.html">mcuxClHash_Constants</a></td></tr>
-<tr class="memdesc:a01391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of <a class="el" href="a01390.html" title="mcuxClHash">mcuxClHash</a> component. <br /></td></tr>
-<tr class="memitem:mcuxClHash_5FFunctions" id="r_mcuxClHash_5FFunctions"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01393.html">mcuxClHash_Functions</a></td></tr>
-<tr class="memdesc:a01393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all functions of <a class="el" href="a01390.html" title="mcuxClHash">mcuxClHash</a>. <br /></td></tr>
-<tr class="memitem:mcuxClHash_5FTypes" id="r_mcuxClHash_5FTypes"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="a01394.html">mcuxClHash_Types</a></td></tr>
-<tr class="memdesc:a01394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all types of the <a class="el" href="a01390.html" title="mcuxClHash">mcuxClHash</a> component. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga7beb1bb4063eae682eca700efeba93db" id="r_ga7beb1bb4063eae682eca700efeba93db"><td class="memItemLeft"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga7beb1bb4063eae682eca700efeba93db">mcuxClHash_compute</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> algorithm, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t *const pOutSize)</td></tr>
+<tr class="memdesc:ga7beb1bb4063eae682eca700efeba93db"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot Hash computation function.  <br /></td></tr>
+<tr class="memitem:ga68263436904cf849bfbe8c9b1f6542d4" id="r_ga68263436904cf849bfbe8c9b1f6542d4"><td class="memItemLeft"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga68263436904cf849bfbe8c9b1f6542d4">mcuxClHash_init</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a> pContext, <a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> algorithm)</td></tr>
+<tr class="memdesc:ga68263436904cf849bfbe8c9b1f6542d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Hash initialization function.  <br /></td></tr>
+<tr class="memitem:ga49bdf3dca9746328fe58e6d5859e92eb" id="r_ga49bdf3dca9746328fe58e6d5859e92eb"><td class="memItemLeft"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga49bdf3dca9746328fe58e6d5859e92eb">mcuxClHash_process</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a> pContext, <a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a> pIn, uint32_t inSize)</td></tr>
+<tr class="memdesc:ga49bdf3dca9746328fe58e6d5859e92eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Hash processing function.  <br /></td></tr>
+<tr class="memitem:gad55cc3a702b915f84d9cd2e94c2b7f6b" id="r_gad55cc3a702b915f84d9cd2e94c2b7f6b"><td class="memItemLeft"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#gad55cc3a702b915f84d9cd2e94c2b7f6b">mcuxClHash_finish</a> (<a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session, <a class="el" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a> pContext, <a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a> pOut, uint32_t *const pOutSize)</td></tr>
+<tr class="memdesc:gad55cc3a702b915f84d9cd2e94c2b7f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-part Hash computation finalization function.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Hash component. </p>
-<p>The mcuxClHash component implements the Hash functionality supported by CLNS.</p>
-<p>An example of how to use the <a class="el" href="a01390.html" title="mcuxClHash">mcuxClHash</a> component can be found in /mcuxClHash/ex.</p>
-<p>The <a class="el" href="a01390.html" title="mcuxClHash">mcuxClHash</a> component supports interfaces to either hash a message in one shot (mcuxClHash_compute) or to hash it in parts (mcuxClHash_init, mcuxClHash_process, and mcuxClHash_finish). In case of hashing a message in parts, first an initialization has to be performed (mcuxClHash_init), followed by zero, one, or multiple updates (mcuxClHash_process), followed by a finalization (mcuxClHash_finish). The finalization generates the output data (digest) and destroys the context. After the finalization step, no further updates are possible.</p>
-<p>The targeted hash algorithm is selected by passing one of the offered algorithm mode descriptors (mcuxClHash_Modes), which are listed in file mcuxClHash_Algorithms.h</p>
-<p>Note: In case the hashing functionality is based on a hardware co-processor, it might be necessary to initialize the co-processor, before it's use in the <a class="el" href="a01390.html" title="mcuxClHash">mcuxClHash</a> component. Please refer to the example for further information on this. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Defines all functions of <a class="el" href="a01387.html" title="mcuxClHash">mcuxClHash</a>. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga7beb1bb4063eae682eca700efeba93db" name="ga7beb1bb4063eae682eca700efeba93db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7beb1bb4063eae682eca700efeba93db">&#9670;&#160;</a></span>mcuxClHash_compute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a> mcuxClHash_compute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>algorithm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pIn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pOut</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *const</td>          <td class="paramname"><span class="paramname"><em>pOutSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>One-shot Hash computation function. </p>
+<p>This function performs a hash computation over the input message <code class="param">pIn</code>, using the hash function provided by the <code class="param">algorithm</code> input parameter, in one shot. Up to 2^32 bytes of data can be hashed with this function.</p>
+<p>For example, to perform a SHA256 computation, the following needs to be provided:</p><ul>
+<li>SHA256 algorithm</li>
+<li>Input data</li>
+<li>Output hash buffer</li>
+</ul>
+<p>The input parameter <code class="param">session</code> has to be initialized by the function mcuxClSession_init prior to calling this function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">[in/out]</td><td>session Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">algorithm</td><td>Hash algorithm that should be used during the computation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that needs to be hashed. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pOut</td><td>Pointer to the output buffer where the computed hash value is written. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pOutSize</td><td>Will be set to the number of bytes of data that have been written to the <code class="param">pOut</code> buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01389.html#gadf29410b02d95357d48a3ba443558da4" title="Hash operation successful.">MCUXCLHASH_STATUS_OK</a></td><td>Hash operation successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#ga377eaddc82740c4c4590688c754f78a0" title="Hash operation failed.">MCUXCLHASH_STATUS_FAILURE</a></td><td>Error occured during Hash operation </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#ga6cd095f16a5ff26877cc877cecbd0e2b" title="Hash function called with invalid parameters.">MCUXCLHASH_STATUS_INVALID_PARAMS</a></td><td>The provided function parameters do not fulfill requirements </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#gaca3624d074b137e5587052f6ffb1b6f6" title="Fault attack (unexpected behavior) detected.">MCUXCLHASH_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03372.html#a6">mcuxClHashModes_sha224_oneshot_example.c</a>, <a class="el" href="a03373.html#a6">mcuxClHashModes_sha256_longMsgOneshot_example.c</a>, <a class="el" href="a03374.html#a15">mcuxClHashModes_sha256_oneshot_dma_nonBlocking_example.c</a>, <a class="el" href="a03375.html#a6">mcuxClHashModes_sha256_oneshot_example.c</a>, <a class="el" href="a03378.html#a6">mcuxClHashModes_sha384_oneshot_example.c</a>, <a class="el" href="a03379.html#a6">mcuxClHashModes_sha3_224_oneshot_example.c</a>, <a class="el" href="a03381.html#a6">mcuxClHashModes_sha3_256_oneshot_example.c</a>, <a class="el" href="a03383.html#a6">mcuxClHashModes_sha3_384_oneshot_example.c</a>, <a class="el" href="a03385.html#a6">mcuxClHashModes_sha3_512_oneshot_example.c</a>, <a class="el" href="a03387.html#a6">mcuxClHashModes_sha512_oneshot_example.c</a>, <a class="el" href="a03421.html#a19">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>, and <a class="el" href="a03422.html#a20">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga68263436904cf849bfbe8c9b1f6542d4" name="ga68263436904cf849bfbe8c9b1f6542d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga68263436904cf849bfbe8c9b1f6542d4">&#9670;&#160;</a></span>mcuxClHash_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a> mcuxClHash_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01391.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>algorithm</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multi-part Hash initialization function. </p>
+<p>This function performs the initialization for a multi-part hash operation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">[in/out]</td><td>session Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pContext</td><td>Hash context which is used to maintain the state and store other relevant information about the operation (word-aligned). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">algorithm</td><td>Hash algorithm that should be used during the computation operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01389.html#gadf29410b02d95357d48a3ba443558da4" title="Hash operation successful.">MCUXCLHASH_STATUS_OK</a></td><td>Initialization successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#ga377eaddc82740c4c4590688c754f78a0" title="Hash operation failed.">MCUXCLHASH_STATUS_FAILURE</a></td><td>Error occurred during initialization function </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03376.html#a14">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03377.html#a4">mcuxClHashModes_sha256_streaming_example.c</a>, <a class="el" href="a03380.html#a7">mcuxClHashModes_sha3_224_streaming_example.c</a>, <a class="el" href="a03382.html#a7">mcuxClHashModes_sha3_256_streaming_example.c</a>, <a class="el" href="a03384.html#a7">mcuxClHashModes_sha3_384_streaming_example.c</a>, and <a class="el" href="a03386.html#a7">mcuxClHashModes_sha3_512_streaming_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga49bdf3dca9746328fe58e6d5859e92eb" name="ga49bdf3dca9746328fe58e6d5859e92eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga49bdf3dca9746328fe58e6d5859e92eb">&#9670;&#160;</a></span>mcuxClHash_process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a> mcuxClHash_process </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#ga43ce32df6cc1da1a27607535551aba6c">mcuxCl_InputBuffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pIn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multi-part Hash processing function. </p>
+<p>This function performs the processing of (a part of) a data stream for a Hash operation. The algorithm to be used will be determined based on the context that is provided.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">[in/out]</td><td>session Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">[in/out]</td><td>pContext Hash context which is used to maintain the state and store other relevant information about the operation (word-aligned). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pIn</td><td>Pointer to the input buffer that contains the data that needs to be processed. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">inSize</td><td>Number of bytes of data in the <code class="param">pIn</code> buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01389.html#gadf29410b02d95357d48a3ba443558da4" title="Hash operation successful.">MCUXCLHASH_STATUS_OK</a></td><td>Hash operation successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#ga377eaddc82740c4c4590688c754f78a0" title="Hash operation failed.">MCUXCLHASH_STATUS_FAILURE</a></td><td>Error occurred during Hash operation </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#ga6cd095f16a5ff26877cc877cecbd0e2b" title="Hash function called with invalid parameters.">MCUXCLHASH_STATUS_INVALID_PARAMS</a></td><td>The provided function parameters do not fulfill requirements </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#gaca3624d074b137e5587052f6ffb1b6f6" title="Fault attack (unexpected behavior) detected.">MCUXCLHASH_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03376.html#a19">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03377.html#a10">mcuxClHashModes_sha256_streaming_example.c</a>, <a class="el" href="a03380.html#a11">mcuxClHashModes_sha3_224_streaming_example.c</a>, <a class="el" href="a03382.html#a11">mcuxClHashModes_sha3_256_streaming_example.c</a>, <a class="el" href="a03384.html#a11">mcuxClHashModes_sha3_384_streaming_example.c</a>, and <a class="el" href="a03386.html#a11">mcuxClHashModes_sha3_512_streaming_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="gad55cc3a702b915f84d9cd2e94c2b7f6b" name="gad55cc3a702b915f84d9cd2e94c2b7f6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad55cc3a702b915f84d9cd2e94c2b7f6b">&#9670;&#160;</a></span>mcuxClHash_finish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01391.html#gacdfd7a833fcd06684a73c22364e89b7c">mcuxClHash_Status_t</a> mcuxClHash_finish </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></td>          <td class="paramname"><span class="paramname"><em>session</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01391.html#ga9a3590c1a721fe0cb8a267015f9204e3">mcuxClHash_Context_t</a></td>          <td class="paramname"><span class="paramname"><em>pContext</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01354.html#gabe9cd4a1ba45b05e7d09ef0576ea89bb">mcuxCl_Buffer_t</a></td>          <td class="paramname"><span class="paramname"><em>pOut</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *const</td>          <td class="paramname"><span class="paramname"><em>pOutSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multi-part Hash computation finalization function. </p>
+<p>This function performs the finalization of a Hash computation operation. The algorithm to be used will be determined based on the context that is provided</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">[in/out]</td><td>session Handle for the current CL session. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">[in/out]</td><td>pContext Hash context which is used to maintain the state and store other relevant information about the operation (word-aligned). </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pOut</td><td>Pointer to the output buffer where the computed hash value needs to be written. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pOutSize</td><td>Will be set to the number of bytes of data that have been written to the <code class="param">pOut</code> buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="a01389.html#gadf29410b02d95357d48a3ba443558da4" title="Hash operation successful.">MCUXCLHASH_STATUS_OK</a></td><td>Hash operation successful </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#ga377eaddc82740c4c4590688c754f78a0" title="Hash operation failed.">MCUXCLHASH_STATUS_FAILURE</a></td><td>Error occurred during Hash operation </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#ga6cd095f16a5ff26877cc877cecbd0e2b" title="Hash function called with invalid parameters.">MCUXCLHASH_STATUS_INVALID_PARAMS</a></td><td>The provided function parameters do not fulfill requirements </td></tr>
+    <tr><td class="paramname"><a class="el" href="a01389.html#gaca3624d074b137e5587052f6ffb1b6f6" title="Fault attack (unexpected behavior) detected.">MCUXCLHASH_STATUS_FAULT_ATTACK</a></td><td>A fault attack was detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03376.html#a25">mcuxClHashModes_sha256_streaming_dma_nonBlocking_example.c</a>, <a class="el" href="a03377.html#a13">mcuxClHashModes_sha256_streaming_example.c</a>, <a class="el" href="a03380.html#a12">mcuxClHashModes_sha3_224_streaming_example.c</a>, <a class="el" href="a03382.html#a12">mcuxClHashModes_sha3_256_streaming_example.c</a>, <a class="el" href="a03384.html#a12">mcuxClHashModes_sha3_384_streaming_example.c</a>, and <a class="el" href="a03386.html#a12">mcuxClHashModes_sha3_512_streaming_example.c</a>.</dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

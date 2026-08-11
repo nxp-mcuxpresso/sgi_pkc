@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClXof_Types.h Source File</title>
+<title>MCUX CLNS: mcuxCl_clns.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a00884_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClXof_Types.h</div></div>
+  <div class="headertitle"><div class="title">mcuxCl_clns.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00884.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023 NXP                                                       */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2020 NXP                                                       */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -131,46 +131,41 @@ $(function(){initNavTree('a00884_source.html','',''); });
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#ifndef MCUXCLXOF_TYPES_H_</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define MCUXCLXOF_TYPES_H_</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;mcuxClCore_Platform.h&gt;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#ifndef MCUXCL_CLNS_H_</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define MCUXCL_CLNS_H_</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/**********************************************</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * CONSTANTS</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> **********************************************/</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a00884.html#aac49d4488517875c56358012b911da08">   46</a></span><span class="preprocessor">#define MCUXCL_VERSION_MAX_SIZE ((size_t) 32U) </span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a01494.html#ga87d0a83ea0a33776f003f357f2cc46fb">   62</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClXof_AlgorithmDescriptor <a class="code hl_typedef" href="a01494.html#ga87d0a83ea0a33776f003f357f2cc46fb">mcuxClXof_AlgorithmDescriptor_t</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a01494.html#gae81456a05942eca8efc532d06f20eb73">   70</a></span><span class="keyword">typedef</span> <span class="keyword">const</span> <a class="code hl_typedef" href="a01494.html#ga87d0a83ea0a33776f003f357f2cc46fb">mcuxClXof_AlgorithmDescriptor_t</a> * <span class="keyword">const</span> <a class="code hl_typedef" href="a01494.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="a01494.html#ga2a035d35d6b007c229fd74af54c32464">   78</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>mcuxClXof_ContextDescriptor <a class="code hl_typedef" href="a01494.html#ga2a035d35d6b007c229fd74af54c32464">mcuxClXof_ContextDescriptor_t</a>;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a01494.html#ga12840d1a183c9196ade8a72845c3a750">   86</a></span><span class="keyword">typedef</span> <a class="code hl_typedef" href="a01494.html#ga2a035d35d6b007c229fd74af54c32464">mcuxClXof_ContextDescriptor_t</a> * <span class="keyword">const</span> <a class="code hl_typedef" href="a01494.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a>;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a01494.html#ga1fded28de09972be090a88c34d621ceb">   94</a></span><span class="keyword">typedef</span> uint32_t <a class="code hl_typedef" href="a01494.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a>;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLXOF_TYPES_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aa01494_html_ga12840d1a183c9196ade8a72845c3a750"><div class="ttname"><a href="a01494.html#ga12840d1a183c9196ade8a72845c3a750">mcuxClXof_Context_t</a></div><div class="ttdeci">mcuxClXof_ContextDescriptor_t *const mcuxClXof_Context_t</div><div class="ttdoc">XOF context type.</div><div class="ttdef"><b>Definition</b> mcuxClXof_Types.h:86</div></div>
-<div class="ttc" id="aa01494_html_ga1fded28de09972be090a88c34d621ceb"><div class="ttname"><a href="a01494.html#ga1fded28de09972be090a88c34d621ceb">mcuxClXof_Status_t</a></div><div class="ttdeci">uint32_t mcuxClXof_Status_t</div><div class="ttdoc">XOF status code.</div><div class="ttdef"><b>Definition</b> mcuxClXof_Types.h:94</div></div>
-<div class="ttc" id="aa01494_html_ga2a035d35d6b007c229fd74af54c32464"><div class="ttname"><a href="a01494.html#ga2a035d35d6b007c229fd74af54c32464">mcuxClXof_ContextDescriptor_t</a></div><div class="ttdeci">struct mcuxClXof_ContextDescriptor mcuxClXof_ContextDescriptor_t</div><div class="ttdoc">XOF context structure.</div><div class="ttdef"><b>Definition</b> mcuxClXof_Types.h:78</div></div>
-<div class="ttc" id="aa01494_html_ga87d0a83ea0a33776f003f357f2cc46fb"><div class="ttname"><a href="a01494.html#ga87d0a83ea0a33776f003f357f2cc46fb">mcuxClXof_AlgorithmDescriptor_t</a></div><div class="ttdeci">struct mcuxClXof_AlgorithmDescriptor mcuxClXof_AlgorithmDescriptor_t</div><div class="ttdoc">XOF mode/algorithm descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClXof_Types.h:62</div></div>
-<div class="ttc" id="aa01494_html_gae81456a05942eca8efc532d06f20eb73"><div class="ttname"><a href="a01494.html#gae81456a05942eca8efc532d06f20eb73">mcuxClXof_Algo_t</a></div><div class="ttdeci">const mcuxClXof_AlgorithmDescriptor_t *const mcuxClXof_Algo_t</div><div class="ttdoc">XOF mode/algorithm type.</div><div class="ttdef"><b>Definition</b> mcuxClXof_Types.h:70</div></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a00884.html#aaac021cf1e464db8ec89a2313860577b">   51</a></span><span class="preprocessor">#define MCUXCL_VERSION &quot;DCI_SDK_V4.3.0&quot; </span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">/**********************************************</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> * FUNCTIONS</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> **********************************************/</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a00884.html#af612341ea0abe1213bdc088ed857b2b8">   63</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">char</span> <span class="keyword">const</span>* <a class="code hl_function" href="a00884.html#af612341ea0abe1213bdc088ed857b2b8">mcuxCl_GetVersion</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="a00884.html#aaac021cf1e464db8ec89a2313860577b">MCUXCL_VERSION</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCL_CLNS_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aa00884_html_aaac021cf1e464db8ec89a2313860577b"><div class="ttname"><a href="a00884.html#aaac021cf1e464db8ec89a2313860577b">MCUXCL_VERSION</a></div><div class="ttdeci">#define MCUXCL_VERSION</div><div class="ttdoc">String literal for the version string of CLNS release that this header is part of.</div><div class="ttdef"><b>Definition</b> mcuxCl_clns.h:51</div></div>
+<div class="ttc" id="aa00884_html_af612341ea0abe1213bdc088ed857b2b8"><div class="ttname"><a href="a00884.html#af612341ea0abe1213bdc088ed857b2b8">mcuxCl_GetVersion</a></div><div class="ttdeci">static char const * mcuxCl_GetVersion(void)</div><div class="ttdoc">Gets the CLNS version string that uniquely identifies this release of the CLNS.</div><div class="ttdef"><b>Definition</b> mcuxCl_clns.h:63</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00884.html">mcuxClXof_Types.h</a></li>
+    <li class="navelem"><a href="a00884.html">mcuxCl_clns.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,4 +1,4 @@
 var a00968 =
 [
-    [ "mcuxCsslMemory_Set", "a01551.html#ga6005b865c5efc30545e5f7c75344e8ee", null ]
+    [ "mcuxCsslMemory_Status_t", "a01550.html#ga19c7a1367cb21d7bcb720607f495d86c", null ]
 ];

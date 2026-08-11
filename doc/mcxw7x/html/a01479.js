@@ -1,9 +1,8 @@
 var a01479 =
 [
-    [ "Rsa Key Types", "a01472.html", "a01472" ],
-    [ "__attribute__", "a01923.html", [
-      [ "pKeyEntryData", "a01923.html#abdf7dca920e7c2535abbc6dc626daabd", null ],
-      [ "keyEntryLength", "a01923.html#ae3517e1160b688cc010e30fa2868a019", null ]
-    ] ],
-    [ "mcuxClRsa_Status_t", "a01479.html#gab654093108d59a4690e464f314356e69", null ]
+    [ "MCUXCLSESSION_STATUS_OK", "a01479.html#ga3f63cf17e4f26ba5ee4d92152fca1eb6", null ],
+    [ "MCUXCLSESSION_STATUS_ERROR", "a01479.html#ga547425b7379de3ee1fb96c79140fd68e", null ],
+    [ "MCUXCLSESSION_STATUS_ERROR_MEMORY_ALLOCATION", "a01479.html#gac52c8810fc4741d16dcd65e5b7aa5203", null ],
+    [ "MCUXCLSESSION_STATUS_FAULT_ATTACK", "a01479.html#gada96a70cf8278a1753df71c411f3d239", null ],
+    [ "MCUXCLSESSION_DMACHANNEL_INVALID", "a01479.html#ga76f623ca459565c7d125ba0a7eb851fc", null ]
 ];

@@ -1,17 +1,17 @@
 var a01389 =
 [
-    [ "mcuxClGlikey_GetStatus", "a01389.html#ga66dfb1ab90d38b3cb724b8fda4ea0ff2", null ],
-    [ "mcuxClGlikey_SyncReset", "a01389.html#gac731378e9c77d2a4d51597569b081774", null ],
-    [ "mcuxClGlikey_SetIntEnable", "a01389.html#gacce28d0ce20fe6535b6a9030727cd036", null ],
-    [ "mcuxClGlikey_GetIntEnable", "a01389.html#ga1f2bcc248f9d7bb708131aeb66004706", null ],
-    [ "mcuxClGlikey_ClearIntStatus", "a01389.html#gae534482bb29256b93187a929154b0a58", null ],
-    [ "mcuxClGlikey_SetIntStatus", "a01389.html#ga28b309868cc010d566e786b53b7948d6", null ],
-    [ "mcuxClGlikey_Lock", "a01389.html#ga4d04ee7e491b4aa6a5afc6c61515b13d", null ],
-    [ "mcuxClGlikey_IsLocked", "a01389.html#ga2e0a9105b9a6852766b8a2c836b7d7bc", null ],
-    [ "mcuxClGlikey_IsIndexLocked", "a01389.html#ga31b504a49285b01b552f574dfe0347a4", null ],
-    [ "mcuxClGlikey_StartEnable", "a01389.html#ga20cc47512be5b7ae001621b74e204f10", null ],
-    [ "mcuxClGlikey_ContinueEnable", "a01389.html#ga00674d41ea4a446b3402e05f52510e2e", null ],
-    [ "mcuxClGlikey_LockIndex", "a01389.html#ga96f3bdce9c79b353b6f84c8482480236", null ],
-    [ "mcuxClGlikey_ResetIndex", "a01389.html#ga2e794e33a1b32e7edaddc7f0a8b46c7d", null ],
-    [ "mcuxClGlikey_EndOperation", "a01389.html#gad31998f02526923239a0dee67794d003", null ]
+    [ "MCUXCLHASH_STATUS_OK", "a01389.html#gadf29410b02d95357d48a3ba443558da4", null ],
+    [ "MCUXCLHASH_STATUS_COMPARE_EQUAL", "a01389.html#gaaf06d7932b91cce6e94312a534f61934", null ],
+    [ "MCUXCLHASH_COMPARE_EQUAL", "a01389.html#ga05eaccf399e17f323499f31e764d5173", null ],
+    [ "MCUXCLHASH_STATUS_FAILURE", "a01389.html#ga377eaddc82740c4c4590688c754f78a0", null ],
+    [ "MCUXCLHASH_FAILURE", "a01389.html#gaaef282127a4c3c3e8f9a034cba1b70e0", null ],
+    [ "MCUXCLHASH_STATUS_INVALID_PARAMS", "a01389.html#ga6cd095f16a5ff26877cc877cecbd0e2b", null ],
+    [ "MCUXCLHASH_STATUS_COMPARE_NOT_EQUAL", "a01389.html#gad39c265fd8728f3287eeef999cfeb599", null ],
+    [ "MCUXCLHASH_COMPARE_NOT_EQUAL", "a01389.html#ga647cd722111188a5d028d1f3ab4eb795", null ],
+    [ "MCUXCLHASH_STATUS_FULL", "a01389.html#ga9abcd3d90166d6f4fd532d8b7c24931f", null ],
+    [ "MCUXCLHASH_STATUS_FAULT_ATTACK", "a01389.html#gaca3624d074b137e5587052f6ffb1b6f6", null ],
+    [ "MCUXCLHASH_STATUS_JOB_STARTED", "a01389.html#ga5a2f3c25cf99ceb579c18218af5a1269", null ],
+    [ "MCUXCLHASH_STATUS_JOB_COMPLETED", "a01389.html#ga3719a21b9caf2b9e4fa79ec95f86df58", null ],
+    [ "MCUXCLHASH_STATUS_JOB_COMPLETED_COMPARE_NOT_EQUAL", "a01389.html#ga3f11732d0f83fb0eb93e4b3477d628dc", null ],
+    [ "MCUXCLHASH_STATUS_JOB_UNAVAILABLE", "a01389.html#ga3df3ca09f533ee5e140c774c00e166cf", null ]
 ];

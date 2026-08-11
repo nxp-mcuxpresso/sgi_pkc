@@ -1,5 +1,6 @@
 var a01437 =
 [
-    [ "MCUXCLMEMORY_FP_MEMORY_COPY_REVERSED", "a01437.html#ga34f4a48eda22ae64759db5d7893d0c36", null ],
-    [ "mcuxClMemory_copy_reversed", "a01437.html#gafc918d181009c3af7638604e5e4b9281", null ]
+    [ "mcuxClMemory_Types_Macros", "a01438.html", "a01438" ],
+    [ "mcuxClMemory_Status_t", "a01437.html#gad25887c99517f13c547e1d2bf027ccd1", null ],
+    [ "mcuxClMemory_Status_Protected_t", "a01437.html#ga57c9ba76c62b4ad9bd565df4a98c19ba", null ]
 ];

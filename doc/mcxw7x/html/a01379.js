@@ -1,5 +1,6 @@
 var a01379 =
 [
-    [ "mcuxClEcc_WeierECC_PointEncDescriptor_SEC", "a01379.html#gaf6ee1d910b8ebf332b139319bc32db09", null ],
-    [ "mcuxClEcc_WeierECC_PointEncType_SEC", "a01379.html#ga9407605f863d9c0b11127f405871a137", null ]
+    [ "MCUXCLFFDH_FFDHE2048_SIZE", "a01617.html", null ],
+    [ "MCUXCLFFDH_FFDHE3072_SIZE", "a01618.html", null ],
+    [ "MCUXCLFFDH_FFDHE4096_SIZE", "a01619.html", null ]
 ];

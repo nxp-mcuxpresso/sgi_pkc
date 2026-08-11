@@ -1,8 +1,7 @@
 var a00662 =
 [
-    [ "mcuxClKey_Derivation_ModeConstructor_NIST_SP800_108", "a01407.html#gafdf995c2c5f6f8079f670343eb025a96", null ],
-    [ "mcuxClKey_DerivationAlgorithmDescriptor_NIST_SP800_108", "a01407.html#ga2cc13bea6fc32a2d17c13045d4040444", null ],
-    [ "mcuxClKey_DerivationAlgorithm_NIST_SP800_108", "a01407.html#ga89f293f2a1b992ce349166b8be785925", null ],
-    [ "mcuxClKey_DerivationMode_SP800_108_CM_CMAC", "a01407.html#ga2b8ad21966f286740593bb9519bb7c37", null ],
-    [ "mcuxClKdfModes_SP800_108_CM_CMAC", "a01407.html#ga29515e4d52cbe25be0cd917fe075f981", null ]
+    [ "mcuxClKey_Derivation_ModeConstructor_NIST_SP800_56C", "a01405.html#gab7f621aed5b55861cf1f2aed3bc055d0", null ],
+    [ "mcuxClKey_DerivationAlgorithmDescriptor_NIST_SP800_56C_OneStep", "a01405.html#gae90263c269afb89cb68486940a83d37a", null ],
+    [ "mcuxClKey_DerivationAlgorithm_NIST_SP800_56C_OneStep", "a01405.html#ga21a8ecac377e346ab375aa4f60f60d5e", null ],
+    [ "mcuxClKey_DerivationAlgorithm_NIST_SP800_56C_TwoStep", "a01405.html#ga354815d01a94df5b8b4e4065203cf056", null ]
 ];

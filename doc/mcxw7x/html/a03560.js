@@ -14,9 +14,8 @@ var a03560 =
     [ "DMA_SFR_FIELD", "a03560.html#ae5ace3050894191f707ec68cf3249a17", null ],
     [ "DMA_SFR_SUFFIX_MSK", "a03560.html#ac2f9163bf068794e375fe898ca1ebabd", null ],
     [ "DMA_SFR_SUFFIX_POS", "a03560.html#a4f05489ed7d8bf2cd9a051515424d05c", null ],
+    [ "kDma0RequestDisabled", "a03560.html#a27e455003307695243ca972d49a80a81", null ],
     [ "DMA_REQ_SRC_DISABLED", "a03560.html#a00fb401c4ec0408305bd0e82ef2e3ed9", null ],
-    [ "DMA_REQ_SRC_SGI_IN", "a03560.html#ad0816cd511719039861b5033b9494dbd", null ],
-    [ "DMA_REQ_SRC_SGI_OUT", "a03560.html#a7d9edc2ea99fe2bba274773cf7fd725d", null ],
     [ "DMA_PASTE", "a03560.html#a2ba140c9381e64d29b31d25d95e23e56", null ],
     [ "DMA_SFR_FIELD", "a03560.html#a4915fd03eeba081200beab9930ffabbd", null ],
     [ "DMA_SFR_SUFFIX_MSK", "a03560.html#a89d67df2685e5583461f2a7bcf1c5cba", null ],
@@ -56,5 +55,6 @@ var a03560 =
     [ "GLIKEY_SFR_SUFFIX_POS", "a03560.html#ae31c28a28021436047b2a5a7b4976e88", null ],
     [ "GLIKEY0_NUM_IDX", "a03560.html#ac89f87d4517f6be09329dfc3c0b7d82c", null ],
     [ "GLIKEY1_NUM_IDX", "a03560.html#a97add246d10c546112ae8ebbb4f5a9cd", null ],
-    [ "GLIKEY2_NUM_IDX", "a03560.html#a4dbbdeb02984b062cb16363cad6c9e33", null ]
+    [ "GLIKEY2_NUM_IDX", "a03560.html#a4dbbdeb02984b062cb16363cad6c9e33", null ],
+    [ "GLIKEY0_IRQn", "a03560.html#a5c29f1287c09516b4a77130241865b09", null ]
 ];

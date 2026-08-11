@@ -1,8 +1,9 @@
 var a01516 =
 [
-    [ "MCUX_CSSL_FP_SWITCH_DECL", "a01516.html#gafc01be288246642c1b2779b69188adad", null ],
-    [ "MCUX_CSSL_FP_SWITCH_CASE", "a01516.html#gab3a2723c9a344c245ff6b596aaee5414", null ],
-    [ "MCUX_CSSL_FP_SWITCH_DEFAULT", "a01516.html#gaebd999394afa94e2c3e3b64f68d85e2a", null ],
-    [ "MCUX_CSSL_FP_SWITCH_TAKEN", "a01516.html#gaa620180722a4eaa8e7370a92d2bd18d9", null ],
-    [ "MCUX_CSSL_FP_SWITCH_TAKEN_DEFAULT", "a01516.html#gac011e972fff0f38d704edfeadce256cd", null ]
+    [ "Flow protection core functionality", "a01517.html", "a01517" ],
+    [ "Expectation handling", "a01518.html", "a01518" ],
+    [ "Function calling flow protection", "a01519.html", "a01519" ],
+    [ "Looping flow protection", "a01520.html", "a01520" ],
+    [ "Branching flow protection", "a01521.html", "a01521" ],
+    [ "Switching flow protection", "a01522.html", "a01522" ]
 ];

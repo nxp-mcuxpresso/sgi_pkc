@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClHmac_KeyTypes.h Source File</title>
+<title>MCUX CLNS: mcuxClKdfModes.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a00650_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClHmac_KeyTypes.h</div></div>
+  <div class="headertitle"><div class="title">mcuxClKdfModes.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00650.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023 NXP                                                       */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2024 NXP                                                       */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -131,44 +131,30 @@ $(function(){initNavTree('a00650_source.html','',''); });
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef MCUXCLHMAC_KEYTYPES_H_</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MCUXCLHMAC_KEYTYPES_H_</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;<a class="code" href="a00686.html">mcuxClKey_Types.h</a>&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED(<span class="stringliteral">&quot;Consumed by user / customer. Hence, it is declared but never referenced. &quot;</span>)</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>extern const <a class="code hl_typedef" href="a01420.html#gae9a4d21e5a5239fd0ef48978a3774a89">mcuxClKey_TypeDescriptor_t</a> <a class="code hl_variable" href="a01403.html#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f">mcuxClKey_TypeDescriptor_Hmac_variableLength</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a01403.html#ga42eb018ca876c87b3d4539532ab2154d">   67</a></span>static const <a class="code hl_typedef" href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a> <a class="code hl_variable" href="a01403.html#ga42eb018ca876c87b3d4539532ab2154d">mcuxClKey_Type_Hmac_variableLength</a> = &amp;<a class="code hl_variable" href="a01403.html#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f">mcuxClKey_TypeDescriptor_Hmac_variableLength</a>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> <span class="comment">/* mcuxClHmac_KeyTypes */</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">/* extern &quot;C&quot; */</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLHMAC_KEYTYPES_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">mcuxClKey_Types.h</a></div><div class="ttdoc">Type definitions for the mcuxClKey component.</div></div>
-<div class="ttc" id="aa01403_html_ga42eb018ca876c87b3d4539532ab2154d"><div class="ttname"><a href="a01403.html#ga42eb018ca876c87b3d4539532ab2154d">mcuxClKey_Type_Hmac_variableLength</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Hmac_variableLength</div><div class="ttdoc">Key type pointer for HMAC keys with variable length.</div><div class="ttdef"><b>Definition</b> mcuxClHmac_KeyTypes.h:67</div></div>
-<div class="ttc" id="aa01403_html_gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f"><div class="ttname"><a href="a01403.html#gae7b0c9b1b7b2c69b0d8c9ac6decdcf1f">mcuxClKey_TypeDescriptor_Hmac_variableLength</a></div><div class="ttdeci">const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Hmac_variableLength</div><div class="ttdoc">Key type structure for Sw-HMAC based keys with variable length.</div></div>
-<div class="ttc" id="aa01420_html_ga9ea75aa8fe6ddb914d91b170bb5d8be5"><div class="ttname"><a href="a01420.html#ga9ea75aa8fe6ddb914d91b170bb5d8be5">mcuxClKey_Type_t</a></div><div class="ttdeci">const mcuxClKey_TypeDescriptor_t * mcuxClKey_Type_t</div><div class="ttdoc">Key type handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:134</div></div>
-<div class="ttc" id="aa01420_html_gae9a4d21e5a5239fd0ef48978a3774a89"><div class="ttname"><a href="a01420.html#gae9a4d21e5a5239fd0ef48978a3774a89">mcuxClKey_TypeDescriptor_t</a></div><div class="ttdeci">struct mcuxClKey_TypeDescriptor mcuxClKey_TypeDescriptor_t</div><div class="ttdoc">Key type descriptor type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:127</div></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#ifndef MCUXCLKDFMODES_H_</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define MCUXCLKDFMODES_H_</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;mcuxClConfig.h&gt;</span> <span class="comment">// Exported features flags header</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;<a class="code" href="a00653.html">mcuxClKdfModes_Algorithms.h</a>&gt;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;<a class="code" href="a00668.html">mcuxClKdfModes_Constants.h</a>&gt;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;<a class="code" href="a00683.html">mcuxClKey_Types.h</a>&gt;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;mcuxClKdfModes_MemoryConsumption.h&gt;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCLKDFMODES_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">mcuxClKdfModes_Algorithms.h</a></div><div class="ttdoc">Supported algorithms for key derivation.</div></div>
+<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">mcuxClKdfModes_Constants.h</a></div><div class="ttdoc">Constants for the mcuxClKdfModes component.</div></div>
+<div class="ttc" id="aa00683_html"><div class="ttname"><a href="a00683.html">mcuxClKey_Types.h</a></div><div class="ttdoc">Type definitions for the mcuxClKey component.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00650.html">mcuxClHmac_KeyTypes.h</a></li>
+    <li class="navelem"><a href="a00650.html">mcuxClKdfModes.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

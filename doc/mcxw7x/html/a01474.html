@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: Signature RSA mode definitions</title>
+<title>MCUX CLNS: MCUXCLRSA_STATUS_</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,129 +102,160 @@ $(function(){initNavTree('a01474.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Signature RSA mode definitions <div class="ingroups"><a class="el" href="a01461.html">mcuxClRsa</a> &raquo; <a class="el" href="a01473.html">mcuxClRsa_Descriptors</a></div></div></div>
+  <div class="headertitle"><div class="title">MCUXCLRSA_STATUS_ <div class="ingroups"><a class="el" href="a01458.html">mcuxClRsa</a> &raquo; <a class="el" href="a01473.html">mcuxClRsa_Macros</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Modes used by the Signature operations with RSA.  
+<p>Return code definitions.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gac27ef43d6a29a324e66dd4be4f62ff33" id="r_gac27ef43d6a29a324e66dd4be4f62ff33"><td class="memItemLeft"><a id="gac27ef43d6a29a324e66dd4be4f62ff33" name="gac27ef43d6a29a324e66dd4be4f62ff33"></a>
-typedef struct mcuxClRsa_Signature_ProtocolDescriptor&#160;</td><td class="memItemRight"><b>mcuxClRsa_SignatureProtocolDescriptor_t</b></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gaab758388401bbf25d6468dadffe2b609" id="r_gaab758388401bbf25d6468dadffe2b609"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaab758388401bbf25d6468dadffe2b609">mcuxClRsa_SignatureModeConstructor_RSASSA_PSS</a> (<a class="el" href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *pSignatureMode, mcuxClRsa_SignatureProtocolDescriptor_t *pProtocolDescriptor, <a class="el" href="a01394.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> hashAlgorithm, uint32_t saltLength, uint32_t options)</td></tr>
-<tr class="memdesc:gaab758388401bbf25d6468dadffe2b609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode constructor for RSASSA-PSS signature generation and verification.  <br /></td></tr>
-<tr class="memitem:gaaf6495523ab98b18cb05980369dbf8e7" id="r_gaaf6495523ab98b18cb05980369dbf8e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaaf6495523ab98b18cb05980369dbf8e7">mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5</a> (<a class="el" href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *pSignatureMode, mcuxClRsa_SignatureProtocolDescriptor_t *pProtocolDescriptor, <a class="el" href="a01394.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a> hashAlgorithm, uint32_t options)</td></tr>
-<tr class="memdesc:gaaf6495523ab98b18cb05980369dbf8e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode constructor for RSASSA-PKCS1-v1_5 signature generation and verification.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gac7719ba5cbecc181bef2b21dca99fdf3" id="r_gac7719ba5cbecc181bef2b21dca99fdf3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac7719ba5cbecc181bef2b21dca99fdf3">MCUXCLRSA_STATUS_SIGN_OK</a></td></tr>
+<tr class="memdesc:gac7719ba5cbecc181bef2b21dca99fdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA sign operation successful.  <br /></td></tr>
+<tr class="memitem:ga2dbb489ad7452a487a5d49df5a979d69" id="r_ga2dbb489ad7452a487a5d49df5a979d69"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2dbb489ad7452a487a5d49df5a979d69">MCUXCLRSA_STATUS_VERIFY_OK</a></td></tr>
+<tr class="memdesc:ga2dbb489ad7452a487a5d49df5a979d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA verify operation successful.  <br /></td></tr>
+<tr class="memitem:ga27536f048ce37687e3faf44063590820" id="r_ga27536f048ce37687e3faf44063590820"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga27536f048ce37687e3faf44063590820">MCUXCLRSA_STATUS_OK</a></td></tr>
+<tr class="memdesc:ga27536f048ce37687e3faf44063590820"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA operation was successful.  <br /></td></tr>
+<tr class="memitem:gac062bb04172f071a8595aa39bef80edc" id="r_gac062bb04172f071a8595aa39bef80edc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac062bb04172f071a8595aa39bef80edc">MCUXCLRSA_STATUS_ERROR</a></td></tr>
+<tr class="memdesc:gac062bb04172f071a8595aa39bef80edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error occurred during RSA operation.  <br /></td></tr>
+<tr class="memitem:ga14e28c4e4b6a325ddd1f038b5274ccec" id="r_ga14e28c4e4b6a325ddd1f038b5274ccec"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga14e28c4e4b6a325ddd1f038b5274ccec">MCUXCLRSA_STATUS_INVALID_INPUT</a></td></tr>
+<tr class="memdesc:ga14e28c4e4b6a325ddd1f038b5274ccec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input data cannot be processed.  <br /></td></tr>
+<tr class="memitem:ga05d091562f747706d7aecfb99b5a735c" id="r_ga05d091562f747706d7aecfb99b5a735c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga05d091562f747706d7aecfb99b5a735c">MCUXCLRSA_STATUS_VERIFY_FAILED</a></td></tr>
+<tr class="memdesc:ga05d091562f747706d7aecfb99b5a735c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature verification failed.  <br /></td></tr>
+<tr class="memitem:gaf886957f4dc2794dd12839a690ae05d0" id="r_gaf886957f4dc2794dd12839a690ae05d0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf886957f4dc2794dd12839a690ae05d0">MCUXCLRSA_STATUS_FAULT_ATTACK</a></td></tr>
+<tr class="memdesc:gaf886957f4dc2794dd12839a690ae05d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault attack detected.  <br /></td></tr>
+<tr class="memitem:gab08354492e4b0feceab7a3615abee1f0" id="r_gab08354492e4b0feceab7a3615abee1f0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab08354492e4b0feceab7a3615abee1f0">MCUXCLRSA_STATUS_KEYGENERATION_OK</a></td></tr>
+<tr class="memdesc:gab08354492e4b0feceab7a3615abee1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA key generation operation executed successfully.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Modes used by the Signature operations with RSA. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="gaab758388401bbf25d6468dadffe2b609" name="gaab758388401bbf25d6468dadffe2b609"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaab758388401bbf25d6468dadffe2b609">&#9670;&#160;</a></span>mcuxClRsa_SignatureModeConstructor_RSASSA_PSS()</h2>
+<div class="textblock"><p>Return code definitions. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="gac7719ba5cbecc181bef2b21dca99fdf3" name="gac7719ba5cbecc181bef2b21dca99fdf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac7719ba5cbecc181bef2b21dca99fdf3">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_SIGN_OK</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mcuxClRsa_SignatureModeConstructor_RSASSA_PSS </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pSignatureMode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">mcuxClRsa_SignatureProtocolDescriptor_t *</td>          <td class="paramname"><span class="paramname"><em>pProtocolDescriptor</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01394.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>hashAlgorithm</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>saltLength</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
+          <td class="memname">#define MCUXCLRSA_STATUS_SIGN_OK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Mode constructor for RSASSA-PSS signature generation and verification. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pSignatureMode</td><td>Pointer to a mode descriptor that will be updated by this function. </td></tr>
-    <tr><td class="paramname">pProtocolDescriptor</td><td>Pointer to an RSA protocol descriptor that will be updated by this function. </td></tr>
-    <tr><td class="paramname">hashAlgorithm</td><td>Hash algorithm that should be used. </td></tr>
-    <tr><td class="paramname">saltLength</td><td>Number of bytes of the salt. </td></tr>
-    <tr><td class="paramname">options</td><td>RSA options:<ul>
-<li>MCUXCLRSA_OPTION_VERIFY_NOHWACC: perform pure SW verification, without using HW acceleration</li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd><ul>
-<li>The RNG context must be initialized before performing an RSA signature generation with RSASSA-PSS. </li>
-</ul>
-</dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03428.html#_a14">mcuxClRsa_Signature_RSASSA_PSS_example.c</a>.</dd>
-</dl>
+<p>RSA sign operation successful. </p>
 
 </div>
 </div>
-<a id="gaaf6495523ab98b18cb05980369dbf8e7" name="gaaf6495523ab98b18cb05980369dbf8e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaaf6495523ab98b18cb05980369dbf8e7">&#9670;&#160;</a></span>mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5()</h2>
+<a id="ga2dbb489ad7452a487a5d49df5a979d69" name="ga2dbb489ad7452a487a5d49df5a979d69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2dbb489ad7452a487a5d49df5a979d69">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_VERIFY_OK</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mcuxClRsa_SignatureModeConstructor_RSASSA_PKCS1_v1_5 </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01490.html#gac7698895768cf6208b4617d6ddf8c180">mcuxClSignature_ModeDescriptor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pSignatureMode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">mcuxClRsa_SignatureProtocolDescriptor_t *</td>          <td class="paramname"><span class="paramname"><em>pProtocolDescriptor</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01394.html#ga0ffeeb89c76da6470176e7621713e1b2">mcuxClHash_Algo_t</a></td>          <td class="paramname"><span class="paramname"><em>hashAlgorithm</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
+          <td class="memname">#define MCUXCLRSA_STATUS_VERIFY_OK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Mode constructor for RSASSA-PKCS1-v1_5 signature generation and verification. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pSignatureMode</td><td>Pointer to a mode descriptor that will be updated by this function. </td></tr>
-    <tr><td class="paramname">pProtocolDescriptor</td><td>Pointer to an RSA protocol descriptor that will be updated by this function. </td></tr>
-    <tr><td class="paramname">hashAlgorithm</td><td>Hash algorithm that should be used. </td></tr>
-    <tr><td class="paramname">options</td><td>RSA options:<ul>
-<li>MCUXCLRSA_OPTION_VERIFY_NOHWACC: perform pure SW verification, without using HW acceleration </li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="a03427.html#_a14">mcuxClRsa_Signature_PKCS1_v1_5_SHA3_example.c</a>.</dd>
-</dl>
+<p>RSA verify operation successful. </p>
+
+</div>
+</div>
+<a id="ga27536f048ce37687e3faf44063590820" name="ga27536f048ce37687e3faf44063590820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27536f048ce37687e3faf44063590820">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_OK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLRSA_STATUS_OK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RSA operation was successful. </p>
+
+</div>
+</div>
+<a id="gac062bb04172f071a8595aa39bef80edc" name="gac062bb04172f071a8595aa39bef80edc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac062bb04172f071a8595aa39bef80edc">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLRSA_STATUS_ERROR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Error occurred during RSA operation. </p>
+
+</div>
+</div>
+<a id="ga14e28c4e4b6a325ddd1f038b5274ccec" name="ga14e28c4e4b6a325ddd1f038b5274ccec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga14e28c4e4b6a325ddd1f038b5274ccec">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_INVALID_INPUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLRSA_STATUS_INVALID_INPUT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Input data cannot be processed. </p>
+
+</div>
+</div>
+<a id="ga05d091562f747706d7aecfb99b5a735c" name="ga05d091562f747706d7aecfb99b5a735c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga05d091562f747706d7aecfb99b5a735c">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_VERIFY_FAILED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLRSA_STATUS_VERIFY_FAILED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Signature verification failed. </p>
+
+</div>
+</div>
+<a id="gaf886957f4dc2794dd12839a690ae05d0" name="gaf886957f4dc2794dd12839a690ae05d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf886957f4dc2794dd12839a690ae05d0">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_FAULT_ATTACK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLRSA_STATUS_FAULT_ATTACK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fault attack detected. </p>
+
+</div>
+</div>
+<a id="gab08354492e4b0feceab7a3615abee1f0" name="gab08354492e4b0feceab7a3615abee1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab08354492e4b0feceab7a3615abee1f0">&#9670;&#160;</a></span>MCUXCLRSA_STATUS_KEYGENERATION_OK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLRSA_STATUS_KEYGENERATION_OK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RSA key generation operation executed successfully. </p>
 
 </div>
 </div>

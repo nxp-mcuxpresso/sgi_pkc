@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: ZLL_Type Struct Reference</title>
+<title>MCUX CLNS: mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,164 +102,475 @@ $(function(){initNavTree('a03319.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">ZLL_Type Struct Reference<div class="ingroups"><a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01654.html">Dma_request</a> &raquo; <a class="el" href="a01657.html">Eim_memory_channel</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01654.html">Dma_request</a> &raquo; <a class="el" href="a01657.html">Eim_memory_channel</a> &raquo; <a class="el" href="a01658.html">Eim_error_injection_channel_enable</a> &#124; <a class="el" href="a01653.html">Mapping Information</a> &raquo; <a class="el" href="a01802.html">Edma_request</a> &raquo; <a class="el" href="a01634.html">Device Peripheral Access Layer</a> &raquo; <a class="el" href="a01898.html">ZLL Peripheral Access Layer</a></div></div></div>
+  <div class="headertitle"><div class="title">mcuxClAeadModes_Gcm_Aes128_Multipart_example.c</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>ZLL - Register Layout Typedef.  
- <a href="#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a01325_source.html">KW43B43ZC7.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Data Fields</h2></td></tr>
-<tr class="memitem:ga3cfc04f80907bd018c71adc0f9f802c3" id="r_ga3cfc04f80907bd018c71adc0f9f802c3"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga3cfc04f80907bd018c71adc0f9f802c3">IRQSTS</a></td></tr>
-<tr class="memdesc:ga3cfc04f80907bd018c71adc0f9f802c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTERRUPT REQUEST STATUS, offset: 0x0.  <br /></td></tr>
-<tr class="memitem:ga2b9d5c5ef32129dd6042eed72785247d" id="r_ga2b9d5c5ef32129dd6042eed72785247d"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga2b9d5c5ef32129dd6042eed72785247d">PHY_CTRL</a></td></tr>
-<tr class="memdesc:ga2b9d5c5ef32129dd6042eed72785247d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PHY CONTROL, offset: 0x4.  <br /></td></tr>
-<tr class="memitem:gafd0706ef9ef692b51034ed20114c8aa0" id="r_gafd0706ef9ef692b51034ed20114c8aa0"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gafd0706ef9ef692b51034ed20114c8aa0">EVENT_TMR</a></td></tr>
-<tr class="memdesc:gafd0706ef9ef692b51034ed20114c8aa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">EVENT TIMER, offset: 0x8.  <br /></td></tr>
-<tr class="memitem:gac95d6db8fff6d9cd717496e52a151c2a" id="r_gac95d6db8fff6d9cd717496e52a151c2a"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gac95d6db8fff6d9cd717496e52a151c2a">TIMESTAMP</a></td></tr>
-<tr class="memdesc:gac95d6db8fff6d9cd717496e52a151c2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIMESTAMP, offset: 0xC.  <br /></td></tr>
-<tr class="memitem:gad14b7f9587cd76da774f5a3b9679d27a" id="r_gad14b7f9587cd76da774f5a3b9679d27a"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gad14b7f9587cd76da774f5a3b9679d27a">T1CMP</a></td></tr>
-<tr class="memdesc:gad14b7f9587cd76da774f5a3b9679d27a"><td class="mdescLeft">&#160;</td><td class="mdescRight">T1 COMPARE, offset: 0x10.  <br /></td></tr>
-<tr class="memitem:gafe2b7ed4d6e40ac272be5407dc92c16f" id="r_gafe2b7ed4d6e40ac272be5407dc92c16f"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gafe2b7ed4d6e40ac272be5407dc92c16f">T2CMP</a></td></tr>
-<tr class="memdesc:gafe2b7ed4d6e40ac272be5407dc92c16f"><td class="mdescLeft">&#160;</td><td class="mdescRight">T2 COMPARE, offset: 0x14.  <br /></td></tr>
-<tr class="memitem:ga12fbf9b167c876e31c5b445c4f61e63a" id="r_ga12fbf9b167c876e31c5b445c4f61e63a"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga12fbf9b167c876e31c5b445c4f61e63a">T2PRIMECMP</a></td></tr>
-<tr class="memdesc:ga12fbf9b167c876e31c5b445c4f61e63a"><td class="mdescLeft">&#160;</td><td class="mdescRight">T2 PRIME COMPARE, offset: 0x18.  <br /></td></tr>
-<tr class="memitem:ga96106d8bc1ad194489954392c284884b" id="r_ga96106d8bc1ad194489954392c284884b"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga96106d8bc1ad194489954392c284884b">T3CMP</a></td></tr>
-<tr class="memdesc:ga96106d8bc1ad194489954392c284884b"><td class="mdescLeft">&#160;</td><td class="mdescRight">T3 COMPARE, offset: 0x1C.  <br /></td></tr>
-<tr class="memitem:gabd5e32626eb164f6abf959756dd418f6" id="r_gabd5e32626eb164f6abf959756dd418f6"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gabd5e32626eb164f6abf959756dd418f6">T4CMP</a></td></tr>
-<tr class="memdesc:gabd5e32626eb164f6abf959756dd418f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">T4 COMPARE, offset: 0x20.  <br /></td></tr>
-<tr class="memitem:ga5f3ec9fe5ac8a25b1ed3b7514d225198" id="r_ga5f3ec9fe5ac8a25b1ed3b7514d225198"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga5f3ec9fe5ac8a25b1ed3b7514d225198">PA_PWR</a></td></tr>
-<tr class="memdesc:ga5f3ec9fe5ac8a25b1ed3b7514d225198"><td class="mdescLeft">&#160;</td><td class="mdescRight">PA POWER, offset: 0x24.  <br /></td></tr>
-<tr class="memitem:gade4711f411d77a04a30a5c8779e8cd23" id="r_gade4711f411d77a04a30a5c8779e8cd23"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gade4711f411d77a04a30a5c8779e8cd23">CHANNEL_NUM0</a></td></tr>
-<tr class="memdesc:gade4711f411d77a04a30a5c8779e8cd23"><td class="mdescLeft">&#160;</td><td class="mdescRight">CHANNEL NUMBER 0, offset: 0x28.  <br /></td></tr>
-<tr class="memitem:gae399d2cce53f1dfa2efe7d74d76670bc" id="r_gae399d2cce53f1dfa2efe7d74d76670bc"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gae399d2cce53f1dfa2efe7d74d76670bc">LQI_AND_RSSI</a></td></tr>
-<tr class="memdesc:gae399d2cce53f1dfa2efe7d74d76670bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">LQI AND RSSI, offset: 0x2C.  <br /></td></tr>
-<tr class="memitem:ga1c21986e1d93195d6fe8ce83b8c34976" id="r_ga1c21986e1d93195d6fe8ce83b8c34976"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga1c21986e1d93195d6fe8ce83b8c34976">MACSHORTADDRS0</a></td></tr>
-<tr class="memdesc:ga1c21986e1d93195d6fe8ce83b8c34976"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC SHORT ADDRESS 0, offset: 0x30.  <br /></td></tr>
-<tr class="memitem:gaf5462acd09fdc42d6cb5e0e021e13d9e" id="r_gaf5462acd09fdc42d6cb5e0e021e13d9e"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gaf5462acd09fdc42d6cb5e0e021e13d9e">MACLONGADDRS0_LSB</a></td></tr>
-<tr class="memdesc:gaf5462acd09fdc42d6cb5e0e021e13d9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC LONG ADDRESS 0 LSB, offset: 0x34.  <br /></td></tr>
-<tr class="memitem:ga5cf163fb8350197b693868cfb16a09d8" id="r_ga5cf163fb8350197b693868cfb16a09d8"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga5cf163fb8350197b693868cfb16a09d8">MACLONGADDRS0_MSB</a></td></tr>
-<tr class="memdesc:ga5cf163fb8350197b693868cfb16a09d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC LONG ADDRESS 0 MSB, offset: 0x38.  <br /></td></tr>
-<tr class="memitem:ga8d33cfff341d52c55f55d28e6dc1d55c" id="r_ga8d33cfff341d52c55f55d28e6dc1d55c"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga8d33cfff341d52c55f55d28e6dc1d55c">RX_FRAME_FILTER</a></td></tr>
-<tr class="memdesc:ga8d33cfff341d52c55f55d28e6dc1d55c"><td class="mdescLeft">&#160;</td><td class="mdescRight">RECEIVE FRAME FILTER, offset: 0x3C.  <br /></td></tr>
-<tr class="memitem:ga419a533d4ab5c3a58aa6daffcab08ebf" id="r_ga419a533d4ab5c3a58aa6daffcab08ebf"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga419a533d4ab5c3a58aa6daffcab08ebf">CCA_LQI_CTRL</a></td></tr>
-<tr class="memdesc:ga419a533d4ab5c3a58aa6daffcab08ebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">CCA AND LQI CONTROL, offset: 0x40.  <br /></td></tr>
-<tr class="memitem:ga980396e7b38d16ca70e151492d3daaad" id="r_ga980396e7b38d16ca70e151492d3daaad"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga980396e7b38d16ca70e151492d3daaad">CCA2_CTRL</a></td></tr>
-<tr class="memdesc:ga980396e7b38d16ca70e151492d3daaad"><td class="mdescLeft">&#160;</td><td class="mdescRight">CCA2 CONTROL, offset: 0x44.  <br /></td></tr>
-<tr class="memitem:ga68aea33e2ae0d131ac3fd95f21c1e779" id="r_ga68aea33e2ae0d131ac3fd95f21c1e779"><td class="memItemLeft">
-uint8_t&#160;</td><td class="memItemRight"><b>RESERVED_0</b> [4]</td></tr>
-<tr class="memitem:ga28477dd8f67efce9d045d231e68ec1ce" id="r_ga28477dd8f67efce9d045d231e68ec1ce"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga28477dd8f67efce9d045d231e68ec1ce">DSM_CTRL</a></td></tr>
-<tr class="memdesc:ga28477dd8f67efce9d045d231e68ec1ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">DSM CONTROL, offset: 0x4C.  <br /></td></tr>
-<tr class="memitem:gaf3837b9c2eeddefc492250ab147996fb" id="r_gaf3837b9c2eeddefc492250ab147996fb"><td class="memItemLeft">
-uint8_t&#160;</td><td class="memItemRight"><b>RESERVED_1</b> [4]</td></tr>
-<tr class="memitem:gad6587d9ac890fcd134e9ccd9d6be6f64" id="r_gad6587d9ac890fcd134e9ccd9d6be6f64"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gad6587d9ac890fcd134e9ccd9d6be6f64">MACSHORTADDRS1</a></td></tr>
-<tr class="memdesc:gad6587d9ac890fcd134e9ccd9d6be6f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC SHORT ADDRESS FOR PAN1, offset: 0x54.  <br /></td></tr>
-<tr class="memitem:gaa92eaa0bff1769d6701d643c5a600090" id="r_gaa92eaa0bff1769d6701d643c5a600090"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gaa92eaa0bff1769d6701d643c5a600090">MACLONGADDRS1_LSB</a></td></tr>
-<tr class="memdesc:gaa92eaa0bff1769d6701d643c5a600090"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC LONG ADDRESS 1 LSB, offset: 0x58.  <br /></td></tr>
-<tr class="memitem:ga02dd80a61db80039785c9cba31d3448c" id="r_ga02dd80a61db80039785c9cba31d3448c"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga02dd80a61db80039785c9cba31d3448c">MACLONGADDRS1_MSB</a></td></tr>
-<tr class="memdesc:ga02dd80a61db80039785c9cba31d3448c"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC LONG ADDRESS 1 MSB, offset: 0x5C.  <br /></td></tr>
-<tr class="memitem:ga217529c051922f46396ff880887561d4" id="r_ga217529c051922f46396ff880887561d4"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga217529c051922f46396ff880887561d4">DUAL_PAN_CTRL</a></td></tr>
-<tr class="memdesc:ga217529c051922f46396ff880887561d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">DUAL PAN CONTROL, offset: 0x60.  <br /></td></tr>
-<tr class="memitem:gaf8b96fb0525d4575fb927a4188a2572f" id="r_gaf8b96fb0525d4575fb927a4188a2572f"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gaf8b96fb0525d4575fb927a4188a2572f">CHANNEL_NUM1</a></td></tr>
-<tr class="memdesc:gaf8b96fb0525d4575fb927a4188a2572f"><td class="mdescLeft">&#160;</td><td class="mdescRight">CHANNEL NUMBER 1, offset: 0x64.  <br /></td></tr>
-<tr class="memitem:gac4adb16a7a1c857cf135f6c8f2be4467" id="r_gac4adb16a7a1c857cf135f6c8f2be4467"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gac4adb16a7a1c857cf135f6c8f2be4467">SAM_CTRL</a></td></tr>
-<tr class="memdesc:gac4adb16a7a1c857cf135f6c8f2be4467"><td class="mdescLeft">&#160;</td><td class="mdescRight">SAM CONTROL, offset: 0x68.  <br /></td></tr>
-<tr class="memitem:gabf8b2aa0bd3d15ae6b133d4d1c3030bc" id="r_gabf8b2aa0bd3d15ae6b133d4d1c3030bc"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gabf8b2aa0bd3d15ae6b133d4d1c3030bc">SAM_TABLE</a></td></tr>
-<tr class="memdesc:gabf8b2aa0bd3d15ae6b133d4d1c3030bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOURCE ADDRESS MANAGEMENT TABLE, offset: 0x6C.  <br /></td></tr>
-<tr class="memitem:gaee3efd819cc8c133b041802f5e92f2f1" id="r_gaee3efd819cc8c133b041802f5e92f2f1"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gaee3efd819cc8c133b041802f5e92f2f1">SAM_MATCH</a></td></tr>
-<tr class="memdesc:gaee3efd819cc8c133b041802f5e92f2f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOURCE ADDRESS MANAGEMENT MATCH, offset: 0x70.  <br /></td></tr>
-<tr class="memitem:ga54ab21a8b6933b602f39f4239bd2af43" id="r_ga54ab21a8b6933b602f39f4239bd2af43"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga54ab21a8b6933b602f39f4239bd2af43">SAM_FREE_IDX</a></td></tr>
-<tr class="memdesc:ga54ab21a8b6933b602f39f4239bd2af43"><td class="mdescLeft">&#160;</td><td class="mdescRight">SAM FREE INDEX, offset: 0x74.  <br /></td></tr>
-<tr class="memitem:ga80ad97b385c6d63a7b0a21cdf35eb916" id="r_ga80ad97b385c6d63a7b0a21cdf35eb916"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga80ad97b385c6d63a7b0a21cdf35eb916">SEQ_CTRL_STS</a></td></tr>
-<tr class="memdesc:ga80ad97b385c6d63a7b0a21cdf35eb916"><td class="mdescLeft">&#160;</td><td class="mdescRight">SEQUENCE CONTROL AND STATUS, offset: 0x78.  <br /></td></tr>
-<tr class="memitem:ga6d6cbb0ff340a1b8e824ac681c3d3dcc" id="r_ga6d6cbb0ff340a1b8e824ac681c3d3dcc"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga6d6cbb0ff340a1b8e824ac681c3d3dcc">ACKDELAY</a></td></tr>
-<tr class="memdesc:ga6d6cbb0ff340a1b8e824ac681c3d3dcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ACK DELAY, offset: 0x7C.  <br /></td></tr>
-<tr class="memitem:gac77a850581f48cb20ba3169ece4e3d7d" id="r_gac77a850581f48cb20ba3169ece4e3d7d"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gac77a850581f48cb20ba3169ece4e3d7d">FILTERFAIL_CODE</a></td></tr>
-<tr class="memdesc:gac77a850581f48cb20ba3169ece4e3d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">FILTER FAIL CODE, offset: 0x80.  <br /></td></tr>
-<tr class="memitem:ga6f146d7b3aab600c8dc861876a1ce3b4" id="r_ga6f146d7b3aab600c8dc861876a1ce3b4"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga6f146d7b3aab600c8dc861876a1ce3b4">RX_WTR_MARK</a></td></tr>
-<tr class="memdesc:ga6f146d7b3aab600c8dc861876a1ce3b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">RECEIVE WATER MARK, offset: 0x84.  <br /></td></tr>
-<tr class="memitem:ga9071b59527e9374f31b698d0d0741c85" id="r_ga9071b59527e9374f31b698d0d0741c85"><td class="memItemLeft">
-uint8_t&#160;</td><td class="memItemRight"><b>RESERVED_2</b> [4]</td></tr>
-<tr class="memitem:gafc36a32213eac534ee75a5209440d304" id="r_gafc36a32213eac534ee75a5209440d304"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gafc36a32213eac534ee75a5209440d304">SLOT_PRELOAD</a></td></tr>
-<tr class="memdesc:gafc36a32213eac534ee75a5209440d304"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLOT PRELOAD, offset: 0x8C.  <br /></td></tr>
-<tr class="memitem:ga9ef75b3c54ea1931d125e25017cf20a0" id="r_ga9ef75b3c54ea1931d125e25017cf20a0"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga9ef75b3c54ea1931d125e25017cf20a0">SEQ_STATE</a></td></tr>
-<tr class="memdesc:ga9ef75b3c54ea1931d125e25017cf20a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">802.15.4 SEQUENCE STATE, offset: 0x90  <br /></td></tr>
-<tr class="memitem:ga3addc0e31dc7bbe07a1e0dd15faea853" id="r_ga3addc0e31dc7bbe07a1e0dd15faea853"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga3addc0e31dc7bbe07a1e0dd15faea853">TMR_PRESCALE</a></td></tr>
-<tr class="memdesc:ga3addc0e31dc7bbe07a1e0dd15faea853"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIMER PRESCALER, offset: 0x94.  <br /></td></tr>
-<tr class="memitem:ga747f904a8bd53cf24a67458618ef8d38" id="r_ga747f904a8bd53cf24a67458618ef8d38"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga747f904a8bd53cf24a67458618ef8d38">LENIENCY_LSB</a></td></tr>
-<tr class="memdesc:ga747f904a8bd53cf24a67458618ef8d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">LENIENCY LSB, offset: 0x98.  <br /></td></tr>
-<tr class="memitem:gabc42664d84444649e31e4a098f3e494a" id="r_gabc42664d84444649e31e4a098f3e494a"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gabc42664d84444649e31e4a098f3e494a">LENIENCY_MSB</a></td></tr>
-<tr class="memdesc:gabc42664d84444649e31e4a098f3e494a"><td class="mdescLeft">&#160;</td><td class="mdescRight">LENIENCY MSB, offset: 0x9C.  <br /></td></tr>
-<tr class="memitem:gaf9ebdccbc89822540637c13de102d441" id="r_gaf9ebdccbc89822540637c13de102d441"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gaf9ebdccbc89822540637c13de102d441">PART_ID</a></td></tr>
-<tr class="memdesc:gaf9ebdccbc89822540637c13de102d441"><td class="mdescLeft">&#160;</td><td class="mdescRight">PART ID, offset: 0xA0.  <br /></td></tr>
-<tr class="memitem:ga82058ccd8fee1e172016774d03e924db" id="r_ga82058ccd8fee1e172016774d03e924db"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga82058ccd8fee1e172016774d03e924db">COEX_CTRL</a></td></tr>
-<tr class="memdesc:ga82058ccd8fee1e172016774d03e924db"><td class="mdescLeft">&#160;</td><td class="mdescRight">COEXISTENCE CONTROL, offset: 0xA4.  <br /></td></tr>
-<tr class="memitem:ga717aa895755607f09ccd9475c0417af7" id="r_ga717aa895755607f09ccd9475c0417af7"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga717aa895755607f09ccd9475c0417af7">COEX_PRIORITY</a></td></tr>
-<tr class="memdesc:ga717aa895755607f09ccd9475c0417af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">COEXISTENCE PRIORITY, offset: 0xA8.  <br /></td></tr>
-<tr class="memitem:ga4d2e1a0c81f7ba850c17bc7e4eed97e8" id="r_ga4d2e1a0c81f7ba850c17bc7e4eed97e8"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga4d2e1a0c81f7ba850c17bc7e4eed97e8">ENHACK_CTRL0</a></td></tr>
-<tr class="memdesc:ga4d2e1a0c81f7ba850c17bc7e4eed97e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">ENHACK_CTRL 0, offset: 0xAC.  <br /></td></tr>
-<tr class="memitem:ga701b368fdffcdcf344e1b5cc8da770fe" id="r_ga701b368fdffcdcf344e1b5cc8da770fe"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga701b368fdffcdcf344e1b5cc8da770fe">CG_OVRD</a></td></tr>
-<tr class="memdesc:ga701b368fdffcdcf344e1b5cc8da770fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock Gating Override Register (CG_OVRD), offset: 0xB0.  <br /></td></tr>
-<tr class="memitem:ga4540f5b24f1932c34bea6ce4a3e23ba0" id="r_ga4540f5b24f1932c34bea6ce4a3e23ba0"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga4540f5b24f1932c34bea6ce4a3e23ba0">PROG_PKT_FLTR_LO_PATT_A</a></td></tr>
-<tr class="memdesc:ga4540f5b24f1932c34bea6ce4a3e23ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xB4  <br /></td></tr>
-<tr class="memitem:ga7bcf38784f37ac9bb5b359bcf0344651" id="r_ga7bcf38784f37ac9bb5b359bcf0344651"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga7bcf38784f37ac9bb5b359bcf0344651">PROG_PKT_FLTR_UP_PATT_A</a></td></tr>
-<tr class="memdesc:ga7bcf38784f37ac9bb5b359bcf0344651"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xB8  <br /></td></tr>
-<tr class="memitem:ga602c8608f9f3a5774dddbfdc0063d68b" id="r_ga602c8608f9f3a5774dddbfdc0063d68b"><td class="memItemLeft">
-uint8_t&#160;</td><td class="memItemRight"><b>RESERVED_3</b> [4]</td></tr>
-<tr class="memitem:ga89b5655a072c974cfdf1984cb8fb3c35" id="r_ga89b5655a072c974cfdf1984cb8fb3c35"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga89b5655a072c974cfdf1984cb8fb3c35">PROG_PKT_FLTR_UP_MSK_A</a></td></tr>
-<tr class="memdesc:ga89b5655a072c974cfdf1984cb8fb3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xC0  <br /></td></tr>
-<tr class="memitem:ga1674e88ab799717ed94baa42a250d333" id="r_ga1674e88ab799717ed94baa42a250d333"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga1674e88ab799717ed94baa42a250d333">PROG_PKT_FLTR_CTRL_A</a></td></tr>
-<tr class="memdesc:ga1674e88ab799717ed94baa42a250d333"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xC4  <br /></td></tr>
-<tr class="memitem:ga77ead29c13ed59e4ed7419a23d3b87fe" id="r_ga77ead29c13ed59e4ed7419a23d3b87fe"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga77ead29c13ed59e4ed7419a23d3b87fe">PROG_PKT_FLTR_LO_PATT_B</a></td></tr>
-<tr class="memdesc:ga77ead29c13ed59e4ed7419a23d3b87fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xC8  <br /></td></tr>
-<tr class="memitem:gaae03ea4af6b3a3ae81ecfb0fe6c0410b" id="r_gaae03ea4af6b3a3ae81ecfb0fe6c0410b"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gaae03ea4af6b3a3ae81ecfb0fe6c0410b">PROG_PKT_FLTR_UP_PATT_B</a></td></tr>
-<tr class="memdesc:gaae03ea4af6b3a3ae81ecfb0fe6c0410b"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xCC  <br /></td></tr>
-<tr class="memitem:ga312be8b583bcf4847711a98c89da5244" id="r_ga312be8b583bcf4847711a98c89da5244"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga312be8b583bcf4847711a98c89da5244">PROG_PKT_FLTR_LO_MSK_B</a></td></tr>
-<tr class="memdesc:ga312be8b583bcf4847711a98c89da5244"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xD0  <br /></td></tr>
-<tr class="memitem:gaa0e1e99c9993c6a04fa37e00675ef62e" id="r_gaa0e1e99c9993c6a04fa37e00675ef62e"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gaa0e1e99c9993c6a04fa37e00675ef62e">PROG_PKT_FLTR_UP_MSK_B</a></td></tr>
-<tr class="memdesc:gaa0e1e99c9993c6a04fa37e00675ef62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xD4  <br /></td></tr>
-<tr class="memitem:ga9d9bf98e069aebc5620011480679c143" id="r_ga9d9bf98e069aebc5620011480679c143"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga9d9bf98e069aebc5620011480679c143">PROG_PKT_FLTR_CTRL_B</a></td></tr>
-<tr class="memdesc:ga9d9bf98e069aebc5620011480679c143"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xD8  <br /></td></tr>
-<tr class="memitem:ga15051590d1b7290f02499d124906a007" id="r_ga15051590d1b7290f02499d124906a007"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga15051590d1b7290f02499d124906a007">SAM_ADDR_PRESENT</a></td></tr>
-<tr class="memdesc:ga15051590d1b7290f02499d124906a007"><td class="mdescLeft">&#160;</td><td class="mdescRight">SAM ADDRESS PRESENT (SAM_ADDR_PRESENT), offset: 0xDC.  <br /></td></tr>
-<tr class="memitem:ga951f83565bd75ea035cf9e76229c16bc" id="r_ga951f83565bd75ea035cf9e76229c16bc"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga951f83565bd75ea035cf9e76229c16bc">TIMER_CTRL</a></td></tr>
-<tr class="memdesc:ga951f83565bd75ea035cf9e76229c16bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIMER CONTROL (TIMER_CTRL), offset: 0xE0.  <br /></td></tr>
-<tr class="memitem:ga76eee9b70c1f873b67c320dfae4f9fa1" id="r_ga76eee9b70c1f873b67c320dfae4f9fa1"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga76eee9b70c1f873b67c320dfae4f9fa1">UNIV_CNTR_TIMESTAMP</a></td></tr>
-<tr class="memdesc:ga76eee9b70c1f873b67c320dfae4f9fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Universal Counter Timestamp (UNIV_CNTR_TIMESTAMP), offset: 0xE4.  <br /></td></tr>
-<tr class="memitem:ga1040e1f2d03066fb78408dd3e1c0dd34" id="r_ga1040e1f2d03066fb78408dd3e1c0dd34"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga1040e1f2d03066fb78408dd3e1c0dd34">UNIV_CLK_CNTR</a></td></tr>
-<tr class="memdesc:ga1040e1f2d03066fb78408dd3e1c0dd34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Universal Clock Counter Freerunning value (UNIV_CLK_CNTR), offset: 0xE8.  <br /></td></tr>
-<tr class="memitem:gac6dbc6d2c00c2670805c4cabb005a378" id="r_gac6dbc6d2c00c2670805c4cabb005a378"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#gac6dbc6d2c00c2670805c4cabb005a378">EVENT_TMR_PRESET</a></td></tr>
-<tr class="memdesc:gac6dbc6d2c00c2670805c4cabb005a378"><td class="mdescLeft">&#160;</td><td class="mdescRight">EVENT TIMER Preset value (EVENT_TMR_PRESET), offset: 0xEC.  <br /></td></tr>
-<tr class="memitem:ga6c9187fcc5cbd387ce3c77b3ae257690" id="r_ga6c9187fcc5cbd387ce3c77b3ae257690"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga6c9187fcc5cbd387ce3c77b3ae257690">PROG_PKT_FLTR_INTR_MSK_STS</a></td></tr>
-<tr class="memdesc:ga6c9187fcc5cbd387ce3c77b3ae257690"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xF0  <br /></td></tr>
-<tr class="memitem:ga556756b1d908910f99e2c9cbc6db1014" id="r_ga556756b1d908910f99e2c9cbc6db1014"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga556756b1d908910f99e2c9cbc6db1014">INTR_SUMMARY</a></td></tr>
-<tr class="memdesc:ga556756b1d908910f99e2c9cbc6db1014"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0xF4  <br /></td></tr>
-<tr class="memitem:ga8746505e1bf33dd9c72373e4a297f2a5" id="r_ga8746505e1bf33dd9c72373e4a297f2a5"><td class="memItemLeft"><a class="el" href="a03533.html#af63697ed9952cc71e1225efe205f6cd3">__I</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga8746505e1bf33dd9c72373e4a297f2a5">SAM_FREE_IDX_FND</a></td></tr>
-<tr class="memdesc:ga8746505e1bf33dd9c72373e4a297f2a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">SAM FREE INDEX FOUND (SAM_FREE_IDX_FND), offset: 0xF8.  <br /></td></tr>
-<tr class="memitem:ga0b2c9fbb6562e3c9c7073d44c0e8b61a" id="r_ga0b2c9fbb6562e3c9c7073d44c0e8b61a"><td class="memItemLeft">
-uint8_t&#160;</td><td class="memItemRight"><b>RESERVED_4</b> [4032]</td></tr>
-<tr class="memitem:ga6f0c063f33c02e2ba61d9cb7ddd78212" id="r_ga6f0c063f33c02e2ba61d9cb7ddd78212"><td class="memItemLeft"><a class="el" href="a03533.html#aec43007d9998a0a0e01faede4133d6be">__IO</a> uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a01802.html#ga6f0c063f33c02e2ba61d9cb7ddd78212">PROG_PKT_FLTR_LO_MSK_A</a></td></tr>
-<tr class="memdesc:ga6f0c063f33c02e2ba61d9cb7ddd78212"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset: 0x10BC  <br /></td></tr>
-</table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>ZLL - Register Layout Typedef. </p>
-</div></div><!-- contents -->
+<p>Example for the mcuxClAeadModes component.</p>
+<p>Example for the mcuxClAeadModes component</p>
+<div class="fragment"><div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
+<div class="line"><span class="comment">/* Copyright 2020-2025 NXP                                                  */</span></div>
+<div class="line"><span class="comment">/*                                                                          */</span></div>
+<div class="line"><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
+<div class="line"><span class="comment">/*                                                                          */</span></div>
+<div class="line"><span class="comment">/* Redistribution and use in source and binary forms, with or without       */</span></div>
+<div class="line"><span class="comment">/* modification, are permitted provided that the following conditions are   */</span></div>
+<div class="line"><span class="comment">/* met:                                                                     */</span></div>
+<div class="line"><span class="comment">/*                                                                          */</span></div>
+<div class="line"><span class="comment">/* 1. Redistributions of source code must retain the above copyright        */</span></div>
+<div class="line"><span class="comment">/*    notice, this list of conditions and the following disclaimer.         */</span></div>
+<div class="line"><span class="comment">/*                                                                          */</span></div>
+<div class="line"><span class="comment">/* 2. Redistributions in binary form must reproduce the above copyright     */</span></div>
+<div class="line"><span class="comment">/*    notice, this list of conditions and the following disclaimer in the   */</span></div>
+<div class="line"><span class="comment">/*    documentation and/or other materials provided with the distribution.  */</span></div>
+<div class="line"><span class="comment">/*                                                                          */</span></div>
+<div class="line"><span class="comment">/* 3. Neither the name of the copyright holder nor the names of its         */</span></div>
+<div class="line"><span class="comment">/*    contributors may be used to endorse or promote products derived from  */</span></div>
+<div class="line"><span class="comment">/*    this software without specific prior written permission.              */</span></div>
+<div class="line"><span class="comment">/*                                                                          */</span></div>
+<div class="line"><span class="comment">/* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS  */</span></div>
+<div class="line"><span class="comment">/* IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    */</span></div>
+<div class="line"><span class="comment">/* TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          */</span></div>
+<div class="line"><span class="comment">/* PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT       */</span></div>
+<div class="line"><span class="comment">/* HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,   */</span></div>
+<div class="line"><span class="comment">/* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED */</span></div>
+<div class="line"><span class="comment">/* TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR   */</span></div>
+<div class="line"><span class="comment">/* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   */</span></div>
+<div class="line"><span class="comment">/* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     */</span></div>
+<div class="line"><span class="comment">/* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       */</span></div>
+<div class="line"><span class="comment">/* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */</span></div>
+<div class="line"><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
+<div class="line"></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &lt;mcuxClCore_Examples.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00419.html">mcuxClBuffer.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mcuxClExample_Session_Helper.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00839.html">mcuxClSession.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00671.html">mcuxClKey.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00386.html">mcuxClAead.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00389.html">mcuxClAeadModes.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">mcuxCsslFlowProtection.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</span> <span class="comment">// Code flow protection</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00404.html">mcuxClAes.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mcuxClExample_RNG_Helper.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t plain[] = {</div>
+<div class="line">  0x6bU, 0xc1U, 0xbeU, 0xe2U, 0x2eU, 0x40U, 0x9fU, 0x96U,</div>
+<div class="line">  0xe9U, 0x3dU, 0x7eU, 0x11U, 0x73U, 0x93U, 0x17U, 0x2aU</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t adata[] = {</div>
+<div class="line">  0xcaU, 0xeaU, 0x07U, 0x26U, 0x62U, 0xe2U, 0x20U, 0x06U,</div>
+<div class="line">  0x2dU, 0x45U, 0x46U, 0x41U, 0x5eU, 0xffU, 0xfaU, 0xd2U</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t nonce[] = {</div>
+<div class="line">  0xf8U, 0xd2U, 0x68U, 0x76U, 0x81U, 0x6fU, 0x0fU, 0xbaU,</div>
+<div class="line">  0x86U, 0x2bU, 0xd8U, 0xa3U</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t keyBytes[] = {</div>
+<div class="line">  0x2bU, 0x7eU, 0x15U, 0x16U, 0x28U, 0xaeU, 0xd2U, 0xa6U,</div>
+<div class="line">  0xabU, 0xf7U, 0x15U, 0x88U, 0x09U, 0xcfU, 0x4fU, 0x3cU</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t tagReference[] = {</div>
+<div class="line">  0xb2U, 0xc5U, 0xcfU, 0xc3U, 0xf2U, 0x8cU, 0x9fU, 0x78U,</div>
+<div class="line">  0xfcU, 0x25U, 0xbcU, 0x10U, 0xc9U, 0xcaU, 0xffU, 0xd5U</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> uint8_t encryptedReference[] = {</div>
+<div class="line">  0x4fU, 0x74U, 0x2dU, 0xf6U, 0x9dU, 0x1cU, 0x03U, 0x6bU,</div>
+<div class="line">  0x56U, 0xbcU, 0xc2U, 0x81U, 0x5fU, 0xdaU, 0x8dU, 0x6dU</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">MCUXCLEXAMPLE_FUNCTION(mcuxClAeadModes_Gcm_Aes128_Multipart_example)</div>
+<div class="line">{</div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Preparation                                                            */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  mcuxClSession_Descriptor_t sessionDesc;</div>
+<div class="line">  <a id="_a0" name="_a0"></a><a class="code hl_typedef" href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a> session = &amp;sessionDesc;</div>
+<div class="line"> </div>
+<div class="line">  <a id="a1" name="a1"></a><a class="code hl_define" href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(plainBuf, session, plain, <span class="keyword">sizeof</span>(plain));</div>
+<div class="line">  <a class="code hl_define" href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(adataBuf, session, adata, <span class="keyword">sizeof</span>(adata));</div>
+<div class="line">  <a class="code hl_define" href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(nonceBuf, session, nonce, <span class="keyword">sizeof</span>(nonce));</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">/* Allocate and initialize session */</span></div>
+<div class="line">  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_SESSION(session, MCUXCLEXAMPLE_MAX_WA(MCUXCLAEAD_MAX_CPU_WA_BUFFER_SIZE, MCUXCLRANDOM_NCINIT_WACPU_SIZE), 0U);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">/* Initialize the PRNG */</span></div>
+<div class="line">  MCUXCLEXAMPLE_INITIALIZE_PRNG(session);</div>
+<div class="line"> </div>
+<div class="line">  uint32_t keyDesc[MCUXCLKEY_DESCRIPTOR_SIZE_IN_WORDS];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a> key = (<a class="code hl_typedef" href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a>) keyDesc;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line"> </div>
+<div class="line">  <a id="_a3" name="_a3"></a><a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ki_status, ki_token, <a id="_a4" name="_a4"></a><a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key                 */</span> key,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Type_t type                  */</span> <a id="_a5" name="_a5"></a><a class="code hl_variable" href="a01348.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a>,</div>
+<div class="line">    <span class="comment">/* uint8_t * pKeyData                    */</span> keyBytes,</div>
+<div class="line">    <span class="comment">/* uint32_t keyDataLength                */</span> sizeof(keyBytes))</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a id="_a6" name="_a6"></a><a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a>) != ki_token) || (<a id="_a7" name="_a7"></a><a class="code hl_define" href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a> != ki_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a id="a8" name="a8"></a><a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Multi-part Encryption                                                  */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  uint32_t encryptedSize = 0U;</div>
+<div class="line">  uint32_t encryptedMultipartSize = 0U;</div>
+<div class="line">  uint8_t encryptedMultipartData[<span class="keyword">sizeof</span>(encryptedReference)];</div>
+<div class="line">  <a id="a9" name="a9"></a><a class="code hl_define" href="a01351.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(encryptedMultipartDataBuf, session, encryptedMultipartData, <span class="keyword">sizeof</span>(encryptedMultipartData));</div>
+<div class="line">  uint8_t tagMultipartData[<span class="keyword">sizeof</span>(tagReference)];</div>
+<div class="line">  <a class="code hl_define" href="a01351.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(tagMultipartDataBuf, session, tagMultipartData, <span class="keyword">sizeof</span>(tagMultipartData));</div>
+<div class="line"> </div>
+<div class="line">  uint8_t ctxBuf[MCUXCLAEAD_CONTEXT_SIZE];</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line">  <a id="_a10" name="_a10"></a><a class="code hl_typedef" href="a01342.html#gaf67b42507181f9793498bfaaab35a48a">mcuxClAead_Context_t</a> * ctx = (<a class="code hl_typedef" href="a01342.html#gaf67b42507181f9793498bfaaab35a48a">mcuxClAead_Context_t</a> *) ctxBuf;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_PATTERN_REINTERPRET_MEMORY_OF_OPAQUE_TYPES()</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ei_status, ei_token, <a id="_a11" name="_a11"></a><a class="code hl_function" href="a01341.html#ga1c2884a5a1d0c923a4cf6a0d85a8fd7f">mcuxClAead_init_encrypt</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key                 */</span> key,</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Mode_t mode                 */</span> <a id="_a12" name="_a12"></a><a class="code hl_variable" href="a01344.html#ga097a509a2fa462b5d61ba740c28d9ea3">mcuxClAead_Mode_GCM</a>,</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pNonce            */</span> nonceBuf,</div>
+<div class="line">    <span class="comment">/* uint32_t nonceSize,                   */</span> sizeof(nonce),</div>
+<div class="line">    <span class="comment">/* uint32_t inSize,                      */</span> 0U <span class="comment">/* unused during GCM init */</span>,</div>
+<div class="line">    <span class="comment">/* uint32_t adataSize,                   */</span> 0U <span class="comment">/* unused during GCM init */</span>,</div>
+<div class="line">    <span class="comment">/* uint32_t tagSize,                     */</span> sizeof(tagReference))</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#ga1c2884a5a1d0c923a4cf6a0d85a8fd7f">mcuxClAead_init_encrypt</a>) != ei_token) || (<a id="_a13" name="_a13"></a><a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != ei_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * mcuxClAead_process_adata() processes the header data. This needs to be completed</span></div>
+<div class="line"><span class="comment">   * before other data can be processed. Therefore all calls to mcuxClAead_process_adata()</span></div>
+<div class="line"><span class="comment">   * need to be made before calls to mcuxClAead_process().</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(epa1_status, epa1_token, <a id="a14" name="a14"></a><a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_encrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pAdata            */</span> adataBuf,</div>
+<div class="line">    <span class="comment">/* uint32_t adataSize                    */</span> <span class="keyword">sizeof</span>(adata)/3U)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>) != epa1_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != epa1_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  <a id="a15" name="a15"></a><a class="code hl_define" href="a01352.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(adataBuf, <span class="keyword">sizeof</span>(adata)/3U);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(epa2_status, epa2_token, <a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_encrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pAdata            */</span> adataBuf,  <span class="comment">/* Only part of input data was processed */</span></div>
+<div class="line">    <span class="comment">/* uint32_t adataSize                    */</span> <span class="keyword">sizeof</span>(adata) - <span class="keyword">sizeof</span>(adata)/3U)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>) != epa2_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != epa2_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ep1_status, ep1_token, <a id="a16" name="a16"></a><a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_encrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn               */</span> plainBuf,</div>
+<div class="line">    <span class="comment">/* uint32_t inSize                       */</span> <span class="keyword">sizeof</span>(plain)/2U,</div>
+<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut                   */</span> encryptedMultipartDataBuf,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutSize             */</span> &amp;encryptedSize)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>) != ep1_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != ep1_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
+<div class="line">  encryptedMultipartSize += encryptedSize;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01352.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(plainBuf, sizeof(plain)/2U);</div>
+<div class="line">  <a id="_a17" name="_a17"></a><a class="code hl_define" href="a01352.html#ga2010d4ce3e1332cbae4b7b76810dc0bd">MCUXCLBUFFER_DERIVE_RW</a>(encryptedMultipartDataBuf2, encryptedMultipartDataBuf, encryptedMultipartSize);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ep2_status, ep2_token, <a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_encrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn               */</span> plainBuf,  <span class="comment">/* Only part of input data was processed */</span></div>
+<div class="line">    <span class="comment">/* uint32_t inSize                       */</span> sizeof(plain) - sizeof(plain)/2U,</div>
+<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut                   */</span> encryptedMultipartDataBuf2,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutSize             */</span> &amp;encryptedSize)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>) != ep2_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != ep2_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
+<div class="line">  encryptedMultipartSize += encryptedSize;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01352.html#ga2010d4ce3e1332cbae4b7b76810dc0bd">MCUXCLBUFFER_DERIVE_RW</a>(encryptedMultipartDataBuf3, encryptedMultipartDataBuf, encryptedMultipartSize);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(ef_status, ef_token, <a id="_a18" name="_a18"></a><a class="code hl_function" href="a01341.html#ga2b18aa6585e4d229d7ccfdd34f3f9dba">mcuxClAead_finish</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_encrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut                   */</span> encryptedMultipartDataBuf3,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutSize             */</span> &amp;encryptedSize,</div>
+<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pTag                   */</span> tagMultipartDataBuf)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#ga2b18aa6585e4d229d7ccfdd34f3f9dba">mcuxClAead_finish</a>) != ef_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != ef_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
+<div class="line">  encryptedMultipartSize += encryptedSize;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Multi-part Decryption                                                  */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  uint32_t decryptedSize = 0U;</div>
+<div class="line">  uint32_t decryptedMultipartSize = 0U;</div>
+<div class="line">  uint8_t decryptedMultipartData[sizeof(plain)];</div>
+<div class="line">  <a class="code hl_define" href="a01351.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a>(decryptedMultipartDataBuf, session, decryptedMultipartData, sizeof(decryptedMultipartData));</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(di_status, di_token, <a id="_a19" name="_a19"></a><a class="code hl_function" href="a01341.html#ga9f8a20972032f371b501f7750375af85">mcuxClAead_init_decrypt</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    <span class="comment">/* mcuxClKey_Handle_t key                 */</span> key,</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Mode_t mode                 */</span> <a class="code hl_variable" href="a01344.html#ga097a509a2fa462b5d61ba740c28d9ea3">mcuxClAead_Mode_GCM</a>,</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pNonce            */</span> nonceBuf,</div>
+<div class="line">    <span class="comment">/* uint32_t nonceSize,                   */</span> sizeof(nonce),</div>
+<div class="line">    <span class="comment">/* uint32_t inSize,                      */</span> 0U <span class="comment">/* unused during GCM init */</span>,</div>
+<div class="line">    <span class="comment">/* uint32_t adataSize,                   */</span> 0U <span class="comment">/* unused during GCM init */</span>,</div>
+<div class="line">    <span class="comment">/* uint32_t tagSize,                     */</span> sizeof(tagReference))</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#ga9f8a20972032f371b501f7750375af85">mcuxClAead_init_decrypt</a>) != di_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != di_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a>(adataBuf2, session, adata, <span class="keyword">sizeof</span>(adata));</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(dpa1_status, dpa1_token, <a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_decrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pAdata            */</span> adataBuf2,</div>
+<div class="line">    <span class="comment">/* uint32_t adataSize                    */</span> <span class="keyword">sizeof</span>(adata)/2U)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>) != dpa1_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != dpa1_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01352.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(adataBuf2, <span class="keyword">sizeof</span>(adata)/2U);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(dpa2_status, dpa2_token, <a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_decrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pAdata            */</span> adataBuf2,  <span class="comment">/* Only part of input data was processed */</span></div>
+<div class="line">    <span class="comment">/* uint32_t adataSize                    */</span> <span class="keyword">sizeof</span>(adata) - <span class="keyword">sizeof</span>(adata)/2U)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a>) != dpa2_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != dpa2_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  <a id="a20" name="a20"></a><a class="code hl_define" href="a01352.html#gaacf43338c3f4891c4a07ea729b44da01">MCUXCLBUFFER_DERIVE_RO</a>(encryptedMultipartData_InBuf, encryptedMultipartDataBuf, 0);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(dp1_status, dp1_token, <a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_decrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by MCUXCLBUFFER_DERIVE_RO&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn               */</span> encryptedMultipartData_InBuf,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* uint32_t inSize                       */</span> encryptedMultipartSize/2U,</div>
+<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut                   */</span> decryptedMultipartDataBuf,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutSize             */</span> &amp;decryptedMultipartSize)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>) != dp1_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != dp1_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01352.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a>(encryptedMultipartData_InBuf, encryptedMultipartSize/2U);</div>
+<div class="line">  <a class="code hl_define" href="a01352.html#ga2010d4ce3e1332cbae4b7b76810dc0bd">MCUXCLBUFFER_DERIVE_RW</a>(decryptedMultipartDataBuf2, decryptedMultipartDataBuf, decryptedMultipartSize);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(dp2_status, dp2_token, <a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_decrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by MCUXCLBUFFER_DERIVE_RO&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pIn               */</span> encryptedMultipartData_InBuf,  <span class="comment">/* Only part of input data was processed */</span></div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not wrap&quot;</span>)</div>
+<div class="line">    <span class="comment">/* uint32_t inSize                       */</span> encryptedMultipartSize - encryptedMultipartSize/2U,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
+<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut                   */</span> decryptedMultipartDataBuf2,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutSize             */</span> &amp;decryptedSize)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span>((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a>) != dp2_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != dp2_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
+<div class="line">  decryptedMultipartSize += decryptedSize;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01352.html#ga2010d4ce3e1332cbae4b7b76810dc0bd">MCUXCLBUFFER_DERIVE_RW</a>(decryptedMultipartDataBuf3, decryptedMultipartDataBuf, decryptedMultipartSize);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_define" href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a>(dv_status, dv_token, <a id="_a21" name="_a21"></a><a class="code hl_function" href="a01341.html#gafb82bc41120d69281d0fbb719fb35d9d">mcuxClAead_verify</a>(</div>
+<div class="line">    <span class="comment">/* mcuxClSession_Handle_t session         */</span> session,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by mcuxClAead_init_decrypt&quot;</span>)</div>
+<div class="line">    <span class="comment">/* mcuxClAead_Context_t * const pContext  */</span> ctx,</div>
+<div class="line">    MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line">    <span class="comment">/* mcuxCl_InputBuffer_t pTag              */</span> tagMultipartDataBuf,</div>
+<div class="line">    <span class="comment">/* mcuxCl_Buffer_t pOut                   */</span> decryptedMultipartDataBuf3,</div>
+<div class="line">    <span class="comment">/* uint32_t * const pOutSize             */</span> &amp;decryptedSize)</div>
+<div class="line">  );</div>
+<div class="line"> </div>
+<div class="line">  if((<a class="code hl_define" href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a>(<a class="code hl_function" href="a01341.html#gafb82bc41120d69281d0fbb719fb35d9d">mcuxClAead_verify</a>) != dv_token) || (<a class="code hl_define" href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a> != dv_status))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <a class="code hl_define" href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a>();</div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_INTEGER_OVERFLOW(<span class="stringliteral">&quot;Calculation does not overflow&quot;</span>)</div>
+<div class="line">  decryptedMultipartSize += decryptedSize;</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_INTEGER_OVERFLOW()</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Destroy the current session                                            */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  if(!mcuxClExample_Session_Clean(session))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line">  <span class="comment">/* Verification                                                           */</span></div>
+<div class="line"><span class="comment">  /**************************************************************************/</span></div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by MCUXCLBUFFER_INIT&quot;</span>)</div>
+<div class="line">  if (!mcuxClCore_assertEqual(encryptedMultipartData, encryptedReference, sizeof(encryptedReference)))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line"> </div>
+<div class="line">  MCUX_CSSL_ANALYSIS_START_SUPPRESS_ALREADY_INITIALIZED(<span class="stringliteral">&quot;Initialized by MCUXCLBUFFER_INIT&quot;</span>)</div>
+<div class="line">  if (!mcuxClCore_assertEqual(tagMultipartData, tagReference, sizeof(tagReference)))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_ALREADY_INITIALIZED()</div>
+<div class="line"> </div>
+<div class="line">  if (sizeof(encryptedReference) != encryptedMultipartSize)</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span> (!mcuxClCore_assertEqual(plain, decryptedMultipartData, <span class="keyword">sizeof</span>(plain)))</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span> (<span class="keyword">sizeof</span>(plain) != decryptedMultipartSize)</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_ERROR;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">return</span> MCUXCLEXAMPLE_STATUS_OK;</div>
+<div class="line">}</div>
+<div class="ttc" id="aa00386_html"><div class="ttname"><a href="a00386.html">mcuxClAead.h</a></div><div class="ttdoc">Top-level include file for the mcuxClAead component.</div></div>
+<div class="ttc" id="aa00389_html"><div class="ttname"><a href="a00389.html">mcuxClAeadModes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClAeadModes component.</div></div>
+<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">mcuxClAes.h</a></div><div class="ttdoc">Top-level include file for the mcuxClAes component.</div></div>
+<div class="ttc" id="aa00419_html"><div class="ttname"><a href="a00419.html">mcuxClBuffer.h</a></div><div class="ttdoc">Top-level include file for the mcuxClBuffer component.</div></div>
+<div class="ttc" id="aa00455_html"><div class="ttname"><a href="a00455.html">mcuxClCore_FunctionIdentifiers.h</a></div><div class="ttdoc">Definition of function identifiers for the flow protection mechanism.</div></div>
+<div class="ttc" id="aa00671_html"><div class="ttname"><a href="a00671.html">mcuxClKey.h</a></div><div class="ttdoc">Top-level include file for the mcuxClKey component.</div></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">mcuxClSession.h</a></div><div class="ttdoc">Top-level include file for the mcuxClSession component.</div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">mcuxCsslFlowProtection.h</a></div><div class="ttdoc">Provides the API for the CSSL flow protection mechanism.</div></div>
+<div class="ttc" id="aa01340_html_ga6c761e767eb59aef9aa93a6e05661aa5"><div class="ttname"><a href="a01340.html#ga6c761e767eb59aef9aa93a6e05661aa5">MCUXCLAEAD_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLAEAD_STATUS_OK</div><div class="ttdoc">Aead function returned successfully.</div><div class="ttdef"><b>Definition</b> mcuxClAead_Constants.h:52</div></div>
+<div class="ttc" id="aa01341_html_ga1c2884a5a1d0c923a4cf6a0d85a8fd7f"><div class="ttname"><a href="a01341.html#ga1c2884a5a1d0c923a4cf6a0d85a8fd7f">mcuxClAead_init_encrypt</a></div><div class="ttdeci">mcuxClAead_Status_t mcuxClAead_init_encrypt(mcuxClSession_Handle_t session, mcuxClAead_Context_t *const pContext, mcuxClKey_Handle_t key, mcuxClAead_Mode_t mode, mcuxCl_InputBuffer_t pNonce, uint32_t nonceLength, uint32_t inLength, uint32_t adataLength, uint32_t tagLength)</div><div class="ttdoc">Multi-part authenticated encryption initialization function.</div></div>
+<div class="ttc" id="aa01341_html_ga2b18aa6585e4d229d7ccfdd34f3f9dba"><div class="ttname"><a href="a01341.html#ga2b18aa6585e4d229d7ccfdd34f3f9dba">mcuxClAead_finish</a></div><div class="ttdeci">mcuxClAead_Status_t mcuxClAead_finish(mcuxClSession_Handle_t session, mcuxClAead_Context_t *const pContext, mcuxCl_Buffer_t pOut, uint32_t *const pOutLength, mcuxCl_Buffer_t pTag)</div><div class="ttdoc">Multi-part authenticated encryption/decryption finalization function.</div></div>
+<div class="ttc" id="aa01341_html_ga40cbd731ba8874d971213fa03605736d"><div class="ttname"><a href="a01341.html#ga40cbd731ba8874d971213fa03605736d">mcuxClAead_process_adata</a></div><div class="ttdeci">mcuxClAead_Status_t mcuxClAead_process_adata(mcuxClSession_Handle_t session, mcuxClAead_Context_t *const pContext, mcuxCl_InputBuffer_t pAdata, uint32_t adataLength)</div><div class="ttdoc">Multi-part authenticated encryption/decryption processing function for the associated data (authentic...</div></div>
+<div class="ttc" id="aa01341_html_ga9f8a20972032f371b501f7750375af85"><div class="ttname"><a href="a01341.html#ga9f8a20972032f371b501f7750375af85">mcuxClAead_init_decrypt</a></div><div class="ttdeci">mcuxClAead_Status_t mcuxClAead_init_decrypt(mcuxClSession_Handle_t session, mcuxClAead_Context_t *const pContext, mcuxClKey_Handle_t key, mcuxClAead_Mode_t mode, mcuxCl_InputBuffer_t pNonce, uint32_t nonceLength, uint32_t inLength, uint32_t adataLength, uint32_t tagLength)</div><div class="ttdoc">Multi-part authenticated decryption initialization function.</div></div>
+<div class="ttc" id="aa01341_html_gaa4af5201aaf549186bf80cbf4284f3d1"><div class="ttname"><a href="a01341.html#gaa4af5201aaf549186bf80cbf4284f3d1">mcuxClAead_process</a></div><div class="ttdeci">mcuxClAead_Status_t mcuxClAead_process(mcuxClSession_Handle_t session, mcuxClAead_Context_t *const pContext, mcuxCl_InputBuffer_t pIn, uint32_t inLength, mcuxCl_Buffer_t pOut, uint32_t *const pOutLength)</div><div class="ttdoc">Multi-part authenticated encryption/decryption processing function for the regular data (authenticate...</div></div>
+<div class="ttc" id="aa01341_html_gafb82bc41120d69281d0fbb719fb35d9d"><div class="ttname"><a href="a01341.html#gafb82bc41120d69281d0fbb719fb35d9d">mcuxClAead_verify</a></div><div class="ttdeci">mcuxClAead_Status_t mcuxClAead_verify(mcuxClSession_Handle_t session, mcuxClAead_Context_t *const pContext, mcuxCl_InputBuffer_t pTag, mcuxCl_Buffer_t pOut, uint32_t *const pOutLength)</div><div class="ttdoc">Multi-part authenticated decryption verification function.</div></div>
+<div class="ttc" id="aa01342_html_gaf67b42507181f9793498bfaaab35a48a"><div class="ttname"><a href="a01342.html#gaf67b42507181f9793498bfaaab35a48a">mcuxClAead_Context_t</a></div><div class="ttdeci">struct mcuxClAead_Context mcuxClAead_Context_t</div><div class="ttdoc">AEAD context type.</div><div class="ttdef"><b>Definition</b> mcuxClAead_Types.h:122</div></div>
+<div class="ttc" id="aa01344_html_ga097a509a2fa462b5d61ba740c28d9ea3"><div class="ttname"><a href="a01344.html#ga097a509a2fa462b5d61ba740c28d9ea3">mcuxClAead_Mode_GCM</a></div><div class="ttdeci">static mcuxClAead_Mode_t mcuxClAead_Mode_GCM</div><div class="ttdoc">GCM mode.</div><div class="ttdef"><b>Definition</b> mcuxClAeadModes_Modes.h:88</div></div>
+<div class="ttc" id="aa01348_html_ga8f0a74b8ec63f9bcfff2723f37602d0d"><div class="ttname"><a href="a01348.html#ga8f0a74b8ec63f9bcfff2723f37602d0d">mcuxClKey_Type_Aes128</a></div><div class="ttdeci">static const mcuxClKey_Type_t mcuxClKey_Type_Aes128</div><div class="ttdoc">Key type pointer for AES-128 based keys.</div><div class="ttdef"><b>Definition</b> mcuxClAes_KeyTypes.h:71</div></div>
+<div class="ttc" id="aa01351_html_ga00af3c9893f4c59ec8ac0675c8332da3"><div class="ttname"><a href="a01351.html#ga00af3c9893f4c59ec8ac0675c8332da3">MCUXCLBUFFER_INIT</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT(name, info, ptr, size)</div><div class="ttdoc">Initialize an input/output buffer (mcuxCl_Buffer_t).</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:87</div></div>
+<div class="ttc" id="aa01351_html_gaa0ed06160ed0bb21bbef3def4479d9ce"><div class="ttname"><a href="a01351.html#gaa0ed06160ed0bb21bbef3def4479d9ce">MCUXCLBUFFER_INIT_RO</a></div><div class="ttdeci">#define MCUXCLBUFFER_INIT_RO(name, info, ptr, size)</div><div class="ttdoc">Initialize an input buffer (mcuxCl_InputBuffer_t) with plain CPU handling.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:104</div></div>
+<div class="ttc" id="aa01352_html_ga2010d4ce3e1332cbae4b7b76810dc0bd"><div class="ttname"><a href="a01352.html#ga2010d4ce3e1332cbae4b7b76810dc0bd">MCUXCLBUFFER_DERIVE_RW</a></div><div class="ttdeci">#define MCUXCLBUFFER_DERIVE_RW(name, original, offset)</div><div class="ttdoc">Derive a new input/output buffer object from an existing one (updated with the given offset).</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:247</div></div>
+<div class="ttc" id="aa01352_html_gaacf43338c3f4891c4a07ea729b44da01"><div class="ttname"><a href="a01352.html#gaacf43338c3f4891c4a07ea729b44da01">MCUXCLBUFFER_DERIVE_RO</a></div><div class="ttdeci">#define MCUXCLBUFFER_DERIVE_RO(name, original, offset)</div><div class="ttdoc">Derive a new input buffer object from an existing one (updated with the given offset).</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:234</div></div>
+<div class="ttc" id="aa01352_html_gabcd0245cf9817151a98ef23a6ff7f99f"><div class="ttname"><a href="a01352.html#gabcd0245cf9817151a98ef23a6ff7f99f">MCUXCLBUFFER_UPDATE</a></div><div class="ttdeci">#define MCUXCLBUFFER_UPDATE(name, offset)</div><div class="ttdoc">Update the buffer pointer with the given offset.</div><div class="ttdef"><b>Definition</b> mcuxClBuffer.h:221</div></div>
+<div class="ttc" id="aa01410_html_ga3cac3b08cb53d2949698e19319010c49"><div class="ttname"><a href="a01410.html#ga3cac3b08cb53d2949698e19319010c49">MCUXCLKEY_STATUS_OK</a></div><div class="ttdeci">#define MCUXCLKEY_STATUS_OK</div><div class="ttdoc">Key operation successful.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Constants.h:60</div></div>
+<div class="ttc" id="aa01416_html_ga5faf77a895683e1e7d904bd323abc38d"><div class="ttname"><a href="a01416.html#ga5faf77a895683e1e7d904bd323abc38d">mcuxClKey_init</a></div><div class="ttdeci">mcuxClKey_Status_t mcuxClKey_init(mcuxClSession_Handle_t session, mcuxClKey_Handle_t key, mcuxClKey_Type_t type, const uint8_t *pKeyData, uint32_t keyDataLength)</div><div class="ttdoc">Initializes a key handle.</div></div>
+<div class="ttc" id="aa01417_html_gafe84fa2aa66094f542164e0627a54c5d"><div class="ttname"><a href="a01417.html#gafe84fa2aa66094f542164e0627a54c5d">mcuxClKey_Handle_t</a></div><div class="ttdeci">mcuxClKey_Descriptor_t *const mcuxClKey_Handle_t</div><div class="ttdoc">Key handle type.</div><div class="ttdef"><b>Definition</b> mcuxClKey_Types.h:111</div></div>
+<div class="ttc" id="aa01480_html_ga17fd337618b05459b4a343393e099b56"><div class="ttname"><a href="a01480.html#ga17fd337618b05459b4a343393e099b56">mcuxClSession_Handle_t</a></div><div class="ttdeci">mcuxClSession_Descriptor_t *const mcuxClSession_Handle_t</div><div class="ttdoc">Type for mcuxClSession Handle.</div><div class="ttdef"><b>Definition</b> mcuxClSession_Types.h:118</div></div>
+<div class="ttc" id="aa01510_html_ga8a9b1ebbc02c8195618a339aa8e0003d"><div class="ttname"><a href="a01510.html#ga8a9b1ebbc02c8195618a339aa8e0003d">MCUX_CSSL_FP_FUNCTION_CALL_BEGIN</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_BEGIN(...)</div><div class="ttdoc">Call a flow protected function and check the protection token.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:643</div></div>
+<div class="ttc" id="aa01510_html_gac16ad6597579a02a30ada37f86f216d5"><div class="ttname"><a href="a01510.html#gac16ad6597579a02a30ada37f86f216d5">MCUX_CSSL_FP_FUNCTION_CALLED</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALLED(...)</div><div class="ttdoc">Expectation of a called function.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:797</div></div>
+<div class="ttc" id="aa01510_html_gac4362de43d0e67ba6fac0057eb38008d"><div class="ttname"><a href="a01510.html#gac4362de43d0e67ba6fac0057eb38008d">MCUX_CSSL_FP_FUNCTION_CALL_END</a></div><div class="ttdeci">#define MCUX_CSSL_FP_FUNCTION_CALL_END(...)</div><div class="ttdoc">End a function call section started by MCUX_CSSL_FP_FUNCTION_CALL_BEGIN.</div><div class="ttdef"><b>Definition</b> mcuxCsslFlowProtection.h:678</div></div>
+</div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
-<div id="page-nav" class="page-nav-panel">
-<div id="page-nav-resize-handle"></div>
-<div id="page-nav-tree">
-<div id="page-nav-contents">
-</div><!-- page-nav-contents -->
-</div><!-- page-nav-tree -->
-</div><!-- page-nav -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a03319.html">ZLL_Type</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,6 +1,6 @@
 var a01514 =
 [
-    [ "MCUX_CSSL_FP_LOOP_DECL", "a01514.html#ga96df84766aff763718a84dd44246af38", null ],
-    [ "MCUX_CSSL_FP_LOOP_ITERATION", "a01514.html#gae7942657c4fac73115908f05c382cc86", null ],
-    [ "MCUX_CSSL_FP_LOOP_ITERATIONS", "a01514.html#gae5aabc3339a46a799d1fefd1095a4898", null ]
+    [ "MCUX_CSSL_FP_EXPECT", "a01514.html#ga83db474d65df2b52abea45293f9684d0", null ],
+    [ "MCUX_CSSL_FP_CONDITIONAL", "a01514.html#ga24a55fecde25d3aa0a227814345b9714", null ],
+    [ "MCUX_CSSL_FP_ASSERT", "a01514.html#ga301b8f23ac6981e62649c8f571a6c6eb", null ]
 ];

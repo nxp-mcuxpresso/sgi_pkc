@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: MCUXCLFFDH_FFDHE8192_SIZE</title>
+<title>MCUX CLNS: MCUXCLFFDH_WAPKC</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,29 +102,459 @@ $(function(){initNavTree('a01624.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MCUXCLFFDH_FFDHE8192_SIZE <div class="ingroups"><a class="el" href="a01381.html">mcuxClFfdh</a> &raquo; <a class="el" href="a01382.html">mcuxClFfdh_ParameterSizes</a></div></div></div>
+  <div class="headertitle"><div class="title">MCUXCLFFDH_WAPKC <div class="ingroups"><a class="el" href="a01378.html">mcuxClFfdh</a> &raquo; <a class="el" href="a01597.html">mcuxClFfdh_MemoryConsumption</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>FFDH parameter size definitions for ffdhe8192  
+<p>Define the PKC workarea size required by mcuxClFfdh APIs.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga3a2c57dcd21f52a821e959c02c3e2e86" id="r_ga3a2c57dcd21f52a821e959c02c3e2e86"><td class="memItemLeft"><a id="ga3a2c57dcd21f52a821e959c02c3e2e86" name="ga3a2c57dcd21f52a821e959c02c3e2e86"></a>
-#define&#160;</td><td class="memItemRight"><b>MCUXCLFFDH_FFDHE8192_SIZE_PRIMEP</b></td></tr>
-<tr class="memitem:gaf351a572966a0ed1bd666cb9c7bd92fb" id="r_gaf351a572966a0ed1bd666cb9c7bd92fb"><td class="memItemLeft"><a id="gaf351a572966a0ed1bd666cb9c7bd92fb" name="gaf351a572966a0ed1bd666cb9c7bd92fb"></a>
-#define&#160;</td><td class="memItemRight"><b>MCUXCLFFDH_FFDHE8192_SIZE_PRIMEQ</b></td></tr>
-<tr class="memitem:gaf62745e544ed22683ed2b45d52fc23b4" id="r_gaf62745e544ed22683ed2b45d52fc23b4"><td class="memItemLeft"><a id="gaf62745e544ed22683ed2b45d52fc23b4" name="gaf62745e544ed22683ed2b45d52fc23b4"></a>
-#define&#160;</td><td class="memItemRight"><b>MCUXCLFFDH_FFDHE8192_SIZE_PUBLICKEY</b></td></tr>
-<tr class="memitem:gaa80ed24f138b025b4d417fb8378f14f2" id="r_gaa80ed24f138b025b4d417fb8378f14f2"><td class="memItemLeft"><a id="gaa80ed24f138b025b4d417fb8378f14f2" name="gaa80ed24f138b025b4d417fb8378f14f2"></a>
-#define&#160;</td><td class="memItemRight"><b>MCUXCLFFDH_FFDHE8192_SIZE_PRIVATEKEY</b></td></tr>
-<tr class="memitem:ga5e20c54fd9ccbb1efa14b11c63541568" id="r_ga5e20c54fd9ccbb1efa14b11c63541568"><td class="memItemLeft"><a id="ga5e20c54fd9ccbb1efa14b11c63541568" name="ga5e20c54fd9ccbb1efa14b11c63541568"></a>
-#define&#160;</td><td class="memItemRight"><b>MCUXCLFFDH_FFDHE8192_SIZE_SHAREDSECRET</b></td></tr>
+<tr class="memitem:gae12ec5b9e75ad7f58e01459b56c933e6" id="r_gae12ec5b9e75ad7f58e01459b56c933e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae12ec5b9e75ad7f58e01459b56c933e6">MCUXCLFFDH_PKC_WORDSIZE</a></td></tr>
+<tr class="memdesc:gae12ec5b9e75ad7f58e01459b56c933e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC wordsize in FFDH component.  <br /></td></tr>
+<tr class="memitem:ga5d5caf1e1f06650f73b517eae3128099" id="r_ga5d5caf1e1f06650f73b517eae3128099"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5d5caf1e1f06650f73b517eae3128099">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</a></td></tr>
+<tr class="memdesc:ga5d5caf1e1f06650f73b517eae3128099"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p.  <br /></td></tr>
+<tr class="memitem:ga2829efb30e6330694a2148c6675e094c" id="r_ga2829efb30e6330694a2148c6675e094c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2829efb30e6330694a2148c6675e094c">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</a></td></tr>
+<tr class="memdesc:ga2829efb30e6330694a2148c6675e094c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga601b88078391610dbba0a3f25ed5f1c8" id="r_ga601b88078391610dbba0a3f25ed5f1c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga601b88078391610dbba0a3f25ed5f1c8">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</a></td></tr>
+<tr class="memdesc:ga601b88078391610dbba0a3f25ed5f1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga582c385c4f459f10dc282c6d7a84390f" id="r_ga582c385c4f459f10dc282c6d7a84390f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga582c385c4f459f10dc282c6d7a84390f">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</a></td></tr>
+<tr class="memdesc:ga582c385c4f459f10dc282c6d7a84390f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga469bca95a7be11074c4cd93e77cff342" id="r_ga469bca95a7be11074c4cd93e77cff342"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga469bca95a7be11074c4cd93e77cff342">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</a></td></tr>
+<tr class="memdesc:ga469bca95a7be11074c4cd93e77cff342"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:gae12ec5b9e75ad7f58e01459b56c933e6" id="r_gae12ec5b9e75ad7f58e01459b56c933e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae12ec5b9e75ad7f58e01459b56c933e6">MCUXCLFFDH_PKC_WORDSIZE</a></td></tr>
+<tr class="memdesc:gae12ec5b9e75ad7f58e01459b56c933e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC wordsize in FFDH component.  <br /></td></tr>
+<tr class="memitem:ga5d5caf1e1f06650f73b517eae3128099" id="r_ga5d5caf1e1f06650f73b517eae3128099"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5d5caf1e1f06650f73b517eae3128099">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</a></td></tr>
+<tr class="memdesc:ga5d5caf1e1f06650f73b517eae3128099"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p.  <br /></td></tr>
+<tr class="memitem:ga2829efb30e6330694a2148c6675e094c" id="r_ga2829efb30e6330694a2148c6675e094c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2829efb30e6330694a2148c6675e094c">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</a></td></tr>
+<tr class="memdesc:ga2829efb30e6330694a2148c6675e094c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga601b88078391610dbba0a3f25ed5f1c8" id="r_ga601b88078391610dbba0a3f25ed5f1c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga601b88078391610dbba0a3f25ed5f1c8">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</a></td></tr>
+<tr class="memdesc:ga601b88078391610dbba0a3f25ed5f1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga582c385c4f459f10dc282c6d7a84390f" id="r_ga582c385c4f459f10dc282c6d7a84390f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga582c385c4f459f10dc282c6d7a84390f">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</a></td></tr>
+<tr class="memdesc:ga582c385c4f459f10dc282c6d7a84390f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga469bca95a7be11074c4cd93e77cff342" id="r_ga469bca95a7be11074c4cd93e77cff342"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga469bca95a7be11074c4cd93e77cff342">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</a></td></tr>
+<tr class="memdesc:ga469bca95a7be11074c4cd93e77cff342"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:gae12ec5b9e75ad7f58e01459b56c933e6" id="r_gae12ec5b9e75ad7f58e01459b56c933e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae12ec5b9e75ad7f58e01459b56c933e6">MCUXCLFFDH_PKC_WORDSIZE</a></td></tr>
+<tr class="memdesc:gae12ec5b9e75ad7f58e01459b56c933e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC wordsize in FFDH component.  <br /></td></tr>
+<tr class="memitem:ga5d5caf1e1f06650f73b517eae3128099" id="r_ga5d5caf1e1f06650f73b517eae3128099"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5d5caf1e1f06650f73b517eae3128099">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</a></td></tr>
+<tr class="memdesc:ga5d5caf1e1f06650f73b517eae3128099"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p.  <br /></td></tr>
+<tr class="memitem:ga2829efb30e6330694a2148c6675e094c" id="r_ga2829efb30e6330694a2148c6675e094c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2829efb30e6330694a2148c6675e094c">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</a></td></tr>
+<tr class="memdesc:ga2829efb30e6330694a2148c6675e094c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga601b88078391610dbba0a3f25ed5f1c8" id="r_ga601b88078391610dbba0a3f25ed5f1c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga601b88078391610dbba0a3f25ed5f1c8">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</a></td></tr>
+<tr class="memdesc:ga601b88078391610dbba0a3f25ed5f1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga582c385c4f459f10dc282c6d7a84390f" id="r_ga582c385c4f459f10dc282c6d7a84390f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga582c385c4f459f10dc282c6d7a84390f">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</a></td></tr>
+<tr class="memdesc:ga582c385c4f459f10dc282c6d7a84390f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga469bca95a7be11074c4cd93e77cff342" id="r_ga469bca95a7be11074c4cd93e77cff342"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga469bca95a7be11074c4cd93e77cff342">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</a></td></tr>
+<tr class="memdesc:ga469bca95a7be11074c4cd93e77cff342"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:gae12ec5b9e75ad7f58e01459b56c933e6" id="r_gae12ec5b9e75ad7f58e01459b56c933e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae12ec5b9e75ad7f58e01459b56c933e6">MCUXCLFFDH_PKC_WORDSIZE</a></td></tr>
+<tr class="memdesc:gae12ec5b9e75ad7f58e01459b56c933e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC wordsize in FFDH component.  <br /></td></tr>
+<tr class="memitem:ga5d5caf1e1f06650f73b517eae3128099" id="r_ga5d5caf1e1f06650f73b517eae3128099"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5d5caf1e1f06650f73b517eae3128099">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</a></td></tr>
+<tr class="memdesc:ga5d5caf1e1f06650f73b517eae3128099"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p.  <br /></td></tr>
+<tr class="memitem:ga2829efb30e6330694a2148c6675e094c" id="r_ga2829efb30e6330694a2148c6675e094c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2829efb30e6330694a2148c6675e094c">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</a></td></tr>
+<tr class="memdesc:ga2829efb30e6330694a2148c6675e094c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga601b88078391610dbba0a3f25ed5f1c8" id="r_ga601b88078391610dbba0a3f25ed5f1c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga601b88078391610dbba0a3f25ed5f1c8">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</a></td></tr>
+<tr class="memdesc:ga601b88078391610dbba0a3f25ed5f1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga582c385c4f459f10dc282c6d7a84390f" id="r_ga582c385c4f459f10dc282c6d7a84390f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga582c385c4f459f10dc282c6d7a84390f">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</a></td></tr>
+<tr class="memdesc:ga582c385c4f459f10dc282c6d7a84390f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
+<tr class="memitem:ga469bca95a7be11074c4cd93e77cff342" id="r_ga469bca95a7be11074c4cd93e77cff342"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga469bca95a7be11074c4cd93e77cff342">MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</a></td></tr>
+<tr class="memdesc:ga469bca95a7be11074c4cd93e77cff342"><td class="mdescLeft">&#160;</td><td class="mdescRight">PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>FFDH parameter size definitions for ffdhe8192 </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Define the PKC workarea size required by mcuxClFfdh APIs. </p>
+<p>Define the PKC workarea size required by mcuxClFfdh APIs.</p>
+<p>Define the PKC workarea size required by mcuxClFfdh APIs.</p>
+<p>Define the PKC workarea size required by mcuxClFfdh APIs.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="gae12ec5b9e75ad7f58e01459b56c933e6" name="gae12ec5b9e75ad7f58e01459b56c933e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae12ec5b9e75ad7f58e01459b56c933e6">&#9670;&#160;</a></span>MCUXCLFFDH_PKC_WORDSIZE <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLFFDH_PKC_WORDSIZE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC wordsize in FFDH component. </p>
+
+</div>
+</div>
+<a id="ga5d5caf1e1f06650f73b517eae3128099" name="ga5d5caf1e1f06650f73b517eae3128099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d5caf1e1f06650f73b517eae3128099">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p. </p>
+<p>PKC workarea size (in bytes) for ffdhe2048 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga2829efb30e6330694a2148c6675e094c" name="ga2829efb30e6330694a2148c6675e094c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2829efb30e6330694a2148c6675e094c">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga601b88078391610dbba0a3f25ed5f1c8" name="ga601b88078391610dbba0a3f25ed5f1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga601b88078391610dbba0a3f25ed5f1c8">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga582c385c4f459f10dc282c6d7a84390f" name="ga582c385c4f459f10dc282c6d7a84390f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga582c385c4f459f10dc282c6d7a84390f">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga469bca95a7be11074c4cd93e77cff342" name="ga469bca95a7be11074c4cd93e77cff342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga469bca95a7be11074c4cd93e77cff342">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="gae12ec5b9e75ad7f58e01459b56c933e6" name="gae12ec5b9e75ad7f58e01459b56c933e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae12ec5b9e75ad7f58e01459b56c933e6">&#9670;&#160;</a></span>MCUXCLFFDH_PKC_WORDSIZE <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLFFDH_PKC_WORDSIZE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC wordsize in FFDH component. </p>
+
+</div>
+</div>
+<a id="ga5d5caf1e1f06650f73b517eae3128099" name="ga5d5caf1e1f06650f73b517eae3128099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d5caf1e1f06650f73b517eae3128099">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p. </p>
+<p>PKC workarea size (in bytes) for ffdhe2048 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga2829efb30e6330694a2148c6675e094c" name="ga2829efb30e6330694a2148c6675e094c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2829efb30e6330694a2148c6675e094c">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga601b88078391610dbba0a3f25ed5f1c8" name="ga601b88078391610dbba0a3f25ed5f1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga601b88078391610dbba0a3f25ed5f1c8">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga582c385c4f459f10dc282c6d7a84390f" name="ga582c385c4f459f10dc282c6d7a84390f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga582c385c4f459f10dc282c6d7a84390f">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga469bca95a7be11074c4cd93e77cff342" name="ga469bca95a7be11074c4cd93e77cff342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga469bca95a7be11074c4cd93e77cff342">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="gae12ec5b9e75ad7f58e01459b56c933e6" name="gae12ec5b9e75ad7f58e01459b56c933e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae12ec5b9e75ad7f58e01459b56c933e6">&#9670;&#160;</a></span>MCUXCLFFDH_PKC_WORDSIZE <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLFFDH_PKC_WORDSIZE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC wordsize in FFDH component. </p>
+
+</div>
+</div>
+<a id="ga5d5caf1e1f06650f73b517eae3128099" name="ga5d5caf1e1f06650f73b517eae3128099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d5caf1e1f06650f73b517eae3128099">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p. </p>
+<p>PKC workarea size (in bytes) for ffdhe2048 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga2829efb30e6330694a2148c6675e094c" name="ga2829efb30e6330694a2148c6675e094c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2829efb30e6330694a2148c6675e094c">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga601b88078391610dbba0a3f25ed5f1c8" name="ga601b88078391610dbba0a3f25ed5f1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga601b88078391610dbba0a3f25ed5f1c8">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga582c385c4f459f10dc282c6d7a84390f" name="ga582c385c4f459f10dc282c6d7a84390f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga582c385c4f459f10dc282c6d7a84390f">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga469bca95a7be11074c4cd93e77cff342" name="ga469bca95a7be11074c4cd93e77cff342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga469bca95a7be11074c4cd93e77cff342">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="gae12ec5b9e75ad7f58e01459b56c933e6" name="gae12ec5b9e75ad7f58e01459b56c933e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae12ec5b9e75ad7f58e01459b56c933e6">&#9670;&#160;</a></span>MCUXCLFFDH_PKC_WORDSIZE <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLFFDH_PKC_WORDSIZE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC wordsize in FFDH component. </p>
+
+</div>
+</div>
+<a id="ga5d5caf1e1f06650f73b517eae3128099" name="ga5d5caf1e1f06650f73b517eae3128099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d5caf1e1f06650f73b517eae3128099">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p. </p>
+<p>PKC workarea size (in bytes) for ffdhe2048 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga2829efb30e6330694a2148c6675e094c" name="ga2829efb30e6330694a2148c6675e094c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2829efb30e6330694a2148c6675e094c">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe3072 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga601b88078391610dbba0a3f25ed5f1c8" name="ga601b88078391610dbba0a3f25ed5f1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga601b88078391610dbba0a3f25ed5f1c8">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe4096 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga582c385c4f459f10dc282c6d7a84390f" name="ga582c385c4f459f10dc282c6d7a84390f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga582c385c4f459f10dc282c6d7a84390f">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe6144 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+<a id="ga469bca95a7be11074c4cd93e77cff342" name="ga469bca95a7be11074c4cd93e77cff342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga469bca95a7be11074c4cd93e77cff342">&#9670;&#160;</a></span>MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PKC workarea size (in bytes) for ffdhe8192 <a class="el" href="a01416.html#gaea7419f6a10d0d173250a9de5d39765a" title="Key agreement function.">mcuxClKey_agreement</a>. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

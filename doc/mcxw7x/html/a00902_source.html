@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxCsslDataIntegrity_AssemblyMacros.h Source File</title>
+<title>MCUX CLNS: mcuxCsslDataIntegrity_Cfg.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,11 +95,11 @@ $(function(){initNavTree('a00902_source.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxCsslDataIntegrity_AssemblyMacros.h</div></div>
+  <div class="headertitle"><div class="title">mcuxCsslDataIntegrity_Cfg.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00902.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023-2024 NXP                                                  */</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/* Copyright 2023 NXP                                                       */</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*                                                                          */</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/* SPDX-License-Identifier: BSD-3-Clause                                    */</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">/*                                                                          */</span></div>
@@ -132,37 +132,24 @@ $(function(){initNavTree('a00902_source.html','',''); });
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*--------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef MCUXCSSLDATAINTEGRITY_ASSEMBLYMACROS_H_</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MCUXCSSLDATAINTEGRITY_ASSEMBLYMACROS_H_</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;<a class="code" href="a00980.html">mcuxCsslSecureCounter_AssemblyMacros.h</a>&gt;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a01502.html#ga9168f0113c5cac1d54792cf0df915a01">   57</a></span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_BASE  MCUX_CSSL_SC_SCM_ASM_BASE</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a01502.html#gaa9c2cbb1047b892d31ebe3b6ca5018be">   68</a></span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_INIT_BASE  MCUX_CSSL_SC_ASM_INIT_BASE</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a01502.html#ga6df0add4f59f5bb5ac1f718386c18a0b">   83</a></span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_INIT_BASE_COND  MCUX_CSSL_SC_ASM_INIT_BASE_COND</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a01502.html#ga70fd798fdb9dda7512988847b5e141f8">   94</a></span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_VALUE     MCUX_CSSL_SC_ASM_VALUE</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a01502.html#ga04beadbbceb3d15e63638ef3e7f3b4fe">  105</a></span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_REF_VALUE     MCUX_CSSL_SC_ASM_REF_VALUE</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a01502.html#ga74b192e2d6c0b12d63a2bffcc2cf271c">  116</a></span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_WRITE_REF     MCUX_CSSL_SC_ASM_WRITE_REF</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a01502.html#ga0343065772b8a90e15fa988facd895af">  127</a></span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_RECORD     MCUX_CSSL_SC_ASM_ADD</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#define MCUX_CSSL_DI_ASM_EXPUNGE    MCUX_CSSL_SC_ASM_SUB</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCSSLDATAINTEGRITY_ASSEMBLYMACROS_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aa00980_html"><div class="ttname"><a href="a00980.html">mcuxCsslSecureCounter_AssemblyMacros.h</a></div><div class="ttdoc">Assembly macros for the secure counter.</div></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef MCUXCSSLDATAINTEGRITY_CFG_H_</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MCUXCSSLDATAINTEGRITY_CFG_H_</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a01501.html#gad14940e758b00b26f2e699b4fc0144bb">   56</a></span><span class="preprocessor">    #define MCUX_CSSL_DI_USE_SECURE_COUNTER      1</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a01501.html#ga4f0cea555852c5171e55303b6cb062be">   63</a></span><span class="preprocessor">    #define MCUX_CSSL_DI_USE_NONE    0</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">/* Basic configuration sanity check */</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif </span><span class="comment">/* MCUXCSSLDATAINTEGRITY_CFG_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00902.html">mcuxCsslDataIntegrity_AssemblyMacros.h</a></li>
+    <li class="navelem"><a href="a00902.html">mcuxCsslDataIntegrity_Cfg.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

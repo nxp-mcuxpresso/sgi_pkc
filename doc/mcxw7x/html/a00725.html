@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MCUX CLNS: mcuxClMath_SecModExp_FUP.h File Reference</title>
+<title>MCUX CLNS: mcuxClMemory.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,35 +102,27 @@ $(function(){initNavTree('a00725.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">mcuxClMath_SecModExp_FUP.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mcuxClMemory.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>defines FUP programs byte arrays  
+<p>Top-level include file for the memory operations.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;internal/mcuxClPkc_FupMacros.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;mcuxClConfig.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00914_source.html">mcuxCsslFlowProtection.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00455_source.html">mcuxClCore_FunctionIdentifiers.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00731_source.html">mcuxClMemory_Constants.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00746_source.html">mcuxClMemory_Types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00740_source.html">mcuxClMemory_Endianness.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00728_source.html">mcuxClMemory_Clear.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00734_source.html">mcuxClMemory_Copy.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00737_source.html">mcuxClMemory_Copy_Reversed.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00743_source.html">mcuxClMemory_Set.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00749_source.html">mcuxClMemory_Xor.h</a>&gt;</code><br />
 </div>
 <p><a href="a00725_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a8830db8cc40da8bd76f659cd59059a7d" id="r_a8830db8cc40da8bd76f659cd59059a7d"><td class="memItemLeft"><a id="a8830db8cc40da8bd76f659cd59059a7d" name="a8830db8cc40da8bd76f659cd59059a7d"></a>
-const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecModExp_Fup_CalcQAndInterleave</b> [6]</td></tr>
-<tr class="memitem:a91fc72c488e0df520fa91a22999ef9d0" id="r_a91fc72c488e0df520fa91a22999ef9d0"><td class="memItemLeft"><a id="a91fc72c488e0df520fa91a22999ef9d0" name="a91fc72c488e0df520fa91a22999ef9d0"></a>
-const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecModExp_Fup_EuclideanSplit_1</b> [8]</td></tr>
-<tr class="memitem:a1a5111d444f83bdbafe57b337e1ce412" id="r_a1a5111d444f83bdbafe57b337e1ce412"><td class="memItemLeft"><a id="a1a5111d444f83bdbafe57b337e1ce412" name="a1a5111d444f83bdbafe57b337e1ce412"></a>
-const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecModExp_Fup_EuclideanSplit_2</b> [7]</td></tr>
-<tr class="memitem:aaa3d4777e9bdcd64252a65268430fc6d" id="r_aaa3d4777e9bdcd64252a65268430fc6d"><td class="memItemLeft"><a id="aaa3d4777e9bdcd64252a65268430fc6d" name="aaa3d4777e9bdcd64252a65268430fc6d"></a>
-const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecModExp_Fup_ExactDivideLoop</b> [9]</td></tr>
-<tr class="memitem:a9a024e012200ba6d2a6ce3820c85434e" id="r_a9a024e012200ba6d2a6ce3820c85434e"><td class="memItemLeft"><a id="a9a024e012200ba6d2a6ce3820c85434e" name="a9a024e012200ba6d2a6ce3820c85434e"></a>
-const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecModExp_Fup_Init</b> [3]</td></tr>
-<tr class="memitem:af66bfa18c8585926ea48f4091655d9c5" id="r_af66bfa18c8585926ea48f4091655d9c5"><td class="memItemLeft"><a id="af66bfa18c8585926ea48f4091655d9c5" name="af66bfa18c8585926ea48f4091655d9c5"></a>
-const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecModExp_Fup_PrepareFirstExp</b> [5]</td></tr>
-<tr class="memitem:a671cfe16f4021a2df479c38fed9e298e" id="r_a671cfe16f4021a2df479c38fed9e298e"><td class="memItemLeft"><a id="a671cfe16f4021a2df479c38fed9e298e" name="a671cfe16f4021a2df479c38fed9e298e"></a>
-const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecModExp_Fup_Rerandomize</b> [5]</td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>defines FUP programs byte arrays </p>
+<div class="textblock"><p>Top-level include file for the memory operations. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -144,7 +136,7 @@ const mcuxClPkc_FUPEntry_t&#160;</td><td class="memItemRight"><b>mcuxClMath_SecM
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00725.html">mcuxClMath_SecModExp_FUP.h</a></li>
+    <li class="navelem"><a href="a00725.html">mcuxClMemory.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

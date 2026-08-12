@@ -40,7 +40,7 @@
 
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 
-#ifdef MCUXCL_FEATURE_HASH_SELFTEST
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClHash_selftest)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_selftest(
   mcuxClSession_Handle_t session,
@@ -54,4 +54,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHash_selftest(
 
     MCUXCLSESSION_EXIT(session, mcuxClHash_selftest, diRefValue, result, MCUXCLHASH_STATUS_FAULT_ATTACK, test->protection_token_selftest);
 }
-#endif /* MCUXCL_FEATURE_HASH_SELFTEST */

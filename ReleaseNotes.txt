@@ -1,25 +1,25 @@
-DCI_SDK (4.2.0) EAR Release Notes
+DCI_SDK (4.3.0) EAR Release Notes
 
 - Release: DCI_SDK
-- Version: V4.2.1
-- Date:    2026-05-22
+- Version: V4.3.0
+- Date:    2026-07-24
 - Compiler: IAR C/C++ Compiler V9.60.2.399 for ARM
 - Code size: 
     -delivery/mcxa2tsSdk_cosim_release/static_library/mcxa5xx/libclns.a
         TEXT   RO RW ZI TOTAL_CONSUMPTION
-        149332 0  0  0  149332
+        182806 0  0  0  182806
 
     -delivery/mcxa2xx_release/static_library/mcxa2xx/libclns.a
         TEXT   RO RW ZI TOTAL_CONSUMPTION
-        134964 0  0  0  134964
+        183376 0  0  0  183376
         
     -delivery/mcxl2xx_release/static_library/mcxl2xx/libclns.a
         TEXT   RO RW ZI TOTAL_CONSUMPTION
-        134750 0  0  0  134750
+        183158 0  0  0  183158
 
     -delivery/mcxw7x_release/static_library/mcxw7x/libclns.a
         TEXT   RO RW ZI TOTAL_CONSUMPTION
-        150210 0  0  0  150210
+        180720 0  0  0  180720
 
 
 --- Test Targets: 
@@ -29,8 +29,14 @@ DCI_SDK (4.2.0) EAR Release Notes
    - CCCS FPGA v2 using W70 (V3 r1789) bitfile
    - CCCS FPGA v2 using A2TS (V3 r1787) bitfile
 
---- New Features in V4.2.1:
-    - The license change to BSD-3 Clause for missed files in a previous release DCI_SDK_V4.2.0
+--- New Features in V4.3.0:
+    - The Common SDK release: all features are enabled on all platforms
 
---- Known Issues/Limitations V4.2.1:
-   None
+--- Known Issues/Limitations:
+    - No binary release of the library included
+    - On A20/L20, the PRNG is implemented using the SFRMASK SGI register. If the SGI is busy when a PRNG request is issued, 
+      the request remains indefinitely in a waiting state. This behavior is the root cause of the failures observed 
+      in the non-blocking negative test cases.
+    - On A2TS, par_nxpClCipher_multipart_nonblocking_sgi_flush_check -> known limitation, the key is not flushed from the SGI after nxpClCipher_finish() for the mode nxpClCipher_Mode_AES_CTR, possible test issue
+    - On W70, par_nxpClCipher_multipart_nonblocking_sgi_flush_check -> known limitation, the key is not flushed from the SGI after nxpClCipher_finish() for the mode nxpClCipher_Mode_AES_CTR, possible test issue
+              - sim_rsa_GenerateProbablePrime, par_nxpClSignature_RSA* tests -> fail with NXPCLSESSION_STATUS_ERROR. The failures are seen only in tests using 4096 key bit size

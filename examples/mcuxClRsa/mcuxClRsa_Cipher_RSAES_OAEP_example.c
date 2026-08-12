@@ -148,7 +148,9 @@ MCUXCLEXAMPLE_FUNCTION(mcuxClRsa_Cipher_RSAES_OAEP_example)
   /* Initialize the RNG context and initialize the PRNG                     */
   /**************************************************************************/
 
-#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128)
+#if defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_256)
+  MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES256_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES256_DRG3);
+#elif defined(MCUXCL_FEATURE_RANDOMMODES_SECSTRENGTH_128)
   MCUXCLEXAMPLE_ALLOCATE_AND_INITIALIZE_RNG(session, MCUXCLRANDOMMODES_CTR_DRBG_AES128_CONTEXT_SIZE, mcuxClRandomModes_Mode_CtrDrbg_AES128_DRG3);
 #else
   #error "Example not supported for target"

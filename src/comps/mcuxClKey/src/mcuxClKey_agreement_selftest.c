@@ -41,7 +41,7 @@
 #include <internal/mcuxClSession_Internal_EntryExit.h>
 #include <internal/mcuxClKey_Internal.h>
 
-#ifdef MCUXCL_FEATURE_KEY_SELFTEST
+
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClKey_agreement_selftest)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_agreement_selftest(
     mcuxClSession_Handle_t session,
@@ -60,4 +60,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_agreement_selftest(
     MCUXCLSESSION_EXIT(session, mcuxClKey_agreement_selftest, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAILURE,
         test->protectionTokenSelfTestFct);
 }
-#endif /* MCUXCL_FEATURE_KEY_SELFTEST */

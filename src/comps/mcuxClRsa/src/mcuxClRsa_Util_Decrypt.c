@@ -69,7 +69,6 @@
 #include <internal/mcuxClRsa_Internal_PkcTypes.h>
 #include <mcuxCsslAnalysis.h>
 
-#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_Util_decrypt, mcuxClCipher_CryptFunc_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClRsa_Util_decrypt(
@@ -228,5 +227,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClRsa_Util_decrypt(
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClPrng_generate_Internal),
     MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
 }
-
-#endif /* MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT || MCUXCL_FEATURE_CIPHER_RSA_DECRYPT */

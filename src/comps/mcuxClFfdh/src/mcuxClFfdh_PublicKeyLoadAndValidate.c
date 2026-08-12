@@ -110,6 +110,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
   MCUX_CSSL_DI_RECORD(memoryClear, (uint32_t)&pBase[lenP] + expOperandSize - lenP);
   MCUXCLMEMORY_CLEAR_INT(&pBase[lenP], expOperandSize - lenP);
 
+#ifdef MCUXCL_FEATURE_FFDH_RFC2631_EXTENDED_PUBLIC_KEY_VALIDATION
   /* The primes in supported RFC7919 finite field groups are all safe primes.
    * This means a prime p is a safe prime when q = (p-1)/2.
    * Therefore we can calculate q = p/2. */
@@ -146,6 +147,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
   {
     MCUXCLSESSION_ERROR(pSession, MCUXCLKEY_STATUS_INVALID_INPUT);
   }
+#endif /* MCUXCL_FEATURE_FFDH_RFC2631_EXTENDED_PUBLIC_KEY_VALIDATION */
 
   MCUX_CSSL_FP_FUNCTION_EXIT_VOID(
     mcuxClFfdh_PublicKeyLoadAndValidate,
@@ -154,6 +156,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
     MCUXCLPKC_FP_CALLED_CALC_OP1_CMP,
     MCUXCLPKC_FP_CALLED_CALC_MC1_MM,
     MCUXCLMEMORY_CLEAR_INT_FP_EXPECT
+#ifdef MCUXCL_FEATURE_FFDH_RFC2631_EXTENDED_PUBLIC_KEY_VALIDATION
       ,
     MCUXCLPKC_FP_CALLED_CALC_OP1_SHR,
     MCUXCLMEMORY_CLEAR_INT_FP_EXPECT,
@@ -161,5 +164,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClFfdh_PublicKeyLoadAndValidate(
     MCUXCLPKC_FP_CALLED_CALC_MC1_MR,
     MCUXCLPKC_FP_CALLED_CALC_MC1_MS,
     MCUXCLPKC_FP_CALLED_CALC_OP1_SUB_CONST
+#endif /* MCUXCL_FEATURE_FFDH_RFC2631_EXTENDED_PUBLIC_KEY_VALIDATION */
   );
 }

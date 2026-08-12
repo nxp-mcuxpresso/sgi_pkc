@@ -185,6 +185,7 @@ static const mcuxClKey_Type_t mcuxClKey_Type_Ffdh_ffdhe6144_Priv = &mcuxClKey_Ty
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
 
 
+#ifdef MCUXCL_FEATURE_FFDH_RFC7919_FFDHE8192
 /***********************************************/
 /* Key types for ffdhe8192                     */
 /***********************************************/
@@ -216,6 +217,7 @@ extern const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe8192_
 MCUX_CSSL_ANALYSIS_START_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED("Consumed by mcuxClKey component. Hence, it is declared but never referenced.")
 static const mcuxClKey_Type_t mcuxClKey_Type_Ffdh_ffdhe8192_Priv = &mcuxClKey_TypeDescriptor_Ffdh_ffdhe8192_Priv;
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DECLARED_BUT_NEVER_REFERENCED()
+#endif /* MCUXCL_FEATURE_FFDH_RFC7919_FFDHE8192 */
 
 /**
  * @}

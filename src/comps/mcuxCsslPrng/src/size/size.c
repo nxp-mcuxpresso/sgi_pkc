@@ -44,7 +44,7 @@ MCUX_CSSL_ANALYSIS_START_PATTERN_OBJ_SIZES()
 #elif defined(MCUXCL_FEATURE_PRNG_SGI)
   #include <internal/mcuxClSgi_SfrAccess.h>
   #define MCUXCSSLPRNG_SGI_PRNG_ADDR ((uint32_t) SGI_SFR_BASE + offsetof(SGI_Type, SGI_PRNG_SW_READ))
-#elif defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB)
+#elif defined(MCUXCL_FEATURE_PRNG_SGI_SFRSEED)
 /* Avoid below error if stub is used. */
 #else
   #error Unsupported platform
@@ -64,7 +64,7 @@ volatile uint8_t mcuxCsslPrng_prngSfrAddr_lo16[MCUXCSSLPRNG_SGI_PRNG_ADDR_LO16];
 #if !defined(__m56800E__)
 MCUX_CSSL_ANALYSIS_CLANG_STOP_SUPPRESS_WARNING(-Wgnu-folding-constant);
 #endif
-#elif defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB) && MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB == 1
+#elif defined(MCUXCL_FEATURE_PRNG_SGI_SFRSEED)
 volatile uint8_t mcuxCsslPrng_prngSfrAddr_hi16[1u];
 volatile uint8_t mcuxCsslPrng_prngSfrAddr_lo16[1u];
 #else

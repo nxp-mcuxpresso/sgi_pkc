@@ -45,7 +45,6 @@
 #include <mcuxClEcc.h>
 #include <internal/mcuxClEcc_Internal.h>
 
-#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_ArithmeticOperation)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithmeticOperation(
@@ -76,4 +75,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithmeticOperation(
     MCUXCLSESSION_EXIT(pSession, mcuxClEcc_ArithmeticOperation, diRefValue, ret_ArithOpFct, MCUXCLECC_STATUS_FAULT_ATTACK, arithmeticOperation->arithOpFct_FP_FuncId);
 }
 
-#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */

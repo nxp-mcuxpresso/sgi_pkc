@@ -68,8 +68,6 @@
 #include <internal/mcuxClRsa_Internal_MemoryConsumption.h>
 #include <mcuxCsslAnalysis.h>
 
-#if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
-
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClRsa_Util_encrypt, mcuxClCipher_CryptFunc_t)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClRsa_Util_encrypt(
     mcuxClSession_Handle_t           pSession,
@@ -219,5 +217,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClCipher_Status_t) mcuxClRsa_Util_encrypt(
     MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClBuffer_write_reverse),
     MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
 }
-
-#endif /* MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT || MCUXCL_FEATURE_CIPHER_RSA_DECRYPT */

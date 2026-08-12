@@ -46,6 +46,9 @@
 
 #include <internal/mcuxClSgi_Drv.h>
 
+#if defined(MCUXCL_FEATURE_PRNG_SGI_SFRSEED)
+#include <internal/mcuxClPrng_Internal.h>
+#endif /* MCUXCL_FEATURE_PRNG_SGI_SFRSEED */
 
 /**
  * Macro returning one word (32-bit) of PRNG
@@ -54,9 +57,7 @@
 
 static inline uint32_t mcuxCsslPrng_inline_generateWord(void)
 {
-#if defined(MCUXCL_FEATURE_CSSL_MEMORY_PRNG_STUB)
-    return 0xDEADBEEFU;
-#elif defined(SCM)      /* S5xy */
+#if defined(SCM)      /* S5xy */
     MCUX_CSSL_ANALYSIS_START_SUPPRESS_TYPECAST_INTEGER_TO_POINTER("SCM SFR address")
     return SCM->SCM_PRNG_OUT;
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_INTEGER_TO_POINTER()
@@ -66,6 +67,8 @@ static inline uint32_t mcuxCsslPrng_inline_generateWord(void)
     MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_TYPECAST_INTEGER_TO_POINTER()
 #elif defined(MCUXCL_FEATURE_PRNG_SGI)
     return MCUX_CSSL_FP_RESULT(mcuxClSgi_Drv_getPrngWord());
+#elif defined(MCUXCL_FEATURE_PRNG_SGI_SFRSEED)
+    return MCUX_CSSL_FP_RESULT(mcuxClPrng_generate_word());
 #else
 #error Unsupported platform
     return (uint32_t) 0xDEADBEEFu;

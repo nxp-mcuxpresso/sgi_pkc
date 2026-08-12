@@ -221,8 +221,6 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_C_oneShot_sha3(
 }
 #endif /* if defined(MCUXCL_FEATURE_HASH_C_SHA3) */
 
-#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE)
-
 /**
  * @brief Oneshot Skeleton implementation for Shake in SW
  *
@@ -279,7 +277,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClHash_Status_t) mcuxClHashModes_C_oneSho
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClHashModes_C_oneShot_sha3_shake_core)
     );
 }
-#endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) */
 
 /*
  * Data Integrity: Expunge(pIn + inSize + pOut + *pOutSize)
@@ -469,7 +466,7 @@ MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_C_Sha3_shake_finishAbsorb_core
     );
 }
 
-#if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE)
+
 /**
  * @brief Squeeze process implementation for Shake in SW
  *
@@ -560,7 +557,6 @@ static MCUX_CSSL_FP_PROTECTED_TYPE(void) mcuxClHashModes_C_shake_squeeze(
     MCUX_CSSL_FP_FUNCTION_EXIT_VOID(mcuxClHashModes_C_shake_squeeze, MCUX_CSSL_FP_BRANCH_TAKEN_POSITIVE(squeezeBranch, outSize <= unProDataSize),
                                                                    MCUX_CSSL_FP_BRANCH_TAKEN_NEGATIVE(squeezeBranch, outSize > unProDataSize));
 }
-#endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) */
 
 #if defined(MCUXCL_FEATURE_HASH_C_SHA3)
 /**

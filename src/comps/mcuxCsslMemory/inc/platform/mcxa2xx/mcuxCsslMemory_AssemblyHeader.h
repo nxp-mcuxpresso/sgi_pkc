@@ -39,6 +39,7 @@
 #ifndef MCUXCSSLMEMORY_ASSEMBLYHEADER_H_
 #define MCUXCSSLMEMORY_ASSEMBLYHEADER_H_
 
+#include <mcuxClConfig.h> // Exported features flags header
 
 #define MCUXCSSLMEMORY_STATUS_ASM_EQUAL              ((1060 << 16) | 11847)
 #define MCUXCSSLMEMORY_STATUS_ASM_NOT_EQUAL          ((1060 << 16) | 35256)

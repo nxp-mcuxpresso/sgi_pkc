@@ -67,7 +67,6 @@
 #endif
 
 
-#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
 
 MCUX_CSSL_FP_FUNCTION_DEF(mcuxClEcc_ArithOp_PointAddSub)
 MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_PointAddSub(
@@ -271,4 +270,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_PointAddSub(
                               MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
 }
 
-#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */

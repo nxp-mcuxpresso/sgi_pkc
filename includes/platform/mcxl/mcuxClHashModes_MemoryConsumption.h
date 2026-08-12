@@ -90,7 +90,7 @@
 #define MCUXCLHASH_FINISH_NONBLOCKING_CPU_WA_BUFFER_SIZE_SHA2_512_256    (4u)        ///< Defines the workarea size required for mcuxClHash_finish on SHA2-512_256
 
 #if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3)
-#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_SHA3               (4u)                           ///< Defines the workarea size required for mcuxClHash_compute on all SHA3 modes
+#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_SHA3               (200u)                           ///< Defines the workarea size required for mcuxClHash_compute on all SHA3 modes
 #define MCUXCLHASH_PROCESS_CPU_WA_BUFFER_SIZE_SHA3               (4u)                           ///< Defines the workarea size required for mcuxClHash_process on all SHA3 modes
 #define MCUXCLHASH_FINISH_CPU_WA_BUFFER_SIZE_SHA3                (4u)                            ///< Defines the workarea size required for mcuxClHash_finish on all SHA3 modes
 #endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3) */
@@ -132,12 +132,12 @@
 
 
 #if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3)
-#define MCUXCLHASH_CONTEXT_SIZE_SHA3_224_IN_WORDS                (4u / sizeof(uint32_t))
-#define MCUXCLHASH_CONTEXT_SIZE_SHA3_256_IN_WORDS                (4u / sizeof(uint32_t))
-#define MCUXCLHASH_CONTEXT_SIZE_SHA3_384_IN_WORDS                (4u / sizeof(uint32_t))
-#define MCUXCLHASH_CONTEXT_SIZE_SHA3_512_IN_WORDS                (4u / sizeof(uint32_t))
-#define MCUXCLHASH_CONTEXT_SIZE_SHA3_SHAKE_128_IN_WORDS          (4u / sizeof(uint32_t)) ///< @deprecated in favor of MCUXCLXOF_SHAKE128_CONTEXT_SIZE_IN_WORDS
-#define MCUXCLHASH_CONTEXT_SIZE_SHA3_SHAKE_256_IN_WORDS          (4u / sizeof(uint32_t)) ///< @deprecated in favor of MCUXCLXOF_SHAKE256_CONTEXT_SIZE_IN_WORDS
+#define MCUXCLHASH_CONTEXT_SIZE_SHA3_224_IN_WORDS                (376u / sizeof(uint32_t))
+#define MCUXCLHASH_CONTEXT_SIZE_SHA3_256_IN_WORDS                (368u / sizeof(uint32_t))
+#define MCUXCLHASH_CONTEXT_SIZE_SHA3_384_IN_WORDS                (336u / sizeof(uint32_t))
+#define MCUXCLHASH_CONTEXT_SIZE_SHA3_512_IN_WORDS                (304u / sizeof(uint32_t))
+#define MCUXCLHASH_CONTEXT_SIZE_SHA3_SHAKE_128_IN_WORDS          (400u / sizeof(uint32_t)) ///< @deprecated in favor of MCUXCLXOF_SHAKE128_CONTEXT_SIZE_IN_WORDS
+#define MCUXCLHASH_CONTEXT_SIZE_SHA3_SHAKE_256_IN_WORDS          (368u / sizeof(uint32_t)) ///< @deprecated in favor of MCUXCLXOF_SHAKE256_CONTEXT_SIZE_IN_WORDS
 #define MCUXCLHASH_EXPORT_IMPORT_STATE_SIZE_SHA3                 (216u)     ///< Defines the state size required for all SHA3 variants
 #endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) || defined(MCUXCL_FEATURE_HASH_C_SHA3) */
 
@@ -146,7 +146,7 @@
 
 #if defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE)
 /* Algorithm descriptor sizes */
-#define MCUXCLHASH_CUSTOM_ALGORITHM_DESCRIPTOR_SIZE              ($(mcuxClHash_AlgorithmDescriptor_size)u)
+#define MCUXCLHASH_CUSTOM_ALGORITHM_DESCRIPTOR_SIZE              (56u)
 #endif /* defined(MCUXCL_FEATURE_HASH_C_SHA3_SHAKE) */
 
 #endif /* MCUXCLHASHMODES_MEMORYCONSUMPTION_H_ */

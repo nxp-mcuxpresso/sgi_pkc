@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2025 NXP                                                       */
 /*                                                                          */
 /* SPDX-License-Identifier: BSD-3-Clause                                    */
 /*                                                                          */
@@ -31,28 +31,68 @@
 /* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */
 /*--------------------------------------------------------------------------*/
 
-/** @file  mcuxClHash_MemoryConsumption.h
- *  @brief Defines the memory consumption for the mcuxClHash component */
+/**
+ * @file  mcuxClFfdh_MemoryConsumption.h
+ * @brief Defines the memory consumption for the mcuxClFfdh component
+ */
 
-#ifndef MCUXCLHASH_MEMORYCONSUMPTION_H_
-#define MCUXCLHASH_MEMORYCONSUMPTION_H_
+#ifndef MCUXCLFFDH_MEMORYCONSUMPTION_H_
+#define MCUXCLFFDH_MEMORYCONSUMPTION_H_
 
-#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_compute
-#define MCUXCLHASH_COMPARE_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_compare
-#define MCUXCLHASH_INIT_CPU_WA_BUFFER_SIZE                       (4u)                                                ///< Defines the max workarea size required for mcuxClHash_init
-#define MCUXCLHASH_PROCESS_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_process
-#define MCUXCLHASH_FINISH_CPU_WA_BUFFER_SIZE_MAX                 (200u)                            ///< Defines the max workarea size required for mcuxClHash_finish
-#define MCUXCLHASH_VERIFY_CPU_WA_BUFFER_SIZE_MAX                 (200u)                            ///< Defines the max workarea size required for mcuxClHash_verify
+#include <mcuxClCore_Macros.h>
 
-#define MCUXCLHASH_MAX_CPU_WA_BUFFER_SIZE                        (200u)  ///< Defines the max workarea size required for this component
+/**
+ * @defgroup mcuxClFfdh_MemoryConsumption mcuxClFfdh_MemoryConsumption
+ * @brief Defines the memory consumption for the @ref mcuxClFfdh component
+ * @ingroup mcuxClFfdh
+ * @{
+ */
+
+/**
+ * @addtogroup MCUXCLFFDH_WACPU
+ * @brief Define the CPU workarea size required by mcuxClFfdh APIs.
+ * @{
+ */
+
+#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_2048 (420u )  ///< CPU workarea size (in bytes) for ffdhe2048 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_3072 (420u )  ///< CPU workarea size (in bytes) for ffdhe3072 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_4096 (420u )  ///< CPU workarea size (in bytes) for ffdhe4096 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_6144 (420u )  ///< CPU workarea size (in bytes) for ffdhe6144 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WACPU_SIZE_8192 (1448u )  ///< CPU workarea size (in bytes) for ffdhe8192 #mcuxClKey_agreement.
+
+/**
+ * @}
+ */  /* MCUXCLFFDH_WACPU */
 
 
-/****************************************************************************/
-/* Definitions of context sizes for the mcuxClHash multi-part functions.     */
-/****************************************************************************/
+/**
+ * @addtogroup MCUXCLFFDH_WAPKC
+ * @brief Define the PKC workarea size required by mcuxClFfdh APIs.
+ * @{
+ */
 
-#define MCUXCLHASH_CONTEXT_SIZE                                  (400u)    ///< Defines the maximum size a context might need.
-#define MCUXCLHASH_CONTEXT_SIZE_IN_WORDS                         (400u / sizeof(uint32_t))
+/**
+ * @brief PKC wordsize in FFDH component.
+ */
+#define MCUXCLFFDH_PKC_WORDSIZE  8u
+
+/**
+ * PKC workarea size (in bytes) for #mcuxClFfdh_FFDH_KeyAgreement for arbitrary lengths of p.
+ */
+#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_2048 (2448u )  ///< PKC workarea size (in bytes) for ffdhe2048 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_3072 (3600u )  ///< PKC workarea size (in bytes) for ffdhe3072 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_4096 (4752u )  ///< PKC workarea size (in bytes) for ffdhe4096 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_6144 (7056u )  ///< PKC workarea size (in bytes) for ffdhe6144 #mcuxClKey_agreement.
+#define MCUXCLKEY_AGREEMENT_FFDH_WAPKC_SIZE_8192 (7328u )  ///< PKC workarea size (in bytes) for ffdhe8192 #mcuxClKey_agreement.
 
 
-#endif /* MCUXCLHASH_MEMORYCONSUMPTION_H_ */
+/**
+ * @}
+ */  /* MCUXCLFFDH_WAPKC */
+
+
+/**
+ * @}
+ */  /* mcuxClFfdh_MemoryConsumption */
+
+#endif /* MCUXCLFFDH_MEMORYCONSUMPTION_H_ */

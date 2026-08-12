@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-/* Copyright 2020-2024 NXP                                                  */
+/* Copyright 2024 NXP                                                       */
 /*                                                                          */
 /* SPDX-License-Identifier: BSD-3-Clause                                    */
 /*                                                                          */
@@ -31,28 +31,47 @@
 /* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             */
 /*--------------------------------------------------------------------------*/
 
-/** @file  mcuxClHash_MemoryConsumption.h
- *  @brief Defines the memory consumption for the mcuxClHash component */
+/** @file  mcuxClKdfModes_MemoryConsumption.h
+ *  @brief Defines the memory consumption for the mcuxClKdfModes component
+ *         All work area sizes in bytes are a multiple of CPU wordsize.
+ */
 
-#ifndef MCUXCLHASH_MEMORYCONSUMPTION_H_
-#define MCUXCLHASH_MEMORYCONSUMPTION_H_
+#ifndef MCUXCLKDFMODES_MEMORYCONSUMPTION_H_
+#define MCUXCLKDFMODES_MEMORYCONSUMPTION_H_
 
-#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_compute
-#define MCUXCLHASH_COMPARE_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_compare
-#define MCUXCLHASH_INIT_CPU_WA_BUFFER_SIZE                       (4u)                                                ///< Defines the max workarea size required for mcuxClHash_init
-#define MCUXCLHASH_PROCESS_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_process
-#define MCUXCLHASH_FINISH_CPU_WA_BUFFER_SIZE_MAX                 (200u)                            ///< Defines the max workarea size required for mcuxClHash_finish
-#define MCUXCLHASH_VERIFY_CPU_WA_BUFFER_SIZE_MAX                 (200u)                            ///< Defines the max workarea size required for mcuxClHash_verify
+/**
+ * @defgroup mcuxClKdfModes_MemoryConsumption mcuxClKdfModes_MemoryConsumption
+ * @brief Defines the memory consumption for the mcuxClKdfModes component
+ * @ingroup mcuxClKdfModes
+ * @{
+ */
 
-#define MCUXCLHASH_MAX_CPU_WA_BUFFER_SIZE                        (200u)  ///< Defines the max workarea size required for this component
+#define MCUXCLKEY_DERIVATION_MODE_DESCRIPTOR_SIZE                  (16u)
+#define MCUXCLKEY_DERIVATION_MODE_DESCRIPTOR_SIZE_IN_WORDS         (MCUXCLKEY_DERIVATION_MODE_DESCRIPTOR_SIZE / sizeof(uint32_t))
+
+#define MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE             2048u
+#define MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE_IN_WORDS    (MCUXCLKEY_DERIVATION_CPU_WA_SIZE / sizeof(uint32_t))
+#define MCUXCLKEY_DERIVATION_CM_CPU_WA_SIZE                         MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE /* deprecated, use MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE instead */
+#define MCUXCLKEY_DERIVATION_CM_CPU_WA_SIZE_IN_WORDS                MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE_IN_WORDS /* deprecated, use MCUXCLKEY_DERIVATION_NIST_SP800_108_CPU_WA_SIZE_IN_WORDS instead */
+
+#define MCUXCLKEY_DERIVATION_NIST_SP800_56C_CPU_WA_SIZE             3816u
+#define MCUXCLKEY_DERIVATION_NIST_SP800_56C_CPU_WA_SIZE_IN_WORDS    (MCUXCLKEY_DERIVATION_NIST_SP800_56C_CPU_WA_SIZE / sizeof(uint32_t))
 
 
-/****************************************************************************/
-/* Definitions of context sizes for the mcuxClHash multi-part functions.     */
-/****************************************************************************/
-
-#define MCUXCLHASH_CONTEXT_SIZE                                  (400u)    ///< Defines the maximum size a context might need.
-#define MCUXCLHASH_CONTEXT_SIZE_IN_WORDS                         (400u / sizeof(uint32_t))
 
 
-#endif /* MCUXCLHASH_MEMORYCONSUMPTION_H_ */
+#define MCUXCLKEY_DERIVATION_HKDF_CPU_WA_SIZE                       2112u
+#define MCUXCLKEY_DERIVATION_HKDF_CPU_WA_SIZE_IN_WORDS              (MCUXCLKEY_DERIVATION_HKDF_CPU_WA_SIZE / sizeof(uint32_t))
+
+#define MCUXCLKEY_DERIVATION_PBKDF2_CPU_WA_SIZE                     2212u
+#define MCUXCLKEY_DERIVATION_PBKDF2_CPU_WA_SIZE_IN_WORDS            (MCUXCLKEY_DERIVATION_PBKDF2_CPU_WA_SIZE / sizeof(uint32_t))
+
+
+#define MCUXCLKEY_DERIVATION_CPU_WA_SIZE                            3816u
+#define MCUXCLKEY_DERIVATION_CPU_WA_SIZE_IN_WORDS                   (MCUXCLKEY_DERIVATION_CPU_WA_SIZE / sizeof(uint32_t))
+
+/**
+ * @}
+ */ /* mcuxClKdfModes_MemoryConsumption */
+
+#endif /* MCUXCLKDFMODES_MEMORYCONSUMPTION_H_ */

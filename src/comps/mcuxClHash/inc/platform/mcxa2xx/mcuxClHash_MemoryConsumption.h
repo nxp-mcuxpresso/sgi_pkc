@@ -37,14 +37,14 @@
 #ifndef MCUXCLHASH_MEMORYCONSUMPTION_H_
 #define MCUXCLHASH_MEMORYCONSUMPTION_H_
 
-#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_MAX                (152u)                            ///< Defines the max workarea size required for mcuxClHash_compute
-#define MCUXCLHASH_COMPARE_CPU_WA_BUFFER_SIZE_MAX                (152u)                            ///< Defines the max workarea size required for mcuxClHash_compare
+#define MCUXCLHASH_COMPUTE_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_compute
+#define MCUXCLHASH_COMPARE_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_compare
 #define MCUXCLHASH_INIT_CPU_WA_BUFFER_SIZE                       (4u)                                                ///< Defines the max workarea size required for mcuxClHash_init
-#define MCUXCLHASH_PROCESS_CPU_WA_BUFFER_SIZE_MAX                (152u)                            ///< Defines the max workarea size required for mcuxClHash_process
-#define MCUXCLHASH_FINISH_CPU_WA_BUFFER_SIZE_MAX                 (152u)                            ///< Defines the max workarea size required for mcuxClHash_finish
-#define MCUXCLHASH_VERIFY_CPU_WA_BUFFER_SIZE_MAX                 (152u)                            ///< Defines the max workarea size required for mcuxClHash_verify
+#define MCUXCLHASH_PROCESS_CPU_WA_BUFFER_SIZE_MAX                (200u)                            ///< Defines the max workarea size required for mcuxClHash_process
+#define MCUXCLHASH_FINISH_CPU_WA_BUFFER_SIZE_MAX                 (200u)                            ///< Defines the max workarea size required for mcuxClHash_finish
+#define MCUXCLHASH_VERIFY_CPU_WA_BUFFER_SIZE_MAX                 (200u)                            ///< Defines the max workarea size required for mcuxClHash_verify
 
-#define MCUXCLHASH_MAX_CPU_WA_BUFFER_SIZE                        (152u)  ///< Defines the max workarea size required for this component
+#define MCUXCLHASH_MAX_CPU_WA_BUFFER_SIZE                        (200u)  ///< Defines the max workarea size required for this component
 
 
 /****************************************************************************/

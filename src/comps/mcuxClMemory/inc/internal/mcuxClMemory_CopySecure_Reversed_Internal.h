@@ -54,6 +54,7 @@
 #include <mcuxClToolchain.h>
 #include <mcuxCsslFlowProtection.h>
 #include <internal/mcuxClMemory_Copy_Reversed_Internal.h>
+#include <internal/mcuxCsslMemory_Internal_SecureCopy.h>
 
 #ifdef __cplusplus
 extern "C" {

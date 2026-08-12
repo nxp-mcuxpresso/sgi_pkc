@@ -51,7 +51,6 @@
 
 #include <internal/mcuxClMath_Internal.h>
 
-#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
 
 /* Arithmetic operation descriptor for point subtraction on Weierstrass curves */
 const mcuxClEcc_ArithmeticOperationDescriptor_t mcuxClEcc_ArithOpDesc_PointSub =
@@ -90,4 +89,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_PointSub(
         MCUX_CSSL_FP_FUNCTION_CALLED(mcuxClEcc_ArithOp_PointAddSub));
 }
 
-#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */

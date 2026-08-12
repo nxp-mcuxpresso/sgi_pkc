@@ -174,6 +174,7 @@ const mcuxClFfdh_DomainParams_t mcuxClFfdh_domainParams_ffdhe4096 __attribute__(
   .pPDash = (uint8_t *) &pFfdhe_pDash
 };
 
+#ifdef MCUXCL_FEATURE_FFDH_RFC7919_FFDHE6144
 #ifndef MCUXCL_FEATURE_PKC_RAM_8KB
 #error "Invalid configuration. Long FFDH keys not supported"
 #endif
@@ -239,7 +240,9 @@ const mcuxClFfdh_DomainParams_t mcuxClFfdh_domainParams_ffdhe6144 __attribute__(
   .pP = (uint8_t *) &pFfdhe6144_primeP,
   .pPDash = (uint8_t *) &pFfdhe_pDash
 };
+#endif /* MCUXCL_FEATURE_FFDH_RFC7919_FFDHE6144 */
 
+#ifdef MCUXCL_FEATURE_FFDH_RFC7919_FFDHE8192
 #ifndef MCUXCL_FEATURE_PKC_RAM_8KB
 #error "Invalid configuration. Long FFDH keys not supported"
 #endif
@@ -321,5 +324,6 @@ const mcuxClFfdh_DomainParams_t mcuxClFfdh_domainParams_ffdhe8192 __attribute__(
   .pP = (uint8_t *) &pFfdhe8192_primeP,
   .pPDash = (uint8_t *) &pFfdhe_pDash
 };
+#endif /* MCUXCL_FEATURE_FFDH_RFC7919_FFDHE8192 */
 
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

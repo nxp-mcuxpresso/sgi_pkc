@@ -43,6 +43,7 @@
 #include <mcuxCsslFlowProtection.h>
 #include <mcuxCsslMemory_Constants.h>
 #include <mcuxCsslMemory_Types.h>
+#include <mcuxCsslFlowProtection_FunctionIdentifiers.h>
 
 #ifdef __cplusplus
 extern "C" {

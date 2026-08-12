@@ -41,7 +41,7 @@
 
 #define MCUXCLRSA_SIGNATURE_PROTOCOLDESCRIPTOR_SIZE     (52u)
 #if defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT)
-#define MCUXCLRSA_CIPHER_MODE_SIZE       ($(mcuxClRsa_Cipher_AlgorithmMode_Descriptors_Size)u)
+#define MCUXCLRSA_CIPHER_MODE_SIZE       (28u)
 #endif /* defined(MCUXCL_FEATURE_CIPHER_RSA_ENCRYPT) || defined(MCUXCL_FEATURE_CIPHER_RSA_DECRYPT) */
 
 /**
@@ -64,10 +64,10 @@
  * @ingroup mcuxClRsa_Macros
  * @{
  */
-#define MCUXCLRSA_ENCRYPT_1024_WACPU_SIZE    ($(mcuxClRsa_Util_Encrypt_1024_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 1024-bit keys.
-#define MCUXCLRSA_ENCRYPT_2048_WACPU_SIZE    ($(mcuxClRsa_Util_Encrypt_2048_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 2048-bit keys.
-#define MCUXCLRSA_ENCRYPT_3072_WACPU_SIZE    ($(mcuxClRsa_Util_Encrypt_3072_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 3072-bit keys.
-#define MCUXCLRSA_ENCRYPT_4096_WACPU_SIZE    ($(mcuxClRsa_Util_Encrypt_4096_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 4096-bit keys.
+#define MCUXCLRSA_ENCRYPT_1024_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 1024-bit keys.
+#define MCUXCLRSA_ENCRYPT_2048_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 2048-bit keys.
+#define MCUXCLRSA_ENCRYPT_3072_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 3072-bit keys.
+#define MCUXCLRSA_ENCRYPT_4096_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 4096-bit keys.
 #ifdef MCUXCL_FEATURE_RSA_8K_KEYS
 #define MCUXCLRSA_ENCRYPT_6144_WACPU_SIZE    ($(mcuxClRsa_Util_Encrypt_6144_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 6144-bit keys.
 #define MCUXCLRSA_ENCRYPT_8192_WACPU_SIZE    ($(mcuxClRsa_Util_Encrypt_8192_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_encrypt function for 8192-bit keys.
@@ -87,10 +87,10 @@
                                 MCUXCLRSA_ENCRYPT_1024_WACPU_SIZE)))  ///< Macro to extract CPU workarea size to be used with a non-standard key length.
 #endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 
-#define MCUXCLRSA_ENCRYPT_1024_WAPKC_SIZE     ($(mcuxClRsa_Util_Encrypt_1024_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 1024-bit keys.
-#define MCUXCLRSA_ENCRYPT_2048_WAPKC_SIZE     ($(mcuxClRsa_Util_Encrypt_2048_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 2048-bit keys.
-#define MCUXCLRSA_ENCRYPT_3072_WAPKC_SIZE     ($(mcuxClRsa_Util_Encrypt_3072_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 3072-bit keys.
-#define MCUXCLRSA_ENCRYPT_4096_WAPKC_SIZE     ($(mcuxClRsa_Util_Encrypt_4096_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 4096-bit keys.
+#define MCUXCLRSA_ENCRYPT_1024_WAPKC_SIZE     (856u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 1024-bit keys.
+#define MCUXCLRSA_ENCRYPT_2048_WAPKC_SIZE     (1624u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 2048-bit keys.
+#define MCUXCLRSA_ENCRYPT_3072_WAPKC_SIZE     (2392u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 3072-bit keys.
+#define MCUXCLRSA_ENCRYPT_4096_WAPKC_SIZE     (3160u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 4096-bit keys.
 #ifdef MCUXCL_FEATURE_RSA_8K_KEYS
 #define MCUXCLRSA_ENCRYPT_6144_WAPKC_SIZE     ($(mcuxClRsa_Util_Encrypt_6144_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 6144-bit keys.
 #define MCUXCLRSA_ENCRYPT_8192_WAPKC_SIZE     ($(mcuxClRsa_Util_Encrypt_8192_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_encrypt function for 8192-bit keys.
@@ -123,10 +123,10 @@
  * @ingroup mcuxClRsa_Macros
  * @{
  */
-#define MCUXCLRSA_DECRYPT_1024_WACPU_SIZE    ($(mcuxClRsa_Util_Decrypt_1024_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 1024-bit keys.
-#define MCUXCLRSA_DECRYPT_2048_WACPU_SIZE    ($(mcuxClRsa_Util_Decrypt_2048_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 2048-bit keys.
-#define MCUXCLRSA_DECRYPT_3072_WACPU_SIZE    ($(mcuxClRsa_Util_Decrypt_3072_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 3072-bit keys.
-#define MCUXCLRSA_DECRYPT_4096_WACPU_SIZE    ($(mcuxClRsa_Util_Decrypt_4096_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 4096-bit keys.
+#define MCUXCLRSA_DECRYPT_1024_WACPU_SIZE    (392u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 1024-bit keys.
+#define MCUXCLRSA_DECRYPT_2048_WACPU_SIZE    (520u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 2048-bit keys.
+#define MCUXCLRSA_DECRYPT_3072_WACPU_SIZE    (648u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 3072-bit keys.
+#define MCUXCLRSA_DECRYPT_4096_WACPU_SIZE    (776u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 4096-bit keys.
 #ifdef MCUXCL_FEATURE_RSA_8K_KEYS
 #define MCUXCLRSA_DECRYPT_6144_WACPU_SIZE    ($(mcuxClRsa_Util_Decrypt_6144_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 6144-bit keys.
 #define MCUXCLRSA_DECRYPT_8192_WACPU_SIZE    ($(mcuxClRsa_Util_Decrypt_8192_WaCPU)u) ///< Definition of CPU workarea size for the mcuxClRsa_Util_decrypt function for 8192-bit keys.
@@ -146,10 +146,10 @@
                                 MCUXCLRSA_DECRYPT_1024_WACPU_SIZE)))  ///< Macro to extract CPU workarea size to be used with a non-standard key length.
 #endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 
-#define MCUXCLRSA_DECRYPT_1024_WAPKC_SIZE     ($(mcuxClRsa_Util_Decrypt_1024_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 1024-bit keys.
-#define MCUXCLRSA_DECRYPT_2048_WAPKC_SIZE     ($(mcuxClRsa_Util_Decrypt_2048_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 2048-bit keys.
-#define MCUXCLRSA_DECRYPT_3072_WAPKC_SIZE     ($(mcuxClRsa_Util_Decrypt_3072_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 3072-bit keys.
-#define MCUXCLRSA_DECRYPT_4096_WAPKC_SIZE     ($(mcuxClRsa_Util_Decrypt_4096_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 4096-bit keys.
+#define MCUXCLRSA_DECRYPT_1024_WAPKC_SIZE     (1344u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 1024-bit keys.
+#define MCUXCLRSA_DECRYPT_2048_WAPKC_SIZE     (2496u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 2048-bit keys.
+#define MCUXCLRSA_DECRYPT_3072_WAPKC_SIZE     (3648u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 3072-bit keys.
+#define MCUXCLRSA_DECRYPT_4096_WAPKC_SIZE     (4800u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 4096-bit keys.
 #ifdef MCUXCL_FEATURE_RSA_8K_KEYS
 #define MCUXCLRSA_DECRYPT_6144_WAPKC_SIZE     ($(mcuxClRsa_Util_Decrypt_6144_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 6144-bit keys.
 #define MCUXCLRSA_DECRYPT_8192_WAPKC_SIZE     ($(mcuxClRsa_Util_Decrypt_8192_WaPKC)u) ///< Definition of PKC workarea size for the mcuxClRsa_Util_decrypt function for 8192-bit keys.
@@ -183,10 +183,10 @@
  */
 
 
-#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding.
-#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding.
-#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding.
-#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding.
+#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_1024_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function for 1024-bit private plain keys using PSS encoding.
+#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_2048_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function for 2048-bit private plain keys using PSS encoding.
+#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_3072_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function for 3072-bit private plain keys using PSS encoding.
+#define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_4096_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function for 4096-bit private plain keys using PSS encoding.
 #ifdef MCUXCL_FEATURE_RSA_8K_KEYS
 #define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_6144_WACPU_SIZE    ($(mcuxClRsa_Sign_Plain_PssEncode_6144_WaCPU)u) ///< Definition of CPU workarea size for the RSA Sign function for 6144-bit private plain keys using PSS encoding.
 #define MCUXCLRSA_SIGN_PLAIN_PSSENCODE_8192_WACPU_SIZE    ($(mcuxClRsa_Sign_Plain_PssEncode_8192_WaCPU)u) ///< Definition of CPU workarea size for the RSA Sign function for 8192-bit private plain keys using PSS encoding.
@@ -253,10 +253,10 @@
 #endif /* MCUXCL_FEATURE_RSA_8K_KEYS */
 
 
-#define MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys.
-#define MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys.
-#define MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys.
-#define MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE    (216u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_PSSENCODE_1024_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 1024-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_PSSENCODE_2048_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 2048-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_PSSENCODE_3072_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 3072-bit private CRT keys.
+#define MCUXCLRSA_SIGN_CRT_PSSENCODE_4096_WACPU_SIZE    (264u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 4096-bit private CRT keys.
 #ifdef MCUXCL_FEATURE_RSA_8K_KEYS
 #define MCUXCLRSA_SIGN_CRT_PSSENCODE_6144_WACPU_SIZE    ($(mcuxClRsa_Sign_CRT_PssEncode_6144_WaCPU)u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 6144-bit private CRT keys.
 #define MCUXCLRSA_SIGN_CRT_PSSENCODE_8192_WACPU_SIZE    ($(mcuxClRsa_Sign_CRT_PssEncode_8192_WaCPU)u) ///< Definition of CPU workarea size for the RSA Sign function using PSS encoding for 8192-bit private CRT keys.
@@ -335,7 +335,7 @@
  */
 
 
-#define MCUXCLRSA_VERIFY_PSSVERIFY_WACPU_SIZE         (216u) ///< Definition of CPU workarea size for the RSA Verify function using PSS encoding.
+#define MCUXCLRSA_VERIFY_PSSVERIFY_WACPU_SIZE         (264u) ///< Definition of CPU workarea size for the RSA Verify function using PSS encoding.
 #define MCUXCLRSA_VERIFY_PKCS1V15VERIFY_WACPU_SIZE    (128u) ///< Definition of CPU workarea size for the RSA Verify function using PKCS#1v1.5 encoding.
 
 #define MCUXCLRSA_VERIFY_1024_WAPKC_SIZE     (728u) ///< Definition of PKC workarea size for the RSA Verify function for 1024-bit keys.

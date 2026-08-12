@@ -9,11 +9,11 @@ mcux_add_cmakelists(${SdkRootDirPath}/components/sgi_pkc/pqc/ OPTIONAL)
 if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxa)
     mcux_add_source(
         SOURCES
-                doc/mcxa/html/*.*
-                doc/mcxa/html/search/*.*
+                doc/mcxa2xx/html/*.*
+                doc/mcxa2xx/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
+                SBOM-MCU_DCI2-DCI_SDK_V4.3.0.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -30,7 +30,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxa5xx)
                 doc/mcxa5xx/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
+                SBOM-MCU_DCI2-DCI_SDK_V4.3.0.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -43,11 +43,11 @@ endif()
 if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxl)
     mcux_add_source(
         SOURCES
-                doc/mcxl/html/*.*
-                doc/mcxl/html/search/*.*
+                doc/mcxl2xx/html/*.*
+                doc/mcxl2xx/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
+                SBOM-MCU_DCI2-DCI_SDK_V4.3.0.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -64,7 +64,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.doc.mcxw7x)
                 doc/mcxw7x/html/search/*.*
                 LICENSE.md
                 ReleaseNotes.txt
-                SBOM-MCU_DCI-DCI_SDK_V4.2.1.spdx.json
+                SBOM-MCU_DCI2-DCI_SDK_V4.3.0.spdx.json
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 
@@ -92,6 +92,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxa)
                 includes/platform/mcxa/mcuxClHash_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClHashModes_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClHmac_MemoryConsumption.h
+                includes/platform/mcxa/mcuxClKdfModes_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClKey_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClMacModes_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClRandomModes_MemoryConsumption.h
@@ -100,6 +101,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxa)
                 includes/platform/mcxa/mcuxClSession_Internal_AssemblyHeader.h
                 includes/platform/mcxa/mcuxClSession_MemoryConsumption.h
                 includes/platform/mcxa/mcuxClSignature_MemoryConsumption.h
+                includes/platform/mcxa/mcuxClXofModes_MemoryConsumption.h
                 includes/platform/mcxa/mcuxCsslMemory_AssemblyHeader.h
                 includes/platform/mcxa/mcuxCsslPrng_AssemblyHeader.h
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
@@ -127,6 +129,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxa5xx)
                 includes/platform/mcxa5/mcuxClAeadModes_MemoryConsumption.h
                 includes/platform/mcxa5/mcuxClCipherModes_MemoryConsumption.h
                 includes/platform/mcxa5/mcuxClEcc_MemoryConsumption.h
+                includes/platform/mcxa5/mcuxClFfdh_MemoryConsumption.h
                 includes/platform/mcxa5/mcuxClHash_MemoryConsumption.h
                 includes/platform/mcxa5/mcuxClHashModes_MemoryConsumption.h
                 includes/platform/mcxa5/mcuxClHmac_MemoryConsumption.h
@@ -171,6 +174,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxl)
                 includes/platform/mcxl/mcuxClHash_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClHashModes_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClHmac_MemoryConsumption.h
+                includes/platform/mcxl/mcuxClKdfModes_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClKey_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClMacModes_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClRandomModes_MemoryConsumption.h
@@ -179,6 +183,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxl)
                 includes/platform/mcxl/mcuxClSession_Internal_AssemblyHeader.h
                 includes/platform/mcxl/mcuxClSession_MemoryConsumption.h
                 includes/platform/mcxl/mcuxClSignature_MemoryConsumption.h
+                includes/platform/mcxl/mcuxClXofModes_MemoryConsumption.h
                 includes/platform/mcxl/mcuxCsslMemory_AssemblyHeader.h
                 includes/platform/mcxl/mcuxCsslPrng_AssemblyHeader.h
                 BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
@@ -206,6 +211,7 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxw7x)
                 includes/platform/mcxw/mcuxClAeadModes_MemoryConsumption.h
                 includes/platform/mcxw/mcuxClCipherModes_MemoryConsumption.h
                 includes/platform/mcxw/mcuxClEcc_MemoryConsumption.h
+                includes/platform/mcxw/mcuxClFfdh_MemoryConsumption.h
                 includes/platform/mcxw/mcuxClHash_MemoryConsumption.h
                 includes/platform/mcxw/mcuxClHashModes_MemoryConsumption.h
                 includes/platform/mcxw/mcuxClHmac_MemoryConsumption.h
@@ -229,58 +235,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.platform.mcxw7x)
                  src/platforms/mcxw/inc
                  includes/platform/mcxw
                  BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-endif()
-
-if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxa)
-    mcux_add_source(
-        SOURCES static_library/mcxa/libclns.a
-                static_library/mcxa/libclns.a.libsize
-                static_library/mcxa/libclns.a.objsize
-                BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-    mcux_add_include(
-        INCLUDES ./
-        BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-endif()
-
-if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxa5xx)
-    mcux_add_source(
-        SOURCES static_library/mcxa5xx/libclns.a
-                static_library/mcxa5xx/libclns.a.libsize
-                static_library/mcxa5xx/libclns.a.objsize
-                BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-    mcux_add_include(
-        INCLUDES ./
-        BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-endif()
-
-if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxl)
-    mcux_add_source(
-        SOURCES static_library/mcxl/libclns.a
-                static_library/mcxl/libclns.a.libsize
-                static_library/mcxl/libclns.a.objsize
-                BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-    mcux_add_include(
-        INCLUDES ./
-        BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-endif()
-
-if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxw7x)
-    mcux_add_source(
-        SOURCES static_library/mcxw7x/libclns.a
-                static_library/mcxw7x/libclns.a.libsize
-                static_library/mcxw7x/libclns.a.objsize
-                BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
-    )
-    mcux_add_include(
-        INCLUDES ./
-        BASE_PATH ${SdkRootDirPath}/components/sgi_pkc/
     )
 endif()
 
@@ -1667,7 +1621,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.examples_ecc)
                 examples/mcuxClEcc/mcuxClEcc_EdDSA_Ed25519ctx_example.c
                 examples/mcuxClEcc/mcuxClEcc_EdDSA_Ed25519ph_example.c
                 examples/mcuxClEcc/mcuxClEcc_EdDSA_GenerateSignature_Ed25519_example.c
-                # examples/mcuxClEcc/mcuxClEcc_MontDH_Curve448_example.c
                 examples/mcuxClEcc/mcuxClEcc_MontDH_Curve25519_example.c
                 examples/mcuxClEcc/mcuxClEcc_Weier_KeyValidation_PrivateKey_example.c
                 examples/mcuxClEcc/mcuxClEcc_Weier_KeyValidation_PublicKey_example.c
@@ -1857,7 +1810,6 @@ if (CONFIG_MCUX_COMPONENT_component.sgi_pkc.examples_xof_modes)
     )
     mcux_add_include(
         INCLUDES ./
-                 examples/mcuxClXofModes/inc/
                  examples/mcuxCsslMemory/inc/
                  src/comps/mcuxClExample/inc/
                  src/comps/mcuxClBuffer/inc/

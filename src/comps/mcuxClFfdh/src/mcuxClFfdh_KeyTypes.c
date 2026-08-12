@@ -90,6 +90,7 @@ const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe4096_Priv =
   .plainEncoding = mcuxClFfdh_Encoding_PrivateKey_Plain
 };
 
+#ifdef MCUXCL_FEATURE_FFDH_RFC7919_FFDHE6144
 /* Key type structure for private and public FFDH key for RFC7919 ffdhe6144 */
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe6144_Pub  = 
 {
@@ -99,7 +100,9 @@ const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe6144_Pub  =
   .plainEncoding = mcuxClFfdh_Encoding_PublicKey_Plain
 };
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe6144_Priv = {.algoId = MCUXCLKEY_ALGO_ID_FFDH + MCUXCLKEY_ALGO_ID_PRIVATE_KEY, .size = MCUXCLFFDH_FFDHE6144_SIZE_PRIVATEKEY, .info = (void *) &mcuxClFfdh_domainParams_ffdhe6144, .plainEncoding = mcuxClFfdh_Encoding_PrivateKey_Plain};
+#endif /* MCUXCL_FEATURE_FFDH_RFC7919_FFDHE6144 */
 
+#ifdef MCUXCL_FEATURE_FFDH_RFC7919_FFDHE8192
 /* Key type structure for private and public FFDH key for RFC7919 ffdhe8192 */
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe8192_Pub  =
 {
@@ -109,6 +112,7 @@ const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe8192_Pub  =
   .plainEncoding = mcuxClFfdh_Encoding_PublicKey_Plain
 };
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_Ffdh_ffdhe8192_Priv = {.algoId = MCUXCLKEY_ALGO_ID_FFDH + MCUXCLKEY_ALGO_ID_PRIVATE_KEY, .size = MCUXCLFFDH_FFDHE8192_SIZE_PRIVATEKEY, .info = (void *) &mcuxClFfdh_domainParams_ffdhe8192, .plainEncoding = mcuxClFfdh_Encoding_PrivateKey_Plain};
+#endif /* MCUXCL_FEATURE_FFDH_RFC7919_FFDHE8192 */
 
 MCUX_CSSL_ANALYSIS_STOP_SUPPRESS_DISCARD_CONST_QUALIFIER()
 MCUX_CSSL_ANALYSIS_STOP_PATTERN_DESCRIPTIVE_IDENTIFIER()

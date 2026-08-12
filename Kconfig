@@ -48,7 +48,6 @@ config MCUX_COMPONENT_component.sgi_pkc
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxa5xx
             bool "MCXA5"
 			depends on is_device.MCXA5XX
-            select MCUX_COMPONENT_component.sgi_pkc.kdf_modes
 			select MCUX_COMPONENT_driver.glikey
 			
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxl
@@ -59,7 +58,6 @@ config MCUX_COMPONENT_component.sgi_pkc
 		config MCUX_COMPONENT_component.sgi_pkc.platform.mcxw7x
             bool "MCXW"
 			depends on is_device.MCXW7X
-            select MCUX_COMPONENT_component.sgi_pkc.kdf_modes
 	  endchoice
 	endif
 
@@ -77,25 +75,6 @@ config MCUX_COMPONENT_component.sgi_pkc
             depends on is_device.MCXL
 
 		config MCUX_COMPONENT_component.sgi_pkc.doc.mcxw7x
-            bool "MCXW"
-			depends on is_device.MCXW7X
-	  
-    endmenu
-
-    menu "Static Libraries"
-        config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxa
-            bool "MCXA"
-			depends on is_device.MCXA
-
-        config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxa5xx
-            bool "MCXA5"
-			depends on is_device.MCXA5XX
-
-        config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxl
-            bool "MCXL"
-            depends on is_device.MCXL
-		
-		config MCUX_COMPONENT_component.sgi_pkc.static_lib.mcxw7x
             bool "MCXW"
 			depends on is_device.MCXW7X
 	  
@@ -234,6 +213,9 @@ config MCUX_COMPONENT_component.sgi_pkc
         config MCUX_COMPONENT_component.sgi_pkc.prng
             bool "PRNG"
             select MCUX_COMPONENT_component.sgi_pkc.random
+            select MCUX_COMPONENT_component.sgi_pkc.flow_protection
+            select MCUX_COMPONENT_component.sgi_pkc.secure_counter
+            select MCUX_COMPONENT_component.sgi_pkc.pre_processor
 
         config MCUX_COMPONENT_component.sgi_pkc.random
             bool "Random"
@@ -274,6 +256,8 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.memory
             select MCUX_COMPONENT_component.sgi_pkc.toolchain
             select MCUX_COMPONENT_component.sgi_pkc.key
+            select MCUX_COMPONENT_component.sgi_pkc.kdf_modes
+			select MCUX_COMPONENT_component.sgi_pkc.ffdh
             select MCUX_COMPONENT_component.sgi_pkc.aes
             select MCUX_COMPONENT_component.sgi_pkc.hash
             select MCUX_COMPONENT_component.sgi_pkc.hashmodes
@@ -285,6 +269,9 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.cipher
             select MCUX_COMPONENT_component.sgi_pkc.cipher_modes
             select MCUX_COMPONENT_component.sgi_pkc.trng
+            select MCUX_COMPONENT_component.sgi_pkc.xof_modes
+            select MCUX_COMPONENT_component.sgi_pkc.random_modes
+
 
         config MCUX_COMPONENT_component.sgi_pkc.signature
             bool "Signature"
@@ -327,12 +314,6 @@ config MCUX_COMPONENT_component.sgi_pkc
             select MCUX_COMPONENT_component.sgi_pkc.secure_counter
             select MCUX_COMPONENT_component.sgi_pkc.pre_processor
 
-        config MCUX_COMPONENT_component.sgi_pkc.prng
-            bool "PRNG"
-            select MCUX_COMPONENT_component.sgi_pkc.flow_protection
-            select MCUX_COMPONENT_component.sgi_pkc.secure_counter
-            select MCUX_COMPONENT_component.sgi_pkc.pre_processor
-		
         config MCUX_COMPONENT_component.sgi_pkc.secure_counter
             bool "Secure counter"
             select MCUX_COMPONENT_component.sgi_pkc.flow_protection
@@ -426,7 +407,7 @@ config MCUX_COMPONENT_component.sgi_pkc
         config MCUX_COMPONENT_component.sgi_pkc.examples_kdf_modes
             bool "KDF modes"
             select MCUX_COMPONENT_component.sgi_pkc.key
-            select MCUX_COMPONENT_component.sgi_pkc.kfd_modes
+            select MCUX_COMPONENT_component.sgi_pkc.kdf_modes
 
 
         config MCUX_COMPONENT_component.sgi_pkc.examples_key
@@ -463,12 +444,6 @@ config MCUX_COMPONENT_component.sgi_pkc
         config MCUX_COMPONENT_component.sgi_pkc.examples_xof_modes
             bool "Xof"
             select MCUX_COMPONENT_component.sgi_pkc.xof_modes
-            select MCUX_COMPONENT_component.sgi_pkc.session
-            select MCUX_COMPONENT_component.sgi_pkc.memory
-
-        config MCUX_COMPONENT_component.sgi_pkc.examples_flow_protection
-            bool "Flow protection"
-            select MCUX_COMPONENT_component.sgi_pkc.flow_protection
             select MCUX_COMPONENT_component.sgi_pkc.session
             select MCUX_COMPONENT_component.sgi_pkc.memory
 

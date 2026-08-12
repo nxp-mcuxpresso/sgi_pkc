@@ -59,7 +59,6 @@
 #include <internal/mcuxClMath_Internal.h>
 #include <internal/mcuxClSession_Internal.h>
 
-#ifdef MCUXCL_FEATURE_ECC_ARITHMETICOPERATION
 
 /* Arithmetic operation descriptor for scalar multiplication on Weierstrass curves */
 const mcuxClEcc_ArithmeticOperationDescriptor_t mcuxClEcc_ArithOpDesc_ScalarMult =
@@ -272,4 +271,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClEcc_Status_t) mcuxClEcc_ArithOp_ScalarMult(
         MCUXCLPKC_FP_CALLED_DEINITIALIZE_RELEASE);
 }
 
-#endif /* MCUXCL_FEATURE_ECC_ARITHMETICOPERATION */

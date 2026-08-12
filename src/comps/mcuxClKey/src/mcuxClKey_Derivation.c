@@ -46,7 +46,6 @@
 #include <mcuxClCore_FunctionIdentifiers.h> // Code flow protection
 #include <mcuxCsslAnalysis.h>
 
-#ifdef MCUXCL_FEATURE_KEY_DERIVATION
 const mcuxClKey_TypeDescriptor_t mcuxClKey_TypeDescriptor_derivationKey_variableLength =
 {
     .algoId = MCUXCLKEY_ALGO_ID_SYMMETRIC_KEY,
@@ -77,5 +76,3 @@ MCUX_CSSL_FP_PROTECTED_TYPE(mcuxClKey_Status_t) mcuxClKey_derivation(
 
     MCUXCLSESSION_EXIT(session, mcuxClKey_derivation, diRefValue, MCUXCLKEY_STATUS_OK, MCUXCLKEY_STATUS_FAULT_ATTACK);
 }
-
-#endif /* MCUXCL_FEATURE_KEY_DERIVATION */

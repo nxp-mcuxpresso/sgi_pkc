@@ -70,6 +70,7 @@ if(CONFIG_SGI_PKC_PLATFORM_MCXA5)
         ${SGI_PKC_BASE}/src/comps/mcuxClAeadModes/inc/platform/mcxa5xx
         ${SGI_PKC_BASE}/src/comps/mcuxClCipherModes/inc/platform/mcxa5xx
         ${SGI_PKC_BASE}/src/comps/mcuxClEcc/inc/platform/mcxa5xx
+        ${SGI_PKC_BASE}/src/comps/mcuxClFfdh/inc/platform/mcxa5xx
         ${SGI_PKC_BASE}/src/comps/mcuxClHash/inc/platform/mcxa5xx
         ${SGI_PKC_BASE}/src/comps/mcuxClHashModes/inc/platform/mcxa5xx
         ${SGI_PKC_BASE}/src/comps/mcuxClHmac/inc/platform/mcxa5xx

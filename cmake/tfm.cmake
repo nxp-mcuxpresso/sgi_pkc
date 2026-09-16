@@ -64,8 +64,8 @@ foreach(_option IN ITEMS
   sgi_pkc_default_on(${_option})
 endforeach()
 
-# MCXW-specific SGI/PKC option
-if(CONFIG_SGI_PKC AND CONFIG_SGI_PKC_PLATFORM_MCXW)
+# MCXW/MCXA5-specific SGI/PKC option
+if(CONFIG_SGI_PKC AND (CONFIG_SGI_PKC_PLATFORM_MCXW OR CONFIG_SGI_PKC_PLATFORM_MCXA5))
   sgi_pkc_default_on(CONFIG_SGI_PKC_KDF_MODES)
 endif()
 

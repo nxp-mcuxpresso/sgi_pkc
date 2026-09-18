@@ -57,9 +57,11 @@ foreach(_option IN ITEMS
   CONFIG_SGI_PKC_GLIKEY
 )
 
-  if(_option STREQUAL "CONFIG_SGI_PKC_FFDH" AND CONFIG_SGI_PKC_PLATFORM_MCXW)
-    continue()
-  endif()
+if((_option STREQUAL "CONFIG_SGI_PKC_FFDH" OR
+    _option STREQUAL "CONFIG_SGI_PKC_GLIKEY") AND
+   CONFIG_SGI_PKC_PLATFORM_MCXW)
+  continue()
+endif()
 
   sgi_pkc_default_on(${_option})
 endforeach()

@@ -10,6 +10,40 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+/* The PKC fetches the UPTRT (the index operand table a FUP program refers to)
+ * from the caller's CPU work area, which is an automatic (stack) buffer, so the
+ * RAM holding it must have execute permission (XEN) enabled. The stack location
+ * is not fixed: it depends on the linker layout and, under TF-M, on the secure
+ * data region placed by region_defs.h, so no single region can be selected at
+ * build time that is guaranteed to cover it.
+ *
+ * NOTE: this makes the whole System RAM executable for the lifetime of the
+ * device, which is a deliberate trade of exposure for simplicity - data pages
+ * (.data, .bss, heap, DMA and communication buffers) become valid execution
+ * targets, so code-injection attacks no longer need an executable-memory
+ * primitive. Under TF-M the MPU still marks secure RAM execute-never
+ * (MPU_ARMV8M_XN_EXEC_NEVER) at isolation levels 2 and 3, which keeps a second
+ * barrier in place; bare-metal builds that configure no MPU have none.
+ *
+ * An integrator who knows where the stack is placed in their application can
+ * and should narrow this down: replace PKC_RAM_XEN_ALL_MASK /
+ * PKC_RAM_XEN_DP_ALL_MASK with only the region(s) the stack actually occupies
+ * (for example SECCON_RAM_XEN_RAMB_XEN_MASK alone for the default bare-metal
+ * layout, where the stack lives in RAM B7 at 0x20078000 - 0x2007FFFF). That
+ * keeps the executable window as small as the application allows. Once the
+ * final region set is established, the permissions can also be sealed by
+ * setting SECCON_RAM_XEN_LOCK_MASK. */
+
+/* Execute permission for every implemented RAM region in SECCON->RAM_XEN. */
+#define PKC_RAM_XEN_ALL_MASK                                         \
+    (SECCON_RAM_XEN_RAMX0_XEN_MASK | SECCON_RAM_XEN_RAMA0_XEN_MASK | \
+     SECCON_RAM_XEN_RAMA1_XEN_MASK | SECCON_RAM_XEN_RAMB_XEN_MASK)
+
+/* Same region set for the Glikey-protected duplicate SECCON->RAM_XEN_DP. */
+#define PKC_RAM_XEN_DP_ALL_MASK                                            \
+    (SECCON_RAM_XEN_DP_RAMX0_XEN_MASK | SECCON_RAM_XEN_DP_RAMA0_XEN_MASK | \
+     SECCON_RAM_XEN_DP_RAMA1_XEN_MASK | SECCON_RAM_XEN_DP_RAMB_XEN_MASK)
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -91,13 +125,12 @@ status_t PKC_InitNoZeroize(PKC_Type *base)
     /* Enable PKC clock */
     CLOCK_EnableClock(kCLOCK_GatePKC0);
 
-    /* By default SRAM have R/W enabled, execute permission is disabled */
-    /* Enable execute permission in RAM atleast where stack is located (RAM B7 0x20078000 - 0x2007FFFF) by setting
-     * SRAM_XEN register in SYSCON */
-    /* This is needed so PKC can fetch FUP program */
-#if defined(SECCON_RAM_XEN_RAMB_XEN_MASK) && SECCON_RAM_XEN_RAMB_XEN_MASK
-    SECCON->RAM_XEN |= SECCON_RAM_XEN_RAMB_XEN_MASK;
-#endif
+    /* By default SRAM has R/W enabled, execute permission is disabled. Enable
+     * execute permission for every RAM region so the PKC can fetch its FUP
+     * program regardless of where the linker or TF-M placed the stack that
+     * holds the UPTRT. See PKC_RAM_XEN_ALL_MASK for the exposure trade-off and
+     * for how an integrator can narrow this to the stack's region(s). */
+    SECCON->RAM_XEN |= PKC_RAM_XEN_ALL_MASK;
 
     /* SRAM_XEN is duplicated by SRAM_XEN_DP which is protected by Glikey, SRAM_XEN_DP is protected by Glikey, enable
      * write, and write same value as in SRAM_XEN register */
@@ -114,9 +147,8 @@ status_t PKC_InitNoZeroize(PKC_Type *base)
         return status;
     }
 
-#if defined(SECCON_RAM_XEN_RAMB_XEN_MASK) && SECCON_RAM_XEN_RAMB_XEN_MASK
-    SECCON->RAM_XEN_DP |= SECCON_RAM_XEN_RAMB_XEN_MASK;
-#endif
+    /* Write the same region set into RAM_XEN_DP */
+    SECCON->RAM_XEN_DP |= PKC_RAM_XEN_DP_ALL_MASK;
 
     /* End of write enable */
     status = GLIKEY_EndOperation(GLIKEY0);
